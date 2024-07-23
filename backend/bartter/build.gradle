@@ -43,6 +43,9 @@ dependencies {
     // JTS (Java Topology Suite): 공간 데이터를 처리하기 위한 라이브러리
     implementation 'org.locationtech.jts:jts-core'
 
+    // Gson
+    implementation 'com.google.code.gson:gson:2.7'
+
     // TEST
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
