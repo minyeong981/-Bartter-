@@ -1,7 +1,7 @@
 package com.ssafy.bartter.crop.entity;
 
 import com.ssafy.bartter.global.common.BaseEntity;
-import com.ssafy.bartter.trade.entity.CropTradePost;
+import com.ssafy.bartter.trade.entity.TradePost;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
 
@@ -74,6 +74,6 @@ public class Crop extends BaseEntity {
      * 해당 농작물이 등록된 물물교환 게시글
      */
     @OneToMany(mappedBy = "crop", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CropTradePost> cropTradePostList = new ArrayList<>();
+    private List<TradePost> cropTradePostList = new ArrayList<>();
 
 }

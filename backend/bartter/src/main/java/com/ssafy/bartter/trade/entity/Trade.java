@@ -5,13 +5,13 @@ import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
 
 /**
- * Crop Trade Entity
+ * Trade Entity
  *
  * @author 김용수
  */
 @Entity
-@Table(name = "crop_trade")
-public class CropTrade extends BaseEntity {
+@Table(name = "trade")
+public class Trade extends BaseEntity {
 
     /**
      * 물물교환 PK
@@ -32,13 +32,13 @@ public class CropTrade extends BaseEntity {
      * 물물교환 게시글
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "crop_trade_post_id", nullable = false)
-    private CropTradePost cropTradePost;
+    @JoinColumn(name = "trade_post_id", nullable = false)
+    private TradePost tradePost;
 
     /**
      * 물물교환 상태
      */
     @Enumerated(EnumType.STRING)
-    @Column(name = "crop_trade_status", nullable = false)
+    @Column(name = "trade_status", nullable = false)
     private TradeStatus status = TradeStatus.NEW;
 }

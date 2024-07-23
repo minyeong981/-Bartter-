@@ -5,20 +5,20 @@ import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
 
 /**
- * Crop Trade Post Like Entity
+ * Trade Post Like Entity
  *
  * @author 김용수
  */
 @Entity
-@Table(name = "crop_trade_post_like")
-public class CropTradePostLike extends BaseEntity {
+@Table(name = "trade_post_like")
+public class TradePostLike extends BaseEntity {
 
     /**
      * 농작물 물물교환 찜 PK
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "crop_trade_post_like_id")
+    @Column(name = "trade_post_like_id")
     private Integer id;
 
     /**
@@ -32,7 +32,7 @@ public class CropTradePostLike extends BaseEntity {
      * 찜한 물물교환 게시글
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "crop_trade_post_id", nullable = false)
-    private CropTradePost cropTradePost;
+    @JoinColumn(name = "trade_post_id", nullable = false)
+    private TradePost tradePost;
 
 }
