@@ -1,74 +1,83 @@
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("양배추", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('사과', 'd1tknhgbpjhaqe.cloudfront.net/crop/apple.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("토마토", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('콩', 'd1tknhgbpjhaqe.cloudfront.net/crop/bean.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("콩", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('당근', 'd1tknhgbpjhaqe.cloudfront.net/crop/carrot.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("옥수수", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('옥수수', 'd1tknhgbpjhaqe.cloudfront.net/crop/corn.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("감자", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('오이', 'd1tknhgbpjhaqe.cloudfront.net/crop/cucumber.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("고구마", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('가지', 'd1tknhgbpjhaqe.cloudfront.net/crop/egg-plant.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("사과", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('마늘', 'd1tknhgbpjhaqe.cloudfront.net/crop/garlic.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("배", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('포도', 'd1tknhgbpjhaqe.cloudfront.net/crop/grape.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("포도", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('파', 'd1tknhgbpjhaqe.cloudfront.net/crop/green-onion.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("복숭아", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('상추', 'd1tknhgbpjhaqe.cloudfront.net/crop/lettuce.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("감", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('귤', 'd1tknhgbpjhaqe.cloudfront.net/crop/mandarin.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("귤", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('버섯', 'd1tknhgbpjhaqe.cloudfront.net/crop/mushroom.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("딸기", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('토마토', 'd1tknhgbpjhaqe.cloudfront.net/crop/tomato.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("오이", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('양파', 'd1tknhgbpjhaqe.cloudfront.net/crop/onion.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("호박", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('복숭아', 'd1tknhgbpjhaqe.cloudfront.net/crop/peach.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("배추", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('배', 'd1tknhgbpjhaqe.cloudfront.net/crop/pear.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("상추", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('고추', 'd1tknhgbpjhaqe.cloudfront.net/crop/pepper.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("시금치", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('감', 'd1tknhgbpjhaqe.cloudfront.net/crop/persimmon.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("고추", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('감자', 'd1tknhgbpjhaqe.cloudfront.net/crop/potato.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("양파", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('호박', 'd1tknhgbpjhaqe.cloudfront.net/crop/pumpkin.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("파", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('참깨', 'd1tknhgbpjhaqe.cloudfront.net/crop/sesame.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("마늘", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('시금치', 'd1tknhgbpjhaqe.cloudfront.net/crop/spinach.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("참깨", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('딸기', 'd1tknhgbpjhaqe.cloudfront.net/crop/strawberry.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("버섯", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('고구마', 'd1tknhgbpjhaqe.cloudfront.net/crop/sweet%20potato.png');
 
 INSERT INTO crop_category (crop_category_name, crop_category_image)
-VALUES ("기타", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
+VALUES ('배추', 'd1tknhgbpjhaqe.cloudfront.net/crop/napa%20cabbage.png');
+
+INSERT INTO crop_category (crop_category_name, crop_category_image)
+VALUES ('기타', 'd1tknhgbpjhaqe.cloudfront.net/crop/etc.png');
+
+
+# INSERT INTO crop_category (crop_category_name, crop_category_image)
+# VALUES ('양배추', '');
+
+
