@@ -1,15 +1,3 @@
-CREATE DATABASE bartter;
-
-USE bartter;
-
-DROP TABLE IF EXISTS crop_category;
-
-CREATE TABLE crop_category (
-    crop_category_id INT AUTO_INCREMENT PRIMARY KEY,
-    crop_category_name VARCHAR(20) NOT NULL,
-    crop_category_image VARCHAR(300) NOT NULL
-);
-
 INSERT INTO crop_category (crop_category_name, crop_category_image)
 VALUES ("양배추", 'https://png.pngtree.com/thumb_back/fh260/background/20230613/pngtree-small-white-rabbit-in-the-grass-image_2915502.jpg');
 
