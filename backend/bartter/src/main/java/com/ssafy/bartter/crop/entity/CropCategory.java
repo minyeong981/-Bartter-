@@ -1,7 +1,7 @@
 package com.ssafy.bartter.crop.entity;
 
 import com.ssafy.bartter.global.common.BaseEntity;
-import com.ssafy.bartter.trade.entity.CropTradePost;
+import com.ssafy.bartter.trade.entity.TradePost;
 import com.ssafy.bartter.trade.entity.TradeWishCropCategory;
 import jakarta.persistence.*;
 
@@ -47,7 +47,7 @@ public class CropCategory extends BaseEntity {
      * 해당 카테고리에 속한 물물교환 게시글 목록
      */
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CropTradePost> cropTradePosts = new ArrayList<>();
+    private List<TradePost> cropTradePosts = new ArrayList<>();
 
     /**
      * 희망 농작물 카테고리 목록

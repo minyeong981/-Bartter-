@@ -28,6 +28,6 @@ public class TradeWishCropCategory {
      * 물물교환 게시글
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "crop_trade_post_id", nullable = false)
-    private CropTradePost cropTradePost;
+    @JoinColumn(name = "trade_post_id", nullable = false)
+    private TradePost tradePost;
 }

@@ -1,7 +1,7 @@
 package com.ssafy.bartter.global.common;
 
 import com.ssafy.bartter.community.entity.CommunityPost;
-import com.ssafy.bartter.trade.entity.CropTradePost;
+import com.ssafy.bartter.trade.entity.TradePost;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -69,6 +69,6 @@ public class Location extends BaseEntity {
      * 해당 동네에 올라온 물물교환 게시글
      */
     @OneToMany(mappedBy = "location", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<CropTradePost> cropTradePosts = new ArrayList<>();
+    private List<TradePost> cropTradePosts = new ArrayList<>();
 
 }
