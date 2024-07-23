@@ -58,12 +58,6 @@ public class Crop extends BaseEntity {
     @Column(name = "crop_description", nullable = true, length = 100)
     private String description;
 
-//    /**
-//     * 농작물 물물교환 횟수
-//     */
-//    @Column(name = "crop_trade_count", nullable = false)
-//    private Integer tradeCount = 0;
-
     /**
      * 재배 시작 날짜
      */
