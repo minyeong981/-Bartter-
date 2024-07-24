@@ -5,6 +5,7 @@ import com.ssafy.bartter.trade.entity.TradePost;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.locationtech.jts.geom.MultiPolygon;
@@ -73,5 +74,6 @@ public class Location extends BaseEntity {
      */
     @OneToMany(mappedBy = "location", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<TradePost> tradePostList = new ArrayList<>();
-
 }
+
+
