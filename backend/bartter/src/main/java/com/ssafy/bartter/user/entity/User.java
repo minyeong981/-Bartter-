@@ -6,9 +6,9 @@ import com.ssafy.bartter.community.entity.CommunityPostLike;
 import com.ssafy.bartter.crop.entity.Crop;
 import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.global.common.Location;
-import com.ssafy.bartter.trade.entity.CropTrade;
-import com.ssafy.bartter.trade.entity.CropTradePost;
-import com.ssafy.bartter.trade.entity.CropTradePostLike;
+import com.ssafy.bartter.trade.entity.Trade;
+import com.ssafy.bartter.trade.entity.TradePost;
+import com.ssafy.bartter.trade.entity.TradePostLike;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -62,6 +62,11 @@ public class User extends BaseEntity {
     @Column(name = "user_role", nullable = false)
     private Role role = Role.USER;
 
+    /**
+     * 사용자 닉네임
+     */
+    @Column(name = "user_nickname", nullable = false)
+    private String nickname;
 
     /**
      * 사용자 핸드폰
@@ -155,13 +160,13 @@ public class User extends BaseEntity {
      * 해당 사용자가 작성한 물물교환 게시글
      */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CropTradePost> cropTradePosts = new ArrayList<>();
+    private List<TradePost> cropTradePosts = new ArrayList<>();
 
     /**
      * 해당 사용자가 찜한 물물교환 게시글 목록
      */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CropTradePostLike> cropTradePostLikes = new ArrayList<>();
+    private List<TradePostLike> cropTradePostLikes = new ArrayList<>();
 
     /**
      * 해당 사용자가 팔로우 하는 사용자 목록
@@ -179,5 +184,5 @@ public class User extends BaseEntity {
      * 현재 사용자가 신청한 물물교환 목록
      */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<CropTrade> cropTradeList = new ArrayList<>();
+    private List<Trade> cropTradeList = new ArrayList<>();
 }
