@@ -4,6 +4,7 @@ import com.ssafy.bartter.community.entity.CommunityPost;
 import com.ssafy.bartter.community.entity.CommunityPostComment;
 import com.ssafy.bartter.community.entity.CommunityPostLike;
 import com.ssafy.bartter.crop.entity.Crop;
+import com.ssafy.bartter.crop.entity.CropReport;
 import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.trade.entity.Trade;
@@ -136,53 +137,61 @@ public class User extends BaseEntity {
      * 사용자가 작성한 게시글 목록
      */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<CommunityPost> communityPosts = new ArrayList<>();
+    private List<CommunityPost> communityPostList = new ArrayList<>();
 
     /**
      * 사용자가 좋아요한 게시글 목록
      */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CommunityPostLike> communityPostLikes = new ArrayList<>();
+    private List<CommunityPostLike> communityPostLikeList = new ArrayList<>();
 
     /**
      * 사용자가 작성한 댓글 목록
      */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CommunityPostComment> communityPostComments = new ArrayList<>();
+    private List<CommunityPostComment> communityPostCommentList = new ArrayList<>();
 
     /**
      * 해당 사용자가 키우는 작물 목록
      */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Crop> crops = new ArrayList<>();
+    private List<Crop> cropList = new ArrayList<>();
 
     /**
      * 해당 사용자가 작성한 물물교환 게시글
      */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TradePost> cropTradePosts = new ArrayList<>();
+    private List<TradePost> tradePostList = new ArrayList<>();
 
     /**
      * 해당 사용자가 찜한 물물교환 게시글 목록
      */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TradePostLike> cropTradePostLikes = new ArrayList<>();
+    private List<TradePostLike> tradePostLikeList = new ArrayList<>();
 
     /**
      * 해당 사용자가 팔로우 하는 사용자 목록
      */
-    @OneToMany(mappedBy = "follower", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "followee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Follow> followerList = new ArrayList<>();
 
     /**
      * 해당 사용자를 팔로우하는 사용자 목록
      */
-    @OneToMany(mappedBy = "followee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "follower", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Follow> followeeList = new ArrayList<>();
 
     /**
      * 현재 사용자가 신청한 물물교환 목록
      */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Trade> cropTradeList = new ArrayList<>();
+    private List<Trade> tradeList = new ArrayList<>();
+
+    /**
+     * 해당 사용자의 AI 요약 리포트 목록
+     *
+     * @Author 김가람
+     * */
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CropReport> cropReportList = new ArrayList<>();
 }

@@ -57,18 +57,18 @@ public class Location extends BaseEntity {
      * 해당 동네를 설정한 프로필(사용자)
      */
     @OneToMany(mappedBy = "location", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<User> users = new ArrayList<>();
+    private List<User> userList = new ArrayList<>();
 
     /**
      * 해당 동네에 올라온 동네모임 글
      */
     @OneToMany(mappedBy = "location", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<CommunityPost> communityPosts = new ArrayList<>();
+    private List<CommunityPost> communityPostList = new ArrayList<>();
 
     /**
      * 해당 동네에 올라온 물물교환 게시글
      */
     @OneToMany(mappedBy = "location", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<TradePost> cropTradePosts = new ArrayList<>();
+    private List<TradePost> tradePostList = new ArrayList<>();
 
 }

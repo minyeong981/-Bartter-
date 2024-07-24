@@ -68,12 +68,12 @@ public class Crop extends BaseEntity {
      * 해당 농작물의 농사일지
      */
     @OneToMany(mappedBy = "crop", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CropDiary> cropDiaryList = new ArrayList<>();
+    private List<CropDiary> diaryList = new ArrayList<>();
 
     /**
      * 해당 농작물이 등록된 물물교환 게시글
      */
     @OneToMany(mappedBy = "crop", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TradePost> cropTradePostList = new ArrayList<>();
+    private List<TradePost> tradePostList = new ArrayList<>();
 
 }

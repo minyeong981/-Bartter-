@@ -96,11 +96,11 @@ public class TradePost extends BaseEntity {
      * 농작물 물물교환 게시글 찜
      */
     @OneToMany(mappedBy = "tradePost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TradePostLike> likes = new ArrayList<>();
+    private List<TradePostLike> likeList = new ArrayList<>();
 
     /**
      * 농작물 물물교환 게시글 거래내역
      */
     @OneToMany(mappedBy = "tradePost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Trade> cropTradeList = new ArrayList<>();
+    private List<Trade> tradeList = new ArrayList<>();
 }
