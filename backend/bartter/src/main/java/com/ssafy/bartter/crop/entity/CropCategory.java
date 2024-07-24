@@ -41,17 +41,17 @@ public class CropCategory extends BaseEntity {
      * 해당 카테고리에 속한 농작물 목록
      */
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Crop> crops = new ArrayList<>();
+    private List<Crop> cropList = new ArrayList<>();
 
     /**
      * 해당 카테고리에 속한 물물교환 게시글 목록
      */
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TradePost> cropTradePosts = new ArrayList<>();
+    private List<TradePost> tradePostList = new ArrayList<>();
 
     /**
      * 희망 농작물 카테고리 목록
      */
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TradeWishCropCategory> tradeWishCropCategories = new ArrayList<>();
+    private List<TradeWishCropCategory> tradeWishList = new ArrayList<>();
 }

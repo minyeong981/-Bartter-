@@ -55,13 +55,13 @@ public class CommunityPost extends BaseEntity {
      * 게시글 좋아요
      */
     @OneToMany(mappedBy = "communityPost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CommunityPostLike> likes = new ArrayList<>();
+    private List<CommunityPostLike> likeList = new ArrayList<>();
 
     /**
      * 게시글 댓글
      */
     @OneToMany(mappedBy = "communityPost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CommunityPostComment> comments = new ArrayList<>();
+    private List<CommunityPostComment> commentList = new ArrayList<>();
 
     /**
      * 게시글 이미지
