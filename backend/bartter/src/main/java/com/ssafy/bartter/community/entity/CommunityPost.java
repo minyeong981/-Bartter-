@@ -4,6 +4,8 @@ import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "community_post")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommunityPost extends BaseEntity {
 
     /**

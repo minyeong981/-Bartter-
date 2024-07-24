@@ -4,6 +4,8 @@ import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.trade.entity.TradePost;
 import com.ssafy.bartter.trade.entity.TradeWishCropCategory;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "crop_category")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CropCategory extends BaseEntity {
 
     /**

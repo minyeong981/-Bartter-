@@ -11,7 +11,9 @@ import com.ssafy.bartter.trade.entity.Trade;
 import com.ssafy.bartter.trade.entity.TradePost;
 import com.ssafy.bartter.trade.entity.TradePostLike;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,8 +26,9 @@ import java.util.List;
  * @author 김용수
  */
 @Entity
-@Table(name = "user")
 @Getter
+@Table(name = "user")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseEntity {
 
     /**

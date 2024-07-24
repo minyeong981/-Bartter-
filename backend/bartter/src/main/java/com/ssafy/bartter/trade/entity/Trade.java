@@ -3,6 +3,8 @@ package com.ssafy.bartter.trade.entity;
 import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * Trade Entity
@@ -11,6 +13,7 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name = "trade")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Trade extends BaseEntity {
 
     /**

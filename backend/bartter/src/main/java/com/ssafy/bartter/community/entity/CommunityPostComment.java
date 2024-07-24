@@ -3,6 +3,8 @@ package com.ssafy.bartter.community.entity;
 import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * Community Comment Entity
@@ -11,6 +13,7 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name = "community_post_comment")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommunityPostComment extends BaseEntity {
 
     /**

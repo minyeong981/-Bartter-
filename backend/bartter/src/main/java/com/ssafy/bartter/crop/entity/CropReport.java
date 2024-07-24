@@ -3,6 +3,8 @@ package com.ssafy.bartter.crop.entity;
 import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * Crop Report Entity
@@ -11,6 +13,7 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name = "crop_report")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CropReport extends BaseEntity {
 
     /**

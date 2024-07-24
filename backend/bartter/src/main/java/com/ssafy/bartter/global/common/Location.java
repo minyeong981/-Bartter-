@@ -4,7 +4,9 @@ import com.ssafy.bartter.community.entity.CommunityPost;
 import com.ssafy.bartter.trade.entity.TradePost;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Point;
 
@@ -17,8 +19,9 @@ import java.util.List;
  * @author 김용수
  */
 @Entity
-@Table(name = "location")
 @Getter
+@Table(name = "location")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Location extends BaseEntity {
 
     /**
