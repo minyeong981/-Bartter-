@@ -1,5 +1,8 @@
-.layout{
-  width: 384px;
+@use '../../styles/constants/colors' as colors;
+
+.layout {
+  width: 100%;
+  max-width: 600px;
   height: 100%;
-  background-color: gray;
+  background-color: colors.$white;
 }
