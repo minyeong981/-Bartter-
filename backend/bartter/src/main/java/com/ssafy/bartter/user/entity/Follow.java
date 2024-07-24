@@ -2,6 +2,8 @@ package com.ssafy.bartter.user.entity;
 
 import com.ssafy.bartter.global.common.BaseEntity;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * 회원 팔로우 Entity
@@ -10,6 +12,7 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name = "follow")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Follow extends BaseEntity {
 
     /**

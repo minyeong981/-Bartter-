@@ -2,6 +2,8 @@ package com.ssafy.bartter.trade.entity;
 
 import com.ssafy.bartter.global.common.BaseEntity;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * Trade Post Image Entity
@@ -10,6 +12,7 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name = "trade_post_image")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TradePostImage extends BaseEntity {
 
     /**

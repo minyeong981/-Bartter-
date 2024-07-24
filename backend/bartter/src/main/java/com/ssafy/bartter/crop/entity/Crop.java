@@ -4,6 +4,8 @@ import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.trade.entity.TradePost;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "crop")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Crop extends BaseEntity {
 
     /**

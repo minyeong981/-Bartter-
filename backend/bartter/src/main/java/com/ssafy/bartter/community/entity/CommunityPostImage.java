@@ -2,6 +2,8 @@ package com.ssafy.bartter.community.entity;
 
 import com.ssafy.bartter.global.common.BaseEntity;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * Community Post Image Entity
@@ -10,6 +12,7 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name = "community_post_image")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommunityPostImage extends BaseEntity {
 
     /**
