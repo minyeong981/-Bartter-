@@ -4,6 +4,7 @@ import com.ssafy.bartter.community.entity.CommunityPost;
 import com.ssafy.bartter.community.entity.CommunityPostComment;
 import com.ssafy.bartter.community.entity.CommunityPostLike;
 import com.ssafy.bartter.crop.entity.Crop;
+import com.ssafy.bartter.crop.entity.CropReport;
 import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.trade.entity.Trade;
@@ -185,4 +186,12 @@ public class User extends BaseEntity {
      */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Trade> cropTradeList = new ArrayList<>();
+
+    /**
+     * 해당 사용자의 AI 요약 리포트 목록
+     *
+     * @Author 김가람
+     * */
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CropReport> cropReportList = new ArrayList<>();
 }
