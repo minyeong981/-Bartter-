@@ -1,6 +1,8 @@
 package com.ssafy.bartter.global.response;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
 /**
@@ -9,15 +11,23 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class CustomError {
-    /** 에러 발생 필드 */
+    /**
+     * 에러 발생 필드
+     */
     private String field;
 
-    /** 에러 코드 */
+    /**
+     * 에러 코드
+     */
     private String code;
 
-    /** 에러 메시지 */
+    /**
+     * 에러 메시지
+     */
     private String message;
 
-    /** 에러 발생 객체 */
+    /**
+     * 에러 발생 객체
+     */
     private String objectName;
 }

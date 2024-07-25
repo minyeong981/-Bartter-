@@ -29,15 +29,17 @@ public class ErrorResponse extends BaseResponse<Void> {
 
     /**
      * 에러가 담긴 응답 객체를 만들어주는 메서드
+     *
      * @param exception 예외
      * @return 에러 응답 객체
      */
-    public static ErrorResponse of(Exception exception){
+    public static ErrorResponse of(Exception exception) {
         return new ErrorResponse(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage(), null);
     }
 
     /**
      * 전달 받은 Errors 커스텀에러로 파싱해주는 메서드
+     *
      * @param errors Error 담긴 객체
      * @return CustomError 리스트
      */
