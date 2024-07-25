@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
+import static com.ssafy.bartter.crop.dto.CropCategoryDto.*;
+
 
 /**
  * Crop Entity 관련 DTO
@@ -26,16 +28,20 @@ public class CropDto {
     @Getter
     @AllArgsConstructor
     public static class Create {
-        @NotNull
+        @NotNull(message = "유저 정보를 입력하세요.")
         private final Integer userId;
-        @NotNull
+
+        @NotNull(message = "농작물 카테고리 정보를 입력하세요.")
         private final Integer cropCategoryId;
-        @NotBlank
+
+        @NotBlank(message = "닉네임을 입력하세요.")
         private final String nickname;
-        @NotNull
+
+        @NotNull(message = "파종 날짜를 입력하세요.")
         private final LocalDate growDate;
 
         private final MultipartFile image;
+
         private String description;
     }
 
@@ -47,8 +53,8 @@ public class CropDto {
     @AllArgsConstructor
     public static class CropProfile {
         private final Integer cropId;
-        private final User user;
-        private final CropCategory cropCategory;
+        private final Integer userId;
+        private final CropCategoryDetail cropCategory;
         private final String nickname;
         private final LocalDate growDate;
         private final String description;
@@ -56,8 +62,8 @@ public class CropDto {
         public static CropProfile of(Crop crop) {
             return CropProfile.builder()
                     .cropId(crop.getId())
-                    .user(crop.getUser())
-                    .cropCategory(crop.getCategory())
+                    .userId(crop.getUser().getId())
+                    .cropCategory(CropCategoryDetail.of(crop.getCategory()))
                     .nickname(crop.getNickname())
                     .growDate(crop.getGrowDate())
                     .description(crop.getDescription())
