@@ -27,6 +27,18 @@ public class CropController {
 
     private final CropService cropService;
 
+
+    @Operation(summary = "농작물 카테고리 조회", description = "농작물 카테고리의 목록을 조회한다.")
+    @GetMapping("/categories")
+    public SuccessResponse<List<CropCategoryDetail>> getCropCategoryList() {
+        List<CropCategory> cropCategoryList = cropService.getCropCategoryList();
+
+        List<CropCategoryDetail> response = cropCategoryList.stream()
+                .map(CropCategoryDetail::of)
+                .collect(Collectors.toList());
+        return new SuccessResponse<>(response);
+    }
+
     @Operation(summary = "농작물 등록", description = "농작물 프로필을 등록한 후 생성된 데이터를 반환한다.")
     @PostMapping("")
     public SuccessResponse<CropProfile> createCrop(@RequestBody @Valid Create request, BindingResult bindingResult) {
@@ -38,14 +50,11 @@ public class CropController {
         return new SuccessResponse<>(response);
     }
 
-    @Operation(summary = "농작물 카테고리 조회", description = "농작물 카테고리의 목록을 조회한다.")
-    @GetMapping("/categories")
-    public SuccessResponse<List<CropCategoryDetail>> getCropCategoryList() {
-        List<CropCategory> cropCategoryList = cropService.getCropCategoryList();
-
-        List<CropCategoryDetail> response = cropCategoryList.stream()
-                .map(CropCategoryDetail::of)
-                .collect(Collectors.toList());
+    @Operation(summary = "농작물 프로필 조회", description = "농작물의 ID를 통해 농작물의 상세 프로필을 조회한다.")
+    @PostMapping("{cropId}/")
+    public SuccessResponse<CropProfile> getCrop(@PathVariable("cropId") Integer cropId) {
+        Crop crop = cropService.getCrop(cropId);
+        CropProfile response = CropProfile.of(crop);
         return new SuccessResponse<>(response);
     }
 }
