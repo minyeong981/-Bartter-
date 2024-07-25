@@ -4,6 +4,8 @@ package com.ssafy.bartter.crop.controller;
 import com.ssafy.bartter.crop.entity.Crop;
 import com.ssafy.bartter.crop.entity.CropCategory;
 import com.ssafy.bartter.crop.service.CropService;
+import com.ssafy.bartter.global.exception.CustomException;
+import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.response.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -43,7 +45,7 @@ public class CropController {
     @PostMapping("")
     public SuccessResponse<CropProfile> createCrop(@RequestBody @Valid Create request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            throw new RuntimeException();
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE);
         }
         Crop crop = cropService.createCrop(request);
         CropProfile response = CropProfile.of(crop);
