@@ -1,7 +1,6 @@
 package com.ssafy.bartter.crop.controller;
 
 
-import com.ssafy.bartter.crop.dto.CropDto;
 import com.ssafy.bartter.crop.entity.Crop;
 import com.ssafy.bartter.crop.entity.CropCategory;
 import com.ssafy.bartter.crop.service.CropService;
@@ -11,14 +10,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static com.ssafy.bartter.crop.dto.CropDto.*;
+import static com.ssafy.bartter.crop.dto.CropCategoryDto.CropCategoryDetail;
+import static com.ssafy.bartter.crop.dto.CropDto.Create;
+import static com.ssafy.bartter.crop.dto.CropDto.CropProfile;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,20 +27,25 @@ public class CropController {
 
     private final CropService cropService;
 
-    @Operation(
-            summary = "농작물 등록",
-            description = "농작물 프로필을 등록한 후 생성된 데이터를 반환한다."
-    )
+    @Operation(summary = "농작물 등록", description = "농작물 프로필을 등록한 후 생성된 데이터를 반환한다.")
     @PostMapping("")
-    public SuccessResponse<CropProfile> createCrop(
-            @RequestBody @Valid Create request,
-            BindingResult bindingResult
-    ) {
+    public SuccessResponse<CropProfile> createCrop(@RequestBody @Valid Create request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new RuntimeException();
         }
         Crop crop = cropService.createCrop(request);
         CropProfile response = CropProfile.of(crop);
+        return new SuccessResponse<>(response);
+    }
+
+    @Operation(summary = "농작물 카테고리 조회", description = "농작물 카테고리의 목록을 조회한다.")
+    @GetMapping("")
+    public SuccessResponse<List<CropCategoryDetail>> getCropCategoryList() {
+        List<CropCategory> cropCategoryList = cropService.getCropCategoryList();
+
+        List<CropCategoryDetail> response = cropCategoryList.stream()
+                .map(CropCategoryDetail::of)
+                .collect(Collectors.toList());
         return new SuccessResponse<>(response);
     }
 }

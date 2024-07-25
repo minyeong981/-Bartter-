@@ -11,6 +11,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static com.ssafy.bartter.crop.dto.CropDto.Create;
 
 /**
@@ -44,5 +46,9 @@ public class CropService {
 
         cropRepository.save(crop);
         return crop;
+    }
+
+    public List<CropCategory> getCropCategoryList() {
+        return cropCategoryRepository.findAll();
     }
 }
