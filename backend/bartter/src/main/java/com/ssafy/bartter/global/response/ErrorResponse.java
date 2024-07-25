@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.SimpleErrors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +23,20 @@ public class ErrorResponse extends BaseResponse<Void> {
     }
 
     public ErrorResponse(CustomException exception) {
-        this(false, exception.getErrorCode().getStatus().value(),ex)
+        this(false, exception.getErrorCode().getCode(), exception.getMessage(), new SimpleErrors("error", exception.getMessage()));
     }
 
-    public ErrorResponse(CustomException exception, String message){
+    public ErrorResponse(CustomException exception, String message) {
         this(false, 1, message, null);
     }
 
+    public static ErrorResponse of(CustomException exception) {
+        return new ErrorResponse(exception);
+    }
+
+    public static ErrorResponse of(CustomException exception, String message) {
+        return new ErrorResponse(exception, message);
+    }
 
     public static ErrorResponse of(Exception exception) {
         return new ErrorResponse(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage(), null);

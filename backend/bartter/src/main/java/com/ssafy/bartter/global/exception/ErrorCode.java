@@ -15,7 +15,8 @@ public enum ErrorCode {
     EMPTY_FILE(HttpStatus.BAD_REQUEST, 1003, "빈 파일입니다."),
     FAIL_TO_CREATE_FILE(HttpStatus.INTERNAL_SERVER_ERROR, 1004, "파일 생성에 실패했습니다."),
     FAIL_TO_DELETE_FILE(HttpStatus.INTERNAL_SERVER_ERROR, 1005, "파일 삭제에 실패했습니다."),
-    NOT_SUPPORTED_EXTENSION(HttpStatus.BAD_REQUEST, 1006, "지원하지 않는 파일 확장자입니다.")
+    NOT_SUPPORTED_EXTENSION(HttpStatus.BAD_REQUEST, 1006, "지원하지 않는 파일 확장자입니다."),
+    INVALID_LOCATION(HttpStatus.BAD_REQUEST, 1007, "유효하지 않는 위치입니다."),
 
     // Auth & User
 
