@@ -39,7 +39,7 @@ public class CropController {
     }
 
     @Operation(summary = "농작물 카테고리 조회", description = "농작물 카테고리의 목록을 조회한다.")
-    @GetMapping("")
+    @GetMapping("/categories")
     public SuccessResponse<List<CropCategoryDetail>> getCropCategoryList() {
         List<CropCategory> cropCategoryList = cropService.getCropCategoryList();
 
