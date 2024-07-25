@@ -23,6 +23,7 @@
   "devDependencies": {
     "@babel/core": "^7.24.9",
     "@babel/eslint-parser": "^7.24.8",
+    "@svgr/rollup": "^8.1.0",
     "@tanstack/router-cli": "^1.45.8",
     "@tanstack/router-devtools": "^1.45.8",
     "@tanstack/router-plugin": "^1.45.8",
@@ -49,7 +50,8 @@
     "stylelint-config-standard": "^36.0.1",
     "stylelint-config-standard-scss": "^13.1.0",
     "typescript": "^5.2.2",
-    "vite": "^5.3.4"
+    "vite": "^5.3.4",
+    "vite-plugin-svgr": "^4.2.0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
