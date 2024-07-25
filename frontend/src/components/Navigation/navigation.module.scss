@@ -1,0 +1,31 @@
+@use '../../styles/constants/colors' as colors;
+
+.navigation {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 84px;
+  padding: 0 33px;
+  border-top: 2px solid colors.$divider;
+
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: colors.$placeholder;
+    text-decoration: none;
+  }
+}
