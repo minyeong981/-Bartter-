@@ -1,5 +1,7 @@
 package com.ssafy.bartter.global.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,7 +12,7 @@ import java.util.List;
 /**
  * 응답 형식
  *
- * @param <T> 응답 데이터
+ * @param <T> 응답 데이터 형식
  * @author 김용수
  */
 @Getter
@@ -19,6 +21,7 @@ public abstract class BaseResponse<T> {
     /**
      * 성공 여부
      */
+    @Getter(onMethod_ = @JsonProperty("isSuccess"))
     private boolean isSuccess;
 
     /**
@@ -40,15 +43,7 @@ public abstract class BaseResponse<T> {
      * 에러 리스트
      */
     protected List<CustomError> errors;
-
-
-    /**
-     * 생성자
-     *
-     * @param isSuccess 성공 여부
-     * @param code      응답 코드
-     * @param message   응답 메시지
-     */
+    
     public BaseResponse(boolean isSuccess, int code, String message) {
         this.isSuccess = isSuccess;
         this.code = code;
