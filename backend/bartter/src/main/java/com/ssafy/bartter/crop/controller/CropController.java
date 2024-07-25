@@ -4,6 +4,8 @@ package com.ssafy.bartter.crop.controller;
 import com.ssafy.bartter.crop.entity.Crop;
 import com.ssafy.bartter.crop.entity.CropCategory;
 import com.ssafy.bartter.crop.service.CropService;
+import com.ssafy.bartter.global.exception.CustomException;
+import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.response.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,16 +29,6 @@ public class CropController {
 
     private final CropService cropService;
 
-    @Operation(summary = "농작물 등록", description = "농작물 프로필을 등록한 후 생성된 데이터를 반환한다.")
-    @PostMapping("")
-    public SuccessResponse<CropProfile> createCrop(@RequestBody @Valid Create request, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw new RuntimeException();
-        }
-        Crop crop = cropService.createCrop(request);
-        CropProfile response = CropProfile.of(crop);
-        return new SuccessResponse<>(response);
-    }
 
     @Operation(summary = "농작물 카테고리 조회", description = "농작물 카테고리의 목록을 조회한다.")
     @GetMapping("/categories")
@@ -46,6 +38,25 @@ public class CropController {
         List<CropCategoryDetail> response = cropCategoryList.stream()
                 .map(CropCategoryDetail::of)
                 .collect(Collectors.toList());
+        return new SuccessResponse<>(response);
+    }
+
+    @Operation(summary = "농작물 등록", description = "농작물 프로필을 등록한 후 생성된 데이터를 반환한다.")
+    @PostMapping("")
+    public SuccessResponse<CropProfile> createCrop(@RequestBody @Valid Create request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE);
+        }
+        Crop crop = cropService.createCrop(request);
+        CropProfile response = CropProfile.of(crop);
+        return new SuccessResponse<>(response);
+    }
+
+    @Operation(summary = "농작물 프로필 조회", description = "농작물의 ID를 통해 농작물의 상세 프로필을 조회한다.")
+    @PostMapping("{cropId}/")
+    public SuccessResponse<CropProfile> getCrop(@PathVariable("cropId") Integer cropId) {
+        Crop crop = cropService.getCrop(cropId);
+        CropProfile response = CropProfile.of(crop);
         return new SuccessResponse<>(response);
     }
 }

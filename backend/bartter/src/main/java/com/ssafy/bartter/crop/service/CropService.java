@@ -4,6 +4,8 @@ import com.ssafy.bartter.crop.entity.Crop;
 import com.ssafy.bartter.crop.entity.CropCategory;
 import com.ssafy.bartter.crop.repository.CropCategoryRepository;
 import com.ssafy.bartter.crop.repository.CropRepository;
+import com.ssafy.bartter.global.exception.CustomException;
+import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.service.S3UploadService;
 import com.ssafy.bartter.user.entity.User;
 import com.ssafy.bartter.user.repository.UserRepository;
@@ -31,8 +33,8 @@ public class CropService {
     private final S3UploadService s3UploadService;
 
     public Crop createCrop(Create request) {
-        User user = userRepository.findById(request.getUserId()).orElse(null);
-        CropCategory cropCategory = cropCategoryRepository.findById(request.getCropCategoryId()).orElse(null);
+        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        CropCategory cropCategory = cropCategoryRepository.findById(request.getCropCategoryId()).orElseThrow(() -> new CustomException(ErrorCode.CROP_CATEGORY_NOT_FOUND));
         String imageUrl = s3UploadService.upload(request.getImage());
 
         Crop crop = Crop.builder()
@@ -50,5 +52,9 @@ public class CropService {
 
     public List<CropCategory> getCropCategoryList() {
         return cropCategoryRepository.findAll();
+    }
+
+    public Crop getCrop(Integer cropId) {
+        return cropRepository.findById(cropId).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
     }
 }
