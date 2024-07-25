@@ -8,9 +8,11 @@ import org.springframework.http.HttpStatus;
 @Getter
 @RequiredArgsConstructor
 public enum ErrorCode {
-    // Common
+
+    // Common - 1000
     SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 9999, "서버 에러입니다. 관리자에게 문의해주세요"),
-    
+    INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, 1000, "올바르지 않는 입력 값 입니다. 다시 한번 확인해주세요"),
+
     // Auth & User
 
     // Crop
@@ -20,6 +22,7 @@ public enum ErrorCode {
     // Trade
 
     // Chat
+
     ;
 
     private final HttpStatus status;
