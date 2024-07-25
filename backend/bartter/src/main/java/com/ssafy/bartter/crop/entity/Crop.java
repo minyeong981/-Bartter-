@@ -5,6 +5,8 @@ import com.ssafy.bartter.trade.entity.TradePost;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
@@ -17,6 +19,7 @@ import java.util.List;
  * @author 김용수
  */
 @Entity
+@Getter
 @Table(name = "crop")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Crop extends BaseEntity {
@@ -79,4 +82,13 @@ public class Crop extends BaseEntity {
     @OneToMany(mappedBy = "crop", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TradePost> tradePostList = new ArrayList<>();
 
+    @Builder
+    public Crop(User user, CropCategory category, String nickname, String image, String description, LocalDate growDate) {
+        this.user = user;
+        this.category = category;
+        this.nickname = nickname;
+        this.image = image;
+        this.description = description;
+        this.growDate = growDate;
+    }
 }
