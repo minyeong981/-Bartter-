@@ -1,5 +1,6 @@
 import {createFileRoute, Outlet} from '@tanstack/react-router';
 
+import DefaultHeader from '../components/Header/DefaultHeader.tsx';
 import Navigation from '../components/Navigation';
 import classes from '../styles/layout/rootLayout.module.scss';
 
@@ -10,6 +11,7 @@ export const Route = createFileRoute('/_layout')({
 function Layout() {
   return (
     <div className={classes.layout}>
+      <DefaultHeader />
       <Outlet />
       <Navigation />
     </div>
