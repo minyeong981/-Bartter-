@@ -5,13 +5,13 @@ import React, { useState } from 'react';
 import type { CalendarProps } from 'react-calendar';
 import Calendar from 'react-calendar';
 
-const CustomCalendar: React.FC = () => {
+export default function CustomCalendar() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
   const formatMonthYear: CalendarProps['formatMonthYear'] = (locale, date) => {
-    return date.toLocaleDateString('ko-KR', {
-      year: 'numeric',
-      month: '2-digit',
-    }).replace(/-/g, '. ');
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    return `${year}. ${month}`;
   };
 
   const tileClassName: CalendarProps['tileClassName'] = ({ date, view }) => {
@@ -45,7 +45,6 @@ const CustomCalendar: React.FC = () => {
 
   return (
     <div className="custom-calendar-container">
-      
       <Calendar
         locale="en-US" // Use 'en-US' to start the week on Sunday
         formatMonthYear={formatMonthYear}
@@ -59,7 +58,5 @@ const CustomCalendar: React.FC = () => {
       />
     </div>
   );
-};
-
-export default CustomCalendar;
+}
 

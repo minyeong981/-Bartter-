@@ -1,101 +1,48 @@
-// import './diary.scss';
-
-// import { createFileRoute } from '@tanstack/react-router';
-// import React, { useState } from 'react';
-
-// import Calendar from './calendar';
-// import MyCrops from './myCrops';
-
-// const Diary: React.FC = () => {
-//   const [activeComponent, setActiveComponent] = useState<string>('calendar');
-
-//   const renderComponent = () => {
-//     switch (activeComponent) {
-//       case 'calendar':
-//         return <Calendar />;
-//       case 'mycrops':
-//         return <MyCrops />;
-//       default:
-//         return null;
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <header className="header">
-//         <button
-//           className={`calendar ${activeComponent === 'calendar' ? 'active' : ''}`}
-//           onClick={() => setActiveComponent('calendar')}
-//         >
-//             달력
-//         </button>
-//         <button
-//           className={`myCrops ${activeComponent === 'mycrops' ? 'active' : ''}`}
-//           onClick={() => setActiveComponent('mycrops')}
-//         >
-//           내 작물
-//         </button>
-//       </header>
-//       <div>
-//         {renderComponent()}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export const Route = createFileRoute('/_layout/diary/')({
-//   component: Diary
-// });
-
-// export default Diary;
-
 import './diary.scss';
 
 import { createFileRoute } from '@tanstack/react-router';
 import React, { useState } from 'react';
 
+import TwoButton from '../../../components/TwoButton/TwoButton'
 import Calendar from './calendar';
 import MyCrops from './myCrops';
 
-const Diary: React.FC = () => {
-  const [activeComponent, setActiveComponent] = useState<string>('calendar');
+export default function Diary() {
+  const [activeComponent, setActiveComponent] = useState<string>('달력');
 
   const renderComponent = () => {
     switch (activeComponent) {
-      case 'calendar':
+      case '달력':
         return <Calendar />;
-      case 'mycrops':
+      case '내 작물':
         return <MyCrops />;
       default:
         return null;
     }
   };
 
+  const handleButtonClick = (button: string) => {
+    setActiveComponent(button);
+  };
+
   return (
     <div>
       <header className="header">
-        <button
-          className={`calendar ${activeComponent === 'calendar' ? 'active' : ''}`}
-          onClick={() => setActiveComponent('calendar')}
-        >
-          달력
-        </button>
-        <button
-          className={`myCrops ${activeComponent === 'mycrops' ? 'active' : ''}`}
-          onClick={() => setActiveComponent('mycrops')}
-        >
-          내 작물
-        </button>
+        <TwoButton
+          first="달력"
+          second="내 작물"
+          activeButton={activeComponent}
+          onClick={handleButtonClick}
+        />
       </header>
       <div>
         {renderComponent()}
       </div>
     </div>
   );
-};
+}
 
 export const Route = createFileRoute('/_layout/diary/')({
   component: Diary
 });
 
-export default Diary;

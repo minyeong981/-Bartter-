@@ -1,9 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
-import React from 'react';
 
 import CustomCalendar from '../../../components/Calendar/Calendar';
 
-const Calendar: React.FC = () => {
+export default function Calendar() {
   return (
     <div>
       <CustomCalendar />
@@ -15,4 +14,3 @@ export const Route = createFileRoute('/_layout/diary/calendar')({
   component: Calendar
 });
 
-export default Calendar;
