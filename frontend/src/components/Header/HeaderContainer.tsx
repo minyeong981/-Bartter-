@@ -1,7 +1,7 @@
 import classnames from 'classnames/bind';
 import type {PropsWithChildren} from 'react';
 
-import styles from './container.module.scss';
+import styles from './header.module.scss';
 
 const cx = classnames.bind(styles);
 

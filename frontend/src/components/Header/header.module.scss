@@ -32,3 +32,14 @@ ul {
 .label {
   @include typo.heading;
 }
+
+.leftButtons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+a {
+  display: flex;
+  align-items: center;
+}

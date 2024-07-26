@@ -2,7 +2,7 @@ import {Link} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 
 import {IconBack, IconBell, IconSearch, IconUser} from '../../assets/svg';
-import styles from './container.module.scss';
+import styles from './header.module.scss';
 import HeaderContainer from './HeaderContainer.tsx';
 
 const cx = classnames.bind(styles);
