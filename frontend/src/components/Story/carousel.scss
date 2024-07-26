@@ -1,0 +1,70 @@
+/* StoryCarousel.scss */
+.story-carousel {
+    position: relative;
+    width: 100%; // 전체 너비를 100%로 설정하여 화면 크기에 맞춤
+    max-width: 600px; // 최대 너비 설정
+    margin: 0 auto;
+    overflow: hidden;
+  
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      z-index: 1;
+      padding: 10px;
+      color: white;
+      cursor: pointer;
+      background-color: rgb(0 0 0 / 50%);
+      border: none;
+      transform: translateY(-50%);
+  
+      &.left {
+        left: 10px; // 좌측 버튼 위치
+      }
+  
+      &.right {
+        right: 10px; // 우측 버튼 위치
+      }
+    }
+  
+    .carousel-inner {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+  
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+  
+    .card {
+      flex: 0 0 auto;
+      width: calc(100% / 3 - 20px); // 화면 너비의 3분의 1 크기, 여백 포함
+      margin: 10px;
+    }
+  
+    @media (width <= 768px) {
+      .card {
+        width: calc(100% / 2 - 20px); // 화면 너비의 2분의 1 크기, 여백 포함
+      }
+  
+      .carousel-button.left {
+        left: 5px; // 버튼 위치 조정
+      }
+  
+      .carousel-button.right {
+        right: 5px; // 버튼 위치 조정
+      }
+    }
+  
+    @media (width <= 480px) {
+      .card {
+        width: calc(100% - 20px); // 화면 너비에서 20px을 제외한 크기
+      }
+  
+      .carousel-button {
+        padding: 5px; // 버튼 패딩 축소
+      }
+    }
+  }
+  

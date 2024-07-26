@@ -1,0 +1,102 @@
+// CardCarousel.scss
+.card-carousel {
+  position: relative;
+  width: 100%;  // 전체 너비를 화면에 맞춤
+  max-width: 600px;  // 최대 너비를 제한
+  margin: 0 auto;
+  overflow: hidden;
+
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    background-color: rgb(0 0 0 / 50%);
+    border: none;
+    transform: translateY(-50%);
+    
+    &.left {
+      left: 0;
+    }
+
+    &.right {
+      right: 0;
+    }
+  }
+
+  .carousel-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .card {
+    flex: 0 0 auto;
+    width: calc(100% - 40px); // 양쪽의 여백을 포함하여 카드의 너비를 조정
+    padding: 15px;
+    margin: 10px;
+    text-align: center;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
+
+    .card-image {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+
+    .card-title {
+      margin: 10px 0;
+      font-size: 1rem; // 반응형 텍스트 크기
+    }
+
+    .card-date {
+      font-size: 0.875rem; // 반응형 텍스트 크기
+      color: #777;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .like-icon {
+        margin-right: 5px;
+        color: red;
+      }
+
+      .like-count {
+        font-size: 0.875rem; // 반응형 텍스트 크기
+        color: #777;
+      }
+    }
+  }
+}
+
+// 미디어 쿼리로 화면 크기에 따른 조정
+@media (width <= 768px) {
+  .card-carousel {
+    .carousel-button {
+      padding: 8px; // 버튼 패딩 조정
+    }
+
+    .card {
+      width: calc(100% - 20px); // 카드 너비 조정
+      padding: 10px;
+      margin: 5px;
+    }
+
+    .card-title, .card-date, .like-count {
+      font-size: 0.75rem; // 작은 화면에서는 텍스트 크기 축소
+    }
+  }
+}
