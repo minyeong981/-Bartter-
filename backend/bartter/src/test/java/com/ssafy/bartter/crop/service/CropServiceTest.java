@@ -63,14 +63,14 @@ class CropServiceTest {
         User mockUser = mock(User.class);
         CropCategory mockCropCategory = mock(CropCategory.class);
 
-        Create request = new Create(userId, cropCategoryId, nickname, growDate, image, description);
+        Create request = new Create(userId, cropCategoryId, nickname, growDate, description);
 
         given(userRepository.findById(userId)).willReturn(Optional.of(mockUser));
         given(cropCategoryRepository.findById(cropCategoryId)).willReturn(Optional.of(mockCropCategory));
-        given(s3UploadService.upload(request.getImage())).willReturn("testurl");
+        given(s3UploadService.upload(image)).willReturn("testurl");
 
         // when
-        Crop crop = cropService.createCrop(request);
+        Crop crop = cropService.createCrop(request, image);
 
         // then
         assertThat(crop).isNotNull();

@@ -12,6 +12,7 @@ import com.ssafy.bartter.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -32,10 +33,10 @@ public class CropService {
     private final CropCategoryRepository cropCategoryRepository;
     private final S3UploadService s3UploadService;
 
-    public Crop createCrop(Create request) {
+    public Crop createCrop(Create request, MultipartFile image) {
         User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         CropCategory cropCategory = cropCategoryRepository.findById(request.getCropCategoryId()).orElseThrow(() -> new CustomException(ErrorCode.CROP_CATEGORY_NOT_FOUND));
-        String imageUrl = s3UploadService.upload(request.getImage());
+        String imageUrl = s3UploadService.upload(image);
 
         Crop crop = Crop.builder()
                 .user(user)

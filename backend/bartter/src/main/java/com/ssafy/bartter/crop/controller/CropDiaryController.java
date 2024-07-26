@@ -1,0 +1,49 @@
+package com.ssafy.bartter.crop.controller;
+
+import com.ssafy.bartter.crop.dto.CropCategoryDto;
+import com.ssafy.bartter.crop.dto.CropDiaryDto;
+import com.ssafy.bartter.crop.dto.CropDto;
+import com.ssafy.bartter.crop.entity.Crop;
+import com.ssafy.bartter.crop.entity.CropCategory;
+import com.ssafy.bartter.crop.entity.CropDiary;
+import com.ssafy.bartter.crop.service.CropDiaryService;
+import com.ssafy.bartter.global.exception.CustomException;
+import com.ssafy.bartter.global.exception.ErrorCode;
+import com.ssafy.bartter.global.response.SuccessResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.ssafy.bartter.crop.dto.CropDiaryDto.*;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/crops/diaries")
+@Tag(name = "농사일지 API", description = "농사일지 등록/조회/삭제 관련 API입니다.")
+public class CropDiaryController {
+
+    private final CropDiaryService cropDiaryService;
+
+
+    @Operation(summary = "농사일지 작성", description = "농사일지를 작성한다.")
+    @PostMapping("")
+    public SuccessResponse<CropDiaryDetail> createCropDiary(
+            @RequestBody @Valid Create request,
+            BindingResult bindingResult,
+            MultipartFile image
+    ) {
+        if (bindingResult.hasErrors()) {
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE);
+        }
+        CropDiary diary = cropDiaryService.createCropDiary(request, image);
+        CropDiaryDetail response = CropDiaryDetail.of(diary);
+        return new SuccessResponse<>(response);
+    }
+}

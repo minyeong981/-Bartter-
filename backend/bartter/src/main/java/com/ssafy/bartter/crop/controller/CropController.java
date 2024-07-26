@@ -13,6 +13,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,11 +44,14 @@ public class CropController {
 
     @Operation(summary = "농작물 등록", description = "농작물 프로필을 등록한 후 생성된 데이터를 반환한다.")
     @PostMapping("")
-    public SuccessResponse<CropProfile> createCrop(@RequestBody @Valid Create request, BindingResult bindingResult) {
+    public SuccessResponse<CropProfile> createCrop(
+            @RequestBody @Valid Create request,
+            BindingResult bindingResult,
+            MultipartFile image) {
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE);
         }
-        Crop crop = cropService.createCrop(request);
+        Crop crop = cropService.createCrop(request, image);
         CropProfile response = CropProfile.of(crop);
         return new SuccessResponse<>(response);
     }

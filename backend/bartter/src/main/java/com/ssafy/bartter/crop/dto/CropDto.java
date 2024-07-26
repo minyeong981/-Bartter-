@@ -40,7 +40,6 @@ public class CropDto {
         @NotNull(message = "파종 날짜를 입력하세요.")
         private final LocalDate growDate;
 
-        private final MultipartFile image;
 
         private String description;
     }
@@ -56,6 +55,7 @@ public class CropDto {
         private final Integer userId;
         private final CropCategoryDetail cropCategory;
         private final String nickname;
+        private final String image;
         private final LocalDate growDate;
         private final String description;
 
@@ -67,6 +67,29 @@ public class CropDto {
                     .nickname(crop.getNickname())
                     .growDate(crop.getGrowDate())
                     .description(crop.getDescription())
+                    .image(crop.getImage())
+                    .build();
+        }
+    }
+
+    /**
+     * 간단한 농작물 프로필 Response
+     */
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    public static class SimpleCropProfile {
+        private final Integer userId;
+        private final Integer cropId;
+        private final String nickname;
+        private final String image;
+
+        public static SimpleCropProfile of(Crop crop) {
+            return SimpleCropProfile.builder()
+                    .userId(crop.getUser().getId())
+                    .cropId(crop.getId())
+                    .nickname(crop.getNickname())
+                    .image(crop.getImage())
                     .build();
         }
     }
