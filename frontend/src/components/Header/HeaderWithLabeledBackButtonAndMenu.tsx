@@ -17,9 +17,9 @@ export default function HeaderWithLabeledBackButtonAndMenu({
 }: PropsWithChildren<LabeledBackButtonHeaderProps>) {
   return (
     <HeaderContainer>
-      <div className={cx('leftButtons')}>
+      <div className={cx('left-buttons')}>
         <Link>
-          <IconBack className={cx('backButton')} />
+          <IconBack className={cx('back-button')} />
         </Link>
         <span className={cx('label')}>{label}</span>
       </div>

@@ -21,7 +21,7 @@ ul {
   margin: 0;
 }
 
-.backButton {
+.back-button {
   width: 18px;
 }
 
@@ -33,7 +33,7 @@ ul {
   @include typo.heading;
 }
 
-.leftButtons {
+.left-buttons {
   display: flex;
   gap: 10px;
   align-items: center;
@@ -42,4 +42,11 @@ ul {
 a {
   display: flex;
   align-items: center;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

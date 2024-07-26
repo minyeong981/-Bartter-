@@ -11,7 +11,7 @@ export default function HeaderWithBackButtonAndMenu() {
   return (
     <HeaderContainer>
       <Link>
-        <IconBack className={cx('backButton')} />
+        <IconBack className={cx('back-button')} />
       </Link>
       <ul className={cx('buttons')}>
         <Link>
