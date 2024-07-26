@@ -1,16 +1,17 @@
-import './index.scss';
+import './AdCarousel.scss';
 
 import {useState} from 'react';
 
 interface Ad {
   id: number;
   content: string;
+  button:string;
 }
 
 const ads: Ad[] = [
-  {id: 1, content: '광고 1'},
-  {id: 2, content: '광고 2'},
-  {id: 3, content: '광고 3'},
+  {id: 1, content: '광고 1', button: '바로가기'},
+  {id: 2, content: '광고 2', button: '바로가기'},
+  {id: 3, content: '광고 3', button: '바로가기'},
 ];
 
 export default function AdCarousel() {

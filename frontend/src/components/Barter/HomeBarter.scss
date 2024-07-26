@@ -1,0 +1,69 @@
+.home-barter {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 390px;
+  overflow: hidden;
+}
+
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.barter-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 180px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+}
+
+.barter-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.barter-title,
+.barter-time {
+  width: 100%;
+  margin: 5px 0;
+  text-align: center;
+}
+
+.barter-likes {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: auto; // Align likes at the bottom
+}
+
+.heart-icon {
+  margin-right: 5px;
+  color: red;
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transform: translateY(-50%);
+}
+
+.carousel-button.left {
+  left: 0;
+}
+
+.carousel-button.right {
+  right: 0;
+}
