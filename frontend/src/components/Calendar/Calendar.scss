@@ -1,0 +1,125 @@
+@use '../../styles/constants/colors.scss' as colors;
+@use '../../styles/constants/typographies.scss' as typo;
+
+.custom-calendar-container {
+  width: 600px;
+  margin: 30px auto; // 중앙 정렬
+
+  .react-calendar {
+    width: 100%;
+    border: none;
+
+    .react-calendar__navigation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      margin-bottom: 30px;
+
+      button {
+        margin: 0 20px; // 버튼과 숫자 간격 조정
+        font-size: 22px;
+        cursor: pointer;
+        background: none;
+        border: none;
+
+        @include typo.main;
+
+        &:disabled {
+          color: grey;
+          cursor: default;
+        }
+
+        &.react-calendar__navigation__prev2-button,
+        &.react-calendar__navigation__next2-button {
+          display: none;
+        }
+      }
+
+      .react-calendar__navigation__label {
+        font-size: 22px;
+        pointer-events: none;
+
+        @include typo.heading;
+      }
+    }
+
+    .react-calendar__month-view__weekdays__weekday {
+      abbr {
+        color: inherit;
+        text-decoration: none;
+
+        @include typo.main;
+
+        &[title="Sunday"],
+        &[title="일요일"] {
+          color: red;
+        }
+
+        &[title="Saturday"],
+        &[title="토요일"] {
+          color: blue;
+        }
+      }
+    }
+
+    .react-calendar__month-view__days__day {
+      padding: 0.5rem;
+      text-align: center;
+
+      &.sunday abbr {
+        color: red;
+      }
+
+      &.saturday abbr {
+        color: blue;
+      }
+
+      &.today abbr {
+        display: inline-block;
+        width: 4rem;
+        height: 4rem;
+        line-height: 4rem;
+        color: white;
+        text-align: center;
+        background-color: #B3D4CA; // 원하는 색상으로 변경
+        border-radius: 50%;
+
+        @include typo.title;
+      }
+
+      &.selected abbr {
+        display: inline-block;
+        width: 4rem;
+        height: 4rem;
+        line-height: 4rem;
+        color: black;
+        text-align: center;
+        background-color: #4FBA3E; // 클릭한 날짜의 초록색 동그라미
+        border-radius: 50%;
+
+        @include typo.title;
+      }
+    }
+
+    .react-calendar__tile {
+      max-width: 100%;
+      padding: 0.5rem;
+      background: none; // 기본 배경색 제거
+
+      abbr {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        margin: 0 auto;
+        line-height: 3rem;
+        background: none; // 기본 배경색 제거
+        border-radius: 50%;
+
+        @include typo.main;
+      }
+    }
+  }
+}
