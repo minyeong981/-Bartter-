@@ -3,21 +3,25 @@ import classnames from 'classnames/bind';
 import type {PropsWithChildren, ReactNode} from 'react';
 
 import {IconBell, IconSearch, IconUser} from '../../assets/svg';
+import BackButton from './BackButton/BackButton.tsx';
 import Index from './Container';
 import styles from './header.module.scss';
 
-interface LabeledHeaderProps {
+interface HeaderWithLabeledBackButtonAndButtonsProps {
   label: ReactNode;
 }
 
 const cx = classnames.bind(styles);
 
-export default function HeaderWithLabelAndMenu({
+export default function HeaderWithLabeledBackButtonAndButtons({
   label,
-}: PropsWithChildren<LabeledHeaderProps>) {
+}: PropsWithChildren<HeaderWithLabeledBackButtonAndButtonsProps>) {
   return (
     <Index>
-      <span className={cx('label')}>{label}</span>
+      <div className={cx('left-buttons')}>
+        <BackButton />
+        <span className={cx('label')}>{label}</span>
+      </div>
       <ul className={cx('buttons')}>
         <Link>
           <IconUser className={cx('icon')} />

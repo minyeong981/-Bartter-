@@ -1,17 +1,23 @@
 import {Link} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
+import type {PropsWithChildren, ReactNode} from 'react';
 
 import {IconBell, IconSearch, IconUser} from '../../assets/svg';
-import BackButton from './BackButton/BackButton.tsx';
 import Index from './Container';
 import styles from './header.module.scss';
 
+interface HeaderWithLabelAndButtonsProps {
+  label: ReactNode;
+}
+
 const cx = classnames.bind(styles);
 
-export default function HeaderWithBackButtonAndMenu() {
+export default function HeaderWithLabelAndButtons({
+  label,
+}: PropsWithChildren<HeaderWithLabelAndButtonsProps>) {
   return (
     <Index>
-      <BackButton />
+      <span className={cx('label')}>{label}</span>
       <ul className={cx('buttons')}>
         <Link>
           <IconUser className={cx('icon')} />
