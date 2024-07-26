@@ -1,20 +1,17 @@
-import {Link} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 
-import {IconBack} from '../../assets/svg';
+import BackButton from './BackButton/BackButton.tsx';
+import Index from './Container';
 import styles from './header.module.scss';
-import HeaderContainer from './HeaderContainer.tsx';
 
 const cx = classnames.bind(styles);
 
 export default function HeaderWithBackButton() {
   return (
-    <HeaderContainer>
+    <Index>
       <div className={cx('left-buttons')}>
-        <Link>
-          <IconBack className={cx('back-button')} />
-        </Link>
+        <BackButton />
       </div>
-    </HeaderContainer>
+    </Index>
   );
 }

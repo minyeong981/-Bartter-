@@ -3,8 +3,8 @@ import classnames from 'classnames/bind';
 import type {PropsWithChildren, ReactNode} from 'react';
 
 import {IconBell, IconSearch, IconUser} from '../../assets/svg';
+import Index from './Container';
 import styles from './header.module.scss';
-import HeaderContainer from './HeaderContainer.tsx';
 
 interface LabeledHeaderProps {
   label: ReactNode;
@@ -16,7 +16,7 @@ export default function HeaderWithLabelAndMenu({
   label,
 }: PropsWithChildren<LabeledHeaderProps>) {
   return (
-    <HeaderContainer>
+    <Index>
       <span className={cx('label')}>{label}</span>
       <ul className={cx('buttons')}>
         <Link>
@@ -29,6 +29,6 @@ export default function HeaderWithLabelAndMenu({
           <IconBell className={cx('icon')} />
         </Link>
       </ul>
-    </HeaderContainer>
+    </Index>
   );
 }

@@ -1,17 +1,5 @@
 @use '../../styles/constants/typographies' as typo;
 
-.header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 54px;
-  padding: 0 20px;
-  perspective: 0;
-}
 
 ul {
   display: flex;
@@ -19,10 +7,6 @@ ul {
   align-items: center;
   padding: 0;
   margin: 0;
-}
-
-.back-button {
-  width: 18px;
 }
 
 .icon {
@@ -49,4 +33,12 @@ a {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: 0;
 }
