@@ -2,6 +2,7 @@
 @use '../../../styles/constants/typographies.scss' as typo;
 
 .container {
+  margin: 0 auto; // 중앙 정렬
   width: 600px;
   margin: auto; // 중앙 정렬
 }
