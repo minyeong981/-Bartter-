@@ -9,7 +9,7 @@ import styles from './entrance.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/login/entrance')({
+export const Route = createFileRoute('/_layout/login/entrance/')({
   component: () => (
     <div className={cx('entrance')}>
       <div className={cx('logo-container')}>

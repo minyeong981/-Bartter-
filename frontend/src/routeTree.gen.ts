@@ -18,9 +18,9 @@ import { Route as LayoutSignupIndexImport } from './routes/_layout/signup/index'
 import { Route as LayoutLoginIndexImport } from './routes/_layout/login/index'
 import { Route as LayoutHomeIndexImport } from './routes/_layout/home/index'
 import { Route as LayoutDiaryIndexImport } from './routes/_layout/diary/index'
-import { Route as LayoutLoginEntranceImport } from './routes/_layout/login/entrance'
 import { Route as LayoutDiaryMyCropsImport } from './routes/_layout/diary/myCrops'
 import { Route as LayoutDiaryCalendarImport } from './routes/_layout/diary/calendar'
+import { Route as LayoutLoginEntranceIndexImport } from './routes/_layout/login/entrance/index'
 import { Route as LayoutDiaryCreate3Import } from './routes/_layout/diary/create/3'
 import { Route as LayoutDiaryCreate2Import } from './routes/_layout/diary/create/2'
 import { Route as LayoutDiaryCreate1Import } from './routes/_layout/diary/create/1'
@@ -62,11 +62,6 @@ const LayoutDiaryIndexRoute = LayoutDiaryIndexImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutLoginEntranceRoute = LayoutLoginEntranceImport.update({
-  path: '/login/entrance',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
 const LayoutDiaryMyCropsRoute = LayoutDiaryMyCropsImport.update({
   path: '/diary/myCrops',
   getParentRoute: () => LayoutRoute,
@@ -74,6 +69,11 @@ const LayoutDiaryMyCropsRoute = LayoutDiaryMyCropsImport.update({
 
 const LayoutDiaryCalendarRoute = LayoutDiaryCalendarImport.update({
   path: '/diary/calendar',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutLoginEntranceIndexRoute = LayoutLoginEntranceIndexImport.update({
+  path: '/login/entrance/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -131,13 +131,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutDiaryMyCropsImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/login/entrance': {
-      id: '/_layout/login/entrance'
-      path: '/login/entrance'
-      fullPath: '/login/entrance'
-      preLoaderRoute: typeof LayoutLoginEntranceImport
-      parentRoute: typeof LayoutImport
-    }
     '/_layout/diary/': {
       id: '/_layout/diary/'
       path: '/diary'
@@ -187,6 +180,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutDiaryCreate3Import
       parentRoute: typeof LayoutImport
     }
+    '/_layout/login/entrance/': {
+      id: '/_layout/login/entrance/'
+      path: '/login/entrance'
+      fullPath: '/login/entrance'
+      preLoaderRoute: typeof LayoutLoginEntranceIndexImport
+      parentRoute: typeof LayoutImport
+    }
   }
 }
 
@@ -197,7 +197,6 @@ export const routeTree = rootRoute.addChildren({
     LayoutIndexRoute,
     LayoutDiaryCalendarRoute,
     LayoutDiaryMyCropsRoute,
-    LayoutLoginEntranceRoute,
     LayoutDiaryIndexRoute,
     LayoutHomeIndexRoute,
     LayoutLoginIndexRoute,
@@ -205,6 +204,7 @@ export const routeTree = rootRoute.addChildren({
     LayoutDiaryCreate1Route,
     LayoutDiaryCreate2Route,
     LayoutDiaryCreate3Route,
+    LayoutLoginEntranceIndexRoute,
   }),
   TestRoute,
 })
@@ -227,14 +227,14 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/",
         "/_layout/diary/calendar",
         "/_layout/diary/myCrops",
-        "/_layout/login/entrance",
         "/_layout/diary/",
         "/_layout/home/",
         "/_layout/login/",
         "/_layout/signup/",
         "/_layout/diary/create/1",
         "/_layout/diary/create/2",
-        "/_layout/diary/create/3"
+        "/_layout/diary/create/3",
+        "/_layout/login/entrance/"
       ]
     },
     "/test": {
@@ -250,10 +250,6 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout/diary/myCrops": {
       "filePath": "_layout/diary/myCrops.tsx",
-      "parent": "/_layout"
-    },
-    "/_layout/login/entrance": {
-      "filePath": "_layout/login/entrance.tsx",
       "parent": "/_layout"
     },
     "/_layout/diary/": {
@@ -282,6 +278,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout/diary/create/3": {
       "filePath": "_layout/diary/create/3.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/login/entrance/": {
+      "filePath": "_layout/login/entrance/index.tsx",
       "parent": "/_layout"
     }
   }
