@@ -1,8 +1,7 @@
-package com.ssafy.bartter.auth.service;
+package com.ssafy.bartter.auth.utils;
 
 import io.jsonwebtoken.Jwts;
 
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -12,16 +11,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 /**
- * jwt 토큰 생성을 위한 클래스
+ * jwt 토큰 생성, 검증 등을 위한 클래스
  *
  * @author 김훈민
  */
 @Component
-public class JwtTokenService {
+public class JwtUtil {
 
     private final SecretKey secretKey;
 
-    public JwtTokenService(@Value("${spring.jwt.secret}") String secret) {
+    public JwtUtil(@Value("${spring.jwt.secret}") String secret) {
         secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), Jwts.SIG.HS256.key().build().getAlgorithm());
     }
 

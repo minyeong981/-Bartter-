@@ -1,6 +1,6 @@
 package com.ssafy.bartter.global.filter;
 
-import com.ssafy.bartter.auth.service.JwtTokenService;
+import com.ssafy.bartter.auth.utils.JwtUtil;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
@@ -8,8 +8,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -23,7 +21,7 @@ import java.io.PrintWriter;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtTokenService jwtTokenService;
+    private final JwtUtil jwtUtil;
 
 
     @Override
@@ -41,7 +39,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // 토큰 만료 여부 확인
         try{
-            jwtTokenService.isExpired(accessToken);
+            jwtUtil.isExpired(accessToken);
         } catch (ExpiredJwtException e){
             ErrorCode errorCode = ErrorCode.ACCESS_TOKEN_EXPIRED;
             response.setStatus(errorCode.getStatus().value());  // 상태 코드 설정
@@ -55,7 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
         // 토큰이 accessToken 인지 확인
-        String category = jwtTokenService.getCategory(accessToken);
+        String category = jwtUtil.getCategory(accessToken);
         if (!category.equals("accessToken")) {
             PrintWriter writer = response.getWriter();
             writer.print("invalid access token");
@@ -65,7 +63,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
         // username 을 획득
-        String username = jwtTokenService.getUsername(accessToken);
-        String role = jwtTokenService.getRole(accessToken);
+        String username = jwtUtil.getUsername(accessToken);
+        String role = jwtUtil.getRole(accessToken);
     }
 }

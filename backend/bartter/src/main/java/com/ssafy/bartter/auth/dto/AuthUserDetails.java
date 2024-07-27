@@ -1,4 +1,4 @@
-package com.ssafy.bartter.user.dto;
+package com.ssafy.bartter.auth.dto;
 
 import com.ssafy.bartter.user.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @RequiredArgsConstructor
-public class UserInfo implements UserDetails {
+public class AuthUserDetails implements UserDetails {
 
     private final User user;
 

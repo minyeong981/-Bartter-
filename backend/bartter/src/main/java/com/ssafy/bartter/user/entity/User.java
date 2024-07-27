@@ -56,7 +56,7 @@ public class User extends BaseEntity {
     /**
      * 사용자 비밀번호
      */
-    @Column(name = "user_password", nullable = false, length = 50)
+    @Column(name = "user_password", nullable = false, length = 255)
     private String password;
 
     /**
