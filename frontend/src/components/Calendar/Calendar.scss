@@ -2,8 +2,10 @@
 @use '../../styles/constants/typographies.scss' as typo;
 
 .custom-calendar-container {
-  width: 600px;
-  margin: 30px auto; // 중앙 정렬
+  width: 90%;
+  max-width: 600px;
+  padding: 0 15px;
+  margin: 10px auto; // 중앙 정렬
 
   .react-calendar {
     width: 100%;
@@ -12,13 +14,13 @@
     .react-calendar__navigation {
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      margin-bottom: 30px;
+      justify-content: space-between; // 네비게이션 버튼을 양 끝에 배치
+      padding: 1.5rem; // 네비게이션 영역 패딩 증가
+      margin-bottom: 1.5rem; // 조정된 마진
 
       button {
-        margin: 0 20px; // 버튼과 숫자 간격 조정
-        font-size: 22px;
+        margin: 0 2%; // 버튼과 숫자 간격 조정
+        font-size: 1.75rem; // 버튼 폰트 크기 증가
         cursor: pointer;
         background: none;
         border: none;
@@ -37,7 +39,10 @@
       }
 
       .react-calendar__navigation__label {
-        font-size: 22px;
+        flex-grow: 1; // 레이블이 남은 공간을 차지하도록 설정
+        margin: 0; // 레이블과 버튼 사이의 마진 제거
+        font-size: 1.75rem; // 레이블 폰트 크기 증가
+        text-align: center;
         pointer-events: none;
 
         @include typo.heading;
@@ -46,6 +51,7 @@
 
     .react-calendar__month-view__weekdays__weekday {
       abbr {
+        margin: 0 0.5rem; // 요일 레이블 간의 마진 증가
         color: inherit;
         text-decoration: none;
 
@@ -64,7 +70,9 @@
     }
 
     .react-calendar__month-view__days__day {
-      padding: 0.5rem;
+      box-sizing: border-box;
+      height: 3rem; // 날짜 셀 높이 설정
+      padding: 0.5rem; // 날짜 셀 패딩
       text-align: center;
 
       &.sunday abbr {
@@ -76,50 +84,161 @@
       }
 
       &.today abbr {
-        display: inline-block;
-        width: 4rem;
-        height: 4rem;
-        line-height: 4rem;
-        color: white;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.2rem; // 오늘 날짜 원 크기
+        height: 2.2rem; // 오늘 날짜 원 크기
+        margin: auto;
+        color: black;
         text-align: center;
-        background-color: #B3D4CA; // 원하는 색상으로 변경
+        background-color: rgba(#000, 0.2); // 원하는 색상으로 변경
         border-radius: 50%;
 
         @include typo.title;
       }
 
       &.selected abbr {
-        display: inline-block;
-        width: 4rem;
-        height: 4rem;
-        line-height: 4rem;
         color: black;
-        text-align: center;
-        background-color: #4FBA3E; // 클릭한 날짜의 초록색 동그라미
-        border-radius: 50%;
-
-        @include typo.title;
+        background-color: transparent; // 클릭한 날짜의 초록색 동그라미 제거
       }
     }
 
     .react-calendar__tile {
+      position: relative; // 선택한 날짜를 감싸는 선을 위한 설정
+      box-sizing: border-box;
       max-width: 100%;
-      padding: 0.5rem;
+      height: 3rem; // 타일 높이 설정
+      padding: 0.5rem; // 타일 패딩
       background: none; // 기본 배경색 제거
 
-      abbr {
+      &.react-calendar__tile--active {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 3rem;
-        height: 3rem;
-        margin: 0 auto;
-        line-height: 3rem;
+        padding: 0; // 패딩 제거
+        border: 2px solid #20873f; // 초록색 사각형 선으로 감쌈
+        border-radius: 10px; // 모서리를 약간 둥글게 설정
+
+        abbr {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 2.2rem; // 원 크기
+          height: 2.2rem; // 원 크기
+          margin: auto;
+          background-color: transparent; // 클릭한 날짜의 원 배경색 제거
+          border-radius: 50%;
+        }
+      }
+
+      abbr {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.2rem; // 원 크기
+        height: 2.2rem; // 원 크기
+        margin: auto;
         background: none; // 기본 배경색 제거
         border-radius: 50%;
 
         @include typo.main;
       }
+    }
+  }
+
+  @media (width <= 768px) {
+    .react-calendar__navigation {
+      flex-direction: row; // 항상 가로 배치
+      align-items: center;
+
+      button {
+        font-size: 1.5rem;
+      }
+
+      .react-calendar__navigation__label {
+        font-size: 1.5rem;
+      }
+    }
+
+    .react-calendar__tile,
+    .react-calendar__month-view__days__day {
+      height: 2.5rem; // 반응형 높이 설정
+    }
+
+    .react-calendar__tile abbr,
+    .react-calendar__month-view__days__day abbr,
+    .react-calendar__month-view__days__day.today abbr,
+    .react-calendar__month-view__days__day.selected abbr {
+      width: 2rem;
+      height: 2rem;
+      line-height: 2rem;
+    }
+  }
+
+  @media (width <= 480px) {
+    .react-calendar__navigation {
+      flex-direction: row; // 항상 가로 배치
+      align-items: center;
+      padding: 0.75rem;
+
+      button {
+        margin: 0 1%;
+        font-size: 1.25rem;
+      }
+
+      .react-calendar__navigation__label {
+        margin-bottom: 0; // 아래 여백 제거
+        font-size: 1.25rem;
+      }
+    }
+
+    .react-calendar__tile,
+    .react-calendar__month-view__days__day {
+      height: 2.5rem; // 반응형 높이 설정
+    }
+
+    .react-calendar__tile abbr,
+    .react-calendar__month-view__days__day abbr,
+    .react-calendar__month-view__days__day.today abbr,
+    .react-calendar__month-view__days__day.selected abbr {
+      width: 1.8rem;
+      height: 1.8rem;
+      line-height: 1.8rem;
+    }
+  }
+
+  @media (width <= 320px) {
+    .react-calendar__navigation {
+      flex-direction: row; // 항상 가로 배치
+      align-items: center;
+      padding: 0.5rem;
+
+      button {
+        margin: 0 0.5%;
+        font-size: 1rem;
+      }
+
+      .react-calendar__navigation__label {
+        margin-bottom: 0; // 아래 여백 제거
+        font-size: 1rem;
+      }
+    }
+
+    .react-calendar__tile,
+    .react-calendar__month-view__days__day {
+      height: 2.5rem; // 반응형 높이 설정
+    }
+
+    .react-calendar__tile abbr,
+    .react-calendar__month-view__days__day abbr,
+    .react-calendar__month-view__days__day.today abbr,
+    .react-calendar__month-view__days__day.selected abbr {
+      width: 1.8rem;
+      height: 1.8rem;
+      line-height: 1.8rem;
     }
   }
 }

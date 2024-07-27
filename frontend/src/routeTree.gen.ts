@@ -16,6 +16,7 @@ import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
 import { Route as LayoutSignupIndexImport } from './routes/_layout/signup/index'
 import { Route as LayoutLoginIndexImport } from './routes/_layout/login/index'
+import { Route as LayoutHomeIndexImport } from './routes/_layout/home/index'
 import { Route as LayoutDiaryIndexImport } from './routes/_layout/diary/index'
 import { Route as LayoutDiaryMyCropsImport } from './routes/_layout/diary/myCrops'
 import { Route as LayoutDiaryCalendarImport } from './routes/_layout/diary/calendar'
@@ -47,6 +48,11 @@ const LayoutSignupIndexRoute = LayoutSignupIndexImport.update({
 
 const LayoutLoginIndexRoute = LayoutLoginIndexImport.update({
   path: '/login/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutHomeIndexRoute = LayoutHomeIndexImport.update({
+  path: '/home/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -126,6 +132,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutDiaryIndexImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/home/': {
+      id: '/_layout/home/'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof LayoutHomeIndexImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/login/': {
       id: '/_layout/login/'
       path: '/login'
@@ -172,6 +185,7 @@ export const routeTree = rootRoute.addChildren({
     LayoutDiaryCalendarRoute,
     LayoutDiaryMyCropsRoute,
     LayoutDiaryIndexRoute,
+    LayoutHomeIndexRoute,
     LayoutLoginIndexRoute,
     LayoutSignupIndexRoute,
     LayoutDiaryCreate1Route,
@@ -200,6 +214,7 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/diary/calendar",
         "/_layout/diary/myCrops",
         "/_layout/diary/",
+        "/_layout/home/",
         "/_layout/login/",
         "/_layout/signup/",
         "/_layout/diary/create/1",
@@ -224,6 +239,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout/diary/": {
       "filePath": "_layout/diary/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/home/": {
+      "filePath": "_layout/home/index.tsx",
       "parent": "/_layout"
     },
     "/_layout/login/": {
