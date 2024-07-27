@@ -1,7 +1,8 @@
 import classnames from 'classnames/bind';
 import type {PropsWithChildren, ReactNode} from 'react';
 
-import {IconMenu} from '../../assets/svg';
+import {IconMenu} from '@/assets/svg';
+
 import BackButton from './BackButton/BackButton.tsx';
 import Index from './Container';
 import styles from './header.module.scss';

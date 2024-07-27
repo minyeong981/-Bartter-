@@ -1,7 +1,8 @@
 import {Link} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 
-import {IconBell, IconSearch, IconUser} from '../../assets/svg';
+import {IconBell, IconSearch, IconUser} from '@/assets/svg';
+
 import BackButton from './BackButton/BackButton.tsx';
 import Index from './Container';
 import styles from './header.module.scss';

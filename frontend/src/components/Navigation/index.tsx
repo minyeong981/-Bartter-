@@ -1,11 +1,7 @@
 import {Link} from '@tanstack/react-router';
 
-import {
-  ImageBarter,
-  ImageDiary,
-  ImageGroup,
-  ImageHome,
-} from '../../assets/image';
+import {ImageBarter, ImageDiary, ImageGroup, ImageHome} from '@/assets/image';
+
 import styles from './navigation.module.scss';
 
 export default function Navigation() {
