@@ -1,13 +1,11 @@
 package com.ssafy.bartter.global.common;
 
+import com.amazonaws.metrics.MetricType;
 import com.ssafy.bartter.community.entity.CommunityPost;
 import com.ssafy.bartter.trade.entity.TradePost;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Point;
 
@@ -74,6 +72,17 @@ public class Location extends BaseEntity {
      */
     @OneToMany(mappedBy = "location", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<TradePost> tradePostList = new ArrayList<>();
+
+
+    // 회원가입 테스트
+    @Builder
+    public Location(String name, String code, MultiPolygon multiPolygon, Point point) {
+        this.name = name;
+        this.code = code;
+        this.multiPolygon = multiPolygon;
+        this.point = point;
+    }
+
 }
 
 

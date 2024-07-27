@@ -38,6 +38,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     // 인증을 진행하는 메서드
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        System.out.println("LoginFilter.attemptAuthentication");
         // JSON 요청 본문을 UserAuthDto 로 파싱
         ObjectMapper mapper = new ObjectMapper();
         UserAuthDto loginRequest;

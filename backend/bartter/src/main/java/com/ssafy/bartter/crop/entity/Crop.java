@@ -4,10 +4,7 @@ import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.trade.entity.TradePost;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
