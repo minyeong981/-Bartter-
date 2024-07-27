@@ -1,5 +1,6 @@
-@use '../../styles/constants/colors' as colors;
-@use '../../styles/constants/typographies' as typographies;
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typographies;
+
 
 .button {
   @include typographies.button;

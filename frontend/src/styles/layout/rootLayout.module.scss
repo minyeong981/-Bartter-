@@ -1,8 +1,12 @@
 @use '../../styles/constants/colors' as colors;
 
 .layout {
+  position: relative;
   width: 100%;
   max-width: 390px;
   height: 100%;
+  padding-top: 54px;
+  padding-bottom: 84px;
   background-color: colors.$white;
+  perspective: 0;
 }

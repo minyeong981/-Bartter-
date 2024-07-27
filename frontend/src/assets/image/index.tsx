@@ -1,12 +1,16 @@
 export {default as ImageApple} from './apple.png';
+export {default as ImageBarter} from './barter.png';
 export {default as ImageCarrot} from './carrot.png';
 export {default as ImageCorn} from './corn.png';
 export {default as ImageCucumber} from './cucumber.png';
+export {default as ImageDiary} from './diary.png';
 export {default as ImageEggPlant} from './eggPlant.png';
 export {default as ImageEtc} from './etc.png';
 export {default as ImageGarlic} from './garlic.png';
 export {default as ImageGrape} from './grape.png';
 export {default as ImageGreenOnion} from './greenOnion.png';
+export {default as ImageGroup} from './group.png';
+export {default as ImageHome} from './home.png';
 export {default as ImageLettuce} from './lettuce.png';
 export {default as ImageMushroom} from './mushroom.png';
 export {default as ImageNanaCabbage} from './nanaCabbage.png';
