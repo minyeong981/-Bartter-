@@ -18,6 +18,7 @@ import { Route as LayoutSignupIndexImport } from './routes/_layout/signup/index'
 import { Route as LayoutLoginIndexImport } from './routes/_layout/login/index'
 import { Route as LayoutHomeIndexImport } from './routes/_layout/home/index'
 import { Route as LayoutDiaryIndexImport } from './routes/_layout/diary/index'
+import { Route as LayoutLoginEntranceImport } from './routes/_layout/login/entrance'
 import { Route as LayoutDiaryMyCropsImport } from './routes/_layout/diary/myCrops'
 import { Route as LayoutDiaryCalendarImport } from './routes/_layout/diary/calendar'
 import { Route as LayoutDiaryCreate3Import } from './routes/_layout/diary/create/3'
@@ -58,6 +59,11 @@ const LayoutHomeIndexRoute = LayoutHomeIndexImport.update({
 
 const LayoutDiaryIndexRoute = LayoutDiaryIndexImport.update({
   path: '/diary/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutLoginEntranceRoute = LayoutLoginEntranceImport.update({
+  path: '/login/entrance',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -125,6 +131,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutDiaryMyCropsImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/login/entrance': {
+      id: '/_layout/login/entrance'
+      path: '/login/entrance'
+      fullPath: '/login/entrance'
+      preLoaderRoute: typeof LayoutLoginEntranceImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/diary/': {
       id: '/_layout/diary/'
       path: '/diary'
@@ -184,6 +197,7 @@ export const routeTree = rootRoute.addChildren({
     LayoutIndexRoute,
     LayoutDiaryCalendarRoute,
     LayoutDiaryMyCropsRoute,
+    LayoutLoginEntranceRoute,
     LayoutDiaryIndexRoute,
     LayoutHomeIndexRoute,
     LayoutLoginIndexRoute,
@@ -213,6 +227,7 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/",
         "/_layout/diary/calendar",
         "/_layout/diary/myCrops",
+        "/_layout/login/entrance",
         "/_layout/diary/",
         "/_layout/home/",
         "/_layout/login/",
@@ -235,6 +250,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout/diary/myCrops": {
       "filePath": "_layout/diary/myCrops.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/login/entrance": {
+      "filePath": "_layout/login/entrance.tsx",
       "parent": "/_layout"
     },
     "/_layout/diary/": {
