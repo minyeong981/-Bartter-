@@ -17,7 +17,7 @@ export const Route = createFileRoute('/_layout/login/entrance')({
       </div>
       <div className={cx('button-container')}>
         <KakaoButton />
-        <GeneralButton buttonStyle={{style: 'primary', size: 'large'}}>
+        <GeneralButton buttonStyle={{style: 'primary', size: 'large'}} to="../">
           로그인
         </GeneralButton>
       </div>

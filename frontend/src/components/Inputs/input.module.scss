@@ -1,12 +1,13 @@
 @use '@/styles/constants/colors' as colors;
 
 .generalInput {
-  width: 48px;
-  height: 341px;
+  width: 341px;
+  height: 48px;
   border: 1px solid colors.$primary;
   border-radius: 12px;
 
   &::placeholder {
     color: colors.$placeholder;
+    padding: 0 10px;
   }
 }
