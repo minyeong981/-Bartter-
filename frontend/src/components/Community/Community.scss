@@ -1,14 +1,14 @@
 .community {
   display: flex;
   flex-direction: column;
-  gap: 15px; // Space between cards
+  gap: 15px;
   max-width: 390px;
   padding: 10px;
   margin: 0 auto;
 }
 
 .community-card {
-  box-sizing: border-box; // Ensures padding is included in the total width
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -17,23 +17,30 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+
+  img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
 }
 
 .location {
   padding: 5px 10px;
-  margin-bottom: 10px; // Space between location and the rest of the content
+  margin-bottom: 10px;
   font-size: 14px;
   font-weight: bold;
   color: #333;
   text-align: center;
-  background-color: #f0f0f0; // Light grey background
-  border-radius: 12px; // Rounded corners
+  background-color: #f0f0f0;
+  border-radius: 12px;
 }
 
 .card-content {
   display: flex;
-  gap: 10px; // Space between text and image
-  align-items: flex-start; // Align items to the top
+  gap: 10px;
+  align-items: flex-start;
 }
 
 .text-box {
@@ -41,7 +48,7 @@
   flex-direction: column;
   flex-grow: 1;
   justify-content: center;
-  max-width: calc(100% - 130px); // Account for image width and gap
+  max-width: calc(100% - 130px);
 }
 
 .text-title {
@@ -61,17 +68,11 @@
   color: #999;
 }
 
-img {
-  width: 120px;
-  height: 120px;
-  object-fit: cover; // Ensures the image covers the space without distortion
-  border-radius: 8px;
-}
 
 .icon-box {
   display: flex;
   align-items: center;
-  justify-content: space-around; // Center the icons
+  justify-content: space-around;
   padding: 10px 0;
   margin-top: 10px;
   border-top: 1px solid #ddd;
