@@ -27,9 +27,6 @@ public class CropDiaryDto {
     @Getter
     @AllArgsConstructor
     public static class Create {
-        @NotNull(message = "유저 정보를 입력하세요.")
-        private final Integer userId;
-
         @NotNull(message = "농작물 프로필 정보를 입력하세요.")
         private final Integer cropId;
 
@@ -37,10 +34,7 @@ public class CropDiaryDto {
         private final String title;
 
         @NotBlank(message = "농사일지의 내용을 입력하세요.")
-        private final LocalDate content;
-
-        @NotNull(message = "이미지를 업로드하세요.")
-        private final MultipartFile image;
+        private final String content;
     }
 
     /**

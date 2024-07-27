@@ -3,6 +3,7 @@ package com.ssafy.bartter.crop.entity;
 import com.ssafy.bartter.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -50,4 +51,12 @@ public class CropDiary extends BaseEntity {
     @Column(name = "crop_diary_image", nullable = false, length = 300)
     private String image;
 
+    @Builder
+
+    public CropDiary(Crop crop, String title, String content, String image) {
+        this.crop = crop;
+        this.title = title;
+        this.content = content;
+        this.image = image;
+    }
 }
