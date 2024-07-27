@@ -12,6 +12,7 @@ import com.ssafy.bartter.trade.entity.TradePost;
 import com.ssafy.bartter.trade.entity.TradePostLike;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -88,7 +89,7 @@ public class User extends BaseEntity {
     /**
      * 사용자 이메일
      */
-    @Column(name = "user_email", length = 50)
+    @Column(name = "user_email", length = 50, nullable = true)
     private String email;
 
     /**
@@ -106,7 +107,7 @@ public class User extends BaseEntity {
     /**
      * 사용자 프로필 메시지
      */
-    @Column(name = "user_profile_message", nullable = false)
+    @Column(name = "user_profile_message", nullable = true)
     private String profileMessage;
 
     /**
@@ -197,4 +198,6 @@ public class User extends BaseEntity {
      * */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CropReport> cropReportList = new ArrayList<>();
+
+
 }
