@@ -19,6 +19,7 @@ import static com.ssafy.bartter.crop.dto.CropDiaryDto.Create;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 
 @ExtendWith(MockitoExtension.class)
 class CropDiaryServiceTest {
@@ -35,22 +36,15 @@ class CropDiaryServiceTest {
     @InjectMocks
     private CropDiaryService cropDiaryService;
 
-    @DisplayName("농사일지 생성")
+    @DisplayName("요청한 정보와 동일한 정보를 가진 농사일지가 생성된다.")
     @Test
     void 농사일지_생성() {
         // given
-
-        // Request
-        Integer cropId = 1;
-        String title = "title";
-        String content = "content";
+        Create request = getRequest();
+        Crop mockCrop = mock(Crop.class);
         MultipartFile image = mock(MultipartFile.class);
 
-        Create request = new Create(cropId, title, content);
-
-        Crop mockCrop = mock(Crop.class);
-
-        given(cropRepository.findById(cropId)).willReturn(Optional.of(mockCrop));
+        given(cropRepository.findById(request.getCropId())).willReturn(Optional.of(mockCrop));
         given(s3UploadService.upload(image)).willReturn("testurl");
 
         // when
@@ -60,7 +54,39 @@ class CropDiaryServiceTest {
         assertThat(diary).isNotNull();
         assertThat(diary.getCrop()).isEqualTo(mockCrop);
         assertThat(diary.getImage()).isEqualTo("testurl");
-        assertThat(diary.getTitle()).isEqualTo(title);
-        assertThat(diary.getContent()).isEqualTo(content);
+        assertThat(diary.getTitle()).isEqualTo(request.getTitle());
+        assertThat(diary.getContent()).isEqualTo(request.getContent());
+    }
+
+    @DisplayName("농사일지 ID로 농사일지를 조회한다.")
+    @Test
+    void 농사일지_조회() {
+        // given
+        Create request = getRequest();
+        Crop mockCrop = mock(Crop.class);
+        MultipartFile image = mock(MultipartFile.class);
+
+        given(cropRepository.findById(request.getCropId())).willReturn(Optional.of(mockCrop));
+        given(s3UploadService.upload(image)).willReturn("testurl");
+
+        CropDiary diary = spy(cropDiaryService.createCropDiary(request, image));
+
+        given(diary.getId()).willReturn(1);
+        given(cropDiaryRepository.findById(1)).willReturn(Optional.of(diary));
+
+        // when
+        CropDiary findDiary = cropDiaryService.getCropDiary(1);
+
+        // then
+        assertThat(findDiary).isEqualTo(diary);
+        assertThat(findDiary.getId()).isEqualTo(1);
+    }
+
+    private static Create getRequest() {
+        Integer cropId = 1;
+        String title = "title";
+        String content = "content";
+
+        return new Create(cropId, title, content);
     }
 }

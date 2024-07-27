@@ -2,10 +2,7 @@ package com.ssafy.bartter.crop.entity;
 
 import com.ssafy.bartter.global.common.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * Crop Diary Entity
@@ -15,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @Table(name = "crop_diary")
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CropDiary extends BaseEntity {
 

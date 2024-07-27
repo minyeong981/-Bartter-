@@ -45,4 +45,8 @@ public class CropDiaryService {
         cropDiaryRepository.save(diary);
         return diary;
     }
+
+    public CropDiary getCropDiary(Integer cropDiaryId) {
+        return cropDiaryRepository.findById(cropDiaryId).orElseThrow(() -> new CustomException(ErrorCode.CROP_DIARY_NOT_FOUND));
+    }
 }

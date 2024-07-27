@@ -31,7 +31,6 @@ public class CropDiaryController {
 
     private final CropDiaryService cropDiaryService;
 
-
     @Operation(summary = "농사일지 작성", description = "농사일지를 작성한다.")
     @PostMapping("")
     public SuccessResponse<CropDiaryDetail> createCropDiary(
@@ -46,4 +45,13 @@ public class CropDiaryController {
         CropDiaryDetail response = CropDiaryDetail.of(diary);
         return new SuccessResponse<>(response);
     }
+
+    @Operation(summary = "농사일지 상세 조회", description = "농사일지 PK로 농사일지를 조회한다.")
+    @GetMapping("/{cropDiaryId}")
+    public SuccessResponse<CropDiaryDetail> getCropDiary(@PathVariable("cropDiaryId") Integer cropDiaryId) {
+        CropDiary diary = cropDiaryService.getCropDiary(cropDiaryId);
+        CropDiaryDetail response = CropDiaryDetail.of(diary);
+        return new SuccessResponse<>(response);
+    }
+
 }

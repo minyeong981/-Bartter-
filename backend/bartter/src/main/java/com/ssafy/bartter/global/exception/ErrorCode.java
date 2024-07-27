@@ -23,9 +23,10 @@ public enum ErrorCode {
 
     // Crop - 3000
     CROP_NOT_FOUND(HttpStatus.NOT_FOUND, 3000, "해당 ID의 농작물을 찾을 수 없습니다."),
-    CROP_CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, 3001, "해당 ID의 농작물 카테고리를 찾을 수 없습니다.")
+    CROP_CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, 3001, "해당 ID의 농작물 카테고리를 찾을 수 없습니다."),
 
-    // Diary
+    // Diary - 4000
+    CROP_DIARY_NOT_FOUND(HttpStatus.NOT_FOUND, 4000, "해당 ID의 농사일지를을 찾을 수 없습니다.")
 
     // Trade
 
