@@ -49,4 +49,9 @@ public class CropDiaryService {
     public CropDiary getCropDiary(Integer cropDiaryId) {
         return cropDiaryRepository.findById(cropDiaryId).orElseThrow(() -> new CustomException(ErrorCode.CROP_DIARY_NOT_FOUND));
     }
+
+    public void deleteCropDiary(Integer cropDiaryId) {
+        CropDiary diary = cropDiaryRepository.findById(cropDiaryId).orElseThrow(() -> new CustomException(ErrorCode.CROP_DIARY_NOT_FOUND));
+        cropDiaryRepository.delete(diary);
+    }
 }

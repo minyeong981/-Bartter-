@@ -54,4 +54,10 @@ public class CropDiaryController {
         return new SuccessResponse<>(response);
     }
 
+    @Operation(summary = "농사일지 삭제", description = "해당 농사일지 PK를 가진 농사일지를 찾아 삭제한다.")
+    @DeleteMapping("/{cropDiaryId}")
+    public SuccessResponse<Void> deleteCropDiary(@PathVariable("cropDiaryId") Integer cropDiaryId) {
+        cropDiaryService.deleteCropDiary(cropDiaryId);
+        return new SuccessResponse<>();
+    }
 }
