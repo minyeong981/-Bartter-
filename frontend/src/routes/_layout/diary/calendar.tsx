@@ -1,16 +1,28 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { useState } from 'react';
 
 import CustomCalendar from '../../../components/Calendar/Calendar';
+import styles from './calendar.module.scss';
 
-export default function Calendar() {
+export default function CalendarPage() {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const toggleCalendar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
-    <div>
-      <CustomCalendar />
+    <div className={styles.calendarContainer}>
+      <div className={`${styles.calendarWrapper} ${isCollapsed ? styles.collapsed : ''}`}>
+        <CustomCalendar isCollapsed={isCollapsed} />
+      </div>
+      <button className={styles.toggleButton} onClick={toggleCalendar}>
+        {isCollapsed ? '달력 펼치기' : '달력 접기'}
+      </button>
     </div>
   );
-};
+}
 
 export const Route = createFileRoute('/_layout/diary/calendar')({
-  component: Calendar
+  component: CalendarPage
 });
-

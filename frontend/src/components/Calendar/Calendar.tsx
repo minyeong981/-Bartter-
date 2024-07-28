@@ -1,7 +1,7 @@
 import 'react-calendar/dist/Calendar.css';
 import './Calendar.scss';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import type { CalendarProps } from 'react-calendar';
 import Calendar from 'react-calendar';
 
@@ -59,4 +59,3 @@ export default function CustomCalendar() {
     </div>
   );
 }
-
