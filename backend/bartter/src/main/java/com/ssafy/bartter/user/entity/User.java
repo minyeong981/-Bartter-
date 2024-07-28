@@ -216,5 +216,4 @@ public class User extends BaseEntity {
         this.isAccountExpired = false;
     }
 
-
 }

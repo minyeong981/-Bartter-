@@ -10,6 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * User 관련 비즈니스 로직을 처리하는 서비스 클래스
+ *
+ * @author 김훈민
+ */
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -19,6 +24,12 @@ public class UserService {
     private final LocationService locationService;
     private final LocationRepository locationRepository;
 
+    /**
+     * 사용자의 가입 절차를 처리하는 메서드
+     * 사용자 정보를 받아 데이터베이스에 저장
+     *
+     * @param userJoinDto 사용자의 가입 정보를 담은 DTO
+     */
     public void joinProcess(UserJoinDto userJoinDto) {
 
         String username = userJoinDto.getUsername();
@@ -26,18 +37,16 @@ public class UserService {
         Boolean isExist = userRepository.existsByUsername(username);
 
         if (isExist) return;
-        System.out.println("userService, user : " + userJoinDto);
 
         // 위도와 경도를 사용하여 Location 엔티티 조회
 //        Location location = locationService.getCurrentLocation(userJoinDto.getLatitude(), userJoinDto.getLongitude());
 //        System.out.println("location : " + location);
 
         // 임의의 Location 엔티티 생성
-        int locationId = 1; // 예시로 1번 ID를 사용합니다. 실제로는 적절한 ID를 사용해야 합니다.
+        int locationId = 1;
         Location location = locationRepository.findById(locationId)
                 .orElseThrow(() -> new RuntimeException("Location not found with id: " + locationId));
 
-        System.out.println("location : " + location);
 
 
         // User 객체 생성
@@ -51,7 +60,6 @@ public class UserService {
                 .phone(userJoinDto.getPhone())
                 .email(userJoinDto.getEmail())
                 .build();
-        System.out.println("user " + user);
         userRepository.save(user);
     }
 

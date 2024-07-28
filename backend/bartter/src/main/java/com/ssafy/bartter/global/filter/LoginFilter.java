@@ -9,6 +9,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,6 +29,7 @@ import java.util.Iterator;
  *
  * @author 김훈민
  */
+@Slf4j
 @RequiredArgsConstructor
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
@@ -35,31 +37,43 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final CookieUtil cookieUtil;
     private final RefreshRepository refreshRepository;
 
-    // 인증을 진행하는 메서드
+    /**
+     * 사용자의 인증을 시도하는 메서드
+     *
+     * @param request  HttpServletRequest 객체
+     * @param response HttpServletResponse 객체
+     * @return 인증된 Authentication 객체
+     * @throws AuthenticationException 인증 실패 시 예외 발생
+     */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        System.out.println("LoginFilter.attemptAuthentication");
-        // JSON 요청 본문을 UserAuthDto 로 파싱
+        log.info("LoginFilter.attemptAuthentication");
         ObjectMapper mapper = new ObjectMapper();
-        UserAuthDto loginRequest;
+        UserAuthDto userAuthDto;
         try {
-            loginRequest = mapper.readValue(request.getInputStream(), UserAuthDto.class);
+            userAuthDto = mapper.readValue(request.getInputStream(), UserAuthDto.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        String username = loginRequest.username();
-        String password = loginRequest.password();
-
-        System.out.println("username : " + username);
-        System.out.println("password : " + password);
-
+        String username = userAuthDto.username();
+        String password = userAuthDto.password();
+        log.debug("username : {}", username);
+        log.debug("password : {}", password);
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, null);
 
         return authenticationManager.authenticate(authToken);
     }
 
-    // 로그인 성공시 실행 메서드
+    /**
+     * 인증 성공 시 호출되는 메서드
+     * 성공적인 인증 후 JWT 토큰을 생성함
+     *
+     * @param request        HttpServletRequest 객체
+     * @param response       HttpServletResponse 객체
+     * @param chain          FilterChain 객체
+     * @param authentication 인증 객체
+     */
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) {
 
@@ -78,12 +92,19 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 //        addRefreshEntity(username, refresh, 86400000L);
 
         // 응답 설정
-        response.setHeader("accessToken", access);
+        response.setHeader("Authorization", "Bearer " + access);
         response.addCookie(cookieUtil.createCookie("refresh", refresh));
         response.setStatus(HttpStatus.OK.value());
     }
 
-    // 로그인 실패시 실행 메서드
+    /**
+     * 인증 실패 시 호출되는 메서드
+     * 인증에 실패한 경우 401 상태 코드를 설정하여 응답
+     *
+     * @param request  HttpServletRequest 객체
+     * @param response HttpServletResponse 객체
+     * @param failed   AuthenticationException 객체
+     */
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
         // 401 error

@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * User 와 관련된 요청을 주고받는 클래스
+ * User 와 관련된 요청을 처리하는 컨트롤러 클래스
  *
  * @author 김훈민
  */
@@ -19,7 +19,12 @@ public class UserController {
 
     private final UserService userService;
 
-
+    /**
+     * 새로운 사용자를 등록하는 메서드
+     *
+     * @param userJoinDto 사용자 가입 정보를 담고 있는 객체
+     * @return 사용자 생성 성공 여부를 나타내는 ResponseEntity 객체
+     */
     @PostMapping("/join")
     public ResponseEntity<String> joinProcess(@RequestBody UserJoinDto userJoinDto) {
         try {

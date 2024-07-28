@@ -24,32 +24,62 @@ public class JwtUtil {
         secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), Jwts.SIG.HS256.key().build().getAlgorithm());
     }
 
-    // 토큰 생성
+    /**
+     * JWT 토큰을 생성하는 메서드
+     *
+     * @param category 토큰의 유형
+     * @param username 사용자 이름
+     * @param role 사용자의 role
+     * @param expiredMs 토큰의 유효 기간 (밀리초 단위)
+     * @return 생성된 JWT 토큰
+     */
     public String generateToken(String category, String username, String role, Long expiredMs) {
         return Jwts.builder()
-                .claim("category", category)
-                .claim("username", username)
+                .subject(username)
                 .claim("role", role)
+                .claim("category", category)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expiredMs))
                 .signWith(secretKey, Jwts.SIG.HS256)
                 .compact();
     }
 
-    // 토큰 만료 여부 확인
-    public Boolean isExpired(String token) {
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
+    /**
+     * JWT 토큰의 만료 여부를 확인하는 메서드
+     *
+     * @param token 확인할 JWT 토큰
+     */
+    public void isExpired(String token) {
+        Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration();
     }
 
-
+    /**
+     * JWT 토큰에서 사용자 이름을 추출하는 메서드
+     *
+     * @param token 추출할 JWT 토큰
+     * @return 토큰에 포함된 사용자 이름
+     */
     public String getUsername(String token) {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("username", String.class);
     }
 
+
+    /**
+     * JWT 토큰에서 사용자의 역할을 추출하는 메서드
+     *
+     * @param token 추출할 JWT 토큰
+     * @return 토큰에 포함된 사용자 역할
+     */
     public String getRole(String token) {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class);
     }
 
+    /**
+     * JWT 토큰에서 카테고리를 추출하는 메서드
+     *
+     * @param token 추출할 JWT 토큰
+     * @return 토큰에 포함된 카테고리
+     */
     public String getCategory(String token) {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("category", String.class);
     }

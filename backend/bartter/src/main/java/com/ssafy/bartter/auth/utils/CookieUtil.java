@@ -18,7 +18,7 @@ public class CookieUtil {
      * @param value 쿠키 값
      * @param maxAge 쿠키 유효 기간 (초 단위)
      * @param httpOnly HTTPOnly 속성 설정 여부
-     * @param secure Secure 속성 설정 여부 (HTTPS 사용 시)
+     * @param secure Https Secure 속성 설정 여부
      * @param path 쿠키 적용 경로
      * @return 생성된 쿠키
      */
@@ -33,6 +33,7 @@ public class CookieUtil {
 
     /**
      * 기본 설정으로 쿠키 생성
+     * 추후 secure true 로 변경 필요
      */
     public Cookie createCookie(String name, String value) {
         return createCookie(name, value, 24*60*60, true, false, "/");
