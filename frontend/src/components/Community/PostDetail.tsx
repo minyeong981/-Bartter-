@@ -7,6 +7,10 @@ import UserImage from '@/assets/image/유저.png';
 import UserNameContent from '../User/UserNameContent';
 import styles from './PostDetail.module.scss'; // CSS Modules import
 
+// 유저에 대한 정보 (작성자 닉네임, 작성자가 작성한 위치, 작성자 작성 시간)
+// 게시글에 대한 정보 ( 제목, 내용, 게시글 사진 리스트, 좋아요 수, 댓글 수)
+
+
 export default function PostDetail() {
     return (
         <div className={styles.postDetail}>
