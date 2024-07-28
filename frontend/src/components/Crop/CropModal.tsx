@@ -1,7 +1,11 @@
+import { useState } from 'react';
+
 import LinkButton from '@/components/Buttons/LinkButton'
 
+import Search from '../Search/Search';
 import Crop from './Crop';
 import styles from './CropModal.module.scss';
+
 
 interface CropProps {
   cropImageSrc: string;
@@ -14,9 +18,12 @@ interface ModalProps {
   crops: CropProps[];
   onCropSelect: (index: number) => void;
   selectedCrop: number | null;
+  showSearchBar?: boolean;
 }
 
-export default function CropModal({ show, onClose, crops, onCropSelect, selectedCrop }: ModalProps) {
+export default function CropModal({ show, onClose, crops, onCropSelect, selectedCrop, showSearchBar = false }: ModalProps) {
+  const [searchTerm, setSearchTerm] = useState('');
+  
   if (!show) {
     return null;
   }
@@ -25,12 +32,19 @@ export default function CropModal({ show, onClose, crops, onCropSelect, selected
     onCropSelect(index);
   };
 
+  const filteredCrops = crops.filter(crop =>
+    crop.cropNameSrc.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className={styles.modalBackdrop}>
       <div className={styles.modalContent}>
         <button className={styles.closeButton} onClick={onClose}>X</button>
+        {showSearchBar && (
+          <Search onSearch={setSearchTerm} />
+        )}
         <div className={styles.cropList}>
-          {crops.map((crop, index) => (
+        {filteredCrops.map((crop, index) => (
             <div
               key={index}
               className={`${styles.cropItem} ${selectedCrop === index ? styles.selected : ''}`}

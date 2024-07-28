@@ -167,12 +167,6 @@ export default function MyCrops() {
         <div className={styles.noCrops}>
           <h3>아직 등록된 농작물이 없습니다.</h3>
           <img src={notCrop} alt="notCrop" />
-          <GeneralButton
-            buttonStyle={{ style: 'primary', size: 'small' }}
-            onClick={handleOpenModal}
-          >
-            + 등록하기
-          </GeneralButton>
         </div>
       ) : (
         <div>
@@ -191,7 +185,16 @@ export default function MyCrops() {
         crops={initialCrops}
         onCropSelect={handleCropSelect}
         selectedCrop={selectedCrop}
+        showSearchBar={true}
       />
+      <div className={styles.floatingButton}>
+        <GeneralButton
+          buttonStyle={{ style: 'floating', size:'small'}}
+          onClick={handleOpenModal}
+        >
+          + 등록하기
+        </GeneralButton>
+      </div>
     </div>
   );
 }

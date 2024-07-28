@@ -1,28 +1,49 @@
 .container {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  height: 100vh;
-  padding-top: 20vh;
-}
-
-.no-crops {
   position: relative;
-  width: 100%;
-  max-width: 1200px; 
-  overflow: visible; 
-  text-align: center; 
+  padding-bottom: 5rem; // 버튼 공간 확보를 위해 추가
 }
 
-.no-crops img {
-  width: 100%; 
-  max-width: 800px; 
-  height: auto; 
+.noCrops {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 7rem;
+
+  img {
+    width: 15rem; 
+    height: auto;
+  }
+
 }
 
-.no-crops button {
-  position: absolute;
-  right: 10px; 
-  bottom: 10px; 
-  transform: translate(50%, 50%); /* 약간 걸치도록 조정 */
+.cropList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.crop-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
+}
+
+.crop-image-thumbnail {
+  width: 50px;
+  height: 50px;
+}
+
+.floatingButton {
+  position: fixed;
+  right: 1rem;
+  bottom: 14rem;
+
+  button {
+    color: white;
+  }
+}
+
+.hidden {
+  display: none;
 }
