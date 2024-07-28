@@ -11,3 +11,9 @@
     padding: 0 10px;
   }
 }
+
+.labeledInput {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

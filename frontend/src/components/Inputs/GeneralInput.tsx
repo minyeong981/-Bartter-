@@ -3,7 +3,7 @@ import type {InputHTMLAttributes} from 'react';
 
 import styles from './input.module.scss';
 
-type GeneralInputProps = InputHTMLAttributes<HTMLInputElement>;
+export type GeneralInputProps = InputHTMLAttributes<HTMLInputElement>;
 
 const cx = classnames.bind(styles);
 
