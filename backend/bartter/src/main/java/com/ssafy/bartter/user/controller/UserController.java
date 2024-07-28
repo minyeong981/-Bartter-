@@ -2,6 +2,7 @@ package com.ssafy.bartter.user.controller;
 
 import com.ssafy.bartter.user.dto.UserJoinDto;
 import com.ssafy.bartter.user.services.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class UserController {
      * @return 사용자 생성 성공 여부를 나타내는 ResponseEntity 객체
      */
     @PostMapping("/join")
-    public ResponseEntity<String> joinProcess(@RequestBody UserJoinDto userJoinDto) {
+    public ResponseEntity<String> joinProcess(@Valid @RequestBody UserJoinDto userJoinDto) {
         try {
             userService.joinProcess(userJoinDto);
             return ResponseEntity.status(HttpStatus.CREATED).body("User created successfully");

@@ -1,13 +1,18 @@
 package com.ssafy.bartter.global.filter;
 
+import com.ssafy.bartter.auth.dto.AuthUserDetails;
 import com.ssafy.bartter.auth.utils.JwtUtil;
 import com.ssafy.bartter.global.exception.ErrorCode;
+import com.ssafy.bartter.user.entity.User;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -71,8 +76,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
 
-        // username 을 획득
         String username = jwtUtil.getUsername(accessToken);
         String role = jwtUtil.getRole(accessToken);
+
+
+
+//        CurrentUserDto currentUserDto = new CurrentUserDto(username, role);
+//        AuthUserDetails customUserDetails = new AuthUserDetails(currentUserDto);
+
+//        Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
+        // 일시적인 세션 등록
+//        SecurityContextHolder.getContext().setAuthentication(authToken);
     }
 }

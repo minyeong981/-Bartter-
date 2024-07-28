@@ -47,7 +47,6 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
      */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        log.info("LoginFilter.attemptAuthentication");
         ObjectMapper mapper = new ObjectMapper();
         UserAuthDto userAuthDto;
         try {

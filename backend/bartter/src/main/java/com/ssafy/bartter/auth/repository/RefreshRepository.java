@@ -1,6 +1,6 @@
 package com.ssafy.bartter.auth.repository;
 
-import com.ssafy.bartter.auth.entity.RefreshEntity;
+import com.ssafy.bartter.auth.entity.Refresh;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author 김훈민
  */
-public interface RefreshRepository extends JpaRepository<RefreshEntity, Long> {
+public interface RefreshRepository extends JpaRepository<Refresh, Long> {
 
     Boolean existsByRefresh(String refresh);
 

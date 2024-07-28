@@ -1,6 +1,9 @@
 package com.ssafy.bartter.user.dto;
 
 import com.ssafy.bartter.user.entity.Gender;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -16,47 +19,59 @@ import java.time.LocalDate;
 public class UserJoinDto {
 
     /**
-     * 사용자 아이디
+     * 사용자 아이디 (최소 8글자 이상)
      */
+    @NotNull(message = "아이디를 입력하세요.")
+    @Size(min = 8, message = "아이디는 최소 8글자 이상이어야 합니다.")
     private String username;
 
     /**
      * 사용자 비밀번호
      */
+    @NotNull(message = "비밀번호를 입력하세요.")
     private String password;
 
     /**
      * 사용자 닉네임
      */
+    @NotNull(message = "닉네임을 입력하세요.")
     private String nickname;
 
     /**
      * 사용자 생년월일 (형식: "yyyy-MM-dd")
      */
+    @NotNull(message = "생년월일을 입력하세요.")
     private LocalDate birth;
 
     /**
      * 사용자 성별 ("F" 또는 "M")
      */
+    @NotNull(message = "성별을 선택하세요.")
     private Gender gender;
 
     /**
      * 사용자의 위치 정보 - 위도
      */
+    @NotNull(message = "위도 정보를 입력하세요.")
     private double latitude;
 
     /**
      * 사용자의 위치 정보 - 경도
      */
+    @NotNull(message = "경도 정보를 입력하세요.")
     private double longitude;
 
     /**
      * 사용자 핸드폰 번호
      */
+    @NotNull(message = "핸드폰 번호를 입력하세요.")
+    @NotBlank(message = "핸드폰 번호를 입력하세요.")
     private String phone;
 
     /**
      * 사용자 이메일
      */
+    @NotNull(message = "이메일을 입력하세요.")
+    @NotBlank(message = "이메일을 입력하세요.")
     private String email;
 }

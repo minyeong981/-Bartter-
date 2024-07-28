@@ -7,6 +7,7 @@ import com.ssafy.bartter.user.dto.UserJoinDto;
 import com.ssafy.bartter.user.entity.User;
 import com.ssafy.bartter.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
  *
  * @author 김훈민
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -36,7 +38,10 @@ public class UserService {
 
         Boolean isExist = userRepository.existsByUsername(username);
 
-        if (isExist) return;
+        if (isExist) {
+            log.warn("User with username {} already exists", username);
+            throw new IllegalArgumentException("User with username " + username + " already exists.");
+        }
 
         // 위도와 경도를 사용하여 Location 엔티티 조회
 //        Location location = locationService.getCurrentLocation(userJoinDto.getLatitude(), userJoinDto.getLongitude());
