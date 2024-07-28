@@ -11,10 +11,14 @@ const cx = classnames.bind(style);
 export default function GeneralButton({
   children,
   buttonStyle,
+  disabled,
   ...props
 }: LinkButtonProps) {
   return (
-    <Link className={cx(['button', ...Object.values(buttonStyle)])} {...props}>
+    <Link
+      className={cx(['button', {disabled}, ...Object.values(buttonStyle)])}
+      {...props}
+    >
       {children}
     </Link>
   );

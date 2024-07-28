@@ -4,15 +4,15 @@
 
 .button {
   @include typographies.button;
-
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   border: 0;
   border-radius: 5px;
+  cursor: pointer;
 
-  &:disabled {
+  &.disabled {
     color: colors.$white;
     background-color: colors.$placeholder;
     border-color: colors.$placeholder;
@@ -28,7 +28,7 @@
   color: colors.$primary;
   background-color: transparent;
 
-  &:disabled {
+  &.disabled {
     color: colors.$placeholder;
   }
 }
@@ -38,7 +38,7 @@
   background-color: transparent;
   border: 1px solid colors.$primary;
 
-  &:disabled {
+  &.disabled {
     color: colors.$placeholder;
     background-color: transparent;
   }
