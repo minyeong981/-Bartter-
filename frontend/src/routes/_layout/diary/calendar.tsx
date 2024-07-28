@@ -1,7 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 
-import CustomCalendar from '../../../components/Calendar/Calendar';
+import CustomCalendar from '@/components/Calendar/Calendar';
+
 import styles from './calendar.module.scss';
 
 export default function CalendarPage() {
@@ -12,11 +13,11 @@ export default function CalendarPage() {
   };
 
   return (
-    <div className={styles.calendarContainer}>
-      <div className={`${styles.calendarWrapper} ${isCollapsed ? styles.collapsed : ''}`}>
+    <div className={styles['calendar-container']}>
+      <div className={`${styles['calendar-wrapper']} ${isCollapsed ? styles.collapsed : ''}`}>
         <CustomCalendar isCollapsed={isCollapsed} />
       </div>
-      <button className={styles.toggleButton} onClick={toggleCalendar}>
+      <button className={styles['toggle-button']} onClick={toggleCalendar}>
         {isCollapsed ? '달력 펼치기' : '달력 접기'}
       </button>
     </div>

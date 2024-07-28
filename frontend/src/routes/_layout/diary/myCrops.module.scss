@@ -1,9 +1,9 @@
 .container {
   position: relative;
-  padding-bottom: 5rem; // 버튼 공간 확보를 위해 추가
+  padding-bottom: 5rem;
 }
 
-.noCrops {
+.no-crops {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,10 +13,9 @@
     width: 15rem; 
     height: auto;
   }
-
 }
 
-.cropList {
+.crop-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -34,10 +33,10 @@
   height: 50px;
 }
 
-.floatingButton {
+.floating-button {
   position: fixed;
   right: 1rem;
-  bottom: 14rem;
+  bottom: 15rem;
 
   button {
     color: white;

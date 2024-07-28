@@ -1,12 +1,12 @@
 @use '@/styles/constants/colors.scss' as colors;
 @use '@/styles/constants/typographies.scss' as typo;
 
-.calendarContainer {
+.calendar-container {
   position: relative;
   text-align: center;
 }
 
-.calendarWrapper {
+.calendar-wrapper {
   overflow: hidden;
   transition: max-height 0.1s ease;
   max-height: 100rem;
@@ -25,12 +25,12 @@
 }
 
 .custom-calendar-container.collapsed .react-calendar__month-view__days .react-calendar__tile--now,
-.custom-calendar-container.collapsed .react-calendar__month-view__days .react-calendar__tile--currentWeek,
+.custom-calendar-container.collapsed .react-calendar__month-view__days .react-calendar__tile--current-week,
 .custom-calendar-container.collapsed .react-calendar__month-view__weekdays {
   display: block;
 }
 
-.toggleButton {
+.toggle-button {
   display: block;
   margin: 0.5rem auto;
   font-size: 0.875rem;
@@ -40,13 +40,13 @@
   cursor: pointer;
 }
 
-.toggleButton:hover {
+.toggle-button:hover {
   text-decoration: none;
 }
 
 .today {
   background-color: colors.$primary;
-//   color: white !important;
+  color: white !important;
   border-radius: 50%;
   display: inline-block;
   width: 2rem;

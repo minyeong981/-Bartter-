@@ -164,16 +164,16 @@ export default function MyCrops() {
   return (
     <div className={styles.container}>
       {selectedCrop === null ? (
-        <div className={styles.noCrops}>
+        <div className={styles['no-crops']}>
           <h3>아직 등록된 농작물이 없습니다.</h3>
           <img src={notCrop} alt="notCrop" />
         </div>
       ) : (
         <div>
           <h3>전체 작물 ( 숫자 카운트 )</h3>
-          <div className={styles.cropList}>
-            <div className="crop-item">
-              <img src={initialCrops[selectedCrop].cropImageSrc} alt={initialCrops[selectedCrop].cropNameSrc} className="crop-image-thumbnail" />
+          <div className={styles['crop-list']}>
+            <div className={styles['crop-item']}>
+              <img src={initialCrops[selectedCrop].cropImageSrc} alt={initialCrops[selectedCrop].cropNameSrc} className={styles['crop-image-thumbnail']} />
               <div>{initialCrops[selectedCrop].cropNameSrc}</div>
             </div>
           </div>
@@ -187,7 +187,7 @@ export default function MyCrops() {
         selectedCrop={selectedCrop}
         showSearchBar={true}
       />
-      <div className={styles.floatingButton}>
+      <div className={styles['floating-button']}>
         <GeneralButton
           buttonStyle={{ style: 'floating', size:'small'}}
           onClick={handleOpenModal}
