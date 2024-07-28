@@ -18,8 +18,10 @@ import { Route as LayoutSignupIndexImport } from './routes/_layout/signup/index'
 import { Route as LayoutLoginIndexImport } from './routes/_layout/login/index'
 import { Route as LayoutHomeIndexImport } from './routes/_layout/home/index'
 import { Route as LayoutDiaryIndexImport } from './routes/_layout/diary/index'
+import { Route as LayoutCommunityIndexImport } from './routes/_layout/community/index'
 import { Route as LayoutDiaryMyCropsImport } from './routes/_layout/diary/myCrops'
 import { Route as LayoutDiaryCalendarImport } from './routes/_layout/diary/calendar'
+import { Route as LayoutCommunityDetailImport } from './routes/_layout/community/detail'
 import { Route as LayoutDiaryCreate3Import } from './routes/_layout/diary/create/3'
 import { Route as LayoutDiaryCreate2Import } from './routes/_layout/diary/create/2'
 import { Route as LayoutDiaryCreate1Import } from './routes/_layout/diary/create/1'
@@ -61,6 +63,11 @@ const LayoutDiaryIndexRoute = LayoutDiaryIndexImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
+const LayoutCommunityIndexRoute = LayoutCommunityIndexImport.update({
+  path: '/community/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
 const LayoutDiaryMyCropsRoute = LayoutDiaryMyCropsImport.update({
   path: '/diary/myCrops',
   getParentRoute: () => LayoutRoute,
@@ -68,6 +75,11 @@ const LayoutDiaryMyCropsRoute = LayoutDiaryMyCropsImport.update({
 
 const LayoutDiaryCalendarRoute = LayoutDiaryCalendarImport.update({
   path: '/diary/calendar',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutCommunityDetailRoute = LayoutCommunityDetailImport.update({
+  path: '/community/detail',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -111,6 +123,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutIndexImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/community/detail': {
+      id: '/_layout/community/detail'
+      path: '/community/detail'
+      fullPath: '/community/detail'
+      preLoaderRoute: typeof LayoutCommunityDetailImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/diary/calendar': {
       id: '/_layout/diary/calendar'
       path: '/diary/calendar'
@@ -123,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/diary/myCrops'
       fullPath: '/diary/myCrops'
       preLoaderRoute: typeof LayoutDiaryMyCropsImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/community/': {
+      id: '/_layout/community/'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof LayoutCommunityIndexImport
       parentRoute: typeof LayoutImport
     }
     '/_layout/diary/': {
@@ -182,8 +208,10 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   LayoutRoute: LayoutRoute.addChildren({
     LayoutIndexRoute,
+    LayoutCommunityDetailRoute,
     LayoutDiaryCalendarRoute,
     LayoutDiaryMyCropsRoute,
+    LayoutCommunityIndexRoute,
     LayoutDiaryIndexRoute,
     LayoutHomeIndexRoute,
     LayoutLoginIndexRoute,
@@ -211,8 +239,10 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout.tsx",
       "children": [
         "/_layout/",
+        "/_layout/community/detail",
         "/_layout/diary/calendar",
         "/_layout/diary/myCrops",
+        "/_layout/community/",
         "/_layout/diary/",
         "/_layout/home/",
         "/_layout/login/",
@@ -229,12 +259,20 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout/index.tsx",
       "parent": "/_layout"
     },
+    "/_layout/community/detail": {
+      "filePath": "_layout/community/detail.tsx",
+      "parent": "/_layout"
+    },
     "/_layout/diary/calendar": {
       "filePath": "_layout/diary/calendar.tsx",
       "parent": "/_layout"
     },
     "/_layout/diary/myCrops": {
       "filePath": "_layout/diary/myCrops.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/community/": {
+      "filePath": "_layout/community/index.tsx",
       "parent": "/_layout"
     },
     "/_layout/diary/": {

@@ -1,0 +1,38 @@
+.c-user-info-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.c-profile-image {
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.c-user-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.c-user-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.c-location, .c-create-date {
+    font-size: 14px;
+    color: #777;
+}
+
+.c-menu-icon {
+    font-size: 24px;  // 아이콘 크기 조정
+    color: #333;  // 아이콘 색상
+    cursor: pointer;
+}
