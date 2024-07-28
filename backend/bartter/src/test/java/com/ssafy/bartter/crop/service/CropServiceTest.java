@@ -26,7 +26,7 @@ import static org.mockito.Mockito.mock;
 /**
  * @Author 김가람
  *
- * CropService 메소드 테스트
+ * CropService 테스트
  * */
 @ExtendWith(MockitoExtension.class)
 class CropServiceTest {

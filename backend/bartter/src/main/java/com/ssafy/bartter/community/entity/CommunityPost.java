@@ -5,6 +5,8 @@ import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.List;
  * @author 김용수
  */
 @Entity
+@Getter
 @Table(name = "community_post")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommunityPost extends BaseEntity {
@@ -71,4 +74,12 @@ public class CommunityPost extends BaseEntity {
      */
     @OneToMany(mappedBy = "communityPost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CommunityPostImage> imageList = new ArrayList<>();
+
+    @Builder
+    public CommunityPost(User user, Location location, String title, String content) {
+        this.user = user;
+        this.location = location;
+        this.title = title;
+        this.content = content;
+    }
 }

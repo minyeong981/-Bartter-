@@ -52,6 +52,7 @@ public class CropDto {
     @AllArgsConstructor
     public static class CropProfile {
         private final Integer cropId;
+        // TODO : User Entity로 변경
         private final Integer userId;
         private final CropCategoryDetail cropCategory;
         private final String nickname;
