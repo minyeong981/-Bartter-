@@ -3,16 +3,15 @@ import classnames from 'classnames/bind';
 
 import BinaryButton from '@/components/BinaryButton';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
-import HeaderWithBackButton from '@/components/Header/HeaderWithBackButton.tsx';
 import Heading from '@/components/Heading';
 import type {Gender} from '@/store/signupStore.ts';
 import useSignupStore from '@/store/signupStore.ts';
 
-import styles from '../../signup.module.scss';
+import styles from '../signup.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/signup/_layout/3/')({
+export const Route = createFileRoute('/_layout/signup/_layout/3')({
   component: GetGenderPage,
 });
 
@@ -25,8 +24,7 @@ function GetGenderPage() {
   }
 
   return (
-    <div className={cx('signup')}>
-      <HeaderWithBackButton />
+    <>
       <div className={cx('headingContainer')}>
         <Heading>
           농부님의
@@ -50,6 +48,6 @@ function GetGenderPage() {
           다음
         </GeneralButton>
       </div>
-    </div>
+    </>
   );
 }

@@ -3,15 +3,14 @@ import classnames from 'classnames/bind';
 import type {ChangeEvent} from 'react';
 
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
-import HeaderWithBackButton from '@/components/Header/HeaderWithBackButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import useSignupStore from '@/store/signupStore.ts';
 
-import styles from '../../signup.module.scss';
+import styles from '../signup.module.scss';
 
 const cx = classnames.bind(styles);
-export const Route = createFileRoute('/_layout/signup/_layout/1/')({
+export const Route = createFileRoute('/_layout/signup/_layout/1')({
   component: GetNamePage,
 });
 
@@ -25,8 +24,7 @@ function GetNamePage() {
   }
 
   return (
-    <div className={cx('signup')}>
-      <HeaderWithBackButton />
+    <>
       <div className={cx('headingContainer')}>
         <Heading>
           농부님의
@@ -51,6 +49,6 @@ function GetNamePage() {
           다음
         </GeneralButton>
       </div>
-    </div>
+    </>
   );
 }

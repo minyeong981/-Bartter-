@@ -2,16 +2,15 @@ import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 
 import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
-import HeaderWithBackButton from '@/components/Header/HeaderWithBackButton.tsx';
 import Heading from '@/components/Heading';
 import useSignupStore from '@/store/signupStore.ts';
 import {getPosition} from '@/util/geolocation.ts';
 
-import styles from '../../signup.module.scss';
+import styles from '../signup.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/signup/_layout/7/')({
+export const Route = createFileRoute('/_layout/signup/_layout/7')({
   component: GetLocationPage,
 });
 
@@ -32,8 +31,7 @@ function GetLocationPage() {
   }
 
   return (
-    <div className={cx('signup')}>
-      <HeaderWithBackButton />
+    <>
       <div className={cx('headingContainer')}>
         <Heading>
           농부님의
@@ -50,6 +48,6 @@ function GetLocationPage() {
           위치 등록하기
         </GeneralButton>
       </div>
-    </div>
+    </>
   );
 }

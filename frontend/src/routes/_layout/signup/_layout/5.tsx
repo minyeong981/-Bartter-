@@ -4,16 +4,15 @@ import type {ChangeEvent} from 'react';
 
 import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
-import HeaderWithBackButton from '@/components/Header/HeaderWithBackButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import useSignupStore from '@/store/signupStore.ts';
 
-import styles from '../../signup.module.scss';
+import styles from '../signup.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/signup/_layout/5/')({
+export const Route = createFileRoute('/_layout/signup/_layout/5')({
   component: GetEmailPage,
 });
 
@@ -35,8 +34,7 @@ function GetEmailPage() {
   }
 
   return (
-    <div className={cx('signup')}>
-      <HeaderWithBackButton />
+    <>
       <div className={cx('headingContainer')}>
         <Heading>
           농부님의
@@ -68,6 +66,6 @@ function GetEmailPage() {
           건너뛰기
         </GeneralButton>
       </div>
-    </div>
+    </>
   );
 }

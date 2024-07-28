@@ -4,18 +4,17 @@ import type {ChangeEvent} from 'react';
 import {useState} from 'react';
 
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
-import HeaderWithBackButton from '@/components/Header/HeaderWithBackButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import useSignupStore from '@/store/signupStore.ts';
 
-import styles from '../../signup.module.scss';
+import styles from '../signup.module.scss';
 
 const cx = classnames.bind(styles);
 
 const PASSWORD_PATTERN = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
 
-export const Route = createFileRoute('/_layout/signup/_layout/6/')({
+export const Route = createFileRoute('/_layout/signup/_layout/6')({
   component: GetPasswordPage,
 });
 
@@ -35,8 +34,7 @@ function GetPasswordPage() {
   }
 
   return (
-    <div className={cx('signup')}>
-      <HeaderWithBackButton />
+    <>
       <div className={cx('headingContainer')}>
         <Heading>
           농부님이
@@ -69,6 +67,6 @@ function GetPasswordPage() {
           다음
         </GeneralButton>
       </div>
-    </div>
+    </>
   );
 }
