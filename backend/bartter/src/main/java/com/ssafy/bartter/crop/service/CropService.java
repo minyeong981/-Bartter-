@@ -55,6 +55,7 @@ public class CropService {
         return cropCategoryRepository.findAll();
     }
 
+    // TODO : Fetch join - CropCategory
     public Crop getCrop(Integer cropId) {
         return cropRepository.findById(cropId).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
     }

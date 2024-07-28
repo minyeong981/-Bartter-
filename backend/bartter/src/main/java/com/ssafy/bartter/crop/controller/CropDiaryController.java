@@ -1,10 +1,5 @@
 package com.ssafy.bartter.crop.controller;
 
-import com.ssafy.bartter.crop.dto.CropCategoryDto;
-import com.ssafy.bartter.crop.dto.CropDiaryDto;
-import com.ssafy.bartter.crop.dto.CropDto;
-import com.ssafy.bartter.crop.entity.Crop;
-import com.ssafy.bartter.crop.entity.CropCategory;
 import com.ssafy.bartter.crop.entity.CropDiary;
 import com.ssafy.bartter.crop.service.CropDiaryService;
 import com.ssafy.bartter.global.exception.CustomException;
@@ -18,10 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.ssafy.bartter.crop.dto.CropDiaryDto.*;
+import static com.ssafy.bartter.crop.dto.CropDiaryDto.Create;
+import static com.ssafy.bartter.crop.dto.CropDiaryDto.CropDiaryDetail;
 
 @RestController
 @RequiredArgsConstructor
