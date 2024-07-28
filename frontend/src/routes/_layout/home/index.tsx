@@ -10,7 +10,7 @@ import AdCarousel from '../../../components/AdCarousel/AdCarousel'
 import HomeBarter from '../../../components/Barter/HomeBarter'
 import LinkButton from '../../../components/Buttons/LinkButton'
 import Community from '../../../components/Community/Community'
-import Header from '../../../components/Header'
+// import Header from '../../../components/Header'
 import HomeStory from '../../../components/Story/HomeStory'
 
 

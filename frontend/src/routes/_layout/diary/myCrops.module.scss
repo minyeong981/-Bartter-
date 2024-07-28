@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100vh;
+  padding-top: 20vh;
+}
+
+.no-crops {
+  position: relative;
+  width: 100%;
+  max-width: 1200px; 
+  overflow: visible; 
+  text-align: center; 
+}
+
+.no-crops img {
+  width: 100%; 
+  max-width: 800px; 
+  height: auto; 
+}
+
+.no-crops button {
+  position: absolute;
+  right: 10px; 
+  bottom: 10px; 
+  transform: translate(50%, 50%); /* 약간 걸치도록 조정 */
+}
