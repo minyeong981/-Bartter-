@@ -6,12 +6,11 @@ import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import useSignupStore from '@/store/signupStore.ts';
+import {BIRTH_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
 
 const cx = classnames.bind(styles);
-
-const BIRTH_PATTERN = /^\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/;
 
 export const Route = createFileRoute('/_layout/signup/_layout/4')({
   component: GetBirthPage,

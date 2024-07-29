@@ -7,6 +7,7 @@ import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import useSignupStore from '@/store/signupStore.ts';
+import {EMAIL_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
 
@@ -20,16 +21,14 @@ function GetEmailPage() {
   const navigate = useNavigate({from: '/signup/7'});
   const email = useSignupStore(state => state.email) || '';
   const setEmail = useSignupStore(state => state.setEmail);
-  const isValid = email.match(
-    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-  );
+  const isValid = email.match(EMAIL_PATTERN);
 
   function handleEmailChange(e: ChangeEvent<HTMLInputElement>) {
     setEmail(e.currentTarget.value);
   }
 
   function handleContinueButton() {
-    setEmail(null);
+    setEmail(undefined);
     navigate({to: '/signup/6'});
   }
 

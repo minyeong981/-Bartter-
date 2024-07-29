@@ -6,12 +6,11 @@ import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import useSignupStore from '@/store/signupStore.ts';
+import {USERID_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
 
 const cx = classnames.bind(styles);
-
-const USERID_PATTERN = /^[a-zA-Z0-9]{4,}$/;
 
 export const Route = createFileRoute('/_layout/signup/_layout/2')({
   component: GetUserId,

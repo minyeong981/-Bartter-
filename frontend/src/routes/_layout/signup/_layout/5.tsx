@@ -4,7 +4,6 @@ import classnames from 'classnames/bind';
 import BinaryButton from '@/components/BinaryButton';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
-import type {Gender} from '@/store/signupStore.ts';
 import useSignupStore from '@/store/signupStore.ts';
 
 import styles from '../signup.module.scss';

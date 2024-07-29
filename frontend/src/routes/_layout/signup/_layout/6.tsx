@@ -6,20 +6,19 @@ import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import useSignupStore from '@/store/signupStore.ts';
+import {NUMBER_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
 
 const cx = classnames.bind(styles);
-
-const NUMBER_PATTERN = /[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
 
 export const Route = createFileRoute('/_layout/signup/_layout/6')({
   component: GetPhoneNumberPage,
 });
 
 function GetPhoneNumberPage() {
-  const phoneNumber = useSignupStore(state => state.phoneNumber);
-  const setPhoneNumber = useSignupStore(state => state.setPhoneNumber);
+  const phoneNumber = useSignupStore(state => state.phone);
+  const setPhoneNumber = useSignupStore(state => state.setPhone);
   const isValid = phoneNumber.match(NUMBER_PATTERN);
 
   function handlePhoneNumberChange(e: ChangeEvent<HTMLInputElement>) {

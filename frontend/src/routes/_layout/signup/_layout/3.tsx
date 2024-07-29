@@ -7,12 +7,11 @@ import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import useSignupStore from '@/store/signupStore.ts';
+import {PASSWORD_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
 
 const cx = classnames.bind(styles);
-
-const PASSWORD_PATTERN = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
 
 export const Route = createFileRoute('/_layout/signup/_layout/3')({
   component: GetPasswordPage,
