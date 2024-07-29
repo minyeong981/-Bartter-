@@ -1,6 +1,6 @@
 package com.ssafy.bartter.community.dto;
 
-import com.ssafy.bartter.community.dto.CommunityPostCommentDto.SimpleCommunityPostComment;
+import com.ssafy.bartter.community.dto.CommunityPostCommentDto.CommunityPostCommentDetail;
 import com.ssafy.bartter.community.entity.CommunityPost;
 import com.ssafy.bartter.community.entity.CommunityPostImage;
 import com.ssafy.bartter.global.common.SimpleLocation;
@@ -41,6 +41,7 @@ public class CommunityPostDto {
      * 동네모임 게시글 Response
      * */
     @Builder
+    @Getter
     @AllArgsConstructor
     public static class CommunityPostDetail {
         private final Integer communityPostId;
@@ -50,7 +51,7 @@ public class CommunityPostDto {
         private final String title;
         private final String content;
         private final Integer likeCount;
-        private final List<SimpleCommunityPostComment> commentList;
+        private final List<CommunityPostCommentDetail> commentList;
         private final List<SimpleCommunityImage> imageList;
         private final LocalDateTime createdAt;
 
@@ -64,7 +65,7 @@ public class CommunityPostDto {
                     .likeCount(post.getLikeList().size())
                     .commentList(
                             post.getCommentList().stream()
-                                    .map(SimpleCommunityPostComment::of)
+                                    .map(CommunityPostCommentDetail::of)
                                     .collect(Collectors.toList())
                     )
                     .imageList(

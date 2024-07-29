@@ -21,7 +21,7 @@ import java.util.List;
 import static com.ssafy.bartter.community.dto.CommunityPostDto.Create;
 
 /**
- * CommunityPost Entity 연관 Service
+ * 동네모임 게시글 Service
  *
  * @author 김가람
  */
@@ -35,6 +35,9 @@ public class CommunityPostService {
     private final UserRepository userRepository;
     private final S3UploadService s3UploadService;
 
+    /**
+     * 동네모임 게시글 작성
+     * */
     public CommunityPost createPost(Create request, List<MultipartFile> imageList) {
         User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         Location userLocation = user.getLocation();
@@ -63,7 +66,19 @@ public class CommunityPostService {
         return post;
     }
 
+    // TODO : Fetch join - Location, LikeList, CommentList, ImageList
+    /**
+     * 동네모임 게시글 상세조회
+     * */
     public CommunityPost getPost(Integer communityPostId) {
         return communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
+    }
+
+    /**
+     * 동네모임 게시글 삭제
+     * */
+    public void deletePost(Integer communityPostId) {
+        CommunityPost post = communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
+        communityPostRepository.delete(post);
     }
 }

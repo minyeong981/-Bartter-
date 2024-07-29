@@ -20,6 +20,7 @@ public enum ErrorCode {
 
     // Auth & User - 2000
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, 2000, "해당 ID의 사용자를 찾을 수 없습니다."),
+    ACCESS_TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, 2001, "만료된 액세스 토큰입니다."),
 
     // Crop - 3000
     CROP_NOT_FOUND(HttpStatus.NOT_FOUND, 3000, "해당 ID의 농작물을 찾을 수 없습니다."),
@@ -30,6 +31,9 @@ public enum ErrorCode {
 
     // Community - 5000
     COMMUNITY_POST_NOT_FOUND(HttpStatus.NOT_FOUND, 5000, "해당 ID의 동네모임 게시글을 찾을 수 없습니다."),
+    COMMUNITY_POST_COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, 5001, "해당 ID의 동네모임 게시글 댓글을 찾을 수 없습니다.")
+
+    // Trade
 
     // Trade - 6000
     TRADE_POST_NOT_FOUND(HttpStatus.NOT_FOUND,6000,"해당 ID의 물물교환 게시글을 찾을 수 없습니다." )
