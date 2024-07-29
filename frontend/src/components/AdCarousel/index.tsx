@@ -1,11 +1,12 @@
-import './AdCarousel.scss';
-
+import classnames from 'classnames/bind';
 import {useState} from 'react';
+
+import styles from './adCarousel.module.scss';
 
 interface Ad {
   id: number;
   content: string;
-  button:string;
+  button: string;
 }
 
 const ads: Ad[] = [
@@ -14,8 +15,9 @@ const ads: Ad[] = [
   {id: 3, content: '광고 3', button: '바로가기'},
 ];
 
-export default function AdCarousel() {
+const cx = classnames.bind(styles);
 
+export default function Index() {
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
 
   const nextAd = () => {
@@ -27,21 +29,21 @@ export default function AdCarousel() {
   };
 
   return (
-    <div className="carousel">
-      <button className="carousel-control prev" onClick={prevAd}>
+    <div className={cx('carousel')}>
+      <button className={cx('carousel-control', 'prev')} onClick={prevAd}>
         이전
       </button>
-      <div className="carousel-inner">
+      <div className={cx('carousel-inner')}>
         {ads.map((ad, index) => (
           <div
             key={ad.id}
-            className={`carousel-item ${index === currentAdIndex ? 'active' : ''}`}
+            className={cx('carousel-item', {active: index === currentAdIndex})}
           >
             {ad.content}
           </div>
         ))}
       </div>
-      <button className="carousel-control next" onClick={nextAd}>
+      <button className={cx('carousel-control', 'next')} onClick={nextAd}>
         다음
       </button>
     </div>

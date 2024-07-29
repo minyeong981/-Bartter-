@@ -1,12 +1,12 @@
 import './home.scss';
 
-import { createFileRoute } from '@tanstack/react-router'
+import {createFileRoute} from '@tanstack/react-router';
 
 import SweatPotato from '@/assets/image/고구마.png';
 import CommunityImage from '@/assets/image/동네모임1.png';
 import StroyImage from '@/assets/image/스토리1.png';
 import UserImage from '@/assets/image/유저.png';
-import AdCarousel from '@/components/AdCarousel/AdCarousel';
+import AdCarousel from '@/components/AdCarousel';
 import HomeBarter from '@/components/Barter/HomeBarter';
 import LinkButton from '@/components/Buttons/LinkButton';
 import Community from '@/components/Community/PostList';
@@ -46,7 +46,6 @@ const barters = [
     date: '2024-07-25',
     likeCount: 3,
   },
-
 ];
 
 const posts = [
@@ -104,40 +103,39 @@ const storyData = [
 
 export const Route = createFileRoute('/_layout/home/')({
   component: () => (
-      <div className="container">
+    <div className="container">
       {/* <HeaderWithLabelAndButtons label="위치" /> */}
       <AdCarousel />
-        <div className="home-barter">
-          <div className="section-title">
-            <div>물물 교환</div>
-          </div>
-          <HomeBarter barterCards={barters} />
+      <div className="home-barter">
+        <div className="section-title">
+          <div>물물 교환</div>
         </div>
-
-        <div className="link-button-container">
-          <LinkButton buttonStyle={{style: 'primary', size: 'medium'}}>
-            물물 교환 더보기
-          </LinkButton>
-        </div>
-
-        <div className="home-community">
-          <div className="section-title">
-            <div>동네 모임</div>
-          </div>
-          <Community postCards={posts} />
-        </div>
-        <div className="link-button-container">
-          <LinkButton buttonStyle={{style: 'primary', size: 'medium'}}>
-            동네 모임 더보기
-          </LinkButton>
-        </div>
-        <div className="home-story">
-          <div className="section-title">
-            <div>이웃의 농사 일지</div>
-            <HomeStory followCards={storyData} />
-          </div>
-        </div>
+        <HomeBarter barterCards={barters} />
       </div>
 
+      <div className="link-button-container">
+        <LinkButton buttonStyle={{style: 'primary', size: 'medium'}}>
+          물물 교환 더보기
+        </LinkButton>
+      </div>
+
+      <div className="home-community">
+        <div className="section-title">
+          <div>동네 모임</div>
+        </div>
+        <Community postCards={posts} />
+      </div>
+      <div className="link-button-container">
+        <LinkButton buttonStyle={{style: 'primary', size: 'medium'}}>
+          동네 모임 더보기
+        </LinkButton>
+      </div>
+      <div className="home-story">
+        <div className="section-title">
+          <div>이웃의 농사 일지</div>
+          <HomeStory followCards={storyData} />
+        </div>
+      </div>
+    </div>
   ),
 });
