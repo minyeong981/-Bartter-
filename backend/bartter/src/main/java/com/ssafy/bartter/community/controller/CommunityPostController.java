@@ -3,6 +3,8 @@ package com.ssafy.bartter.community.controller;
 
 import com.ssafy.bartter.community.entity.CommunityPost;
 import com.ssafy.bartter.community.service.CommunityPostService;
+import com.ssafy.bartter.crop.dto.CropCategoryDto;
+import com.ssafy.bartter.crop.entity.CropCategory;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.response.SuccessResponse;
@@ -11,13 +13,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.ssafy.bartter.community.dto.CommunityPostDto.CommunityPostDetail;
 import static com.ssafy.bartter.community.dto.CommunityPostDto.Create;
@@ -30,7 +30,7 @@ public class CommunityPostController {
 
     private final CommunityPostService communityPostService;
 
-    @Operation(summary = "게시글 작성", description = "동네모임 게시글을 작성한다.")
+    @Operation(summary = "동네모임 게시글 작성", description = "동네모임 게시글을 작성한다.")
     @PostMapping("")
     public SuccessResponse<CommunityPostDetail> createCommunityPost(
             @RequestBody @Valid Create request,
@@ -40,6 +40,13 @@ public class CommunityPostController {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE);
         }
         CommunityPost post = communityPostService.createPost(request, imageList);
+        return new SuccessResponse<>(CommunityPostDetail.of(post));
+    }
+
+    @Operation(summary = "동네모임 게시글 조회", description = "동네모임 게시글의 PK를 통해 게시글의 상세 정보를 조회한다.")
+    @GetMapping("/{communityPostId}")
+    public SuccessResponse<CommunityPostDetail> getCommunityPost(@PathVariable("communityPostId") Integer communityPostId) {
+        CommunityPost post = communityPostService.getPost(communityPostId);
         return new SuccessResponse<>(CommunityPostDetail.of(post));
     }
 }

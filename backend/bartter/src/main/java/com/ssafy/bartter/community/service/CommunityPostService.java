@@ -62,4 +62,8 @@ public class CommunityPostService {
 
         return post;
     }
+
+    public CommunityPost getPost(Integer communityPostId) {
+        return communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
+    }
 }

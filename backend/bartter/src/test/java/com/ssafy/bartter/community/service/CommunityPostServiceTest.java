@@ -111,6 +111,21 @@ class CommunityPostServiceTest {
         assertThat(post.getImageList()).hasSize(0);
     }
 
+    @DisplayName("동네모임 게시글 PK로 동네모임 게시글을 조회한다.")
+    @Test
+    void 동네모임_게시글_조회() {
+        // given
+        CommunityPost post = mock(CommunityPost.class);
+        given(communityPostRepository.findById(1)).willReturn(Optional.of(post));
+
+        // when
+        CommunityPost findPost = communityPostService.getPost(1);
+
+        // then
+        assertThat(findPost).isNotNull();
+        assertThat(findPost).isEqualTo(post);
+    }
+
 
     private static Create getRequest() {
         Integer userId = 1;
