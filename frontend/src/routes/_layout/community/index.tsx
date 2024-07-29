@@ -1,11 +1,9 @@
-
-import { createFileRoute } from '@tanstack/react-router'
+import {createFileRoute} from '@tanstack/react-router';
 import {useState} from 'react';
 
 import CommunityImage from '@/assets/image/동네모임1.png';
 import PostList from '@/components/Community/PostList';
 import TwoButton from '@/components/TwoButton/TwoButton';
-
 
 const allPosts = [
   {
@@ -13,7 +11,7 @@ const allPosts = [
     title: '동네 마라톤 대회',
     content: '함께 달려요! 초보자도 환영합니다.',
     date: '2024-07-25 오후 5:00',
-    imageSrc: [CommunityImage,CommunityImage],
+    imageSrc: [CommunityImage, CommunityImage],
     likeCount: 1,
     commentCount: 2,
   },
@@ -34,7 +32,7 @@ const neighborPosts = [
     title: '동네 마라톤 대회',
     content: '함께 달려요! 초보자도 환영합니다.',
     date: '2024-07-25 오후 5:00',
-    imageSrc: [CommunityImage,],
+    imageSrc: [CommunityImage],
     likeCount: 1,
     commentCount: 2,
   },
@@ -69,19 +67,17 @@ export default function Community() {
 
   return (
     <div>
-      <TwoButton 
-      first='전체글'
-      second='동네글'
-      activeButton={activeComponent}
-      onClick={handleButtonClick}
+      <TwoButton
+        first="전체글"
+        second="동네글"
+        activeButton={activeComponent}
+        onClick={handleButtonClick}
       />
-      <div>
-        {renderComponent()}
-      </div>
+      <div>{renderComponent()}</div>
     </div>
   );
 }
 
 export const Route = createFileRoute('/_layout/community/')({
-  component: Community
+  component: Community,
 });
