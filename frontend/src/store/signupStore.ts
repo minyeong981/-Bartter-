@@ -19,20 +19,25 @@ interface SignupStore {
   setEmail: (newEmail: string | undefined) => void;
   setPhone: (nwPhoneNumber: string) => void;
   setCoordinate: (newCoordinate: GeolocationCoordinates) => void;
+  resetSignupForm: () => void;
 }
+
+const INITIAL_FORM_STATE = {
+  username: '',
+  password: '',
+  nickname: '',
+  birth: '',
+  latitude: undefined,
+  longitude: undefined,
+  gender: undefined,
+  email: undefined,
+  phone: '',
+};
 
 const useSignupStore = create<SignupStore>()(
   persist(
     set => ({
-      username: '',
-      password: '',
-      nickname: '',
-      birth: '',
-      latitude: undefined,
-      longitude: undefined,
-      gender: undefined,
-      email: undefined,
-      phone: '',
+      ...INITIAL_FORM_STATE,
       setNickname: newNickname => set({nickname: newNickname}),
       setBirth: newBirth => set({birth: newBirth}),
       setUsername: newUsername => set({username: newUsername}),
@@ -45,6 +50,7 @@ const useSignupStore = create<SignupStore>()(
           latitude,
           longitude,
         }),
+      resetSignupForm: () => set({...INITIAL_FORM_STATE}),
     }),
     {name: 'signup-form'},
   ),
