@@ -26,11 +26,13 @@
 .cardContent {
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
   padding: 10px;
 }
 
 .textBox {
   display: flex;
+  flex: 1;
   flex-direction: column;
   margin-right: 10px;
 }

@@ -42,3 +42,14 @@ button {
   background-color: transparent;
   border: 0;
 }
+
+.search {
+  width: 70%;
+}
+
+.center-search {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

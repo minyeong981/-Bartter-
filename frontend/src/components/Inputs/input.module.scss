@@ -3,9 +3,9 @@
 .generalInput {
   width: 341px;
   height: 48px;
+  padding: 0 12px;
   border: 1px solid colors.$primary;
   border-radius: 12px;
-  padding: 0 12px;
 
   &::placeholder {
     color: colors.$placeholder;
@@ -16,4 +16,19 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.textAreaInput {
+  display: flex;
+  align-items: flex-start;
+  width: 341px;
+  height: 200px;
+  padding: 0 12px;
+  overflow-y: auto;
+  border: 1px solid colors.$primary;
+  border-radius: 12px;
+
+  &::placeholder {
+    color: colors.$placeholder;
+  }
 }
