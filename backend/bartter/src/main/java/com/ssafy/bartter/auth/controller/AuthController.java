@@ -4,6 +4,9 @@ import com.ssafy.bartter.auth.entity.Refresh;
 import com.ssafy.bartter.auth.repository.RefreshRepository;
 import com.ssafy.bartter.auth.utils.CookieUtil;
 import com.ssafy.bartter.auth.utils.JwtUtil;
+import com.ssafy.bartter.global.exception.CustomException;
+import com.ssafy.bartter.global.exception.ErrorCode;
+import com.ssafy.bartter.global.response.SuccessResponse;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,7 +46,7 @@ public class AuthController {
         log.debug("refresh : {}", refresh);
         if (refresh == null) {
             // response status code
-            return new ResponseEntity<>("refresh token null", HttpStatus.BAD_REQUEST);
+            throw new CustomException(ErrorCode.REFRESH_TOKEN_MISSING);
         }
 
         // expired check
@@ -51,7 +54,7 @@ public class AuthController {
             jwtUtil.isExpired(refresh);
         } catch (ExpiredJwtException e) {
             // response status code
-            return new ResponseEntity<>("refresh token expired", HttpStatus.BAD_REQUEST);
+            throw new CustomException(ErrorCode.REFRESH_TOKEN_EXPIRED);
         }
 
         // 토큰이 refresh 인지 확인
@@ -59,14 +62,14 @@ public class AuthController {
 
         if (!category.equals("refreshToken")) {
             // response status code
-            return new ResponseEntity<>("invalid refresh token", HttpStatus.BAD_REQUEST);
+            throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
         }
 
         // DB에 저장되어 있는지 확인
         Boolean isExist = refreshRepository.existsByRefresh(refresh);
         if (!isExist) {
             // response body
-            return new ResponseEntity<>("invalid refresh token", HttpStatus.BAD_REQUEST);
+            throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
         }
 
         String username = jwtUtil.getUsername(refresh);
@@ -87,7 +90,8 @@ public class AuthController {
         response.setHeader("Authorization", newAccess);
         response.addCookie(cookieUtil.createCookie("refresh", newRefresh));
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new SuccessResponse<>("토큰 재발급에 성공하였습니다"));
 
     }
 

@@ -3,6 +3,7 @@ package com.ssafy.bartter.global.filter;
 import com.ssafy.bartter.auth.dto.AuthUserDetails;
 import com.ssafy.bartter.auth.dto.UserAuthDto;
 import com.ssafy.bartter.auth.utils.JwtUtil;
+import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.user.entity.User;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -43,7 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         // 헤더에서 accessToken 추출
-        String accessToken = request.getHeader("accessToken");
+        String accessToken = request.getHeader("Authorization");
 
         // 토큰이 없다면 다음 필터로
         if(accessToken == null) {
@@ -54,16 +55,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // 토큰 만료 여부 확인
         try{
+            accessToken = accessToken.substring(7);
             jwtUtil.isExpired(accessToken);
         } catch (ExpiredJwtException e){
-            ErrorCode errorCode = ErrorCode.ACCESS_TOKEN_EXPIRED;
-            response.setStatus(errorCode.getStatus().value());
-            response.setContentType("application/json");
-
-            // 에러 메시지 전송
-            PrintWriter printWriter = response.getWriter();
-            printWriter.print("{\"errorCode\": " + errorCode.getCode() + ", \"message\": \"" + errorCode.getMessage() + "\"}");
-            printWriter.flush();
+            throw new CustomException(ErrorCode.ACCESS_TOKEN_EXPIRED);
         }
 
 

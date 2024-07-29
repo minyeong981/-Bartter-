@@ -1,5 +1,9 @@
 package com.ssafy.bartter.user.controller;
 
+import com.ssafy.bartter.global.common.Location;
+import com.ssafy.bartter.global.exception.CustomException;
+import com.ssafy.bartter.global.response.ErrorResponse;
+import com.ssafy.bartter.global.response.SuccessResponse;
 import com.ssafy.bartter.user.dto.UserJoinDto;
 import com.ssafy.bartter.user.services.UserService;
 import jakarta.validation.Valid;
@@ -27,14 +31,17 @@ public class UserController {
      * @return 사용자 생성 성공 여부를 나타내는 ResponseEntity 객체
      */
     @PostMapping("/join")
-    public ResponseEntity<String> joinProcess(@Valid @RequestBody UserJoinDto userJoinDto) {
+    public ResponseEntity<?> joinProcess(@Valid @RequestBody UserJoinDto userJoinDto) {
         try {
             userService.joinProcess(userJoinDto);
-            return ResponseEntity.status(HttpStatus.CREATED).body("User created successfully");
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(new SuccessResponse<>("사용자가 성공적으로 생성되었습니다."));
+        } catch (CustomException e) {
+            return ResponseEntity.status(e.getErrorCode().getStatus())
+                    .body(ErrorResponse.of(e));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ErrorResponse.of(e));
         }
     }
 
