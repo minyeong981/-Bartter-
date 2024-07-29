@@ -21,6 +21,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
+
+/**
+ * @Author 김가람
+ *
+ * CropDiaryService 메소드 테스트
+ * */
 @ExtendWith(MockitoExtension.class)
 class CropDiaryServiceTest {
 
@@ -36,7 +42,7 @@ class CropDiaryServiceTest {
     @InjectMocks
     private CropDiaryService cropDiaryService;
 
-    @DisplayName("요청한 정보와 동일한 정보를 가진 농사일지가 생성된다.")
+    @DisplayName("요청한 정보와 동일한 정보를 가진 농사일지를 생성한다.")
     @Test
     void 농사일지_생성() {
         // given
@@ -62,22 +68,15 @@ class CropDiaryServiceTest {
     @Test
     void 농사일지_조회() {
         // given
-        Create request = getRequest();
-        Crop mockCrop = mock(Crop.class);
-        MultipartFile image = mock(MultipartFile.class);
-
-        given(cropRepository.findById(request.getCropId())).willReturn(Optional.of(mockCrop));
-        given(s3UploadService.upload(image)).willReturn("testurl");
-
-        CropDiary diary = spy(cropDiaryService.createCropDiary(request, image));
-
-        given(diary.getId()).willReturn(1);
+        CropDiary diary = mock(CropDiary.class);
         given(cropDiaryRepository.findById(1)).willReturn(Optional.of(diary));
+        given(diary.getId()).willReturn(1);
 
         // when
         CropDiary findDiary = cropDiaryService.getCropDiary(1);
 
         // then
+        assertThat(findDiary).isNotNull();
         assertThat(findDiary).isEqualTo(diary);
         assertThat(findDiary.getId()).isEqualTo(1);
     }

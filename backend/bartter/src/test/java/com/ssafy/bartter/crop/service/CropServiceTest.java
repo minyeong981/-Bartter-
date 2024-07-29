@@ -1,5 +1,6 @@
 package com.ssafy.bartter.crop.service;
 
+import com.ssafy.bartter.community.entity.CommunityPost;
 import com.ssafy.bartter.crop.entity.Crop;
 import com.ssafy.bartter.crop.entity.CropCategory;
 import com.ssafy.bartter.crop.repository.CropCategoryRepository;
@@ -26,7 +27,7 @@ import static org.mockito.Mockito.mock;
 /**
  * @Author 김가람
  *
- * CropService 메소드 테스트
+ * CropService 테스트
  * */
 @ExtendWith(MockitoExtension.class)
 class CropServiceTest {
@@ -80,5 +81,22 @@ class CropServiceTest {
         assertThat(crop.getNickname()).isEqualTo(nickname);
         assertThat(crop.getDescription()).isEqualTo(description);
         assertThat(crop.getGrowDate()).isEqualTo(growDate);
+    }
+
+    @DisplayName("농작물의 PK로 농작물 프로필을 조회한다.")
+    @Test
+    void 농작물_프로필_조회() {
+        // given
+        Crop crop = mock(Crop.class);
+        given(cropRepository.findById(1)).willReturn(Optional.of(crop));
+        given(crop.getId()).willReturn(1);
+
+        // when
+        Crop findCrop = cropService.getCrop(1);
+
+        // then
+        assertThat(findCrop).isNotNull();
+        assertThat(findCrop).isEqualTo(crop);
+        assertThat(findCrop.getId()).isEqualTo(1);
     }
 }
