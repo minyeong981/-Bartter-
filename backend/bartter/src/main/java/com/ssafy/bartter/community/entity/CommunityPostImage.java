@@ -57,7 +57,6 @@ public class CommunityPostImage extends BaseEntity {
 
     @Builder
     public CommunityPostImage(CommunityPost communityPost, String imageUrl, Integer order) {
-        this.communityPost = communityPost;
         this.imageUrl = imageUrl;
         this.order = order;
     }

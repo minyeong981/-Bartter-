@@ -19,7 +19,7 @@ import java.util.List;
 import static com.ssafy.bartter.crop.dto.CropDto.Create;
 
 /**
- * Crop Entity 연관 Service
+ * 농작물 프로필 Service
  *
  * @author 김가람
  */
@@ -33,6 +33,9 @@ public class CropService {
     private final CropCategoryRepository cropCategoryRepository;
     private final S3UploadService s3UploadService;
 
+    /**
+     * 농작물 프로필 생성
+     * */
     public Crop createCrop(Create request, MultipartFile image) {
         User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         CropCategory cropCategory = cropCategoryRepository.findById(request.getCropCategoryId()).orElseThrow(() -> new CustomException(ErrorCode.CROP_CATEGORY_NOT_FOUND));
@@ -51,11 +54,17 @@ public class CropService {
         return crop;
     }
 
+    /**
+     * 농작물 카테고리 전체 조회
+     * */
     public List<CropCategory> getCropCategoryList() {
         return cropCategoryRepository.findAll();
     }
 
     // TODO : Fetch join - CropCategory
+    /**
+     * 농작물 프로필 상세 조회
+     * */
     public Crop getCrop(Integer cropId) {
         return cropRepository.findById(cropId).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
     }
