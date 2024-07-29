@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,12 +20,13 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "농작물 물물교환 API", description = "농작물 물물교환 게시글 등록/목록/상세조회 관련 API")
+@RequestMapping("/trades")
 public class TradeController {
 
     private final TradePostService cropTradeService;
 
     @Operation(summary = "농작물 물물교환 목록 조회", description = "농작물 물물교환 게시글 목록을 조회한다. ")
-    @GetMapping("/trades")
+    @GetMapping("/posts")
     public SuccessResponse<List<SimpleTradePost>> getTradePostList(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "10") int limit,
@@ -33,7 +35,7 @@ public class TradeController {
             ) {
         int locationId = 1; // TODO : 사용자 로그인 구현시 변경 예정
 
-        log.debug("offset : {}, limit : {}, givenCategory : {}, desiredCategories : {}", page, limit, givenCategory, desiredCategories);
+        log.debug("page : {}, limit : {}, givenCategory : {}, desiredCategories : {}", page, limit, givenCategory, desiredCategories);
 
         List<TradePost> tradePostList = cropTradeService.getTradePostList(page, limit, givenCategory, desiredCategories, locationId);
 

@@ -1,5 +1,7 @@
 package com.ssafy.bartter.trade.services;
 
+import com.ssafy.bartter.global.common.Location;
+import com.ssafy.bartter.global.service.LocationService;
 import com.ssafy.bartter.trade.entity.TradePost;
 import com.ssafy.bartter.trade.repository.TradePostRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,14 +18,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TradePostService {
 
+    private final LocationService locationService;
     private final TradePostRepository cropTradeRepository;
 
     @Transactional(readOnly = true)
     public List<TradePost> getTradePostList(int offset, int limit, int givenCategory, List<Integer> desiredCategories, int locationId) {
+        List<Location> nearbyLocationList = locationService.getNearbyLocationList(locationId);
         PageRequest pageable = PageRequest.of(offset, limit, Sort.by("createdAt").descending());
         int desiredCategoriesSize = (desiredCategories == null) ? 0 : desiredCategories.size();
 
-        List<Integer> tradePostIds = cropTradeRepository.findTradePostIdList(locationId, givenCategory, desiredCategories, desiredCategoriesSize, pageable).getContent();
+        List<Integer> tradePostIds = cropTradeRepository.findTradePostIdList(nearbyLocationList, givenCategory, desiredCategories, desiredCategoriesSize, pageable).getContent();
         log.debug("{}", tradePostIds);
         return cropTradeRepository.findTradePostListByIdList(tradePostIds);
     }

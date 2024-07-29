@@ -33,7 +33,7 @@ public class LocationService {
     /**
      * 반경 5KM
      */
-    private final double RADIUS = 5000;
+    private final double RADIUS = 2500;
 
     /**
      * 위도 경도를 통해서 현재 동네를 가져오는 메서드
@@ -54,7 +54,7 @@ public class LocationService {
      */
     public List<Location> getNearbyLocationList(int locationId) {
         Location location = locationRepository.findById(locationId).orElseThrow(() -> new CustomException(ErrorCode.INVALID_LOCATION));
-        return locationRepository.findLocationListWithinRadius(location.getPoint(), RADIUS);
+        return locationRepository.findLocationListWithinRadius(location.getPoint(), RADIUS / 2);
     }
 
     /**
