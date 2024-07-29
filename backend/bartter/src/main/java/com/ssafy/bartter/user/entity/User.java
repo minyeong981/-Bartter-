@@ -57,7 +57,7 @@ public class User extends BaseEntity {
     /**
      * 사용자 비밀번호
      */
-    @Column(name = "user_password", nullable = false, length = 50)
+    @Column(name = "user_password", nullable = false, length = 255)
     private String password;
 
     /**
@@ -195,9 +195,28 @@ public class User extends BaseEntity {
      * 해당 사용자의 AI 요약 리포트 목록
      *
      * @Author 김가람
-     * */
+     */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CropReport> cropReportList = new ArrayList<>();
 
+
+    /**
+     * User 엔티티의 빌더
+     */
+    @Builder
+    public User(String username, String password, String nickname, LocalDate birth, Gender gender,
+                Location location, String phone, String email) {
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.birth = birth;
+        this.gender = gender;
+        this.location = location;
+        this.phone = phone;
+        this.email = email;
+        this.profileImage = "default.png";
+        this.profileMessage = "Hi";
+        this.isAccountExpired = false;
+    }
 
 }
