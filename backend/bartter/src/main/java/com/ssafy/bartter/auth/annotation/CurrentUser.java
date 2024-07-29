@@ -8,10 +8,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+
+/**
+ * 현재 인증된 사용자의 `UserAuthDto` 객체를 컨트롤러에서 주입받기 위한 어노테이션
+ *
+ * @author 김훈민
+ */
 @Target({ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Parameter(hidden = true)
-/* 인증 객체 정보를 가지고 다니는 커스텀 어노테이션, AuthDetail의 필드인 member를 가져온다. */
 @AuthenticationPrincipal(expression = "#this == 'anonymousUser' ? null : userAuthDto")
 public @interface CurrentUser {
 }

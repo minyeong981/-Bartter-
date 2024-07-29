@@ -17,6 +17,7 @@ public enum ErrorCode {
     FAIL_TO_DELETE_FILE(HttpStatus.INTERNAL_SERVER_ERROR, 1003, "파일 삭제에 실패했습니다."),
     NOT_SUPPORTED_EXTENSION(HttpStatus.BAD_REQUEST, 1004, "지원하지 않는 파일 확장자입니다."),
     INVALID_LOCATION(HttpStatus.BAD_REQUEST, 1005, "유효하지 않은 위치입니다."),
+    LOCATION_NOT_FOUND(HttpStatus.NOT_FOUND, 1006, "해당 위치를 찾을 수 없습니다."),
 
     // Auth & User - 2000
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, 2000, "해당 ID의 사용자를 찾을 수 없습니다."),
@@ -24,6 +25,9 @@ public enum ErrorCode {
     REFRESH_TOKEN_MISSING(HttpStatus.BAD_REQUEST, 2002, "리프레시 토큰이 누락되었습니다."),
     REFRESH_TOKEN_EXPIRED(HttpStatus.BAD_REQUEST, 2003, "리프레시 토큰이 만료되었습니다."),
     INVALID_REFRESH_TOKEN(HttpStatus.BAD_REQUEST, 2004, "유효하지 않은 리프레시 토큰입니다."),
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, 2005, "인증에 실패하였습니다."),
+    USER_ALREADY_EXISTS(HttpStatus.CONFLICT, 2005, "이미 존재하는 사용자입니다."),
+
 
     // Crop - 3000
     CROP_NOT_FOUND(HttpStatus.NOT_FOUND, 3000, "해당 ID의 농작물을 찾을 수 없습니다."),

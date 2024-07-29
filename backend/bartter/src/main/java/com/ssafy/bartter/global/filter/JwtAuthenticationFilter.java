@@ -67,8 +67,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (!category.equals("accessToken")) {
             PrintWriter writer = response.getWriter();
             writer.print("invalid access token");
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
+            throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
         }
 
 

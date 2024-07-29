@@ -1,6 +1,8 @@
 package com.ssafy.bartter.user.services;
 
 import com.ssafy.bartter.global.common.Location;
+import com.ssafy.bartter.global.exception.CustomException;
+import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.repository.LocationRepository;
 import com.ssafy.bartter.global.service.LocationService;
 import com.ssafy.bartter.user.dto.UserJoinDto;
@@ -35,12 +37,11 @@ public class UserService {
     public void joinProcess(UserJoinDto userJoinDto) {
 
         String username = userJoinDto.getUsername();
-
-        Boolean isExist = userRepository.existsByUsername(username);
+        boolean isExist = userRepository.existsByUsername(username);
 
         if (isExist) {
             log.warn("User with username {} already exists", username);
-            throw new IllegalArgumentException("User with username " + username + " already exists.");
+            throw new CustomException(ErrorCode.USER_ALREADY_EXISTS, "User with username " + username + " already exists.");
         }
 
         // 위도와 경도를 사용하여 Location 엔티티 조회
@@ -50,7 +51,7 @@ public class UserService {
         // 임의의 Location 엔티티 생성
         int locationId = 1;
         Location location = locationRepository.findById(locationId)
-                .orElseThrow(() -> new RuntimeException("Location not found with id: " + locationId));
+                .orElseThrow(() ->  new CustomException(ErrorCode.LOCATION_NOT_FOUND, "Location not found with id: " + locationId));
 
 
 
