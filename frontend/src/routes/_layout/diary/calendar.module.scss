@@ -1,0 +1,56 @@
+@use '@/styles/constants/colors.scss' as colors;
+@use '@/styles/constants/typographies.scss' as typo;
+
+.calendar-container {
+  position: relative;
+  text-align: center;
+}
+
+.calendar-wrapper {
+  overflow: hidden;
+  transition: max-height 0.1s ease;
+  max-height: 100rem;
+}
+
+.collapsed {
+  max-height: 10rem;
+}
+
+.custom-calendar-container.collapsed .react-calendar__month-view__days {
+  display: block;
+}
+
+.custom-calendar-container.collapsed .react-calendar__month-view__days .react-calendar__tile {
+  display: none;
+}
+
+.custom-calendar-container.collapsed .react-calendar__month-view__days .react-calendar__tile--now,
+.custom-calendar-container.collapsed .react-calendar__month-view__days .react-calendar__tile--current-week,
+.custom-calendar-container.collapsed .react-calendar__month-view__weekdays {
+  display: block;
+}
+
+.toggle-button {
+  display: block;
+  margin: 0.5rem auto;
+  font-size: 0.875rem;
+  color: colors.$placeholder;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.toggle-button:hover {
+  text-decoration: none;
+}
+
+.today {
+  background-color: colors.$primary;
+  color: white !important;
+  border-radius: 50%;
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  text-align: center;
+}

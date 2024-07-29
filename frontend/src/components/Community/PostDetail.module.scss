@@ -1,0 +1,59 @@
+.postDetail {
+  max-width: 400px;
+  padding: 0;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+}
+
+.userNameContent img {
+  width: 50px;
+  height: 50px;
+  margin-right: 12px;
+  border-radius: 50%;
+}
+
+.userNameContent .content {
+  flex-grow: 1;
+}
+
+.userNameContent .userName {
+  margin-bottom: 4px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.userNameContent .createDate,
+.userNameContent .location {
+  font-size: 12px;
+  color: #999;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border-radius: 0;
+}
+
+.pIconBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-top: 12px;
+
+//   margin-top: 12px;
+  border-top: 1px solid #ddd;
+}
+
+.pLikeCount, .pCommentCount {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+}
+
+.pLikeCount svg, .pCommentCount svg {
+  margin-right: 4px;
+  color: #555;
+}

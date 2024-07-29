@@ -7,6 +7,28 @@
   padding: 0 15px;
   margin: 10px auto;
 
+  &.collapsed {
+    .current-week {
+      display: flex;
+      justify-content: space-between;
+
+      .current-week-day {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .weekday-name {
+          font-weight: bold;
+        }
+
+        .weekday-date {
+          margin-top: 4px;
+        }
+      }
+
+    }
+  }
+  
   .react-calendar {
     width: 100%;
     border: none;

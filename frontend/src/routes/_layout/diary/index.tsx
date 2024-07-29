@@ -1,7 +1,7 @@
 import './diary.scss';
 
 import { createFileRoute } from '@tanstack/react-router';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import TwoButton from '../../../components/TwoButton/TwoButton'
 import Calendar from './calendar';
