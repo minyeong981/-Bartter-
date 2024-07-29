@@ -3,6 +3,8 @@ package com.ssafy.bartter.community.entity;
 import com.ssafy.bartter.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
@@ -11,6 +13,7 @@ import lombok.NoArgsConstructor;
  * @author 김용수
  */
 @Entity
+@Getter
 @Table(name = "community_post_image")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommunityPostImage extends BaseEntity {
@@ -41,4 +44,21 @@ public class CommunityPostImage extends BaseEntity {
      */
     @Column(name = "community_post_image_order",nullable = false)
     private Integer order;
+
+    /**
+     * 이미지에 게시글 연결 후 게시글의 ImageList에도 이미지 연결
+     *
+     * @Author 김가람
+     */
+    public void setCommunityPost(CommunityPost communityPost) {
+        this.communityPost = communityPost;
+        getCommunityPost().getImageList().add(this);
+    }
+
+    @Builder
+    public CommunityPostImage(CommunityPost communityPost, String imageUrl, Integer order) {
+        this.communityPost = communityPost;
+        this.imageUrl = imageUrl;
+        this.order = order;
+    }
 }

@@ -1,13 +1,9 @@
 package com.ssafy.bartter.crop.dto;
 
-import com.ssafy.bartter.crop.entity.Crop;
 import com.ssafy.bartter.crop.entity.CropCategory;
-import com.ssafy.bartter.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.time.LocalDate;
 
 
 /**

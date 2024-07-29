@@ -7,7 +7,9 @@ import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.List;
  * @author 김용수
  */
 @Entity
+@Getter
 @Table(name = "trade_post")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TradePost extends BaseEntity {
@@ -93,12 +96,14 @@ public class TradePost extends BaseEntity {
      * 물물교환 게시글 이미지 목록
      */
     @OneToMany(mappedBy = "tradePost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @BatchSize(size = 3)
     private List<TradePostImage> imageList = new ArrayList<>();
 
     /**
      * 농작물 물물교환 게시글 찜
      */
     @OneToMany(mappedBy = "tradePost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @BatchSize(size = 100)
     private List<TradePostLike> likeList = new ArrayList<>();
 
     /**
