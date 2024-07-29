@@ -1,0 +1,27 @@
+.floatingButton {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+
+  a {
+    padding: 10px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      box-shadow: 0 2px 8px rgb(0 0 0 / 35%);
+    }
+  }
+}
+
+.commentInput {
+  box-sizing: border-box;
+  width: calc(100% - 20px);
+  height: 40px;
+  padding: 0 10px;
+  margin: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

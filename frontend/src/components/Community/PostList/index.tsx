@@ -1,50 +1,49 @@
-import classnames from 'classnames/bind';
-import {FaComment, FaHeart} from 'react-icons/fa';
+import {FaComment, FaThumbsUp} from 'react-icons/fa';
 
 import styles from './postList.module.scss';
 
-export interface PostCard {
-  location: string;
+interface CommunityPost {
+  comunityPostId: number;
+  locationName: string;
   title: string;
   content: string;
-  date: string;
-  imageSrc: string[]; // 최대 3개 이미지
   likeCount: number;
   commentCount: number;
+  image: string | null;
+  createdAt: string;
 }
 
 interface PostCardProps {
-  postCards: PostCard[];
+  posts: CommunityPost[];
 }
 
-const cx = classnames.bind(styles);
-
-export default function PostList({postCards}: PostCardProps) {
+export default function PostList({posts}: PostCardProps) {
   function handleClick() {
     return;
   }
 
   return (
-    <div className="community">
-      {postCards.map((card, index) => (
-        <div className={cx('community-card')} key={index}>
-          <div className={cx('location')}>{card.location}</div>
-          <div className={cx('card-content')} onClick={handleClick}>
-            <div className={cx('text-box')}>
-              <div className={cx('text-title')}>{card.title}</div>
-              <div>{card.content}</div>
-              <div className={cx('time')}>{card.date}</div>
+    <div className={styles.community}>
+      {posts.map((post, index) => (
+        <div className={styles.communityCard} key={index}>
+          <div className={styles.location}>{post.locationName}</div>
+          <div className={styles.cardContent} onClick={handleClick}>
+            <div className={styles.textBox}>
+              <div className={styles.textTitle}>{post.title}</div>
+              <div className={styles.text}>{post.content}</div>
+              <div className={styles.time}>{post.createdAt}</div>
             </div>
-            {card.imageSrc.map((src, imgIndex) => (
-              <img key={imgIndex} src={src} alt={card.title} />
-            ))}
+            {post.image && <img src={post.image} alt={post.title} />}
+            {/* {card.image.map((src, imgIndex) => (
+                            imgIndex===0 && <img key={imgIndex} src={src} alt={card.title} />
+                        ))} */}
           </div>
-          <div className={cx('icon-box')}>
-            <div className={cx('like-count')}>
-              <FaHeart /> 좋아요 {card.likeCount}
+          <div className={styles.iconBox}>
+            <div className={styles.likeCount}>
+              <FaThumbsUp /> 좋아요 {post.likeCount}
             </div>
-            <div className={cx('comment-count')}>
-              <FaComment /> 댓글 {card.commentCount}
+            <div className={styles.commentCount}>
+              <FaComment /> 댓글 {post.commentCount}
             </div>
           </div>
         </div>

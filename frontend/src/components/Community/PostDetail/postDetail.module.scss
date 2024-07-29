@@ -1,9 +1,9 @@
 .postDetail {
-  max-width: 400px;
+  max-width: 390px; // 화면 너비 조정
   padding: 0;
   margin: 0 auto;
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: 0;
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
 }
 
@@ -24,29 +24,54 @@
   font-weight: bold;
 }
 
-.userNameContent .createDate,
+.userNameContent .createdDate,
 .userNameContent .location {
   font-size: 12px;
   color: #999;
 }
 
+.textBox {
+  padding-left: 10px;
+}
+
+
+.title {
+  margin: 10px 0; // 상하 마진 추가
+  font-size: 22px; // 제목 크기 증가
+  font-weight: bold; // 제목 굵기 강조
+}
+
+.content {
+  margin: 10px 0; // 상하 마진 추가
+  font-size: 20px; // 제목 크기 증가
+}
+
+.imageContainer {
+  display: flex;
+  overflow-x: auto; // 가로 스크롤 활성화
+  scroll-snap-type: x mandatory; // 스크롤 스냅 활성화
+}
+
 .image {
-  width: 100%;
-  height: auto;
+  flex: 0 0 100%; // flex-basis 설정으로 이미지 너비 고정
+  width: 100%; // 이미지 너비
+  height: auto; // 이미지 높이
   border-radius: 0;
+  scroll-snap-align: start; // 스크롤 스냅 정렬
 }
 
 .pIconBox {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding-top: 12px;
   border-top: 1px solid #ddd;
 }
 
 .pLikeCount, .pCommentCount {
   display: flex;
   align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
   font-size: 14px;
   color: #555;
 }

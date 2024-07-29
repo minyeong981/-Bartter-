@@ -2,7 +2,7 @@ import classnames from 'classnames/bind';
 import {useState} from 'react';
 import {FaHeart} from 'react-icons/fa';
 
-import styles from './homeBarter.module.scss';
+import styles from './barterCard.module.scss';
 
 interface BarterCard {
   location: string;
