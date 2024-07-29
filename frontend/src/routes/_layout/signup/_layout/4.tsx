@@ -11,19 +11,19 @@ import styles from '../signup.module.scss';
 
 const cx = classnames.bind(styles);
 
-const NUMBER_PATTERN = /[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
+const BIRTH_PATTERN = /^\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/;
 
 export const Route = createFileRoute('/_layout/signup/_layout/4')({
-  component: GetPhoneNumberPage,
+  component: GetBirthPage,
 });
 
-function GetPhoneNumberPage() {
-  const phoneNumber = useSignupStore(state => state.phoneNumber);
-  const setPhoneNumber = useSignupStore(state => state.setPhoneNumber);
-  const isValid = phoneNumber.match(NUMBER_PATTERN);
+function GetBirthPage() {
+  const birth = useSignupStore(state => state.birth);
+  const setBirth = useSignupStore(state => state.setBirth);
+  const isValid = birth.match(BIRTH_PATTERN);
 
-  function handlePhoneNumberChange(e: ChangeEvent<HTMLInputElement>) {
-    setPhoneNumber(e.currentTarget.value);
+  function handleBirthChange(e: ChangeEvent<HTMLInputElement>) {
+    setBirth(e.currentTarget.value);
   }
 
   return (
@@ -32,17 +32,16 @@ function GetPhoneNumberPage() {
         <Heading>
           농부님의
           <br />
-          전화번호를 알려주세요
+          생일을 알려주세요
         </Heading>
       </div>
       <div className={cx('inputContainer')}>
         <LabeledInput
-          label="전화번호"
-          placeholder="010-1234-5678"
-          onChange={handlePhoneNumberChange}
-          value={phoneNumber}
-          type="tel"
-          pattern={NUMBER_PATTERN.source}
+          label="생년월일"
+          placeholder="19980801"
+          onChange={handleBirthChange}
+          value={birth}
+          pattern={BIRTH_PATTERN.source}
         />
       </div>
       <div className={cx('buttonContainer')}>

@@ -1,7 +1,6 @@
 import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {ChangeEvent} from 'react';
-import {useState} from 'react';
 
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
@@ -12,50 +11,38 @@ import styles from '../signup.module.scss';
 
 const cx = classnames.bind(styles);
 
-const PASSWORD_PATTERN = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+const NUMBER_PATTERN = /[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
 
 export const Route = createFileRoute('/_layout/signup/_layout/6')({
-  component: GetPasswordPage,
+  component: GetPhoneNumberPage,
 });
 
-function GetPasswordPage() {
-  const password = useSignupStore(state => state.password);
-  const setPassword = useSignupStore(state => state.setPassword);
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const isValid =
-    password.match(PASSWORD_PATTERN) && password === confirmPassword;
+function GetPhoneNumberPage() {
+  const phoneNumber = useSignupStore(state => state.phoneNumber);
+  const setPhoneNumber = useSignupStore(state => state.setPhoneNumber);
+  const isValid = phoneNumber.match(NUMBER_PATTERN);
 
-  function handlePasswordChange(e: ChangeEvent<HTMLInputElement>) {
-    setPassword(e.currentTarget.value);
-  }
-
-  function handleConfirmPasswordChange(e: ChangeEvent<HTMLInputElement>) {
-    setConfirmPassword(e.currentTarget.value);
+  function handlePhoneNumberChange(e: ChangeEvent<HTMLInputElement>) {
+    setPhoneNumber(e.currentTarget.value);
   }
 
   return (
     <>
       <div className={cx('headingContainer')}>
         <Heading>
-          농부님이
+          농부님의
           <br />
-          사용할 비밀번호를 알려주세요
+          전화번호를 알려주세요
         </Heading>
       </div>
       <div className={cx('inputContainer')}>
         <LabeledInput
-          label="비밀번호"
-          placeholder="영문 특수문자를 포함해서 8자리 이상 입력"
-          onChange={handlePasswordChange}
-          value={password}
-          pattern={PASSWORD_PATTERN.source}
-        />
-        <LabeledInput
-          label="비밀번호 확인"
-          placeholder="비밀번호 확인"
-          onChange={handleConfirmPasswordChange}
-          value={confirmPassword}
-          pattern={PASSWORD_PATTERN.source}
+          label="전화번호"
+          placeholder="010-1234-5678"
+          onChange={handlePhoneNumberChange}
+          value={phoneNumber}
+          type="tel"
+          pattern={NUMBER_PATTERN.source}
         />
       </div>
       <div className={cx('buttonContainer')}>

@@ -1,33 +1,36 @@
 import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
+import type {ChangeEvent} from 'react';
 
 import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
+import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
+import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import useSignupStore from '@/store/signupStore.ts';
-import {getPosition} from '@/util/geolocation.ts';
 
 import styles from '../signup.module.scss';
 
 const cx = classnames.bind(styles);
 
 export const Route = createFileRoute('/_layout/signup/_layout/7')({
-  component: GetLocationPage,
+  component: GetEmailPage,
 });
 
-function GetLocationPage() {
+function GetEmailPage() {
   const navigate = useNavigate({from: '/signup/7'});
-  const setCoordinate = useSignupStore(state => state.setCoordinate);
+  const email = useSignupStore(state => state.email) || '';
+  const setEmail = useSignupStore(state => state.setEmail);
+  const isValid = email.match(
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+  );
 
-  async function handleCooridnate() {
-    try {
-      const {coords} = await getPosition();
-      setCoordinate(coords);
-      navigate({to: '/signup/8'});
-      return;
-    } catch (e) {
-      console.error(e);
-      alert('위치 정보를 가져오는데 실패했습니다.');
-    }
+  function handleEmailChange(e: ChangeEvent<HTMLInputElement>) {
+    setEmail(e.currentTarget.value);
+  }
+
+  function handleContinueButton() {
+    setEmail(null);
+    navigate({to: '/signup/6'});
   }
 
   return (
@@ -36,16 +39,31 @@ function GetLocationPage() {
         <Heading>
           농부님의
           <br />
-          위치를 등록해주세요
+          이메일을 알려주세요
         </Heading>
       </div>
-      <div className={cx('inputContainer')} />
+      <div className={cx('inputContainer')}>
+        <LabeledInput
+          label="이메일 (선택 사항)"
+          placeholder="이메일을 입력해주세요"
+          onChange={handleEmailChange}
+          type="email"
+          value={email}
+        />
+      </div>
       <div className={cx('buttonContainer')}>
-        <GeneralButton
+        <LinkButton
           buttonStyle={{style: 'primary', size: 'large'}}
-          onClick={handleCooridnate}
+          to="/signup/8"
+          disabled={!isValid}
         >
-          위치 등록하기
+          다음
+        </LinkButton>
+        <GeneralButton
+          buttonStyle={{style: 'outlined', size: 'large'}}
+          onClick={handleContinueButton}
+        >
+          건너뛰기
         </GeneralButton>
       </div>
     </>

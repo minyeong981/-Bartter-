@@ -11,37 +11,37 @@ import styles from '../signup.module.scss';
 
 const cx = classnames.bind(styles);
 
-const BIRTH_PATTERN = /^\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/;
+const USERID_PATTERN = /^[a-zA-Z0-9]{4,}$/;
 
 export const Route = createFileRoute('/_layout/signup/_layout/2')({
-  component: GetBirthPage,
+  component: GetUserId,
 });
 
-function GetBirthPage() {
-  const birth = useSignupStore(state => state.birth);
-  const setBirth = useSignupStore(state => state.setBirth);
-  const isValid = birth.match(BIRTH_PATTERN);
+function GetUserId() {
+  const userId = useSignupStore(state => state.userId);
+  const setUserId = useSignupStore(state => state.setUserId);
+  const isValid = userId.match(USERID_PATTERN);
 
-  function handleBirthChange(e: ChangeEvent<HTMLInputElement>) {
-    setBirth(e.currentTarget.value);
+  function handleUserIdChange(e: ChangeEvent<HTMLInputElement>) {
+    setUserId(e.currentTarget.value);
   }
 
   return (
     <>
       <div className={cx('headingContainer')}>
         <Heading>
-          농부님의
+          농부님이 사용할
           <br />
-          생일을 알려주세요
+          아이디를 알려주세요
         </Heading>
       </div>
       <div className={cx('inputContainer')}>
         <LabeledInput
-          label="생년월일"
-          placeholder="19980801"
-          onChange={handleBirthChange}
-          value={birth}
-          pattern={BIRTH_PATTERN.source}
+          label="아이디"
+          placeholder="아이디를 입력해주세요"
+          onChange={handleUserIdChange}
+          value={userId}
+          pattern={USERID_PATTERN.source}
         />
       </div>
       <div className={cx('buttonContainer')}>

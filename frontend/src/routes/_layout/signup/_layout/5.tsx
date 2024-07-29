@@ -1,11 +1,10 @@
-import {createFileRoute, useNavigate} from '@tanstack/react-router';
+import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
-import type {ChangeEvent} from 'react';
 
-import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
-import LinkButton from '@/components/Buttons/LinkButton.tsx';
+import BinaryButton from '@/components/BinaryButton';
+import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
-import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
+import type {Gender} from '@/store/signupStore.ts';
 import useSignupStore from '@/store/signupStore.ts';
 
 import styles from '../signup.module.scss';
@@ -13,24 +12,15 @@ import styles from '../signup.module.scss';
 const cx = classnames.bind(styles);
 
 export const Route = createFileRoute('/_layout/signup/_layout/5')({
-  component: GetEmailPage,
+  component: GetGenderPage,
 });
 
-function GetEmailPage() {
-  const navigate = useNavigate({from: '/signup/5'});
-  const email = useSignupStore(state => state.email) || '';
-  const setEmail = useSignupStore(state => state.setEmail);
-  const isValid = email.match(
-    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-  );
+function GetGenderPage() {
+  const gender = useSignupStore(state => state.gender);
+  const setGender = useSignupStore(state => state.setGender);
 
-  function handleEmailChange(e: ChangeEvent<HTMLInputElement>) {
-    setEmail(e.currentTarget.value);
-  }
-
-  function handleContinueButton() {
-    setEmail(null);
-    navigate({to: '/signup/6'});
+  function handleSelectGender(gender: string) {
+    setGender(gender as Gender);
   }
 
   return (
@@ -39,31 +29,23 @@ function GetEmailPage() {
         <Heading>
           농부님의
           <br />
-          이메일을 알려주세요
+          성별을 알려주세요
         </Heading>
       </div>
       <div className={cx('inputContainer')}>
-        <LabeledInput
-          label="이메일 (선택 사항)"
-          placeholder="이메일을 입력해주세요"
-          onChange={handleEmailChange}
-          type="email"
-          value={email}
+        <BinaryButton
+          value1="남성"
+          value2="여성"
+          onSelect={handleSelectGender}
         />
       </div>
       <div className={cx('buttonContainer')}>
-        <LinkButton
+        <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
+          disabled={!gender}
           to="/signup/6"
-          disabled={!isValid}
         >
           다음
-        </LinkButton>
-        <GeneralButton
-          buttonStyle={{style: 'outlined', size: 'large'}}
-          onClick={handleContinueButton}
-        >
-          건너뛰기
         </GeneralButton>
       </div>
     </>
