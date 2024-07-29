@@ -9,9 +9,25 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
+/**
+ * TradePostRepository
+ * 
+ * @author 김용수
+ */
 public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
 
+    /**
+     * 조건에 맞는 물물교환 게시글들의 Id를 리턴해준다.
+     * 
+     * @param nearbyLocationList 반경에 해당하는 지역 번호
+     * @param givenCategory 주고 싶은 카테고리 존재하지 않으면 0
+     * @param desiredCategories 받고 싶은 카테고리 존재하지 않으면 null
+     * @param desiredCategoriesSize 받고 싶은 카테고리의 개수
+     * @param pageable 페이징 조건
+     * @return 페이징된 물물교환 게시글들의 ID값
+     */
     // TODO : fetch LAZY로 인한 N + 1 가능성 생각해보기 
     @Query("SELECT tp.id FROM TradePost tp " +
             "JOIN tp.location loc " + // 물물교환 게시글의 위치
@@ -34,4 +50,16 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
             "LEFT JOIN tp.imageList img " +
             "WHERE tp.id IN :idList")
     List<TradePost> findTradePostListByIdList(@Param("idList") List<Integer> idList);
+
+    @Query("SELECT DISTINCT tp FROM TradePost tp " +
+            "JOIN FETCH tp.user " +
+            "LEFT JOIN FETCH tp.crop " +
+            "JOIN FETCH tp.location " +
+            "LEFT JOIN tp.wishCropCategoryList " +
+            "LEFT JOIN tp.imageList " +
+            "LEFT JOIN FETCH tp.likeList " +
+            "LEFT JOIN tp.tradeList " +
+            "WHERE tp.id = :findTradePostId "
+    )
+    Optional<TradePost> findTradePostById(@Param("findTradePostId") int findTradePostId);
 }

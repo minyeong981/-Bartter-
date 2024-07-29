@@ -1,5 +1,8 @@
 package com.ssafy.bartter.trade.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ssafy.bartter.crop.dto.CropCategoryDto;
+import com.ssafy.bartter.crop.dto.CropCategoryDto.CropCategoryDetail;
 import com.ssafy.bartter.global.common.SimpleLocation;
 import com.ssafy.bartter.trade.entity.TradePost;
 import com.ssafy.bartter.trade.entity.TradeStatus;
@@ -7,6 +10,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 물물교환 게시글 Dto
@@ -20,20 +24,21 @@ public class TradePostDto {
      */
     @Getter
     @Builder
-    public static class SimpleTradePost {
+    public static class SimpleTradePostDetail {
         private int cropTradePostId;
         private String title;
         private String imageURL;
         private TradeStatus status;
         private SimpleLocation location;
         private int likeCount;
+        @JsonProperty("isLike")
         private boolean isLike;
         private LocalDateTime createdAt;
 
-        public static SimpleTradePost of(TradePost tradePost) {
+        public static SimpleTradePostDetail of(TradePost tradePost) {
             // TODO: 현재 사용자의 userID가 1이라고 가정하고 구현 추후 리팩토링 예정
             int currentUserId = 1;
-            return SimpleTradePost.builder()
+            return SimpleTradePostDetail.builder()
                     .cropTradePostId(tradePost.getId())
                     .title(tradePost.getTitle())
                     .imageURL(tradePost.getImageList().isEmpty() ? null : tradePost.getImageList().get(0).getImageUrl())
@@ -41,6 +46,46 @@ public class TradePostDto {
                     .location(SimpleLocation.of(tradePost.getLocation()))
                     .likeCount(tradePost.getLikeList().size())
                     .isLike(tradePost.getLikeList().stream().anyMatch(like -> like.getUser().getId() == currentUserId)) // TODO : 실제 좋아요 여부를 사용자와 관련하여 추후 로직 수정
+                    .createdAt(tradePost.getCreatedAt())
+                    .build();
+        }
+    }
+
+    /**
+     * 물물교환 상세조회 Dto
+     */
+    @Getter
+    @Builder
+    public static class TradePostDetail {
+        private int tradePostId;
+        private String title;
+        private String content;
+
+        // TODO: SimpleUserProfile Refactoring
+        private int userId;
+        private String nickname;
+        private String profileImage;
+
+        private boolean hasCrop;
+        private int cropId;
+        private List<String> imageList;
+        private SimpleLocation location;
+        private List<CropCategoryDetail> desiredCategoryList;
+        private LocalDateTime createdAt;
+
+        public static TradePostDetail of(TradePost tradePost, List<String> imageList,List<CropCategoryDetail> desiredCategoryList) {
+            return TradePostDetail.builder()
+                    .tradePostId(tradePost.getId())
+                    .title(tradePost.getTitle())
+                    .content(tradePost.getContent())
+                    .userId(tradePost.getUser().getId())
+                    .nickname(tradePost.getUser().getNickname())
+                    .profileImage(tradePost.getUser().getProfileImage())
+                    .hasCrop(tradePost.getCrop() != null)
+                    .cropId(tradePost.getCrop() == null ? 0 : tradePost.getCrop().getId())
+                    .imageList(imageList)
+                    .location(SimpleLocation.of(tradePost.getLocation()))
+                    .desiredCategoryList(desiredCategoryList)
                     .createdAt(tradePost.getCreatedAt())
                     .build();
         }
