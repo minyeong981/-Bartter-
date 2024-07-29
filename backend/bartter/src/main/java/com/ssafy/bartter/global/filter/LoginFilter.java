@@ -1,7 +1,10 @@
 package com.ssafy.bartter.global.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.bartter.auth.dto.AuthUserDetails;
+import com.ssafy.bartter.auth.dto.RefreshTokenDto;
 import com.ssafy.bartter.auth.dto.UserAuthDto;
+import com.ssafy.bartter.auth.entity.Refresh;
 import com.ssafy.bartter.auth.repository.RefreshRepository;
 import com.ssafy.bartter.auth.utils.CookieUtil;
 import com.ssafy.bartter.auth.utils.JwtUtil;
@@ -20,6 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 
 
@@ -55,10 +59,11 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
             throw new RuntimeException(e);
         }
 
-        String username = userAuthDto.username();
-        String password = userAuthDto.password();
+        String username = userAuthDto.getUsername();
+        String password = userAuthDto.getPassword();
         log.debug("username : {}", username);
         log.debug("password : {}", password);
+        // TODO: ADMIN 권한 체크를 추가해야한다면 role 도 넘겨주어야 한다
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, null);
 
         return authenticationManager.authenticate(authToken);
@@ -76,7 +81,10 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) {
 
-        String username = authentication.getName();
+        AuthUserDetails authUserDetails = (AuthUserDetails) authentication.getPrincipal();
+
+        String username = authUserDetails.getUsername();
+        int userId = authUserDetails.getUserId();
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
@@ -84,11 +92,11 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String role = grantedAuthority.getAuthority();
 
         // 토큰 생성
-        String access = jwtUtil.generateToken("accessToken", username, role, 600000L); // 10m
-        String refresh = jwtUtil.generateToken("refreshToken", username, role, 864600000L); // 1d
+        String access = jwtUtil.generateToken("accessToken", username, userId, role, 600000L); // 10m
+        String refresh = jwtUtil.generateToken("refreshToken", username, userId, role, 864600000L); // 1d
 
         // Refresh 토큰 저장
-//        addRefreshEntity(username, refresh, 86400000L);
+        saveRefreshToken(username, refresh, 86400000L);
 
         // 응답 설정
         response.setHeader("Authorization", "Bearer " + access);
@@ -109,6 +117,18 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         // 401 error
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         System.out.println("unsuccessful authentication");
+    }
+
+    private void saveRefreshToken(String username, String refresh, Long expiredMs) {
+        Date date = new Date(System.currentTimeMillis() + expiredMs);
+        Refresh refreshEntity = Refresh.builder()
+                .username(username)
+                .refresh(refresh)
+                .expiration(date.toString())
+                .build();
+
+        // db에 토큰 저장
+        refreshRepository.save(refreshEntity);
     }
 
 }

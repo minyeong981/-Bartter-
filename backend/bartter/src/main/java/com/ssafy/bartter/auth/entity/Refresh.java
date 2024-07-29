@@ -3,6 +3,7 @@ package com.ssafy.bartter.auth.entity;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,21 +28,34 @@ public class Refresh {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    /**
+     * 유저의 아이디
+     */
+    @Column(nullable = false)
+    private String username;
 
     /**
-     * 리프레시 토큰 값.
+     * 리프레시 토큰 값
      */
     @Column(nullable = false)
     private String refresh;
 
     /**
-     * 리프레시 토큰의 만료 날짜.
-     * 이 필드는 타임스탬프 또는 저장 메커니즘에 적합한 다른 형식으로 저장될 수 있습니다.
+     * 리프레시 토큰의 만료 날짜
      */
     @Column(nullable = false)
     private String expiration;
 
+    /**
+     * Refresh 엔티티의 빌더
+     * @param username 유저의 아이디
+     * @param refresh 리프레시 토큰 값
+     * @param expiration 리프레시 토큰의 만료 날짜
+     */
+    @Builder
+    public Refresh(String username, String refresh, String expiration) {
+        this.username = username;
+        this.refresh = refresh;
+        this.expiration = expiration;
+    }
 }

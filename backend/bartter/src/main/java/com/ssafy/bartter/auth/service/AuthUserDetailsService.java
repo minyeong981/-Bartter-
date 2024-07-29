@@ -1,6 +1,7 @@
 package com.ssafy.bartter.auth.service;
 
 import com.ssafy.bartter.auth.dto.AuthUserDetails;
+import com.ssafy.bartter.auth.dto.UserAuthDto;
 import com.ssafy.bartter.user.entity.User;
 import com.ssafy.bartter.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,9 +33,20 @@ public class AuthUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
+
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
-        return new AuthUserDetails(user);
+
+        UserAuthDto userAuthDto = UserAuthDto.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .role(user.getRole().name())
+                .isAccountExpired(user.isAccountExpired())
+                .build();
+
+
+        return new AuthUserDetails(userAuthDto);
     }
 }

@@ -200,6 +200,9 @@ public class User extends BaseEntity {
     private List<CropReport> cropReportList = new ArrayList<>();
 
 
+    /**
+     * User 엔티티의 빌더
+     */
     @Builder
     public User(String username, String password, String nickname, LocalDate birth, Gender gender,
                 Location location, String phone, String email) {

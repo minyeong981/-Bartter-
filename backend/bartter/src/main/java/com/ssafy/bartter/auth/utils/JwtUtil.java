@@ -29,13 +29,15 @@ public class JwtUtil {
      *
      * @param category 토큰의 유형
      * @param username 사용자 이름
+     * @param userId 사용자 PK ID
      * @param role 사용자의 role
      * @param expiredMs 토큰의 유효 기간 (밀리초 단위)
      * @return 생성된 JWT 토큰
      */
-    public String generateToken(String category, String username, String role, Long expiredMs) {
+    public String generateToken(String category, String username, int userId ,String role, Long expiredMs) {
         return Jwts.builder()
                 .subject(username)
+                .claim("userId", userId)
                 .claim("role", role)
                 .claim("category", category)
                 .issuedAt(new Date(System.currentTimeMillis()))
@@ -54,13 +56,23 @@ public class JwtUtil {
     }
 
     /**
+     * JWT 토큰에서 user Id 를 추출하는 메서드
+     *
+     * @param token 추출할 JWT 토큰
+     * @return 토큰에 포함된 사용자 이름
+     */
+    public int getUserId(String token) {
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("userId", Integer.class);
+    }
+
+    /**
      * JWT 토큰에서 사용자 이름을 추출하는 메서드
      *
      * @param token 추출할 JWT 토큰
      * @return 토큰에 포함된 사용자 이름
      */
     public String getUsername(String token) {
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("username", String.class);
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getSubject();
     }
 
 

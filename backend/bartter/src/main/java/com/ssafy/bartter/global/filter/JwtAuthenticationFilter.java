@@ -1,6 +1,7 @@
 package com.ssafy.bartter.global.filter;
 
 import com.ssafy.bartter.auth.dto.AuthUserDetails;
+import com.ssafy.bartter.auth.dto.UserAuthDto;
 import com.ssafy.bartter.auth.utils.JwtUtil;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.user.entity.User;
@@ -76,16 +77,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
 
-        String username = jwtUtil.getUsername(accessToken);
-        String role = jwtUtil.getRole(accessToken);
+        UserAuthDto userAuthDto = UserAuthDto.builder()
+                .id(jwtUtil.getUserId(accessToken))
+                .username(jwtUtil.getUsername(accessToken))
+                .role(jwtUtil.getRole(accessToken))
+                .build();
 
-
-
-//        CurrentUserDto currentUserDto = new CurrentUserDto(username, role);
-//        AuthUserDetails customUserDetails = new AuthUserDetails(currentUserDto);
-
-//        Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
+        AuthUserDetails customUserDetails = new AuthUserDetails(userAuthDto);
+        Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
         // 일시적인 세션 등록
-//        SecurityContextHolder.getContext().setAuthentication(authToken);
+        SecurityContextHolder.getContext().setAuthentication(authToken);
+        filterChain.doFilter(request, response);
     }
 }

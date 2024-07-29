@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * jwt refresh token 을 저장하기 위한 class
- * 추후 Redis 에 맞게 수정 예정
+ * TODO: 추후 Redis 에 맞게 수정 예정
  *
  * @author 김훈민
  */

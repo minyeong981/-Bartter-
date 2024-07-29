@@ -1,6 +1,5 @@
 package com.ssafy.bartter.auth.dto;
 
-import com.ssafy.bartter.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,7 +16,11 @@ import java.util.Collection;
 @RequiredArgsConstructor
 public class AuthUserDetails implements UserDetails {
 
-    private final User user;
+    private final UserAuthDto userAuthDto;
+
+    public int getUserId() {
+        return userAuthDto.getId();
+    }
 
     /**
      * 사용자의 권한 정보를 반환하는 메서드
@@ -27,7 +30,7 @@ public class AuthUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + userAuthDto.getRole()));
 
         return authorities;
     }
@@ -40,7 +43,7 @@ public class AuthUserDetails implements UserDetails {
      */
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return userAuthDto.getPassword();
     }
 
     /**
@@ -50,7 +53,7 @@ public class AuthUserDetails implements UserDetails {
      */
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return userAuthDto.getUsername();
     }
 
     /**
@@ -60,7 +63,7 @@ public class AuthUserDetails implements UserDetails {
      */
     @Override
     public boolean isAccountNonExpired() {
-        return !user.isAccountExpired();
+        return !userAuthDto.isAccountExpired();
     }
 
     /**
