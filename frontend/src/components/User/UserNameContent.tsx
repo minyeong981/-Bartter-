@@ -1,6 +1,6 @@
 import './UserNameContent.scss';
 
-import { FaBars } from 'react-icons/fa';  // FaBars는 FontAwesome의 메뉴 아이콘입니다.
+import { FaBars } from 'react-icons/fa'; 
 
 export interface Userinfo {
     profileImageSrc: string;
@@ -8,12 +8,12 @@ export interface Userinfo {
 }
 export interface PostInfo {
     content: string;
-    createDate: string;
+    created_at: string;
 }
 
 export type UserNameLocationProps = Userinfo & PostInfo;
 
-export default function UserNameLocation({profileImageSrc, userName, content, createDate}: UserNameLocationProps) {
+export default function UserNameLocation({profileImageSrc, userName, content, created_at}: UserNameLocationProps) {
 
     function onClick() {
         console.log('click Menu');
@@ -25,7 +25,7 @@ export default function UserNameLocation({profileImageSrc, userName, content, cr
             <div className="c-user-info">
                 <div className="c-user-name">{userName}</div>
                 <div className="c-content">{content}</div>
-                <div className="c-create-date">{createDate}</div>
+                <div className="c-create-date">{created_at}</div>
             </div>
             <FaBars className="c-menu-icon" onClick={onClick} />
         </div>

@@ -15,12 +15,15 @@ import { Route as TestImport } from './routes/test'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
 import { Route as LayoutSignupIndexImport } from './routes/_layout/signup/index'
+import { Route as LayoutSearchIndexImport } from './routes/_layout/search/index'
 import { Route as LayoutLoginIndexImport } from './routes/_layout/login/index'
 import { Route as LayoutHomeIndexImport } from './routes/_layout/home/index'
 import { Route as LayoutDiaryIndexImport } from './routes/_layout/diary/index'
 import { Route as LayoutCommunityIndexImport } from './routes/_layout/community/index'
 import { Route as LayoutDiaryMyCropsImport } from './routes/_layout/diary/myCrops'
 import { Route as LayoutDiaryCalendarImport } from './routes/_layout/diary/calendar'
+import { Route as LayoutCommunityDetailImport } from './routes/_layout/community/detail'
+import { Route as LayoutCommunityCreateImport } from './routes/_layout/community/create'
 import { Route as LayoutDiaryCreateCropNicknameImport } from './routes/_layout/diary/createCrop/nickname'
 import { Route as LayoutDiaryCreateCropIntroduceImport } from './routes/_layout/diary/createCrop/introduce'
 import { Route as LayoutDiaryCreateCropCropProfileImport } from './routes/_layout/diary/createCrop/cropProfile'
@@ -45,6 +48,11 @@ const LayoutIndexRoute = LayoutIndexImport.update({
 
 const LayoutSignupIndexRoute = LayoutSignupIndexImport.update({
   path: '/signup/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutSearchIndexRoute = LayoutSearchIndexImport.update({
+  path: '/search/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -75,6 +83,16 @@ const LayoutDiaryMyCropsRoute = LayoutDiaryMyCropsImport.update({
 
 const LayoutDiaryCalendarRoute = LayoutDiaryCalendarImport.update({
   path: '/diary/calendar',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutCommunityDetailRoute = LayoutCommunityDetailImport.update({
+  path: '/community/detail',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutCommunityCreateRoute = LayoutCommunityCreateImport.update({
+  path: '/community/create',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -127,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutIndexImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/community/create': {
+      id: '/_layout/community/create'
+      path: '/community/create'
+      fullPath: '/community/create'
+      preLoaderRoute: typeof LayoutCommunityCreateImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/community/detail': {
       id: '/_layout/community/detail'
       path: '/community/detail'
@@ -176,6 +201,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutLoginIndexImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/search/': {
+      id: '/_layout/search/'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof LayoutSearchIndexImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/signup/': {
       id: '/_layout/signup/'
       path: '/signup'
@@ -219,6 +251,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   LayoutRoute: LayoutRoute.addChildren({
     LayoutIndexRoute,
+    LayoutCommunityCreateRoute,
     LayoutCommunityDetailRoute,
     LayoutDiaryCalendarRoute,
     LayoutDiaryMyCropsRoute,
@@ -226,6 +259,7 @@ export const routeTree = rootRoute.addChildren({
     LayoutDiaryIndexRoute,
     LayoutHomeIndexRoute,
     LayoutLoginIndexRoute,
+    LayoutSearchIndexRoute,
     LayoutSignupIndexRoute,
     LayoutDiaryCreateCropCropImageRoute,
     LayoutDiaryCreateCropCropProfileRoute,
@@ -251,6 +285,7 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout.tsx",
       "children": [
         "/_layout/",
+        "/_layout/community/create",
         "/_layout/community/detail",
         "/_layout/diary/calendar",
         "/_layout/diary/myCrops",
@@ -258,6 +293,7 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/diary/",
         "/_layout/home/",
         "/_layout/login/",
+        "/_layout/search/",
         "/_layout/signup/",
         "/_layout/diary/createCrop/cropImage",
         "/_layout/diary/createCrop/cropProfile",
@@ -270,6 +306,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout/": {
       "filePath": "_layout/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/community/create": {
+      "filePath": "_layout/community/create.tsx",
       "parent": "/_layout"
     },
     "/_layout/community/detail": {
@@ -298,6 +338,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout/login/": {
       "filePath": "_layout/login/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/search/": {
+      "filePath": "_layout/search/index.tsx",
       "parent": "/_layout"
     },
     "/_layout/signup/": {

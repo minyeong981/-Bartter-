@@ -1,17 +1,6 @@
 import './home.scss';
 
-import { createFileRoute } from '@tanstack/react-router'
-
-import SweatPotato from '../../../assets/image/고구마.png'
-import CommunityImage from '../../../assets/image/동네모임1.png'
-import StroyImage from '../../../assets/image/스토리1.png'
-import UserImage from '../../../assets/image/유저.png'
-import AdCarousel from '../../../components/AdCarousel/AdCarousel'
-import HomeBarter from '../../../components/Barter/HomeBarter'
-import LinkButton from '../../../components/Buttons/LinkButton'
-import Community from '../../../components/Community/Community'
-// import Header from '../../../components/Header'
-import HomeStory from '../../../components/Story/HomeStory'
+import { createFileRoute } from '@tanstack/react-router';
 
 import SweatPotato from '@/assets/image/고구마.png';
 import CommunityImage from '@/assets/image/동네모임1.png';
@@ -20,9 +9,11 @@ import UserImage from '@/assets/image/유저.png';
 import AdCarousel from '@/components/AdCarousel/AdCarousel';
 import HomeBarter from '@/components/Barter/HomeBarter';
 import LinkButton from '@/components/Buttons/LinkButton';
-import Community from '@/components/Community/PostList';
-// import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons';
+import PostList from '@/components/Community/PostList';
+import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons';
 import HomeStory from '@/components/Story/HomeStory';
+
+
 
 const barters = [
   {
@@ -61,31 +52,34 @@ const barters = [
 
 const posts = [
   {
-    location: '서울 강남구',
-    title: '동네 마라톤 대회',
+    comunityPostId: 1,
+    locationName: '서울 강남구',
+    title: '동네 마라톤 대회1',
     content: '함께 달려요! 초보자도 환영합니다.',
-    date: '2024-07-25 오후 5:00',
-    imageSrc: [CommunityImage, CommunityImage],
-    likeCount: 1,
-    commentCount: 2,
+    likeCount: 12,
+    commentCount: 3,
+    image: CommunityImage, 
+    createdAt: '2024-07-25 오후 5:00'
   },
   {
-    location: '서울 강남구',
-    title: '동네 마라톤 대회',
+    comunityPostId: 2,
+    locationName: '서울 마포구',
+    title: '동네 마라톤 대회2',
     content: '함께 달려요! 초보자도 환영합니다.',
-    date: '2024-07-25 오후 5:00',
-    imageSrc: [CommunityImage],
-    likeCount: 1,
-    commentCount: 2,
+    likeCount: 12,
+    commentCount: 3,
+    image: CommunityImage, 
+    createdAt: '2024-07-25 오후 5:00'
   },
   {
-    location: '서울 강남구',
-    title: '동네 마라톤 대회',
+    comunityPostId: 3,
+    locationName: '광주 장덕동',
+    title: '동네 마라톤 대회3',
     content: '함께 달려요! 초보자도 환영합니다.',
-    date: '2024-07-25 오후 5:00',
-    imageSrc: [CommunityImage],
-    likeCount: 1,
-    commentCount: 2,
+    likeCount: 12,
+    commentCount: 3,
+    image: CommunityImage, 
+    createdAt: '2024-07-25 오후 5:00'
   },
 ];
 
@@ -115,7 +109,7 @@ const storyData = [
 export const Route = createFileRoute('/_layout/home/')({
   component: () => (
       <div className="container">
-      {/* <HeaderWithLabelAndButtons label="위치" /> */}
+      <HeaderWithLabelAndButtons label="내위치" />
       <AdCarousel />
         <div className="home-barter">
           <div className="section-title">
@@ -134,10 +128,11 @@ export const Route = createFileRoute('/_layout/home/')({
           <div className="section-title">
             <div>동네 모임</div>
           </div>
-          <Community postCards={posts} />
+          <PostList posts={posts} />
         </div>
         <div className="link-button-container">
-          <LinkButton buttonStyle={{style: 'primary', size: 'medium'}}>
+          <LinkButton buttonStyle={{style: 'primary', size: 'medium'}}
+          to = '/community'>
             동네 모임 더보기
           </LinkButton>
         </div>

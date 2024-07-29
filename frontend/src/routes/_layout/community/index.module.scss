@@ -1,0 +1,29 @@
+
+.floatingButton {
+  position: fixed; 
+  right: 20px;     
+  bottom: 20px;
+
+  a {           
+    padding: 10px;        
+    font-weight: bold; 
+    color: white; 
+    text-decoration: none; 
+
+    // 호버 시 효과
+    &:hover {
+      box-shadow: 0 2px 8px rgb(0 0 0 / 35%); 
+    }
+  }
+}
+
+.commentInput {
+  box-sizing: border-box; // 박스 크기 결정 방식
+  width: calc(100% - 20px); // 전체 너비에서 좌우 여백 10px 씩 빼기
+  height: 40px; // 높이 조정
+  padding: 0 10px; // 좌우 패딩
+  margin: 10px; // 전체 마진
+  font-size: 16px; // 글자 크기 증가
+  border: 1px solid #ccc; // 테두리 스타일
+  border-radius: 5px; // 둥근 테두리
+}

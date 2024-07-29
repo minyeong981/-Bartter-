@@ -5,16 +5,16 @@
   align-items: center;
   width: 100%;
   max-width: 390px; // 전체 컨테이너의 최대 너비를 390px로 제한
-  padding: 20px;
-  margin: 0 auto; // 페이지 중앙 정렬
+  // padding: 20px;
+  margin: 0 auto; 
 
   .section-title {
-    width: calc(100% - 20px); // 타이틀 컴포넌트의 너비를 100%로 설정하고 여백 조정
+    width: calc(100% - 20px); 
     margin-bottom: 10px;
-    margin-left: 20px; // 왼쪽 여백을 20px로 설정
+    margin-left: 20px;
     font-size: 1.5em;
     font-weight: bold;
-    text-align: left; // 제목을 왼쪽 정렬
+    text-align: left; 
   }
 
   .home-barter, .home-community, .home-story {
