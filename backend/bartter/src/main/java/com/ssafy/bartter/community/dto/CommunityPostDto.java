@@ -41,6 +41,7 @@ public class CommunityPostDto {
      * 동네모임 게시글 Response
      * */
     @Builder
+    @Getter
     @AllArgsConstructor
     public static class CommunityPostDetail {
         private final Integer communityPostId;

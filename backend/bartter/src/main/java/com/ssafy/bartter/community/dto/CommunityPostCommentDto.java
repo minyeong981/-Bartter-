@@ -1,7 +1,6 @@
 package com.ssafy.bartter.community.dto;
 
 import com.ssafy.bartter.community.entity.CommunityPostComment;
-import com.ssafy.bartter.global.common.SimpleLocation;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -9,7 +8,6 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * 동네모임 댓글 DTO
@@ -34,6 +32,7 @@ public class CommunityPostCommentDto {
      * 동네모임 댓글 Response
      * */
     @Builder
+    @Getter
     @AllArgsConstructor
     public static class CommunityPostCommentDetail {
         private final Integer communityPostCommentId;
