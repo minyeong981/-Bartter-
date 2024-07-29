@@ -6,12 +6,12 @@ import CommunityImage from '@/assets/image/동네모임1.png';
 import StroyImage from '@/assets/image/스토리1.png';
 import UserImage from '@/assets/image/유저.png';
 import AdCarousel from '@/components/AdCarousel';
+import BarterCard from '@/components/BarterCard';
 import LinkButton from '@/components/Buttons/LinkButton';
 import PostList from '@/components/Community/PostList';
 import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons';
 import HomeStory from '@/components/Story/HomeStory';
 
-import BarterCard from '../../../components/BarterCard';
 import styles from './home.module.scss';
 
 const barters = [

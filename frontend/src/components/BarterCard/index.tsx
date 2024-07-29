@@ -21,9 +21,9 @@ const cx = classnames.bind(styles);
 
 export default function Barter({barterCards}: BarterCardProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const cardWidth = 180; // 카드 너비 설정
-  const cardsToShow = 2; // 한 번에 보일 카드 수
-  const cardSpacing = 10; // 카드 간격
+  const cardWidth = 180;
+  const cardsToShow = 2;
+  const cardSpacing = 10;
   //   const totalWidth = barterCards.length * (cardWidth + cardSpacing); // 전체 너비 계산
 
   const handlePrev = () => {

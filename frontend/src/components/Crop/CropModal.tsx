@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import classnames from 'classnames/bind';
+import {useState} from 'react';
 
-import LinkButton from '@/components/Buttons/LinkButton'
+import LinkButton from '@/components/Buttons/LinkButton';
 
 import Search from '../Search/Search';
 import Crop from './Crop';
 import styles from './CropModal.module.scss';
-
 
 interface CropProps {
   cropImageSrc: string;
@@ -21,9 +21,18 @@ interface ModalProps {
   showSearchBar?: boolean;
 }
 
-export default function CropModal({ show, onClose, crops, onCropSelect, selectedCrop, showSearchBar = false }: ModalProps) {
+const cx = classnames.bind(styles);
+
+export default function CropModal({
+  show,
+  onClose,
+  crops,
+  onCropSelect,
+  selectedCrop,
+  showSearchBar = false,
+}: ModalProps) {
   const [searchTerm, setSearchTerm] = useState('');
-  
+
   if (!show) {
     return null;
   }
@@ -33,21 +42,21 @@ export default function CropModal({ show, onClose, crops, onCropSelect, selected
   };
 
   const filteredCrops = crops.filter(crop =>
-    crop.cropNameSrc.toLowerCase().includes(searchTerm.toLowerCase())
+    crop.cropNameSrc.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (
-    <div className={styles.modalBackdrop}>
-      <div className={styles.modalContent}>
-        <button className={styles.closeButton} onClick={onClose}>X</button>
-        {showSearchBar && (
-          <Search onSearch={setSearchTerm} />
-        )}
-        <div className={styles.cropList}>
-        {filteredCrops.map((crop, index) => (
+    <div className={cx('modalBackdrop')}>
+      <div className={cx('modalContent')}>
+        <button className={cx('closeButton')} onClick={onClose}>
+          X
+        </button>
+        {showSearchBar && <Search onSearch={setSearchTerm} />}
+        <div className={cx('cropList')}>
+          {filteredCrops.map((crop, index) => (
             <div
               key={index}
-              className={`${styles.cropItem} ${selectedCrop === index ? styles.selected : ''}`}
+              className={cx('cropItem', {selected: selectedCrop === index})}
               onClick={() => handleCropClick(index)}
             >
               <Crop
@@ -58,7 +67,12 @@ export default function CropModal({ show, onClose, crops, onCropSelect, selected
             </div>
           ))}
         </div>
-        <LinkButton buttonStyle={{style:'primary', size:'large'}}>다음</LinkButton>
+        <LinkButton
+          buttonStyle={{style: 'primary', size: 'large'}}
+          to="/diary/createCrop/nickname"
+        >
+          다음
+        </LinkButton>
       </div>
     </div>
   );

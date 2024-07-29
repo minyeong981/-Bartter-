@@ -7,9 +7,9 @@
 }
 
 .calendar-wrapper {
+  max-height: 100rem;
   overflow: hidden;
   transition: max-height 0.1s ease;
-  max-height: 100rem;
 }
 
 .collapsed {
@@ -35,22 +35,34 @@
   margin: 0.5rem auto;
   font-size: 0.875rem;
   color: colors.$placeholder;
+  cursor: pointer;
   background: none;
   border: none;
-  cursor: pointer;
-}
 
-.toggle-button:hover {
-  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .today {
-  background-color: colors.$primary;
-  color: white !important;
-  border-radius: 50%;
   display: inline-block;
   width: 2rem;
   height: 2rem;
   line-height: 2rem;
+  color: white !important;
   text-align: center;
+  background-color: colors.$primary;
+  border-radius: 50%;
+}
+
+hr {
+  margin: 10px 0;
+  border: none;
+  border-top: 3px solid colors.$divider2;
+}
+
+.link-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
