@@ -35,7 +35,7 @@ import java.util.Iterator;
  */
 @Slf4j
 @RequiredArgsConstructor
-public class LoginFilter extends UsernamePasswordAuthenticationFilter {
+public class  LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
     private final CookieUtil cookieUtil;

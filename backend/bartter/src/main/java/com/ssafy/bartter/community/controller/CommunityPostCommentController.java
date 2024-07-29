@@ -32,7 +32,8 @@ public class CommunityPostCommentController {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE);
         }
         CommunityPostComment comment = communityPostCommentService.createComment(communityPostId, request);
-        return new SuccessResponse<>(CommunityPostCommentDetail.of(comment));
+        CommunityPostCommentDetail response = CommunityPostCommentDetail.of(comment);
+        return SuccessResponse.of(response);
     }
 
     @Operation(summary = "동네모임 게시글 댓글 삭제", description = "특정 ID를 가진 동네모임 게시글의 댓글 조회하여 삭제한다.")
@@ -42,6 +43,6 @@ public class CommunityPostCommentController {
             @PathVariable("communityPostCommentId") Integer communityPostCommentId
     ) {
         communityPostCommentService.deleteComment(communityPostCommentId);
-        return new SuccessResponse<>();
+        return SuccessResponse.empty();
     }
 }

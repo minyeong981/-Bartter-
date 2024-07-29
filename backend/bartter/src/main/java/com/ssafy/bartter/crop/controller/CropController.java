@@ -40,7 +40,7 @@ public class CropController {
         List<CropCategoryDetail> response = cropCategoryList.stream()
                 .map(CropCategoryDetail::of)
                 .collect(Collectors.toList());
-        return new SuccessResponse<>(response);
+        return SuccessResponse.of(response);
     }
 
     @Operation(summary = "농작물 등록", description = "농작물 프로필을 등록한 후 생성된 데이터를 반환한다.")
@@ -54,7 +54,7 @@ public class CropController {
         }
         Crop crop = cropService.createCrop(request, image);
         CropProfile response = CropProfile.of(crop);
-        return new SuccessResponse<>(response);
+        return SuccessResponse.of(response);
     }
 
     @Operation(summary = "농작물 프로필 조회", description = "농작물의 ID를 통해 농작물의 상세 프로필을 조회한다.")
@@ -62,6 +62,6 @@ public class CropController {
     public SuccessResponse<CropProfile> getCrop(@PathVariable("cropId") Integer cropId) {
         Crop crop = cropService.getCrop(cropId);
         CropProfile response = CropProfile.of(crop);
-        return new SuccessResponse<>(response);
+        return SuccessResponse.of(response);
     }
 }

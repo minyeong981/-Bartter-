@@ -36,7 +36,7 @@ public class CropDiaryController {
         }
         CropDiary diary = cropDiaryService.createCropDiary(request, image);
         CropDiaryDetail response = CropDiaryDetail.of(diary);
-        return new SuccessResponse<>(response);
+        return SuccessResponse.of(response);
     }
 
     @Operation(summary = "농사일지 상세 조회", description = "농사일지 PK로 농사일지를 조회한다.")
@@ -44,13 +44,13 @@ public class CropDiaryController {
     public SuccessResponse<CropDiaryDetail> getCropDiary(@PathVariable("cropDiaryId") Integer cropDiaryId) {
         CropDiary diary = cropDiaryService.getCropDiary(cropDiaryId);
         CropDiaryDetail response = CropDiaryDetail.of(diary);
-        return new SuccessResponse<>(response);
+        return SuccessResponse.of(response);
     }
 
     @Operation(summary = "농사일지 삭제", description = "해당 농사일지 PK를 가진 농사일지를 찾아 삭제한다.")
     @DeleteMapping("/{cropDiaryId}")
     public SuccessResponse<Void> deleteCropDiary(@PathVariable("cropDiaryId") Integer cropDiaryId) {
         cropDiaryService.deleteCropDiary(cropDiaryId);
-        return new SuccessResponse<>();
+        return SuccessResponse.empty();
     }
 }

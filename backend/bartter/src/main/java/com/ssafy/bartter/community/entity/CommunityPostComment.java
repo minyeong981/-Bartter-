@@ -51,12 +51,12 @@ public class CommunityPostComment extends BaseEntity {
         this.content = content;
     }
 
-    public void setUser(User user) {
+    public void addUser(User user) {
         this.user = user;
         getUser().getCommunityPostCommentList().add(this);
     }
 
-    public void setCommunityPost(CommunityPost communityPost) {
+    public void addCommunityPost(CommunityPost communityPost) {
         this.communityPost = communityPost;
         getCommunityPost().getCommentList().add(this);
     }

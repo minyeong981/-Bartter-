@@ -35,8 +35,8 @@ public class CommunityPostCommentService {
         CommunityPost post = communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
 
         CommunityPostComment comment = new CommunityPostComment(request.getContent());
-        comment.setUser(user);
-        comment.setCommunityPost(post);
+        comment.addUser(user);
+        comment.addCommunityPost(post);
 
         return communityPostCommentRepository.save(comment);
     }
