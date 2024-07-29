@@ -35,6 +35,8 @@ public enum ErrorCode {
 
     // Trade
 
+    // Trade - 6000
+    TRADE_POST_NOT_FOUND(HttpStatus.NOT_FOUND,6000,"해당 ID의 물물교환 게시글을 찾을 수 없습니다." )
     // Chat
 
     ;

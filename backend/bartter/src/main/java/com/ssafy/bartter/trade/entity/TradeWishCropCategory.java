@@ -3,6 +3,7 @@ package com.ssafy.bartter.trade.entity;
 import com.ssafy.bartter.crop.entity.CropCategory;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
  * @author 김용수
  */
 @Entity
+@Getter
 @Table(name = "trade_wish_crop_category")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TradeWishCropCategory {
