@@ -59,7 +59,7 @@ public class CommunityPostService {
                     .order(i + 1)
                     .build();
 
-            postImage.setCommunityPost(post);
+            postImage.addCommunityPost(post);
             communityPostImageRepository.save(postImage);
         }
 

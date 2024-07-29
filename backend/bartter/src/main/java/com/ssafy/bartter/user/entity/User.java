@@ -193,7 +193,6 @@ public class User extends BaseEntity {
 
     /**
      * 해당 사용자의 AI 요약 리포트 목록
-     *
      * @Author 김가람
      */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

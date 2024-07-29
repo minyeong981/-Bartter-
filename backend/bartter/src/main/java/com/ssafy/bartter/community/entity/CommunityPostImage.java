@@ -50,7 +50,7 @@ public class CommunityPostImage extends BaseEntity {
      *
      * @Author 김가람
      */
-    public void setCommunityPost(CommunityPost communityPost) {
+    public void addCommunityPost(CommunityPost communityPost) {
         this.communityPost = communityPost;
         getCommunityPost().getImageList().add(this);
     }

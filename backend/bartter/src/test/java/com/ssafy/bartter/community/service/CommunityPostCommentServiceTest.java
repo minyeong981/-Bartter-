@@ -56,8 +56,8 @@ class CommunityPostCommentServiceTest {
         given(communityPostRepository.findById(1)).willReturn(Optional.of(mockPost));
 
         CommunityPostComment mockComment = new CommunityPostComment("content");
-        mockComment.setUser(mockUser);
-        mockComment.setCommunityPost(mockPost);
+        mockComment.addUser(mockUser);
+        mockComment.addCommunityPost(mockPost);
         given(communityPostCommentRepository.save(any(CommunityPostComment.class))).willReturn(mockComment);
 
         // when
