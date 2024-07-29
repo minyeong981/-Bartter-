@@ -23,7 +23,7 @@ import java.util.Optional;
 import static com.ssafy.bartter.community.dto.CommunityPostDto.Create;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 /**
  * @Author 김가람
@@ -111,7 +111,7 @@ class CommunityPostServiceTest {
         assertThat(post.getImageList()).hasSize(0);
     }
 
-    @DisplayName("동네모임 게시글 PK로 동네모임 게시글을 조회한다.")
+    @DisplayName("동네모임 게시글 ID로 동네모임 게시글을 조회한다.")
     @Test
     void 동네모임_게시글_조회() {
         // given
@@ -126,6 +126,20 @@ class CommunityPostServiceTest {
         assertThat(findPost).isNotNull();
         assertThat(findPost).isEqualTo(post);
         assertThat(findPost.getId()).isEqualTo(1);
+    }
+
+    @DisplayName("동네모임 게시글 ID를 통해 동네모임 게시글을 삭제한다.")
+    @Test
+    void 동네모임_게시글_삭제() {
+        // given
+        CommunityPost post = mock(CommunityPost.class);
+        given(communityPostRepository.findById(1)).willReturn(Optional.of(post));
+
+        // when
+        communityPostService.deletePost(1);
+
+        // then
+        verify(communityPostRepository, times(1)).delete(post);
     }
 
 

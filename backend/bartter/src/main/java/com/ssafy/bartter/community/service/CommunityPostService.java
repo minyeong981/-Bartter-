@@ -63,7 +63,13 @@ public class CommunityPostService {
         return post;
     }
 
+    // TODO : Fetch join - Location, LikeList, CommentList, ImageList
     public CommunityPost getPost(Integer communityPostId) {
         return communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
+    }
+
+    public void deletePost(Integer communityPostId) {
+        CommunityPost post = communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
+        communityPostRepository.delete(post);
     }
 }
