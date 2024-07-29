@@ -58,7 +58,7 @@ export default function CropModal({ show, onClose, crops, onCropSelect, selected
             </div>
           ))}
         </div>
-        <LinkButton buttonStyle={{style:'primary', size:'large'}}>다음</LinkButton>
+        <LinkButton buttonStyle={{style:'primary', size:'large'}} to='/diary/createCrop/nickname'>다음</LinkButton>
       </div>
     </div>
   );

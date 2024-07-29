@@ -11,9 +11,9 @@ export const Route = createFileRoute('/_layout')({
 function Layout() {
   return (
     <div className={classes.layout}>
-      <HeaderWithBackButton />
+      {/* <HeaderWithBackButton /> */}
       <Outlet />
-      <Navigation />
+      {/* <Navigation /> */}
     </div>
   );
 }

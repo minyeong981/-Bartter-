@@ -1,0 +1,59 @@
+@use '@/styles/constants/colors.scss' as colors;
+@use '@/styles/constants/typographies.scss' as typo;
+
+.today-alarm {
+  position: relative;
+  padding: 20px;
+  margin: 20px;
+  background-color: #ffff004b;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+
+  .alarm-content {
+    text-align: left; /* 왼쪽 정렬 */
+    p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.5;
+
+      &:first-of-type {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .alarm-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+
+    button {
+      display: flex;
+      align-items: center;
+      margin-left: 10px;
+      font-size: 14px;
+      color: colors.$placeholder;
+      cursor: pointer;
+      background: none;
+      border: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &:first-of-type {
+        margin-left: 0;
+      }
+
+      .close-icon {
+        width: 20px; /* 아이콘의 크기를 조정할 수 있습니다 */
+        height: 20px;
+        margin-left: 5px;
+      }
+    }
+  }
+}

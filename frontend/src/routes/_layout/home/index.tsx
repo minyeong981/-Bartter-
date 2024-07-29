@@ -2,17 +2,6 @@ import './home.scss';
 
 import { createFileRoute } from '@tanstack/react-router'
 
-import SweatPotato from '../../../assets/image/고구마.png'
-import CommunityImage from '../../../assets/image/동네모임1.png'
-import StroyImage from '../../../assets/image/스토리1.png'
-import UserImage from '../../../assets/image/유저.png'
-import AdCarousel from '../../../components/AdCarousel/AdCarousel'
-import HomeBarter from '../../../components/Barter/HomeBarter'
-import LinkButton from '../../../components/Buttons/LinkButton'
-import Community from '../../../components/Community/Community'
-// import Header from '../../../components/Header'
-import HomeStory from '../../../components/Story/HomeStory'
-
 import SweatPotato from '@/assets/image/고구마.png';
 import CommunityImage from '@/assets/image/동네모임1.png';
 import StroyImage from '@/assets/image/스토리1.png';

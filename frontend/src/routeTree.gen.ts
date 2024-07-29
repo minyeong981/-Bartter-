@@ -21,6 +21,10 @@ import { Route as LayoutDiaryIndexImport } from './routes/_layout/diary/index'
 import { Route as LayoutCommunityIndexImport } from './routes/_layout/community/index'
 import { Route as LayoutDiaryMyCropsImport } from './routes/_layout/diary/myCrops'
 import { Route as LayoutDiaryCalendarImport } from './routes/_layout/diary/calendar'
+import { Route as LayoutCommunityDetailImport } from './routes/_layout/community/detail'
+import { Route as LayoutDiaryWriteDiaryWriteCropDiaryImport } from './routes/_layout/diary/writeDiary/writeCropDiary'
+import { Route as LayoutDiaryWriteDiarySelectCropImport } from './routes/_layout/diary/writeDiary/selectCrop'
+import { Route as LayoutDiaryWriteDiaryDetailCropDiaryImport } from './routes/_layout/diary/writeDiary/detailCropDiary'
 import { Route as LayoutDiaryCreateCropNicknameImport } from './routes/_layout/diary/createCrop/nickname'
 import { Route as LayoutDiaryCreateCropIntroduceImport } from './routes/_layout/diary/createCrop/introduce'
 import { Route as LayoutDiaryCreateCropCropProfileImport } from './routes/_layout/diary/createCrop/cropProfile'
@@ -77,6 +81,29 @@ const LayoutDiaryCalendarRoute = LayoutDiaryCalendarImport.update({
   path: '/diary/calendar',
   getParentRoute: () => LayoutRoute,
 } as any)
+
+const LayoutCommunityDetailRoute = LayoutCommunityDetailImport.update({
+  path: '/community/detail',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutDiaryWriteDiaryWriteCropDiaryRoute =
+  LayoutDiaryWriteDiaryWriteCropDiaryImport.update({
+    path: '/diary/writeDiary/writeCropDiary',
+    getParentRoute: () => LayoutRoute,
+  } as any)
+
+const LayoutDiaryWriteDiarySelectCropRoute =
+  LayoutDiaryWriteDiarySelectCropImport.update({
+    path: '/diary/writeDiary/selectCrop',
+    getParentRoute: () => LayoutRoute,
+  } as any)
+
+const LayoutDiaryWriteDiaryDetailCropDiaryRoute =
+  LayoutDiaryWriteDiaryDetailCropDiaryImport.update({
+    path: '/diary/writeDiary/detailCropDiary',
+    getParentRoute: () => LayoutRoute,
+  } as any)
 
 const LayoutDiaryCreateCropNicknameRoute =
   LayoutDiaryCreateCropNicknameImport.update({
@@ -211,6 +238,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutDiaryCreateCropNicknameImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/diary/writeDiary/detailCropDiary': {
+      id: '/_layout/diary/writeDiary/detailCropDiary'
+      path: '/diary/writeDiary/detailCropDiary'
+      fullPath: '/diary/writeDiary/detailCropDiary'
+      preLoaderRoute: typeof LayoutDiaryWriteDiaryDetailCropDiaryImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/diary/writeDiary/selectCrop': {
+      id: '/_layout/diary/writeDiary/selectCrop'
+      path: '/diary/writeDiary/selectCrop'
+      fullPath: '/diary/writeDiary/selectCrop'
+      preLoaderRoute: typeof LayoutDiaryWriteDiarySelectCropImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/diary/writeDiary/writeCropDiary': {
+      id: '/_layout/diary/writeDiary/writeCropDiary'
+      path: '/diary/writeDiary/writeCropDiary'
+      fullPath: '/diary/writeDiary/writeCropDiary'
+      preLoaderRoute: typeof LayoutDiaryWriteDiaryWriteCropDiaryImport
+      parentRoute: typeof LayoutImport
+    }
   }
 }
 
@@ -231,6 +279,9 @@ export const routeTree = rootRoute.addChildren({
     LayoutDiaryCreateCropCropProfileRoute,
     LayoutDiaryCreateCropIntroduceRoute,
     LayoutDiaryCreateCropNicknameRoute,
+    LayoutDiaryWriteDiaryDetailCropDiaryRoute,
+    LayoutDiaryWriteDiarySelectCropRoute,
+    LayoutDiaryWriteDiaryWriteCropDiaryRoute,
   }),
   TestRoute,
 })
@@ -262,7 +313,10 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/diary/createCrop/cropImage",
         "/_layout/diary/createCrop/cropProfile",
         "/_layout/diary/createCrop/introduce",
-        "/_layout/diary/createCrop/nickname"
+        "/_layout/diary/createCrop/nickname",
+        "/_layout/diary/writeDiary/detailCropDiary",
+        "/_layout/diary/writeDiary/selectCrop",
+        "/_layout/diary/writeDiary/writeCropDiary"
       ]
     },
     "/test": {
@@ -318,6 +372,18 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout/diary/createCrop/nickname": {
       "filePath": "_layout/diary/createCrop/nickname.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/diary/writeDiary/detailCropDiary": {
+      "filePath": "_layout/diary/writeDiary/detailCropDiary.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/diary/writeDiary/selectCrop": {
+      "filePath": "_layout/diary/writeDiary/selectCrop.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/diary/writeDiary/writeCropDiary": {
+      "filePath": "_layout/diary/writeDiary/writeCropDiary.tsx",
       "parent": "/_layout"
     }
   }
