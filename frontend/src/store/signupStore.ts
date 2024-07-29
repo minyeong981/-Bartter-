@@ -6,18 +6,18 @@ interface SignupStore {
   password: Password;
   nickname: Nickname;
   birth: Birth;
-  latitude: Latitude | null;
-  longitude: Longitude | null;
-  gender: Gender | null;
-  email: Email | null;
-  phoneNumber: PhoneNumber;
+  latitude?: Latitude;
+  longitude?: Longitude;
+  gender?: Gender;
+  email?: Email;
+  phone: PhoneNumber;
   setNickname: (neewName: string) => void;
   setBirth: (newBirth: string) => void;
   setUsername: (newUserId: string) => void;
   setPassword: (newPassword: string) => void;
   setGender: (newGender: Gender) => void;
-  setEmail: (newEmail: string | null) => void;
-  setPhoneNumber: (nwPhoneNumber: string) => void;
+  setEmail: (newEmail: string | undefined) => void;
+  setPhone: (nwPhoneNumber: string) => void;
   setCoordinate: (newCoordinate: GeolocationCoordinates) => void;
 }
 
@@ -28,18 +28,18 @@ const useSignupStore = create<SignupStore>()(
       password: '',
       nickname: '',
       birth: '',
-      latitude: null,
-      longitude: null,
-      gender: null,
-      email: null,
-      phoneNumber: '',
+      latitude: undefined,
+      longitude: undefined,
+      gender: undefined,
+      email: undefined,
+      phone: '',
       setNickname: newNickname => set({nickname: newNickname}),
       setBirth: newBirth => set({birth: newBirth}),
       setUsername: newUsername => set({username: newUsername}),
       setPassword: newPassword => set({password: newPassword}),
       setGender: (newGender: Gender) => set({gender: newGender}),
       setEmail: newEmail => set({email: newEmail}),
-      setPhoneNumber: newPhoneNumber => set({phoneNumber: newPhoneNumber}),
+      setPhone: newPhone => set({phone: newPhone}),
       setCoordinate: ({latitude, longitude}) =>
         set({
           latitude,
