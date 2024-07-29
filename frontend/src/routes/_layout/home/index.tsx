@@ -7,7 +7,7 @@ import CommunityImage from '@/assets/image/동네모임1.png';
 import StroyImage from '@/assets/image/스토리1.png';
 import UserImage from '@/assets/image/유저.png';
 import AdCarousel from '@/components/AdCarousel';
-import HomeBarter from '@/components/Barter/HomeBarter';
+import Barter from '@/components/Barter';
 import LinkButton from '@/components/Buttons/LinkButton';
 import Community from '@/components/Community/PostList';
 // import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons';
@@ -110,7 +110,7 @@ export const Route = createFileRoute('/_layout/home/')({
         <div className="section-title">
           <div>물물 교환</div>
         </div>
-        <HomeBarter barterCards={barters} />
+        <Barter barterCards={barters} />
       </div>
 
       <div className="link-button-container">
