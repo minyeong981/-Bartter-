@@ -1,6 +1,5 @@
 package com.ssafy.bartter.community.service;
 
-import com.ssafy.bartter.community.dto.CommunityPostCommentDto;
 import com.ssafy.bartter.community.entity.CommunityPost;
 import com.ssafy.bartter.community.entity.CommunityPostComment;
 import com.ssafy.bartter.community.repository.CommunityPostCommentRepository;
@@ -13,9 +12,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
-import static com.ssafy.bartter.community.dto.CommunityPostCommentDto.*;
+import static com.ssafy.bartter.community.dto.CommunityPostCommentDto.Create;
 
 /**
  * 동네모임 게시글 댓글 Service
@@ -30,6 +27,9 @@ public class CommunityPostCommentService {
     private final UserRepository userRepository;
     private final CommunityPostCommentRepository communityPostCommentRepository;
 
+    /**
+     * 동네모임 댓글 작성
+     * */
     public CommunityPostComment createComment(Integer communityPostId, Create request) {
         User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         CommunityPost post = communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
@@ -41,6 +41,9 @@ public class CommunityPostCommentService {
         return communityPostCommentRepository.save(comment);
     }
 
+    /**
+     * 동네모임 댓글 삭제
+     * */
     public void deleteComment(Integer commentId) {
         CommunityPostComment comment = communityPostCommentRepository.findById(commentId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_COMMENT_NOT_FOUND));;
         communityPostCommentRepository.delete(comment);

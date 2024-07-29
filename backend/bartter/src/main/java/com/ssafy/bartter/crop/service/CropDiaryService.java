@@ -7,14 +7,13 @@ import com.ssafy.bartter.crop.repository.CropRepository;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.service.S3UploadService;
-import com.ssafy.bartter.user.entity.User;
 import com.ssafy.bartter.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import static com.ssafy.bartter.crop.dto.CropDiaryDto.*;
+import static com.ssafy.bartter.crop.dto.CropDiaryDto.Create;
 
 /**
  * 농사일지 Service
@@ -31,6 +30,9 @@ public class CropDiaryService {
     private final CropDiaryRepository cropDiaryRepository;
     private final S3UploadService s3UploadService;
 
+    /**
+     * 농사일지 작성
+     * */
     public CropDiary createCropDiary(Create request, MultipartFile image) {
         Crop crop = cropRepository.findById(request.getCropId()).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
         String imageUrl = s3UploadService.upload(image);
@@ -47,10 +49,16 @@ public class CropDiaryService {
     }
 
     // TODO : Fetch join - Crop
+    /**
+     * 농사일지 상세조회
+     * */
     public CropDiary getCropDiary(Integer cropDiaryId) {
         return cropDiaryRepository.findById(cropDiaryId).orElseThrow(() -> new CustomException(ErrorCode.CROP_DIARY_NOT_FOUND));
     }
 
+    /**
+     * 농사일지 삭제
+     * */
     public void deleteCropDiary(Integer cropDiaryId) {
         CropDiary diary = cropDiaryRepository.findById(cropDiaryId).orElseThrow(() -> new CustomException(ErrorCode.CROP_DIARY_NOT_FOUND));
         cropDiaryRepository.delete(diary);
