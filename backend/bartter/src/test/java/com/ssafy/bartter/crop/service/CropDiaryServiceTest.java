@@ -68,24 +68,15 @@ class CropDiaryServiceTest {
     @Test
     void 농사일지_조회() {
         // given
-        Create request = getRequest();
-        Crop mockCrop = mock(Crop.class);
-        MultipartFile image = mock(MultipartFile.class);
-
-        given(cropRepository.findById(request.getCropId())).willReturn(Optional.of(mockCrop));
-        given(s3UploadService.upload(image)).willReturn("testurl");
-
-        // spy는 실제 객체를 감싸는 객체로, 실제 객체의 메서드를 호출하면서 특정 메서드를 모킹할 수 있음
-        // spy를 쓰지 않으면 cropDiaryService는 모킹된 객체가 아닌 실제 createCropDiary의 결과를 반환하여 모킹이 불가능
-        CropDiary diary = spy(cropDiaryService.createCropDiary(request, image));
-
-        given(diary.getId()).willReturn(1);
+        CropDiary diary = mock(CropDiary.class);
         given(cropDiaryRepository.findById(1)).willReturn(Optional.of(diary));
+        given(diary.getId()).willReturn(1);
 
         // when
         CropDiary findDiary = cropDiaryService.getCropDiary(1);
 
         // then
+        assertThat(findDiary).isNotNull();
         assertThat(findDiary).isEqualTo(diary);
         assertThat(findDiary.getId()).isEqualTo(1);
     }

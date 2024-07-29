@@ -117,6 +117,7 @@ class CommunityPostServiceTest {
         // given
         CommunityPost post = mock(CommunityPost.class);
         given(communityPostRepository.findById(1)).willReturn(Optional.of(post));
+        given(post.getId()).willReturn(1);
 
         // when
         CommunityPost findPost = communityPostService.getPost(1);
@@ -124,6 +125,7 @@ class CommunityPostServiceTest {
         // then
         assertThat(findPost).isNotNull();
         assertThat(findPost).isEqualTo(post);
+        assertThat(findPost.getId()).isEqualTo(1);
     }
 
 
