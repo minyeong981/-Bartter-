@@ -21,7 +21,7 @@ import java.util.List;
 import static com.ssafy.bartter.community.dto.CommunityPostDto.Create;
 
 /**
- * CommunityPost Entity 연관 Service
+ * 동네모임 게시글 Service
  *
  * @author 김가람
  */

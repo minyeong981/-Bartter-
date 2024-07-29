@@ -4,7 +4,9 @@ import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * Community Comment Entity
@@ -12,6 +14,7 @@ import lombok.NoArgsConstructor;
  * @author 김용수
  */
 @Entity
+@Getter
 @Table(name = "community_post_comment")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommunityPostComment extends BaseEntity {
@@ -43,4 +46,18 @@ public class CommunityPostComment extends BaseEntity {
      */
     @Column(name = "community_post_comment_content", nullable = false, length = 500)
     private String content;
+
+    public CommunityPostComment(String content) {
+        this.content = content;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+        getUser().getCommunityPostCommentList().add(this);
+    }
+
+    public void setCommunityPost(CommunityPost communityPost) {
+        this.communityPost = communityPost;
+        getCommunityPost().getCommentList().add(this);
+    }
 }

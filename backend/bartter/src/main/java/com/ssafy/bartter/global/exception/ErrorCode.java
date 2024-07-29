@@ -29,7 +29,8 @@ public enum ErrorCode {
     CROP_DIARY_NOT_FOUND(HttpStatus.NOT_FOUND, 4000, "해당 ID의 농사일지를 찾을 수 없습니다."),
 
     // Community - 5000
-    COMMUNITY_POST_NOT_FOUND(HttpStatus.NOT_FOUND, 5000, "해당 ID의 동네모임 게시글을 찾을 수 없습니다.")
+    COMMUNITY_POST_NOT_FOUND(HttpStatus.NOT_FOUND, 5000, "해당 ID의 동네모임 게시글을 찾을 수 없습니다."),
+    COMMUNITY_POST_COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, 5001, "해당 ID의 동네모임 게시글 댓글을 찾을 수 없습니다.")
 
     // Trade
 

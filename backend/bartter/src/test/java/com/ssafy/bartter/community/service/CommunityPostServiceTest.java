@@ -78,7 +78,6 @@ class CommunityPostServiceTest {
         assertThat(post.getContent()).isEqualTo("content");
 
         List<CommunityPostImage> postImageList = post.getImageList();
-        List<String> imageUrlList = new ArrayList<>();
         for (int i = 0; i < postImageList.size(); i++) {
             CommunityPostImage postImage = postImageList.get(i);
             assertThat(postImage.getImageUrl()).isEqualTo("testurl" + (i + 1));
@@ -128,6 +127,7 @@ class CommunityPostServiceTest {
         assertThat(findPost.getId()).isEqualTo(1);
     }
 
+    // TODO : CASCADE 확인, AWS에서 이미지 지우기
     @DisplayName("동네모임 게시글 ID를 통해 동네모임 게시글을 삭제한다.")
     @Test
     void 동네모임_게시글_삭제() {

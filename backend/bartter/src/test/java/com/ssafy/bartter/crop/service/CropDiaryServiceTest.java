@@ -81,6 +81,7 @@ class CropDiaryServiceTest {
         assertThat(findDiary.getId()).isEqualTo(1);
     }
 
+    // TODO : CASCADE 확인, AWS에서 이미지 지우기
     @DisplayName("농사일지 ID를 통해 농사일지를 삭제힌다.")
     @Test
     void 농사일지_삭제() {

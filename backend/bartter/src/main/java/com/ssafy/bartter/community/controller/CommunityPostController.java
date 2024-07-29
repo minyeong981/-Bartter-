@@ -43,10 +43,17 @@ public class CommunityPostController {
         return new SuccessResponse<>(CommunityPostDetail.of(post));
     }
 
-    @Operation(summary = "동네모임 게시글 조회", description = "동네모임 게시글의 PK를 통해 게시글의 상세 정보를 조회한다.")
+    @Operation(summary = "동네모임 게시글 조회", description = "동네모임 게시글의 ID를 통해 게시글의 상세 정보를 조회한다.")
     @GetMapping("/{communityPostId}")
     public SuccessResponse<CommunityPostDetail> getCommunityPost(@PathVariable("communityPostId") Integer communityPostId) {
         CommunityPost post = communityPostService.getPost(communityPostId);
         return new SuccessResponse<>(CommunityPostDetail.of(post));
+    }
+
+    @Operation(summary = "동네모임 게시글 삭제", description = "동네모임 게시글의 ID를 통해 게시글의 상세 정보를 조회한 후 삭제한다.")
+    @DeleteMapping("/{communityPostId}")
+    public SuccessResponse<Void> deleteCommunityPost(@PathVariable("communityPostId") Integer communityPostId) {
+        communityPostService.deletePost(communityPostId);
+        return new SuccessResponse<>();
     }
 }

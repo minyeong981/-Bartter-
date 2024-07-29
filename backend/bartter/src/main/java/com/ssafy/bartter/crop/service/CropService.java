@@ -19,7 +19,7 @@ import java.util.List;
 import static com.ssafy.bartter.crop.dto.CropDto.Create;
 
 /**
- * Crop Entity 연관 Service
+ * 농작물 프로필 Service
  *
  * @author 김가람
  */

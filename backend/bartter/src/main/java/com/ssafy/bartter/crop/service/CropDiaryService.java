@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import static com.ssafy.bartter.crop.dto.CropDiaryDto.*;
 
 /**
- * CropDiary Entity 연관 Service
+ * 농사일지 Service
  *
  * @author 김가람
  */
