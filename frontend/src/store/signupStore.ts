@@ -1,49 +1,50 @@
 import {create} from 'zustand';
 import {persist} from 'zustand/middleware';
 
-type Male = 'male';
-type Female = 'female';
-
-export type Gender = Male | Female;
-
 interface SignupStore {
-  name: string;
-  birth: string;
-  userId: string;
-  password: string;
+  username: Username;
+  password: Password;
+  nickname: Nickname;
+  birth: Birth;
+  latitude: Latitude | null;
+  longitude: Longitude | null;
   gender: Gender | null;
-  email: string | null;
-  phoneNumber: string;
-  coordinate?: GeolocationCoordinates;
-  setName: (newName: string) => void;
+  email: Email | null;
+  phoneNumber: PhoneNumber;
+  setNickname: (neewName: string) => void;
   setBirth: (newBirth: string) => void;
-  setUserId: (newUserId: string) => void;
+  setUsername: (newUserId: string) => void;
   setPassword: (newPassword: string) => void;
   setGender: (newGender: Gender) => void;
   setEmail: (newEmail: string | null) => void;
-  setPhoneNumber: (newPhoneNumber: string) => void;
+  setPhoneNumber: (nwPhoneNumber: string) => void;
   setCoordinate: (newCoordinate: GeolocationCoordinates) => void;
 }
 
 const useSignupStore = create<SignupStore>()(
   persist(
     set => ({
-      name: '',
-      birth: '',
-      userId: '',
+      username: '',
       password: '',
+      nickname: '',
+      birth: '',
+      latitude: null,
+      longitude: null,
       gender: null,
       email: null,
       phoneNumber: '',
-      coordinate: undefined,
-      setName: newName => set({name: newName}),
+      setNickname: newNickname => set({nickname: newNickname}),
       setBirth: newBirth => set({birth: newBirth}),
-      setUserId: newUserId => set({userId: newUserId}),
+      setUsername: newUsername => set({username: newUsername}),
       setPassword: newPassword => set({password: newPassword}),
       setGender: (newGender: Gender) => set({gender: newGender}),
       setEmail: newEmail => set({email: newEmail}),
       setPhoneNumber: newPhoneNumber => set({phoneNumber: newPhoneNumber}),
-      setCoordinate: newCoordinate => set({coordinate: newCoordinate}),
+      setCoordinate: ({latitude, longitude}) =>
+        set({
+          latitude,
+          longitude,
+        }),
     }),
     {name: 'signup-form'},
   ),

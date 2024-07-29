@@ -15,8 +15,8 @@ export const Route = createFileRoute('/_layout/signup/_layout/1')({
 });
 
 function GetNamePage() {
-  const name = useSignupStore(state => state.name);
-  const setName = useSignupStore(state => state.setName);
+  const name = useSignupStore(state => state.nickname);
+  const setName = useSignupStore(state => state.setNickname);
   const isValid = name.length >= 2;
 
   function handleNameChange(e: ChangeEvent<HTMLInputElement>) {

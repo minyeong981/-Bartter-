@@ -18,8 +18,8 @@ export const Route = createFileRoute('/_layout/signup/_layout/2')({
 });
 
 function GetUserId() {
-  const userId = useSignupStore(state => state.userId);
-  const setUserId = useSignupStore(state => state.setUserId);
+  const userId = useSignupStore(state => state.username);
+  const setUserId = useSignupStore(state => state.setUsername);
   const isValid = userId.match(USERID_PATTERN);
 
   function handleUserIdChange(e: ChangeEvent<HTMLInputElement>) {

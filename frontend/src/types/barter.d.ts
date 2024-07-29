@@ -1,0 +1,11 @@
+type Male = 'M';
+type Female = 'F';
+type Username = string;
+type Password = string;
+type Nickname = string;
+type Birth = string;
+type Gender = Male | Female;
+type Latitude = number;
+type Longitude = number;
+type PhoneNumber = string;
+type Email = string;
