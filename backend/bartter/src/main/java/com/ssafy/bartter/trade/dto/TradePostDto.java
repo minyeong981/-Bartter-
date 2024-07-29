@@ -90,4 +90,11 @@ public class TradePostDto {
                     .build();
         }
     }
+
+    /**
+     * 물물교환 게시글 작성 Dto
+     */
+    public static class Create {
+
+    }
 }

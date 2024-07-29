@@ -10,6 +10,7 @@ import com.ssafy.bartter.trade.entity.TradePost;
 import com.ssafy.bartter.trade.services.TradePostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -55,4 +56,11 @@ public class TradeController {
 
         return SuccessResponse.of(tradePostDetail);
     }
+
+    @PostMapping("/posts")
+    public SuccessResponse<Void> createTradePost(
+            @RequestBody @Valid TradePostDto.Create request){
+        return SuccessResponse.empty();
+    }
+
 }
