@@ -9,9 +9,9 @@ import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.service.S3UploadService;
 import com.ssafy.bartter.user.entity.User;
 import com.ssafy.bartter.user.repository.UserRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -57,6 +57,7 @@ public class CropService {
     /**
      * 농작물 카테고리 전체 조회
      * */
+    @Transactional(readOnly = true)
     public List<CropCategory> getCropCategoryList() {
         return cropCategoryRepository.findAll();
     }
@@ -65,6 +66,7 @@ public class CropService {
     /**
      * 농작물 프로필 상세 조회
      * */
+    @Transactional(readOnly = true)
     public Crop getCrop(Integer cropId) {
         return cropRepository.findById(cropId).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
     }

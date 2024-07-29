@@ -10,9 +10,9 @@ import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.service.S3UploadService;
 import com.ssafy.bartter.user.entity.User;
 import com.ssafy.bartter.user.repository.UserRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -70,6 +70,7 @@ public class CommunityPostService {
     /**
      * 동네모임 게시글 상세조회
      * */
+    @Transactional(readOnly = true)
     public CommunityPost getPost(Integer communityPostId) {
         return communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
     }

@@ -8,9 +8,9 @@ import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.service.S3UploadService;
 import com.ssafy.bartter.user.repository.UserRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import static com.ssafy.bartter.crop.dto.CropDiaryDto.Create;
@@ -52,6 +52,7 @@ public class CropDiaryService {
     /**
      * 농사일지 상세조회
      * */
+    @Transactional(readOnly = true)
     public CropDiary getCropDiary(Integer cropDiaryId) {
         return cropDiaryRepository.findById(cropDiaryId).orElseThrow(() -> new CustomException(ErrorCode.CROP_DIARY_NOT_FOUND));
     }
