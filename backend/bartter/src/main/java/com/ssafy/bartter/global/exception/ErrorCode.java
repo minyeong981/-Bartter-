@@ -26,7 +26,8 @@ public enum ErrorCode {
     REFRESH_TOKEN_EXPIRED(HttpStatus.BAD_REQUEST, 2003, "리프레시 토큰이 만료되었습니다."),
     INVALID_REFRESH_TOKEN(HttpStatus.BAD_REQUEST, 2004, "유효하지 않은 리프레시 토큰입니다."),
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, 2005, "인증에 실패하였습니다."),
-    USER_ALREADY_EXISTS(HttpStatus.CONFLICT, 2005, "이미 존재하는 사용자입니다."),
+    USER_ALREADY_EXISTS(HttpStatus.CONFLICT, 2006, "이미 존재하는 사용자입니다."),
+    USER_LOCATION_NOT_FOUND(HttpStatus.NOT_FOUND, 2007, "사용자의 위치 정보를 찾을 수 없습니다."),
 
 
     // Crop - 3000

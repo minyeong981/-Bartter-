@@ -44,16 +44,7 @@ public class UserService {
             throw new CustomException(ErrorCode.USER_ALREADY_EXISTS, "User with username " + username + " already exists.");
         }
 
-        // 위도와 경도를 사용하여 Location 엔티티 조회
-//        Location location = locationService.getCurrentLocation(userJoinDto.getLatitude(), userJoinDto.getLongitude());
-//        System.out.println("location : " + location);
-
-        // 임의의 Location 엔티티 생성
-        int locationId = 1;
-        Location location = locationRepository.findById(locationId)
-                .orElseThrow(() ->  new CustomException(ErrorCode.LOCATION_NOT_FOUND, "Location not found with id: " + locationId));
-
-
+        Location location = locationService.getCurrentLocation(userJoinDto.getLatitude(), userJoinDto.getLongitude());
 
         // User 객체 생성
         User user = User.builder()

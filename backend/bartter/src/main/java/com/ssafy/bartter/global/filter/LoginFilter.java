@@ -2,6 +2,7 @@ package com.ssafy.bartter.global.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.bartter.auth.dto.AuthUserDetails;
+import com.ssafy.bartter.auth.dto.AuthUserLoginDto;
 import com.ssafy.bartter.auth.dto.RefreshTokenDto;
 import com.ssafy.bartter.auth.dto.UserAuthDto;
 import com.ssafy.bartter.auth.entity.Refresh;
@@ -55,15 +56,15 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         ObjectMapper mapper = new ObjectMapper();
-        UserAuthDto userAuthDto;
+        AuthUserLoginDto authUserLoginDto;
         try {
-            userAuthDto = mapper.readValue(request.getInputStream(), UserAuthDto.class);
+            authUserLoginDto = mapper.readValue(request.getInputStream(), AuthUserLoginDto.class);
         } catch (IOException e) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, "잘못된 입력 값입니다.");
         }
 
-        String username = userAuthDto.getUsername();
-        String password = userAuthDto.getPassword();
+        String username = authUserLoginDto.getUsername();
+        String password = authUserLoginDto.getPassword();
         log.debug("username : {}", username);
         // TODO: ADMIN 권한 체크를 추가해야한다면 role 도 넘겨주어야 한다
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, null);

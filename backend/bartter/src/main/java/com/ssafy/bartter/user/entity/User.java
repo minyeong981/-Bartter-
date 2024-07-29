@@ -202,6 +202,7 @@ public class User extends BaseEntity {
 
     /**
      * User 엔티티의 빌더
+     * TODO: profileImage, profileMessage 를 default 값으로 변경 필요
      */
     @Builder
     public User(String username, String password, String nickname, LocalDate birth, Gender gender,

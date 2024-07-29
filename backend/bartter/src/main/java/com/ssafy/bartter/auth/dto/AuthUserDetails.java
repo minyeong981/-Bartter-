@@ -1,5 +1,6 @@
 package com.ssafy.bartter.auth.dto;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,6 +14,7 @@ import java.util.Collection;
  *
  * @author 김훈민
  */
+@Getter
 @RequiredArgsConstructor
 public class AuthUserDetails implements UserDetails {
 
