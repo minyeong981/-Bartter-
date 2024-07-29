@@ -1,11 +1,11 @@
-@use '../../styles/constants/colors.scss' as colors;
-@use '../../styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+@use '@/styles/constants/typographies.scss' as typo;
 
 .custom-calendar-container {
   width: 90%;
   max-width: 600px;
   padding: 0 15px;
-  margin: 10px auto; // 중앙 정렬
+  margin: 10px auto;
 
   &.collapsed {
     .current-week {
@@ -36,13 +36,13 @@
     .react-calendar__navigation {
       display: flex;
       align-items: center;
-      justify-content: space-between; // 네비게이션 버튼을 양 끝에 배치
-      padding: 1.5rem; // 네비게이션 영역 패딩 증가
-      margin-bottom: 1.5rem; // 조정된 마진
+      justify-content: space-between;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
 
       button {
-        margin: 0 2%; // 버튼과 숫자 간격 조정
-        font-size: 1.75rem; // 버튼 폰트 크기 증가
+        margin: 0 2%;
+        font-size: 1.75rem;
         cursor: pointer;
         background: none;
         border: none;
@@ -61,9 +61,9 @@
       }
 
       .react-calendar__navigation__label {
-        flex-grow: 1; // 레이블이 남은 공간을 차지하도록 설정
-        margin: 0; // 레이블과 버튼 사이의 마진 제거
-        font-size: 1.75rem; // 레이블 폰트 크기 증가
+        flex-grow: 1;
+        margin: 0;
+        font-size: 1.75rem;
         text-align: center;
         pointer-events: none;
 
@@ -73,7 +73,7 @@
 
     .react-calendar__month-view__weekdays__weekday {
       abbr {
-        margin: 0 0.5rem; // 요일 레이블 간의 마진 증가
+        margin: 0 0.5rem;
         color: inherit;
         text-decoration: none;
 
@@ -110,12 +110,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 2.2rem; // 오늘 날짜 원 크기
-        height: 2.2rem; // 오늘 날짜 원 크기
+        width: 2.2rem;
+        height: 2.2rem;
         margin: auto;
         color: black;
         text-align: center;
-        background-color: rgba(#000, 0.2); // 원하는 색상으로 변경
+        background-color: rgba(#000, 0.2);
         border-radius: 50%;
 
         @include typo.title;
@@ -123,34 +123,34 @@
 
       &.selected abbr {
         color: black;
-        background-color: transparent; // 클릭한 날짜의 초록색 동그라미 제거
+        background-color: transparent;
       }
     }
 
     .react-calendar__tile {
-      position: relative; // 선택한 날짜를 감싸는 선을 위한 설정
+      position: relative;
       box-sizing: border-box;
       max-width: 100%;
-      height: 3rem; // 타일 높이 설정
-      padding: 0.5rem; // 타일 패딩
-      background: none; // 기본 배경색 제거
+      height: 3rem;
+      padding: 0.5rem;
+      background: none;
 
       &.react-calendar__tile--active {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0; // 패딩 제거
-        border: 2px solid #20873f; // 초록색 사각형 선으로 감쌈
-        border-radius: 10px; // 모서리를 약간 둥글게 설정
+        padding: 0;
+        border: 2px solid #20873f;
+        border-radius: 10px;
 
         abbr {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 2.2rem; // 원 크기
-          height: 2.2rem; // 원 크기
+          width: 2.2rem;
+          height: 2.2rem;
           margin: auto;
-          background-color: transparent; // 클릭한 날짜의 원 배경색 제거
+          background-color: transparent;
           border-radius: 50%;
         }
       }
@@ -160,10 +160,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 2.2rem; // 원 크기
-        height: 2.2rem; // 원 크기
+        width: 2.2rem;
+        height: 2.2rem;
         margin: auto;
-        background: none; // 기본 배경색 제거
+        background: none;
         border-radius: 50%;
 
         @include typo.main;
@@ -173,7 +173,7 @@
 
   @media (width <= 768px) {
     .react-calendar__navigation {
-      flex-direction: row; // 항상 가로 배치
+      flex-direction: row;
       align-items: center;
 
       button {
@@ -187,7 +187,7 @@
 
     .react-calendar__tile,
     .react-calendar__month-view__days__day {
-      height: 2.5rem; // 반응형 높이 설정
+      height: 2.5rem;
     }
 
     .react-calendar__tile abbr,
@@ -202,7 +202,7 @@
 
   @media (width <= 480px) {
     .react-calendar__navigation {
-      flex-direction: row; // 항상 가로 배치
+      flex-direction: row;
       align-items: center;
       padding: 0.75rem;
 
@@ -212,14 +212,14 @@
       }
 
       .react-calendar__navigation__label {
-        margin-bottom: 0; // 아래 여백 제거
+        margin-bottom: 0;
         font-size: 1.25rem;
       }
     }
 
     .react-calendar__tile,
     .react-calendar__month-view__days__day {
-      height: 2.5rem; // 반응형 높이 설정
+      height: 2.5rem;
     }
 
     .react-calendar__tile abbr,
@@ -234,7 +234,7 @@
 
   @media (width <= 320px) {
     .react-calendar__navigation {
-      flex-direction: row; // 항상 가로 배치
+      flex-direction: row;
       align-items: center;
       padding: 0.5rem;
 
@@ -244,14 +244,14 @@
       }
 
       .react-calendar__navigation__label {
-        margin-bottom: 0; // 아래 여백 제거
+        margin-bottom: 0;
         font-size: 1rem;
       }
     }
 
     .react-calendar__tile,
     .react-calendar__month-view__days__day {
-      height: 2.5rem; // 반응형 높이 설정
+      height: 2.5rem;
     }
 
     .react-calendar__tile abbr,

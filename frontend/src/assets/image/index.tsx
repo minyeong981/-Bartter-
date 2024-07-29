@@ -12,6 +12,7 @@ export {default as ImageGreenOnion} from './greenOnion.png';
 export {default as ImageGroup} from './group.png';
 export {default as ImageHome} from './home.png';
 export {default as ImageLettuce} from './lettuce.png';
+export {default as ImageLogo} from './logo.png';
 export {default as ImageMushroom} from './mushroom.png';
 export {default as ImageNanaCabbage} from './nanaCabbage.png';
 export {default as ImageOnion} from './onion.png';

@@ -12,12 +12,13 @@ const cx = classnames.bind(style);
 
 export default function GeneralButton({
   children,
+  disabled,
   buttonStyle,
   ...props
 }: PropsWithChildren<GeneralButtonProps>) {
   return (
     <button
-      className={cx(['button', ...Object.values(buttonStyle)])}
+      className={cx(['button', {disabled}, ...Object.values(buttonStyle)])}
       {...props}
     >
       {children}

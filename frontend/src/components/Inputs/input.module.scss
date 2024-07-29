@@ -1,0 +1,19 @@
+@use '@/styles/constants/colors' as colors;
+
+.generalInput {
+  width: 341px;
+  height: 48px;
+  border: 1px solid colors.$primary;
+  border-radius: 12px;
+  padding: 0 12px;
+
+  &::placeholder {
+    color: colors.$placeholder;
+  }
+}
+
+.labeledInput {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

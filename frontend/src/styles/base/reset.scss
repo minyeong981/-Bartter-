@@ -19,6 +19,7 @@ blockquote,
 dl,
 dd {
   margin-block-end: 0;
+  margin: 0;
 }
 
 ul[role='list'],
@@ -48,6 +49,10 @@ h4 {
   text-wrap: balance;
 }
 
+a {
+  text-decoration: none;
+}
+
 a:not([class]) {
   text-decoration-skip-ink: auto;
   color: currentcolor;
@@ -64,6 +69,10 @@ button,
 textarea,
 select {
   font: inherit;
+}
+
+button {
+  border: 0;
 }
 
 textarea:not([rows]) {
