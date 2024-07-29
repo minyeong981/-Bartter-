@@ -26,12 +26,13 @@ interface Flexible {
   };
 }
 
-interface Float {
+interface Floating {
   buttonStyle: {
-    style: 'float';
+    style: 'floating';
+    size: 'large' | 'medium' | 'small' | 'tiny';
   };
 }
 
 // primary, mono, outlined
 
-type ButtonStyle = Primary | Mono | Outlined | Flexible | Float;
+type ButtonStyle = Primary | Mono | Outlined | Flexible | Floating;
