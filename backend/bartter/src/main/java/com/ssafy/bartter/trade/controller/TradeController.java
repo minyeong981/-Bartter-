@@ -4,6 +4,8 @@ import com.ssafy.bartter.global.response.SuccessResponse;
 import com.ssafy.bartter.trade.dto.TradePostDto.SimpleTradePost;
 import com.ssafy.bartter.trade.entity.TradePost;
 import com.ssafy.bartter.trade.services.TradePostService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +18,12 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "농작물 물물교환 API", description = "농작물 물물교환 게시글 등록/목록/상세조회 관련 API")
 public class TradeController {
 
     private final TradePostService cropTradeService;
 
+    @Operation(summary = "농작물 물물교환 목록 조회", description = "농작물 물물교환 게시글 목록을 조회한다. ")
     @GetMapping("/trades")
     public SuccessResponse<List<SimpleTradePost>> getTradePostList(
             @RequestParam(value = "page", defaultValue = "0") int page,
