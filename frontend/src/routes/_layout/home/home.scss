@@ -1,0 +1,62 @@
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 390px; // 전체 컨테이너의 최대 너비를 390px로 제한
+  padding: 20px;
+  margin: 0 auto; // 페이지 중앙 정렬
+
+  .section-title {
+    width: calc(100% - 20px); // 타이틀 컴포넌트의 너비를 100%로 설정하고 여백 조정
+    margin-bottom: 10px;
+    margin-left: 20px; // 왼쪽 여백을 20px로 설정
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: left; // 제목을 왼쪽 정렬
+  }
+
+  .home-barter, .home-community, .home-story {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .link-button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 20px 0;
+  }
+}
+
+// .home-barter {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: 100%;
+//   max-width: 390px;
+//   overflow: hidden;
+// }
+
+.carousel-inner {
+  display: flex;
+  width: 100%; // 내부 콘텐츠가 컨테이너의 전체 너비를 사용하도록 설정
+  transition: transform 0.5s ease-in-out;
+}
+
+.barter-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(100% / 2 - 10px); // 한 화면에 카드 두 개가 들어오도록 설정
+  padding: 10px;
+  margin: 0 5px; // 카드 간 간격 설정
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+}
