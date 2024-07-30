@@ -1,9 +1,14 @@
 package com.ssafy.bartter.trade.controller;
 
-import com.ssafy.bartter.crop.dto.CropCategoryDto;
+import com.ssafy.bartter.auth.annotation.CurrentUser;
+import com.ssafy.bartter.auth.dto.UserAuthDto;
 import com.ssafy.bartter.crop.dto.CropCategoryDto.CropCategoryDetail;
+import com.ssafy.bartter.global.common.Location;
+import com.ssafy.bartter.global.common.SimpleLocation;
+import com.ssafy.bartter.global.common.SimpleLocation.LocationRequestDto;
+import com.ssafy.bartter.global.exception.CustomException;
+import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.response.SuccessResponse;
-import com.ssafy.bartter.trade.dto.TradePostDto;
 import com.ssafy.bartter.trade.dto.TradePostDto.SimpleTradePostDetail;
 import com.ssafy.bartter.trade.dto.TradePostDto.TradePostDetail;
 import com.ssafy.bartter.trade.entity.TradePost;
@@ -13,6 +18,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +28,8 @@ import java.util.stream.Stream;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "농작물 물물교환 API", description = "농작물 물물교환 게시글 등록/목록/상세조회 관련 API")
 @RequestMapping("/trades")
+@Tag(name = "농작물 물물교환 API", description = "농작물 물물교환 게시글 등록/목록/상세조회 관련 API")
 public class TradeController {
 
     private final TradePostService cropTradeService;
@@ -35,13 +41,10 @@ public class TradeController {
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "10") int limit,
             @RequestParam(value = "givenCategory", defaultValue = "0") int givenCategory,
-            @RequestParam(value = "desiredCategories", required = false) List<Integer> desiredCategories
+            @RequestParam(value = "desiredCategories", required = false) List<Integer> desiredCategories,
+            @CurrentUser UserAuthDto user
     ) {
-        int locationId = 1; // TODO : 사용자 로그인 구현시 변경 예정
-
-        log.debug("page : {}, limit : {}, givenCategory : {}, desiredCategories : {}", page, limit, givenCategory, desiredCategories);
-
-        List<TradePost> tradePostList = cropTradeService.getTradePostList(page, limit, givenCategory, desiredCategories, locationId);
+        List<TradePost> tradePostList = cropTradeService.getTradePostList(page, limit, givenCategory, desiredCategories, user.getLocationId());
 
         List<SimpleTradePostDetail> simpleTradePostList = tradePostList.stream().map(o -> SimpleTradePostDetail.of(o)).collect(Collectors.toList());
         return SuccessResponse.of(simpleTradePostList);
@@ -52,15 +55,31 @@ public class TradeController {
         TradePost tradePost = cropTradeService.getTradePost(tradePostId);
         List<String> imageList = tradePost.getImageList().stream().map(o -> o.getImageUrl()).collect(Collectors.toList());
         List<CropCategoryDetail> desiredCategoryList = tradePost.getWishCropCategoryList().stream().map(o -> CropCategoryDetail.of(o.getCategory())).toList();
-        TradePostDetail tradePostDetail = TradePostDetail.of(tradePost,imageList,desiredCategoryList);
+        TradePostDetail tradePostDetail = TradePostDetail.of(tradePost, imageList, desiredCategoryList);
 
         return SuccessResponse.of(tradePostDetail);
     }
 
-    @PostMapping("/posts")
-    public SuccessResponse<Void> createTradePost(
-            @RequestBody @Valid TradePostDto.Create request){
-        return SuccessResponse.empty();
+
+
+    @PostMapping("/posts/locations")
+    public SuccessResponse<SimpleLocation> getLocation(
+            @RequestBody @Valid LocationRequestDto request,
+            BindingResult bindingResult
+    ) {
+        if (bindingResult.hasErrors()) {
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
+        }
+        log.debug("hasErrors: {} , request: {} ",bindingResult.hasErrors(), request);
+        Location location = cropTradeService.getLocation(request.getLatitude(), request.getLongitude());
+        return SuccessResponse.of(SimpleLocation.of(location));
     }
 
+    //    @PostMapping("/posts")
+//    public SuccessResponse<Void> createTradePost(
+//            @RequestBody @Valid TradePostDto.Create request) {
+//        return SuccessResponse.empty();
+//    }
+
 }
+

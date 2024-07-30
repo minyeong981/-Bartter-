@@ -5,12 +5,13 @@ import com.ssafy.bartter.auth.dto.AuthUserDetails;
 import com.ssafy.bartter.auth.dto.UserAuthDto;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.global.common.SimpleLocation;
+import com.ssafy.bartter.global.common.SimpleLocation.LocationRequestDto;
 import com.ssafy.bartter.global.exception.CustomException;
+import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.response.ErrorResponse;
 import com.ssafy.bartter.global.response.SuccessResponse;
 import com.ssafy.bartter.global.service.LocationService;
 import com.ssafy.bartter.user.dto.UserJoinDto;
-import com.ssafy.bartter.user.dto.UserLocationDto;
 import com.ssafy.bartter.user.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -41,19 +46,17 @@ public class UserController {
      * @param userJoinDto 사용자 가입 정보를 담고 있는 객체
      * @return 사용자 생성 성공 여부를 나타내는 ResponseEntity 객체
      */
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/join")
-    public ResponseEntity<?> joinProcess(@Valid @RequestBody UserJoinDto userJoinDto) {
-        try {
-            userService.joinProcess(userJoinDto);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(new SuccessResponse<>("사용자가 성공적으로 생성되었습니다."));
-        } catch (CustomException e) {
-            return ResponseEntity.status(e.getErrorCode().getStatus())
-                    .body(ErrorResponse.of(e));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(ErrorResponse.of(e));
+    public SuccessResponse<Void> joinProcess(
+            @RequestBody @Valid UserJoinDto userJoinDto,
+            BindingResult bindingResult
+    ) {
+        if(bindingResult.hasErrors()){
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
+        userService.joinProcess(userJoinDto);
+        return SuccessResponse.empty();
     }
 
     /**
@@ -63,23 +66,17 @@ public class UserController {
      * @return 현재 위치 정보를 나타내는 ResponseEntity 객체
      */
     @PostMapping("/location")
-    public ResponseEntity<?> findLocation(@Valid @RequestBody UserLocationDto userLocationDto){
-        try {
-            double latitude = userLocationDto.getLatitude();
-            double longitude = userLocationDto.getLongitude();
-
-            // 위치 정보 조회
-            Location location = locationService.getCurrentLocation(latitude, longitude);
-            SimpleLocation simpleLocation = SimpleLocation.of(location);
-            log.debug("simpleLocation name : {}", simpleLocation.getName());
-            return ResponseEntity.ok(new SuccessResponse<>(simpleLocation));
-        } catch (CustomException e) {
-            return ResponseEntity.status(e.getErrorCode().getStatus())
-                    .body(ErrorResponse.of(e));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(ErrorResponse.of(e));
+    public SuccessResponse<SimpleLocation> findLocation(
+            @RequestBody @Valid LocationRequestDto userLocationDto,
+            BindingResult bindingResult
+    ){
+        if(bindingResult.hasErrors()) {
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
+
+        // 위치 정보 조회
+        Location location = locationService.getCurrentLocation(userLocationDto.getLatitude(), userLocationDto.getLongitude());
+        return SuccessResponse.of(SimpleLocation.of(location));
     }
 
     @GetMapping("/ex")
