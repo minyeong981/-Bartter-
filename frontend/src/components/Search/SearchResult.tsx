@@ -1,9 +1,12 @@
 
 
-export default function SearchResult() {
+
+
+export default function SearchResult({ result } : {result : string }) {
     return (
         <div>
-            searchResult
+            <div>{result} 검색 결과</div>
+            <div>전체 결과 컴포넌트</div>
         </div>
     )
 }
