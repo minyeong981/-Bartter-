@@ -6,7 +6,7 @@ import {useState} from 'react';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
-import useSignupStore from '@/store/signupStore.ts';
+import useStore from "@/store";
 import {PASSWORD_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
@@ -18,8 +18,8 @@ export const Route = createFileRoute('/_layout/signup/_layout/3')({
 });
 
 function GetPasswordPage() {
-  const password = useSignupStore(state => state.password);
-  const setPassword = useSignupStore(state => state.setPassword);
+  const password = useStore(state => state.password);
+  const setPassword = useStore(state => state.setPassword);
   const [confirmPassword, setConfirmPassword] = useState('');
   const isValid =
     password.match(PASSWORD_PATTERN) && password === confirmPassword;
@@ -37,7 +37,7 @@ function GetPasswordPage() {
       <div className={cx('headingContainer')}>
         <Heading>
           농부님이
-          <br />
+          <br/>
           사용할 비밀번호를 알려주세요
         </Heading>
       </div>

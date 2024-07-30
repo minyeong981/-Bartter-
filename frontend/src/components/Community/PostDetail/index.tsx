@@ -2,7 +2,7 @@ import {FaComment, FaThumbsUp} from 'react-icons/fa';
 
 import CommentList from '@/components/Community/CommentLIst';
 import UserNameContent from '@/components/User/UserNameContent';
-import type { Comment,CommunityPost } from '@/store/communityStore';
+import type {Comment, CommunityPost} from '@/store/communitySlice.ts';
 
 import styles from './postDetail.module.scss';
 

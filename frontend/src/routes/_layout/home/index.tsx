@@ -10,7 +10,7 @@ import LinkButton from '@/components/Buttons/LinkButton';
 import PostList from '@/components/Community/PostList';
 import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons';
 import HomeStory from '@/components/Story/HomeStory';
-import useCommunityStore from '@/store/communityStore';
+import useCommunityStore from '@/store/communitySlice.ts';
 
 import styles from './home.module.scss';
 
@@ -74,17 +74,15 @@ const storyData = [
 
 const cx = classnames.bind(styles);
 
-
 export const Route = createFileRoute('/_layout/home/')({
   component: Home,
 });
 
 export default function Home() {
-  const posts = useCommunityStore(state => state.posts)
-
+  const posts = useCommunityStore(state => state.posts);
 
   return (
-<div className={cx('container')}>
+    <div className={cx('container')}>
       <HeaderWithLabelAndButtons label="내위치" />
       <AdCarousel />
       <div className={cx('home-barter')}>
@@ -121,7 +119,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-
   );
 }
-

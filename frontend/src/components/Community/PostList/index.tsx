@@ -1,26 +1,25 @@
-import { Link } from '@tanstack/react-router';
+import {Link} from '@tanstack/react-router';
 import {FaComment, FaThumbsUp} from 'react-icons/fa';
 
-import type { CommunityPost } from '@/store/communityStore';
+import type {CommunityPost} from '@/store/communitySlice.ts';
 
 import styles from './postList.module.scss';
 
 interface CommunityProps {
-  posts : CommunityPost[]
+  posts: CommunityPost[];
 }
 
 export default function PostList({posts}: CommunityProps) {
-
   return (
     <div className={styles.community}>
       {posts.map((post, index) => (
         <div className={styles.communityCard} key={index}>
           <div className={styles.location}>{post.location.locationName}</div>
-          <Link 
-          className={styles.cardContent}
-          to='/community/detail/$postId'
+          <Link
+            className={styles.cardContent}
+            to="/community/detail/$postId"
             params={{
-              postId: post.communityPostId
+              postId: post.communityPostId,
             }}
           >
             <div className={styles.textBox}>
@@ -29,10 +28,12 @@ export default function PostList({posts}: CommunityProps) {
               <div className={styles.time}>{post.created_at}</div>
             </div>
             {/* {post.image && <img src={post.image} alt={post.title} />} */}
-            {post.imageList.map((image, imgIndex) => (
-                            imgIndex===0 && <img key={imgIndex} src={image.imageUrl} alt={post.title} />
-                        ))}
-      
+            {post.imageList.map(
+              (image, imgIndex) =>
+                imgIndex === 0 && (
+                  <img key={imgIndex} src={image.imageUrl} alt={post.title} />
+                ),
+            )}
           </Link>
           <div className={styles.iconBox}>
             <div className={styles.likeCount}>
