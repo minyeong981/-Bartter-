@@ -28,6 +28,7 @@ public enum ErrorCode {
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, 2005, "인증에 실패하였습니다."),
     USER_ALREADY_EXISTS(HttpStatus.CONFLICT, 2006, "이미 존재하는 사용자입니다."),
     USER_LOCATION_NOT_FOUND(HttpStatus.NOT_FOUND, 2007, "사용자의 위치 정보를 찾을 수 없습니다."),
+    UNAUTHENTICATED(HttpStatus.UNAUTHORIZED, 2008, "접근 권한이 없습니다."),
 
 
     // Crop - 3000

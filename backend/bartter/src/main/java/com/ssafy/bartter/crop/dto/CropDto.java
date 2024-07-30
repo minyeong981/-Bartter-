@@ -28,9 +28,6 @@ public class CropDto {
     @Getter
     @AllArgsConstructor
     public static class Create {
-        @NotNull(message = "유저 정보를 입력하세요.")
-        private final Integer userId;
-
         @NotNull(message = "농작물 카테고리 정보를 입력하세요.")
         private final Integer cropCategoryId;
 
@@ -39,7 +36,6 @@ public class CropDto {
 
         @NotNull(message = "파종 날짜를 입력하세요.")
         private final LocalDate growDate;
-
 
         private String description;
     }
