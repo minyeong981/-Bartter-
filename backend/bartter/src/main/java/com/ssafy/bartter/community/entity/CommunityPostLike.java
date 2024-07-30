@@ -4,6 +4,7 @@ import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
  * @author 김용수
  */
 @Entity
+@Getter
 @Table(name = "community_post_like")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommunityPostLike extends BaseEntity {
