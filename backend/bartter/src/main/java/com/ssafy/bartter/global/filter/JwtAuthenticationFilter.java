@@ -6,6 +6,7 @@ import com.ssafy.bartter.auth.utils.JwtUtil;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.user.entity.User;
+import com.ssafy.bartter.user.services.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -29,6 +30,7 @@ import java.io.PrintWriter;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
+//    private final UserService userService;
 
     /**
      * 요청에 대한 필터링을 수행하는 메서드
@@ -70,6 +72,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
         }
 
+//        User user = userService.findUserById(jwtUtil.getUserId(accessToken));
+//        UserAuthDto userAuthDto = UserAuthDto.builder()
+//                .id(user.getId())
+//                .username(user.getUsername())
+//                .role(user.getRole().name())
+//                .locationId(user.getLocation().getId())
+//                .locationName(user.getLocation().getName())
+//                .build();
 
         UserAuthDto userAuthDto = UserAuthDto.builder()
                 .id(jwtUtil.getUserId(accessToken))

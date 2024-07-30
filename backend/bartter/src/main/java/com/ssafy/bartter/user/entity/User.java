@@ -43,7 +43,7 @@ public class User extends BaseEntity {
     /**
      * 사용자 위치
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 

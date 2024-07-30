@@ -85,7 +85,6 @@ public class  LoginFilter extends UsernamePasswordAuthenticationFilter {
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) {
 
         AuthUserDetails authUserDetails = (AuthUserDetails) authentication.getPrincipal();
-
         String username = authUserDetails.getUsername();
         int userId = authUserDetails.getUserId();
 
