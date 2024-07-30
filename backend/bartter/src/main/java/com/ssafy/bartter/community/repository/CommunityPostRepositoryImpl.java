@@ -32,10 +32,12 @@ public class CommunityPostRepositoryImpl implements CommunityPostRepositoryCusto
         // imagelist
         Map<Integer, List<CommunityPostImage>> imageMap = findImageMap(postIdList);
 
-        // postList를 순회하며 리스트들을 매핑해주기
+        // N + 1 문제 미해결:
+        // - postList를 순회하며 리스트들을 매핑해주기
         // - 그러나 이렇게 하려면 postList에 setter를 열거나 현재 작업을 위한 dto를 따로 만들어야 하는 번거로움이 존재
         // - 수동으로 매핑해주지 않아도 controller단에서 dto로 변환활 때 getImageList()를 통해서 불러올 수 있지 않나?
         // - 그리고 불러오는 시점에는 위에서 이미 영속성 컨텍스트에 객체들이 모두 등록되어있기 때문에 쿼리가 새로 실행되지 않지 않을까?
+        //   -> 여전히 실행됨 : 프록시 객체에 연관관계 있는 객체가 비어있으면 그냥 쿼리 실행하는듯
 //        postList.forEach(o -> {
 //            o.setLikeList(likeMap.get(o.getId()));
 //            o.setCommentList(commentMap.get(o.getId()));
@@ -86,7 +88,8 @@ public class CommunityPostRepositoryImpl implements CommunityPostRepositoryCusto
                         + " JOIN FETCH p.location l"
                         + " WHERE p.title LIKE :keyword OR p.content LIKE :keyword"
                         + " AND l in :nearbyLocationList", CommunityPost.class
-                ).setParameter("keyword", keyword)
+                ).setParameter("keyword", "%" + keyword + "%")
+                .setParameter("nearbyLocationList", nearbyLocationList)
                 .getResultList();
     }
 

@@ -1,6 +1,7 @@
 package com.ssafy.bartter.global.response;
 
 import com.ssafy.bartter.global.exception.CustomException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
@@ -15,6 +16,7 @@ import java.util.List;
  *
  * @author 김용수
  */
+@Slf4j
 public class ErrorResponse extends BaseResponse<Void> {
 
     public ErrorResponse(boolean isSuccess, int code, String message, Errors errors) {
@@ -23,11 +25,11 @@ public class ErrorResponse extends BaseResponse<Void> {
     }
 
     public ErrorResponse(CustomException exception) {
-        this(false, exception.getErrorCode().getCode(), exception.getMessage(), new SimpleErrors("error", exception.getMessage()));
+        this(false, exception.getErrorCode().getCode(), exception.getMessage(), exception.getErrors());
     }
 
     public ErrorResponse(CustomException exception, String message) {
-        this(false, 1, message, null);
+        this(false, 1, message, exception.getErrors());
     }
 
     public static ErrorResponse of(CustomException exception) {
@@ -54,6 +56,7 @@ public class ErrorResponse extends BaseResponse<Void> {
         // 유효성 검사 실패한 필드 정보 담기
         List<CustomError> customErrors = new ArrayList<>();
         for (FieldError error : errors.getFieldErrors()) {
+            log.debug("{}", error);
             customErrors.add(new CustomError(error.getField(), error.getCode(), error.getDefaultMessage(), error.getObjectName()));
         }
 

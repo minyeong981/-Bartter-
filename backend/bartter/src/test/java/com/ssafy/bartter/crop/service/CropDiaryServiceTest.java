@@ -5,6 +5,7 @@ import com.ssafy.bartter.crop.entity.CropDiary;
 import com.ssafy.bartter.crop.repository.CropDiaryRepository;
 import com.ssafy.bartter.crop.repository.CropRepository;
 import com.ssafy.bartter.global.service.S3UploadService;
+import com.ssafy.bartter.user.entity.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -54,7 +55,7 @@ class CropDiaryServiceTest {
         given(s3UploadService.upload(image)).willReturn("testurl");
 
         // when
-        CropDiary diary = cropDiaryService.createCropDiary(request, image);
+        CropDiary diary = cropDiaryService.createCropDiary(request, image, 1);
 
         // then
         assertThat(diary).isNotNull();
@@ -87,10 +88,16 @@ class CropDiaryServiceTest {
     void 농사일지_삭제() {
         // given
         CropDiary diary = mock(CropDiary.class);
+        Crop mockCrop = mock(Crop.class);
+        User mockUser = mock(User.class);
+
+        given(mockUser.getId()).willReturn(1);
+        given(mockCrop.getUser()).willReturn(mockUser);
+        given(diary.getCrop()).willReturn(mockCrop);
         given(cropDiaryRepository.findById(1)).willReturn(Optional.of(diary));
 
         // when
-        cropDiaryService.deleteCropDiary(1);
+        cropDiaryService.deleteCropDiary(1, 1);
 
         // then
         verify(cropDiaryRepository, times(1)).delete(diary);

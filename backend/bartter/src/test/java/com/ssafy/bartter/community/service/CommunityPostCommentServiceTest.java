@@ -61,7 +61,7 @@ class CommunityPostCommentServiceTest {
         given(communityPostCommentRepository.save(any(CommunityPostComment.class))).willReturn(mockComment);
 
         // when
-        CommunityPostComment comment = communityPostCommentService.createComment(1, new Create(1, "content"));
+        CommunityPostComment comment = communityPostCommentService.createComment(1, new Create("content"), 1);
 
         // then
         assertThat(comment).isNotNull();
@@ -75,10 +75,14 @@ class CommunityPostCommentServiceTest {
     void 동네모임_댓글_삭제() {
         // given
         CommunityPostComment comment = mock(CommunityPostComment.class);
+        User mockUser = mock(User.class);
+
+        given(mockUser.getId()).willReturn(1);
+        given(comment.getUser()).willReturn(mockUser);
         given(communityPostCommentRepository.findById(1)).willReturn(Optional.of(comment));
 
         // when
-        communityPostCommentService.deleteComment(1);
+        communityPostCommentService.deleteComment(1, 1);
 
         // then
         verify(communityPostCommentRepository, times(1)).delete(comment);

@@ -6,7 +6,7 @@ import org.springframework.validation.Errors;
 import java.util.Objects;
 
 @Getter
-public class CustomException extends RuntimeException{
+public class CustomException extends RuntimeException {
     private final ErrorCode errorCode;
     private Errors errors;
 

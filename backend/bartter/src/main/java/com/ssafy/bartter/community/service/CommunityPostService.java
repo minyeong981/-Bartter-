@@ -2,7 +2,9 @@ package com.ssafy.bartter.community.service;
 
 import com.ssafy.bartter.community.entity.CommunityPost;
 import com.ssafy.bartter.community.entity.CommunityPostImage;
+import com.ssafy.bartter.community.entity.CommunityPostLike;
 import com.ssafy.bartter.community.repository.CommunityPostImageRepository;
+import com.ssafy.bartter.community.repository.CommunityPostLikeRepository;
 import com.ssafy.bartter.community.repository.CommunityPostRepository;
 import com.ssafy.bartter.community.repository.CommunityPostRepositoryImpl;
 import com.ssafy.bartter.global.common.Location;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.ssafy.bartter.community.dto.CommunityPostDto.Create;
 
@@ -40,14 +43,22 @@ public class CommunityPostService {
     private final S3UploadService s3UploadService;
     private final LocationService locationService;
     private final CommunityPostRepositoryImpl communityPostRepositoryImpl;
+    private final CommunityPostLikeRepository communityPostLikeRepository;
 
     /**
      * 동네모임 게시글 전체조회
      * */
-    public List<CommunityPost> getPostList(int page, int limit, int locationId, String keyword) {
-         // TODO : locationId 없으면 nearbyLocationList 빈 ArrayList로
-        // TODO : locationId 임시값 삭제
-        List<Location> nearbyLocationList = locationService.getNearbyLocationList(10);
+    public List<CommunityPost> getPostList(int page, int limit, String keyword, boolean isCommunity, Integer userId) {
+        // 전체 게시글 조회에서는 빈 ArrayList로 남아있다.
+        List<Location> nearbyLocationList = new ArrayList<>();
+
+        // 동네 게시글 조회에서는 유저 위치 반경에 있는 Location들의 ArrayList로 바꿔준다.
+        if (isCommunity) {
+            User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+            Integer locationId = user.getLocation().getId();
+            nearbyLocationList = locationService.getNearbyLocationList(locationId);
+        }
+
         PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
         keyword = (keyword == null) ? "" : keyword;
 
@@ -58,10 +69,9 @@ public class CommunityPostService {
     /**
      * 동네모임 게시글 작성
      * */
-    public CommunityPost createPost(Create request, List<MultipartFile> imageList) {
-        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+    public CommunityPost createPost(Create request, MultipartFile[] imageList, Integer userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         Location userLocation = user.getLocation();
-        List<CommunityPostImage> images = new ArrayList<>();
 
         CommunityPost post = CommunityPost.builder()
                 .user(user)
@@ -72,15 +82,17 @@ public class CommunityPostService {
 
         communityPostRepository.save(post);
 
-        for (int i = 0; i < imageList.size(); i++) {
-            String imageUrl = s3UploadService.upload(imageList.get(i));
-            CommunityPostImage postImage = CommunityPostImage.builder()
-                    .imageUrl(imageUrl)
-                    .order(i + 1)
-                    .build();
+        if (imageList != null) {
+            for (int i = 0; i < imageList.length; i++) {
+                String imageUrl = s3UploadService.upload(imageList[i]);
+                CommunityPostImage postImage = CommunityPostImage.builder()
+                        .imageUrl(imageUrl)
+                        .order(i + 1)
+                        .build();
 
-            postImage.addCommunityPost(post);
-            communityPostImageRepository.save(postImage);
+                postImage.addCommunityPost(post);
+                communityPostImageRepository.save(postImage);
+            }
         }
 
         return post;
@@ -98,8 +110,26 @@ public class CommunityPostService {
     /**
      * 동네모임 게시글 삭제
      * */
-    public void deletePost(Integer communityPostId) {
+    // TODO : AWS에서 삭제
+    public void deletePost(Integer communityPostId, Integer userId) {
         CommunityPost post = communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
+        if (!post.getUser().getId().equals(userId)) {
+            throw new CustomException(ErrorCode.UNAUTHENTICATED);
+        }
         communityPostRepository.delete(post);
+    }
+
+    public void toggleLikes(Integer communityPostId, Integer userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        CommunityPost post = communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
+        CommunityPostLike like = communityPostLikeRepository.findByCommunityPostIdAndUserId(post.getId(), userId);
+        if (like == null) {
+            CommunityPostLike newLike = new CommunityPostLike();
+            newLike.addUser(user);
+            newLike.addCommunityPost(post);
+            communityPostLikeRepository.save(newLike);
+        } else {
+            communityPostLikeRepository.delete(like);
+        }
     }
 }

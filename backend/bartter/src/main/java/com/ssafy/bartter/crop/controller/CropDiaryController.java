@@ -1,5 +1,7 @@
 package com.ssafy.bartter.crop.controller;
 
+import com.ssafy.bartter.auth.annotation.CurrentUser;
+import com.ssafy.bartter.auth.dto.UserAuthDto;
 import com.ssafy.bartter.crop.entity.CropDiary;
 import com.ssafy.bartter.crop.service.CropDiaryService;
 import com.ssafy.bartter.global.exception.CustomException;
@@ -27,14 +29,16 @@ public class CropDiaryController {
     @Operation(summary = "농사일지 작성", description = "농사일지를 작성한다.")
     @PostMapping("")
     public SuccessResponse<CropDiaryDetail> createCropDiary(
+            @CurrentUser UserAuthDto userAuthDto,
             @RequestBody @Valid Create request,
             BindingResult bindingResult,
             MultipartFile image
     ) {
         if (bindingResult.hasErrors()) {
-            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE);
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
-        CropDiary diary = cropDiaryService.createCropDiary(request, image);
+
+        CropDiary diary = cropDiaryService.createCropDiary(request, image, userAuthDto.getId());
         CropDiaryDetail response = CropDiaryDetail.of(diary);
         return SuccessResponse.of(response);
     }
@@ -49,8 +53,11 @@ public class CropDiaryController {
 
     @Operation(summary = "농사일지 삭제", description = "해당 농사일지 PK를 가진 농사일지를 찾아 삭제한다.")
     @DeleteMapping("/{cropDiaryId}")
-    public SuccessResponse<Void> deleteCropDiary(@PathVariable("cropDiaryId") Integer cropDiaryId) {
-        cropDiaryService.deleteCropDiary(cropDiaryId);
+    public SuccessResponse<Void> deleteCropDiary(
+            @PathVariable("cropDiaryId") Integer cropDiaryId,
+            @CurrentUser UserAuthDto userAuthDto
+    ) {
+        cropDiaryService.deleteCropDiary(cropDiaryId, userAuthDto.getId());
         return SuccessResponse.empty();
     }
 }
