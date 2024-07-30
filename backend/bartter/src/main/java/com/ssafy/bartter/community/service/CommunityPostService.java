@@ -2,7 +2,9 @@ package com.ssafy.bartter.community.service;
 
 import com.ssafy.bartter.community.entity.CommunityPost;
 import com.ssafy.bartter.community.entity.CommunityPostImage;
+import com.ssafy.bartter.community.entity.CommunityPostLike;
 import com.ssafy.bartter.community.repository.CommunityPostImageRepository;
+import com.ssafy.bartter.community.repository.CommunityPostLikeRepository;
 import com.ssafy.bartter.community.repository.CommunityPostRepository;
 import com.ssafy.bartter.community.repository.CommunityPostRepositoryImpl;
 import com.ssafy.bartter.global.common.Location;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.ssafy.bartter.community.dto.CommunityPostDto.Create;
 
@@ -40,6 +43,7 @@ public class CommunityPostService {
     private final S3UploadService s3UploadService;
     private final LocationService locationService;
     private final CommunityPostRepositoryImpl communityPostRepositoryImpl;
+    private final CommunityPostLikeRepository communityPostLikeRepository;
 
     /**
      * 동네모임 게시글 전체조회
@@ -113,5 +117,19 @@ public class CommunityPostService {
             throw new CustomException(ErrorCode.UNAUTHENTICATED);
         }
         communityPostRepository.delete(post);
+    }
+
+    public void toggleLikes(Integer communityPostId, Integer userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        CommunityPost post = communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
+        CommunityPostLike like = communityPostLikeRepository.findByCommunityPostIdAndUserId(post.getId(), userId);
+        if (like == null) {
+            CommunityPostLike newLike = new CommunityPostLike();
+            newLike.addUser(user);
+            newLike.addCommunityPost(post);
+            communityPostLikeRepository.save(newLike);
+        } else {
+            communityPostLikeRepository.delete(like);
+        }
     }
 }
