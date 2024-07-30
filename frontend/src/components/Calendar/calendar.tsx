@@ -57,7 +57,7 @@ export default function CalendarPage() {
       <TodayAlarm hasDiaryEntry={hasDiaryEntry} />
       <div className={cx('link-button-wrapper')}>
         <LinkButton
-          to="/diary/writeDiary/selectCrop"
+          to="/diary/write/1"
           buttonStyle={{style: 'primary', size: 'large'}}
         >
           일지 쓰기

@@ -3,7 +3,7 @@ import './diary.scss';
 import { createFileRoute } from '@tanstack/react-router';
 
 import Calendar from '@/components/Calendar/calendar';
-import MyCrops from '@/components/Crop/myCrops';
+import MainCrops from '@/components/Crop/mainCrops';
 import TwoButton from '@/components/TwoButton/TwoButton';
 import useDiaryStore from '@/store/diaryStore';
 
@@ -15,7 +15,7 @@ export default function Diary() {
       case '달력':
         return <Calendar />;
       case '내 작물':
-        return <MyCrops />;
+        return <MainCrops />;
       default:
         return null;
     }

@@ -34,9 +34,9 @@ import { Route as LayoutSignupLayout4Import } from './routes/_layout/signup/_lay
 import { Route as LayoutSignupLayout3Import } from './routes/_layout/signup/_layout/3'
 import { Route as LayoutSignupLayout2Import } from './routes/_layout/signup/_layout/2'
 import { Route as LayoutSignupLayout1Import } from './routes/_layout/signup/_layout/1'
-import { Route as LayoutDiaryWriteDiaryWriteCropDiaryImport } from './routes/_layout/diary/writeDiary/writeCropDiary'
-import { Route as LayoutDiaryWriteDiarySelectCropImport } from './routes/_layout/diary/writeDiary/selectCrop'
-import { Route as LayoutDiaryWriteDiaryDetailCropDiaryImport } from './routes/_layout/diary/writeDiary/detailCropDiary'
+import { Route as LayoutDiaryWrite3Import } from './routes/_layout/diary/write/3'
+import { Route as LayoutDiaryWrite2Import } from './routes/_layout/diary/write/2'
+import { Route as LayoutDiaryWrite1Import } from './routes/_layout/diary/write/1'
 import { Route as LayoutDiaryRegisterCrop5Import } from './routes/_layout/diary/registerCrop/5'
 import { Route as LayoutDiaryRegisterCrop4Import } from './routes/_layout/diary/registerCrop/4'
 import { Route as LayoutDiaryRegisterCrop3Import } from './routes/_layout/diary/registerCrop/3'
@@ -160,23 +160,20 @@ const LayoutSignupLayout1Route = LayoutSignupLayout1Import.update({
   getParentRoute: () => LayoutSignupLayoutRoute,
 } as any)
 
-const LayoutDiaryWriteDiaryWriteCropDiaryRoute =
-  LayoutDiaryWriteDiaryWriteCropDiaryImport.update({
-    path: '/diary/writeDiary/writeCropDiary',
-    getParentRoute: () => LayoutRoute,
-  } as any)
+const LayoutDiaryWrite3Route = LayoutDiaryWrite3Import.update({
+  path: '/diary/write/3',
+  getParentRoute: () => LayoutRoute,
+} as any)
 
-const LayoutDiaryWriteDiarySelectCropRoute =
-  LayoutDiaryWriteDiarySelectCropImport.update({
-    path: '/diary/writeDiary/selectCrop',
-    getParentRoute: () => LayoutRoute,
-  } as any)
+const LayoutDiaryWrite2Route = LayoutDiaryWrite2Import.update({
+  path: '/diary/write/2',
+  getParentRoute: () => LayoutRoute,
+} as any)
 
-const LayoutDiaryWriteDiaryDetailCropDiaryRoute =
-  LayoutDiaryWriteDiaryDetailCropDiaryImport.update({
-    path: '/diary/writeDiary/detailCropDiary',
-    getParentRoute: () => LayoutRoute,
-  } as any)
+const LayoutDiaryWrite1Route = LayoutDiaryWrite1Import.update({
+  path: '/diary/write/1',
+  getParentRoute: () => LayoutRoute,
+} as any)
 
 const LayoutDiaryRegisterCrop5Route = LayoutDiaryRegisterCrop5Import.update({
   path: '/diary/registerCrop/5',
@@ -339,25 +336,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutDiaryRegisterCrop5Import
       parentRoute: typeof LayoutImport
     }
-    '/_layout/diary/writeDiary/detailCropDiary': {
-      id: '/_layout/diary/writeDiary/detailCropDiary'
-      path: '/diary/writeDiary/detailCropDiary'
-      fullPath: '/diary/writeDiary/detailCropDiary'
-      preLoaderRoute: typeof LayoutDiaryWriteDiaryDetailCropDiaryImport
+    '/_layout/diary/write/1': {
+      id: '/_layout/diary/write/1'
+      path: '/diary/write/1'
+      fullPath: '/diary/write/1'
+      preLoaderRoute: typeof LayoutDiaryWrite1Import
       parentRoute: typeof LayoutImport
     }
-    '/_layout/diary/writeDiary/selectCrop': {
-      id: '/_layout/diary/writeDiary/selectCrop'
-      path: '/diary/writeDiary/selectCrop'
-      fullPath: '/diary/writeDiary/selectCrop'
-      preLoaderRoute: typeof LayoutDiaryWriteDiarySelectCropImport
+    '/_layout/diary/write/2': {
+      id: '/_layout/diary/write/2'
+      path: '/diary/write/2'
+      fullPath: '/diary/write/2'
+      preLoaderRoute: typeof LayoutDiaryWrite2Import
       parentRoute: typeof LayoutImport
     }
-    '/_layout/diary/writeDiary/writeCropDiary': {
-      id: '/_layout/diary/writeDiary/writeCropDiary'
-      path: '/diary/writeDiary/writeCropDiary'
-      fullPath: '/diary/writeDiary/writeCropDiary'
-      preLoaderRoute: typeof LayoutDiaryWriteDiaryWriteCropDiaryImport
+    '/_layout/diary/write/3': {
+      id: '/_layout/diary/write/3'
+      path: '/diary/write/3'
+      fullPath: '/diary/write/3'
+      preLoaderRoute: typeof LayoutDiaryWrite3Import
       parentRoute: typeof LayoutImport
     }
     '/_layout/signup/_layout/1': {
@@ -464,9 +461,9 @@ export const routeTree = rootRoute.addChildren({
     LayoutDiaryRegisterCrop3Route,
     LayoutDiaryRegisterCrop4Route,
     LayoutDiaryRegisterCrop5Route,
-    LayoutDiaryWriteDiaryDetailCropDiaryRoute,
-    LayoutDiaryWriteDiarySelectCropRoute,
-    LayoutDiaryWriteDiaryWriteCropDiaryRoute,
+    LayoutDiaryWrite1Route,
+    LayoutDiaryWrite2Route,
+    LayoutDiaryWrite3Route,
     LayoutLoginEntranceIndexRoute,
   }),
   TestRoute,
@@ -501,9 +498,9 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/diary/registerCrop/3",
         "/_layout/diary/registerCrop/4",
         "/_layout/diary/registerCrop/5",
-        "/_layout/diary/writeDiary/detailCropDiary",
-        "/_layout/diary/writeDiary/selectCrop",
-        "/_layout/diary/writeDiary/writeCropDiary",
+        "/_layout/diary/write/1",
+        "/_layout/diary/write/2",
+        "/_layout/diary/write/3",
         "/_layout/login/entrance/"
       ]
     },
@@ -589,16 +586,16 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout/diary/registerCrop/5.tsx",
       "parent": "/_layout"
     },
-    "/_layout/diary/writeDiary/detailCropDiary": {
-      "filePath": "_layout/diary/writeDiary/detailCropDiary.tsx",
+    "/_layout/diary/write/1": {
+      "filePath": "_layout/diary/write/1.tsx",
       "parent": "/_layout"
     },
-    "/_layout/diary/writeDiary/selectCrop": {
-      "filePath": "_layout/diary/writeDiary/selectCrop.tsx",
+    "/_layout/diary/write/2": {
+      "filePath": "_layout/diary/write/2.tsx",
       "parent": "/_layout"
     },
-    "/_layout/diary/writeDiary/writeCropDiary": {
-      "filePath": "_layout/diary/writeDiary/writeCropDiary.tsx",
+    "/_layout/diary/write/3": {
+      "filePath": "_layout/diary/write/3.tsx",
       "parent": "/_layout"
     },
     "/_layout/signup/_layout/1": {
