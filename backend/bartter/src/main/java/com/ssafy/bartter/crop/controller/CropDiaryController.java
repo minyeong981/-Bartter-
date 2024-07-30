@@ -30,7 +30,7 @@ public class CropDiaryController {
     @PostMapping("")
     public SuccessResponse<CropDiaryDetail> createCropDiary(
             @CurrentUser UserAuthDto userAuthDto,
-            @RequestBody @Valid Create request,
+            @ModelAttribute @Valid Create request,
             BindingResult bindingResult,
             MultipartFile image
     ) {

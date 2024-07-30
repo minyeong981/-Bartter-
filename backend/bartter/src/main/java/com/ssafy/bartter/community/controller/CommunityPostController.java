@@ -15,6 +15,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,8 +41,8 @@ public class CommunityPostController {
     public SuccessResponse<List<CommunityPostDetail>> getCommunityPostList(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "10") int limit,
-            @RequestParam(value = "isCommunity", required = false) boolean isCommunity,
-            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "isCommunity", defaultValue = "false") boolean isCommunity,
+            @RequestParam(value = "keyword", defaultValue = "") String keyword,
             @CurrentUser UserAuthDto userAuthDto
     ) {
         Integer userId = userAuthDto.getId();

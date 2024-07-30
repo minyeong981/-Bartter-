@@ -50,7 +50,6 @@ public class CropDiary extends BaseEntity {
     private String image;
 
     @Builder
-
     public CropDiary(Crop crop, String title, String content, String image) {
         this.crop = crop;
         this.title = title;
