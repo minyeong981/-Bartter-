@@ -22,8 +22,6 @@ public class CommunityPostCommentDto {
     @Getter
     @AllArgsConstructor
     public static class Create {
-        @NotNull(message = "유저 정보를 입력하세요.")
-        private final Integer userId;
         @NotBlank(message = "댓글 내용을 입력하세요.")
         private final String content;
     }

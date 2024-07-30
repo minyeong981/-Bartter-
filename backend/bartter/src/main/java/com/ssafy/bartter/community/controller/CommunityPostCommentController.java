@@ -1,5 +1,7 @@
 package com.ssafy.bartter.community.controller;
 
+import com.ssafy.bartter.auth.annotation.CurrentUser;
+import com.ssafy.bartter.auth.dto.UserAuthDto;
 import com.ssafy.bartter.community.dto.CommunityPostCommentDto.CommunityPostCommentDetail;
 import com.ssafy.bartter.community.dto.CommunityPostCommentDto.Create;
 import com.ssafy.bartter.community.entity.CommunityPostComment;
@@ -14,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/community/posts")
@@ -26,12 +29,19 @@ public class CommunityPostCommentController {
     @PostMapping("/{communityPostId}/comment")
     public SuccessResponse<CommunityPostCommentDetail> createComment(
             @PathVariable("communityPostId") Integer communityPostId,
+            @CurrentUser UserAuthDto userAuthDto,
             @RequestBody @Valid Create request,
             BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE);
+
+        if (userAuthDto == null) {
+            throw new CustomException(ErrorCode.UNAUTHORIZED);
         }
-        CommunityPostComment comment = communityPostCommentService.createComment(communityPostId, request);
+
+        if (bindingResult.hasErrors()) {
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
+        }
+
+        CommunityPostComment comment = communityPostCommentService.createComment(communityPostId, request, userAuthDto.getId());
         CommunityPostCommentDetail response = CommunityPostCommentDetail.of(comment);
         return SuccessResponse.of(response);
     }
@@ -39,10 +49,11 @@ public class CommunityPostCommentController {
     @Operation(summary = "동네모임 게시글 댓글 삭제", description = "특정 ID를 가진 동네모임 게시글의 댓글 조회하여 삭제한다.")
     @DeleteMapping("/{communityPostId}/comment/{communityPostCommentId}")
     public SuccessResponse<Void> deleteComment(
+            @PathVariable("communityPostCommentId") Integer communityPostCommentId,
             @PathVariable("communityPostId") Integer communityPostId,
-            @PathVariable("communityPostCommentId") Integer communityPostCommentId
+            @CurrentUser UserAuthDto userAuthDto
     ) {
-        communityPostCommentService.deleteComment(communityPostCommentId);
+        communityPostCommentService.deleteComment(userAuthDto.getId(), communityPostCommentId);
         return SuccessResponse.empty();
     }
 }

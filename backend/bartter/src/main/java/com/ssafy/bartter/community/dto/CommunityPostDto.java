@@ -3,6 +3,7 @@ package com.ssafy.bartter.community.dto;
 import com.ssafy.bartter.community.dto.CommunityPostCommentDto.CommunityPostCommentDetail;
 import com.ssafy.bartter.community.entity.CommunityPost;
 import com.ssafy.bartter.community.entity.CommunityPostImage;
+import com.ssafy.bartter.community.entity.CommunityPostLike;
 import com.ssafy.bartter.global.common.SimpleLocation;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -27,11 +28,7 @@ public class CommunityPostDto {
      * */
     @Getter
     @AllArgsConstructor
-    @ToString
     public static class Create {
-        @NotNull(message = "유저 정보를 입력하세요.")
-        private final Integer userId;
-
         @NotBlank(message = "게시글 제목을 입력하세요.")
         private final String title;
 
@@ -53,8 +50,9 @@ public class CommunityPostDto {
         private final String title;
         private final String content;
         private final Integer likeCount;
-        private final List<CommunityPostCommentDetail> commentList;
+        // TODO : 내가 좋아요 한 글인지
         private final List<SimpleCommunityImage> imageList;
+        private final List<CommunityPostCommentDetail> commentList;
         private final LocalDateTime createdAt;
 
         public static CommunityPostDetail of(CommunityPost post) {
@@ -87,13 +85,11 @@ public class CommunityPostDto {
     @Getter
     @AllArgsConstructor
     public static class SimpleCommunityImage {
-        private final Integer imageId;
         private final String imageUrl;
         private final Integer imageOrder;
 
         public static SimpleCommunityImage of(CommunityPostImage communityPostImage) {
             return SimpleCommunityImage.builder()
-                    .imageId(communityPostImage.getId())
                     .imageUrl(communityPostImage.getImageUrl())
                     .imageOrder(communityPostImage.getOrder())
                     .build();

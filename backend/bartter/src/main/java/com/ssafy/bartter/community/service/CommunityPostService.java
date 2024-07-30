@@ -44,9 +44,17 @@ public class CommunityPostService {
     /**
      * 동네모임 게시글 전체조회
      * */
-    public List<CommunityPost> getPostList(int page, int limit, int locationId, String keyword) {
-         // TODO : locationId 없으면 nearbyLocationList 빈 ArrayList로
-        List<Location> nearbyLocationList = locationService.getNearbyLocationList(locationId);
+    public List<CommunityPost> getPostList(int page, int limit, String keyword, boolean isCommunity, Integer userId) {
+        // 전체 게시글 조회에서는 빈 ArrayList로 남아있다.
+        List<Location> nearbyLocationList = new ArrayList<>();
+
+        // 동네 게시글 조회에서는 유저 위치 반경에 있는 Location들의 ArrayList로 바꿔준다.
+        if (isCommunity) {
+            User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+            Integer locationId = user.getLocation().getId();
+            nearbyLocationList = locationService.getNearbyLocationList(locationId);
+        }
+
         PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
         keyword = (keyword == null) ? "" : keyword;
 
@@ -57,8 +65,8 @@ public class CommunityPostService {
     /**
      * 동네모임 게시글 작성
      * */
-    public CommunityPost createPost(Create request, MultipartFile[] imageList) {
-        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+    public CommunityPost createPost(Create request, MultipartFile[] imageList, Integer userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         Location userLocation = user.getLocation();
 
         CommunityPost post = CommunityPost.builder()
@@ -98,8 +106,11 @@ public class CommunityPostService {
     /**
      * 동네모임 게시글 삭제
      * */
-    public void deletePost(Integer communityPostId) {
+    public void deletePost(Integer communityPostId, Integer userId) {
         CommunityPost post = communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
+        if (!post.getUser().getId().equals(userId)) {
+            throw new CustomException(ErrorCode.UNAUTHORIZED);
+        }
         communityPostRepository.delete(post);
     }
 }
