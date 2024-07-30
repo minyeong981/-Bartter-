@@ -43,9 +43,10 @@ public class CommunityPostController {
             @RequestParam(value = "keyword", required = false) String keyword,
             @CurrentUser UserAuthDto userAuthDto
     ) {
-        List<CommunityPost> postList = communityPostService.getPostList(page, limit, keyword, isCommunity, userAuthDto.getId());
+        Integer userId = userAuthDto.getId();
+        List<CommunityPost> postList = communityPostService.getPostList(page, limit, keyword, isCommunity, userId);
         List<CommunityPostDetail> response = postList.stream()
-                .map(CommunityPostDetail::of)
+                .map((CommunityPost post) -> CommunityPostDetail.of(post, userId))
                 .collect(Collectors.toList());
         return SuccessResponse.of(response);
     }
@@ -63,15 +64,18 @@ public class CommunityPostController {
         }
 
         CommunityPost post = communityPostService.createPost(request, imageList, userAuthDto.getId());
-        CommunityPostDetail response = CommunityPostDetail.of(post);
+        CommunityPostDetail response = CommunityPostDetail.of(post, userAuthDto.getId());
         return SuccessResponse.of(response);
     }
 
     @Operation(summary = "동네모임 게시글 상세 조회", description = "동네모임 게시글의 ID를 통해 게시글의 상세 정보를 조회한다.")
     @GetMapping("/{communityPostId}")
-    public SuccessResponse<CommunityPostDetail> getCommunityPost(@PathVariable("communityPostId") Integer communityPostId) {
+    public SuccessResponse<CommunityPostDetail> getCommunityPost(
+            @PathVariable("communityPostId") Integer communityPostId,
+            @CurrentUser UserAuthDto userAuthDto
+    ) {
         CommunityPost post = communityPostService.getPost(communityPostId);
-        CommunityPostDetail response = CommunityPostDetail.of(post);
+        CommunityPostDetail response = CommunityPostDetail.of(post, userAuthDto.getId());
         return SuccessResponse.of(response);
     }
 
@@ -82,6 +86,16 @@ public class CommunityPostController {
             @CurrentUser UserAuthDto userAuthDto
     ) {
         communityPostService.deletePost(communityPostId, userAuthDto.getId());
+        return SuccessResponse.empty();
+    }
+
+    @Operation(summary = "동네모임 게시글 작성", description = "동네모임 게시글을 작성한다.")
+    @PostMapping("/{communityPostId}/like")
+    public SuccessResponse<Void> likeCommunityPost(
+            @PathVariable("communityPostId") Integer communityPostId,
+            @CurrentUser UserAuthDto userAuthDto
+    ) {
+        communityPostService.toggleLikes(communityPostId, userAuthDto.getId());
         return SuccessResponse.empty();
     }
 }

@@ -3,14 +3,11 @@ package com.ssafy.bartter.community.dto;
 import com.ssafy.bartter.community.dto.CommunityPostCommentDto.CommunityPostCommentDetail;
 import com.ssafy.bartter.community.entity.CommunityPost;
 import com.ssafy.bartter.community.entity.CommunityPostImage;
-import com.ssafy.bartter.community.entity.CommunityPostLike;
 import com.ssafy.bartter.global.common.SimpleLocation;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -50,12 +47,12 @@ public class CommunityPostDto {
         private final String title;
         private final String content;
         private final Integer likeCount;
-        // TODO : 내가 좋아요 한 글인지
+        private final Boolean isLike;
         private final List<SimpleCommunityImage> imageList;
         private final List<CommunityPostCommentDetail> commentList;
         private final LocalDateTime createdAt;
 
-        public static CommunityPostDetail of(CommunityPost post) {
+        public static CommunityPostDetail of(CommunityPost post, Integer currentUserId) {
             return CommunityPostDetail.builder()
                     .communityPostId(post.getId())
                     .userId(post.getUser().getId())
@@ -63,6 +60,9 @@ public class CommunityPostDto {
                     .title(post.getTitle())
                     .content(post.getContent())
                     .likeCount(post.getLikeList().size())
+                    .isLike(post.getLikeList().stream()
+                            .anyMatch(like -> like.getUser().getId().equals(currentUserId))
+                    )
                     .commentList(
                             post.getCommentList().stream()
                                     .map(CommunityPostCommentDetail::of)

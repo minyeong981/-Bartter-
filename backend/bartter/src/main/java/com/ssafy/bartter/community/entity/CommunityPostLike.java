@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @Table(name = "community_post_like")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)     // Entity 생성 시에도 사용 예정이므로 PUBLIC으로 변경
 public class CommunityPostLike extends BaseEntity {
 
     /**
@@ -39,4 +39,14 @@ public class CommunityPostLike extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "community_post_id", nullable = false)
     private CommunityPost communityPost;
+
+    public void addUser(User user) {
+        this.user = user;
+        getUser().getCommunityPostLikeList().add(this);
+    }
+
+    public void addCommunityPost(CommunityPost post) {
+        this.communityPost = post;
+        getCommunityPost().getLikeList().add(this);
+    }
 }
