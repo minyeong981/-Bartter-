@@ -1,0 +1,32 @@
+.DiaryWritePage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding: 0 20px;
+  
+    .headingContainer {
+      display: flex;
+      flex: 2;
+      flex-direction: column;
+      align-self: flex-start;
+      justify-content: center;
+    }
+  
+    .inputContainer {
+      display: flex;
+      flex: 6;
+      flex-direction: column;
+      gap: 44px;
+      width: 100%;
+    }
+  
+    .buttonContainer {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: 20px;
+      justify-content: flex-end;
+    }
+  }
+  

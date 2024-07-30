@@ -1,4 +1,6 @@
-.getNamePage {
+@use '@/styles/constants/colors' as colors;
+
+.registerPage {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,8 +19,25 @@
     display: flex;
     flex: 6;
     flex-direction: column;
-    gap: 44px;
+    gap: 44px 0 0 0;
     width: 100%;
+  }
+
+  .inputLabel {
+    display: flex;
+    flex-direction: column;
+    margin: 4px;
+  }
+  
+  .datePicker {
+    width: 341px;
+    height: 48px;
+    padding: 0 12px;
+    border: 1px solid colors.$primary;
+    border-radius: 12px;
+    &::placeholder {
+      color: colors.$placeholder;
+    }
   }
 
   .buttonContainer {

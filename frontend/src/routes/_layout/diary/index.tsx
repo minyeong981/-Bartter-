@@ -1,21 +1,21 @@
 import './diary.scss';
 
 import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
 
-import TwoButton from '../../../components/TwoButton/TwoButton'
-import Calendar from './calendar';
-import MyCrops from './myCrops';
+import Calendar from '@/components/Calendar/calendar';
+import MainCrops from '@/components/Crop/mainCrops';
+import TwoButton from '@/components/TwoButton/TwoButton';
+import useDiaryStore from '@/store/diaryStore';
 
 export default function Diary() {
-  const [activeComponent, setActiveComponent] = useState<string>('달력');
+  const { activeComponent, setActiveComponent } = useDiaryStore();
 
   const renderComponent = () => {
     switch (activeComponent) {
       case '달력':
         return <Calendar />;
       case '내 작물':
-        return <MyCrops />;
+        return <MainCrops />;
       default:
         return null;
     }
@@ -43,6 +43,5 @@ export default function Diary() {
 }
 
 export const Route = createFileRoute('/_layout/diary/')({
-  component: Diary
+  component: Diary,
 });
-
