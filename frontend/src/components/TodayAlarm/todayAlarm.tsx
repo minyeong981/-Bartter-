@@ -1,5 +1,5 @@
 import classnames from 'classnames/bind';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 
 import TodayAlarmOut from '@/assets/image/todayAlarmOut.png';
 
@@ -11,7 +11,7 @@ interface TodayAlarmProps {
 
 const cx = classnames.bind(styles);
 
-export default function TodayAlarm({hasDiaryEntry}: TodayAlarmProps) {
+export default function TodayAlarm({ hasDiaryEntry }: TodayAlarmProps) {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
@@ -27,8 +27,8 @@ export default function TodayAlarm({hasDiaryEntry}: TodayAlarmProps) {
   }, []);
 
   const hideTodayAlarmForDay = () => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
+    const now = new Date();
+    const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
     localStorage.setItem('hideTodayAlarm', tomorrow.toISOString());
     setIsVisible(false);
   };

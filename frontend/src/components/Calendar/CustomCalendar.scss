@@ -1,0 +1,196 @@
+@use 'react-calendar/dist/Calendar.css' as calendar;
+@use '@/styles/constants/typographies' as typo;
+@use '@/styles/constants/colors' as colors;
+
+.custom-calendar-container {
+  .react-calendar {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+
+    .react-calendar__navigation {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+
+      button {
+        margin: 0 2%; // 버튼 좌우 간격
+        font-size: 1rem; // 버튼 글씨 크기
+        cursor: pointer;
+        background: none;
+        border: none;
+
+        &:disabled {
+          color: grey;
+          cursor: default;
+        }
+
+        &.react-calendar__navigation__prev2-button,
+        &.react-calendar__navigation__next2-button {
+          display: none;
+        }
+      }
+
+      .react-calendar__navigation__label {
+        flex-grow: 1;
+        text-align: center;
+        pointer-events: none;
+
+        @include typo.title; // 제목 스타일 적용
+      }
+    }
+
+    .react-calendar__month-view__weekdays {
+      display: flex;
+      justify-content: space-between;
+      margin: auto;
+
+      @include typo.main; // 기본 글씨 스타일 적용
+
+      .react-calendar__month-view__weekdays__weekday {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold; // 요일 글씨 굵기
+
+        abbr[title="Sunday"],
+        abbr[title="일"] {
+          color: red; 
+          text-decoration: none; 
+        }
+
+        abbr[title="Saturday"],
+        abbr[title="토"] {
+          color: blue; 
+        }
+
+        abbr {
+          text-decoration: none; // 모든 요일 밑줄 제거
+        }
+      }
+    }
+
+    .react-calendar__month-view__days__day {
+      box-sizing: border-box;
+      height: 2rem; // 일자 높이
+      padding: 0.5rem; // 일자 패딩
+      text-align: center;
+
+      &.sunday abbr {
+        color: red; // 일요일 색상
+      }
+
+      &.saturday abbr {
+        color: blue; // 토요일 색상
+      }
+
+      &.today abbr {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        margin: auto;
+        color: black;
+        text-align: center;
+        background-color: rgb(0 0 0 / 20%);
+        border-radius: 50%;
+      }
+
+      &.selected abbr {
+        color: black;
+        border-radius: 10px;
+      }
+    }
+
+    .react-calendar__tile {
+      position: relative;
+      box-sizing: border-box;
+      max-width: 100%;
+      height: 3rem; // 타일 높이
+      padding: 0.5rem; // 타일 패딩
+      background: none;
+
+      @include typo.main; // 기본 글씨 스타일 적용
+
+      &.react-calendar__tile--active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 2px solid #20873f;
+        border-radius: 10px;
+
+        abbr {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 2.2rem;
+          height: 2.2rem;
+          margin: auto;
+          background-color: transparent;
+          border-radius: 50%;
+        }
+      }
+
+      abbr {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        background: none;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  &.collapsed {
+    .react-calendar {
+      padding: 1rem; 
+
+      .react-calendar__month-view__weekdays,
+      .react-calendar__month-view__days {
+        display: flex;
+        justify-content: space-between;
+        margin: auto; // 접힌 상태와 펼친 상태의 마진을 동일하게 설정
+      }
+
+      .react-calendar__tile {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &.selected {
+          background-color: transparent; // 배경색 제거
+          border: 2px solid #20873f; // 초록색 선
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+
+  // 달력 펼치기 버튼의 위치 조정
+  .toggle-button {
+    margin-top: 1.5rem; // 버튼을 더 아래로 이동
+  }
+}
+
+.react-calendar {
+  &.collapsed-calendar {
+    .react-calendar__tile {
+      &.sunday {
+        color: red;
+      }
+
+      &.saturday {
+        color: blue;
+      }
+    }
+  }
+}

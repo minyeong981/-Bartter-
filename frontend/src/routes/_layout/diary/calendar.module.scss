@@ -56,9 +56,17 @@
 }
 
 hr {
-  margin: 10px 0;
+  margin: 10px 0 20px;
   border: none;
   border-top: 3px solid colors.$divider2;
+}
+
+.show-date {
+  display: flex;
+  justify-content: left;
+  margin-left: 16px;
+
+  @include typo.label;
 }
 
 .link-button-wrapper {
