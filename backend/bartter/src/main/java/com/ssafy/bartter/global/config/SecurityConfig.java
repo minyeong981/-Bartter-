@@ -5,6 +5,7 @@ import com.ssafy.bartter.auth.utils.CookieUtil;
 import com.ssafy.bartter.auth.utils.JwtUtil;
 import com.ssafy.bartter.global.filter.JwtAuthenticationFilter;
 import com.ssafy.bartter.global.filter.LoginFilter;
+import com.ssafy.bartter.global.filter.LogoutFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -95,7 +96,8 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), LoginFilter.class);
         http
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, cookieUtil, refreshRepository), UsernamePasswordAuthenticationFilter.class);
-
+        http
+                .addFilterBefore(new LogoutFilter(jwtUtil, refreshRepository), org.springframework.security.web.authentication.logout.LogoutFilter.class);
 
         http
                 .sessionManagement((session) -> session
