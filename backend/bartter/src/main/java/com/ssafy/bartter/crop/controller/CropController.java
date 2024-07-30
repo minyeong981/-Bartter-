@@ -52,10 +52,6 @@ public class CropController {
             BindingResult bindingResult,
             MultipartFile image)
     {
-        if (userAuthDto == null) {
-            throw new CustomException(ErrorCode.UNAUTHORIZED);
-        }
-
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }

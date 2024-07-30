@@ -34,10 +34,6 @@ public class CropDiaryController {
             BindingResult bindingResult,
             MultipartFile image
     ) {
-        if (userAuthDto == null) {
-            throw new CustomException(ErrorCode.UNAUTHORIZED);
-        }
-
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
@@ -61,10 +57,6 @@ public class CropDiaryController {
             @PathVariable("cropDiaryId") Integer cropDiaryId,
             @CurrentUser UserAuthDto userAuthDto
     ) {
-        if (userAuthDto == null) {
-            throw new CustomException(ErrorCode.UNAUTHORIZED);
-        }
-
         cropDiaryService.deleteCropDiary(cropDiaryId, userAuthDto.getId());
         return SuccessResponse.empty();
     }

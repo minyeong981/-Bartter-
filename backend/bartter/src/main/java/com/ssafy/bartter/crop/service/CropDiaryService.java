@@ -60,10 +60,11 @@ public class CropDiaryService {
     /**
      * 농사일지 삭제
      * */
+    // TODO : AWS에서 삭제
     public void deleteCropDiary(Integer cropDiaryId, Integer userId) {
         CropDiary diary = cropDiaryRepository.findById(cropDiaryId).orElseThrow(() -> new CustomException(ErrorCode.CROP_DIARY_NOT_FOUND));
         if (!diary.getCrop().getUser().getId().equals(userId)) {
-            throw new CustomException(ErrorCode.UNAUTHORIZED);
+            throw new CustomException(ErrorCode.UNAUTHENTICATED);
         }
         cropDiaryRepository.delete(diary);
     }

@@ -31,12 +31,8 @@ public class CommunityPostCommentController {
             @PathVariable("communityPostId") Integer communityPostId,
             @CurrentUser UserAuthDto userAuthDto,
             @RequestBody @Valid Create request,
-            BindingResult bindingResult) {
-
-        if (userAuthDto == null) {
-            throw new CustomException(ErrorCode.UNAUTHORIZED);
-        }
-
+            BindingResult bindingResult)
+    {
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }

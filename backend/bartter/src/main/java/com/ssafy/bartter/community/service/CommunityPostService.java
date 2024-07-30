@@ -106,10 +106,11 @@ public class CommunityPostService {
     /**
      * 동네모임 게시글 삭제
      * */
+    // TODO : AWS에서 삭제
     public void deletePost(Integer communityPostId, Integer userId) {
         CommunityPost post = communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
         if (!post.getUser().getId().equals(userId)) {
-            throw new CustomException(ErrorCode.UNAUTHORIZED);
+            throw new CustomException(ErrorCode.UNAUTHENTICATED);
         }
         communityPostRepository.delete(post);
     }

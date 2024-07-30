@@ -44,10 +44,11 @@ public class CommunityPostCommentService {
     /**
      * 동네모임 댓글 삭제
      * */
+    // TODO : AWS에서 삭제
     public void deleteComment(Integer userId, Integer commentId) {
         CommunityPostComment comment = communityPostCommentRepository.findById(commentId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_COMMENT_NOT_FOUND));;
         if (!comment.getUser().getId().equals(userId)) {
-            throw new CustomException(ErrorCode.UNAUTHORIZED);
+            throw new CustomException(ErrorCode.UNAUTHENTICATED);
         }
         communityPostCommentRepository.delete(comment);
     }

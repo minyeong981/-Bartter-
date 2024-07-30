@@ -43,10 +43,6 @@ public class CommunityPostController {
             @RequestParam(value = "keyword", required = false) String keyword,
             @CurrentUser UserAuthDto userAuthDto
     ) {
-        if (userAuthDto == null) {
-            throw new CustomException(ErrorCode.UNAUTHORIZED);
-        }
-
         List<CommunityPost> postList = communityPostService.getPostList(page, limit, keyword, isCommunity, userAuthDto.getId());
         List<CommunityPostDetail> response = postList.stream()
                 .map(CommunityPostDetail::of)
@@ -62,10 +58,6 @@ public class CommunityPostController {
             BindingResult bindingResult,
             MultipartFile[] imageList)
     {
-        if (userAuthDto == null) {
-            throw new CustomException(ErrorCode.UNAUTHORIZED);
-        }
-
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
@@ -89,10 +81,6 @@ public class CommunityPostController {
             @PathVariable("communityPostId") Integer communityPostId,
             @CurrentUser UserAuthDto userAuthDto
     ) {
-        if (userAuthDto == null) {
-            throw new CustomException(ErrorCode.UNAUTHORIZED);
-        }
-
         communityPostService.deletePost(communityPostId, userAuthDto.getId());
         return SuccessResponse.empty();
     }
