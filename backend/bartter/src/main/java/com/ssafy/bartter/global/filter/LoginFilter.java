@@ -135,6 +135,12 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private void saveRefreshToken(String username, String refresh, Long expiredMs) {
         Date date = new Date(System.currentTimeMillis() + expiredMs);
+
+        Refresh existingToken = refreshRepository.findByUsername(username);
+        if (existingToken != null) {
+            refreshRepository.delete(existingToken);
+        }
+
         Refresh refreshEntity = Refresh.builder()
                 .username(username)
                 .refresh(refresh)
