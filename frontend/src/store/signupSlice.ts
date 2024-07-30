@@ -41,20 +41,7 @@ export const createSignupFormSlice: StateCreator<
 > = set => ({
   ...INITIAL_FORM_STATE,
   setNickname: newNickname => set({nickname: newNickname}),
-  setBirth: newBirth => {
-    if (newBirth.length === 8) {
-      set({
-        birth:
-          newBirth.slice(0, 4) +
-          '-' +
-          newBirth.slice(4, 6) +
-          '-' +
-          newBirth.slice(6, 8),
-      });
-    } else {
-      set({birth: newBirth});
-    }
-  },
+  setBirth: newBirth => set({birth: newBirth}),
   setUsername: newUsername => set({username: newUsername}),
   setPassword: newPassword => set({password: newPassword}),
   setGender: (newGender: Gender) => set({gender: newGender}),

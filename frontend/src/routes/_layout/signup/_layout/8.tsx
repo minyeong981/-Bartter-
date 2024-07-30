@@ -4,7 +4,8 @@ import classnames from 'classnames/bind';
 import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
 import Heading from '@/components/Heading';
 import barter from '@/services/barter.ts';
-import useStore from "@/store";
+import useStore from '@/store';
+import format from '@/util/format.ts';
 import {getPosition} from '@/util/geolocation.ts';
 
 import styles from '../signup.module.scss';
@@ -17,29 +18,21 @@ export const Route = createFileRoute('/_layout/signup/_layout/8')({
 
 function GetLocationPage() {
   const navigate = useNavigate({from: '/signup/1'});
-  const setCoordinate = useStore(state => state.setCoordinate);
   const resetSignupForm = useStore(state => state.resetSignupForm);
-  const {
-    nickname,
-    username,
-    password,
-    gender,
-    phone,
-    birth,
-    email,
-    latitude,
-    longitude,
-  } = useStore(state => state);
+  const {nickname, username, password, gender, phone, birth, email} = useStore(
+    state => state,
+  );
 
   async function handleSignup() {
     try {
-      const {coords} = await getPosition();
-      setCoordinate(coords);
+      const {
+        coords: {latitude, longitude},
+      } = await getPosition();
       await barter.signup({
         gender: gender!,
-        birth,
-        latitude: latitude!,
-        longitude: longitude!,
+        birth: format.birth(birth),
+        latitude: latitude,
+        longitude: longitude,
         email,
         nickname,
         username,
@@ -60,11 +53,11 @@ function GetLocationPage() {
       <div className={cx('headingContainer')}>
         <Heading>
           농부님의
-          <br/>
+          <br />
           위치를 등록해주세요
         </Heading>
       </div>
-      <div className={cx('inputContainer')}/>
+      <div className={cx('inputContainer')} />
       <div className={cx('buttonContainer')}>
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}

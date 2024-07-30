@@ -4,7 +4,7 @@ import classnames from 'classnames/bind';
 import BinaryButton from '@/components/BinaryButton';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
-import useStore from "@/store";
+import useStore from '@/store';
 
 import styles from '../signup.module.scss';
 
@@ -27,14 +27,16 @@ function GetGenderPage() {
       <div className={cx('headingContainer')}>
         <Heading>
           농부님의
-          <br/>
+          <br />
           성별을 알려주세요
         </Heading>
       </div>
       <div className={cx('inputContainer')}>
         <BinaryButton
-          value1="남성"
-          value2="여성"
+          value1="M"
+          label1="남성"
+          value2="F"
+          label2="여성"
           onSelect={handleSelectGender}
         />
       </div>

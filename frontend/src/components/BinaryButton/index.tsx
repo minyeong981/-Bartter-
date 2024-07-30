@@ -5,7 +5,9 @@ import styles from './binaryButton.module.scss';
 
 interface BinaryButtonProps {
   value1: string;
+  label1: string;
   value2: string;
+  label2: string;
   onSelect: (value: string) => void;
 }
 
@@ -13,7 +15,9 @@ const cx = classnames.bind(styles);
 
 export default function BinaryButton({
   value1,
+  label1,
   value2,
+  label2,
   onSelect,
 }: BinaryButtonProps) {
   function handleSelect(e: ChangeEvent<HTMLInputElement>) {
@@ -21,7 +25,7 @@ export default function BinaryButton({
   }
 
   return (
-    <div className={cx('binaryButton')}>
+    <div className={cx('binaryButton')} role="radiogroup">
       <input
         type="radio"
         id={value1}
@@ -29,7 +33,7 @@ export default function BinaryButton({
         onChange={handleSelect}
         name={`${value1}-${value2}`}
       />
-      <label htmlFor={value1}>{value1}</label>
+      <label htmlFor={value1}>{label1}</label>
       <input
         type="radio"
         id={value2}
@@ -37,7 +41,7 @@ export default function BinaryButton({
         onChange={handleSelect}
         name={`${value1}-${value2}`}
       />
-      <label htmlFor={value2}>{value2}</label>
+      <label htmlFor={value2}>{label2}</label>
     </div>
   );
 }
