@@ -4,7 +4,7 @@ import classnames from 'classnames/bind';
 import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
 import Heading from '@/components/Heading';
 import barter from '@/services/barter.ts';
-import useStore from '@/store';
+import useRootStore from '@/store';
 import format from '@/util/format.ts';
 import {getPosition} from '@/util/geolocation.ts';
 
@@ -18,10 +18,9 @@ export const Route = createFileRoute('/_layout/signup/_layout/8')({
 
 function GetLocationPage() {
   const navigate = useNavigate({from: '/signup/1'});
-  const resetSignupForm = useStore(state => state.resetSignupForm);
-  const {nickname, username, password, gender, phone, birth, email} = useStore(
-    state => state,
-  );
+  const resetSignupForm = useRootStore(state => state.resetSignupForm);
+  const {nickname, username, password, gender, phone, birth, email} =
+    useRootStore(state => state);
 
   async function handleSignup() {
     try {

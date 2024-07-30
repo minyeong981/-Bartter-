@@ -4,7 +4,7 @@ import classnames from 'classnames/bind';
 import BinaryButton from '@/components/BinaryButton';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
-import useStore from '@/store';
+import useRootStore from '@/store';
 
 import styles from '../signup.module.scss';
 
@@ -15,8 +15,8 @@ export const Route = createFileRoute('/_layout/signup/_layout/5')({
 });
 
 function GetGenderPage() {
-  const gender = useStore(state => state.gender);
-  const setGender = useStore(state => state.setGender);
+  const gender = useRootStore(state => state.gender);
+  const setGender = useRootStore(state => state.setGender);
 
   function handleSelectGender(gender: string) {
     setGender(gender as Gender);

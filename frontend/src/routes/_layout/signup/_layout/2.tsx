@@ -5,7 +5,7 @@ import type {ChangeEvent} from 'react';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
-import useStore from "@/store";
+import useRootStore from '@/store';
 import {USERID_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
@@ -17,8 +17,8 @@ export const Route = createFileRoute('/_layout/signup/_layout/2')({
 });
 
 function GetUserId() {
-  const userId = useStore(state => state.username);
-  const setUserId = useStore(state => state.setUsername);
+  const userId = useRootStore(state => state.username);
+  const setUserId = useRootStore(state => state.setUsername);
   const isValid = userId.match(USERID_PATTERN);
 
   function handleUserIdChange(e: ChangeEvent<HTMLInputElement>) {
@@ -30,7 +30,7 @@ function GetUserId() {
       <div className={cx('headingContainer')}>
         <Heading>
           농부님이 사용할
-          <br/>
+          <br />
           아이디를 알려주세요
         </Heading>
       </div>

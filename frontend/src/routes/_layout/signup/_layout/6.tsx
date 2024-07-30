@@ -5,7 +5,7 @@ import type {ChangeEvent} from 'react';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
-import useStore from "@/store";
+import useRootStore from '@/store';
 import {NUMBER_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
@@ -17,8 +17,8 @@ export const Route = createFileRoute('/_layout/signup/_layout/6')({
 });
 
 function GetPhoneNumberPage() {
-  const phoneNumber = useStore(state => state.phone);
-  const setPhoneNumber = useStore(state => state.setPhone);
+  const phoneNumber = useRootStore(state => state.phone);
+  const setPhoneNumber = useRootStore(state => state.setPhone);
   const isValid = phoneNumber.match(NUMBER_PATTERN);
 
   function handlePhoneNumberChange(e: ChangeEvent<HTMLInputElement>) {
@@ -30,7 +30,7 @@ function GetPhoneNumberPage() {
       <div className={cx('headingContainer')}>
         <Heading>
           농부님의
-          <br/>
+          <br />
           전화번호를 알려주세요
         </Heading>
       </div>

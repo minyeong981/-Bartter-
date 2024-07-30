@@ -94,6 +94,11 @@ interface Comment {
   created_at: CreatedAt;
 }
 
+interface Auth {
+  isLogin: boolean;
+  token: string;
+}
+
 interface BarterResponse<T> {
   isSuccess: boolean;
   code: number;

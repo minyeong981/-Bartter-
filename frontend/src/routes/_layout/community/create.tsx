@@ -7,7 +7,7 @@ import GeneralButton from '@/components/Buttons/GeneralButton';
 import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import LabeledTextAreaInput from '@/components/Inputs/LabeledTextAreaInput';
-import useStore from '@/store';
+import useRootStore from '@/store';
 
 import styles from './create.module.scss';
 
@@ -20,11 +20,11 @@ export const Route = createFileRoute('/_layout/community/create')({
 export default function PostCreate() {
   const nav = useNavigate({from: '/community/create'});
 
-  const posts = useStore(state => state.posts);
+  const posts = useRootStore(state => state.posts);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [images, setImages] = useState<SimpleImage[]>([]);
-  const addPost = useStore(state => state.addPost);
+  const addPost = useRootStore(state => state.addPost);
 
   function handleTitleChange(event: ChangeEvent<HTMLInputElement>) {
     setTitle(event.target.value);

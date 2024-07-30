@@ -9,6 +9,8 @@ import HeaderWithBackButton from '@/components/Header/HeaderWithBackButton.tsx';
 import GeneralInput from '@/components/Inputs/GeneralInput.tsx';
 import useLoginForm from '@/hooks/useLoginForm.tsx';
 import barter from '@/services/barter.ts';
+import useRootStore from '@/store';
+import parser from '@/util/parser.ts';
 import {PASSWORD_PATTERN, USERID_PATTERN} from '@/util/validation.ts';
 
 import styles from './login.module.scss';
@@ -21,6 +23,7 @@ export const Route = createFileRoute('/_layout/login/')({
 
 function LoginPage() {
   const {form, handleUsernameChange, handlePasswordChange} = useLoginForm();
+  const login = useRootStore(state => state.login);
   const isValid =
     form.username.match(USERID_PATTERN) &&
     form.password.match(PASSWORD_PATTERN);
@@ -34,7 +37,9 @@ function LoginPage() {
   }
 
   async function handleLogin() {
-    await barter.login(form);
+    const response = await barter.login(form);
+    const accessToken = parser.getAccessToken(response);
+    login(accessToken);
   }
 
   return (

@@ -7,7 +7,7 @@ import {useState} from 'react';
 import UserImage from '@/assets/image/유저.png';
 import PostDetail from '@/components/Community/PostDetail/index.tsx';
 import HeaderWithBackButton from '@/components/Header/HeaderWithBackButton';
-import useStore from '@/store';
+import useRootStore from '@/store';
 import type {Comment, CommunityPost} from '@/store/communitySlice.ts';
 
 import styles from './../community.module.scss';
@@ -18,14 +18,14 @@ export const Route = createFileRoute('/_layout/community/detail/$postId')({
 });
 
 export default function Detail() {
-  const posts: CommunityPost[] = useStore(state => state.posts);
+  const posts: CommunityPost[] = useRootStore(state => state.posts);
   const post = posts[0];
 
   // 일단 detail 1개니까.
   const {postId}: number = Route.useParams();
 
   const [content, setContent] = useState('댓글을 입력하세요');
-  const addComment = useStore(state => state.addComment);
+  const addComment = useRootStore(state => state.addComment);
 
   // const post : CommunityPost = posts.filter((post) => post.communityPostId === postId)
 

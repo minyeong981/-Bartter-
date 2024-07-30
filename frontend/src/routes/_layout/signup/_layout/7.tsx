@@ -6,7 +6,7 @@ import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
-import useStore from "@/store";
+import useRootStore from '@/store';
 import {EMAIL_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
@@ -19,8 +19,8 @@ export const Route = createFileRoute('/_layout/signup/_layout/7')({
 
 function GetEmailPage() {
   const navigate = useNavigate({from: '/signup/7'});
-  const email = useStore(state => state.email) || '';
-  const setEmail = useStore(state => state.setEmail);
+  const email = useRootStore(state => state.email) || '';
+  const setEmail = useRootStore(state => state.setEmail);
   const isValid = email.match(EMAIL_PATTERN);
 
   function handleEmailChange(e: ChangeEvent<HTMLInputElement>) {
@@ -37,7 +37,7 @@ function GetEmailPage() {
       <div className={cx('headingContainer')}>
         <Heading>
           농부님의
-          <br/>
+          <br />
           이메일을 알려주세요
         </Heading>
       </div>
