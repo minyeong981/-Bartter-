@@ -28,6 +28,13 @@
   align-items: flex-start;
   justify-content: space-between;
   padding: 10px;
+
+  img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
 }
 
 .textBox {
@@ -42,12 +49,6 @@
   color: black;
 }
 
-img {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 5px;
-}
 
 .iconBox {
   display: flex;
