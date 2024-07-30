@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 import static com.ssafy.bartter.community.dto.CommunityPostDto.CommunityPostDetail;
 import static com.ssafy.bartter.community.dto.CommunityPostDto.Create;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/community/posts")
@@ -35,22 +37,25 @@ public class CommunityPostController {
     public SuccessResponse<List<CommunityPostDetail>> getCommunityPostList(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "10") int limit,
-            @RequestParam(value = "locationId", required = false) int locationId,
+            @RequestParam(value = "locationId", required = false) Integer locationId,
             @RequestParam(value = "keyword", required = false) String keyword
     ) {
-        List<CommunityPost> postList = communityPostService.getPostList(page, limit, locationId, keyword);
+        // TODO : locationId 임시값 삭제
+        List<CommunityPost> postList = communityPostService.getPostList(page, limit, 1, keyword);
         List<CommunityPostDetail> response = postList.stream()
                 .map(CommunityPostDetail::of)
                 .collect(Collectors.toList());
         return SuccessResponse.of(response);
     }
 
+    // TODO : MultipartFile[]
     @Operation(summary = "동네모임 게시글 작성", description = "동네모임 게시글을 작성한다.")
     @PostMapping("")
     public SuccessResponse<CommunityPostDetail> createCommunityPost(
-            @RequestBody @Valid Create request,
+            @ModelAttribute @Valid Create request,
             BindingResult bindingResult,
-            List<MultipartFile> imageList) {
+            MultipartFile[] imageList) {
+        System.out.println(request);
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE);
         }

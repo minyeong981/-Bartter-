@@ -46,8 +46,7 @@ public class CommunityPostService {
      * */
     public List<CommunityPost> getPostList(int page, int limit, int locationId, String keyword) {
          // TODO : locationId 없으면 nearbyLocationList 빈 ArrayList로
-        // TODO : locationId 임시값 삭제
-        List<Location> nearbyLocationList = locationService.getNearbyLocationList(10);
+        List<Location> nearbyLocationList = locationService.getNearbyLocationList(locationId);
         PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
         keyword = (keyword == null) ? "" : keyword;
 
@@ -58,10 +57,9 @@ public class CommunityPostService {
     /**
      * 동네모임 게시글 작성
      * */
-    public CommunityPost createPost(Create request, List<MultipartFile> imageList) {
+    public CommunityPost createPost(Create request, MultipartFile[] imageList) {
         User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         Location userLocation = user.getLocation();
-        List<CommunityPostImage> images = new ArrayList<>();
 
         CommunityPost post = CommunityPost.builder()
                 .user(user)
@@ -72,15 +70,17 @@ public class CommunityPostService {
 
         communityPostRepository.save(post);
 
-        for (int i = 0; i < imageList.size(); i++) {
-            String imageUrl = s3UploadService.upload(imageList.get(i));
-            CommunityPostImage postImage = CommunityPostImage.builder()
-                    .imageUrl(imageUrl)
-                    .order(i + 1)
-                    .build();
+        if (imageList != null) {
+            for (int i = 0; i < imageList.length; i++) {
+                String imageUrl = s3UploadService.upload(imageList[i]);
+                CommunityPostImage postImage = CommunityPostImage.builder()
+                        .imageUrl(imageUrl)
+                        .order(i + 1)
+                        .build();
 
-            postImage.addCommunityPost(post);
-            communityPostImageRepository.save(postImage);
+                postImage.addCommunityPost(post);
+                communityPostImageRepository.save(postImage);
+            }
         }
 
         return post;

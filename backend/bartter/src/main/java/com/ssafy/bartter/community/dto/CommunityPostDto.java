@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,6 +27,7 @@ public class CommunityPostDto {
      * */
     @Getter
     @AllArgsConstructor
+    @ToString
     public static class Create {
         @NotNull(message = "유저 정보를 입력하세요.")
         private final Integer userId;
