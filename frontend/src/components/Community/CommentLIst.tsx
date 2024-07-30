@@ -1,31 +1,19 @@
-import UserNameLocation from '@/components/User/UserNameContent';
-
-interface User {
-  profileImage: string;
-  nickname: string;
-}
-
-interface Comment {
-  content: string;
-  created_at: string;
-  user: User;
-}
+import UserNameContent from '@/components/User/UserNameContent';
+import type { Comment } from '@/store/communityStore';
 
 export interface CommentDataProps {
   Comments: Comment[];
 }
 
-export default function CommentList({Comments}: CommentDataProps) {
+export default function CommentList({Comments}: {Comments: Comment[]}) {
+
   return (
     <div>
       <div>
         {Comments.map((comment, index) => (
-          <UserNameLocation
+          <UserNameContent
             key={index}
-            profileImageSrc={comment.user.profileImage}
-            content={comment.content}
-            created_at={comment.created_at}
-            userName={comment.user.nickname}
+            comment={comment}
           />
         ))}
       </div>

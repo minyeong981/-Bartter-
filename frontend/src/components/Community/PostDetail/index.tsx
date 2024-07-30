@@ -1,7 +1,7 @@
 import {FaComment, FaThumbsUp} from 'react-icons/fa';
 
 import CommentList from '@/components/Community/CommentLIst';
-import UserNameContent from '@/components/User/UserNameContent';
+import UserNameLocation from '@/components/User/UserNameLocation';
 import type { Comment,CommunityPost } from '@/store/communityStore';
 
 import styles from './postDetail.module.scss';
@@ -16,11 +16,8 @@ export default function PostDetail({
   return (
     <div className={styles.postDetail}>
       <div className={styles.userNameContent}>
-        <UserNameContent
-          profileImageSrc={post.user.profileImage}
-          content={post.location.locationName}
-          created_at={post.created_at}
-          userName={post.user.nickname}
+        <UserNameLocation
+        post={post}
         />
       </div>
       <div className={styles.textBox}>

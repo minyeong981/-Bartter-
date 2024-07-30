@@ -21,11 +21,10 @@ export default function PostCreate() {
 
   const nav = useNavigate({ from: '/community/create'});
 
-  const posts = useCommunityStore(state => state.posts);
-    const [title, setTitle] = useState('');
-    const [content, setContent ] = useState('');
-    const [images, setImages ] = useState<SimpleImage[]>([]);
-    const addPost = useCommunityStore(state => state.addPost);
+  const [title, setTitle] = useState('');
+  const [content, setContent ] = useState('');
+  const [images, setImages ] = useState<SimpleImage[]>([]);
+  const addPost = useCommunityStore(state => state.addPost);
 
 
   function handleTitleChange(event : ChangeEvent<HTMLInputElement>) {
@@ -101,13 +100,6 @@ export default function PostCreate() {
           onChange={handleImageChange}
         />
 
-        <GeneralButton
-          buttonStyle={{style: 'primary', size: 'large'}}
-          onClick= {handleSubmit}
-        >
-            작성완료
-        </GeneralButton>
-        </div>
         <div className={cx('imageContainer')}>
           { images && images.map((img, imgIndex) => 
           <img 
@@ -115,6 +107,15 @@ export default function PostCreate() {
           className={cx('image')}
           src={img.imageUrl} alt="" />
           )}
+        </div>
+
+        <GeneralButton
+          buttonStyle={{style: 'primary', size: 'large'}}
+          onClick= {handleSubmit}
+        >
+            작성완료
+        </GeneralButton>
+
         </div>
 
     </div>

@@ -6,40 +6,46 @@ import { FaSearch } from 'react-icons/fa';
 import searchIcon from '@/assets/image/searchIcon.png';
 import xIcon from '@/assets/image/xIcon.png';
 import HeaderWithSearchAndBackButton from '@/components/Header/HeaderWithSearchandBackButton';
+import RecentSearch from '@/components/Search/RecentSearch';
 import stylesInput from '@/components/Search/Search.module.scss';
+import SearchResult from '@/components/Search/SearchResult';
+import SearchSuggestion from '@/components/Search/SearchSuggestions';
 
 import styles from './search.module.scss';
 
-interface SearchProps {
-  searchHistory: string[];
-}
 
-const initialSearchData: SearchProps = {
-  searchHistory: ['오이', '당근', '호박']
-};
 
 export default function Search() {
-  const [searchInput, setSearchInput] = useState<string>('');
-  const [searchList, setSearchList] = useState<string[]>(initialSearchData.searchHistory);
+  const [ query, setQuery] = useState<string>('');
+  const [recentSearch, setRecentSearch] = useState<string[]>(['오이고추', '고구마', '무']);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [results, setResults] = useState<Result[]>([]);
 
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    setSearchInput(event.target.value);
-  }
 
-  function handleClear() {
-    setSearchInput('');
-  }
+  // const [searchInput, setSearchInput] = useState<string>('');
+  // const [searchList, setSearchList] = useState<string[]>(initialSearch);
 
-  function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter') {
-      if (searchInput.trim() !== '') {
-        setSearchList([...searchList, searchInput]);
-        setSearchInput('');
-      }
-    }
-  }
+  // function handleChange(event: ChangeEvent<HTMLInputElement>) {
+  //   setSearchInput(event.target.value);
+  // }
+
+  // function handleClear() {
+  //   setSearchInput('');
+  // }
+
+  
+
+  // function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+  //   if (event.key === 'Enter') {
+  //     if (searchInput.trim() !== '') {
+  //       setSearchList([...searchList, searchInput]);
+  //       setSearchInput('');
+  //     }
+  //   }
+  // }
 
   return (
+  
     <div className={styles.header}>
       <HeaderWithSearchAndBackButton
         label={
@@ -59,15 +65,23 @@ export default function Search() {
           </div>
         }
       />
-
+{/* 
       <div className={styles.searchList}>
         {searchList.map((search, searchIndex) => (
           <div key={searchIndex} className={styles.searchBox}>
             <FaSearch className={styles.searchIcon} /> {search}
           </div>
         ))}
+      </div> */}
+
+      <div>
+       {query === '' && <RecentSearch search={recentSearch} onSearch={handleSearch}/> }
       </div>
+
+
     </div>
+
+
   );
 }
 

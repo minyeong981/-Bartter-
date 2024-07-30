@@ -8,7 +8,7 @@ type LinkButtonProps = LinkProps & ButtonStyle;
 
 const cx = classnames.bind(style);
 
-export default function GeneralButton({
+export default function LinkButton({
   children,
   buttonStyle,
   disabled,

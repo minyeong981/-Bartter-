@@ -6,13 +6,13 @@ import { persist } from 'zustand/middleware';
 import CommunityImage from '@/assets/image/동네모임1.png';
 import UserImage from '@/assets/image/유저.png';
 
-interface SimpleUser {
+export interface SimpleUser {
   userId: number;
   nickname: string;
   profileImage: string;
 }
 
-interface SimpleLocation {
+export interface SimpleLocation {
   locationId: number;
   locationName: string;
 }
@@ -24,6 +24,7 @@ interface SimpleImage {
 }
 
 export interface Comment {
+  commentId: number;
   user: SimpleUser;
   content: string;
   created_at: string;
@@ -53,6 +54,7 @@ interface CommunityStore {
   addPost: (newPost: CreatePost) => void;
   deletePost: (postId: number) => void;
   addComment: (postId: number, Comment: Comment ) => void;
+  deleteComment: (postId: number, Comment: Comment) => void;
 }
 
 const initialPost : CommunityPost= {
@@ -64,11 +66,13 @@ const initialPost : CommunityPost= {
   likeCount: 12,
   commentList: [
     {
+      commentId: 1,
       user: {userId: 1, nickname: 'user1', profileImage: UserImage},
       content: '댓글1',
       created_at: '2024-07-03 12:10',
     },
     {
+      commentId: 2,
       user: {userId: 1, nickname: 'user2', profileImage: UserImage},
       content: '댓글2',
       created_at: '2024-07-01 20:23',
@@ -118,9 +122,18 @@ const useCommunityStore = create<CommunityStore>()(
 
       addComment: (postId, newComment) => set((state) => {
         const updatedPosts = state.posts.map(post => {
+
           if (post.communityPostId === postId) {
+
+            const newPostComment: Comment = {
+              commentId: post.commentList.length + 1, 
+              user:newComment.user,
+              content: newComment.content,
+              created_at: newComment.created_at
+            }
+
             return { 
-              ...post, commentList: [...post.commentList, newComment]
+              ...post, commentList: [...post.commentList, newPostComment]
             };
           }
           return post;
@@ -128,6 +141,20 @@ const useCommunityStore = create<CommunityStore>()(
         return { posts: updatedPosts}
     }),
 
+    deleteComment : (postId, commentId) => set((state) => {
+
+      // const updatedPosts = state.posts.map((post) => {
+      //   if (post.communityPostId === postId) {
+      //     const newPostComment : Comment = post.commentList.filter((comment) => comment.commentId !== commentId)
+
+      //     return { ...post, commentList: newPostComment 
+      //     };
+      //   }
+      //   return post
+      // });
+      // return { posts: updatedPosts}
+
+    })
     }),
     {
       name: 'community-posts', 

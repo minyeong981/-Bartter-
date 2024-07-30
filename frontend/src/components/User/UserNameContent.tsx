@@ -1,42 +1,60 @@
-import './UserNameContent.scss';
+import { useState } from 'react';
 
-import {FaBars} from 'react-icons/fa';
+import Delete from '@/assets/image/delete.png'
+import Community from '@/routes/_layout/community';
+import type { Comment } from '@/store/communityStore';
 
-export interface Userinfo {
-  profileImageSrc: string;
-  userName: string;
+import styles from './UserNameContent.module.scss';
+
+interface UserNameContentProps {
+  comment : Comment;
+  onClick: React.MouseEventHandler<HTMLImageElement>;
 }
 
-export interface PostInfo {
-  content: string;
-  created_at: string;
-}
 
-export type UserNameLocationProps = Userinfo & PostInfo;
+export default function UserNameContent( {comment, onClick} : UserNameContentProps ) {
 
-export default function UserNameLocation({
-  profileImageSrc,
-  userName,
-  content,
-  created_at,
-}: UserNameLocationProps) {
-  function onClick() {
-    console.log('click Menu');
+  const [ showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
+
+  function handleClick() {
+    setShowDeleteConfirm(true);
   }
 
+  function handleDelete(commentId : number) {
+    console.log(`댓글 삭제 ${commentId}`)
+    setShowDeleteConfirm(false);
+  }
+
+  function handleCancel() {
+    setShowDeleteConfirm(false);
+  }
+
+
   return (
-    <div className="c-user-info-container">
+    <div className={styles.userInfoContainer}>
       <img
-        className="c-profile-image"
-        src={profileImageSrc}
-        alt={`${userName}'s profile`}
+        className={styles.profileImage}
+        src={comment.user.profileImage}
+        alt={`${comment.user.nickname}'s profile`}
       />
-      <div className="c-user-info">
-        <div className="c-user-name">{userName}</div>
-        <div className="c-content">{content}</div>
-        <div className="c-create-date">{created_at}</div>
+      <div className={styles.userInfo}>
+        <div className={styles.userName}>{comment.user.nickname}</div>
+        <div className={styles.Content}>{comment.content}</div>
+        <div className={styles.createdDate}>{comment.created_at}</div>
       </div>
-      <FaBars className="c-menu-icon" onClick={onClick} />
+      <img className={styles.menuIcon} onClick={handleClick} src={Delete} alt="" />
+
+      {showDeleteConfirm && (
+        <div className={styles.deleteConfirm}>
+          <div className={styles.confirmText}>댓글을 삭제하시겠습니까?</div>
+          <div className={styles.buttonContainer}>
+          <button onClick={() => handleDelete(comment.commentId)}>네</button>
+          <button onClick={handleCancel}>아니요</button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
