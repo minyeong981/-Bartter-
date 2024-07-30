@@ -4,7 +4,7 @@ import classnames from 'classnames/bind';
 import BinaryButton from '@/components/BinaryButton';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
-import useSignupStore from '@/store/signupStore.ts';
+import useRootStore from '@/store';
 
 import styles from '../signup.module.scss';
 
@@ -15,8 +15,8 @@ export const Route = createFileRoute('/_layout/signup/_layout/5')({
 });
 
 function GetGenderPage() {
-  const gender = useSignupStore(state => state.gender);
-  const setGender = useSignupStore(state => state.setGender);
+  const gender = useRootStore(state => state.gender);
+  const setGender = useRootStore(state => state.setGender);
 
   function handleSelectGender(gender: string) {
     setGender(gender as Gender);
@@ -33,8 +33,10 @@ function GetGenderPage() {
       </div>
       <div className={cx('inputContainer')}>
         <BinaryButton
-          value1="남성"
-          value2="여성"
+          value1="M"
+          label1="남성"
+          value2="F"
+          label2="여성"
           onSelect={handleSelectGender}
         />
       </div>

@@ -6,7 +6,7 @@ import {useState} from 'react';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
-import useSignupStore from '@/store/signupStore.ts';
+import useRootStore from '@/store';
 import {PASSWORD_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
@@ -18,8 +18,8 @@ export const Route = createFileRoute('/_layout/signup/_layout/3')({
 });
 
 function GetPasswordPage() {
-  const password = useSignupStore(state => state.password);
-  const setPassword = useSignupStore(state => state.setPassword);
+  const password = useRootStore(state => state.password);
+  const setPassword = useRootStore(state => state.setPassword);
   const [confirmPassword, setConfirmPassword] = useState('');
   const isValid =
     password.match(PASSWORD_PATTERN) && password === confirmPassword;

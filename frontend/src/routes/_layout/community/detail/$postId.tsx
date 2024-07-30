@@ -7,11 +7,10 @@ import {useEffect,useState} from 'react';
 import UserImage from '@/assets/image/유저.png';
 import PostDetail from '@/components/Community/PostDetail/index.tsx';
 import HeaderWithBackButton from '@/components/Header/HeaderWithBackButton';
-import type { Comment, CommunityPost } from '@/store/communityStore';
-import useCommunityStore from '@/store/communityStore';
+import useRootStore from '@/store';
+import type {Comment, CommunityPost} from '@/store/communitySlice.ts';
 
 import styles from './../community.module.scss';
-
 
 export const Route = createFileRoute('/_layout/community/detail/$postId')({
   // loader: async({ params }) => fetchPost(params.postId),
@@ -19,12 +18,12 @@ export const Route = createFileRoute('/_layout/community/detail/$postId')({
 });
 
 export default function Detail() {
-  const posts : CommunityPost[] = useCommunityStore(state => state.posts);
+  const posts : CommunityPost[] = useRootStore(state => state.posts);
   // 일단 detail 1개니까.
   const postId  = 1;
   const post = posts[0];
   // const { postId } : number = Route.useParams()
-  const addComment = useCommunityStore(state => state.addComment);
+  const addComment = useRootStore(state => state.addComment);
 
   // const [post, setPost] = useState<CommunityPost | undefined>(undefined);
   // useEffect(() => {
@@ -36,7 +35,6 @@ export default function Detail() {
   const [ content, setContent] = useState('댓글을 입력하세요');
 
   // const post : CommunityPost = posts.filter((post) => post.communityPostId === postId)
-
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setContent(event.target.value);
@@ -52,10 +50,10 @@ export default function Detail() {
           profileImage: UserImage
         },
         content,
-        created_at: format( new Date(), 'yyyy-MM-dd HH:mm', {locale: ko})
+        created_at: format(new Date(), 'yyyy-MM-dd HH:mm', {locale: ko}),
       };
 
-      addComment(postId, newComment)
+      addComment(postId, newComment);
       setContent(''); // 초기화
     }
   }

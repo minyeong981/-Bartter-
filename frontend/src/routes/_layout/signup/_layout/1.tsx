@@ -5,7 +5,7 @@ import type {ChangeEvent} from 'react';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
-import useSignupStore from '@/store/signupStore.ts';
+import useRootStore from '@/store';
 
 import styles from '../signup.module.scss';
 
@@ -15,8 +15,8 @@ export const Route = createFileRoute('/_layout/signup/_layout/1')({
 });
 
 function GetNamePage() {
-  const name = useSignupStore(state => state.nickname);
-  const setName = useSignupStore(state => state.setNickname);
+  const name = useRootStore(state => state.nickname);
+  const setName = useRootStore(state => state.setNickname);
   const isValid = name.length >= 2;
 
   function handleNameChange(e: ChangeEvent<HTMLInputElement>) {

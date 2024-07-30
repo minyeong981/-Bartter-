@@ -5,19 +5,17 @@ import GeneralButton from '@/components/Buttons/LinkButton';
 import PostList from '@/components/Community/PostList';
 import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons';
 import TwoButton from '@/components/TwoButton/TwoButton';
-import useCommunityStore from '@/store/communityStore';
+import useRootStore from '@/store';
 
 import styles from './community.module.scss';
-
 
 export const Route = createFileRoute('/_layout/community/')({
   component: Community,
 });
 
 export default function Community() {
-
-  const posts = useCommunityStore(state => state.posts);
-  console.log(posts)
+  const posts = useRootStore(state => state.posts);
+  console.log(posts);
 
   const [activeComponent, setActiveComponent] = useState<string>('전체글');
 

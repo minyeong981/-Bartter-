@@ -5,7 +5,7 @@ import type {ChangeEvent} from 'react';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
-import useSignupStore from '@/store/signupStore.ts';
+import useRootStore from '@/store';
 import {BIRTH_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
@@ -17,8 +17,8 @@ export const Route = createFileRoute('/_layout/signup/_layout/4')({
 });
 
 function GetBirthPage() {
-  const birth = useSignupStore(state => state.birth);
-  const setBirth = useSignupStore(state => state.setBirth);
+  const birth = useRootStore(state => state.birth);
+  const setBirth = useRootStore(state => state.setBirth);
   const isValid = birth.match(BIRTH_PATTERN);
 
   function handleBirthChange(e: ChangeEvent<HTMLInputElement>) {

@@ -6,4 +6,7 @@ export default {
   login: async (data: LoginForm) => axios.post<LoginResponse>('/login', data),
   reIssue: async () => axios.post<ReIssueResponse>('/auth/reissue'),
   logout: async () => axios.post<LogoutResponse>('/user/logout'),
+  getCurrentLocation: async (data: Coordinate) =>
+    axios.post<GetCurrentLocationResponse>('/user/location', data),
+  // TODO: 현재 위치 조회
 };

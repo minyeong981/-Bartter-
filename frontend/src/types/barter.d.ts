@@ -10,6 +10,11 @@ type Longitude = number;
 type PhoneNumber = string;
 type Email = string;
 
+interface Coordinate {
+  latitude: Latitude;
+  longitude: Longitude;
+}
+
 interface SignupForm {
   username: Username;
   password: Password;
@@ -94,6 +99,49 @@ interface Comment {
   created_at: CreatedAt;
 }
 
+type FollowingCount = number;
+type FolloweeCount = number;
+type ProfileMessage = string;
+
+interface UserProfile {
+  userId: UserId;
+  location: SimpleLocation;
+  profileImage: ProfileImage;
+  nickname: Nickname;
+  followingCount: FollowingCount;
+  followeeCount: FolloweeCount;
+  profileMessage: ProfileMessage;
+}
+
+type Name = string;
+
+interface UserLocation {
+  locationId: LocationId;
+  name: Name;
+}
+
+type SimpleCropTradePostId = number;
+type Status = 'NEW' | 'IN_PROGRESS' | 'COMPLETED';
+type IsLike = boolean;
+
+interface SimpleCropTradePost {
+  cropTradePostId: CropTradePostId;
+  title: Title;
+  status: Status;
+  imageURL: ImageUrl;
+  location: SimpleLocation;
+  likeCount: LikeCount;
+  isLike: IsLike;
+  createdAt: CreatedAt;
+}
+
+type SimpleCropTradePostList = SimpleCropTradePost[];
+
+interface Auth {
+  isLogin: boolean;
+  token: string;
+}
+
 interface BarterResponse<T> {
   isSuccess: boolean;
   code: number;
@@ -102,7 +150,22 @@ interface BarterResponse<T> {
   errors: string[];
 }
 
+type CommunityPostList = CommunityPost[];
+
 type SignupResponse = BarterResponse<null>;
 type LoginResponse = BarterResponse<null>;
 type ReIssueResponse = BarterResponse<null>;
 type LogoutResponse = BarterResponse<null>;
+type GetCurrentLocationResponse = BarterResponse<SimpleLocation>;
+type GetUserProfileResponse = BarterResponse<UserProfile>;
+type GetUserLocationResponse = BarterResponse<UserLocation>;
+type GetCommunityPostListResponse = BarterResponse<CommunityPostList>;
+type PostCommunityPostResponse = BarterResponse<null>;
+type GetCommunityPostResponse = BarterResponse<CommunityPost>;
+type DeleteCommunityPostResponse = BarterResponse<null>;
+type PostCommentResponse = BarterResponse<null>;
+type DeleteCommentResponse = BarterResponse<null>;
+type PostLikeResponse = BarterResponse<null>;
+type GetTradePostListResponse = BarterResponse<SimpleCropTradePostList>;
+type GetTradePostResponse = BarterResponse<SimpleCropTradePost>;
+// TODO: 물물교환 상세 조회
