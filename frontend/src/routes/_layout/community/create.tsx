@@ -3,7 +3,7 @@ import classnames from 'classnames/bind';
 import type { ChangeEvent} from 'react';
 import { useState } from 'react';
 
-import GeneralButton from '@/components/Buttons/LinkButton.tsx';
+import GeneralButton from '@/components/Buttons/GeneralButton';
 import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import LabeledTextAreaInput from '@/components/Inputs/LabeledTextAreaInput';
@@ -19,7 +19,7 @@ export const Route = createFileRoute('/_layout/community/create')({
 
 export default function PostCreate() {
 
-  const nav = useNavigate();
+  const nav = useNavigate({ from: '/community/create'});
 
   const posts = useCommunityStore(state => state.posts);
     const [title, setTitle] = useState('');
@@ -46,7 +46,24 @@ export default function PostCreate() {
             }));
             setImages(newImage)
         }
+        console.log(images)
   }
+
+  // 나중에!! 이런 식으로
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault()
+
+  //   const response = await fetch('/posts', {
+  //     method: 'POST',
+  //     body: JSON.stringify({ title: 'My First Post' }),
+  //   })
+
+  //   const { id: postId } = await response.json()
+
+  //   if (response.ok) {
+  //     navigate({ to: '/posts/$postId', params: { postId } })
+  //   }
+  // }
 
   function handleSubmit() {
     if (title && content) {
@@ -57,8 +74,8 @@ export default function PostCreate() {
             images,
         });
     }
-    console.log(posts)
-    nav('/community')
+
+    nav({ to: '/community'})
   }
 
   return (
@@ -86,10 +103,18 @@ export default function PostCreate() {
 
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
-          onClick={handleSubmit}
+          onClick= {handleSubmit}
         >
             작성완료
         </GeneralButton>
+        </div>
+        <div className={cx('imageContainer')}>
+          { images && images.map((img, imgIndex) => 
+          <img 
+          key={imgIndex} 
+          className={cx('image')}
+          src={img.imageUrl} alt="" />
+          )}
         </div>
 
     </div>

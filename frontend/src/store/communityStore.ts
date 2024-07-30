@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+import { ko } from 'date-fns/locale';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -50,6 +52,7 @@ interface CommunityStore {
   posts: CommunityPost[];
   addPost: (newPost: CreatePost) => void;
   deletePost: (postId: number) => void;
+  addComment: (postId: number, Comment: Comment ) => void;
 }
 
 const initialPost : CommunityPost= {
@@ -63,12 +66,12 @@ const initialPost : CommunityPost= {
     {
       user: {userId: 1, nickname: 'user1', profileImage: UserImage},
       content: '댓글1',
-      created_at: '2024-07-03',
+      created_at: '2024-07-03 12:10',
     },
     {
       user: {userId: 1, nickname: 'user2', profileImage: UserImage},
       content: '댓글2',
-      created_at: '2024-07-03',
+      created_at: '2024-07-01 20:23',
     },
   ],
   imageList: [
@@ -79,10 +82,10 @@ const initialPost : CommunityPost= {
       imageOrder: 2,
     },
   ],
-  created_at: '2024-05-20',
+  created_at: '2024-05-20 23:01',
 };
 
-const useCommunityStore = create<CommunityStore>(
+const useCommunityStore = create<CommunityStore>()(
   persist<CommunityStore>(
     (set) => ({
       posts: [initialPost],
@@ -103,18 +106,31 @@ const useCommunityStore = create<CommunityStore>(
           likeCount: 0,
           commentList: [],
           imageList: newPost.images,
-          created_at: new Date().toISOString(),
+          created_at: format( new Date(),'yyyy-MM-dd HH:mm', {locale:ko} )
         };
 
         return { posts: [...state.posts, newCommunityPost] };
       }),
+
       deletePost: (postId) => set((state) => ({
         posts: state.posts.filter(post => post.communityPostId !== postId),
       })),
+
+      addComment: (postId, newComment) => set((state) => {
+        const updatedPosts = state.posts.map(post => {
+          if (post.communityPostId === postId) {
+            return { 
+              ...post, commentList: [...post.commentList, newComment]
+            };
+          }
+          return post;
+        });
+        return { posts: updatedPosts}
+    }),
+
     }),
     {
       name: 'community-posts', 
-      storage: localStorage, // 새로운 storage 옵션 사용
     }
   )
 );
