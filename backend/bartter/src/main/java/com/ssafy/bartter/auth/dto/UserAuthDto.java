@@ -2,7 +2,6 @@ package com.ssafy.bartter.auth.dto;
 
 
 
-import com.ssafy.bartter.global.common.Location;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

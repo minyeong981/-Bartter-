@@ -1,6 +1,6 @@
 package com.ssafy.bartter.auth.entity;
 
-import com.ssafy.bartter.user.entity.User;
+
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

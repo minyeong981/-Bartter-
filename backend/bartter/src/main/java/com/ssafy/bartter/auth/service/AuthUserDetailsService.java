@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -43,13 +44,13 @@ public class AuthUserDetailsService implements UserDetailsService {
     public AuthUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
 
-        if (user == null) {
-            throw new CustomException(ErrorCode.USER_NOT_FOUND);        }
-        if(user.getLocation() == null){
+        if(user == null)
+            throw new CustomException(ErrorCode.USER_NOT_FOUND);
+        if(user.getLocation() == null)
             throw new CustomException(ErrorCode.USER_LOCATION_NOT_FOUND);
-        }
-        System.out.println("출력 id : " + user.getLocation().getId() + " 출력 name : " + user.getLocation().getName());
-        // TODO: 왜 location 을 받아오지 못할까?
+        if(user.getDeletedAt() != null)
+            throw new CustomException(ErrorCode.USER_ACCOUNT_DEACTIVATED);
+
         UserAuthDto userAuthDto = UserAuthDto.builder()
                 .id(user.getId())
                 .username(user.getUsername())
@@ -59,17 +60,19 @@ public class AuthUserDetailsService implements UserDetailsService {
                 .locationName(user.getLocation().getName())
                 .isAccountExpired(user.isAccountExpired())
                 .build();
-
-        System.out.println(userAuthDto);
-        AuthUserDetails customUserDetails = new AuthUserDetails(userAuthDto);
-        Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
-        // 일시적인 세션 등록
-        SecurityContextHolder.getContext().setAuthentication(authToken);
         return new AuthUserDetails(userAuthDto);
     }
 
+    /**
+     * 주어진 UserDetails 객체를 사용하여 UserAuthDto 객체를 가져오는 함수형 인터페이스를 빈으로 등록하는 메서드
+     *
+     * @return 주어진 UserDetails 객체에서 UserAuthDto 객체를 가져오는 함수형 인터페이스
+     */
     @Bean
     public Function<UserDetails, UserAuthDto> fetchUser() {
-        return authUserDetails -> this.loadUserByUsername(authUserDetails.getUsername()).getUserAuthDto();
+        return authUserDetails -> {
+            if(Objects.isNull(authUserDetails)) throw new CustomException(ErrorCode.UNAUTHORIZED);
+            return this.loadUserByUsername(authUserDetails.getUsername()).getUserAuthDto();
+        };
     }
 }

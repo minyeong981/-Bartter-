@@ -6,12 +6,14 @@ import com.ssafy.bartter.auth.dto.UserAuthDto;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.global.common.SimpleLocation;
 import com.ssafy.bartter.global.exception.CustomException;
+import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.response.ErrorResponse;
 import com.ssafy.bartter.global.response.SuccessResponse;
 import com.ssafy.bartter.global.service.LocationService;
 import com.ssafy.bartter.user.dto.UserJoinDto;
 import com.ssafy.bartter.user.dto.UserLocationDto;
 import com.ssafy.bartter.user.services.UserService;
+import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -42,19 +45,17 @@ public class UserController {
      * @return 사용자 생성 성공 여부를 나타내는 ResponseEntity 객체
      */
     @PostMapping("/join")
-    public ResponseEntity<?> joinProcess(@Valid @RequestBody UserJoinDto userJoinDto) {
-        try {
-            userService.joinProcess(userJoinDto);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(new SuccessResponse<>("사용자가 성공적으로 생성되었습니다."));
-        } catch (CustomException e) {
-            return ResponseEntity.status(e.getErrorCode().getStatus())
-                    .body(ErrorResponse.of(e));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(ErrorResponse.of(e));
+    public SuccessResponse<Void> joinProcess(
+            @RequestBody @Valid UserJoinDto userJoinDto,
+            BindingResult bindingResult
+    ) {
+        if(bindingResult.hasErrors()){
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
+        userService.joinProcess(userJoinDto);
+        return SuccessResponse.empty();
     }
+
 
     /**
      * 사용자가 전달한 위도와 경도로 현재 위치 정보를 조회하는 메서드
@@ -82,11 +83,21 @@ public class UserController {
         }
     }
 
+    /**
+     * 사용자 탈퇴 요청을 처리하는 메서드
+     *
+     * @param userId 탈퇴할 사용자의 ID
+     * @return 탈퇴 처리 결과를 나타내는 ResponseEntity 객체
+     */
+    @DeleteMapping("/{userId}")
+    public SuccessResponse<Void> deleteUser(@PathVariable int userId) {
+        log.debug("DELETE USER : {} ", userId);
+        userService.deleteUser(userId);
+        return SuccessResponse.empty();
+    }
+
     @GetMapping("/ex")
     public ResponseEntity<UserAuthDto> getCurrentUser(@CurrentUser UserAuthDto userAuthDto) {
-        if (userAuthDto == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 인증되지 않은 경우 처리
-        }
         // SecurityContextHolder 에서 Authentication 객체 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         // Authentication 객체에서 AuthUserDetails 가져오기

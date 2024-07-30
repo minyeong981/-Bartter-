@@ -1,5 +1,6 @@
 package com.ssafy.bartter.global.config;
 
+import com.ssafy.bartter.auth.handler.CustomAuthenticationEntryPoint;
 import com.ssafy.bartter.auth.repository.RefreshRepository;
 import com.ssafy.bartter.auth.utils.CookieUtil;
 import com.ssafy.bartter.auth.utils.JwtUtil;
@@ -50,7 +51,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomAuthenticationEntryPoint customAuthenticationEntryPoint) throws Exception {
 
         // cors
         http
@@ -88,7 +89,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/login", "user/join", "user/location").permitAll()
+                        .requestMatchers("/", "/login", "/user/join", "/user/location").permitAll()
                         .requestMatchers("/auth/reissue").permitAll()
                         .requestMatchers("/swagger", "/swagger-ui.html", "/swagger-ui/**", "/api-docs", "/api-docs/**", "/v3/api-docs/**")
                         .permitAll()
@@ -100,6 +101,11 @@ public class SecurityConfig {
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, cookieUtil, refreshRepository), UsernamePasswordAuthenticationFilter.class);
         http
                 .addFilterBefore(new LogoutFilter(jwtUtil, refreshRepository), org.springframework.security.web.authentication.logout.LogoutFilter.class);
+
+        http
+                .exceptionHandling((exceptions) -> exceptions
+                        .authenticationEntryPoint(customAuthenticationEntryPoint)
+                );
 
         http
                 .sessionManagement((session) -> session
