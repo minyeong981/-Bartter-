@@ -1,6 +1,7 @@
 package com.ssafy.bartter.user.controller;
 
 import com.ssafy.bartter.auth.annotation.CurrentUser;
+import com.ssafy.bartter.auth.dto.AuthUserDetails;
 import com.ssafy.bartter.auth.dto.UserAuthDto;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.global.common.SimpleLocation;
@@ -16,6 +17,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -77,5 +80,19 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(ErrorResponse.of(e));
         }
+    }
+
+    @GetMapping("/ex")
+    public ResponseEntity<UserAuthDto> getCurrentUser(@CurrentUser UserAuthDto userAuthDto) {
+        if (userAuthDto == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 인증되지 않은 경우 처리
+        }
+        // SecurityContextHolder 에서 Authentication 객체 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // Authentication 객체에서 AuthUserDetails 가져오기
+        AuthUserDetails authUserDetails = (AuthUserDetails) authentication.getPrincipal();
+        System.out.println("username: " + userAuthDto.getUsername());
+        System.out.println("userLocation ID : " + userAuthDto.getLocationId());
+        return ResponseEntity.ok(userAuthDto);
     }
 }

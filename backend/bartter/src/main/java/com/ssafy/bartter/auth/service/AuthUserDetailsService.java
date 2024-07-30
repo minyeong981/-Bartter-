@@ -7,11 +7,17 @@ import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.user.entity.User;
 import com.ssafy.bartter.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.function.Function;
 
 /**
  * 사용자 인증을 위한 사용자 정보를 제공하는 서비스 클래스
@@ -34,7 +40,7 @@ public class AuthUserDetailsService implements UserDetailsService {
      */
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public AuthUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
 
         if (user == null) {
@@ -42,7 +48,8 @@ public class AuthUserDetailsService implements UserDetailsService {
         if(user.getLocation() == null){
             throw new CustomException(ErrorCode.USER_LOCATION_NOT_FOUND);
         }
-
+        System.out.println("출력 id : " + user.getLocation().getId() + " 출력 name : " + user.getLocation().getName());
+        // TODO: 왜 location 을 받아오지 못할까?
         UserAuthDto userAuthDto = UserAuthDto.builder()
                 .id(user.getId())
                 .username(user.getUsername())
@@ -53,7 +60,16 @@ public class AuthUserDetailsService implements UserDetailsService {
                 .isAccountExpired(user.isAccountExpired())
                 .build();
 
-
+        System.out.println(userAuthDto);
+        AuthUserDetails customUserDetails = new AuthUserDetails(userAuthDto);
+        Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
+        // 일시적인 세션 등록
+        SecurityContextHolder.getContext().setAuthentication(authToken);
         return new AuthUserDetails(userAuthDto);
+    }
+
+    @Bean
+    public Function<UserDetails, UserAuthDto> fetchUser() {
+        return authUserDetails -> this.loadUserByUsername(authUserDetails.getUsername()).getUserAuthDto();
     }
 }
