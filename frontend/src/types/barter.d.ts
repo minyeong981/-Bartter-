@@ -10,6 +10,8 @@ type Longitude = number;
 type PhoneNumber = string;
 type Email = string;
 
+type UserId = string;
+
 interface Coordinate {
   latitude: Latitude;
   longitude: Longitude;
@@ -137,6 +139,32 @@ interface SimpleCropTradePost {
 
 type SimpleCropTradePostList = SimpleCropTradePost[];
 
+type CropCategoryId = number;
+
+interface CropCategoryDetail {
+  cropCategoryId: CropCategoryId;
+  name: Name;
+  image: Image;
+}
+
+type TradePostId = number;
+type HasCrop = boolean;
+type CropId = number;
+type ImageList = string[];
+
+interface CropTradePost {
+  tradePostId: TradePostId;
+  title: Title;
+  content: Content;
+  user: SimpleUser;
+  hasCrop: HasCrop;
+  cropId: CropId;
+  imageList: ImageList;
+  location: SimpleLocation;
+  desiredCategoryList: CropCategoryDetail[];
+  createdAt: CreatedAt;
+}
+
 interface Auth {
   isLogin: boolean;
   token: string;
@@ -167,5 +195,5 @@ type PostCommentResponse = BarterResponse<null>;
 type DeleteCommentResponse = BarterResponse<null>;
 type PostLikeResponse = BarterResponse<null>;
 type GetTradePostListResponse = BarterResponse<SimpleCropTradePostList>;
-type GetTradePostResponse = BarterResponse<SimpleCropTradePost>;
-// TODO: 물물교환 상세 조회
+type GetTradePostResponse = BarterResponse<CropTradePost>;
+// TODO: 농작물 프로필 등록
