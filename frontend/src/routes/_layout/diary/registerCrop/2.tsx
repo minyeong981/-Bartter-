@@ -1,11 +1,13 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import classnames from 'classnames/bind';
-import type { ChangeEvent} from 'react';
+import 'react-datepicker/dist/react-datepicker.css';
 
-import GeneralButton from '@/components/Buttons/GeneralButton';
+import { createFileRoute } from '@tanstack/react-router';
+import classnames from 'classnames/bind';
+import { format } from 'date-fns';
+import { useState } from 'react';
+import DatePicker from 'react-datepicker';
+
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
-import LabeledInput from '@/components/Inputs/LabeledInput';
 import useRegisterCropStore from '@/store/registerCropStore';
 
 import styles from './registerCrop.module.scss';
@@ -17,51 +19,43 @@ export const Route = createFileRoute('/_layout/diary/registerCrop/2')({
 });
 
 function GetDatePage() {
-  const navigate = useNavigate({from: '/diary/registerCrop/2'});
-  const date = useRegisterCropStore(state => state.date) || '';
+  const nickname = useRegisterCropStore(state => state.nickname);
   const setDate = useRegisterCropStore(state => state.setDate);
-  // const isValid = description.length <= 100;
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
-  const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setDate(e.currentTarget.value);
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+    if (date) {
+      setDate(format(date, 'yyyy-MM-dd')); // 날짜를 yyyy-MM-dd 형식으로 설정하고 저장
+    }
   };
-
-  function handleContinueButton() {
-    setDate(undefined);
-    navigate({to: '/diary/registerCrop/5'});
-  }
 
   return (
     <div className={cx('registerPage')}>
       <div className={cx('headingContainer')}>
         <Heading>
-          내 작물 별명 과/와
+          {nickname}과/와
           <br />
           처음 만난 날짜를 입력해주세요.
         </Heading>
       </div>
       <div className={cx('inputContainer')}>
-        <LabeledInput
-          label="처음 만난 날짜"
-          placeholder="현재 날짜"
+        <label className={cx('inputLabel')}>처음 만난 날짜</label>
+        <DatePicker
+          selected={selectedDate}
           onChange={handleDateChange}
-          value={date}
+          placeholderText={format(new Date(), 'yyyy-MM-dd')} // 오늘 날짜를 placeholder로 설정
+          dateFormat="yyyy-MM-dd"
+          className={cx('datePicker')}
         />
       </div>
       <div className={cx('buttonContainer')}>
         <LinkButton
-          buttonStyle={{style: 'primary', size: 'large'}}
+          buttonStyle={{ style: 'primary', size: 'large' }}
           to="/diary/registerCrop/3"
-          // disabled={!isValid}
         >
           다음
         </LinkButton>
-        <GeneralButton
-          buttonStyle={{style: 'outlined', size: 'large'}}
-          onClick={handleContinueButton}
-        >
-          건너뛰기
-        </GeneralButton>
       </div>
     </div>
   );

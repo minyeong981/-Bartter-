@@ -1,9 +1,6 @@
 import { useState } from 'react';
+import { FaSearch, FaTimes } from 'react-icons/fa';  // react-icons import 추가
 
-import searchIcon from '@/assets/image/searchIcon.png'
-import xIcon from '@/assets/image/xIcon.png'
-
-// import { FaSearch } from 'react-icons/fa';
 import styles from './Search.module.scss';
 
 interface SearchProps {
@@ -32,7 +29,7 @@ export default function Search({ onSearch }: SearchProps) {
         onChange={handleChange}
       />
       <button className={styles.clearButton} onClick={handleClear}>
-      <img src={searchTerm ? xIcon : searchIcon} alt="Clear/Search" />
+        {searchTerm ? <FaTimes /> : <FaSearch />}
       </button>
     </div>
   );

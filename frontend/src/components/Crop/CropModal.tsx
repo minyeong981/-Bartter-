@@ -2,7 +2,6 @@ import classnames from 'classnames/bind';
 import { useState } from 'react';
 
 import LinkButton from '@/components/Buttons/LinkButton';
-import crops from '@/store/copsStore';
 
 import Search from '../Search/Search';
 import Crop from './Crop';
@@ -13,7 +12,7 @@ const cx = classnames.bind(styles);
 interface ModalProps {
   show: boolean;
   onClose: () => void;
-  onCropSelect: (index: number) => void;
+  onCropSelect: (id: number) => void;
   selectedCrop: number | null;
   showSearchBar?: boolean;
 }
@@ -21,6 +20,7 @@ interface ModalProps {
 export default function CropModal({
   show,
   onClose,
+  onCropSelect,
   selectedCrop,
   showSearchBar = false,
 }: ModalProps) {
@@ -30,11 +30,6 @@ export default function CropModal({
     return null;
   }
 
-
-  const filteredCrops = crops.filter(crop =>
-    crop.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   return (
     <div className={cx('modalBackdrop')}>
       <div className={cx('modalContent')}>
@@ -42,15 +37,18 @@ export default function CropModal({
           X
         </button>
         {showSearchBar && <Search onSearch={setSearchTerm} />}
-        <div className={cx('cropList')} />
-        <Crop/>
-        <LinkButton
-          buttonStyle={{ style: 'primary', size: 'large' }}
-          to='/diary/registerCrop/1'
-        >
-          다음
-        </LinkButton>
-      </div>
+        <div className={cx('cropList')}>
+          <Crop searchTerm={searchTerm} />
+        </div>
+        <div className={cx('buttonContainer')}>
+            <LinkButton
+              buttonStyle={{ style: 'primary', size: 'large' }}
+              to="/diary/registerCrop/1"
+            >
+              다음
+            </LinkButton>
+        </div>
     </div>
+  </div>
   );
 }

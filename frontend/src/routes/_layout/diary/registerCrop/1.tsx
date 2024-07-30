@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
-import type { ChangeEvent} from 'react';
+import type { ChangeEvent } from 'react';
 import { useEffect } from 'react';
 
-import GeneralButton from '@/components/Buttons/LinkButton';
+import LinkButton from '@/components/Buttons/LinkButton';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput';
 import useRegisterCropStore from '@/store/registerCropStore';
@@ -19,17 +19,16 @@ export const Route = createFileRoute('/_layout/diary/registerCrop/1')({
 function GetNicknamePage() {
   const nickname = useRegisterCropStore(state => state.nickname);
   const setNickname = useRegisterCropStore(state => state.setNickname);
-  const isValid = nickname.length <= 30;
+  const resetCropForm = useRegisterCropStore(state => state.resetCropForm);
+  const isValid = nickname.length >= 1 && nickname.length <= 30;
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.currentTarget.value);
   };
 
   useEffect(() => {
-    return () => {
-      setNickname('');
-    };
-  }, [setNickname]);
+    resetCropForm(); // 페이지가 로드될 때 상태 초기화
+  }, [resetCropForm]);
 
   return (
     <div className={cx('registerPage')}>
@@ -49,13 +48,13 @@ function GetNicknamePage() {
         />
       </div>
       <div className={cx('buttonContainer')}>
-        <GeneralButton
+        <LinkButton
           buttonStyle={{ style: 'primary', size: 'large' }}
           to="/diary/registerCrop/2"
-          disabled={!isValid}
+          disabled={!isValid} 
         >
           다음
-        </GeneralButton>
+        </LinkButton>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import type { ChangeEvent} from 'react';
 import GeneralButton from '@/components/Buttons/GeneralButton';
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
-import LabeledInput from '@/components/Inputs/LabeledInput';
+import LabeledTextAreaInput from '@/components/Inputs/LabeledTextAreaInput';
 import useRegisterCropStore from '@/store/registerCropStore';
 
 import styles from './registerCrop.module.scss';
@@ -17,6 +17,7 @@ export const Route = createFileRoute('/_layout/diary/registerCrop/3')({
 });
 
 function GetDesciptionPage() {
+  const nickname = useRegisterCropStore(state => state.nickname);
   const navigate = useNavigate({from: '/diary/registerCrop/2'});
   const description = useRegisterCropStore(state => state.description) || '';
   const setDescription = useRegisterCropStore(state => state.setDescription);
@@ -35,13 +36,13 @@ function GetDesciptionPage() {
     <div className={cx('registerPage')}>
       <div className={cx('headingContainer')}>
         <Heading>
-          내 작물을/를
+          {nickname}을/를
           <br />
           소개해주세요.
         </Heading>
       </div>
       <div className={cx('inputContainer')}>
-        <LabeledInput
+        <LabeledTextAreaInput
           label="작물 설명 (선택 사항)"
           placeholder="품종 등"
           onChange={handleDescriptionChange}

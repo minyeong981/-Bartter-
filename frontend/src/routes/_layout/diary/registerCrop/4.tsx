@@ -4,7 +4,7 @@ import type { ChangeEvent} from 'react';
 
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
-import LabeledInput from '@/components/Inputs/LabeledInput';
+import ImageInput from '@/components/Inputs/ImageInput';
 import useRegisterCropStore from '@/store/registerCropStore';
 
 import styles from './registerCrop.module.scss';
@@ -16,6 +16,7 @@ export const Route = createFileRoute('/_layout/diary/registerCrop/4')({
 });
 
 function GetImagePage() {
+  const nickname = useRegisterCropStore(state => state.nickname);
   const image = useRegisterCropStore(state => state.image) || '';
   const setImage = useRegisterCropStore(state => state.setImage);
   // const isValid = image.match(EMAIL_PATTERN);
@@ -30,18 +31,13 @@ function GetImagePage() {
     <div className={cx('registerPage')}>
       <div className={cx('headingContainer')}>
         <Heading>
-          작물별명의
+          {nickname}의
           <br />
           사진을 등록해주세요.
         </Heading>
       </div>
       <div className={cx('inputContainer')}>
-        <LabeledInput
-          label="작물 사진 (선택 사항)"
-          placeholder=""
-          onChange={handleImageChange}
-          value={image}
-        />
+        <ImageInput />
       </div>
       <div className={cx('buttonContainer')}>
         <LinkButton
