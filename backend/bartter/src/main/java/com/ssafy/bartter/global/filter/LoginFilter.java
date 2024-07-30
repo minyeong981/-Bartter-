@@ -2,12 +2,16 @@ package com.ssafy.bartter.global.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.bartter.auth.dto.AuthUserDetails;
+import com.ssafy.bartter.auth.dto.AuthUserLoginDto;
 import com.ssafy.bartter.auth.dto.RefreshTokenDto;
 import com.ssafy.bartter.auth.dto.UserAuthDto;
 import com.ssafy.bartter.auth.entity.Refresh;
 import com.ssafy.bartter.auth.repository.RefreshRepository;
 import com.ssafy.bartter.auth.utils.CookieUtil;
 import com.ssafy.bartter.auth.utils.JwtUtil;
+import com.ssafy.bartter.global.exception.CustomException;
+import com.ssafy.bartter.global.exception.ErrorCode;
+import com.ssafy.bartter.global.response.ErrorResponse;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -52,17 +56,16 @@ public class  LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         ObjectMapper mapper = new ObjectMapper();
-        UserAuthDto userAuthDto;
+        AuthUserLoginDto authUserLoginDto;
         try {
-            userAuthDto = mapper.readValue(request.getInputStream(), UserAuthDto.class);
+            authUserLoginDto = mapper.readValue(request.getInputStream(), AuthUserLoginDto.class);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, "잘못된 입력 값입니다.");
         }
 
-        String username = userAuthDto.getUsername();
-        String password = userAuthDto.getPassword();
+        String username = authUserLoginDto.getUsername();
+        String password = authUserLoginDto.getPassword();
         log.debug("username : {}", username);
-        log.debug("password : {}", password);
         // TODO: ADMIN 권한 체크를 추가해야한다면 role 도 넘겨주어야 한다
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, null);
 
@@ -113,14 +116,31 @@ public class  LoginFilter extends UsernamePasswordAuthenticationFilter {
      * @param failed   AuthenticationException 객체
      */
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
-        // 401 error
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
+        log.error("인증 실패: {}", failed.getMessage());
+        // ErrorResponse 객체 생성
+        CustomException customException = new CustomException(ErrorCode.UNAUTHORIZED, failed.getMessage());
+        ErrorResponse errorResponse = ErrorResponse.of(customException);
+
+        // JSON 응답 작성
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        System.out.println("unsuccessful authentication");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        // 객체를 JSON 문자열로 변환하여 응답 본문에 작성
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonResponse = objectMapper.writeValueAsString(errorResponse);
+        response.getWriter().write(jsonResponse);
     }
 
     private void saveRefreshToken(String username, String refresh, Long expiredMs) {
         Date date = new Date(System.currentTimeMillis() + expiredMs);
+
+        Refresh existingToken = refreshRepository.findByUsername(username);
+        if (existingToken != null) {
+            refreshRepository.delete(existingToken);
+        }
+
         Refresh refreshEntity = Refresh.builder()
                 .username(username)
                 .refresh(refresh)

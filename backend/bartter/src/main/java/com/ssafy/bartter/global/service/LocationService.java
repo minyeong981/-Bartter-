@@ -43,7 +43,7 @@ public class LocationService {
      * @return 현재 동네 정보
      */
     public Location getCurrentLocation(double latitude, double longitude) {
-        System.out.println("latitude: " + latitude + " longitude: " + longitude);
+        log.debug("latitude: {} longitude: {}", latitude, longitude);
         return locationRepository.findLocationByPointContains(createPoint(latitude, longitude))
                 .orElseThrow(() -> new CustomException(ErrorCode.INVALID_LOCATION));
     }

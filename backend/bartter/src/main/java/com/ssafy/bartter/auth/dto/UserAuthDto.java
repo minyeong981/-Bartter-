@@ -2,7 +2,7 @@ package com.ssafy.bartter.auth.dto;
 
 
 
-import com.ssafy.bartter.user.entity.Role;
+import com.ssafy.bartter.global.common.Location;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +31,16 @@ public class UserAuthDto {
     private String password;
 
     /**
+     * 사용자 위치 id (PK)
+     */
+    private int locationId;
+
+    /**
+     * 사용자 위치 이름
+     */
+    private String locationName;
+
+    /**
      * 사용자 권한
      */
     private String role;
@@ -41,10 +51,12 @@ public class UserAuthDto {
     private boolean isAccountExpired;
 
     @Builder
-    public UserAuthDto(int id, String username, String password, String role, boolean isAccountExpired) {
+    public UserAuthDto(int id, String username, String password, int locationId, String locationName, String role, boolean isAccountExpired) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.locationId = locationId;
+        this.locationName = locationName;
         this.role = role;
         this.isAccountExpired = isAccountExpired;
     }

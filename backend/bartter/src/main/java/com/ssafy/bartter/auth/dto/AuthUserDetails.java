@@ -1,5 +1,6 @@
 package com.ssafy.bartter.auth.dto;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,6 +14,7 @@ import java.util.Collection;
  *
  * @author 김훈민
  */
+@Getter
 @RequiredArgsConstructor
 public class AuthUserDetails implements UserDetails {
 
@@ -21,6 +23,9 @@ public class AuthUserDetails implements UserDetails {
     public int getUserId() {
         return userAuthDto.getId();
     }
+
+    // TODO : Location id 가 있어야하고 위치가 변경되면 여기 Location id 가 새로 등록되어야함
+
 
     /**
      * 사용자의 권한 정보를 반환하는 메서드

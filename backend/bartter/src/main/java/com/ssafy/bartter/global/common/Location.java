@@ -73,16 +73,6 @@ public class Location extends BaseEntity {
     @OneToMany(mappedBy = "location", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<TradePost> tradePostList = new ArrayList<>();
 
-
-    // 회원가입 테스트
-    @Builder
-    public Location(String name, String code, MultiPolygon multiPolygon, Point point) {
-        this.name = name;
-        this.code = code;
-        this.multiPolygon = multiPolygon;
-        this.point = point;
-    }
-
 }
 
 

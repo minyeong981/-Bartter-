@@ -2,14 +2,16 @@ package com.ssafy.bartter.auth.service;
 
 import com.ssafy.bartter.auth.dto.AuthUserDetails;
 import com.ssafy.bartter.auth.dto.UserAuthDto;
+import com.ssafy.bartter.global.exception.CustomException;
+import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.user.entity.User;
 import com.ssafy.bartter.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 사용자 인증을 위한 사용자 정보를 제공하는 서비스 클래스
@@ -31,11 +33,14 @@ public class AuthUserDetailsService implements UserDetailsService {
      * @throws UsernameNotFoundException 사용자가 존재하지 않는 경우 예외 발생
      */
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
 
         if (user == null) {
-            throw new UsernameNotFoundException("User not found with username: " + username);
+            throw new CustomException(ErrorCode.USER_NOT_FOUND);        }
+        if(user.getLocation() == null){
+            throw new CustomException(ErrorCode.USER_LOCATION_NOT_FOUND);
         }
 
         UserAuthDto userAuthDto = UserAuthDto.builder()
@@ -43,6 +48,8 @@ public class AuthUserDetailsService implements UserDetailsService {
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .role(user.getRole().name())
+                .locationId(user.getLocation().getId())
+                .locationName(user.getLocation().getName())
                 .isAccountExpired(user.isAccountExpired())
                 .build();
 
