@@ -1,9 +1,20 @@
+import { FaSearch } from "react-icons/fa";
 
-
-export default function SearchSuggestion() {
+interface SearchSuggestionsProps {
+    query: string;
+    suggestions: string[];
+    onSearch: (searchTerm: string) => void
+}
+export default function SearchSuggestion({query, suggestions, onSearch} :SearchSuggestionsProps) {
     return (
         <div>
-            searchSuggestion
+            { suggestions.map((suggestion, index) => (
+
+                <div key={index} onClick={() => onSearch(suggestion)}>
+                    <FaSearch />
+                    {suggestion}
+                    </div>
+            ))}
         </div>
     )
 }

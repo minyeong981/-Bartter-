@@ -1,6 +1,5 @@
 
 import type { ChangeEvent, KeyboardEvent} from 'react';
-import {useState } from 'react';
 
 import searchIcon from '@/assets/image/searchIcon.png';
 import xIcon from '@/assets/image/xIcon.png';

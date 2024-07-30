@@ -1,0 +1,37 @@
+@use '@/styles/constants/colors.scss' as colors;
+
+.recentSearchContainer {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 10px; 
+    max-width: 370px; 
+    padding: 10px;
+    overflow-x: hidden; 
+}
+
+.searchItem {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    white-space: nowrap;
+    cursor: pointer;
+    background-color: rgba(colors.$primary, 0.3);
+    border-radius: 20px; 
+}
+
+.searchText {
+    padding-left: 6px;
+    margin-right: 5px;
+    font-weight: bold;
+    color: colors.$primary;
+}
+
+.deleteButton {
+    display: flex;
+    align-items: center;
+    color: colors.$white;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
