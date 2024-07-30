@@ -60,4 +60,9 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public User findUserById(int userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND, "User not found with id: " + userId));
+    }
+
 }
