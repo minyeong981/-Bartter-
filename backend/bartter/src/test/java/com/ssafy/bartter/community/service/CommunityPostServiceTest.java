@@ -56,7 +56,7 @@ class CommunityPostServiceTest {
         MultipartFile image1 = mock(MultipartFile.class);
         MultipartFile image2 = mock(MultipartFile.class);
         MultipartFile image3 = mock(MultipartFile.class);
-        List<MultipartFile> imageList = List.of(image1, image2, image3);
+        MultipartFile[] imageList = new MultipartFile[]{image1, image2, image3};
 
         User mockUser = mock(User.class);
         Location mockUserLocation = mock(Location.class);
@@ -68,7 +68,7 @@ class CommunityPostServiceTest {
         given(s3UploadService.upload(image3)).willReturn("testurl3");
 
         // when
-        CommunityPost post = communityPostService.createPost(request, imageList);
+        CommunityPost post = communityPostService.createPost(request, imageList, 1);
 
         // then
         assertThat(post).isNotNull();
@@ -90,7 +90,8 @@ class CommunityPostServiceTest {
     void 이미지_미포함_동네모임_게시글_생성() {
         // given
         Create request = getRequest();
-        List<MultipartFile> imageList = new ArrayList<>();
+        MultipartFile[] imageList = null;
+
 
         User mockUser = mock(User.class);
         Location mockUserLocation = mock(Location.class);
@@ -99,7 +100,7 @@ class CommunityPostServiceTest {
         given(mockUser.getLocation()).willReturn(mockUserLocation);
 
         // when
-        CommunityPost post = communityPostService.createPost(request, imageList);
+        CommunityPost post = communityPostService.createPost(request, imageList, 1);
 
         // then
         assertThat(post).isNotNull();
@@ -133,10 +134,15 @@ class CommunityPostServiceTest {
     void 동네모임_게시글_삭제() {
         // given
         CommunityPost post = mock(CommunityPost.class);
+        User mockUser = mock(User.class);
+
+        given(mockUser.getId()).willReturn(1);
+        given(post.getUser()).willReturn(mockUser);
+        given(post.getUser().getId()).willReturn(1);
         given(communityPostRepository.findById(1)).willReturn(Optional.of(post));
 
         // when
-        communityPostService.deletePost(1);
+        communityPostService.deletePost(1, 1);
 
         // then
         verify(communityPostRepository, times(1)).delete(post);
@@ -148,6 +154,6 @@ class CommunityPostServiceTest {
         String title = "title";
         String content = "content";
 
-        return new Create(userId, title, content);
+        return new Create(title, content);
     }
 }
