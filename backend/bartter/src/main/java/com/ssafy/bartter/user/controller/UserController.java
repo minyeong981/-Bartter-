@@ -78,17 +78,4 @@ public class UserController {
                     .body(ErrorResponse.of(e));
         }
     }
-
-    // annotation 사용 예시
-    @GetMapping("/ex")
-    public ResponseEntity<UserAuthDto> getCurrentUser(@CurrentUser UserAuthDto userAuthDto) {
-        if (userAuthDto == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 인증되지 않은 경우 처리
-        }
-        log.debug("username: {}", userAuthDto.getUsername());
-        log.debug("Location id: {}", userAuthDto.getLocationId());
-        log.debug("Location name: {}", userAuthDto.getLocationName());
-        return ResponseEntity.ok(userAuthDto);
-    }
-
 }
