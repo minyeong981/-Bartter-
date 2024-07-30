@@ -1,33 +1,26 @@
 import classnames from 'classnames/bind';
-import {useState} from 'react';
+import { useState } from 'react';
 
 import LinkButton from '@/components/Buttons/LinkButton';
+import crops from '@/store/copsStore';
 
 import Search from '../Search/Search';
 import Crop from './Crop';
 import styles from './CropModal.module.scss';
 
-interface CropProps {
-  cropImageSrc: string;
-  cropNameSrc: string;
-}
+const cx = classnames.bind(styles);
 
 interface ModalProps {
   show: boolean;
   onClose: () => void;
-  crops: CropProps[];
   onCropSelect: (index: number) => void;
   selectedCrop: number | null;
   showSearchBar?: boolean;
 }
 
-const cx = classnames.bind(styles);
-
 export default function CropModal({
   show,
   onClose,
-  crops,
-  onCropSelect,
   selectedCrop,
   showSearchBar = false,
 }: ModalProps) {
@@ -37,12 +30,9 @@ export default function CropModal({
     return null;
   }
 
-  const handleCropClick = (index: number) => {
-    onCropSelect(index);
-  };
 
   const filteredCrops = crops.filter(crop =>
-    crop.cropNameSrc.toLowerCase().includes(searchTerm.toLowerCase()),
+    crop.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -52,24 +42,11 @@ export default function CropModal({
           X
         </button>
         {showSearchBar && <Search onSearch={setSearchTerm} />}
-        <div className={cx('cropList')}>
-          {filteredCrops.map((crop, index) => (
-            <div
-              key={index}
-              className={cx('cropItem', {selected: selectedCrop === index})}
-              onClick={() => handleCropClick(index)}
-            >
-              <Crop
-                cropImageSrc={crop.cropImageSrc}
-                cropNameSrc={crop.cropNameSrc}
-                isSelected={selectedCrop === index}
-              />
-            </div>
-          ))}
-        </div>
+        <div className={cx('cropList')} />
+        <Crop/>
         <LinkButton
-          buttonStyle={{style: 'primary', size: 'large'}}
-          to="/diary/createCrop/nickname"
+          buttonStyle={{ style: 'primary', size: 'large' }}
+          to='/diary/registerCrop/1'
         >
           다음
         </LinkButton>

@@ -1,18 +1,34 @@
 import './Crop.scss';
 
-interface CropProps {
-  cropImageSrc: string;
-  cropNameSrc: string;
-  isSelected: boolean;
-}
+import { useState } from 'react';
 
-export default function Crop({ cropImageSrc, cropNameSrc, isSelected }: CropProps) {
+import crops from '@/store/copsStore';
+
+export default function Crop() {
+  const [selectedCropId, setSelectedCropId] = useState<number | null>(null);
+
+  const handleCropClick = (id: number) => {
+    setSelectedCropId(id);
+  };
+
   return (
-    <div className={`crop-card ${isSelected ? 'selected' : ''}`}>
-      <div className="crop-image-container">
-        <img src={cropImageSrc} alt={cropNameSrc} className="crop-image" />
+    <div className="crops-component">
+      <div className="crops-list">
+        {crops.map((crop) => (
+          <div
+            key={crop.id}
+            className={`crop-card ${selectedCropId === crop.id ? 'selected' : ''}`}
+            onClick={() => handleCropClick(crop.id)}
+          >
+            <div className="crop-image-container">
+              <img src={crop.image} alt={crop.name} className="crop-image" />
+            </div>
+            <div className="crop-name">{crop.name}</div>
+          </div>
+        ))}
       </div>
-      <div className="crop-name">{cropNameSrc}</div>
     </div>
   );
-}
+};
+
+
