@@ -29,7 +29,7 @@ function GetEmailPage() {
 
   function handleContinueButton() {
     setEmail(undefined);
-    navigate({to: '/signup/6'});
+    navigate({to: '/signup/8'});
   }
 
   return (
