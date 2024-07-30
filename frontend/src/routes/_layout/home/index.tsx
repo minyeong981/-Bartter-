@@ -2,7 +2,6 @@ import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 
 import SweatPotato from '@/assets/image/고구마.png';
-import CommunityImage from '@/assets/image/동네모임1.png';
 import StroyImage from '@/assets/image/스토리1.png';
 import UserImage from '@/assets/image/유저.png';
 import AdCarousel from '@/components/AdCarousel';
@@ -11,6 +10,7 @@ import LinkButton from '@/components/Buttons/LinkButton';
 import PostList from '@/components/Community/PostList';
 import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons';
 import HomeStory from '@/components/Story/HomeStory';
+import useCommunityStore from '@/store/communityStore';
 
 import styles from './home.module.scss';
 
@@ -49,39 +49,6 @@ const barters = [
   },
 ];
 
-const posts = [
-  {
-    comunityPostId: 1,
-    locationName: '서울 강남구',
-    title: '동네 마라톤 대회1',
-    content: '함께 달려요! 초보자도 환영합니다.',
-    likeCount: 12,
-    commentCount: 3,
-    image: CommunityImage,
-    createdAt: '2024-07-25 오후 5:00',
-  },
-  {
-    comunityPostId: 2,
-    locationName: '서울 마포구',
-    title: '동네 마라톤 대회2',
-    content: '함께 달려요! 초보자도 환영합니다.',
-    likeCount: 12,
-    commentCount: 3,
-    image: CommunityImage,
-    createdAt: '2024-07-25 오후 5:00',
-  },
-  {
-    comunityPostId: 3,
-    locationName: '광주 장덕동',
-    title: '동네 마라톤 대회3',
-    content: '함께 달려요! 초보자도 환영합니다.',
-    likeCount: 12,
-    commentCount: 3,
-    image: CommunityImage,
-    createdAt: '2024-07-25 오후 5:00',
-  },
-];
-
 const storyData = [
   {
     diaryImageSrc: StroyImage,
@@ -107,9 +74,17 @@ const storyData = [
 
 const cx = classnames.bind(styles);
 
+
 export const Route = createFileRoute('/_layout/home/')({
-  component: () => (
-    <div className={cx('container')}>
+  component: Home,
+});
+
+export default function Home() {
+  const posts = useCommunityStore(state => state.posts)
+
+
+  return (
+<div className={cx('container')}>
       <HeaderWithLabelAndButtons label="내위치" />
       <AdCarousel />
       <div className={cx('home-barter')}>
@@ -146,5 +121,7 @@ export const Route = createFileRoute('/_layout/home/')({
         </div>
       </div>
     </div>
-  ),
-});
+
+  );
+}
+

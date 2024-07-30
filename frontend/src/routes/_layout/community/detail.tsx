@@ -2,50 +2,26 @@ import {createFileRoute} from '@tanstack/react-router';
 import type {ChangeEvent, KeyboardEvent} from 'react';
 import {useState} from 'react';
 
-import CommunityImage from '@/assets/image/동네모임1.png';
 import UserImage from '@/assets/image/유저.png';
-import type {Comment} from '@/components/Community/PostDetail';
 import PostDetail from '@/components/Community/PostDetail/index.tsx';
 import HeaderWithBackButton from '@/components/Header/HeaderWithBackButton';
+import type { Comment } from '@/store/communityStore';
+import useCommunityStore from '@/store/communityStore';
 
 import styles from './community.module.scss';
 
-const post = {
-  communityPostId: 1,
-  user: {userId: 0, nickname: 'user0', profileImage: UserImage},
-  location: '광주 장덕동',
-  title: '게시글 제목',
-  content: '게시글 내용입니다.',
-  likeCount: 12,
-  commentList: [
-    {
-      user: {userId: 1, nickname: 'user1', profileImage: UserImage},
-      content: '댓글1',
-      created_at: '2024-07-03',
-    },
-    {
-      user: {userId: 1, nickname: 'user2', profileImage: UserImage},
-      content: '댓글2',
-      created_at: '2024-07-03',
-    },
-  ],
-  imageList: [
-    {imageId: 1, imageUrl: CommunityImage, imageOrder: 1},
-    {
-      imageId: 2,
-      imageUrl: CommunityImage,
-      imageOrder: 2,
-    },
-  ],
-  created_at: '2024-05-20',
-};
 
 export const Route = createFileRoute('/_layout/community/detail')({
   component: Detail,
 });
 
 export default function Detail() {
-  const [comments, setComments] = useState(post.commentList);
+
+const posts = useCommunityStore(state => state.posts);
+const post = posts[0]
+
+  // 일단 detail 1개니까.
+  const [comments, setComments] = useState(posts[0].commentList);
 
   const [inputValue, setInputValue] = useState('댓글을 입력하세요');
 

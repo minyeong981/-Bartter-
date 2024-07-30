@@ -19,7 +19,7 @@ export default function HeaderWithSearchAndBackButton({
       <div className={cx('left-buttons')}>
         <BackButton />
       </div>
-      <div className={cx('center', 'label', 'search')}>{label}</div>
+      <div className={cx('center-search', 'label', 'search')}>{label}</div>
     </Index>
   );
 }
