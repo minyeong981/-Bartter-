@@ -36,8 +36,8 @@ public class CropService {
     /**
      * 농작물 프로필 생성
      * */
-    public Crop createCrop(Create request, MultipartFile image) {
-        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+    public Crop createCrop(Create request, MultipartFile image, Integer userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         CropCategory cropCategory = cropCategoryRepository.findById(request.getCropCategoryId()).orElseThrow(() -> new CustomException(ErrorCode.CROP_CATEGORY_NOT_FOUND));
         String imageUrl = s3UploadService.upload(image);
 

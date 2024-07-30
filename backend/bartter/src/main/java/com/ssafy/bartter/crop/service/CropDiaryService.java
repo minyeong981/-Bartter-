@@ -33,8 +33,8 @@ public class CropDiaryService {
     /**
      * 농사일지 작성
      * */
-    public CropDiary createCropDiary(Create request, MultipartFile image) {
-        Crop crop = cropRepository.findById(request.getCropId()).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
+    public CropDiary createCropDiary(Create request, MultipartFile image, Integer userId) {
+        Crop crop = cropRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
         String imageUrl = s3UploadService.upload(image);
 
         CropDiary diary = CropDiary.builder()
@@ -60,8 +60,12 @@ public class CropDiaryService {
     /**
      * 농사일지 삭제
      * */
-    public void deleteCropDiary(Integer cropDiaryId) {
+    // TODO : AWS에서 삭제
+    public void deleteCropDiary(Integer cropDiaryId, Integer userId) {
         CropDiary diary = cropDiaryRepository.findById(cropDiaryId).orElseThrow(() -> new CustomException(ErrorCode.CROP_DIARY_NOT_FOUND));
+        if (!diary.getCrop().getUser().getId().equals(userId)) {
+            throw new CustomException(ErrorCode.UNAUTHENTICATED);
+        }
         cropDiaryRepository.delete(diary);
     }
 }

@@ -1,6 +1,8 @@
 package com.ssafy.bartter.crop.controller;
 
 
+import com.ssafy.bartter.auth.annotation.CurrentUser;
+import com.ssafy.bartter.auth.dto.UserAuthDto;
 import com.ssafy.bartter.crop.entity.Crop;
 import com.ssafy.bartter.crop.entity.CropCategory;
 import com.ssafy.bartter.crop.service.CropService;
@@ -31,7 +33,6 @@ public class CropController {
 
     private final CropService cropService;
 
-
     @Operation(summary = "농작물 카테고리 조회", description = "농작물 카테고리의 목록을 조회한다.")
     @GetMapping("/categories")
     public SuccessResponse<List<CropCategoryDetail>> getCropCategoryList() {
@@ -46,13 +47,16 @@ public class CropController {
     @Operation(summary = "농작물 등록", description = "농작물 프로필을 등록한 후 생성된 데이터를 반환한다.")
     @PostMapping("")
     public SuccessResponse<CropProfile> createCrop(
-            @RequestBody @Valid Create request,
+            @ModelAttribute @Valid Create request,
+            @CurrentUser UserAuthDto userAuthDto,
             BindingResult bindingResult,
-            MultipartFile image) {
+            MultipartFile image)
+    {
         if (bindingResult.hasErrors()) {
-            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE);
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
-        Crop crop = cropService.createCrop(request, image);
+
+        Crop crop = cropService.createCrop(request, image, userAuthDto.getId());
         CropProfile response = CropProfile.of(crop);
         return SuccessResponse.of(response);
     }
