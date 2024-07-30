@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
-import type { ChangeEvent} from 'react';
+import { useState } from 'react';
 
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
@@ -17,15 +17,15 @@ export const Route = createFileRoute('/_layout/diary/registerCrop/4')({
 
 function GetImagePage() {
   const nickname = useRegisterCropStore(state => state.nickname);
-  const image = useRegisterCropStore(state => state.image) || '';
+  const storedImages = useRegisterCropStore(state => state.image ? [state.image] : []);
   const setImage = useRegisterCropStore(state => state.setImage);
-  // const isValid = image.match(EMAIL_PATTERN);
+  const maxImages = 1; // 허용된 최대 이미지 개수
+  const [images, setImages] = useState<string[]>(storedImages);
 
-
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setImage(e.currentTarget.value);
+  const handleImageChange = (newImages: string[]) => {
+    setImages(newImages);
+    setImage(newImages.length > 0 ? newImages[newImages.length - 1] : '');
   };
-
 
   return (
     <div className={cx('registerPage')}>
@@ -35,15 +35,16 @@ function GetImagePage() {
           <br />
           사진을 등록해주세요.
         </Heading>
+        <br />
+        <p>사진 ({images.length}/{maxImages})</p>
       </div>
       <div className={cx('inputContainer')}>
-        <ImageInput />
+        <ImageInput onImageChange={handleImageChange} maxImages={maxImages} />
       </div>
       <div className={cx('buttonContainer')}>
         <LinkButton
-          buttonStyle={{style: 'primary', size: 'large'}}
+          buttonStyle={{ style: 'primary', size: 'large' }}
           to="/diary/registerCrop/5"
-          // disabled={!isValid}
         >
           다음
         </LinkButton>

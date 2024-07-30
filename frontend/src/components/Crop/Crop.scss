@@ -23,9 +23,6 @@
   margin: 10px 0;
   transition: border-color 0.3s;
 
-  &:hover {
-    border-color: colors.$primary;
-  }
 
   &.selected .crop-image-container {
     border-color: colors.$primary;

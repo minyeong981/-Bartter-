@@ -9,7 +9,8 @@ import notCrop from '@/assets/image/notCrop.png';
 import GeneralButton from '@/components/Buttons/GeneralButton';
 import CropModal from '@/components/Crop/CropModal';
 import MyCrops from '@/components/Crop/myCrops';
-import useDiaryStore from '@/store/diaryStore';
+import useMyCropsStore from '@/store/myCropsStore';
+import useRegisterCropStore from '@/store/registerCropStore';
 
 import styles from './mainCrops.module.scss';
 
@@ -23,8 +24,7 @@ const initialCrops = [
 
 export default function MainCrops() {
   const [showModal, setShowModal] = useState(false);
-  const [selectedCrop, setSelectedCrop] = useState<number | null>(null);
-  const { crops, addCrop } = useDiaryStore();
+  const { addCrop, crops } = useMyCropsStore();
 
   function handleOpenModal() {
     setShowModal(true);
@@ -37,11 +37,23 @@ export default function MainCrops() {
   function handleCropSelect(id: number) {
     const selectedCrop = initialCrops.find((crop) => crop.id === id);
     if (selectedCrop) {
-      addCrop(selectedCrop);
+      const { nickname, date, description, image } = useRegisterCropStore.getState();
+      addCrop({
+        id: selectedCrop.id,
+        nickname: nickname || selectedCrop.name,
+        image: selectedCrop.image, // 이미지 URL만 저장
+        date: date,
+        description: description,
+      });
     }
-    setSelectedCrop(id);
     setShowModal(false);
   }
+
+  const displayCrops = crops.map(({ id, nickname, image }) => ({
+    id,
+    nickname,
+    image,
+  }));
 
   return (
     <div className={cx('container')}>
@@ -51,14 +63,14 @@ export default function MainCrops() {
           <img src={notCrop} alt="notCrop" />
         </div>
       ) : (
-        <MyCrops crops={crops} />
+        <MyCrops crops={displayCrops} />
       )}
       <CropModal
         show={showModal}
         onClose={handleCloseModal}
         crops={initialCrops}
         onCropSelect={handleCropSelect}
-        selectedCrop={selectedCrop}
+        selectedCrop={null}
         showSearchBar={true}
       />
       <div className={cx('floating-button')}>

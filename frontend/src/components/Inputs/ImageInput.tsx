@@ -1,13 +1,18 @@
 import classnames from 'classnames/bind';
 import type { ChangeEvent } from 'react';
 import { useRef,useState } from 'react';
-import { FaCamera } from 'react-icons/fa';
+import { FaCamera, FaTimes } from 'react-icons/fa';
 
 import styles from './input.module.scss';
 
 const cx = classnames.bind(styles);
 
-function ImageInput() {
+interface ImageInputProps {
+  onImageChange: (images: string[]) => void;
+  maxImages: number;
+}
+
+function ImageInput({ onImageChange, maxImages }: ImageInputProps) {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -25,13 +30,24 @@ function ImageInput() {
       });
 
       Promise.all(newImagePreviews).then(previews => {
-        setImagePreviews([...imagePreviews, ...previews]);
+        let updatedPreviews = [...imagePreviews, ...previews];
+        if (updatedPreviews.length > maxImages) {
+          updatedPreviews = updatedPreviews.slice(-maxImages);
+        }
+        setImagePreviews(updatedPreviews);
+        onImageChange(updatedPreviews);
       });
     }
   }
 
   function handleIconClick() {
     fileInputRef.current?.click();
+  }
+
+  function handleRemoveImage(index: number) {
+    const updatedPreviews = imagePreviews.filter((_, i) => i !== index);
+    setImagePreviews(updatedPreviews);
+    onImageChange(updatedPreviews);
   }
 
   return (
@@ -42,14 +58,17 @@ function ImageInput() {
         multiple
         onChange={handleImageChange}
         className={cx('imageInput')}
-        ref={fileInputRef} // 파일 입력 참조 설정
+        ref={fileInputRef}
       />
       <div className={cx('cameraIconContainer')} onClick={handleIconClick}>
         <FaCamera className={cx('cameraIcon')} />
       </div>
       <div className={cx('imagePreviewContainer')}>
         {imagePreviews.map((preview, index) => (
-          <img key={index} src={preview} alt={`이미지 미리보기 ${index + 1}`} className={cx('imagePreview')} />
+          <div key={index} className={cx('imageWrapper')}>
+            <img src={preview} alt={`이미지 미리보기 ${index + 1}`} className={cx('imagePreview')} />
+            <FaTimes className={cx('removeIcon')} onClick={() => handleRemoveImage(index)} />
+          </div>
         ))}
       </div>
     </div>

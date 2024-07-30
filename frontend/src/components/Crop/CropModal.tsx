@@ -1,7 +1,8 @@
 import classnames from 'classnames/bind';
-import { useState } from 'react';
+import { useEffect,useState } from 'react';
 
 import LinkButton from '@/components/Buttons/LinkButton';
+import useRegisterCropStore from '@/store/registerCropStore';
 
 import Search from '../Search/Search';
 import Crop from './Crop';
@@ -24,7 +25,19 @@ export default function CropModal({
   selectedCrop,
   showSearchBar = false,
 }: ModalProps) {
+  const setInitialImage = useRegisterCropStore(state => state.setInitialImage);
+  const [selectedCropId, setSelectedCropId] = useState<number | null>(selectedCrop);
   const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    setSelectedCropId(selectedCrop);
+  }, [selectedCrop]);
+
+  const handleCropClick = (id: number, image: string) => {
+    setSelectedCropId(id);
+    setInitialImage(image);
+    onCropSelect(id);
+  };
 
   if (!show) {
     return null;
@@ -38,17 +51,18 @@ export default function CropModal({
         </button>
         {showSearchBar && <Search onSearch={setSearchTerm} />}
         <div className={cx('cropList')}>
-          <Crop searchTerm={searchTerm} />
+          <Crop searchTerm={searchTerm} onCropClick={handleCropClick} selectedCropId={selectedCropId} />
         </div>
         <div className={cx('buttonContainer')}>
-            <LinkButton
-              buttonStyle={{ style: 'primary', size: 'large' }}
-              to="/diary/registerCrop/1"
-            >
-              다음
-            </LinkButton>
+          <LinkButton
+            buttonStyle={{ style: 'primary', size: 'large' }}
+            to="/diary/registerCrop/1"
+          >
+            다음
+          </LinkButton>
         </div>
+      </div>
     </div>
-  </div>
   );
 }
+

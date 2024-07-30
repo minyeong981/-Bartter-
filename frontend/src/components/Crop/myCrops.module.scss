@@ -1,0 +1,64 @@
+@use '@/styles/constants/colors.scss' as colors;
+@use '@/styles/constants/typographies.scss' as typo;
+
+.crops-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px; /* 전반적인 패딩 설정 */
+  width: 100%;
+  max-width: 800px;
+}
+
+.crops-count {
+  margin-bottom: 1rem; /* 전체 작물 수에 마진 추가 */
+  text-align: left; /* 왼쪽 정렬 */
+  width: 100%;
+}
+
+.crop-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3개씩 나열 */
+  gap: 16px; /* 카드 간격 */
+}
+
+.crop-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px; /* 카드 패딩 */
+  margin: 10px 0;
+  transition: border-color 0.3s;
+  border: 2px solid transparent;
+
+  &:hover {
+    border-color: colors.$primary;
+  }
+
+  &.selected .crop-image-container {
+    border-color: colors.$primary;
+  }
+}
+
+.crop-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  border: 2px solid colors.$divider2;
+  border-radius: 50%;
+}
+
+.crop-image {
+  width: 100%; /* 원 안에 꽉 차게 설정 */
+  height: 100%; /* 원 안에 꽉 차게 설정 */
+  object-fit: cover;
+}
+
+.crop-info {
+  margin-top: 0.3rem;
+  text-align: center;
+
+  @include typo.name;
+}
