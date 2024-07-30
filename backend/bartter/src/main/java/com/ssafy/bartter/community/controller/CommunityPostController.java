@@ -30,6 +30,21 @@ public class CommunityPostController {
 
     private final CommunityPostService communityPostService;
 
+    @Operation(summary = "동네모임 게시글 전체 조회", description = "동네모임 전체 게시글을 조회한다.")
+    @GetMapping("")
+    public SuccessResponse<List<CommunityPostDetail>> getCommunityPostList(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "limit", defaultValue = "10") int limit,
+            @RequestParam(value = "locationId", required = false) int locationId,
+            @RequestParam(value = "keyword", required = false) String keyword
+    ) {
+        List<CommunityPost> postList = communityPostService.getPostList(page, limit, locationId, keyword);
+        List<CommunityPostDetail> response = postList.stream()
+                .map(CommunityPostDetail::of)
+                .collect(Collectors.toList());
+        return SuccessResponse.of(response);
+    }
+
     @Operation(summary = "동네모임 게시글 작성", description = "동네모임 게시글을 작성한다.")
     @PostMapping("")
     public SuccessResponse<CommunityPostDetail> createCommunityPost(
@@ -42,10 +57,9 @@ public class CommunityPostController {
         CommunityPost post = communityPostService.createPost(request, imageList);
         CommunityPostDetail response = CommunityPostDetail.of(post);
         return SuccessResponse.of(response);
-
     }
 
-    @Operation(summary = "동네모임 게시글 조회", description = "동네모임 게시글의 ID를 통해 게시글의 상세 정보를 조회한다.")
+    @Operation(summary = "동네모임 게시글 상세 조회", description = "동네모임 게시글의 ID를 통해 게시글의 상세 정보를 조회한다.")
     @GetMapping("/{communityPostId}")
     public SuccessResponse<CommunityPostDetail> getCommunityPost(@PathVariable("communityPostId") Integer communityPostId) {
         CommunityPost post = communityPostService.getPost(communityPostId);

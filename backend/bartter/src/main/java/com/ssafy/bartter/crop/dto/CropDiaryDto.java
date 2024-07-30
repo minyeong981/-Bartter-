@@ -1,19 +1,15 @@
 package com.ssafy.bartter.crop.dto;
 
-import com.ssafy.bartter.crop.entity.Crop;
-import com.ssafy.bartter.crop.entity.CropCategory;
 import com.ssafy.bartter.crop.entity.CropDiary;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import static com.ssafy.bartter.crop.dto.CropDto.*;
+import static com.ssafy.bartter.crop.dto.CropDto.SimpleCropProfile;
 
 /**
  * CropDiary Entity 관련 DTO

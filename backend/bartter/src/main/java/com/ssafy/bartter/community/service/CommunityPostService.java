@@ -4,13 +4,17 @@ import com.ssafy.bartter.community.entity.CommunityPost;
 import com.ssafy.bartter.community.entity.CommunityPostImage;
 import com.ssafy.bartter.community.repository.CommunityPostImageRepository;
 import com.ssafy.bartter.community.repository.CommunityPostRepository;
+import com.ssafy.bartter.community.repository.CommunityPostRepositoryImpl;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
+import com.ssafy.bartter.global.service.LocationService;
 import com.ssafy.bartter.global.service.S3UploadService;
 import com.ssafy.bartter.user.entity.User;
 import com.ssafy.bartter.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,6 +38,22 @@ public class CommunityPostService {
     private final CommunityPostImageRepository communityPostImageRepository;
     private final UserRepository userRepository;
     private final S3UploadService s3UploadService;
+    private final LocationService locationService;
+    private final CommunityPostRepositoryImpl communityPostRepositoryImpl;
+
+    /**
+     * 동네모임 게시글 전체조회
+     * */
+    public List<CommunityPost> getPostList(int page, int limit, int locationId, String keyword) {
+         // TODO : locationId 없으면 nearbyLocationList 빈 ArrayList로
+        // TODO : locationId 임시값 삭제
+        List<Location> nearbyLocationList = locationService.getNearbyLocationList(10);
+        PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
+        keyword = (keyword == null) ? "" : keyword;
+
+        List<CommunityPost> postList = communityPostRepositoryImpl.findPostListByParams(keyword, nearbyLocationList, pageable);
+        return postList;
+    }
 
     /**
      * 동네모임 게시글 작성
