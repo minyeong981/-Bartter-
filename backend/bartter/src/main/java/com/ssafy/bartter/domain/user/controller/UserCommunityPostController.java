@@ -29,7 +29,7 @@ public class UserCommunityPostController {
     public SuccessResponse<List<CommunityPostDetail>> getUserCommunityPostList(
             @PathVariable("userId") int userId,
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "limit", defaultValue = "6") int limit,
+            @RequestParam(value = "limit", defaultValue = "10") int limit,
             @CurrentUser UserAuthDto currentUser
     ) {
         List<CommunityPost> postList = communityPostService.getUserPostList(page, limit, userId);

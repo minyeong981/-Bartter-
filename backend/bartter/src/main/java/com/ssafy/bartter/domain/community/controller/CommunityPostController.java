@@ -84,13 +84,23 @@ public class CommunityPostController {
         return SuccessResponse.empty();
     }
 
-    @Operation(summary = "동네모임 게시글 좋아요", description = "동네모임 게시글에 좋아요를 생성한다.")
+    @Operation(summary = "동네모임 게시글 좋아요 생성", description = "동네모임 게시글에 좋아요를 생성한다.")
     @PostMapping("/{communityPostId}/like")
-    public SuccessResponse<Void> likeCommunityPost(
+    public SuccessResponse<Void> createCommunityLike(
             @PathVariable("communityPostId") int communityPostId,
             @CurrentUser UserAuthDto currentUser
     ) {
-        communityPostService.toggleLikes(communityPostId, currentUser.getId());
+        communityPostService.createCommunityLike(communityPostId, currentUser.getId());
+        return SuccessResponse.empty();
+    }
+
+    @Operation(summary = "동네모임 게시글 좋아요 취소", description = "동네모임 게시글에 등록된 좋아요를 삭제한다.")
+    @DeleteMapping("/{communityPostId}/like")
+    public SuccessResponse<Void> deleteCommunityLike(
+            @PathVariable("communityPostId") int communityPostId,
+            @CurrentUser UserAuthDto currentUser
+    ) {
+        communityPostService.deleteCommunityLike(communityPostId, currentUser.getId());
         return SuccessResponse.empty();
     }
 }

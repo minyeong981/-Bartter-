@@ -18,12 +18,12 @@ public interface CommunityPostRepository extends JpaRepository<CommunityPost, In
     @Query(
             "SELECT p FROM CommunityPost p"
                     + " JOIN FETCH p.location l"
-                    + " JOIN FETCH p.likeList"
-                    + " WHERE p.title LIKE :keyword OR p.content LIKE :keyword"
-                    + " AND l in :nearbyLocationList"
+                    + " WHERE (p.title LIKE :keyword OR p.content LIKE :keyword)"
+                    + " AND (:isCommunity = false OR l in :nearbyLocationList)"
     )
     List<CommunityPost> findNearbyCommunityPostListByKeyword(
             @Param("keyword") String keyword,
+            @Param("isCommunity") boolean isCommunity,
             @Param("nearbyLocationList") List<Location> nearbyLocationList,
             PageRequest pageable
     );

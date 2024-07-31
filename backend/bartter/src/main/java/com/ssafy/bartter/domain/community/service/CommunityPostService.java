@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 동네모임 게시글 Service
@@ -47,10 +48,10 @@ public class CommunityPostService {
     @Transactional(readOnly = true)
     public List<CommunityPost> getPostList(int page, int limit, String keyword, boolean isCommunity, int userId) {
 
-        // 전체 게시글 조회에서는 빈 ArrayList로 남아있다.
+        // 전체 게시글 조회에서는 빈 ArrayList로 남아있다
         List<Location> nearbyLocationList = new ArrayList<>();
 
-        // 동네 게시글 조회에서는 유저 위치 반경에 있는 Location들의 ArrayList로 바꿔준다.
+        // 동네 게시글 조회에서는 유저 위치 반경에 있는 Location들의 ArrayList로 바꿔준다
         if (isCommunity) {
             User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
             Integer locationId = user.getLocation().getId();
@@ -58,8 +59,18 @@ public class CommunityPostService {
         }
 
         PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
-        List<CommunityPost> postList = communityPostRepository.findNearbyCommunityPostListByKeyword(keyword, nearbyLocationList, pageable);
+        List<CommunityPost> postList = communityPostRepository.findNearbyCommunityPostListByKeyword("%" + keyword + "%", isCommunity, nearbyLocationList, pageable);
         return postList;
+    }
+
+    /**
+     * 특정 유저가 작성한 동네모임 게시글 전체조회
+     */
+    @Transactional(readOnly = true)
+    public List<CommunityPost> getUserPostList(int page, int limit, int userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
+        return communityPostRepository.findAllByUserId(userId, pageable);
     }
 
     /**
@@ -121,30 +132,30 @@ public class CommunityPostService {
     }
 
     /**
-     * 동네모임 게시글 좋아요 토글
+     * 동네모임 게시글 좋아요 생성
      */
-    public void toggleLikes(int communityPostId, int userId) {
+    public void createCommunityLike(int communityPostId, int userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         CommunityPost post = communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
-        CommunityPostLike like = communityPostLikeRepository.findByCommunityPostIdAndUserId(post.getId(), userId);
+        Optional<CommunityPostLike> findLike = communityPostLikeRepository.findByCommunityPostIdAndUserId(post.getId(), userId);
 
-        if (like == null) {
-            CommunityPostLike newLike = new CommunityPostLike();
-            newLike.addUser(user);
-            newLike.addCommunityPost(post);
-            communityPostLikeRepository.save(newLike);
-        } else {
-            communityPostLikeRepository.delete(like);
+        if (findLike.isPresent()) {
+            throw new CustomException(ErrorCode.COMMUNITY_POST_LIKE_ALREADY_EXISTS);
         }
+
+        CommunityPostLike like = new CommunityPostLike();
+        like.addUser(user);
+        like.addCommunityPost(post);
+        communityPostLikeRepository.save(like);
     }
 
     /**
-     * 특정 유저가 작성한 동네모임 게시글 전체조회
+     * 동네모임 게시글 좋아요 삭제
      */
-    @Transactional(readOnly = true)
-    public List<CommunityPost> getUserPostList(int page, int limit, int userId) {
+    public void deleteCommunityLike(int communityPostId, int userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
-        PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
-        return communityPostRepository.findAllByUserId(userId, pageable);
+        CommunityPost post = communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
+        CommunityPostLike like = communityPostLikeRepository.findByCommunityPostIdAndUserId(post.getId(), userId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_LIKE_NOT_FOUND));
+        communityPostLikeRepository.delete(like);
     }
 }

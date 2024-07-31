@@ -49,8 +49,8 @@ public class UserCropController {
             @PathVariable("userId") int userId,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "6") int limit,
-            @RequestParam(value = "year", required = false) Integer year,
-            @RequestParam(value = "month", required = false) Integer month
+            @RequestParam(value = "year", defaultValue = "0") int year,
+            @RequestParam(value = "month", defaultValue = "0") int month
     ) {
         List<CropDiary> diaryList = cropDiaryService.getUserDiaryList(userId, page, limit, year, month);
         List<CropDiaryDetail> response = diaryList.stream().map(CropDiaryDetail::of).collect(Collectors.toList());

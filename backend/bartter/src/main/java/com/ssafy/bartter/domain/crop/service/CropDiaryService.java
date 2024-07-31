@@ -89,18 +89,8 @@ public class CropDiaryService {
      * 특정 유저가 작성한 농사일지 전체조회
      */
     @Transactional(readOnly = true)
-    public List<CropDiary> getUserDiaryList(int userId, int page, int limit, Integer year, Integer month) {
+    public List<CropDiary> getUserDiaryList(int userId, int page, int limit, int year, int month) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
-
-        if (year != null && month != null && year < 1000 || month < 1 || month > 12) {
-            throw new CustomException(ErrorCode.INVALID_DATE);
-        }
-
-        // 날짜 파라미터가 null가 아니라면
-        if ((year == null && month != null) || (year != null && month == null)) {
-            throw new CustomException(ErrorCode.INVALID_DATE);
-        }
-
         PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
         return cropDiaryRepository.findAllByDateAndCrop(year, month, userId, pageable);
     }
@@ -114,3 +104,5 @@ public class CropDiaryService {
         return cropDiaryRepository.findAllByCropId(cropId);
     }
 }
+
+

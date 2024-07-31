@@ -20,8 +20,8 @@ public interface CropDiaryRepository extends JpaRepository<CropDiary, Integer> {
                     + " LEFT JOIN FETCH d.crop c"
                     + " LEFT JOIN FETCH c.user u"
                     + " WHERE c.user.id = :userId"
-                    + " AND (:year IS NULL OR YEAR(d.createdAt) = :year)"
-                    + " AND (:month IS NULL OR MONTH(d.createdAt) = :month)"
+                    + " AND (:year = 0 OR YEAR(d.createdAt) = :year)"
+                    + " AND (:month = 0 OR MONTH(d.createdAt) = :month)"
     )
     List<CropDiary> findAllByDateAndCrop(
             @Param("year") int year,
