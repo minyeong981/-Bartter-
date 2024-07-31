@@ -11,14 +11,12 @@ import styles from './SearchBar.module.scss';
 interface SearchBarProps {
   query: string;
   onSearch: (searchTerm: string) => void;
+  onInputChange: (input: string) => void;
 }
 
 
-export default function SearchBar({ query, onSearch} : SearchBarProps) {
+export default function SearchBar({ query, onSearch, onInputChange} : SearchBarProps) {
 
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    onSearch(event.target.value);
-  }
 
   function handleClear() {
     onSearch('');
@@ -27,8 +25,7 @@ export default function SearchBar({ query, onSearch} : SearchBarProps) {
   function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter') {
       if (query.trim() !== '') {
-        onSearch(event.currentTarget.value);
-        // setSearchInput('');
+        onSearch(query);
       }
     }
   }
@@ -45,7 +42,7 @@ export default function SearchBar({ query, onSearch} : SearchBarProps) {
                 type="text"
                 placeholder="밭터 통합검색"
                 value={query}
-                onChange={handleChange}
+                onChange={(event) => onInputChange(event.target.value)}
                 onKeyDown={handleKeyDown}
               />
               <button className={stylesInput.clearButton} onClick={handleClear}>

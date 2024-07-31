@@ -5,6 +5,7 @@ import {useState} from 'react';
 
 import GeneralButton from '@/components/Buttons/GeneralButton';
 import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
+import ImageInput from '@/components/Inputs/ImageInput';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import LabeledTextAreaInput from '@/components/Inputs/LabeledTextAreaInput';
 import useRootStore from '@/store';
@@ -18,6 +19,8 @@ export const Route = createFileRoute('/_layout/community/create')({
 });
 
 export default function PostCreate() {
+  const maxImages = 3; // 허용된 최대 이미지 개수
+
   const nav = useNavigate({from: '/community/create'});
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -34,7 +37,7 @@ export default function PostCreate() {
 
   function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
     const files = event.target.files;
-    if (files) {
+    if (event.target && files) {
       const newImage = Array.from(files).map((file, index) => ({
         imageId: index,
         imageUrl: URL.createObjectURL(file),
@@ -44,6 +47,12 @@ export default function PostCreate() {
     }
     console.log(images);
   }
+  
+  // const handleImageChange = (newImages: string[]) => {
+  //   setImages(newImages);
+  //   setImages(newImages.length > 0 ? newImages[newImages.length - 1] : '');
+  // };
+
 
   // 나중에!! 이런 식으로
   // const handleSubmit = async (e: React.FormEvent) => {
@@ -74,6 +83,7 @@ export default function PostCreate() {
     nav({to: '/community'});
   }
 
+
   return (
     <div className={cx('container')}>
       <HeaderWithLabelAndBackButton label="글 작성하기" />
@@ -92,6 +102,8 @@ export default function PostCreate() {
           value={content}
         />
         <input type="file" multiple onChange={handleImageChange} />
+        <p>사진 ({images.length} / {maxImages})</p>
+        {/* <ImageInput onImageChange={handleImageChange} maxImages={maxImages}/> */}
 
         <div className={cx('imageContainer')}>
           {images &&

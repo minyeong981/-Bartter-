@@ -1,4 +1,5 @@
 @use '@/styles/constants/colors.scss' as colors;
+@use '@/styles/constants/typographies.scss' as typo;
 
 .recentSearchContainer {
     box-sizing: border-box;
@@ -6,8 +7,9 @@
     flex-wrap: wrap; 
     gap: 10px; 
     max-width: 370px; 
-    padding: 10px;
-    overflow-x: hidden; 
+    padding: 10px; 
+    margin-left: 10px;
+    overflow-x: hidden;
 }
 
 .searchItem {
@@ -23,7 +25,9 @@
 .searchText {
     padding-left: 6px;
     margin-right: 5px;
-    font-weight: bold;
+
+    @include typo.name;
+
     color: colors.$primary;
 }
 
