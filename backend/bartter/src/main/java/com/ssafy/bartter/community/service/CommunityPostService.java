@@ -106,16 +106,21 @@ public class CommunityPostService {
         return communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
     }
 
-    // TODO : AWS에서 삭제
-
     /**
      * 동네모임 게시글 삭제
      */
     public void deletePost(Integer communityPostId, Integer userId) {
         CommunityPost post = communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
+
         if (!post.getUser().getId().equals(userId)) {
             throw new CustomException(ErrorCode.UNAUTHENTICATED);
         }
+
+        List<CommunityPostImage> imageList = post.getImageList();
+        for (CommunityPostImage image : imageList) {
+            s3UploadService.delete(image.getImageUrl());
+        }
+
         communityPostRepository.delete(post);
     }
 
