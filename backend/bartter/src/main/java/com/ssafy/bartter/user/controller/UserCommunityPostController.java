@@ -2,12 +2,9 @@ package com.ssafy.bartter.user.controller;
 
 import com.ssafy.bartter.auth.annotation.CurrentUser;
 import com.ssafy.bartter.auth.dto.UserAuthDto;
-import com.ssafy.bartter.community.dto.CommunityPostDto;
 import com.ssafy.bartter.community.dto.CommunityPostDto.CommunityPostDetail;
 import com.ssafy.bartter.community.entity.CommunityPost;
 import com.ssafy.bartter.community.service.CommunityPostService;
-import com.ssafy.bartter.crop.dto.CropDiaryDto;
-import com.ssafy.bartter.crop.entity.CropDiary;
 import com.ssafy.bartter.global.response.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

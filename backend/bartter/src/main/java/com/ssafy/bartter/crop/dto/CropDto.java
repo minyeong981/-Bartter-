@@ -1,24 +1,20 @@
 package com.ssafy.bartter.crop.dto;
 
 import com.ssafy.bartter.crop.entity.Crop;
-import com.ssafy.bartter.crop.entity.CropCategory;
-import com.ssafy.bartter.user.dto.UserDto;
 import com.ssafy.bartter.user.dto.UserDto.SimpleUserProfile;
-import com.ssafy.bartter.user.entity.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
-import static com.ssafy.bartter.crop.dto.CropCategoryDto.*;
+import static com.ssafy.bartter.crop.dto.CropCategoryDto.CropCategoryDetail;
 
 
 /**
- * Crop Entity 관련 DTO
+ * 농작물 프로필 DTO
  *
  * @author 김가람
  */

@@ -35,7 +35,7 @@ public class CropService {
 
     /**
      * 농작물 프로필 생성
-     * */
+     */
     public Crop createCrop(Create request, MultipartFile image, Integer userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         CropCategory cropCategory = cropCategoryRepository.findById(request.getCropCategoryId()).orElseThrow(() -> new CustomException(ErrorCode.CROP_CATEGORY_NOT_FOUND));
@@ -59,16 +59,17 @@ public class CropService {
 
     /**
      * 농작물 카테고리 전체 조회
-     * */
+     */
     @Transactional(readOnly = true)
     public List<CropCategory> getCropCategoryList() {
         return cropCategoryRepository.findAll();
     }
 
     // TODO : Fetch join - CropCategory
+
     /**
      * 농작물 프로필 상세 조회
-     * */
+     */
     @Transactional(readOnly = true)
     public Crop getCrop(Integer cropId) {
         return cropRepository.findById(cropId).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
@@ -76,7 +77,7 @@ public class CropService {
 
     /**
      * 유저의 농작물 프로필 전체 조회
-     * */
+     */
     @Transactional(readOnly = true)
     public List<Crop> getUserCropList(Integer userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
@@ -84,9 +85,10 @@ public class CropService {
     }
 
     // TODO : TEST
+
     /**
      * 유저가 교환 & 나눔(give)한 농작물
-     * */
+     */
     @Transactional(readOnly = true)
     public List<Crop> getUserGiveCropList(Integer userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
@@ -94,9 +96,10 @@ public class CropService {
     }
 
     // TODO : TEST
+
     /**
      * 유저가 교환 & 나눔(receive)한 농작물
-     * */
+     */
     @Transactional(readOnly = true)
     public List<Crop> getUserReceiveCropList(Integer userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));

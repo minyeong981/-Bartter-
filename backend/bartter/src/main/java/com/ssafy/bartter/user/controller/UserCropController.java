@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.ssafy.bartter.crop.dto.CropDiaryDto.*;
+import static com.ssafy.bartter.crop.dto.CropDiaryDto.CropDiaryDetail;
 
 @RestController
 @RequiredArgsConstructor

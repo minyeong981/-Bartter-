@@ -37,7 +37,7 @@ public class CropDiaryService {
 
     /**
      * 농사일지 작성
-     * */
+     */
     public CropDiary createCropDiary(Create request, MultipartFile image, Integer userId) {
         Crop crop = cropRepository.findById(request.getCropId()).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
 
@@ -63,18 +63,20 @@ public class CropDiaryService {
     }
 
     // TODO : Fetch join - Crop
+
     /**
      * 농사일지 상세조회
-     * */
+     */
     @Transactional(readOnly = true)
     public CropDiary getCropDiary(Integer cropDiaryId) {
         return cropDiaryRepository.findById(cropDiaryId).orElseThrow(() -> new CustomException(ErrorCode.CROP_DIARY_NOT_FOUND));
     }
 
+    // TODO : AWS에서 삭제
+
     /**
      * 농사일지 삭제
-     * */
-    // TODO : AWS에서 삭제
+     */
     public void deleteCropDiary(Integer cropDiaryId, Integer userId) {
         CropDiary diary = cropDiaryRepository.findById(cropDiaryId).orElseThrow(() -> new CustomException(ErrorCode.CROP_DIARY_NOT_FOUND));
         if (!diary.getCrop().getUser().getId().equals(userId)) {
@@ -85,7 +87,7 @@ public class CropDiaryService {
 
     /**
      * 특정 유저가 작성한 농사일지 전체조회
-     * */
+     */
     @Transactional(readOnly = true)
     public List<CropDiary> getUserDiaryList(int page, int limit, Integer year, Integer month, Integer userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
@@ -105,7 +107,7 @@ public class CropDiaryService {
 
     /**
      * 특정 농작물의 농사일지 전체 조회
-     * */
+     */
     @Transactional(readOnly = true)
     public List<CropDiary> getCropDiaryList(Integer cropId) {
         Crop crop = cropRepository.findById(cropId).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
