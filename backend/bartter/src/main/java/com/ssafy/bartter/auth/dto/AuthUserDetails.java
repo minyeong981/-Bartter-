@@ -2,14 +2,12 @@ package com.ssafy.bartter.auth.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
 
 /**
  * 사용자 인증 정보를 담는 클래스.
@@ -17,15 +15,11 @@ import java.util.Map;
  * @author 김훈민
  */
 @Getter
-@ToString
+@RequiredArgsConstructor
 public class AuthUserDetails implements UserDetails {
 
     // TODO : Location id 가 있어야하고 위치가 변경되면 여기 Location id 가 새로 등록되어야함
     private final transient UserAuthDto userAuthDto;
-
-    public AuthUserDetails(UserAuthDto userAuthDto) {
-        this.userAuthDto = userAuthDto;
-    }
 
     public int getUserId() {
         return userAuthDto.getId();

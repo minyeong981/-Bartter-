@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 /**
  * User 관련 비즈니스 로직을 처리하는 서비스 클래스
  *
@@ -26,7 +28,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final LocationService locationService;
-    private final LocationRepository locationRepository;
 
     /**
      * 사용자의 가입 절차를 처리하는 메서드
@@ -60,9 +61,17 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User findUserById(int userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND, "User not found with id: " + userId));
+    /**
+     * 사용자를 삭제하는 메서드
+     * 실제로 삭제하는 것은 아니고 메모리에 탈퇴 일자를 남김
+     *
+     * @param userId 삭제할 사용자의 ID
+     */
+    public void deleteUser(int userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        user.deactivate();
+        userRepository.save(user);
     }
 
 }

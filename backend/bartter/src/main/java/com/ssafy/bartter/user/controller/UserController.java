@@ -13,6 +13,7 @@ import com.ssafy.bartter.global.response.SuccessResponse;
 import com.ssafy.bartter.global.service.LocationService;
 import com.ssafy.bartter.user.dto.UserJoinDto;
 import com.ssafy.bartter.user.services.UserService;
+import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -59,6 +60,7 @@ public class UserController {
         return SuccessResponse.empty();
     }
 
+
     /**
      * 사용자가 전달한 위도와 경도로 현재 위치 정보를 조회하는 메서드
      *
@@ -79,11 +81,21 @@ public class UserController {
         return SuccessResponse.of(SimpleLocation.of(location));
     }
 
+    /**
+     * 사용자 탈퇴 요청을 처리하는 메서드
+     *
+     * @param userId 탈퇴할 사용자의 ID
+     * @return 탈퇴 처리 결과를 나타내는 ResponseEntity 객체
+     */
+    @DeleteMapping("/{userId}")
+    public SuccessResponse<Void> deleteUser(@PathVariable int userId) {
+        log.debug("DELETE USER : {} ", userId);
+        userService.deleteUser(userId);
+        return SuccessResponse.empty();
+    }
+
     @GetMapping("/ex")
     public ResponseEntity<UserAuthDto> getCurrentUser(@CurrentUser UserAuthDto userAuthDto) {
-        if (userAuthDto == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 인증되지 않은 경우 처리
-        }
         // SecurityContextHolder 에서 Authentication 객체 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         // Authentication 객체에서 AuthUserDetails 가져오기

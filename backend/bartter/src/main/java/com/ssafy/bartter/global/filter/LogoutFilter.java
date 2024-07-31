@@ -57,10 +57,11 @@ public class LogoutFilter extends GenericFilterBean {
 
         // logout 요청이 맞는지 검증
         String requestUri = request.getRequestURI();
-        if (!requestUri.matches("/user/logout$")) {
+        if (!requestUri.matches("/user/logout")) {
             filterChain.doFilter(request, response);
             return;
         }
+
         String requestMethod = request.getMethod();
         if (!requestMethod.equals("POST")) {
             filterChain.doFilter(request, response);

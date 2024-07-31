@@ -43,7 +43,7 @@ public class User extends BaseEntity {
     /**
      * 사용자 위치
      */
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
@@ -217,6 +217,14 @@ public class User extends BaseEntity {
         this.profileImage = "default.png";
         this.profileMessage = "Hi";
         this.isAccountExpired = false;
+    }
+
+    /**
+     * 사용자를 탈퇴 상태로 업데이트하는 메서드
+     */
+    public void deactivate() {
+        this.isAccountExpired = true;
+        this.deletedAt = LocalDateTime.now();
     }
 
 }
