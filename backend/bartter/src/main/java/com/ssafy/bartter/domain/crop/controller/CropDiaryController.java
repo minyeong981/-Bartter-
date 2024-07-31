@@ -32,7 +32,8 @@ public class CropDiaryController {
     @Operation(summary = "농사일지 작성", description = "농사일지를 작성한다.")
     @PostMapping("")
     public SuccessResponse<CropDiaryDetail> createCropDiary(
-            @CurrentUser UserAuthDto userAuthDto,
+            @CurrentUser UserAuthDto currentUser
+            ,
             @ModelAttribute @Valid Create request,
             BindingResult bindingResult,
             MultipartFile image
@@ -41,14 +42,14 @@ public class CropDiaryController {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
 
-        CropDiary diary = cropDiaryService.createCropDiary(request, image, userAuthDto.getId());
+        CropDiary diary = cropDiaryService.createCropDiary(request, image, currentUser.getId());
         CropDiaryDetail response = CropDiaryDetail.of(diary);
         return SuccessResponse.of(response);
     }
 
     @Operation(summary = "농사일지 상세 조회", description = "농사일지 PK로 농사일지를 조회한다.")
     @GetMapping("/{cropDiaryId}")
-    public SuccessResponse<CropDiaryDetail> getCropDiary(@PathVariable("cropDiaryId") Integer cropDiaryId) {
+    public SuccessResponse<CropDiaryDetail> getCropDiary(@PathVariable("cropDiaryId") int cropDiaryId) {
         CropDiary diary = cropDiaryService.getCropDiary(cropDiaryId);
         CropDiaryDetail response = CropDiaryDetail.of(diary);
         return SuccessResponse.of(response);
@@ -56,7 +57,7 @@ public class CropDiaryController {
 
     @Operation(summary = "농작물 ID로 농사일지 전체 조회", description = "해당 농작물의 농사일지 리스트를 조회한다.")
     @GetMapping("/{cropId}/diaries")
-    public SuccessResponse<List<CropDiaryDetail>> getCropDiaryList(@PathVariable("cropId") Integer cropId) {
+    public SuccessResponse<List<CropDiaryDetail>> getCropDiaryList(@PathVariable("cropId") int cropId) {
         List<CropDiary> diaryList = cropDiaryService.getCropDiaryList(cropId);
         List<CropDiaryDetail> response = diaryList.stream().map(CropDiaryDetail::of).collect(Collectors.toList());
         return SuccessResponse.of(response);
@@ -65,10 +66,10 @@ public class CropDiaryController {
     @Operation(summary = "농사일지 삭제", description = "해당 농사일지 PK를 가진 농사일지를 찾아 삭제한다.")
     @DeleteMapping("/{cropDiaryId}")
     public SuccessResponse<Void> deleteCropDiary(
-            @PathVariable("cropDiaryId") Integer cropDiaryId,
-            @CurrentUser UserAuthDto userAuthDto
+            @PathVariable("cropDiaryId") int cropDiaryId,
+            @CurrentUser UserAuthDto currentUser
     ) {
-        cropDiaryService.deleteCropDiary(cropDiaryId, userAuthDto.getId());
+        cropDiaryService.deleteCropDiary(cropDiaryId, currentUser.getId());
         return SuccessResponse.empty();
     }
 }

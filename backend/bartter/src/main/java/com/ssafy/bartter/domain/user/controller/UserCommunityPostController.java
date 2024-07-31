@@ -27,13 +27,13 @@ public class UserCommunityPostController {
     @Operation(summary = "유저가 작성한 동네모임 게시글 전체 조회", description = "유저의 PK를 통해 유저가 작성한 동네모임 게시글 전체를 조회한다.")
     @GetMapping("/{userId}/community/posts")
     public SuccessResponse<List<CommunityPostDetail>> getUserCommunityPostList(
-            @PathVariable("userId") Integer userId,
+            @PathVariable("userId") int userId,
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "limit", defaultValue = "6") int limit,
-            @CurrentUser UserAuthDto userAuthDto
+            @RequestParam(value = "limit", defaultValue = "10") int limit,
+            @CurrentUser UserAuthDto currentUser
     ) {
         List<CommunityPost> postList = communityPostService.getUserPostList(page, limit, userId);
-        List<CommunityPostDetail> response = postList.stream().map(o -> CommunityPostDetail.of(o, userAuthDto.getId())).collect(Collectors.toList());
+        List<CommunityPostDetail> response = postList.stream().map(o -> CommunityPostDetail.of(o, currentUser.getId())).collect(Collectors.toList());
         return SuccessResponse.of(response);
     }
 }

@@ -48,7 +48,7 @@ public class CropController {
     @Operation(summary = "농작물 프로필 등록", description = "농작물 프로필을 등록한 후 생성된 데이터를 반환한다.")
     @PostMapping("")
     public SuccessResponse<CropProfile> createCrop(
-            @CurrentUser UserAuthDto userAuthDto,
+            @CurrentUser UserAuthDto currentUser,
             @ModelAttribute @Valid Create request,
             BindingResult bindingResult,
             MultipartFile image) {
@@ -56,14 +56,14 @@ public class CropController {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
 
-        Crop crop = cropService.createCrop(request, image, userAuthDto.getId());
+        Crop crop = cropService.createCrop(request, image, currentUser.getId());
         CropProfile response = CropProfile.of(crop);
         return SuccessResponse.of(response);
     }
 
     @Operation(summary = "농작물 프로필 조회", description = "농작물의 ID를 통해 농작물의 상세 프로필을 조회한다.")
     @PostMapping("/{cropId}")
-    public SuccessResponse<CropProfile> getCrop(@PathVariable("cropId") Integer cropId) {
+    public SuccessResponse<CropProfile> getCrop(@PathVariable("cropId") int cropId) {
         Crop crop = cropService.getCrop(cropId);
         CropProfile response = CropProfile.of(crop);
         return SuccessResponse.of(response);
