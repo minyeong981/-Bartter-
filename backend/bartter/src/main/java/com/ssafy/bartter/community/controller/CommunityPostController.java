@@ -56,8 +56,8 @@ public class CommunityPostController {
     @Operation(summary = "동네모임 게시글 작성", description = "동네모임 게시글을 작성한다.")
     @PostMapping("")
     public SuccessResponse<CommunityPostDetail> createCommunityPost(
-            @ModelAttribute @Valid Create request,
             @CurrentUser UserAuthDto userAuthDto,
+            @ModelAttribute @Valid Create request,
             BindingResult bindingResult,
             MultipartFile[] imageList)
     {

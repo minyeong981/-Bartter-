@@ -47,8 +47,8 @@ public class CropController {
     @Operation(summary = "농작물 등록", description = "농작물 프로필을 등록한 후 생성된 데이터를 반환한다.")
     @PostMapping("")
     public SuccessResponse<CropProfile> createCrop(
-            @ModelAttribute @Valid Create request,
             @CurrentUser UserAuthDto userAuthDto,
+            @ModelAttribute @Valid Create request,
             BindingResult bindingResult,
             MultipartFile image)
     {

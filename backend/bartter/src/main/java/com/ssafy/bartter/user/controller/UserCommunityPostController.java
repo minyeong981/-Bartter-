@@ -31,9 +31,9 @@ public class UserCommunityPostController {
     @GetMapping("/{userId}/community/posts")
     public SuccessResponse<List<CommunityPostDetail>> getUserCommunityPostList(
             @PathVariable("userId") Integer userId,
-            @CurrentUser UserAuthDto userAuthDto,
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "limit", defaultValue = "6") int limit
+            @RequestParam(value = "limit", defaultValue = "6") int limit,
+            @CurrentUser UserAuthDto userAuthDto
     ) {
         List<CommunityPost> postList = communityPostService.getUserPostList(page, limit, userId);
         List<CommunityPostDetail> response = postList.stream().map(o -> CommunityPostDetail.of(o, userAuthDto.getId())).collect(Collectors.toList());
