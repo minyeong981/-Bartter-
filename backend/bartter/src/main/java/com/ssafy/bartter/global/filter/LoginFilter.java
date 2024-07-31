@@ -3,7 +3,7 @@ package com.ssafy.bartter.global.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.bartter.domain.auth.dto.AuthUserDetails;
 import com.ssafy.bartter.domain.auth.dto.AuthUserLoginDto;
-import com.ssafy.bartter.domain.auth.repository.RefreshRepository;
+import com.ssafy.bartter.domain.auth.repository.RedisRefreshRepository;
 import com.ssafy.bartter.domain.auth.utils.CookieUtil;
 import com.ssafy.bartter.domain.auth.utils.JwtUtil;
 import com.ssafy.bartter.global.exception.CustomException;
@@ -38,7 +38,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
     private final CookieUtil cookieUtil;
-    private final RefreshRepository refreshRepository;
+    private final RedisRefreshRepository refreshRepository;
 
     /**
      * 사용자의 인증을 시도하는 메서드

@@ -1,6 +1,6 @@
 package com.ssafy.bartter.domain.auth.controller;
 
-import com.ssafy.bartter.domain.auth.repository.RefreshRepository;
+import com.ssafy.bartter.domain.auth.repository.RedisRefreshRepository;
 import com.ssafy.bartter.domain.auth.utils.CookieUtil;
 import com.ssafy.bartter.domain.auth.utils.JwtUtil;
 import com.ssafy.bartter.global.exception.CustomException;
@@ -24,7 +24,7 @@ import java.util.Objects;
 public class AuthController {
 
     private final JwtUtil jwtUtil;
-    private final RefreshRepository refreshRepository;
+    private final RedisRefreshRepository refreshRepository;
     private final CookieUtil cookieUtil;
 
     @PostMapping("/reissue")

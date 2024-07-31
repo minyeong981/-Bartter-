@@ -5,4 +5,8 @@ public class CacheKey {
     public static String authenticationKey(String username){
         return "authentication#" + username;
     }
+
+    public static String searchLogKey(String username){
+        return "searchLog#" + username;
+    }
 }

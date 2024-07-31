@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
-public class RefreshRepository {
+public class RedisRefreshRepository {
     private final RedisTemplate<String, Object> redisTemplate;
 
     public void save(String username, String token, Long expiredTime) {

@@ -1,7 +1,7 @@
 package com.ssafy.bartter.global.config;
 
 import com.ssafy.bartter.domain.auth.handler.CustomAuthenticationEntryPoint;
-import com.ssafy.bartter.domain.auth.repository.RefreshRepository;
+import com.ssafy.bartter.domain.auth.repository.RedisRefreshRepository;
 import com.ssafy.bartter.domain.auth.utils.CookieUtil;
 import com.ssafy.bartter.domain.auth.utils.JwtUtil;
 import com.ssafy.bartter.global.filter.JwtAuthenticationFilter;
@@ -36,7 +36,7 @@ public class SecurityConfig {
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JwtUtil jwtUtil;
     private final CookieUtil cookieUtil;
-    private final RefreshRepository refreshRepository;
+    private final RedisRefreshRepository redisRefreshRepository;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -98,9 +98,9 @@ public class SecurityConfig {
         http
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), LoginFilter.class);
         http
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, cookieUtil, refreshRepository), UsernamePasswordAuthenticationFilter.class);
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, cookieUtil, redisRefreshRepository), UsernamePasswordAuthenticationFilter.class);
         http
-                .addFilterBefore(new LogoutFilter(jwtUtil, refreshRepository), org.springframework.security.web.authentication.logout.LogoutFilter.class);
+                .addFilterBefore(new LogoutFilter(jwtUtil, redisRefreshRepository), org.springframework.security.web.authentication.logout.LogoutFilter.class);
 
         http
                 .exceptionHandling((exceptions) -> exceptions
