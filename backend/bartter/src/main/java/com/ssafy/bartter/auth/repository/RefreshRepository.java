@@ -1,21 +1,26 @@
 package com.ssafy.bartter.auth.repository;
 
-import com.ssafy.bartter.auth.entity.Refresh;
-import jakarta.transaction.Transactional;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.ssafy.bartter.global.cache.CacheKey;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
-/**
- * jwt refresh token 을 저장하기 위한 class
- * TODO: 추후 Redis 에 맞게 수정 예정
- *
- * @author 김훈민
- */
-public interface RefreshRepository extends JpaRepository<Refresh, Long> {
+import java.util.concurrent.TimeUnit;
 
-    Boolean existsByRefresh(String refresh);
+@Service
+@RequiredArgsConstructor
+public class RefreshRepository {
+    private final RedisTemplate<String, Object> redisTemplate;
 
-    @Transactional
-    void deleteByRefresh(String refresh);
+    public void save(String username, String token, Long expiredTime) {
+        redisTemplate.opsForValue().set(CacheKey.authenticationKey(username), token, expiredTime, TimeUnit.MILLISECONDS);
+    }
 
-    Refresh findByUsername(String username);
+    public String find(String username) {
+        return (String) redisTemplate.opsForValue().get(CacheKey.authenticationKey(username));
+    }
+
+    public void delete(String username){
+        redisTemplate.delete(CacheKey.authenticationKey(username));
+    }
 }

@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * 사용자 로그아웃 요청을 처리하는 필터 클래스
@@ -78,17 +79,12 @@ public class LogoutFilter extends GenericFilterBean {
         }
 
         // refresh null check
-        if (refresh == null) {
+        if (Objects.isNull(refresh)) {
             throw new CustomException(ErrorCode.REFRESH_TOKEN_MISSING);
         }
 
         // expired check
-        try {
-            jwtUtil.isExpired(refresh);
-        } catch (ExpiredJwtException e) {
-            throw new CustomException(ErrorCode.REFRESH_TOKEN_EXPIRED);
-
-        }
+        jwtUtil.isExpired(refresh);
 
         String category = jwtUtil.getCategory(refresh);
         if (!category.equals("refreshToken")) {
@@ -97,13 +93,13 @@ public class LogoutFilter extends GenericFilterBean {
 
         // DB에 저장되어 있는지 확인
         // DB에 없으면 => 로그아웃 한 상태
-        Boolean isExist = refreshRepository.existsByRefresh(refresh);
+        boolean isExist = Objects.nonNull(refreshRepository.find(refresh));
         if (!isExist) {
             throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
         }
 
         // 로그아웃 수행: 데이터베이스와 클라이언트 쿠키에서 리프레시 토큰 삭제
-        refreshRepository.deleteByRefresh(refresh);
+        refreshRepository.delete(refresh);
         Cookie cookie = new Cookie("refresh", null);
         cookie.setMaxAge(0);
         cookie.setPath("/");

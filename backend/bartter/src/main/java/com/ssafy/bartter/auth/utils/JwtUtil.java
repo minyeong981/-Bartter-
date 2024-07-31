@@ -1,5 +1,8 @@
 package com.ssafy.bartter.auth.utils;
 
+import com.ssafy.bartter.global.exception.CustomException;
+import com.ssafy.bartter.global.exception.ErrorCode;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -52,7 +55,11 @@ public class JwtUtil {
      * @param token 확인할 JWT 토큰
      */
     public void isExpired(String token) {
-        Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration();
+        try{
+            Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
+        }catch (ExpiredJwtException e){
+            throw new CustomException(ErrorCode.ACCESS_TOKEN_EXPIRED);
+        }
     }
 
     /**

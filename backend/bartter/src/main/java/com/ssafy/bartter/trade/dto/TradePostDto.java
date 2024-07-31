@@ -33,6 +33,8 @@ public class TradePostDto {
         private int likeCount;
         @JsonProperty("isLike")
         private boolean isLike;
+        @JsonProperty("isShare")
+        private boolean isShare;
         private LocalDateTime createdAt;
 
         public static SimpleTradePostDetail of(TradePost tradePost) {
@@ -46,6 +48,7 @@ public class TradePostDto {
                     .location(SimpleLocation.of(tradePost.getLocation()))
                     .likeCount(tradePost.getLikeList().size())
                     .isLike(tradePost.getLikeList().stream().anyMatch(like -> like.getUser().getId() == currentUserId)) // TODO : 실제 좋아요 여부를 사용자와 관련하여 추후 로직 수정
+                    .isShare(tradePost.isShare())
                     .createdAt(tradePost.getCreatedAt())
                     .build();
         }
@@ -66,14 +69,20 @@ public class TradePostDto {
         private String nickname;
         private String profileImage;
 
+        @JsonProperty("isLike")
+        private boolean isLike;
+        @JsonProperty("isShare")
+        private boolean isShare;
         private boolean hasCrop;
         private int cropId;
+
         private List<String> imageList;
         private SimpleLocation location;
         private List<CropCategoryDetail> desiredCategoryList;
         private LocalDateTime createdAt;
 
         public static TradePostDetail of(TradePost tradePost, List<String> imageList,List<CropCategoryDetail> desiredCategoryList) {
+            int currentUserId = 1;
             return TradePostDetail.builder()
                     .tradePostId(tradePost.getId())
                     .title(tradePost.getTitle())
@@ -82,6 +91,8 @@ public class TradePostDto {
                     .nickname(tradePost.getUser().getNickname())
                     .profileImage(tradePost.getUser().getProfileImage())
                     .hasCrop(tradePost.getCrop() != null)
+                    .isShare(tradePost.isShare())
+                    .isLike(tradePost.getLikeList().stream().anyMatch(like -> like.getUser().getId() == currentUserId))
                     .cropId(tradePost.getCrop() == null ? 0 : tradePost.getCrop().getId())
                     .imageList(imageList)
                     .location(SimpleLocation.of(tradePost.getLocation()))

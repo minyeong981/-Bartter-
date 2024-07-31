@@ -89,7 +89,7 @@ public class S3UploadService {
         String extension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1); // 파일 확장자
 
         // UUID를 사용하여 고유한 파일 이름 생성
-        String s3FileName = UUID.randomUUID().toString().substring(0, 10) + originalFileName;
+        String s3FileName = UUID.randomUUID().toString().substring(0, 14);
 
         // MultipartFile의 InputStream을 가져온 뒤, 바이트 배열로 변환
         byte[] bytes = IOUtils.toByteArray(image.getInputStream());
