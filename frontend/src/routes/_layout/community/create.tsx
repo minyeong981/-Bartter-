@@ -27,10 +27,6 @@ export default function PostCreate() {
   const [images, setImages] = useState<SimpleImage[]>([]);
   const addPost = useRootStore(state => state.addPost);
 
-  useEffect(() => {
-  console.log(images); // 업데이트된 이미지 URL 리스트를 확인
-}, [images]);
-
   function handleTitleChange(event: ChangeEvent<HTMLInputElement>) {
     setTitle(event.target.value);
   }
@@ -38,7 +34,6 @@ export default function PostCreate() {
   function handleContentChange(event: ChangeEvent<HTMLInputElement>) {
     setContent(event.target.value);
   }
-
 
   const handleImageChange = (newImages: string[]) => {
     const newImageList = newImages.map((imageUrl, index) => ({
@@ -96,7 +91,7 @@ export default function PostCreate() {
           onChange={handleContentChange}
           value={content}
         />
-        
+
         <p>사진 ({images.length} / {maxImages})</p>
         <ImageInput onImageChange={handleImageChange} maxImages={maxImages} />
 
