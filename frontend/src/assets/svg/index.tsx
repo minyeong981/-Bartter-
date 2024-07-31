@@ -1,5 +1,7 @@
+export {ReactComponent as IconArrowRight} from './arrowRight.svg';
 export {ReactComponent as IconBack} from './back.svg';
 export {ReactComponent as IconBell} from './bell.svg';
+export {ReactComponent as IconHeart} from './Heart.svg';
 export {ReactComponent as IconKakao} from './kakao.svg';
 export {ReactComponent as IconMenu} from './menu.svg';
 export {ReactComponent as IconSearch} from './search.svg';
