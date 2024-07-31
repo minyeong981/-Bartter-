@@ -8,7 +8,7 @@ import DatePicker from 'react-datepicker';
 
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
-import useRegisterCropStore from '@/store/registerCropStore';
+import useRootStore from '@/store';
 
 import styles from './registerCrop.module.scss';
 
@@ -19,8 +19,10 @@ export const Route = createFileRoute('/_layout/diary/registerCrop/2')({
 });
 
 function GetDatePage() {
-  const nickname = useRegisterCropStore(state => state.nickname);
-  const setDate = useRegisterCropStore(state => state.setDate);
+  const { nickname, setDate } = useRootStore(state => ({
+    nickname: state.nickname,
+    setDate: state.setDate,
+  }));
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const handleDateChange = (date: Date | null) => {

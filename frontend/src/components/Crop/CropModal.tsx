@@ -1,8 +1,8 @@
 import classnames from 'classnames/bind';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import LinkButton from '@/components/Buttons/LinkButton';
-import useRegisterCropStore from '@/store/registerCropStore';
+import useRootStore from '@/store';
 
 import Search from '../Search/Search';
 import Crop from './Crop';
@@ -25,7 +25,7 @@ export default function CropModal({
   selectedCrop,
   showSearchBar = false,
 }: ModalProps) {
-  const setInitialImage = useRegisterCropStore(state => state.setInitialImage);
+  const setInitialImage = useRootStore(state => state.setInitialImage);
   const [selectedCropId, setSelectedCropId] = useState<number | null>(selectedCrop);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -65,4 +65,3 @@ export default function CropModal({
     </div>
   );
 }
-

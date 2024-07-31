@@ -6,6 +6,8 @@ import crops from '@/store/copsStore';
 
 interface CropProps {
   searchTerm: string;
+  onCropClick: (id: number, image: string) => void;
+  selectedCropId: number | null;
 }
 
 // 초성, 중성, 종성을 분리하는 함수
@@ -33,11 +35,12 @@ const decomposeHangul = (text: string) => {
   }).join('');
 };
 
-export default function Crop({ searchTerm }: CropProps) {
-  const [selectedCropId, setSelectedCropId] = useState<number | null>(null);
+export default function Crop({ searchTerm, onCropClick, selectedCropId }: CropProps) {
+  const [selectedCropIdState, setSelectedCropIdState] = useState<number | null>(selectedCropId);
 
-  const handleCropClick = (id: number) => {
-    setSelectedCropId(id);
+  const handleCropClick = (id: number, image: string) => {
+    setSelectedCropIdState(id);
+    onCropClick(id, image);
   };
 
   const searchTermLower = searchTerm.toLowerCase();
@@ -60,8 +63,8 @@ export default function Crop({ searchTerm }: CropProps) {
           cropsToShow.map((crop) => (
             <div
               key={crop.id}
-              className={`crop-card ${selectedCropId === crop.id ? 'selected' : ''}`}
-              onClick={() => handleCropClick(crop.id)}
+              className={`crop-card ${selectedCropIdState === crop.id ? 'selected' : ''}`}
+              onClick={() => handleCropClick(crop.id, crop.image)}
             >
               <div className="crop-image-container">
                 <img src={crop.image} alt={crop.name} className="crop-image" />

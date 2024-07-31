@@ -1,4 +1,5 @@
 import classnames from 'classnames/bind';
+import React from 'react';
 
 import styles from './myCrops.module.scss';
 
@@ -14,12 +15,12 @@ interface MyCropsProps {
   crops: Crop[];
 }
 
-function MyCrops({crops}: MyCropsProps) {
+function MyCrops({ crops }: MyCropsProps) {
   return (
     <div className={cx('crops-container')}>
       <h3 className={cx('crops-count')}>전체 작물 수 : {crops.length}</h3>
       <div className={cx('crop-list')}>
-        {crops.map(crop => (
+        {crops.map((crop) => (
           <div key={crop.id} className={cx('crop-card')}>
             <div className={cx('crop-image-container')}>
               <img
