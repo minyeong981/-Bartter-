@@ -1,6 +1,6 @@
-import type { ChangeEvent, KeyboardEvent} from 'react';
-import { FaSearch} from 'react-icons/fa';
-import { FaX } from 'react-icons/fa6';
+import type {KeyboardEvent} from 'react';
+import {FaSearch} from 'react-icons/fa';
+import {FaX} from 'react-icons/fa6';
 
 import HeaderWithSearchAndBackButton from '@/components/Header/HeaderWithSearchandBackButton';
 import stylesInput from '@/components/Search/Search.module.scss';
@@ -13,10 +13,11 @@ interface SearchBarProps {
   onInputChange: (input: string) => void;
 }
 
-
-export default function SearchBar({ query, onSearch, onInputChange} : SearchBarProps) {
-
-
+export default function SearchBar({
+  query,
+  onSearch,
+  onInputChange,
+}: SearchBarProps) {
   function handleClear() {
     onSearch('');
   }
@@ -29,9 +30,7 @@ export default function SearchBar({ query, onSearch, onInputChange} : SearchBarP
     }
   }
 
-
   return (
-  
     <div className={styles.header}>
       <HeaderWithSearchAndBackButton
         label={
@@ -41,20 +40,20 @@ export default function SearchBar({ query, onSearch, onInputChange} : SearchBarP
                 type="text"
                 placeholder="밭터 통합검색"
                 value={query}
-                onChange={(event) => onInputChange(event.target.value)}
+                onChange={event => onInputChange(event.target.value)}
                 onKeyDown={handleKeyDown}
               />
               <button className={stylesInput.clearButton} onClick={handleClear}>
-                { query ? <FaX className={styles.faX} /> : <FaSearch className={styles.faSearch}/>}
+                {query ? (
+                  <FaX className={styles.faX} />
+                ) : (
+                  <FaSearch className={styles.faSearch} />
+                )}
               </button>
             </div>
           </div>
         }
       />
-
     </div>
-
-
   );
 }
-

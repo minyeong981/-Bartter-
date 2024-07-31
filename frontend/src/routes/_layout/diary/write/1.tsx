@@ -1,9 +1,9 @@
-import { createFileRoute } from '@tanstack/react-router';
+import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
-import { useState } from 'react';
+import {useState} from 'react';
 
 import LinkButton from '@/components/Buttons/LinkButton';
-import MyCrops from '@/components/Crop/myCrops';
+import MyCrops from '@/components/Crop/MyCrops.tsx';
 import useRootStore from '@/store';
 
 import styles from './write.module.scss';
@@ -28,10 +28,9 @@ function DiaryWritePage() {
       <MyCrops crops={crops} onCropClick={handleCropSelect} />
       <div className={cx('buttonContainer')}>
         <LinkButton
-          buttonStyle={{ style: 'primary', size: 'large' }}
+          buttonStyle={{style: 'primary', size: 'large'}}
           to="/diary/write/2"
           disabled={selectedCropId === null}
-          state={{ selectedCropId }}
         >
           다음
         </LinkButton>

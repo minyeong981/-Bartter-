@@ -41,9 +41,10 @@ export default function Detail() {
 
   function handleKeyPress(event: KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter' && content.trim() !== '') {
-      const newComment: {newComment: PostComment} = {
+      const newComment: PostComment = {
+        commentId: 1,
         user: {
-          userId: 99,
+          userId: '99',
           nickname: 'user99',
           profileImage: UserImage,
         },

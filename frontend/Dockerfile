@@ -1,4 +1,4 @@
-FROM alpine
+FROM node AS build
 
 WORKDIR /app
 
@@ -14,7 +14,7 @@ FROM nginx
 
 COPY --from=build /app/build /usr/share/nginx/html
 
-RUN rm /etc/nginx/conf.d/default.conf
+RUN rm /etc/nginx/nginx.conf/default.conf
 
 COPY nginx/nginx.conf /etc/nginx/conf.d
 

@@ -1,11 +1,11 @@
-import { useNavigate } from '@tanstack/react-router';
+import {useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 
 import notCrop from '@/assets/image/notCrop.png';
 import GeneralButton from '@/components/Buttons/GeneralButton';
 import CropModal from '@/components/Crop/CropModal';
-import MyCrops from '@/components/Crop/myCrops';
+import MyCrops from '@/components/Crop/MyCrops.tsx';
 import useRootStore from '@/store';
 
 import styles from './mainCrops.module.scss';
@@ -15,15 +15,16 @@ const cx = classnames.bind(styles);
 export default function MainCrops() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  const { addCrop, crops, loadCrops, nickname, date, description, initialImage } = useRootStore(state => ({
-    addCrop: state.addCrop,
-    crops: state.crops,
-    loadCrops: state.loadCrops,
-    nickname: state.nickname,
-    date: state.date,
-    description: state.description,
-    initialImage: state.initialImage,
-  }));
+  const {addCrop, crops, loadCrops, nickname, date, description, initialImage} =
+    useRootStore(state => ({
+      addCrop: state.addCrop,
+      crops: state.crops,
+      loadCrops: state.loadCrops,
+      nickname: state.nickname,
+      date: state.date,
+      description: state.description,
+      initialImage: state.initialImage,
+    }));
 
   useEffect(() => {
     loadCrops();
@@ -48,12 +49,13 @@ export default function MainCrops() {
         description: description,
       });
       navigate({
-        to: '/growDiary/$cropId',
+        to: '/diary/growDiary/$cropId',
+        params: {cropId: id.toString()},
       });
     }
   }
 
-  const displayCrops = crops.map(({ id, nickname, image }) => ({
+  const displayCrops = crops.map(({id, nickname, image}) => ({
     id,
     nickname: nickname!,
     image: image || initialImage,
@@ -78,7 +80,7 @@ export default function MainCrops() {
       />
       <div className={cx('floating-button')}>
         <GeneralButton
-          buttonStyle={{ style: 'floating', size: 'small' }}
+          buttonStyle={{style: 'floating', size: 'small'}}
           onClick={handleOpenModal}
         >
           + 등록하기

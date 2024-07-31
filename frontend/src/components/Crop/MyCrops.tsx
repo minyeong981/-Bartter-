@@ -1,23 +1,20 @@
 import classnames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 
 import useRootStore from '@/store';
+import type {Crop} from '@/store/diarySlice.ts';
 
 import styles from './myCrops.module.scss';
 
 const cx = classnames.bind(styles);
 
 interface MyCropsProps {
-  crops: {
-    id: number;
-    nickname: string;
-    image: string;
-  }[];
+  crops: Crop[];
   onCropClick: (id: number) => void; // 추가된 prop
 }
 
-function MyCrops({ crops, onCropClick }: MyCropsProps) {
-  const { loadCrops, setInitialImage } = useRootStore(state => ({
+function MyCrops({crops, onCropClick}: MyCropsProps) {
+  const {loadCrops, setInitialImage} = useRootStore(state => ({
     loadCrops: state.loadCrops,
     setInitialImage: state.setInitialImage,
   }));
@@ -27,9 +24,9 @@ function MyCrops({ crops, onCropClick }: MyCropsProps) {
     loadCrops();
   }, [loadCrops]);
 
-  const handleCropClick = (id: number, image: string) => {
+  const handleCropClick = (id: number, image?: string) => {
     setSelectedCropId(id);
-    setInitialImage(image);
+    image && setInitialImage(image);
     onCropClick(id); // 추가된 콜백 호출
   };
 
@@ -38,12 +35,16 @@ function MyCrops({ crops, onCropClick }: MyCropsProps) {
       <h3 className={cx('crops-count')}>전체 작물 수 : {crops.length}</h3>
       <div className={cx('crop-list')}>
         {crops.map(crop => (
-          <div 
-            key={crop.id} 
-            className={cx('crop-card', { selected: selectedCropId === crop.id })} 
+          <div
+            key={crop.id}
+            className={cx('crop-card', {selected: selectedCropId === crop.id})}
             onClick={() => handleCropClick(crop.id, crop.image)}
           >
-            <div className={cx('crop-image-container', { selected: selectedCropId === crop.id })}>
+            <div
+              className={cx('crop-image-container', {
+                selected: selectedCropId === crop.id,
+              })}
+            >
               <img
                 src={crop.image}
                 alt={crop.nickname}

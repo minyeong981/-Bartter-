@@ -1,8 +1,8 @@
-import { format } from 'date-fns';
+import {format} from 'date-fns';
 import localforage from 'localforage';
-import type { StateCreator } from 'zustand';
+import type {StateCreator} from 'zustand';
 
-interface Crop {
+export interface Crop {
   id: number;
   name?: string;
   nickname?: string;
@@ -42,28 +42,29 @@ export const createDiarySlice: StateCreator<DiarySlice> = set => ({
   activeComponent: '달력',
   crops: [],
   ...INITIAL_FORM_STATE,
-  setActiveComponent: (component: string) => set({ activeComponent: component }),
+  setActiveComponent: (component: string) => set({activeComponent: component}),
   addCrop: async (crop: Crop) => {
-    const updatedCrops = await localforage.getItem<Crop[]>('my-crops') || [];
+    const updatedCrops = (await localforage.getItem<Crop[]>('my-crops')) || [];
     updatedCrops.push(crop);
     await localforage.setItem('my-crops', updatedCrops);
-    set({ crops: updatedCrops });
+    set({crops: updatedCrops});
   },
   loadCrops: async () => {
     const storedCrops = await localforage.getItem<Crop[]>('my-crops');
     if (storedCrops) {
-      set({ crops: storedCrops });
+      set({crops: storedCrops});
     }
   },
-  setNickname: (newNickname: string) => set({ nickname: newNickname }),
-  setDescription: (newDescription: string) => set({ description: newDescription }),
-  setDate: (newDate: string) => set({ date: newDate }),
-  setImage: (newImage: string) => set({ image: newImage }),
+  setNickname: (newNickname: string) => set({nickname: newNickname}),
+  setDescription: (newDescription: string) =>
+    set({description: newDescription}),
+  setDate: (newDate: string) => set({date: newDate}),
+  setImage: (newImage: string) => set({image: newImage}),
   setInitialImage: (newImage: string) => {
     console.log('Setting initial image:', newImage); // 로그 추가
-    set({ initialImage: newImage });
+    set({initialImage: newImage});
   },
-  resetCropForm: () => set({ ...INITIAL_FORM_STATE }),
+  resetCropForm: () => set({...INITIAL_FORM_STATE}),
 });
 
 export default createDiarySlice;

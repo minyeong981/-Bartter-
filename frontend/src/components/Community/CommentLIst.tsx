@@ -5,7 +5,7 @@ export default function CommentList({Comments}: {Comments: PostComment[]}) {
     <div>
       <div>
         {Comments.map((comment, index) => (
-          <UserNameContent key={index} comment={comment} />
+          <UserNameContent key={index} comment={comment} onClick={() => null} />
         ))}
       </div>
     </div>
