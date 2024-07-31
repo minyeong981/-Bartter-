@@ -67,15 +67,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
 
-
         // 토큰 만료 여부 확인
-        try{
-            accessToken = accessToken.substring(7);
-            jwtUtil.isExpired(accessToken);
-        } catch (ExpiredJwtException e){
-            throw new CustomException(ErrorCode.ACCESS_TOKEN_EXPIRED);
-        }
-
+        accessToken = accessToken.substring(7);
+        jwtUtil.isExpired(accessToken);
 
         // 토큰이 accessToken 인지 확인
         String category = jwtUtil.getCategory(accessToken);

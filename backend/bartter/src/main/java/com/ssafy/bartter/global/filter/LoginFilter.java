@@ -3,9 +3,6 @@ package com.ssafy.bartter.global.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.bartter.auth.dto.AuthUserDetails;
 import com.ssafy.bartter.auth.dto.AuthUserLoginDto;
-import com.ssafy.bartter.auth.dto.RefreshTokenDto;
-import com.ssafy.bartter.auth.dto.UserAuthDto;
-import com.ssafy.bartter.auth.entity.Refresh;
 import com.ssafy.bartter.auth.repository.RefreshRepository;
 import com.ssafy.bartter.auth.utils.CookieUtil;
 import com.ssafy.bartter.auth.utils.JwtUtil;
@@ -27,19 +24,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
 
 
 /**
  * user 의 login 요청을 검증하는 클래스
  *
- *
  * @author 김훈민
  */
 @Slf4j
 @RequiredArgsConstructor
-public class  LoginFilter extends UsernamePasswordAuthenticationFilter {
+public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
     private final CookieUtil cookieUtil;
@@ -83,7 +78,6 @@ public class  LoginFilter extends UsernamePasswordAuthenticationFilter {
      */
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) {
-
         AuthUserDetails authUserDetails = (AuthUserDetails) authentication.getPrincipal();
         String username = authUserDetails.getUsername();
         int userId = authUserDetails.getUserId();
@@ -97,8 +91,9 @@ public class  LoginFilter extends UsernamePasswordAuthenticationFilter {
         String access = jwtUtil.generateToken("accessToken", username, userId, role, 600000L); // 10m
         String refresh = jwtUtil.generateToken("refreshToken", username, userId, role, 864600000L); // 1d
 
+        // TODO: 시간 application.properties
         // Refresh 토큰 저장
-        saveRefreshToken(username, refresh, 86400000L);
+        refreshRepository.save(username, refresh, 864600000L);
 
         // 응답 설정
         response.setHeader("Authorization", "Bearer " + access);
@@ -131,23 +126,4 @@ public class  LoginFilter extends UsernamePasswordAuthenticationFilter {
         String jsonResponse = objectMapper.writeValueAsString(errorResponse);
         response.getWriter().write(jsonResponse);
     }
-
-    private void saveRefreshToken(String username, String refresh, Long expiredMs) {
-        Date date = new Date(System.currentTimeMillis() + expiredMs);
-
-        Refresh existingToken = refreshRepository.findByUsername(username);
-        if (existingToken != null) {
-            refreshRepository.delete(existingToken);
-        }
-
-        Refresh refreshEntity = Refresh.builder()
-                .username(username)
-                .refresh(refresh)
-                .expiration(date.toString())
-                .build();
-
-        // db에 토큰 저장
-        refreshRepository.save(refreshEntity);
-    }
-
 }
