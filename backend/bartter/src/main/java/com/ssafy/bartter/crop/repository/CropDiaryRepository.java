@@ -17,9 +17,9 @@ public interface CropDiaryRepository extends JpaRepository<CropDiary, Integer> {
 
     @Query(
             "SELECT d FROM CropDiary d"
-                    + " LEFT JOIN FETCH Crop c"
-                    + " ON d.crop.id = c.id"
-                    + " WHERE d.crop.user.id = :userId"
+                    + " LEFT JOIN FETCH d.crop c"
+                    + " LEFT JOIN FETCH c.user u"
+                    + " WHERE c.user.id = :userId"
                     + " AND (:year IS NULL OR YEAR(d.createdAt) = :year)"
                     + " AND (:month IS NULL OR MONTH(d.createdAt) = :month)"
     )
