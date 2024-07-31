@@ -23,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static com.ssafy.bartter.community.dto.CommunityPostDto.Create;
 
@@ -47,7 +46,7 @@ public class CommunityPostService {
 
     /**
      * 동네모임 게시글 전체조회
-     * */
+     */
     @Transactional(readOnly = true)
     public List<CommunityPost> getPostList(int page, int limit, String keyword, boolean isCommunity, Integer userId) {
         // 전체 게시글 조회에서는 빈 ArrayList로 남아있다.
@@ -67,7 +66,7 @@ public class CommunityPostService {
 
     /**
      * 동네모임 게시글 작성
-     * */
+     */
     public CommunityPost createPost(Create request, MultipartFile[] imageList, Integer userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         Location userLocation = user.getLocation();
@@ -98,18 +97,20 @@ public class CommunityPostService {
     }
 
     // TODO : Fetch join - Location, LikeList, CommentList, ImageList
+
     /**
      * 동네모임 게시글 상세조회
-     * */
+     */
     @Transactional(readOnly = true)
     public CommunityPost getPost(Integer communityPostId) {
         return communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
     }
 
+    // TODO : AWS에서 삭제
+
     /**
      * 동네모임 게시글 삭제
-     * */
-    // TODO : AWS에서 삭제
+     */
     public void deletePost(Integer communityPostId, Integer userId) {
         CommunityPost post = communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
         if (!post.getUser().getId().equals(userId)) {
@@ -118,6 +119,9 @@ public class CommunityPostService {
         communityPostRepository.delete(post);
     }
 
+    /**
+     * 동네모임 게시글 좋아요 토글
+     */
     public void toggleLikes(Integer communityPostId, Integer userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         CommunityPost post = communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
@@ -133,6 +137,9 @@ public class CommunityPostService {
         }
     }
 
+    /**
+     * 특정 유저가 작성한 동네모임 게시글 전체조회
+     */
     @Transactional(readOnly = true)
     public List<CommunityPost> getUserPostList(int page, int limit, Integer userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));

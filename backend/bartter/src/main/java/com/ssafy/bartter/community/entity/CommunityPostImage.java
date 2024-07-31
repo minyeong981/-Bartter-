@@ -45,19 +45,14 @@ public class CommunityPostImage extends BaseEntity {
     @Column(name = "community_post_image_order",nullable = false)
     private Integer order;
 
-    /**
-     * 이미지에 게시글 연결 후 게시글의 ImageList에도 이미지 연결
-     *
-     * @Author 김가람
-     */
-    public void addCommunityPost(CommunityPost communityPost) {
-        this.communityPost = communityPost;
-        getCommunityPost().getImageList().add(this);
-    }
-
     @Builder
     public CommunityPostImage(CommunityPost communityPost, String imageUrl, Integer order) {
         this.imageUrl = imageUrl;
         this.order = order;
+    }
+
+    public void addCommunityPost(CommunityPost communityPost) {
+        this.communityPost = communityPost;
+        getCommunityPost().getImageList().add(this);
     }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 동네모임 게시글 Entity 관련 DTO
+ * 동네모임 게시글 DTO
  *
  * @author 김가람
  */
@@ -80,7 +80,7 @@ public class CommunityPostDto {
     }
 
     /**
-     * 간단한 동네모임 이미지 Response
+     * 동네모임 이미지 Response
      * */
     @Builder
     @Getter

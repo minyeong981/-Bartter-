@@ -12,11 +12,12 @@ import java.time.LocalDateTime;
 import static com.ssafy.bartter.crop.dto.CropDto.SimpleCropProfile;
 
 /**
- * CropDiary Entity 관련 DTO
+ * 농사일지 DTO
  *
  * @author 김가람
  */
 public class CropDiaryDto {
+
     /**
      * 농사일지 생성 Request
      */

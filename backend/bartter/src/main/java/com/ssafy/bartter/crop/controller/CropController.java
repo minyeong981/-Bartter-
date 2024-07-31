@@ -8,7 +8,6 @@ import com.ssafy.bartter.crop.entity.CropCategory;
 import com.ssafy.bartter.crop.service.CropService;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
-import com.ssafy.bartter.global.response.ErrorResponse;
 import com.ssafy.bartter.global.response.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -50,8 +49,7 @@ public class CropController {
             @CurrentUser UserAuthDto userAuthDto,
             @ModelAttribute @Valid Create request,
             BindingResult bindingResult,
-            MultipartFile image)
-    {
+            MultipartFile image) {
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }

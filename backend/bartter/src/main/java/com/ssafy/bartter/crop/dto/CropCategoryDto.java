@@ -7,11 +7,12 @@ import lombok.Getter;
 
 
 /**
- * CropCategory Entity 관련 DTO
+ * 농작물 카테고리 DTO
  *
  * @author 김가람
  */
 public class CropCategoryDto {
+
     /**
      * 농작물 카테고리 Response
      */
