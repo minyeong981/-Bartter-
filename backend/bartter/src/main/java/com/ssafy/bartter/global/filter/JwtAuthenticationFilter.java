@@ -44,22 +44,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // 헤더에서 accessToken 추출
         String accessToken = request.getHeader("Authorization");
-        // 로그인 요청 URI 및 메서드 확인
-        // TODO : 더 좋은 방법으로 처리 할 예정
-        String requestUri = request.getRequestURI();
-        String requestMethod = request.getMethod();
-        boolean isLoginRequest = requestUri.equals("/login") && requestMethod.equals("POST");
-        boolean isLocationRequest = requestUri.equals("/user/location") && requestMethod.equals("POST");
-        boolean isJoinRequest = requestUri.equals("/user/join") && requestMethod.equals("POST");
+        // 토큰이 없다면 다음 필터로 넘김
         if (accessToken == null) {
-            if (isLoginRequest || isLocationRequest || isJoinRequest) {
-                filterChain.doFilter(request, response);
-                return;
-            }
-            throw new CustomException(ErrorCode.ACCESS_TOKEN_MISSING);
+            filterChain.doFilter(request, response);
+            return;
         }
-
-
+        
         // 로그인 요청 URI 및 메서드 확인
         // TODO : 더 좋은 방법으로 처리 할 예정
 //        String requestUri = request.getRequestURI();
