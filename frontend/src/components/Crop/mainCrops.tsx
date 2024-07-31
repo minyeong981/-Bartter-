@@ -1,3 +1,4 @@
+import { useNavigate } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 
@@ -13,6 +14,7 @@ const cx = classnames.bind(styles);
 
 export default function MainCrops() {
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
   const { addCrop, crops, loadCrops, nickname, date, description, initialImage } = useRootStore(state => ({
     addCrop: state.addCrop,
     crops: state.crops,
@@ -40,18 +42,21 @@ export default function MainCrops() {
     if (selectedCrop) {
       addCrop({
         id: selectedCrop.id,
-        nickname: nickname || selectedCrop.name, // nickname은 무조건 입력해야 하므로 이 기본값은 절대 사용되지 않음
-        image: initialImage || selectedCrop.image, // 기본값 설정: 선택한 작물의 이미지
+        nickname: nickname || selectedCrop.name,
+        image: initialImage || selectedCrop.image,
         date: date,
         description: description,
+      });
+      navigate({
+        to: '/growDiary/$cropId',
       });
     }
   }
 
   const displayCrops = crops.map(({ id, nickname, image }) => ({
     id,
-    nickname: nickname!, // nickname은 무조건 입력되므로 non-null assertion 사용
-    image: image || initialImage, // 기본값 설정: 선택한 작물의 이미지
+    nickname: nickname!,
+    image: image || initialImage,
   }));
 
   return (
@@ -62,7 +67,7 @@ export default function MainCrops() {
           <img src={notCrop} alt="notCrop" />
         </div>
       ) : (
-        <MyCrops crops={displayCrops} />
+        <MyCrops crops={displayCrops} onCropClick={handleCropSelect} />
       )}
       <CropModal
         show={showModal}

@@ -1,37 +1,43 @@
-// import { createFileRoute } from '@tanstack/react-router';
-// import classnames from 'classnames/bind';
+import { createFileRoute } from '@tanstack/react-router';
+import classnames from 'classnames/bind';
+import { useState } from 'react';
 
-// import LinkButton from '@/components/Buttons/LinkButton';
-// import MyCrops from '@/components/Crop/myCrops';
-// import Search from '@/components/Search/Search';
+import LinkButton from '@/components/Buttons/LinkButton';
+import MyCrops from '@/components/Crop/myCrops';
+import useRootStore from '@/store';
 
-// import styles from './wrtie.module.scss';
+import styles from './write.module.scss';
 
-// const cx = classnames.bind(styles);
+const cx = classnames.bind(styles);
 
+export const Route = createFileRoute('/_layout/diary/write/1')({
+  component: DiaryWritePage,
+});
 
-// export const Route = createFileRoute('/_layout/diary/write/1')({
-//   component: DiaryWritePage,
-// });
+function DiaryWritePage() {
+  const crops = useRootStore(state => state.crops);
+  const [selectedCropId, setSelectedCropId] = useState<number | null>(null);
 
+  const handleCropSelect = (id: number) => {
+    setSelectedCropId(id);
+  };
 
-// function DiaryWritePage() {
-//   return (
-//     <div className={cx('DiaryWritePage')}>
-//       <h1>어떤 작물의 일지인가요?</h1>
-//       <Search onSearch={(term) => console.log(term)} />
-//       <MyCrops/>
-//       <div className={cx('buttonContainer')}>
-//       <LinkButton
-//           buttonStyle={{style: 'primary', size: 'large'}}
-//           to="/diary/write/2"
-//           // disabled={!isValid}
-//         >
-//           다음
-//       </LinkButton>
-//       </div>
-//     </div>
-//   );
-// }
+  return (
+    <div className={cx('DiaryWritePage')}>
+      <h1>어떤 작물의 일지인가요?</h1>
+      <MyCrops crops={crops} onCropClick={handleCropSelect} />
+      <div className={cx('buttonContainer')}>
+        <LinkButton
+          buttonStyle={{ style: 'primary', size: 'large' }}
+          to="/diary/write/2"
+          disabled={selectedCropId === null}
+          state={{ selectedCropId }}
+        >
+          다음
+        </LinkButton>
+      </div>
+    </div>
+  );
+}
 
-// export default DiaryWritePage;
+export default DiaryWritePage;

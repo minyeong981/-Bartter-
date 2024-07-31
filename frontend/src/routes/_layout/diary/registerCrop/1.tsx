@@ -1,7 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type { ChangeEvent } from 'react';
-import { useEffect } from 'react';
 
 import LinkButton from '@/components/Buttons/LinkButton';
 import Heading from '@/components/Heading';
@@ -17,7 +16,7 @@ export const Route = createFileRoute('/_layout/diary/registerCrop/1')({
 });
 
 function GetNicknamePage() {
-  const { nickname, setNickname, resetCropForm } = useRootStore(state => ({
+  const { nickname, setNickname} = useRootStore(state => ({
     nickname: state.nickname,
     setNickname: state.setNickname,
     resetCropForm: state.resetCropForm,
@@ -27,10 +26,6 @@ function GetNicknamePage() {
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.currentTarget.value);
   };
-
-  useEffect(() => {
-    resetCropForm(); // 페이지가 로드될 때 상태 초기화
-  }, [resetCropForm]);
 
   return (
     <div className={cx('registerPage')}>

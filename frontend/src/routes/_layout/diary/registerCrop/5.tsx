@@ -14,7 +14,7 @@ export const Route = createFileRoute('/_layout/diary/registerCrop/5')({
 });
 
 function CropProfilePage() {
-  const { nickname, date, description, image, initialImage, addCrop, setActiveComponent } = useRootStore(state => ({
+  const { nickname, date, description, image, initialImage, addCrop, setActiveComponent, resetCropForm } = useRootStore(state => ({
     nickname: state.nickname,
     date: state.date,
     description: state.description,
@@ -22,6 +22,7 @@ function CropProfilePage() {
     initialImage: state.initialImage,
     addCrop: state.addCrop,
     setActiveComponent: state.setActiveComponent,
+    resetCropForm: state.resetCropForm,
   }));
 
   const navigate = useNavigate();
@@ -38,13 +39,12 @@ function CropProfilePage() {
     navigate({
       to: '/diary',
       replace: true,
+    }).then(() => {
+      resetCropForm(); // 데이터 리셋
     });
   };
 
   const displayImage = image || initialImage;
-  console.log('CropProfilePage image:', image);
-  console.log('CropProfilePage initialImage:', initialImage);
-  console.log('CropProfilePage displayImage:', displayImage);
 
   return (
     <>
