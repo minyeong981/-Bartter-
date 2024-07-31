@@ -1,7 +1,7 @@
 import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {ChangeEvent} from 'react';
-import {useState} from 'react';
+import {useEffect,useState} from 'react';
 
 import GeneralButton from '@/components/Buttons/GeneralButton';
 import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
@@ -35,24 +35,14 @@ export default function PostCreate() {
     setContent(event.target.value);
   }
 
-  function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
-    const files = event.target.files;
-    if (event.target && files) {
-      const newImage = Array.from(files).map((file, index) => ({
-        imageId: index,
-        imageUrl: URL.createObjectURL(file),
-        imageOrder: index,
-      }));
-      setImages(newImage);
-    }
-    console.log(images);
-  }
-  
-  // const handleImageChange = (newImages: string[]) => {
-  //   setImages(newImages);
-  //   setImages(newImages.length > 0 ? newImages[newImages.length - 1] : '');
-  // };
-
+  const handleImageChange = (newImages: string[]) => {
+    const newImageList = newImages.map((imageUrl, index) => ({
+      imageId: index,
+      imageUrl: imageUrl,
+      imageOrder: index
+    }))
+    setImages(newImageList)
+  };
 
   // 나중에!! 이런 식으로
   // const handleSubmit = async (e: React.FormEvent) => {
@@ -101,21 +91,9 @@ export default function PostCreate() {
           onChange={handleContentChange}
           value={content}
         />
-        <input type="file" multiple onChange={handleImageChange} />
-        <p>사진 ({images.length} / {maxImages})</p>
-        {/* <ImageInput onImageChange={handleImageChange} maxImages={maxImages}/> */}
 
-        <div className={cx('imageContainer')}>
-          {images &&
-            images.map((img, imgIndex) => (
-              <img
-                key={imgIndex}
-                className={cx('image')}
-                src={img.imageUrl}
-                alt=""
-              />
-            ))}
-        </div>
+        <p>사진 ({images.length} / {maxImages})</p>
+        <ImageInput onImageChange={handleImageChange} maxImages={maxImages} />
 
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
