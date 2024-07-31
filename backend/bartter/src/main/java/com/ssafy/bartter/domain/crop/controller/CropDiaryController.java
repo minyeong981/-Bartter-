@@ -32,7 +32,8 @@ public class CropDiaryController {
     @Operation(summary = "농사일지 작성", description = "농사일지를 작성한다.")
     @PostMapping("")
     public SuccessResponse<CropDiaryDetail> createCropDiary(
-            @CurrentUser UserAuthDto userAuthDto,
+            @CurrentUser UserAuthDto currentUser
+            ,
             @ModelAttribute @Valid Create request,
             BindingResult bindingResult,
             MultipartFile image
@@ -41,7 +42,7 @@ public class CropDiaryController {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
 
-        CropDiary diary = cropDiaryService.createCropDiary(request, image, userAuthDto.getId());
+        CropDiary diary = cropDiaryService.createCropDiary(request, image, currentUser.getId());
         CropDiaryDetail response = CropDiaryDetail.of(diary);
         return SuccessResponse.of(response);
     }
@@ -66,9 +67,9 @@ public class CropDiaryController {
     @DeleteMapping("/{cropDiaryId}")
     public SuccessResponse<Void> deleteCropDiary(
             @PathVariable("cropDiaryId") Integer cropDiaryId,
-            @CurrentUser UserAuthDto userAuthDto
+            @CurrentUser UserAuthDto currentUser
     ) {
-        cropDiaryService.deleteCropDiary(cropDiaryId, userAuthDto.getId());
+        cropDiaryService.deleteCropDiary(cropDiaryId, currentUser.getId());
         return SuccessResponse.empty();
     }
 }

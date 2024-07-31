@@ -30,10 +30,10 @@ public class UserCommunityPostController {
             @PathVariable("userId") Integer userId,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "6") int limit,
-            @CurrentUser UserAuthDto userAuthDto
+            @CurrentUser UserAuthDto currentUser
     ) {
         List<CommunityPost> postList = communityPostService.getUserPostList(page, limit, userId);
-        List<CommunityPostDetail> response = postList.stream().map(o -> CommunityPostDetail.of(o, userAuthDto.getId())).collect(Collectors.toList());
+        List<CommunityPostDetail> response = postList.stream().map(o -> CommunityPostDetail.of(o, currentUser.getId())).collect(Collectors.toList());
         return SuccessResponse.of(response);
     }
 }

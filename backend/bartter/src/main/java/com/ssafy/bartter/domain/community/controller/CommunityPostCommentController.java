@@ -28,14 +28,14 @@ public class CommunityPostCommentController {
     @PostMapping("/{communityPostId}/comment")
     public SuccessResponse<CommunityPostCommentDto.CommunityPostCommentDetail> createComment(
             @PathVariable("communityPostId") Integer communityPostId,
-            @CurrentUser UserAuthDto userAuthDto,
+            @CurrentUser UserAuthDto currentUser,
             @RequestBody @Valid CommunityPostCommentDto.Create request,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
 
-        CommunityPostComment comment = communityPostCommentService.createComment(communityPostId, request, userAuthDto.getId());
+        CommunityPostComment comment = communityPostCommentService.createComment(communityPostId, request, currentUser.getId());
         CommunityPostCommentDto.CommunityPostCommentDetail response = CommunityPostCommentDto.CommunityPostCommentDetail.of(comment);
         return SuccessResponse.of(response);
     }
@@ -45,9 +45,9 @@ public class CommunityPostCommentController {
     public SuccessResponse<Void> deleteComment(
             @PathVariable("communityPostCommentId") Integer communityPostCommentId,
             @PathVariable("communityPostId") Integer communityPostId,
-            @CurrentUser UserAuthDto userAuthDto
+            @CurrentUser UserAuthDto currentUser
     ) {
-        communityPostCommentService.deleteComment(userAuthDto.getId(), communityPostCommentId);
+        communityPostCommentService.deleteComment(currentUser.getId(), communityPostCommentId);
         return SuccessResponse.empty();
     }
 }

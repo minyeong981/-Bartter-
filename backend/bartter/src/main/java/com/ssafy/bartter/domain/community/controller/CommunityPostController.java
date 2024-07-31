@@ -31,7 +31,7 @@ public class CommunityPostController {
     @Operation(summary = "동네모임 게시글 작성", description = "동네모임 게시글을 작성한다.")
     @PostMapping("")
     public SuccessResponse<CommunityPostDto.CommunityPostDetail> createCommunityPost(
-            @CurrentUser UserAuthDto userAuthDto,
+            @CurrentUser UserAuthDto currentUser,
             @ModelAttribute @Valid CommunityPostDto.Create request,
             BindingResult bindingResult,
             MultipartFile[] imageList) {
@@ -39,8 +39,8 @@ public class CommunityPostController {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
 
-        CommunityPost post = communityPostService.createPost(request, imageList, userAuthDto.getId());
-        CommunityPostDto.CommunityPostDetail response = CommunityPostDto.CommunityPostDetail.of(post, userAuthDto.getId());
+        CommunityPost post = communityPostService.createPost(request, imageList, currentUser.getId());
+        CommunityPostDto.CommunityPostDetail response = CommunityPostDto.CommunityPostDetail.of(post, currentUser.getId());
         return SuccessResponse.of(response);
     }
 
@@ -48,10 +48,10 @@ public class CommunityPostController {
     @GetMapping("/{communityPostId}")
     public SuccessResponse<CommunityPostDto.CommunityPostDetail> getCommunityPost(
             @PathVariable("communityPostId") Integer communityPostId,
-            @CurrentUser UserAuthDto userAuthDto
+            @CurrentUser UserAuthDto currentUser
     ) {
         CommunityPost post = communityPostService.getPost(communityPostId);
-        CommunityPostDto.CommunityPostDetail response = CommunityPostDto.CommunityPostDetail.of(post, userAuthDto.getId());
+        CommunityPostDto.CommunityPostDetail response = CommunityPostDto.CommunityPostDetail.of(post, currentUser.getId());
         return SuccessResponse.of(response);
     }
 
@@ -62,9 +62,9 @@ public class CommunityPostController {
             @RequestParam(value = "limit", defaultValue = "10") int limit,
             @RequestParam(value = "isCommunity", defaultValue = "false") boolean isCommunity,
             @RequestParam(value = "keyword", defaultValue = "") String keyword,
-            @CurrentUser UserAuthDto userAuthDto
+            @CurrentUser UserAuthDto currentUser
     ) {
-        Integer userId = userAuthDto.getId();
+        Integer userId = currentUser.getId();
         List<CommunityPost> postList = communityPostService.getPostList(page, limit, keyword, isCommunity, userId);
         List<CommunityPostDto.CommunityPostDetail> response = postList.stream()
                 .map((CommunityPost post) -> CommunityPostDto.CommunityPostDetail.of(post, userId))
@@ -76,9 +76,9 @@ public class CommunityPostController {
     @DeleteMapping("/{communityPostId}")
     public SuccessResponse<Void> deleteCommunityPost(
             @PathVariable("communityPostId") Integer communityPostId,
-            @CurrentUser UserAuthDto userAuthDto
+            @CurrentUser UserAuthDto currentUser
     ) {
-        communityPostService.deletePost(communityPostId, userAuthDto.getId());
+        communityPostService.deletePost(communityPostId, currentUser.getId());
         return SuccessResponse.empty();
     }
 
@@ -86,9 +86,9 @@ public class CommunityPostController {
     @PostMapping("/{communityPostId}/like")
     public SuccessResponse<Void> likeCommunityPost(
             @PathVariable("communityPostId") Integer communityPostId,
-            @CurrentUser UserAuthDto userAuthDto
+            @CurrentUser UserAuthDto currentUser
     ) {
-        communityPostService.toggleLikes(communityPostId, userAuthDto.getId());
+        communityPostService.toggleLikes(communityPostId, currentUser.getId());
         return SuccessResponse.empty();
     }
 }
