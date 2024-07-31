@@ -103,6 +103,10 @@ public class CropDiaryService {
         return cropDiaryRepository.findAllByDateAndCrop(year, month, userId, pageable);
     }
 
+    /**
+     * 특정 농작물의 농사일지 전체 조회
+     * */
+    @Transactional(readOnly = true)
     public List<CropDiary> getCropDiaryList(Integer cropId) {
         Crop crop = cropRepository.findById(cropId).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
         return cropDiaryRepository.findAllByCropId(cropId);

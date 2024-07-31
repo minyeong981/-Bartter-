@@ -48,6 +48,7 @@ public class CommunityPostService {
     /**
      * 동네모임 게시글 전체조회
      * */
+    @Transactional(readOnly = true)
     public List<CommunityPost> getPostList(int page, int limit, String keyword, boolean isCommunity, Integer userId) {
         // 전체 게시글 조회에서는 빈 ArrayList로 남아있다.
         List<Location> nearbyLocationList = new ArrayList<>();
