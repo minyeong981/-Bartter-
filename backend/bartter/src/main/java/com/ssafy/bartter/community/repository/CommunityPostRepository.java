@@ -10,4 +10,5 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CommunityPostRepository extends JpaRepository<CommunityPost, Integer>, CommunityPostRepositoryCustom {
+    List<CommunityPost> findAllByUserId(Integer userId, PageRequest pageable);
 }

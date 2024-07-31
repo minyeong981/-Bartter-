@@ -1,7 +1,5 @@
-package com.ssafy.bartter.crop.controller;
+package com.ssafy.bartter.user.controller;
 
-import com.ssafy.bartter.crop.dto.CropDiaryDto;
-import com.ssafy.bartter.crop.dto.CropDto;
 import com.ssafy.bartter.crop.dto.CropDto.CropProfile;
 import com.ssafy.bartter.crop.entity.Crop;
 import com.ssafy.bartter.crop.entity.CropDiary;
@@ -13,7 +11,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 

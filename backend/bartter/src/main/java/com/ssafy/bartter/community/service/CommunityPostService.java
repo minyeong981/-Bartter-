@@ -131,4 +131,11 @@ public class CommunityPostService {
             communityPostLikeRepository.delete(like);
         }
     }
+
+    @Transactional(readOnly = true)
+    public List<CommunityPost> getUserPostList(int page, int limit, Integer userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
+        return communityPostRepository.findAllByUserId(userId, pageable);
+    }
 }
