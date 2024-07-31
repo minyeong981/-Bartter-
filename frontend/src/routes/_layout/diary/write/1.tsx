@@ -1,38 +1,40 @@
 import { createFileRoute } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
+import { useState } from 'react';
 
 import LinkButton from '@/components/Buttons/LinkButton';
 import MyCrops from '@/components/Crop/myCrops';
-import Search from '@/components/Search/Search';
+import useRootStore from '@/store';
 
-import styles from './wrtie.module.scss';
+import styles from './write.module.scss';
 
 const cx = classnames.bind(styles);
-
 
 export const Route = createFileRoute('/_layout/diary/write/1')({
   component: DiaryWritePage,
 });
 
-const mockCrops = [
-  { id: 1, name: 'Tomato', image: 'tomato.jpg' },
-  { id: 2, name: 'Potato', image: 'potato.jpg' }
-]; // 임시 데이터
-
 function DiaryWritePage() {
+  const crops = useRootStore(state => state.crops);
+  const [selectedCropId, setSelectedCropId] = useState<number | null>(null);
+
+  const handleCropSelect = (id: number) => {
+    setSelectedCropId(id);
+  };
+
   return (
     <div className={cx('DiaryWritePage')}>
       <h1>어떤 작물의 일지인가요?</h1>
-      <Search onSearch={(term) => console.log(term)} />
-      <MyCrops crops={mockCrops} />
+      <MyCrops crops={crops} onCropClick={handleCropSelect} />
       <div className={cx('buttonContainer')}>
-      <LinkButton
-          buttonStyle={{style: 'primary', size: 'large'}}
+        <LinkButton
+          buttonStyle={{ style: 'primary', size: 'large' }}
           to="/diary/write/2"
-          // disabled={!isValid}
+          disabled={selectedCropId === null}
+          state={{ selectedCropId }}
         >
           다음
-      </LinkButton>
+        </LinkButton>
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 import classnames from 'classnames/bind';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import LinkButton from '@/components/Buttons/LinkButton';
-import useRegisterCropStore from '@/store/registerCropStore';
+import LinkButton from '@/components/Buttons/LinkButton.tsx';
+import useRootStore from '@/store';
 
 import Search from '../Search/Search';
 import Crop from './Crop';
@@ -25,7 +25,9 @@ export default function CropModal({
   selectedCrop,
   showSearchBar = false,
 }: ModalProps) {
-  const setInitialImage = useRegisterCropStore(state => state.setInitialImage);
+  const { setInitialImage } = useRootStore(state => ({
+    setInitialImage: state.setInitialImage,
+  }));
   const [selectedCropId, setSelectedCropId] = useState<number | null>(selectedCrop);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -35,7 +37,7 @@ export default function CropModal({
 
   const handleCropClick = (id: number, image: string) => {
     setSelectedCropId(id);
-    setInitialImage(image);
+    setInitialImage(image); // 이미지 설정
     onCropSelect(id);
   };
 
@@ -57,6 +59,7 @@ export default function CropModal({
           <LinkButton
             buttonStyle={{ style: 'primary', size: 'large' }}
             to="/diary/registerCrop/1"
+            disabled={selectedCropId === null} // 선택된 작물이 없을 때 비활성화
           >
             다음
           </LinkButton>
@@ -65,4 +68,3 @@ export default function CropModal({
     </div>
   );
 }
-

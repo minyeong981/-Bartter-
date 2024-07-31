@@ -3,9 +3,7 @@ import classnames from 'classnames/bind';
 
 import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
 import Heading from '@/components/Heading';
-import useDiaryStore from '@/store/diaryStore';
-import useMyCropsStore from '@/store/myCropsStore';
-import useRegisterCropStore from '@/store/registerCropStore';
+import useRootStore from '@/store';
 
 import styles from './registerCrop.module.scss';
 
@@ -16,38 +14,33 @@ export const Route = createFileRoute('/_layout/diary/registerCrop/5')({
 });
 
 function CropProfilePage() {
-  const nickname = useRegisterCropStore(state => state.nickname);
-  const date = useRegisterCropStore(state => state.date);
-  const description = useRegisterCropStore(state => state.description);
-  const image = useRegisterCropStore(state => state.image);
-  const initialImage = useRegisterCropStore(state => state.initialImage);
-  const addCrop = useMyCropsStore(state => state.addCrop);
-
-  console.log('Nickname:', nickname);
-  console.log('Date:', date);
-  console.log('Description:', description);
-  console.log('Image:', image);
-  console.log('Initial Image:', initialImage);
+  const { nickname, date, description, image, initialImage, addCrop, setActiveComponent, resetCropForm } = useRootStore(state => ({
+    nickname: state.nickname,
+    date: state.date,
+    description: state.description,
+    image: state.image,
+    initialImage: state.initialImage,
+    addCrop: state.addCrop,
+    setActiveComponent: state.setActiveComponent,
+    resetCropForm: state.resetCropForm,
+  }));
 
   const navigate = useNavigate();
-  const { setActiveComponent } = useDiaryStore();
 
   const handleRegisterComplete = () => {
-    const finalImage = image || initialImage;
-    const cropData = {
+    addCrop({
+      id: Date.now(), // 임의의 ID 할당, 필요시 다른 방식으로 변경
       nickname,
-      image: finalImage,
+      image: image || initialImage,
       date,
       description,
-    };
-
-    addCrop(cropData);
-    console.log('Registering crop:', cropData);
-
+    });
     setActiveComponent('내 작물');
     navigate({
       to: '/diary',
       replace: true,
+    }).then(() => {
+      resetCropForm(); // 데이터 리셋
     });
   };
 

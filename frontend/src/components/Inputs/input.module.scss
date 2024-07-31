@@ -36,8 +36,8 @@
 .imageInputContainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 1rem;
+  align-items: center;
 }
 
 .imageInput {
@@ -46,13 +46,13 @@
 
 .cameraIconContainer {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   width: 341px;
   height: 100px;
+  cursor: pointer;
   border: 1px solid colors.$primary;
   border-radius: 12px;
-  cursor: pointer;
 }
 
 .cameraIcon {
@@ -62,8 +62,8 @@
 
 .imagePreviewContainer {
   display: flex;
-  gap: 0.5rem;
   flex-wrap: wrap;
+  gap: 0.5rem;
   justify-content: flex-start; /* 왼쪽 정렬 */
 }
 
@@ -89,4 +89,17 @@
   cursor: pointer;
   background: white;
   border-radius: 50%;
+}
+
+
+.semiCalenderInput {
+  width: 341px;
+  height: 48px;
+  padding: 0 12px;
+  border: 1px solid colors.$primary;
+  border-radius: 12px;
+
+  &::placeholder {
+    color: colors.$placeholder;
+  }
 }

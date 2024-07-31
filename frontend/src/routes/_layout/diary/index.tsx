@@ -5,10 +5,10 @@ import { createFileRoute } from '@tanstack/react-router';
 import Calendar from '@/components/Calendar/calendar';
 import MainCrops from '@/components/Crop/mainCrops';
 import TwoButton from '@/components/TwoButton/TwoButton';
-import useDiaryStore from '@/store/diaryStore';
+import useRootStore from '@/store/index';
 
 export default function Diary() {
-  const { activeComponent, setActiveComponent } = useDiaryStore();
+  const { activeComponent, setActiveComponent } = useRootStore();
 
   const renderComponent = () => {
     switch (activeComponent) {
