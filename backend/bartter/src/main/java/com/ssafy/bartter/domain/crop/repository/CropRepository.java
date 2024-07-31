@@ -7,6 +7,11 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+/**
+ * CropRepository
+ *
+ * @author 김가람
+ */
 public interface CropRepository extends JpaRepository<Crop, Integer> {
     List<Crop> findAllByUserId(Integer userId);
 

@@ -6,7 +6,6 @@ import com.ssafy.bartter.domain.community.entity.CommunityPostLike;
 import com.ssafy.bartter.domain.community.repository.CommunityPostImageRepository;
 import com.ssafy.bartter.domain.community.repository.CommunityPostLikeRepository;
 import com.ssafy.bartter.domain.community.repository.CommunityPostRepository;
-import com.ssafy.bartter.domain.community.repository.CommunityPostRepositoryImpl;
 import com.ssafy.bartter.domain.community.dto.CommunityPostDto;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.global.exception.CustomException;
@@ -40,7 +39,6 @@ public class CommunityPostService {
     private final UserRepository userRepository;
     private final S3UploadService s3UploadService;
     private final LocationService locationService;
-    private final CommunityPostRepositoryImpl communityPostRepositoryImpl;
     private final CommunityPostLikeRepository communityPostLikeRepository;
 
     /**
@@ -48,6 +46,7 @@ public class CommunityPostService {
      */
     @Transactional(readOnly = true)
     public List<CommunityPost> getPostList(int page, int limit, String keyword, boolean isCommunity, Integer userId) {
+
         // 전체 게시글 조회에서는 빈 ArrayList로 남아있다.
         List<Location> nearbyLocationList = new ArrayList<>();
 
@@ -59,7 +58,7 @@ public class CommunityPostService {
         }
 
         PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
-        List<CommunityPost> postList = communityPostRepositoryImpl.findPostListByParams(keyword, nearbyLocationList, pageable);
+        List<CommunityPost> postList = communityPostRepository.findNearbyCommunityPostListByKeyword(keyword, nearbyLocationList, pageable);
         return postList;
     }
 
@@ -94,8 +93,6 @@ public class CommunityPostService {
 
         return post;
     }
-
-    // TODO : Fetch join - Location, LikeList, CommentList, ImageList
 
     /**
      * 동네모임 게시글 상세조회
