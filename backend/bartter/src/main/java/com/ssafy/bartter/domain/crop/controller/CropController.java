@@ -34,8 +34,10 @@ public class CropController {
 
     @Operation(summary = "농작물 카테고리 조회", description = "농작물 카테고리의 목록을 조회한다.")
     @GetMapping("/categories")
-    public SuccessResponse<List<CropCategoryDetail>> getCropCategoryList() {
-        List<CropCategory> cropCategoryList = cropService.getCropCategoryList();
+    public SuccessResponse<List<CropCategoryDetail>> getCropCategoryList(
+            @RequestParam(value = "name", defaultValue = "") String name
+    ) {
+        List<CropCategory> cropCategoryList = cropService.getCropCategoryList(name);
 
         List<CropCategoryDetail> response = cropCategoryList.stream()
                 .map(CropCategoryDetail::of)

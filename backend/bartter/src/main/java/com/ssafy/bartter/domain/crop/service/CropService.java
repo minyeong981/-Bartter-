@@ -61,8 +61,8 @@ public class CropService {
      * 농작물 카테고리 전체 조회
      */
     @Transactional(readOnly = true)
-    public List<CropCategory> getCropCategoryList() {
-        return cropCategoryRepository.findAll();
+    public List<CropCategory> getCropCategoryList(String name) {
+        return cropCategoryRepository.findAllByNameContaining(name);
     }
 
     // TODO : Fetch join - CropCategory

@@ -62,8 +62,6 @@ public class CropDiaryService {
         return diary;
     }
 
-    // TODO : Fetch join - Crop
-
     /**
      * 농사일지 상세조회
      */
@@ -72,16 +70,17 @@ public class CropDiaryService {
         return cropDiaryRepository.findById(cropDiaryId).orElseThrow(() -> new CustomException(ErrorCode.CROP_DIARY_NOT_FOUND));
     }
 
-    // TODO : AWS에서 삭제
-
     /**
      * 농사일지 삭제
      */
     public void deleteCropDiary(Integer cropDiaryId, Integer userId) {
         CropDiary diary = cropDiaryRepository.findById(cropDiaryId).orElseThrow(() -> new CustomException(ErrorCode.CROP_DIARY_NOT_FOUND));
+
         if (!diary.getCrop().getUser().getId().equals(userId)) {
             throw new CustomException(ErrorCode.UNAUTHENTICATED);
         }
+
+        s3UploadService.delete(diary.getImage());
         cropDiaryRepository.delete(diary);
     }
 
@@ -92,12 +91,12 @@ public class CropDiaryService {
     public List<CropDiary> getUserDiaryList(int page, int limit, Integer year, Integer month, Integer userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
-        // TODO : 리팩터링
-        if (year != null && month != null) {
-            if (year < 1000 || month < 1 || month > 12) {
-                throw new CustomException(ErrorCode.INVALID_DATE);
-            }
-        } else if ((year == null && month != null) || (year != null && month == null)) {
+        if (year != null && month != null && year < 1000 || month < 1 || month > 12) {
+            throw new CustomException(ErrorCode.INVALID_DATE);
+        }
+
+        // 날짜 파라미터가 null가 아니라면
+        if ((year == null && month != null) || (year != null && month == null)) {
             throw new CustomException(ErrorCode.INVALID_DATE);
         }
 
