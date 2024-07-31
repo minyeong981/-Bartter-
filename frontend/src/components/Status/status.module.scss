@@ -1,0 +1,19 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typographies;
+
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 32px;
+  color: colors.$white;
+  background-color: colors.$primary;
+  border-radius: 5px;
+
+  @include typographies.label;
+}
+
+.completed {
+  background-color: colors.$placeholder;
+}
