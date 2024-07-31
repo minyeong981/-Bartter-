@@ -1,11 +1,11 @@
 package com.ssafy.bartter.global.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.bartter.auth.dto.AuthUserDetails;
-import com.ssafy.bartter.auth.dto.AuthUserLoginDto;
-import com.ssafy.bartter.auth.repository.RefreshRepository;
-import com.ssafy.bartter.auth.utils.CookieUtil;
-import com.ssafy.bartter.auth.utils.JwtUtil;
+import com.ssafy.bartter.domain.auth.dto.AuthUserDetails;
+import com.ssafy.bartter.domain.auth.dto.AuthUserLoginDto;
+import com.ssafy.bartter.domain.auth.repository.RefreshRepository;
+import com.ssafy.bartter.domain.auth.utils.CookieUtil;
+import com.ssafy.bartter.domain.auth.utils.JwtUtil;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.response.ErrorResponse;

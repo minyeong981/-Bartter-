@@ -1,13 +1,14 @@
 package com.ssafy.bartter.community.service;
 
-import com.ssafy.bartter.community.entity.CommunityPost;
-import com.ssafy.bartter.community.entity.CommunityPostImage;
-import com.ssafy.bartter.community.repository.CommunityPostImageRepository;
-import com.ssafy.bartter.community.repository.CommunityPostRepository;
+import com.ssafy.bartter.domain.community.entity.CommunityPost;
+import com.ssafy.bartter.domain.community.entity.CommunityPostImage;
+import com.ssafy.bartter.domain.community.repository.CommunityPostImageRepository;
+import com.ssafy.bartter.domain.community.repository.CommunityPostRepository;
+import com.ssafy.bartter.domain.community.service.CommunityPostService;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.global.service.S3UploadService;
-import com.ssafy.bartter.user.entity.User;
-import com.ssafy.bartter.user.repository.UserRepository;
+import com.ssafy.bartter.domain.user.entity.User;
+import com.ssafy.bartter.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,11 +17,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.ssafy.bartter.community.dto.CommunityPostDto.Create;
+import static com.ssafy.bartter.domain.community.dto.CommunityPostDto.Create;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;

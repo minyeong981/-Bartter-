@@ -1,10 +1,9 @@
 package com.ssafy.bartter.global.filter;
 
-import com.ssafy.bartter.auth.repository.RefreshRepository;
-import com.ssafy.bartter.auth.utils.JwtUtil;
+import com.ssafy.bartter.domain.auth.repository.RefreshRepository;
+import com.ssafy.bartter.domain.auth.utils.JwtUtil;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
-import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;

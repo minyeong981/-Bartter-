@@ -1,9 +1,9 @@
 package com.ssafy.bartter.global.config;
 
-import com.ssafy.bartter.auth.handler.CustomAuthenticationEntryPoint;
-import com.ssafy.bartter.auth.repository.RefreshRepository;
-import com.ssafy.bartter.auth.utils.CookieUtil;
-import com.ssafy.bartter.auth.utils.JwtUtil;
+import com.ssafy.bartter.domain.auth.handler.CustomAuthenticationEntryPoint;
+import com.ssafy.bartter.domain.auth.repository.RefreshRepository;
+import com.ssafy.bartter.domain.auth.utils.CookieUtil;
+import com.ssafy.bartter.domain.auth.utils.JwtUtil;
 import com.ssafy.bartter.global.filter.JwtAuthenticationFilter;
 import com.ssafy.bartter.global.filter.LoginFilter;
 import com.ssafy.bartter.global.filter.LogoutFilter;

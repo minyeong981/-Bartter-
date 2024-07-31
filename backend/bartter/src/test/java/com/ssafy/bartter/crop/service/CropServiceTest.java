@@ -1,13 +1,13 @@
 package com.ssafy.bartter.crop.service;
 
-import com.ssafy.bartter.community.entity.CommunityPost;
-import com.ssafy.bartter.crop.entity.Crop;
-import com.ssafy.bartter.crop.entity.CropCategory;
-import com.ssafy.bartter.crop.repository.CropCategoryRepository;
-import com.ssafy.bartter.crop.repository.CropRepository;
+import com.ssafy.bartter.domain.crop.entity.Crop;
+import com.ssafy.bartter.domain.crop.entity.CropCategory;
+import com.ssafy.bartter.domain.crop.repository.CropCategoryRepository;
+import com.ssafy.bartter.domain.crop.repository.CropRepository;
+import com.ssafy.bartter.domain.crop.service.CropService;
 import com.ssafy.bartter.global.service.S3UploadService;
-import com.ssafy.bartter.user.entity.User;
-import com.ssafy.bartter.user.repository.UserRepository;
+import com.ssafy.bartter.domain.user.entity.User;
+import com.ssafy.bartter.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import static com.ssafy.bartter.crop.dto.CropDto.Create;
+import static com.ssafy.bartter.domain.crop.dto.CropDto.Create;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;

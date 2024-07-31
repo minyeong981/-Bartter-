@@ -1,9 +1,8 @@
 package com.ssafy.bartter.global.common;
 
-import com.amazonaws.metrics.MetricType;
-import com.ssafy.bartter.community.entity.CommunityPost;
-import com.ssafy.bartter.trade.entity.TradePost;
-import com.ssafy.bartter.user.entity.User;
+import com.ssafy.bartter.domain.community.entity.CommunityPost;
+import com.ssafy.bartter.domain.trade.entity.TradePost;
+import com.ssafy.bartter.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.locationtech.jts.geom.MultiPolygon;
