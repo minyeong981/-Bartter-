@@ -124,6 +124,7 @@ interface UserLocation {
 type SimpleCropTradePostId = number;
 type Status = 'NEW' | 'IN_PROGRESS' | 'COMPLETED';
 type IsLike = boolean;
+type IsShare = boolean;
 
 interface SimpleCropTradePost {
   cropTradePostId: CropTradePostId;
@@ -133,6 +134,7 @@ interface SimpleCropTradePost {
   location: SimpleLocation;
   likeCount: LikeCount;
   isLike: IsLike;
+  isShare: IsShare;
   createdAt: CreatedAt;
 }
 
