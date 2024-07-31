@@ -1,6 +1,8 @@
 package com.ssafy.bartter.community.dto;
 
 import com.ssafy.bartter.community.entity.CommunityPostComment;
+import com.ssafy.bartter.user.dto.UserDto;
+import com.ssafy.bartter.user.dto.UserDto.SimpleUserProfile;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -34,15 +36,14 @@ public class CommunityPostCommentDto {
     @AllArgsConstructor
     public static class CommunityPostCommentDetail {
         private final Integer communityPostCommentId;
-        // TODO : SimpleUser 엔티티로 변경
-        private final Integer userId;
+        private final SimpleUserProfile author;
         private final String content;
         private final LocalDateTime createdAt;
 
         public static CommunityPostCommentDetail of(CommunityPostComment comment) {
             return CommunityPostCommentDetail.builder()
                     .communityPostCommentId(comment.getId())
-                    .userId(comment.getUser().getId())
+                    .author(SimpleUserProfile.of(comment.getUser()))
                     .content(comment.getContent())
                     .createdAt(comment.getCreatedAt())
                     .build();

@@ -60,8 +60,6 @@ public class CommunityPostService {
         }
 
         PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
-        keyword = (keyword == null) ? "" : keyword;
-
         List<CommunityPost> postList = communityPostRepositoryImpl.findPostListByParams(keyword, nearbyLocationList, pageable);
         return postList;
     }
@@ -123,6 +121,7 @@ public class CommunityPostService {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         CommunityPost post = communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
         CommunityPostLike like = communityPostLikeRepository.findByCommunityPostIdAndUserId(post.getId(), userId);
+
         if (like == null) {
             CommunityPostLike newLike = new CommunityPostLike();
             newLike.addUser(user);
@@ -131,5 +130,12 @@ public class CommunityPostService {
         } else {
             communityPostLikeRepository.delete(like);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<CommunityPost> getUserPostList(int page, int limit, Integer userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
+        return communityPostRepository.findAllByUserId(userId, pageable);
     }
 }

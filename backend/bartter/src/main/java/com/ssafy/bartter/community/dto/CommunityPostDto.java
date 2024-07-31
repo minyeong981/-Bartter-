@@ -4,6 +4,8 @@ import com.ssafy.bartter.community.dto.CommunityPostCommentDto.CommunityPostComm
 import com.ssafy.bartter.community.entity.CommunityPost;
 import com.ssafy.bartter.community.entity.CommunityPostImage;
 import com.ssafy.bartter.global.common.SimpleLocation;
+import com.ssafy.bartter.user.dto.UserDto;
+import com.ssafy.bartter.user.dto.UserDto.SimpleUserProfile;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,8 +43,7 @@ public class CommunityPostDto {
     @AllArgsConstructor
     public static class CommunityPostDetail {
         private final Integer communityPostId;
-        // TODO : SimpleUser 엔티티로 변경
-        private final Integer userId;
+        private final SimpleUserProfile author;
         private final SimpleLocation location;
         private final String title;
         private final String content;
@@ -55,7 +56,7 @@ public class CommunityPostDto {
         public static CommunityPostDetail of(CommunityPost post, Integer currentUserId) {
             return CommunityPostDetail.builder()
                     .communityPostId(post.getId())
-                    .userId(post.getUser().getId())
+                    .author(SimpleUserProfile.of(post.getUser()))
                     .location(SimpleLocation.of(post.getLocation()))
                     .title(post.getTitle())
                     .content(post.getContent())

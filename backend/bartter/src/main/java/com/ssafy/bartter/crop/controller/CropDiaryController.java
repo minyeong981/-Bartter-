@@ -15,6 +15,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.ssafy.bartter.crop.dto.CropDiaryDto.Create;
 import static com.ssafy.bartter.crop.dto.CropDiaryDto.CropDiaryDetail;
 
@@ -30,7 +33,7 @@ public class CropDiaryController {
     @PostMapping("")
     public SuccessResponse<CropDiaryDetail> createCropDiary(
             @CurrentUser UserAuthDto userAuthDto,
-            @RequestBody @Valid Create request,
+            @ModelAttribute @Valid Create request,
             BindingResult bindingResult,
             MultipartFile image
     ) {
@@ -48,6 +51,14 @@ public class CropDiaryController {
     public SuccessResponse<CropDiaryDetail> getCropDiary(@PathVariable("cropDiaryId") Integer cropDiaryId) {
         CropDiary diary = cropDiaryService.getCropDiary(cropDiaryId);
         CropDiaryDetail response = CropDiaryDetail.of(diary);
+        return SuccessResponse.of(response);
+    }
+
+    @Operation(summary = "농작물 ID로 농사일지 전체 조회", description = "해당 농작물의 농사일지 리스트를 조회한다.")
+    @GetMapping("/{cropId}/diaries")
+    public SuccessResponse<List<CropDiaryDetail>> getCropDiaryList(@PathVariable("cropId") Integer cropId) {
+        List<CropDiary> diaryList = cropDiaryService.getCropDiaryList(cropId);
+        List<CropDiaryDetail> response = diaryList.stream().map(CropDiaryDetail::of).collect(Collectors.toList());
         return SuccessResponse.of(response);
     }
 

@@ -2,6 +2,8 @@ package com.ssafy.bartter.crop.dto;
 
 import com.ssafy.bartter.crop.entity.Crop;
 import com.ssafy.bartter.crop.entity.CropCategory;
+import com.ssafy.bartter.user.dto.UserDto;
+import com.ssafy.bartter.user.dto.UserDto.SimpleUserProfile;
 import com.ssafy.bartter.user.entity.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -48,8 +50,7 @@ public class CropDto {
     @AllArgsConstructor
     public static class CropProfile {
         private final Integer cropId;
-        // TODO : User Entity로 변경
-        private final Integer userId;
+        private final SimpleUserProfile farmer;
         private final CropCategoryDetail cropCategory;
         private final String nickname;
         private final String image;
@@ -59,7 +60,7 @@ public class CropDto {
         public static CropProfile of(Crop crop) {
             return CropProfile.builder()
                     .cropId(crop.getId())
-                    .userId(crop.getUser().getId())
+                    .farmer(SimpleUserProfile.of(crop.getUser()))
                     .cropCategory(CropCategoryDetail.of(crop.getCategory()))
                     .nickname(crop.getNickname())
                     .growDate(crop.getGrowDate())
