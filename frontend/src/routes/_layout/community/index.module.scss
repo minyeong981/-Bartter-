@@ -1,3 +1,6 @@
+@use '@/styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+
 .floatingButton {
   position: fixed;
   right: 20px;
@@ -6,7 +9,9 @@
   a {
     padding: 10px;
     font-weight: bold;
-    color: white;
+    color: colors.$white;
+
+    // color: colors.$placeholder;
     text-decoration: none;
 
     &:hover {

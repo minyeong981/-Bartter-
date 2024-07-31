@@ -18,6 +18,7 @@ import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
 import { Route as LayoutSignupIndexImport } from './routes/_layout/signup/index'
 import { Route as LayoutSearchIndexImport } from './routes/_layout/search/index'
+import { Route as LayoutProfileIndexImport } from './routes/_layout/profile/index'
 import { Route as LayoutLoginIndexImport } from './routes/_layout/login/index'
 import { Route as LayoutHomeIndexImport } from './routes/_layout/home/index'
 import { Route as LayoutDiaryIndexImport } from './routes/_layout/diary/index'
@@ -77,6 +78,11 @@ const LayoutSignupIndexRoute = LayoutSignupIndexImport.update({
 
 const LayoutSearchIndexRoute = LayoutSearchIndexImport.update({
   path: '/search/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutProfileIndexRoute = LayoutProfileIndexImport.update({
+  path: '/profile/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -280,6 +286,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutLoginIndexImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/profile/': {
+      id: '/_layout/profile/'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof LayoutProfileIndexImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/search/': {
       id: '/_layout/search/'
       path: '/search'
@@ -454,6 +467,7 @@ export const routeTree = rootRoute.addChildren({
     LayoutDiaryIndexRoute,
     LayoutHomeIndexRoute,
     LayoutLoginIndexRoute,
+    LayoutProfileIndexRoute,
     LayoutSearchIndexRoute,
     LayoutCommunityDetailPostIdRoute,
     LayoutDiaryRegisterCrop1Route,
@@ -491,6 +505,7 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/diary/",
         "/_layout/home/",
         "/_layout/login/",
+        "/_layout/profile/",
         "/_layout/search/",
         "/_layout/community/detail/$postId",
         "/_layout/diary/registerCrop/1",
@@ -552,6 +567,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout/login/": {
       "filePath": "_layout/login/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/profile/": {
+      "filePath": "_layout/profile/index.tsx",
       "parent": "/_layout"
     },
     "/_layout/search/": {

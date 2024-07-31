@@ -1,3 +1,6 @@
+@use '@/styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+
 .postDetail {
   max-width: 390px; // 화면 너비 조정
   padding: 0;
@@ -36,14 +39,15 @@
 
 
 .title {
-  margin: 10px 0; // 상하 마진 추가
-  font-size: 22px; // 제목 크기 증가
-  font-weight: bold; // 제목 굵기 강조
+  margin: 10px 0;
+
+  @include typo.title
 }
 
 .content {
-  margin: 10px 0; // 상하 마진 추가
-  font-size: 20px; // 제목 크기 증가
+  margin: 10px 0; 
+
+  @include typo.main
 }
 
 .imageContainer {
@@ -65,6 +69,12 @@
   align-items: center;
   justify-content: space-around;
   border-top: 1px solid #ddd;
+
+  svg {
+    width: 25px;
+    height: 25px;
+    padding-right: 5px;
+  }
 }
 
 .pLikeCount, .pCommentCount {
@@ -72,11 +82,21 @@
   align-items: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 14px;
-  color: #555;
+
+  @include typo.label
 }
+
+.pLikeCount {
+  color: colors.$primary;
+
+}
+
 
 .pLikeCount svg, .pCommentCount svg {
   margin-right: 4px;
-  color: #555;
+
+}
+
+.pLikeCount svg {
+  color: colors.$primary;
 }

@@ -1,3 +1,5 @@
+import {format} from 'date-fns';
+import {ko} from 'date-fns/locale';
 import type {StateCreator} from 'zustand';
 
 import CommunityImage from '@/assets/image/동네모임1.png';
@@ -14,6 +16,7 @@ export interface CommunitySlice {
   posts: CommunityPostList;
   addPost: (newPost: CreatePost) => void;
   deletePost: (postId: number) => void;
+  addComment: (postId:number, comments : PostComment) => void;
 }
 
 const initialPost: CommunityPostList = [
@@ -29,13 +32,13 @@ const initialPost: CommunityPostList = [
         commentId: 1,
         user: {userId: '1', nickname: 'user1', profileImage: UserImage},
         content: '댓글1',
-        created_at: '2024-07-03',
+        created_at: '2024-07-03 12:30',
       },
       {
         commentId: 2,
         user: {userId: '1', nickname: 'user2', profileImage: UserImage},
         content: '댓글2',
-        created_at: '2024-07-03',
+        created_at: '2024-07-03 11:26',
       },
     ],
     imageList: [
@@ -46,7 +49,7 @@ const initialPost: CommunityPostList = [
         imageOrder: 2,
       },
     ],
-    createdAt: '2024-05-20',
+    createdAt: '2024-05-20 09:30',
   },
 ];
 
@@ -75,7 +78,7 @@ export const createCommunitySlice: StateCreator<
         likeCount: 0,
         commentList: [],
         imageList: newPost.images,
-        createdAt: new Date().toISOString(),
+        createdAt: format(new Date(), 'yyyy-MM-dd HH:mm', {locale: ko}),
       };
 
       return {posts: [...state.posts, newCommunityPost]};
@@ -84,6 +87,18 @@ export const createCommunitySlice: StateCreator<
     set(state => ({
       posts: state.posts.filter(post => post.communityPostId !== postId),
     })),
+  addComment: (postId:number, newComment: PostComment) => 
+    set(state => ({
+      posts : state.posts.map((post) => {
+        if (post.communityPostId === postId) {
+          return {
+            ...post, commentList: [...post.commentList, newComment],
+          };
+        }
+        return post;
+      })
+    })
+    )
 });
 
 export default createCommunitySlice;

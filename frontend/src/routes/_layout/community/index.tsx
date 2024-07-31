@@ -7,7 +7,7 @@ import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndBut
 import TwoButton from '@/components/TwoButton/TwoButton';
 import useRootStore from '@/store';
 
-import styles from './community.module.scss';
+import styles from './index.module.scss';
 
 export const Route = createFileRoute('/_layout/community/')({
   component: Community,

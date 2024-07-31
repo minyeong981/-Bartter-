@@ -1,3 +1,6 @@
+@use '@/styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+
 .community {
   display: flex;
   flex-direction: column;
@@ -9,7 +12,7 @@
   display: flex;
   flex-direction: column;
   padding: 15px 15px 0;
-  border-bottom: 1px solid #8e8e8e;
+  border-bottom: 1px solid colors.$placeholder;
 }
 
 .location {
@@ -21,6 +24,8 @@
   font-weight: bold;
   background-color: #f0f0f0;
   border-radius: 12px;
+
+  @include typo.label;
 }
 
 .cardContent {
@@ -44,6 +49,21 @@
   margin-right: 10px;
 }
 
+.textTitle {
+  @include typo.title;
+}
+
+.text {
+  @include typo.label;
+
+}
+
+.time {
+  @include typo.time;
+
+}
+
+
 .textTitle, .text, .time {
   margin-bottom: 5px;
   color: black;
@@ -55,6 +75,12 @@
   align-items: center;
   justify-content: space-around;
   padding: 10px 0;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
 }
 
 .likeCount {
@@ -65,5 +91,6 @@
 .likeCount, .commentCount {
   display: flex;
   align-items: center;
-  font-size: 14px;
+
+  @include typo.label
 }

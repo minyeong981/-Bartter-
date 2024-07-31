@@ -1,8 +1,7 @@
-
 import type { ChangeEvent, KeyboardEvent} from 'react';
+import { FaSearch} from 'react-icons/fa';
+import { FaX } from 'react-icons/fa6';
 
-import searchIcon from '@/assets/image/searchIcon.png';
-import xIcon from '@/assets/image/xIcon.png';
 import HeaderWithSearchAndBackButton from '@/components/Header/HeaderWithSearchandBackButton';
 import stylesInput from '@/components/Search/Search.module.scss';
 
@@ -46,7 +45,7 @@ export default function SearchBar({ query, onSearch, onInputChange} : SearchBarP
                 onKeyDown={handleKeyDown}
               />
               <button className={stylesInput.clearButton} onClick={handleClear}>
-                <img src={query ? xIcon : searchIcon} alt="Clear/Search" />
+                { query ? <FaX className={styles.faX} /> : <FaSearch className={styles.faSearch}/>}
               </button>
             </div>
           </div>

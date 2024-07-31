@@ -20,7 +20,7 @@ export default function HeaderWithLabelAndButtons({
     <Index>
       <span className={cx('label')}>{label}</span>
       <ul className={cx('buttons')}>
-        <Link>
+        <Link to="/profile">
           <IconUser className={cx('icon')} />
         </Link>
         <Link to='/search'>

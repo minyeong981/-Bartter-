@@ -10,7 +10,7 @@ import LinkButton from '@/components/Buttons/LinkButton';
 import PostList from '@/components/Community/PostList';
 import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons';
 import HomeStory from '@/components/Story/HomeStory';
-import useCommunityStore from '@/store/communitySlice.ts';
+import useCommunityStore from '@/store';
 
 import styles from './home.module.scss';
 

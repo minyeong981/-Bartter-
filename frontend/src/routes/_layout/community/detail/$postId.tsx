@@ -9,7 +9,7 @@ import PostDetail from '@/components/Community/PostDetail/index.tsx';
 import HeaderWithBackButton from '@/components/Header/HeaderWithBackButton';
 import useRootStore from '@/store';
 
-import styles from './../community.module.scss';
+import styles from './../index.module.scss';
 
 export const Route = createFileRoute('/_layout/community/detail/$postId')({
   // loader: async({ params }) => fetchPost(params.postId),
