@@ -29,4 +29,6 @@ public interface CropDiaryRepository extends JpaRepository<CropDiary, Integer> {
             @Param("userId") Integer userId,
             PageRequest pageable
     );
+
+    List<CropDiary> findAllByCropId(Integer cropId);
 }

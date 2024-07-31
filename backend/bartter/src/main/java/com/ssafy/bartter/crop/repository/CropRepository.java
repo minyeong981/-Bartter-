@@ -11,6 +11,7 @@ import java.util.List;
 public interface CropRepository extends JpaRepository<Crop, Integer> {
     List<Crop> findAllByUserId(Integer userId);
 
+    // TODO : DTO 변환 후 쿼리 체크
     @Query(
             "SELECT tp.crop FROM TradePost tp"
                     + " LEFT JOIN FETCH Crop c"
@@ -22,6 +23,7 @@ public interface CropRepository extends JpaRepository<Crop, Integer> {
             @Param("userId") Integer userId
     );
 
+    // TODO : DTO 변환 후 쿼리 체크
     @Query(
             "SELECT t.tradePost.crop FROM Trade t"
                     + " LEFT JOIN FETCH TradePost tp"

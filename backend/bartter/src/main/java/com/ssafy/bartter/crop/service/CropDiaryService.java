@@ -102,4 +102,9 @@ public class CropDiaryService {
         PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
         return cropDiaryRepository.findAllByDateAndCrop(year, month, userId, pageable);
     }
+
+    public List<CropDiary> getCropDiaryList(Integer cropId) {
+        Crop crop = cropRepository.findById(cropId).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
+        return cropDiaryRepository.findAllByCropId(cropId);
+    }
 }

@@ -34,6 +34,15 @@ public class UserCropController {
         return SuccessResponse.of(response);
     }
 
+    @Operation(summary = "유저가 교환 & 나눔한 농작물 컬렉션 조회", description = "유저의 PK를 통해 유저가 교환 & 나눔한 농작물과 교환 & 나눔받은 농작물을 조회한다.")
+    @GetMapping("/{userId}/crops/trades")
+    public SuccessResponse<CropTradeHistoryDto> getUserTradeCropList(@PathVariable("userId") Integer userId) {
+        List<Crop> giveList = cropService.getUserGiveCropList(userId);
+        List<Crop> receiveList = cropService.getUserReceiveCropList(userId);
+        CropTradeHistoryDto response = CropTradeHistoryDto.of(giveList, receiveList);
+        return SuccessResponse.of(response);
+    }
+
     @Operation(summary = "유저가 작성한 농사일지 전체 조회", description = "유저의 PK를 통해 유저가 작성한 농사일지 전체를 조회한다.")
     @GetMapping("/{userId}/crops/diaries")
     public SuccessResponse<List<CropDiaryDetail>> getUserDiaryList(
@@ -45,15 +54,6 @@ public class UserCropController {
     ) {
         List<CropDiary> diaryList = cropDiaryService.getUserDiaryList(page, limit, year, month, userId);
         List<CropDiaryDetail> response = diaryList.stream().map(CropDiaryDetail::of).collect(Collectors.toList());
-        return SuccessResponse.of(response);
-    }
-
-    @Operation(summary = "유저가 교환 & 나눔한 농작물 컬렉션 조회", description = "유저의 PK를 통해 유저가 교환 & 나눔한 농작물과 교환 & 나눔받은 농작물을 조회한다.")
-    @GetMapping("/{userId}/crops/trades")
-    public SuccessResponse<CropTradeHistoryDto> getUserTradeCropList(@PathVariable("userId") Integer userId) {
-        List<Crop> giveList = cropService.getUserGiveCropList(userId);
-        List<Crop> receiveList = cropService.getUserReceiveCropList(userId);
-        CropTradeHistoryDto response = CropTradeHistoryDto.of(giveList, receiveList);
         return SuccessResponse.of(response);
     }
 }
