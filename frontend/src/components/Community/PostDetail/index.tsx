@@ -2,7 +2,6 @@ import {FaComment, FaThumbsUp} from 'react-icons/fa';
 
 import CommentList from '@/components/Community/CommentLIst';
 import UserNameLocation from '@/components/User/UserNameLocation';
-import type { Comment,CommunityPost } from '@/store/communityStore';
 
 import styles from './postDetail.module.scss';
 
@@ -11,14 +10,12 @@ export default function PostDetail({
   comments,
 }: {
   post: CommunityPost;
-  comments: Comment[];
+  comments: PostComment[];
 }) {
   return (
     <div className={styles.postDetail}>
       <div className={styles.userNameContent}>
-        <UserNameLocation
-        post={post}
-        />
+        <UserNameLocation post={post} />
       </div>
       <div className={styles.textBox}>
         <div className={styles.title}>{post.title}</div>

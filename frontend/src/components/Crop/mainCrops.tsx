@@ -1,6 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
-import { useState } from 'react';
+import {useState} from 'react';
 
 import appleImage from '@/assets/image/apple.png';
 import beanImage from '@/assets/image/bean.png';
@@ -17,14 +16,14 @@ import styles from './mainCrops.module.scss';
 const cx = classnames.bind(styles);
 
 const initialCrops = [
-  { id: 1, name: '사과', image: appleImage },
-  { id: 2, name: '콩', image: beanImage },
-  { id: 3, name: '당근', image: carrotImage },
+  {id: 1, name: '사과', image: appleImage},
+  {id: 2, name: '콩', image: beanImage},
+  {id: 3, name: '당근', image: carrotImage},
 ];
 
 export default function MainCrops() {
   const [showModal, setShowModal] = useState(false);
-  const { addCrop, crops } = useMyCropsStore();
+  const {addCrop, crops} = useMyCropsStore();
 
   function handleOpenModal() {
     setShowModal(true);
@@ -35,9 +34,9 @@ export default function MainCrops() {
   }
 
   function handleCropSelect(id: number) {
-    const selectedCrop = initialCrops.find((crop) => crop.id === id);
+    const selectedCrop = initialCrops.find(crop => crop.id === id);
     if (selectedCrop) {
-      const { nickname, date, description, image } = useRegisterCropStore.getState();
+      const {nickname, date, description} = useRegisterCropStore.getState();
       addCrop({
         id: selectedCrop.id,
         nickname: nickname || selectedCrop.name,
@@ -49,7 +48,7 @@ export default function MainCrops() {
     setShowModal(false);
   }
 
-  const displayCrops = crops.map(({ id, nickname, image }) => ({
+  const displayCrops = crops.map(({id, nickname, image}) => ({
     id,
     nickname,
     image,
@@ -75,7 +74,7 @@ export default function MainCrops() {
       />
       <div className={cx('floating-button')}>
         <GeneralButton
-          buttonStyle={{ style: 'floating', size: 'small' }}
+          buttonStyle={{style: 'floating', size: 'small'}}
           onClick={handleOpenModal}
         >
           + 등록하기
@@ -84,7 +83,3 @@ export default function MainCrops() {
     </div>
   );
 }
-
-export const Route = createFileRoute('/_layout/diary/myCrops')({
-  component: MainCrops,
-});

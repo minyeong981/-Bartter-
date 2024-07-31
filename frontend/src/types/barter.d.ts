@@ -65,7 +65,7 @@ interface CommunityPost {
   title: Title;
   content: Content;
   likeCount: LikeCount;
-  commentList: Comment[];
+  commentList: PostComment[];
   imageList: SimpleImage[];
   createdAt: CreatedAt;
 }
@@ -81,7 +81,6 @@ interface SimpleCommunityPost {
   createdAt: CreatedAt;
 }
 
-type UserId = number;
 type ProfileImage = string;
 
 interface SimpleUser {
@@ -94,7 +93,7 @@ type CommentId = number;
 type Content = string;
 type CreatedAt = string;
 
-interface Comment {
+interface PostComment {
   commentId: CommentId;
   user: SimpleUser;
   content: Content;

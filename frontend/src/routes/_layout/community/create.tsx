@@ -19,8 +19,6 @@ export const Route = createFileRoute('/_layout/community/create')({
 
 export default function PostCreate() {
   const nav = useNavigate({from: '/community/create'});
-
-  const posts = useRootStore(state => state.posts);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [images, setImages] = useState<SimpleImage[]>([]);
@@ -96,23 +94,24 @@ export default function PostCreate() {
         <input type="file" multiple onChange={handleImageChange} />
 
         <div className={cx('imageContainer')}>
-          { images && images.map((img, imgIndex) => 
-          <img 
-          key={imgIndex} 
-          className={cx('image')}
-          src={img.imageUrl} alt="" />
-          )}
+          {images &&
+            images.map((img, imgIndex) => (
+              <img
+                key={imgIndex}
+                className={cx('image')}
+                src={img.imageUrl}
+                alt=""
+              />
+            ))}
         </div>
 
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
-          onClick= {handleSubmit}
+          onClick={handleSubmit}
         >
-            작성완료
+          작성완료
         </GeneralButton>
-
-        </div>
-
+      </div>
     </div>
   );
 }

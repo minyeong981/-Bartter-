@@ -1,8 +1,6 @@
 import {Link} from '@tanstack/react-router';
 import {FaComment, FaThumbsUp} from 'react-icons/fa';
 
-import type {CommunityPost} from '@/store/communitySlice.ts';
-
 import styles from './postList.module.scss';
 
 interface CommunityProps {
@@ -19,13 +17,13 @@ export default function PostList({posts}: CommunityProps) {
             className={styles.cardContent}
             to="/community/detail/$postId"
             params={{
-              postId: post.communityPostId,
+              postId: String(post.communityPostId),
             }}
           >
             <div className={styles.textBox}>
               <div className={styles.textTitle}>{post.title}</div>
               <div className={styles.text}>{post.content}</div>
-              <div className={styles.time}>{post.created_at}</div>
+              <div className={styles.time}>{post.createdAt}</div>
             </div>
             {/* {post.image && <img src={post.image} alt={post.title} />} */}
             {post.imageList.map(

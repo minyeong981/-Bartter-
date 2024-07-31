@@ -1,4 +1,3 @@
-import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import {useEffect, useState} from 'react';
 
@@ -9,10 +8,6 @@ import TodayAlarm from '@/components/TodayAlarm/todayAlarm';
 import styles from './calendar.module.scss';
 
 const cx = classnames.bind(styles);
-
-export const Route = createFileRoute('/_layout/diary/calendar')({
-  component: CalendarPage,
-});
 
 export default function CalendarPage() {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -45,7 +40,10 @@ export default function CalendarPage() {
   return (
     <div className={cx('calendar-container')}>
       <div className={cx('calendar-wrapper', {collapsed: isCollapsed})}>
-        <CustomCalendar isCollapsed={isCollapsed} onDateChange={handleDateChange} />
+        <CustomCalendar
+          isCollapsed={isCollapsed}
+          onDateChange={handleDateChange}
+        />
       </div>
       <button className={cx('toggle-button')} onClick={toggleCalendar}>
         {isCollapsed ? '달력 펼치기' : '달력 접기'}
