@@ -28,7 +28,7 @@ public class UserCropController {
 
     @Operation(summary = "유저가 기르는 농작물 전체 조회", description = "유저의 PK를 통해 유저가 등록한 농작물 프로필 전체를 조회한다.")
     @GetMapping("/{userId}/crops")
-    public SuccessResponse<List<CropProfile>> getUserCropList(@PathVariable("userId") Integer userId) {
+    public SuccessResponse<List<CropProfile>> getUserCropList(@PathVariable("userId") int userId) {
         List<Crop> cropList = cropService.getUserCropList(userId);
         List<CropProfile> response = cropList.stream().map(CropProfile::of).collect(Collectors.toList());
         return SuccessResponse.of(response);
@@ -36,7 +36,7 @@ public class UserCropController {
 
     @Operation(summary = "유저가 교환 & 나눔한 농작물 컬렉션 조회", description = "유저의 PK를 통해 유저가 교환 & 나눔한 농작물과 교환 & 나눔받은 농작물을 조회한다.")
     @GetMapping("/{userId}/crops/trades")
-    public SuccessResponse<CropTradeHistoryDto> getUserTradeCropList(@PathVariable("userId") Integer userId) {
+    public SuccessResponse<CropTradeHistoryDto> getUserTradeCropList(@PathVariable("userId") int userId) {
         List<Crop> giveList = cropService.getUserGiveCropList(userId);
         List<Crop> receiveList = cropService.getUserReceiveCropList(userId);
         CropTradeHistoryDto response = CropTradeHistoryDto.of(giveList, receiveList);
@@ -46,13 +46,13 @@ public class UserCropController {
     @Operation(summary = "유저가 작성한 농사일지 전체 조회", description = "유저의 PK를 통해 유저가 작성한 농사일지 전체를 조회한다.")
     @GetMapping("/{userId}/crops/diaries")
     public SuccessResponse<List<CropDiaryDetail>> getUserDiaryList(
-            @PathVariable("userId") Integer userId,
+            @PathVariable("userId") int userId,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "6") int limit,
             @RequestParam(value = "year", required = false) Integer year,
             @RequestParam(value = "month", required = false) Integer month
     ) {
-        List<CropDiary> diaryList = cropDiaryService.getUserDiaryList(page, limit, year, month, userId);
+        List<CropDiary> diaryList = cropDiaryService.getUserDiaryList(userId, page, limit, year, month);
         List<CropDiaryDetail> response = diaryList.stream().map(CropDiaryDetail::of).collect(Collectors.toList());
         return SuccessResponse.of(response);
     }

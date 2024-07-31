@@ -63,7 +63,7 @@ public class CropController {
 
     @Operation(summary = "농작물 프로필 조회", description = "농작물의 ID를 통해 농작물의 상세 프로필을 조회한다.")
     @PostMapping("/{cropId}")
-    public SuccessResponse<CropProfile> getCrop(@PathVariable("cropId") Integer cropId) {
+    public SuccessResponse<CropProfile> getCrop(@PathVariable("cropId") int cropId) {
         Crop crop = cropService.getCrop(cropId);
         CropProfile response = CropProfile.of(crop);
         return SuccessResponse.of(response);

@@ -38,7 +38,8 @@ public class CropDiaryService {
     /**
      * 농사일지 작성
      */
-    public CropDiary createCropDiary(Create request, MultipartFile image, Integer userId) {
+    public CropDiary createCropDiary(Create request, MultipartFile image, int
+            userId) {
         Crop crop = cropRepository.findById(request.getCropId()).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
 
         if (!crop.getUser().getId().equals(userId)) {
@@ -66,14 +67,14 @@ public class CropDiaryService {
      * 농사일지 상세조회
      */
     @Transactional(readOnly = true)
-    public CropDiary getCropDiary(Integer cropDiaryId) {
+    public CropDiary getCropDiary(int cropDiaryId) {
         return cropDiaryRepository.findById(cropDiaryId).orElseThrow(() -> new CustomException(ErrorCode.CROP_DIARY_NOT_FOUND));
     }
 
     /**
      * 농사일지 삭제
      */
-    public void deleteCropDiary(Integer cropDiaryId, Integer userId) {
+    public void deleteCropDiary(int cropDiaryId, int userId) {
         CropDiary diary = cropDiaryRepository.findById(cropDiaryId).orElseThrow(() -> new CustomException(ErrorCode.CROP_DIARY_NOT_FOUND));
 
         if (!diary.getCrop().getUser().getId().equals(userId)) {
@@ -88,7 +89,7 @@ public class CropDiaryService {
      * 특정 유저가 작성한 농사일지 전체조회
      */
     @Transactional(readOnly = true)
-    public List<CropDiary> getUserDiaryList(int page, int limit, Integer year, Integer month, Integer userId) {
+    public List<CropDiary> getUserDiaryList(int userId, int page, int limit, Integer year, Integer month) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
         if (year != null && month != null && year < 1000 || month < 1 || month > 12) {
@@ -108,7 +109,7 @@ public class CropDiaryService {
      * 특정 농작물의 농사일지 전체 조회
      */
     @Transactional(readOnly = true)
-    public List<CropDiary> getCropDiaryList(Integer cropId) {
+    public List<CropDiary> getCropDiaryList(int cropId) {
         Crop crop = cropRepository.findById(cropId).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
         return cropDiaryRepository.findAllByCropId(cropId);
     }

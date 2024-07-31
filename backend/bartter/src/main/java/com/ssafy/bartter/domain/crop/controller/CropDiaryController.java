@@ -49,7 +49,7 @@ public class CropDiaryController {
 
     @Operation(summary = "농사일지 상세 조회", description = "농사일지 PK로 농사일지를 조회한다.")
     @GetMapping("/{cropDiaryId}")
-    public SuccessResponse<CropDiaryDetail> getCropDiary(@PathVariable("cropDiaryId") Integer cropDiaryId) {
+    public SuccessResponse<CropDiaryDetail> getCropDiary(@PathVariable("cropDiaryId") int cropDiaryId) {
         CropDiary diary = cropDiaryService.getCropDiary(cropDiaryId);
         CropDiaryDetail response = CropDiaryDetail.of(diary);
         return SuccessResponse.of(response);
@@ -57,7 +57,7 @@ public class CropDiaryController {
 
     @Operation(summary = "농작물 ID로 농사일지 전체 조회", description = "해당 농작물의 농사일지 리스트를 조회한다.")
     @GetMapping("/{cropId}/diaries")
-    public SuccessResponse<List<CropDiaryDetail>> getCropDiaryList(@PathVariable("cropId") Integer cropId) {
+    public SuccessResponse<List<CropDiaryDetail>> getCropDiaryList(@PathVariable("cropId") int cropId) {
         List<CropDiary> diaryList = cropDiaryService.getCropDiaryList(cropId);
         List<CropDiaryDetail> response = diaryList.stream().map(CropDiaryDetail::of).collect(Collectors.toList());
         return SuccessResponse.of(response);
@@ -66,7 +66,7 @@ public class CropDiaryController {
     @Operation(summary = "농사일지 삭제", description = "해당 농사일지 PK를 가진 농사일지를 찾아 삭제한다.")
     @DeleteMapping("/{cropDiaryId}")
     public SuccessResponse<Void> deleteCropDiary(
-            @PathVariable("cropDiaryId") Integer cropDiaryId,
+            @PathVariable("cropDiaryId") int cropDiaryId,
             @CurrentUser UserAuthDto currentUser
     ) {
         cropDiaryService.deleteCropDiary(cropDiaryId, currentUser.getId());

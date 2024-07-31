@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Author 김가람
  * */
 public interface CommunityPostLikeRepository extends JpaRepository<CommunityPostLike, Integer> {
-    CommunityPostLike findByCommunityPostIdAndUserId(Integer communityPostId, Integer userId);
+    CommunityPostLike findByCommunityPostIdAndUserId(int communityPostId, int userId);
 }

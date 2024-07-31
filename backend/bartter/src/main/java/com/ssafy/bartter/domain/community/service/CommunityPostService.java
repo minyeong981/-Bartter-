@@ -45,7 +45,7 @@ public class CommunityPostService {
      * 동네모임 게시글 전체조회
      */
     @Transactional(readOnly = true)
-    public List<CommunityPost> getPostList(int page, int limit, String keyword, boolean isCommunity, Integer userId) {
+    public List<CommunityPost> getPostList(int page, int limit, String keyword, boolean isCommunity, int userId) {
 
         // 전체 게시글 조회에서는 빈 ArrayList로 남아있다.
         List<Location> nearbyLocationList = new ArrayList<>();
@@ -65,7 +65,7 @@ public class CommunityPostService {
     /**
      * 동네모임 게시글 작성
      */
-    public CommunityPost createPost(CommunityPostDto.Create request, MultipartFile[] imageList, Integer userId) {
+    public CommunityPost createPost(CommunityPostDto.Create request, MultipartFile[] imageList, int userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         Location userLocation = user.getLocation();
 
@@ -98,14 +98,14 @@ public class CommunityPostService {
      * 동네모임 게시글 상세조회
      */
     @Transactional(readOnly = true)
-    public CommunityPost getPost(Integer communityPostId) {
+    public CommunityPost getPost(int communityPostId) {
         return communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
     }
 
     /**
      * 동네모임 게시글 삭제
      */
-    public void deletePost(Integer communityPostId, Integer userId) {
+    public void deletePost(int communityPostId, int userId) {
         CommunityPost post = communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
 
         if (!post.getUser().getId().equals(userId)) {
@@ -123,7 +123,7 @@ public class CommunityPostService {
     /**
      * 동네모임 게시글 좋아요 토글
      */
-    public void toggleLikes(Integer communityPostId, Integer userId) {
+    public void toggleLikes(int communityPostId, int userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         CommunityPost post = communityPostRepository.findById(communityPostId).orElseThrow(() -> new CustomException(ErrorCode.COMMUNITY_POST_NOT_FOUND));
         CommunityPostLike like = communityPostLikeRepository.findByCommunityPostIdAndUserId(post.getId(), userId);
@@ -142,7 +142,7 @@ public class CommunityPostService {
      * 특정 유저가 작성한 동네모임 게시글 전체조회
      */
     @Transactional(readOnly = true)
-    public List<CommunityPost> getUserPostList(int page, int limit, Integer userId) {
+    public List<CommunityPost> getUserPostList(int page, int limit, int userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
         return communityPostRepository.findAllByUserId(userId, pageable);

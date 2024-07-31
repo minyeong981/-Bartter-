@@ -28,5 +28,5 @@ public interface CommunityPostRepository extends JpaRepository<CommunityPost, In
             PageRequest pageable
     );
 
-    List<CommunityPost> findAllByUserId(Integer userId, PageRequest pageable);
+    List<CommunityPost> findAllByUserId(int userId, PageRequest pageable);
 }

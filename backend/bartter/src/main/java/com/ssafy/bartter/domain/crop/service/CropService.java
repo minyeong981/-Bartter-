@@ -36,7 +36,7 @@ public class CropService {
     /**
      * 농작물 프로필 생성
      */
-    public Crop createCrop(Create request, MultipartFile image, Integer userId) {
+    public Crop createCrop(Create request, MultipartFile image, int userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         CropCategory cropCategory = cropCategoryRepository.findById(request.getCropCategoryId()).orElseThrow(() -> new CustomException(ErrorCode.CROP_CATEGORY_NOT_FOUND));
         String imageUrl = null;
@@ -71,7 +71,7 @@ public class CropService {
      * 농작물 프로필 상세 조회
      */
     @Transactional(readOnly = true)
-    public Crop getCrop(Integer cropId) {
+    public Crop getCrop(int cropId) {
         return cropRepository.findById(cropId).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
     }
 
@@ -79,7 +79,7 @@ public class CropService {
      * 유저의 농작물 프로필 전체 조회
      */
     @Transactional(readOnly = true)
-    public List<Crop> getUserCropList(Integer userId) {
+    public List<Crop> getUserCropList(int userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         return cropRepository.findAllByUserId(userId);
     }
@@ -90,7 +90,7 @@ public class CropService {
      * 유저가 교환 & 나눔(give)한 농작물
      */
     @Transactional(readOnly = true)
-    public List<Crop> getUserGiveCropList(Integer userId) {
+    public List<Crop> getUserGiveCropList(int userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         return cropRepository.findGiveCropByUserId(userId);
     }
@@ -101,7 +101,7 @@ public class CropService {
      * 유저가 교환 & 나눔(receive)한 농작물
      */
     @Transactional(readOnly = true)
-    public List<Crop> getUserReceiveCropList(Integer userId) {
+    public List<Crop> getUserReceiveCropList(int userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         return cropRepository.findReceiveCropByUserId(userId);
     }

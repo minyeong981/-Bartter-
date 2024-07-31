@@ -24,11 +24,11 @@ public interface CropDiaryRepository extends JpaRepository<CropDiary, Integer> {
                     + " AND (:month IS NULL OR MONTH(d.createdAt) = :month)"
     )
     List<CropDiary> findAllByDateAndCrop(
-            @Param("year") Integer year,
-            @Param("month") Integer month,
-            @Param("userId") Integer userId,
+            @Param("year") int year,
+            @Param("month") int month,
+            @Param("userId") int userId,
             PageRequest pageable
     );
 
-    List<CropDiary> findAllByCropId(Integer cropId);
+    List<CropDiary> findAllByCropId(int cropId);
 }
