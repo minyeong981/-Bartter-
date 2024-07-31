@@ -82,4 +82,24 @@ public class CropService {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         return cropRepository.findAllByUserId(userId);
     }
+
+    // TODO : TEST
+    /**
+     * 유저가 교환 & 나눔(give)한 농작물
+     * */
+    @Transactional(readOnly = true)
+    public List<Crop> getUserGiveCropList(Integer userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        return cropRepository.findGiveCropByUserId(userId);
+    }
+
+    // TODO : TEST
+    /**
+     * 유저가 교환 & 나눔(receive)한 농작물
+     * */
+    @Transactional(readOnly = true)
+    public List<Crop> getUserReceiveCropList(Integer userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        return cropRepository.findReceiveCropByUserId(userId);
+    }
 }
