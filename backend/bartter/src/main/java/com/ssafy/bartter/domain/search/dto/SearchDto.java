@@ -1,6 +1,6 @@
 package com.ssafy.bartter.domain.search.dto;
 
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,15 +10,19 @@ public class SearchDto {
     public static int SEARCH_KEYWORD_SIZE = 10;
 
     @Data
-    public static class SearchLog implements Serializable {
+    public static class SearchKeyword implements Serializable {
         private String keyword;
-        private String createdAt;
 
-        public static SearchLog of(String keyword, String createdAt) {
-            SearchLog searchLog = new SearchLog();
-            searchLog.keyword = keyword;
-            searchLog.createdAt = createdAt;
-            return searchLog;
+        public static SearchKeyword of(String keyword) {
+            SearchKeyword searchKeyword = new SearchKeyword();
+            searchKeyword.keyword = keyword;
+            return searchKeyword;
         }
+    }
+
+    @Data
+    public static class Delete {
+        @NotBlank(message = "삭제 할 키워드를 선택해주세요")
+        private String keyword;
     }
 }

@@ -30,14 +30,14 @@ public class RedisConfig {
         
         // 일반적인 key:value 경우 시리얼라이저
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
+        redisTemplate.setValueSerializer(new StringRedisSerializer());
 
         // Hash 사용시 시리얼라이저
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
-        redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
+        redisTemplate.setHashValueSerializer(new StringRedisSerializer());
 
         // Default
-        redisTemplate.setDefaultSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
+        redisTemplate.setDefaultSerializer(new StringRedisSerializer());
 
         return redisTemplate;
     }

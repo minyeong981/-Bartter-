@@ -1,52 +1,50 @@
 package com.ssafy.bartter.domain.search.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.bartter.domain.search.dto.SearchDto;
 import com.ssafy.bartter.global.cache.CacheKey;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.LinkedHashMap;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
-import static com.ssafy.bartter.domain.search.dto.SearchDto.*;
+import static com.ssafy.bartter.domain.search.dto.SearchDto.SEARCH_KEYWORD_SIZE;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class RedisSearchLogRepository {
 
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, String> redisTemplate;
     private final ObjectMapper objectMapper;
 
-    public void saveRecentSearchTerm(String searchTerm, String username) {
-        String now = LocalDateTime.now().toString();
+    public void saveRecentSearchKeyword(String keyword, String username) {
         String key = CacheKey.searchLogKey(username);
-        SearchLog searchLog = SearchLog.of(searchTerm, now);
+        double score = (double) Instant.now().toEpochMilli();
 
-        Long size = redisTemplate.opsForList().size(key);
-        if(size == (long) SEARCH_KEYWORD_SIZE){
-            redisTemplate.opsForList().rightPop(key);
+        redisTemplate.opsForZSet().add(key, keyword, score);
+
+        long size = redisTemplate.opsForZSet().zCard(key);
+        if (size > SEARCH_KEYWORD_SIZE) {
+            redisTemplate.opsForZSet().removeRange(key, 0, size - SEARCH_KEYWORD_SIZE - 1);
         }
-        redisTemplate.opsForList().leftPush(key, searchLog);
     }
 
-    public List<SearchLog> getRecentSearchTerm(String username) {
+    public List<String> getRecentSearchKeyword(String username) {
         String key = CacheKey.searchLogKey(username);
-        List<Object> objects = redisTemplate.opsForList().range(key, 0, -1);
-//
-//        if (objects == null) {
-//            return Collections.emptyList();
-//        }
+        Set<String> sortedKeyword = redisTemplate.opsForZSet().reverseRange(key, 0, SEARCH_KEYWORD_SIZE - 1);
+        if(sortedKeyword != null){
+            return new ArrayList<>(sortedKeyword);
+        }
+        return new ArrayList<>();
+    }
 
-        // Object 리스트를 SearchLog 리스트로 변환
-        return objects.stream()
-                .map(o -> objectMapper.convertValue(o, SearchLog.class))
-                .collect(Collectors.toList());
+    public void deleteRecentSearchKeyword(String keyword, String username) {
+        String key = CacheKey.searchLogKey(username);
+        redisTemplate.opsForZSet().remove(key, keyword);
     }
 }
