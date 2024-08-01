@@ -19,6 +19,7 @@ import java.util.List;
  */
 @Entity
 @Getter
+@ToString
 @Table(name = "trade_post")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TradePost extends BaseEntity {

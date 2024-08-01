@@ -63,6 +63,8 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
     )
     Optional<TradePost> findTradePostById(@Param("findTradePostId") int findTradePostId);
 
+    @Query("SELECT COUNT(tr.id) > 0 FROM TradePost tr WHERE tr.user.id = :userId AND tr.id = :tradePostId")
+    boolean isAuthor(@Param("userId") int userId, @Param("tradePostId") int tradePostId);
 
     @Query("SELECT tp.id FROM TradePost tp " +
             "WHERE LOWER(tp.title) LIKE LOWER(CONCAT('%', :keyword,'%'))" +
@@ -71,4 +73,8 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
             @Param("keyword") String keyword,
              Pageable pageable
     );
+
+    @Query("SELECT tp FROM TradePost tp " +
+            "WHERE tp.id = :postId AND tp.user.id = :userId")
+    Optional<TradePost> findTradePostByPostIdAndUserId(int postId, int userId);
 }

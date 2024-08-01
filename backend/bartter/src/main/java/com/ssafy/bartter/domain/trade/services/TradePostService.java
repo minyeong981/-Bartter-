@@ -38,11 +38,12 @@ import static com.ssafy.bartter.global.exception.ErrorCode.TRADE_POST_NOT_FOUND;
 public class TradePostService {
 
     private final UserRepository userRepository;
-    private final CropRepository cropRepository;
     private final LocationService locationService;
+    private final LocationRepository locationRepository;
+
+    private final CropRepository cropRepository;
     private final TradePostRepository cropTradeRepository;
     private final TradePostRepository tradePostRepository;
-    private final LocationRepository locationRepository;
     private final CropCategoryRepository cropCategoryRepository;
     private final S3UploadService uploadService;
 
@@ -115,5 +116,13 @@ public class TradePostService {
                 .stream().map(o -> TradePostImage.of(tradePost, o, order[0]++)).toList();
         tradePost.getImageList().addAll(tradePostImageList);
         tradePostRepository.save(tradePost);
+    }
+
+    @Transactional
+    public void delete(int tradePostId, UserAuthDto user) {
+        log.debug("여기부터 조회 들어감");
+        if(tradePostRepository.isAuthor(user.getId(),tradePostId)){
+            tradePostRepository.deleteById(tradePostId);
+        }
     }
 }

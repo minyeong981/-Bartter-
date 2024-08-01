@@ -76,7 +76,7 @@ public class TradeController {
     }
 
     @PostMapping("/posts")
-    @Operation(summary = "농작물 게시글 생성", description = "농작물 물물교환을 작성한다.")
+    @Operation(summary = "농작물 게시글 생성", description = "농작물 물물교환 게시글을 작성한다.")
     public SuccessResponse<Void> createTradePost(
             @Valid @RequestPart("create") Create create,
             BindingResult bindingResult,
@@ -91,5 +91,14 @@ public class TradeController {
         return SuccessResponse.empty();
     }
 
+    @DeleteMapping("/posts/{tradePostId}")
+    @Operation(summary = "농작물 게시글 삭제", description = "농작물 물물교환 게시글을 삭제한다.")
+    public SuccessResponse<Void> deleteTradePost(
+            @PathVariable("tradePostId") int tradePostId,
+            @CurrentUser UserAuthDto user
+    ) {
+        cropTradeService.delete(tradePostId, user);
+        return SuccessResponse.empty();
+    }
 }
 
