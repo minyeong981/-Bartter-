@@ -48,7 +48,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        
+
         // 로그인 요청 URI 및 메서드 확인
         // TODO : 더 좋은 방법으로 처리 할 예정
 //        String requestUri = request.getRequestURI();

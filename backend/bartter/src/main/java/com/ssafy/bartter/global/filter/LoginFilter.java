@@ -1,6 +1,7 @@
 package com.ssafy.bartter.global.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.bartter.domain.auth.config.JwtConfig;
 import com.ssafy.bartter.domain.auth.dto.AuthUserDetails;
 import com.ssafy.bartter.domain.auth.dto.AuthUserLoginDto;
 import com.ssafy.bartter.domain.auth.repository.RefreshRepository;
@@ -39,6 +40,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final JwtUtil jwtUtil;
     private final CookieUtil cookieUtil;
     private final RefreshRepository refreshRepository;
+    private final JwtConfig jwtConfig;
 
     /**
      * 사용자의 인증을 시도하는 메서드
@@ -88,12 +90,12 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String role = grantedAuthority.getAuthority();
 
         // 토큰 생성
-        String access = jwtUtil.generateToken("accessToken", username, userId, role, 600000L); // 10m
-        String refresh = jwtUtil.generateToken("refreshToken", username, userId, role, 864600000L); // 1d
+        String access = jwtUtil.generateToken("accessToken", username, userId, role, jwtConfig.getAccessTokenExpiration());
+        String refresh = jwtUtil.generateToken("refreshToken", username, userId, role, jwtConfig.getRefreshTokenExpiration());
 
-        // TODO: 시간 application.properties
+
         // Refresh 토큰 저장
-        refreshRepository.save(username, refresh, 864600000L);
+        refreshRepository.save(username, refresh, jwtConfig.getRefreshTokenExpiration());
 
         // 응답 설정
         response.setHeader("Authorization", "Bearer " + access);
