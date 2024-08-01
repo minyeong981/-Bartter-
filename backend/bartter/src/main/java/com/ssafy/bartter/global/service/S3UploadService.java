@@ -110,6 +110,21 @@ public class S3UploadService {
         return amazonS3.getUrl(bucketName, s3FileName).getPath();
     }
 
+    public List<String> uploadImageList(List<MultipartFile> imageList) {
+        ArrayList<String> uploadedImageList = new ArrayList<>();
+        try{
+            for(MultipartFile image : imageList) {
+                String uploadFile = uploadToS3(image);
+            }
+        } catch (Exception e) {
+            for(String uploadedImage : uploadedImageList) {
+                delete(uploadedImage);
+            }
+            throw new CustomException(ErrorCode.IMAGE_NOT_ADDED);
+        }
+        return uploadedImageList;
+    }
+
     /**
      * 현재 파일 확장자가 이미지인지 확인하는 메서드
      *
@@ -152,4 +167,5 @@ public class S3UploadService {
         }
         return imageUrl.substring(imageUrl.indexOf("/") + 1);
     }
+
 }

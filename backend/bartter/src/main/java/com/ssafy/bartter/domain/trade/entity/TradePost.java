@@ -6,9 +6,7 @@ import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.domain.user.entity.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.BatchSize;
 
 import java.util.ArrayList;
@@ -111,4 +109,16 @@ public class TradePost extends BaseEntity {
      */
     @OneToMany(mappedBy = "tradePost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Trade> tradeList = new ArrayList<>();
+
+    @Builder
+    public TradePost(User user, Crop crop, Location location, CropCategory category,
+                     String title, String content, boolean isShare) {
+        this.user = user;
+        this.crop = crop;
+        this.location = location;
+        this.category = category;
+        this.title = title;
+        this.content = content;
+        this.isShare = isShare;
+    }
 }

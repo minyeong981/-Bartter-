@@ -5,7 +5,11 @@ import com.ssafy.bartter.domain.crop.dto.CropCategoryDto.CropCategoryDetail;
 import com.ssafy.bartter.global.common.SimpleLocation;
 import com.ssafy.bartter.domain.trade.entity.TradePost;
 import com.ssafy.bartter.domain.trade.entity.TradeStatus;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -104,7 +108,25 @@ public class TradePostDto {
     /**
      * 물물교환 게시글 작성 Dto
      */
+    @Data
     public static class Create {
 
+        @NotBlank
+        private String title;
+
+        @NotBlank
+        private String content;
+
+        private boolean shareStatus;
+
+        @Min(value = 0)
+        private int locationId;
+
+        private int cropId;
+
+        @Min(value = 0)
+        private int cropCategoryId;
+
+        private List<Integer> wishCropCategoryList;
     }
 }

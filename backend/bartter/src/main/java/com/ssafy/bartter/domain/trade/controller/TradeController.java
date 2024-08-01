@@ -4,6 +4,7 @@ import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
 import com.ssafy.bartter.domain.crop.dto.CropCategoryDto.CropCategoryDetail;
 import com.ssafy.bartter.domain.trade.dto.TradePostDto;
+import com.ssafy.bartter.domain.trade.dto.TradePostDto.Create;
 import com.ssafy.bartter.domain.trade.dto.TradePostDto.SimpleTradePostDetail;
 import com.ssafy.bartter.domain.trade.dto.TradePostDto.TradePostDetail;
 import com.ssafy.bartter.domain.trade.entity.TradePost;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,16 +70,27 @@ public class TradeController {
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
-        log.debug("hasErrors: {} , request: {} ",bindingResult.hasErrors(), request);
+        log.debug("hasErrors: {} , request: {} ", bindingResult.hasErrors(), request);
         Location location = cropTradeService.getLocation(request.getLatitude(), request.getLongitude());
         return SuccessResponse.of(SimpleLocation.of(location));
     }
 
-    //    @PostMapping("/posts")
-//    public SuccessResponse<Void> createTradePost(
-//            @RequestBody @Valid TradePostDto.Create request) {
-//        return SuccessResponse.empty();
-//    }
+    @PostMapping("/posts")
+    public SuccessResponse<Void> createTradePost(
+            @Valid @RequestPart("create") Create create,
+            BindingResult bindingResult,
+            @RequestPart("images") List<MultipartFile> imageList,
+            @CurrentUser UserAuthDto user
+    ) {
+        if (bindingResult.hasErrors()) {
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
+        }
+
+//        log.debug("{}", create);
+        log.debug("{}", imageList);
+        cropTradeService.create(create, imageList, user);
+        return SuccessResponse.empty();
+    }
 
 }
 

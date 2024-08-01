@@ -43,4 +43,11 @@ public class TradePostImage extends BaseEntity {
      */
     @Column(name = "trade_post_image_order",nullable = false)
     private Integer order;
+
+    public static TradePostImage of(final TradePost tradePost, final String imageUrl, final Integer order) {
+        TradePostImage tradePostImage = new TradePostImage();
+        tradePostImage.imageUrl = imageUrl;
+        tradePostImage.order = order;
+        return tradePostImage;
+    }
 }
