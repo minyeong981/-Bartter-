@@ -1,4 +1,3 @@
-import { Route } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 
 import styles from './DiaryList.module.scss';

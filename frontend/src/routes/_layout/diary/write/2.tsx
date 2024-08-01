@@ -1,6 +1,6 @@
 import 'react-datepicker/dist/react-datepicker.css';
 
-import { createFileRoute } from '@tanstack/react-router';
+import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 
@@ -19,7 +19,8 @@ export const Route = createFileRoute('/_layout/diary/write/2')({
 });
 
 function DiaryWritePage2() {
-  const { selectedCropId, selectedCrop } = Route.useSearch();
+  // @ts-ignore
+  const { selectedCrop } = Route.useSearch();
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [diaryContent, setDiaryContent] = useState('');

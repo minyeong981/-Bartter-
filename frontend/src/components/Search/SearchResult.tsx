@@ -1,6 +1,4 @@
-
 import classnames from 'classnames/bind';
-import { FaMapMarkerAlt } from 'react-icons/fa';
 
 import useCommunityStore from '@/store';
 

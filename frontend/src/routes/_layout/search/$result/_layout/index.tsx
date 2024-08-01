@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import {createFileRoute, useSearch} from '@tanstack/react-router'
 import { FaMapMarkerAlt } from 'react-icons/fa';
 
 import PostList from '@/components/Community/PostList';
@@ -16,7 +16,7 @@ export const Route = createFileRoute('/_layout/search/$result/_layout/')({
 export default function SearchResult() {
   
   const { result } = Route.useParams()
-  const { sortBy } = Route.useSearch()
+  const sortBy = useSearch({from:'/_layout/search/$result'})
 
   const posts = useRootStore((state) => state.posts)
   return (

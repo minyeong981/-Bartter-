@@ -25,9 +25,14 @@ import { Route as LayoutDiaryIndexImport } from './routes/_layout/diary/index'
 import { Route as LayoutCommunityIndexImport } from './routes/_layout/community/index'
 import { Route as LayoutTradeLayoutImport } from './routes/_layout/trade/_layout'
 import { Route as LayoutSignupLayoutImport } from './routes/_layout/signup/_layout'
-import { Route as LayoutCommunityCreateImport } from './routes/_layout/community/create'
 import { Route as LayoutTradeLayoutIndexImport } from './routes/_layout/trade/_layout/index'
+import { Route as LayoutProfileWritedIndexImport } from './routes/_layout/profile/writed/index'
+import { Route as LayoutProfilePickedIndexImport } from './routes/_layout/profile/picked/index'
+import { Route as LayoutProfileChatIndexImport } from './routes/_layout/profile/chat/index'
+import { Route as LayoutProfileChangelocationIndexImport } from './routes/_layout/profile/changelocation/index'
+import { Route as LayoutProfileAireportIndexImport } from './routes/_layout/profile/aireport/index'
 import { Route as LayoutLoginEntranceIndexImport } from './routes/_layout/login/entrance/index'
+import { Route as LayoutCommunityCreateIndexImport } from './routes/_layout/community/create/index'
 import { Route as LayoutSignupLayout9Import } from './routes/_layout/signup/_layout/9'
 import { Route as LayoutSignupLayout8Import } from './routes/_layout/signup/_layout/8'
 import { Route as LayoutSignupLayout7Import } from './routes/_layout/signup/_layout/7'
@@ -37,6 +42,7 @@ import { Route as LayoutSignupLayout4Import } from './routes/_layout/signup/_lay
 import { Route as LayoutSignupLayout3Import } from './routes/_layout/signup/_layout/3'
 import { Route as LayoutSignupLayout2Import } from './routes/_layout/signup/_layout/2'
 import { Route as LayoutSignupLayout1Import } from './routes/_layout/signup/_layout/1'
+import { Route as LayoutSearchResultLayoutImport } from './routes/_layout/search/$result/_layout'
 import { Route as LayoutDiaryWrite2Import } from './routes/_layout/diary/write/2'
 import { Route as LayoutDiaryWrite1Import } from './routes/_layout/diary/write/1'
 import { Route as LayoutDiaryRegisterCrop5Import } from './routes/_layout/diary/registerCrop/5'
@@ -46,11 +52,13 @@ import { Route as LayoutDiaryRegisterCrop2Import } from './routes/_layout/diary/
 import { Route as LayoutDiaryRegisterCrop1Import } from './routes/_layout/diary/registerCrop/1'
 import { Route as LayoutDiaryGrowDiaryCropIdImport } from './routes/_layout/diary/growDiary/$cropId'
 import { Route as LayoutCommunityDetailPostIdImport } from './routes/_layout/community/detail/$postId'
+import { Route as LayoutSearchResultLayoutIndexImport } from './routes/_layout/search/$result/_layout/index'
 
 // Create Virtual Routes
 
 const LayoutTradeImport = createFileRoute('/_layout/trade')()
 const LayoutSignupImport = createFileRoute('/_layout/signup')()
+const LayoutSearchResultImport = createFileRoute('/_layout/search/$result')()
 
 // Create/Update Routes
 
@@ -76,6 +84,11 @@ const LayoutSignupRoute = LayoutSignupImport.update({
 
 const LayoutIndexRoute = LayoutIndexImport.update({
   path: '/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutSearchResultRoute = LayoutSearchResultImport.update({
+  path: '/search/$result',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -124,20 +137,50 @@ const LayoutSignupLayoutRoute = LayoutSignupLayoutImport.update({
   getParentRoute: () => LayoutSignupRoute,
 } as any)
 
-const LayoutCommunityCreateRoute = LayoutCommunityCreateImport.update({
-  path: '/community/create',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
 const LayoutTradeLayoutIndexRoute = LayoutTradeLayoutIndexImport.update({
   path: '/',
   getParentRoute: () => LayoutTradeLayoutRoute,
 } as any)
 
+const LayoutProfileWritedIndexRoute = LayoutProfileWritedIndexImport.update({
+  path: '/profile/writed/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutProfilePickedIndexRoute = LayoutProfilePickedIndexImport.update({
+  path: '/profile/picked/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutProfileChatIndexRoute = LayoutProfileChatIndexImport.update({
+  path: '/profile/chat/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutProfileChangelocationIndexRoute =
+  LayoutProfileChangelocationIndexImport.update({
+    path: '/profile/changelocation/',
+    getParentRoute: () => LayoutRoute,
+  } as any)
+
+const LayoutProfileAireportIndexRoute = LayoutProfileAireportIndexImport.update(
+  {
+    path: '/profile/aireport/',
+    getParentRoute: () => LayoutRoute,
+  } as any,
+)
+
 const LayoutLoginEntranceIndexRoute = LayoutLoginEntranceIndexImport.update({
   path: '/login/entrance/',
   getParentRoute: () => LayoutRoute,
 } as any)
+
+const LayoutCommunityCreateIndexRoute = LayoutCommunityCreateIndexImport.update(
+  {
+    path: '/community/create/',
+    getParentRoute: () => LayoutRoute,
+  } as any,
+)
 
 const LayoutSignupLayout9Route = LayoutSignupLayout9Import.update({
   path: '/9',
@@ -182,6 +225,11 @@ const LayoutSignupLayout2Route = LayoutSignupLayout2Import.update({
 const LayoutSignupLayout1Route = LayoutSignupLayout1Import.update({
   path: '/1',
   getParentRoute: () => LayoutSignupLayoutRoute,
+} as any)
+
+const LayoutSearchResultLayoutRoute = LayoutSearchResultLayoutImport.update({
+  id: '/_layout',
+  getParentRoute: () => LayoutSearchResultRoute,
 } as any)
 
 const LayoutDiaryWrite2Route = LayoutDiaryWrite2Import.update({
@@ -232,6 +280,12 @@ const LayoutCommunityDetailPostIdRoute =
     getParentRoute: () => LayoutRoute,
   } as any)
 
+const LayoutSearchResultLayoutIndexRoute =
+  LayoutSearchResultLayoutIndexImport.update({
+    path: '/',
+    getParentRoute: () => LayoutSearchResultLayoutRoute,
+  } as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -255,13 +309,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof LayoutIndexImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/community/create': {
-      id: '/_layout/community/create'
-      path: '/community/create'
-      fullPath: '/community/create'
-      preLoaderRoute: typeof LayoutCommunityCreateImport
       parentRoute: typeof LayoutImport
     }
     '/_layout/signup': {
@@ -404,6 +451,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutDiaryWrite2Import
       parentRoute: typeof LayoutImport
     }
+    '/_layout/search/$result': {
+      id: '/_layout/search/$result'
+      path: '/search/$result'
+      fullPath: '/search/$result'
+      preLoaderRoute: typeof LayoutSearchResultImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/search/$result/_layout': {
+      id: '/_layout/search/$result/_layout'
+      path: '/search/$result'
+      fullPath: '/search/$result'
+      preLoaderRoute: typeof LayoutSearchResultLayoutImport
+      parentRoute: typeof LayoutSearchResultRoute
+    }
     '/_layout/signup/_layout/1': {
       id: '/_layout/signup/_layout/1'
       path: '/1'
@@ -467,11 +528,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutSignupLayout9Import
       parentRoute: typeof LayoutSignupLayoutImport
     }
+    '/_layout/community/create/': {
+      id: '/_layout/community/create/'
+      path: '/community/create'
+      fullPath: '/community/create'
+      preLoaderRoute: typeof LayoutCommunityCreateIndexImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/login/entrance/': {
       id: '/_layout/login/entrance/'
       path: '/login/entrance'
       fullPath: '/login/entrance'
       preLoaderRoute: typeof LayoutLoginEntranceIndexImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/profile/aireport/': {
+      id: '/_layout/profile/aireport/'
+      path: '/profile/aireport'
+      fullPath: '/profile/aireport'
+      preLoaderRoute: typeof LayoutProfileAireportIndexImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/profile/changelocation/': {
+      id: '/_layout/profile/changelocation/'
+      path: '/profile/changelocation'
+      fullPath: '/profile/changelocation'
+      preLoaderRoute: typeof LayoutProfileChangelocationIndexImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/profile/chat/': {
+      id: '/_layout/profile/chat/'
+      path: '/profile/chat'
+      fullPath: '/profile/chat'
+      preLoaderRoute: typeof LayoutProfileChatIndexImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/profile/picked/': {
+      id: '/_layout/profile/picked/'
+      path: '/profile/picked'
+      fullPath: '/profile/picked'
+      preLoaderRoute: typeof LayoutProfilePickedIndexImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/profile/writed/': {
+      id: '/_layout/profile/writed/'
+      path: '/profile/writed'
+      fullPath: '/profile/writed'
+      preLoaderRoute: typeof LayoutProfileWritedIndexImport
       parentRoute: typeof LayoutImport
     }
     '/_layout/trade/_layout/': {
@@ -481,6 +584,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutTradeLayoutIndexImport
       parentRoute: typeof LayoutTradeLayoutImport
     }
+    '/_layout/search/$result/_layout/': {
+      id: '/_layout/search/$result/_layout/'
+      path: '/'
+      fullPath: '/search/$result/'
+      preLoaderRoute: typeof LayoutSearchResultLayoutIndexImport
+      parentRoute: typeof LayoutSearchResultLayoutImport
+    }
   }
 }
 
@@ -489,7 +599,6 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   LayoutRoute: LayoutRoute.addChildren({
     LayoutIndexRoute,
-    LayoutCommunityCreateRoute,
     LayoutSignupRoute: LayoutSignupRoute.addChildren({
       LayoutSignupLayoutRoute: LayoutSignupLayoutRoute.addChildren({
         LayoutSignupLayout1Route,
@@ -524,7 +633,18 @@ export const routeTree = rootRoute.addChildren({
     LayoutDiaryRegisterCrop5Route,
     LayoutDiaryWrite1Route,
     LayoutDiaryWrite2Route,
+    LayoutSearchResultRoute: LayoutSearchResultRoute.addChildren({
+      LayoutSearchResultLayoutRoute: LayoutSearchResultLayoutRoute.addChildren({
+        LayoutSearchResultLayoutIndexRoute,
+      }),
+    }),
+    LayoutCommunityCreateIndexRoute,
     LayoutLoginEntranceIndexRoute,
+    LayoutProfileAireportIndexRoute,
+    LayoutProfileChangelocationIndexRoute,
+    LayoutProfileChatIndexRoute,
+    LayoutProfilePickedIndexRoute,
+    LayoutProfileWritedIndexRoute,
   }),
   TestRoute,
 })
@@ -545,7 +665,6 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout.tsx",
       "children": [
         "/_layout/",
-        "/_layout/community/create",
         "/_layout/signup",
         "/_layout/trade",
         "/_layout/community/",
@@ -563,7 +682,14 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/diary/registerCrop/5",
         "/_layout/diary/write/1",
         "/_layout/diary/write/2",
-        "/_layout/login/entrance/"
+        "/_layout/search/$result",
+        "/_layout/community/create/",
+        "/_layout/login/entrance/",
+        "/_layout/profile/aireport/",
+        "/_layout/profile/changelocation/",
+        "/_layout/profile/chat/",
+        "/_layout/profile/picked/",
+        "/_layout/profile/writed/"
       ]
     },
     "/test": {
@@ -571,10 +697,6 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout/": {
       "filePath": "_layout/index.tsx",
-      "parent": "/_layout"
-    },
-    "/_layout/community/create": {
-      "filePath": "_layout/community/create.tsx",
       "parent": "/_layout"
     },
     "/_layout/signup": {
@@ -678,6 +800,20 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout/diary/write/2.tsx",
       "parent": "/_layout"
     },
+    "/_layout/search/$result": {
+      "filePath": "_layout/search/$result",
+      "parent": "/_layout",
+      "children": [
+        "/_layout/search/$result/_layout"
+      ]
+    },
+    "/_layout/search/$result/_layout": {
+      "filePath": "_layout/search/$result/_layout.tsx",
+      "parent": "/_layout/search/$result",
+      "children": [
+        "/_layout/search/$result/_layout/"
+      ]
+    },
     "/_layout/signup/_layout/1": {
       "filePath": "_layout/signup/_layout/1.tsx",
       "parent": "/_layout/signup/_layout"
@@ -714,13 +850,41 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout/signup/_layout/9.tsx",
       "parent": "/_layout/signup/_layout"
     },
+    "/_layout/community/create/": {
+      "filePath": "_layout/community/create/index.tsx",
+      "parent": "/_layout"
+    },
     "/_layout/login/entrance/": {
       "filePath": "_layout/login/entrance/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/profile/aireport/": {
+      "filePath": "_layout/profile/aireport/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/profile/changelocation/": {
+      "filePath": "_layout/profile/changelocation/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/profile/chat/": {
+      "filePath": "_layout/profile/chat/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/profile/picked/": {
+      "filePath": "_layout/profile/picked/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/profile/writed/": {
+      "filePath": "_layout/profile/writed/index.tsx",
       "parent": "/_layout"
     },
     "/_layout/trade/_layout/": {
       "filePath": "_layout/trade/_layout/index.tsx",
       "parent": "/_layout/trade/_layout"
+    },
+    "/_layout/search/$result/_layout/": {
+      "filePath": "_layout/search/$result/_layout/index.tsx",
+      "parent": "/_layout/search/$result/_layout"
     }
   }
 }

@@ -1,18 +1,15 @@
-import classnames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 
 import useRootStore from '@/store';
 
 import styles from './myCrops.module.scss';
+import type {Crop} from "@/store/diarySlice.ts";
+import classnames from "classnames/bind";
 
 const cx = classnames.bind(styles);
 
 interface MyCropsProps {
-  crops: {
-    id: number;
-    nickname: string;
-    image: string;
-  }[];
+  crops: Crop[]
   onCropClick: (id: number) => void;
 }
 

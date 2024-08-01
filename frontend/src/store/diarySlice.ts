@@ -4,11 +4,11 @@ import type {StateCreator} from 'zustand';
 
 export interface Crop {
   id: number;
-  name?: string;
-  nickname?: string;
-  image?: string;
-  date?: string;
-  description?: string;
+  name: string;
+  nickname: string;
+  image: string;
+  date: string;
+  description: string;
 }
 
 export interface DiarySlice {

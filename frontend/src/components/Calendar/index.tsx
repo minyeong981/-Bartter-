@@ -2,7 +2,7 @@ import 'react-calendar/dist/Calendar.css';
 
 import classnames from 'classnames/bind';
 import {useEffect, useState} from 'react';
-import Calendar from 'react-calendar';
+import {Calendar} from 'react-calendar';
 
 import styles from './calendar.module.scss';
 
@@ -16,6 +16,8 @@ export default function CustomCalendar({isCollapsed}: CustomCalendarProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [currentWeek, setCurrentWeek] = useState<Date[]>([]);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
+
+  console.log(currentWeek)
 
   useEffect(() => {
     updateCurrentWeek(selectedDate || currentMonth);
@@ -38,14 +40,14 @@ export default function CustomCalendar({isCollapsed}: CustomCalendarProps) {
     setCurrentWeek(week);
   };
 
-  const changeMonth = (increment: number) => {
-    const newDate = new Date(currentMonth);
-    newDate.setMonth(currentMonth.getMonth() + increment);
-    setCurrentMonth(newDate);
-    updateCurrentWeek(selectedDate || newDate);
-  };
+  // const changeMonth = (increment: number) => {
+  //   const newDate = new Date(currentMonth);
+  //   newDate.setMonth(currentMonth.getMonth() + increment);
+  //   setCurrentMonth(newDate);
+  //   updateCurrentWeek(selectedDate || newDate);
+  // };
 
-  const formatMonthYear = (locale: string, date: Date) => {
+  const formatMonthYear = (_: string | undefined, date: Date) => {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     return `${year}. ${month}`;
@@ -67,11 +69,11 @@ export default function CustomCalendar({isCollapsed}: CustomCalendarProps) {
     return null;
   };
 
-  const formatDay = (locale: string, date: Date) => {
+  const formatDay = (_: string | undefined, date: Date) => {
     return date.getDate().toString();
   };
 
-  const renderWeekday = (locale: string, date: Date) => {
+  const renderWeekday = (_: string | undefined, date: Date) => {
     const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
     return weekdays[date.getDay()];
   };
@@ -81,12 +83,8 @@ export default function CustomCalendar({isCollapsed}: CustomCalendarProps) {
     updateCurrentWeek(date);
   };
 
-  const tileContent = ({date, view}: {date: Date; view: string}) => {
-    return null;
-  };
-
-  const renderFullCalendar = () => {
-    return (
+  return (
+    <div className={cx('custom-calendar-container', {collapsed: isCollapsed})}>
       <Calendar
         activeStartDate={currentMonth}
         onActiveStartDateChange={({activeStartDate}) =>
@@ -101,14 +99,7 @@ export default function CustomCalendar({isCollapsed}: CustomCalendarProps) {
         formatShortWeekday={renderWeekday}
         showNeighboringMonth={false}
         onClickDay={onClickDay}
-        tileContent={tileContent}
       />
-    );
-  };
-
-  return (
-    <div className={cx('custom-calendar-container', {collapsed: isCollapsed})}>
-      {renderFullCalendar()}
     </div>
   );
 }

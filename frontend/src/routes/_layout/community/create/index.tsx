@@ -22,7 +22,7 @@ export default function PostCreate() {
   const maxImages = 3; // 허용된 최대 이미지 개수
 
   const nav = useNavigate({from: '/community/create'});
-  const [ cannotCreate, setCannotCreate ] = useState(true); // 글자 제한
+  const [cannotCreate, setCannotCreate] = useState(true); // 글자 제한
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [images, setImages] = useState<SimpleImage[]>([]);
@@ -37,20 +37,18 @@ export default function PostCreate() {
   }
 
   function handleImageChange(newImages: string[]) {
-
     const newImageList = newImages.map((imageUrl, imageIndex) => ({
-      imageId : imageIndex,
-      imageUrl : imageUrl,
+      imageId: imageIndex,
+      imageUrl: imageUrl,
       imageOrder: imageIndex
     }))
-
     setImages([...newImageList]);
+  }
 
-  };
-
-  useEffect(()=> {
-    if (title.length>0 &&title.length < 51 && content.length>0) {
-    setCannotCreate(false) }
+  useEffect(() => {
+    if (title.length > 0 && title.length < 51 && content.length > 0) {
+      setCannotCreate(false)
+    }
   }, [title, content])
 
   // 나중에!! 이런 식으로
@@ -78,15 +76,12 @@ export default function PostCreate() {
         images,
       });
     }
-
     nav({to: '/community'});
   }
 
-
   return (
     <div className={cx('container')}>
-      <HeaderWithLabelAndBackButton label="글 작성하기" />
-
+      <HeaderWithLabelAndBackButton label="글 작성하기"/>
       <div className={cx('formContainer')}>
         <LabeledInput
           label="제목"
@@ -100,15 +95,10 @@ export default function PostCreate() {
           onChange={handleContentChange}
           value={content}
         />
-        <input type="file" multiple onChange={handleImageChange} />
-        <p>사진 ({images.length} / {maxImages})</p>
-        {/* <ImageInput onImageChange={handleImageChange} maxImages={maxImages}/> */}
-
         <div className={cx('imageContainer')}>
-        <p>사진 ({images.length} / {maxImages})</p>
-        <ImageInput onImageChange={handleImageChange} maxImages={maxImages}/>
+          <p>사진 ({images.length} / {maxImages})</p>
+          <ImageInput onImageChange={handleImageChange} maxImages={maxImages}/>
         </div>
-
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
           onClick={handleSubmit}

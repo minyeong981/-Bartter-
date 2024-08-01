@@ -47,6 +47,7 @@ export default function MainCrops() {
         image: initialImage || selectedCrop.image,
         date: date,
         description: description,
+        name: selectedCrop.name,
       });
       navigate({
         to: '/diary/growDiary/$cropId',
@@ -54,12 +55,6 @@ export default function MainCrops() {
       });
     }
   }
-
-  const displayCrops = crops.map(({id, nickname, image}) => ({
-    id,
-    nickname: nickname!,
-    image: image || initialImage,
-  }));
 
   return (
     <div className={cx('container')}>
@@ -69,7 +64,7 @@ export default function MainCrops() {
           <img src={notCrop} alt="notCrop" />
         </div>
       ) : (
-        <MyCrops crops={displayCrops} onCropClick={handleCropSelect} />
+        <MyCrops crops={crops} onCropClick={handleCropSelect} />
       )}
       <CropModal
         show={showModal}
