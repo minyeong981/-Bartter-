@@ -9,8 +9,12 @@ import com.ssafy.bartter.domain.user.dto.UserJoinDto;
 import com.ssafy.bartter.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * User 관련 비즈니스 로직을 처리하는 서비스 클래스
@@ -71,4 +75,11 @@ public class UserService {
         userRepository.save(user);
     }
 
+    /**
+     * 키워드를 포함하는 닉네임을 가진 사용자를 불러오는 메서드
+     */
+    public List<User> getUsers(int offset, int limit, String keyword) {
+        PageRequest pageable = PageRequest.of(offset, limit);
+        return userRepository.findUserListByKeyword(keyword,pageable).getContent();
+    }
 }

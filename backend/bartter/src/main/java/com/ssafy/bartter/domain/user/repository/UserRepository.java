@@ -1,7 +1,12 @@
 package com.ssafy.bartter.domain.user.repository;
 
 import com.ssafy.bartter.domain.user.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 
 /**
  * User Entity 를 다루는 UserRepository
@@ -10,5 +15,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface UserRepository extends JpaRepository<User, Integer> {
     User findByUsername(String username);
-    Boolean existsByUsername(String username);
+    boolean existsByUsername(String username);
+
+
+    @Query("SELECT u FROM User u " +
+            "WHERE LOWER(u.nickname) LIKE LOWER(CONCAT('%', :keyword,'%'))")
+    Page<User> findUserListByKeyword(
+            @Param("keyword") String keyword,
+            Pageable pageable
+    );
 }

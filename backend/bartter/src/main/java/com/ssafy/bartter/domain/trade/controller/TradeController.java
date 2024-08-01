@@ -4,6 +4,8 @@ import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
 import com.ssafy.bartter.domain.crop.dto.CropCategoryDto.CropCategoryDetail;
 import com.ssafy.bartter.domain.trade.dto.TradePostDto;
+import com.ssafy.bartter.domain.trade.dto.TradePostDto.SimpleTradePostDetail;
+import com.ssafy.bartter.domain.trade.dto.TradePostDto.TradePostDetail;
 import com.ssafy.bartter.domain.trade.entity.TradePost;
 import com.ssafy.bartter.domain.trade.services.TradePostService;
 import com.ssafy.bartter.global.common.Location;
@@ -35,7 +37,7 @@ public class TradeController {
 
     @Operation(summary = "농작물 물물교환 목록 조회", description = "농작물 물물교환 게시글 목록을 조회한다. ")
     @GetMapping("/posts")
-    public SuccessResponse<List<TradePostDto.SimpleTradePostDetail>> getTradePostList(
+    public SuccessResponse<List<SimpleTradePostDetail>> getTradePostList(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "10") int limit,
             @RequestParam(value = "givenCategory", defaultValue = "0") int givenCategory,
@@ -44,21 +46,19 @@ public class TradeController {
     ) {
         List<TradePost> tradePostList = cropTradeService.getTradePostList(page, limit, givenCategory, desiredCategories, user.getLocationId());
 
-        List<TradePostDto.SimpleTradePostDetail> simpleTradePostList = tradePostList.stream().map(o -> TradePostDto.SimpleTradePostDetail.of(o)).collect(Collectors.toList());
+        List<SimpleTradePostDetail> simpleTradePostList = tradePostList.stream().map(o -> SimpleTradePostDetail.of(o)).collect(Collectors.toList());
         return SuccessResponse.of(simpleTradePostList);
     }
 
     @GetMapping("/posts/{tradePostId}")
-    public SuccessResponse<TradePostDto.TradePostDetail> getTradePost(@PathVariable("tradePostId") int tradePostId) {
+    public SuccessResponse<TradePostDetail> getTradePost(@PathVariable("tradePostId") int tradePostId) {
         TradePost tradePost = cropTradeService.getTradePost(tradePostId);
         List<String> imageList = tradePost.getImageList().stream().map(o -> o.getImageUrl()).collect(Collectors.toList());
         List<CropCategoryDetail> desiredCategoryList = tradePost.getWishCropCategoryList().stream().map(o -> CropCategoryDetail.of(o.getCategory())).toList();
-        TradePostDto.TradePostDetail tradePostDetail = TradePostDto.TradePostDetail.of(tradePost, imageList, desiredCategoryList);
+        TradePostDetail tradePostDetail = TradePostDetail.of(tradePost, imageList, desiredCategoryList);
 
         return SuccessResponse.of(tradePostDetail);
     }
-
-
 
     @PostMapping("/posts/locations")
     public SuccessResponse<SimpleLocation> getLocation(
