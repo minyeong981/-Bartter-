@@ -8,6 +8,18 @@
     padding: 1rem;
     border: none;
 
+    &.collapsed-calendar {
+      .react-calendar__tile {
+        &.sunday {
+          color: red;
+        }
+
+        &.saturday {
+          color: blue;
+        }
+      }
+    }
+
     .react-calendar__navigation {
       display: flex;
       align-items: center;
@@ -73,7 +85,7 @@
 
     .react-calendar__month-view__days__day {
       box-sizing: border-box;
-      height: 2rem; // 일자 높이
+      height: 4rem; // 일자 높이
       padding: 0.5rem; // 일자 패딩
       text-align: center;
 
@@ -175,22 +187,14 @@
     }
   }
 
-  // 달력 펼치기 버튼의 위치 조정
-  .toggle-button {
-    margin-top: 1.5rem; // 버튼을 더 아래로 이동
-  }
 }
 
-.react-calendar {
-  &.collapsed-calendar {
-    .react-calendar__tile {
-      &.sunday {
-        color: red;
-      }
 
-      &.saturday {
-        color: blue;
-      }
-    }
-  }
+.highlight-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-top: 40px; /* 숫자 밑에 점을 배치 */
+  background-color: green;
+  border-radius: 50%;
 }

@@ -35,7 +35,6 @@ import { Route as LayoutSignupLayout4Import } from './routes/_layout/signup/_lay
 import { Route as LayoutSignupLayout3Import } from './routes/_layout/signup/_layout/3'
 import { Route as LayoutSignupLayout2Import } from './routes/_layout/signup/_layout/2'
 import { Route as LayoutSignupLayout1Import } from './routes/_layout/signup/_layout/1'
-import { Route as LayoutDiaryWrite3Import } from './routes/_layout/diary/write/3'
 import { Route as LayoutDiaryWrite2Import } from './routes/_layout/diary/write/2'
 import { Route as LayoutDiaryWrite1Import } from './routes/_layout/diary/write/1'
 import { Route as LayoutDiaryRegisterCrop5Import } from './routes/_layout/diary/registerCrop/5'
@@ -165,11 +164,6 @@ const LayoutSignupLayout2Route = LayoutSignupLayout2Import.update({
 const LayoutSignupLayout1Route = LayoutSignupLayout1Import.update({
   path: '/1',
   getParentRoute: () => LayoutSignupLayoutRoute,
-} as any)
-
-const LayoutDiaryWrite3Route = LayoutDiaryWrite3Import.update({
-  path: '/diary/write/3',
-  getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutDiaryWrite2Route = LayoutDiaryWrite2Import.update({
@@ -378,13 +372,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutDiaryWrite2Import
       parentRoute: typeof LayoutImport
     }
-    '/_layout/diary/write/3': {
-      id: '/_layout/diary/write/3'
-      path: '/diary/write/3'
-      fullPath: '/diary/write/3'
-      preLoaderRoute: typeof LayoutDiaryWrite3Import
-      parentRoute: typeof LayoutImport
-    }
     '/_layout/signup/_layout/1': {
       id: '/_layout/signup/_layout/1'
       path: '/1'
@@ -493,7 +480,6 @@ export const routeTree = rootRoute.addChildren({
     LayoutDiaryRegisterCrop5Route,
     LayoutDiaryWrite1Route,
     LayoutDiaryWrite2Route,
-    LayoutDiaryWrite3Route,
     LayoutLoginEntranceIndexRoute,
   }),
   TestRoute,
@@ -532,7 +518,6 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/diary/registerCrop/5",
         "/_layout/diary/write/1",
         "/_layout/diary/write/2",
-        "/_layout/diary/write/3",
         "/_layout/login/entrance/"
       ]
     },
@@ -632,10 +617,6 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout/diary/write/2": {
       "filePath": "_layout/diary/write/2.tsx",
-      "parent": "/_layout"
-    },
-    "/_layout/diary/write/3": {
-      "filePath": "_layout/diary/write/3.tsx",
       "parent": "/_layout"
     },
     "/_layout/signup/_layout/1": {

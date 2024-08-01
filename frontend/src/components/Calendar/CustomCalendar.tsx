@@ -8,9 +8,10 @@ import Calendar from 'react-calendar';
 interface CustomCalendarProps {
   isCollapsed: boolean;
   onDateChange: (date: Date) => void; // 날짜 변경 핸들러 추가
+  highlightDates: Date[]; // 강조할 날짜 목록 추가
 }
 
-export default function CustomCalendar({ isCollapsed, onDateChange }: CustomCalendarProps) {
+export default function CustomCalendar({ isCollapsed, onDateChange, highlightDates }: CustomCalendarProps) {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [currentWeek, setCurrentWeek] = useState<Date[]>([]);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
@@ -87,6 +88,9 @@ export default function CustomCalendar({ isCollapsed, onDateChange }: CustomCale
   };
 
   const tileContent = ({ date, view }: CalendarTileProperties) => {
+    if (view === 'month' && highlightDates.some(highlightDate => highlightDate.toDateString() === date.toDateString())) {
+      return <div className="highlight-dot" />;
+    }
     return null;
   };
 
@@ -123,6 +127,7 @@ export default function CustomCalendar({ isCollapsed, onDateChange }: CustomCale
               onClick={() => onClickDay(date)}
             >
               <abbr className="react-calendar__tile__abbr">{date.getDate()}</abbr>
+              {highlightDates.some(highlightDate => highlightDate.toDateString() === date.toDateString()) && <div className="highlight-dot" />}
             </div>
           ))}
         </div>

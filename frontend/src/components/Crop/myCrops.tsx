@@ -13,7 +13,7 @@ interface MyCropsProps {
     nickname: string;
     image: string;
   }[];
-  onCropClick: (id: number) => void; // 추가된 prop
+  onCropClick: (id: number) => void; 
 }
 
 function MyCrops({ crops, onCropClick }: MyCropsProps) {
@@ -30,7 +30,7 @@ function MyCrops({ crops, onCropClick }: MyCropsProps) {
   const handleCropClick = (id: number, image: string) => {
     setSelectedCropId(id);
     setInitialImage(image);
-    onCropClick(id); // 추가된 콜백 호출
+    onCropClick(id);
   };
 
   return (

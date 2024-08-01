@@ -17,9 +17,14 @@ export const Route = createFileRoute('/_layout/diary/write/1')({
 function DiaryWritePage() {
   const crops = useRootStore(state => state.crops);
   const [selectedCropId, setSelectedCropId] = useState<number | null>(null);
+  const [selectedCrop, setSelectedCrop] = useState<{ nickname: string; image: string } | null>(null);
 
   const handleCropSelect = (id: number) => {
     setSelectedCropId(id);
+    const crop = crops.find(crop => crop.id === id);
+    if (crop) {
+      setSelectedCrop({ nickname: crop.nickname, image: crop.image });
+    }
   };
 
   return (
@@ -31,7 +36,7 @@ function DiaryWritePage() {
           buttonStyle={{ style: 'primary', size: 'large' }}
           to="/diary/write/2"
           disabled={selectedCropId === null}
-          state={{ selectedCropId }}
+          search={{selectedCropId: selectedCropId, selectedCrop:selectedCrop}}
         >
           다음
         </LinkButton>
