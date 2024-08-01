@@ -5,6 +5,8 @@ import SettingButton from '@/components/Buttons/SettingButton'
 import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton'
 import ProfileInfo from '@/components/User/ProfileInfo'
 
+import styles from './index.module.scss';
+
 const user : UserProfile = {
   userId: '김싸피',
   location: {locationId: 1, locationName:'장덕동'},
@@ -27,20 +29,23 @@ function Profile() {
       <>
       <HeaderWithLabelAndBackButton label='내프로필' />
       <ProfileInfo {...user} /> 
-      <SettingButton to='/community'>AI 요약보고서</SettingButton>
+      <SettingButton to='/profile/AiReport'>AI 요약보고서</SettingButton>
       <SettingButton to='/community'>농작물 창고</SettingButton>
       <SettingButton to='/diary'>농사 일지</SettingButton>
-      <SettingButton to='/community'>내가 쓴 글</SettingButton>
-      <SettingButton to='/community'>찜 목록</SettingButton>
-      <SettingButton to='/community'>채팅 목록</SettingButton>
-      <SettingButton to='/community'>위치 수정</SettingButton>
+      <SettingButton to='/profile/writed'>내가 쓴 글</SettingButton>
+      <SettingButton to='/profile/picked'>찜 목록</SettingButton>
+      <SettingButton to='/profile/chat'>채팅 목록</SettingButton>
+      <SettingButton to='/profile/changelocation'>위치 수정</SettingButton>
       <SettingButton to='/community'>로그아웃</SettingButton>
       </>
       )  : 
       (
       <>
-      <HeaderWithLabelAndBackButton label='내프로필' />
+      <HeaderWithLabelAndBackButton label='프로필' />
       <ProfileInfo {...user} />
+      <div className={styles.cropsCount}>받은 농작물 {6} 개</div>
+      <SettingButton to='/diary'>농작물 창고</SettingButton>
+      <SettingButton to='/diary'>농사 일지</SettingButton>
       </>
       )
     }

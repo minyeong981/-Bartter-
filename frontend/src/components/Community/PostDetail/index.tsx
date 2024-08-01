@@ -33,10 +33,10 @@ export default function PostDetail({
       </div>
       <div className={styles.pIconBox}>
         <div className={styles.pLikeCount}>
-          <FaThumbsUp /> 좋아요 {post.likeCount}
+          <FaThumbsUp /> 좋아요 { post.likeCount===0 ? undefined : post.likeCount}
         </div>
         <div className={styles.pCommentCount}>
-          <FaComment /> 댓글 {post.commentList.length}
+          <FaComment /> 댓글 { post.commentList.length===0 ? undefined : post.commentList.length}
         </div>
       </div>
       <CommentList Comments={comments} />

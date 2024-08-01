@@ -13,7 +13,7 @@
     flex: 1;
     padding: 20px 5%;
     font-size: 20px;
-    color: colors.$placeholder;
+    color: colors.$placeholder; 
     text-align: center;
     cursor: pointer;
     background: none;
@@ -31,6 +31,7 @@
       height: 4px;
       content: '';
       background-color: transparent;
+      background-color: colors.$placeholder;
       transform: translateX(0);
     }
 
