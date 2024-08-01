@@ -32,6 +32,12 @@ public enum ErrorCode {
     UNAUTHENTICATED(HttpStatus.UNAUTHORIZED, 2008, "접근 권한이 없습니다."),
     ACCESS_TOKEN_MISSING(HttpStatus.BAD_REQUEST, 2009, "액세스 토큰이 누락되었습니다."),
     USER_ACCOUNT_DEACTIVATED(HttpStatus.FORBIDDEN, 2010, "탈퇴한 회원입니다."),
+    FOLLOW_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, 2011 , "이미 팔로우 한 회원입니다."),
+    FOLLOW_SELF_NOT_ALLOWED(HttpStatus.BAD_REQUEST, 2012, "자기 자신을 팔로우할 수 없습니다."),
+    UNFOLLOW_SELF_NOT_ALLOWED(HttpStatus.BAD_REQUEST, 2013, "자기 자신을 언팔로우할 수 없습니다."),
+    FOLLOW_NOT_EXIST(HttpStatus.BAD_REQUEST, 2014, "팔로우한 적 없는 대상입니다."),
+
+
 
     // Crop - 3000
     CROP_NOT_FOUND(HttpStatus.NOT_FOUND, 3000, "해당 ID의 농작물을 찾을 수 없습니다."),
@@ -47,11 +53,10 @@ public enum ErrorCode {
     COMMUNITY_POST_LIKE_ALREADY_EXISTS(HttpStatus.NOT_FOUND, 5001, "해당 게시글에 이미 좋아요를 눌렀습니다."),
 
     // Trade - 6000
-    TRADE_POST_NOT_FOUND(HttpStatus.NOT_FOUND,6000,"해당 ID의 물물교환 게시글을 찾을 수 없습니다." )
+    TRADE_POST_NOT_FOUND(HttpStatus.NOT_FOUND,6000,"해당 ID의 물물교환 게시글을 찾을 수 없습니다." );
 
     // Chat
 
-    ;
 
     private final HttpStatus status;
     private final int code;

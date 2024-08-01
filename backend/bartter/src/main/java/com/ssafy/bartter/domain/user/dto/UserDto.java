@@ -2,7 +2,6 @@ package com.ssafy.bartter.domain.user.dto;
 
 import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.global.common.SimpleLocation;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -19,7 +18,6 @@ public class UserDto {
      * */
     @Getter
     @Builder
-    @AllArgsConstructor
     public static class SimpleUserProfile {
         private final Integer userId;
         private final String username;
@@ -59,6 +57,5 @@ public class UserDto {
                     .simpleLocation(SimpleLocation.of(user.getLocation()))
                     .build();
         }
-
     }
 }

@@ -3,6 +3,7 @@ package com.ssafy.bartter.domain.user.entity;
 import com.ssafy.bartter.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 /**
@@ -36,4 +37,16 @@ public class Follow extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "followee_id", nullable = false)
     private User followee;
+
+    /**
+     * 팔로우 메서드
+     *
+     * @param follower 팔로우를 누른 사람
+     * @param followee 팔로우를 당한 사람
+     */
+    @Builder
+    public Follow(User follower, User followee) {
+        this.follower = follower;
+        this.followee = followee;
+    }
 }
