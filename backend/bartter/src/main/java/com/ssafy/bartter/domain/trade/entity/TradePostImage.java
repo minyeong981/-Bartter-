@@ -1,10 +1,12 @@
 package com.ssafy.bartter.domain.trade.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.bartter.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * Trade Post Image Entity
@@ -13,6 +15,7 @@ import lombok.NoArgsConstructor;
  */
 @Entity
 @Getter
+@ToString
 @Table(name = "trade_post_image")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TradePostImage extends BaseEntity {
@@ -30,6 +33,7 @@ public class TradePostImage extends BaseEntity {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trade_post_id", nullable = false)
+    @ToString.Exclude
     private TradePost tradePost;
 
     /**
@@ -46,6 +50,7 @@ public class TradePostImage extends BaseEntity {
 
     public static TradePostImage of(final TradePost tradePost, final String imageUrl, final Integer order) {
         TradePostImage tradePostImage = new TradePostImage();
+        tradePostImage.tradePost=tradePost;
         tradePostImage.imageUrl = imageUrl;
         tradePostImage.order = order;
         return tradePostImage;

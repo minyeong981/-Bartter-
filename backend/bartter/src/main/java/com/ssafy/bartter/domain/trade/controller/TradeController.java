@@ -35,10 +35,9 @@ import java.util.stream.Collectors;
 public class TradeController {
 
     private final TradePostService cropTradeService;
-    private List<CropCategoryDetail> desiredCategoryList;
 
-    @Operation(summary = "농작물 물물교환 목록 조회", description = "농작물 물물교환 게시글 목록을 조회한다. ")
     @GetMapping("/posts")
+    @Operation(summary = "농작물 물물교환 목록 조회", description = "농작물 물물교환 게시글 목록을 조회한다. ")
     public SuccessResponse<List<SimpleTradePostDetail>> getTradePostList(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "10") int limit,
@@ -47,12 +46,12 @@ public class TradeController {
             @CurrentUser UserAuthDto user
     ) {
         List<TradePost> tradePostList = cropTradeService.getTradePostList(page, limit, givenCategory, desiredCategories, user.getLocationId());
-
         List<SimpleTradePostDetail> simpleTradePostList = tradePostList.stream().map(o -> SimpleTradePostDetail.of(o)).collect(Collectors.toList());
         return SuccessResponse.of(simpleTradePostList);
     }
 
     @GetMapping("/posts/{tradePostId}")
+    @Operation(summary = "농작물 물물교환 상세 조회", description = "농작물 물물교환 게시글을 상세조회한다.")
     public SuccessResponse<TradePostDetail> getTradePost(@PathVariable("tradePostId") int tradePostId) {
         TradePost tradePost = cropTradeService.getTradePost(tradePostId);
         List<String> imageList = tradePost.getImageList().stream().map(o -> o.getImageUrl()).collect(Collectors.toList());
@@ -63,6 +62,7 @@ public class TradeController {
     }
 
     @PostMapping("/posts/locations")
+    @Operation(summary = "농작물 물물교환 위치 가져오기", description = "사용자의 현재 위치를 기반으로 동네를 불러온다.")
     public SuccessResponse<SimpleLocation> getLocation(
             @RequestBody @Valid LocationRequestDto request,
             BindingResult bindingResult
@@ -76,6 +76,7 @@ public class TradeController {
     }
 
     @PostMapping("/posts")
+    @Operation(summary = "농작물 게시글 생성", description = "농작물 물물교환을 작성한다.")
     public SuccessResponse<Void> createTradePost(
             @Valid @RequestPart("create") Create create,
             BindingResult bindingResult,

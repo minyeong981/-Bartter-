@@ -114,7 +114,8 @@ public class S3UploadService {
         ArrayList<String> uploadedImageList = new ArrayList<>();
         try{
             for(MultipartFile image : imageList) {
-                String uploadFile = uploadToS3(image);
+                String uploadFile = upload(image);
+                uploadedImageList.add(uploadFile);
             }
         } catch (Exception e) {
             for(String uploadedImage : uploadedImageList) {

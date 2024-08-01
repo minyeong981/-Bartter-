@@ -114,7 +114,6 @@ public class TradePostService {
         List<TradePostImage> tradePostImageList = uploadService.uploadImageList(imageList)
                 .stream().map(o -> TradePostImage.of(tradePost, o, order[0]++)).toList();
         tradePost.getImageList().addAll(tradePostImageList);
-
         tradePostRepository.save(tradePost);
     }
 }
