@@ -2,6 +2,7 @@ package com.ssafy.bartter.domain.user.services;
 
 import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.global.common.Location;
+import com.ssafy.bartter.global.common.SimpleLocation;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.service.LocationService;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * User 관련 비즈니스 로직을 처리하는 서비스 클래스
@@ -71,4 +73,34 @@ public class UserService {
         userRepository.save(user);
     }
 
+    /**
+     * 사용자의 위치 정보를 변경하는 메서드
+     *
+     * @param userLocationDto 사용자가 전달한 위도와 경도 정보를 담은 DTO
+     * @return 변경된 Location 객체
+     */
+    public Location updateUserLocation(Integer userId, SimpleLocation.LocationRequestDto userLocationDto) {
+        Location location = locationService.getCurrentLocation(userLocationDto.getLatitude(), userLocationDto.getLongitude());
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        user.updateLocation(location);
+        userRepository.save(user);
+        return location;
+    }
+
+    /**
+     * 특정 사용자의 위치 정보를 조회하는 메서드
+     *
+     * @param userId 조회할 사용자의 ID
+     * @return 위치 정보를 담은 객체
+     */
+    @Transactional(readOnly = true)
+    public SimpleLocation getUserLocation(int userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        if (user.getLocation() == null) {
+            throw new CustomException(ErrorCode.USER_LOCATION_NOT_FOUND);
+        }
+        return SimpleLocation.of(user.getLocation());
+    }
 }

@@ -30,6 +30,21 @@ public class UserAuthDto {
     private String password;
 
     /**
+     * 사용자 닉네임
+     */
+    private String nickname;
+
+    /**
+     * 사용자 프로필 이미지
+     */
+    private String profileImage;
+
+    /**
+     * 사용자 프로필 이미지
+     */
+    private String profileMessage;
+
+    /**
      * 사용자 위치 id (PK)
      */
     private int locationId;
@@ -50,13 +65,17 @@ public class UserAuthDto {
     private boolean isAccountExpired;
 
     @Builder
-    public UserAuthDto(int id, String username, String password, int locationId, String locationName, String role, boolean isAccountExpired) {
+    public UserAuthDto(int id, String username, String password, int locationId, String locationName, String role,
+                       boolean isAccountExpired, String nickname, String profileImage, String profileMessage) {
         this.id = id;
+        this.role = role;
+        this.nickname = nickname;
         this.username = username;
         this.password = password;
         this.locationId = locationId;
         this.locationName = locationName;
-        this.role = role;
+        this.profileImage = profileImage;
+        this.profileMessage = profileMessage;
         this.isAccountExpired = isAccountExpired;
     }
 
