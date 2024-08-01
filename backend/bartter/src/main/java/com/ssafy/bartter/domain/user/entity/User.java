@@ -227,4 +227,10 @@ public class User extends BaseEntity {
         this.deletedAt = LocalDateTime.now();
     }
 
+    /**
+     * 사용자의 위치를 업데이트하는 메서드
+     */
+    public void updateLocation(Location location) {
+        this.location = location;
+    }
 }

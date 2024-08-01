@@ -1,6 +1,7 @@
 package com.ssafy.bartter.domain.auth.controller;
 
 import com.ssafy.bartter.domain.auth.repository.RedisRefreshRepository;
+import com.ssafy.bartter.domain.auth.config.JwtConfig;
 import com.ssafy.bartter.domain.auth.utils.CookieUtil;
 import com.ssafy.bartter.domain.auth.utils.JwtUtil;
 import com.ssafy.bartter.global.exception.CustomException;
@@ -11,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +25,7 @@ import java.util.Objects;
 @RequestMapping("/auth")
 public class AuthController {
 
+    private final JwtConfig jwtConfig;
     private final JwtUtil jwtUtil;
     private final RedisRefreshRepository refreshRepository;
     private final CookieUtil cookieUtil;
@@ -66,9 +69,9 @@ public class AuthController {
         int userId = jwtUtil.getUserId(refresh);
 
         // make new JWT
-        String newAccess = jwtUtil.generateToken("accessToken", username, userId, role, 600000L); // 10m
+        String newAccess = jwtUtil.generateToken("accessToken", username, userId, role, jwtConfig.getAccessTokenExpiration());
         // rotate refresh
-        String newRefresh = jwtUtil.generateToken("refreshToken", username, userId, role, 864600000L);
+        String newRefresh = jwtUtil.generateToken("refreshToken", username, userId, role, jwtConfig.getRefreshTokenExpiration());
 
         //Refresh 토큰 저장 DB에 기존의 Refresh 토큰 삭제 후 새 Refresh 토큰 저장
         refreshRepository.save(username, newRefresh, 86400000L);

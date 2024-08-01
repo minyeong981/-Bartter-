@@ -3,6 +3,7 @@ package com.ssafy.bartter.global.filter;
 import com.ssafy.bartter.domain.auth.dto.AuthUserDetails;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
 import com.ssafy.bartter.domain.auth.utils.JwtUtil;
+import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import jakarta.servlet.FilterChain;
@@ -48,7 +49,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        
+
         // 로그인 요청 URI 및 메서드 확인
         // TODO : 더 좋은 방법으로 처리 할 예정
 //        String requestUri = request.getRequestURI();
@@ -77,6 +78,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             writer.print("invalid access token");
             throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
         }
+
 
         UserAuthDto userAuthDto = UserAuthDto.builder()
                 .id(jwtUtil.getUserId(accessToken))

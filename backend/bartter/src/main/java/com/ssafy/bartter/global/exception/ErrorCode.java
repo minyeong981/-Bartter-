@@ -18,8 +18,7 @@ public enum ErrorCode {
     NOT_SUPPORTED_EXTENSION(HttpStatus.BAD_REQUEST, 1004, "지원하지 않는 파일 확장자입니다."),
     INVALID_LOCATION(HttpStatus.BAD_REQUEST, 1005, "유효하지 않은 위치입니다."),
     LOCATION_NOT_FOUND(HttpStatus.NOT_FOUND, 1006, "해당 위치를 찾을 수 없습니다."),
-    INVALID_DATE(HttpStatus.BAD_REQUEST, 1007, "유효하지 않은 날짜입니다."),
-    IMAGE_NOT_ADDED(HttpStatus.BAD_REQUEST, 1008, "이미지를 첨부해야 합니다."),
+    IMAGE_NOT_ADDED(HttpStatus.BAD_REQUEST, 1007, "이미지를 첨부해야 합니다."),
 
     // Auth & User - 2000
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, 2000, "해당 ID의 사용자를 찾을 수 없습니다."),
@@ -34,8 +33,6 @@ public enum ErrorCode {
     ACCESS_TOKEN_MISSING(HttpStatus.BAD_REQUEST, 2009, "액세스 토큰이 누락되었습니다."),
     USER_ACCOUNT_DEACTIVATED(HttpStatus.FORBIDDEN, 2010, "탈퇴한 회원입니다."),
 
-
-
     // Crop - 3000
     CROP_NOT_FOUND(HttpStatus.NOT_FOUND, 3000, "해당 ID의 농작물을 찾을 수 없습니다."),
     CROP_CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, 3001, "해당 ID의 농작물 카테고리를 찾을 수 없습니다."),
@@ -46,6 +43,8 @@ public enum ErrorCode {
     // Community - 5000
     COMMUNITY_POST_NOT_FOUND(HttpStatus.NOT_FOUND, 5000, "해당 ID의 동네모임 게시글을 찾을 수 없습니다."),
     COMMUNITY_POST_COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, 5001, "해당 ID의 동네모임 게시글 댓글을 찾을 수 없습니다."),
+    COMMUNITY_POST_LIKE_NOT_FOUND(HttpStatus.NOT_FOUND, 5001, "해당 게시글에 누른 좋아요가 없습니다."),
+    COMMUNITY_POST_LIKE_ALREADY_EXISTS(HttpStatus.NOT_FOUND, 5001, "해당 게시글에 이미 좋아요를 눌렀습니다."),
 
     // Trade - 6000
     TRADE_POST_NOT_FOUND(HttpStatus.NOT_FOUND,6000,"해당 ID의 물물교환 게시글을 찾을 수 없습니다." )

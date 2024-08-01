@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +73,7 @@ public class CommunityPost extends BaseEntity {
     /**
      * 게시글 이미지
      */
+    @BatchSize(size = 3)
     @OneToMany(mappedBy = "communityPost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CommunityPostImage> imageList = new ArrayList<>();
 

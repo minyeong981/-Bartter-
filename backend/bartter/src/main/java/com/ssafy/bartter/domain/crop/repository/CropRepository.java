@@ -7,6 +7,11 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+/**
+ * CropRepository
+ *
+ * @author 김가람
+ */
 public interface CropRepository extends JpaRepository<Crop, Integer> {
     List<Crop> findAllByUserId(Integer userId);
 
@@ -19,7 +24,7 @@ public interface CropRepository extends JpaRepository<Crop, Integer> {
                     + " AND tp.status = 'COMPLETED'"
     )
     List<Crop> findGiveCropByUserId(
-            @Param("userId") Integer userId
+            @Param("userId") int userId
     );
 
     // TODO : DTO 변환 후 쿼리 체크
@@ -33,6 +38,6 @@ public interface CropRepository extends JpaRepository<Crop, Integer> {
                     + " AND t.user.id = :userId"
     )
     List<Crop> findReceiveCropByUserId(
-            @Param("userId") Integer userId
+            @Param("userId") int userId
     );
 }

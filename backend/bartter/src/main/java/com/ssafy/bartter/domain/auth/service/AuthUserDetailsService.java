@@ -55,6 +55,9 @@ public class AuthUserDetailsService implements UserDetailsService {
                 .role(user.getRole().name())
                 .locationId(user.getLocation().getId())
                 .locationName(user.getLocation().getName())
+                .nickname(user.getNickname())
+                .profileImage(user.getProfileImage())
+                .profileMessage(user.getProfileMessage())
                 .isAccountExpired(user.isAccountExpired())
                 .build();
         return new AuthUserDetails(userAuthDto);

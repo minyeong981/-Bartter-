@@ -12,6 +12,7 @@ public class UserDto {
 
     /**
      * 간단한 유저 프로필 조회 Response
+     * TODO: 팔로잉 팔로우 숫자 추가 예정
      * */
     @Getter
     @Builder
