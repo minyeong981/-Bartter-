@@ -5,7 +5,7 @@ import styles from './SearchSuggestion.module.scss';
 interface SearchSuggestionsProps {
   query: string;
   suggestions: string[];
-  onSearch: (searchTerm: string) => void;
+  onSearch: (searchTerm: string, isEnter: boolean) => void;
 }
 
 export default function SearchSuggestion({
@@ -39,7 +39,7 @@ export default function SearchSuggestion({
       <div
         key={index}
         className={styles.suggestionItem}
-        onClick={() => onSearch(suggestion)}
+        onClick={() => onSearch(suggestion, true)}
       >
         <FaSearch className={styles.icon} />
         {getHighlightedText(suggestion, query)}

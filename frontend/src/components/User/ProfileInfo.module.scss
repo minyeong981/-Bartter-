@@ -43,11 +43,14 @@
     
     .nickname {
       margin: 10px 0;
-      font-size: 18px;
-      font-weight: bold;
       text-align: center;
 
       @include typo.title
+    }
+    
+    .followButton {
+      display: flex;
+      justify-content: center;
     }
     
     .followBox {

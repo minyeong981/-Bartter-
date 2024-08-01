@@ -1,0 +1,16 @@
+@use '@/styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+
+.resultBox {
+    @include typo.heading;
+
+    display: flex;
+    margin-top: 10px;
+    margin-left: 20px;
+
+    .resultText {
+        padding-right: 10px;
+        color: colors.$primary;
+    }
+}
+

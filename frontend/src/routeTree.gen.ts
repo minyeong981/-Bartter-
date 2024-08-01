@@ -23,10 +23,8 @@ import { Route as LayoutLoginIndexImport } from './routes/_layout/login/index'
 import { Route as LayoutHomeIndexImport } from './routes/_layout/home/index'
 import { Route as LayoutDiaryIndexImport } from './routes/_layout/diary/index'
 import { Route as LayoutCommunityIndexImport } from './routes/_layout/community/index'
-import { Route as LayoutTradeLayoutImport } from './routes/_layout/trade/_layout'
 import { Route as LayoutSignupLayoutImport } from './routes/_layout/signup/_layout'
 import { Route as LayoutCommunityCreateImport } from './routes/_layout/community/create'
-import { Route as LayoutTradeLayoutIndexImport } from './routes/_layout/trade/_layout/index'
 import { Route as LayoutLoginEntranceIndexImport } from './routes/_layout/login/entrance/index'
 import { Route as LayoutSignupLayout9Import } from './routes/_layout/signup/_layout/9'
 import { Route as LayoutSignupLayout8Import } from './routes/_layout/signup/_layout/8'
@@ -50,7 +48,6 @@ import { Route as LayoutCommunityDetailPostIdImport } from './routes/_layout/com
 
 // Create Virtual Routes
 
-const LayoutTradeImport = createFileRoute('/_layout/trade')()
 const LayoutSignupImport = createFileRoute('/_layout/signup')()
 
 // Create/Update Routes
@@ -63,11 +60,6 @@ const TestRoute = TestImport.update({
 const LayoutRoute = LayoutImport.update({
   id: '/_layout',
   getParentRoute: () => rootRoute,
-} as any)
-
-const LayoutTradeRoute = LayoutTradeImport.update({
-  path: '/trade',
-  getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutSignupRoute = LayoutSignupImport.update({
@@ -115,11 +107,6 @@ const LayoutCommunityIndexRoute = LayoutCommunityIndexImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutTradeLayoutRoute = LayoutTradeLayoutImport.update({
-  id: '/_layout',
-  getParentRoute: () => LayoutTradeRoute,
-} as any)
-
 const LayoutSignupLayoutRoute = LayoutSignupLayoutImport.update({
   id: '/_layout',
   getParentRoute: () => LayoutSignupRoute,
@@ -128,11 +115,6 @@ const LayoutSignupLayoutRoute = LayoutSignupLayoutImport.update({
 const LayoutCommunityCreateRoute = LayoutCommunityCreateImport.update({
   path: '/community/create',
   getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutTradeLayoutIndexRoute = LayoutTradeLayoutIndexImport.update({
-  path: '/',
-  getParentRoute: () => LayoutTradeLayoutRoute,
 } as any)
 
 const LayoutLoginEntranceIndexRoute = LayoutLoginEntranceIndexImport.update({
@@ -283,20 +265,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/signup'
       preLoaderRoute: typeof LayoutSignupLayoutImport
       parentRoute: typeof LayoutSignupRoute
-    }
-    '/_layout/trade': {
-      id: '/_layout/trade'
-      path: '/trade'
-      fullPath: '/trade'
-      preLoaderRoute: typeof LayoutTradeImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/trade/_layout': {
-      id: '/_layout/trade/_layout'
-      path: '/trade'
-      fullPath: '/trade'
-      preLoaderRoute: typeof LayoutTradeLayoutImport
-      parentRoute: typeof LayoutTradeRoute
     }
     '/_layout/community/': {
       id: '/_layout/community/'
@@ -487,13 +455,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutLoginEntranceIndexImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/trade/_layout/': {
-      id: '/_layout/trade/_layout/'
-      path: '/'
-      fullPath: '/trade/'
-      preLoaderRoute: typeof LayoutTradeLayoutIndexImport
-      parentRoute: typeof LayoutTradeLayoutImport
-    }
   }
 }
 
@@ -516,11 +477,6 @@ export const routeTree = rootRoute.addChildren({
         LayoutSignupLayout9Route,
       }),
       LayoutSignupIndexRoute,
-    }),
-    LayoutTradeRoute: LayoutTradeRoute.addChildren({
-      LayoutTradeLayoutRoute: LayoutTradeLayoutRoute.addChildren({
-        LayoutTradeLayoutIndexRoute,
-      }),
     }),
     LayoutCommunityIndexRoute,
     LayoutDiaryIndexRoute,
@@ -561,7 +517,6 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/",
         "/_layout/community/create",
         "/_layout/signup",
-        "/_layout/trade",
         "/_layout/community/",
         "/_layout/diary/",
         "/_layout/home/",
@@ -613,20 +568,6 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/signup/_layout/7",
         "/_layout/signup/_layout/8",
         "/_layout/signup/_layout/9"
-      ]
-    },
-    "/_layout/trade": {
-      "filePath": "_layout/trade",
-      "parent": "/_layout",
-      "children": [
-        "/_layout/trade/_layout"
-      ]
-    },
-    "/_layout/trade/_layout": {
-      "filePath": "_layout/trade/_layout.tsx",
-      "parent": "/_layout/trade",
-      "children": [
-        "/_layout/trade/_layout/"
       ]
     },
     "/_layout/community/": {
@@ -736,10 +677,6 @@ export const routeTree = rootRoute.addChildren({
     "/_layout/login/entrance/": {
       "filePath": "_layout/login/entrance/index.tsx",
       "parent": "/_layout"
-    },
-    "/_layout/trade/_layout/": {
-      "filePath": "_layout/trade/_layout/index.tsx",
-      "parent": "/_layout/trade/_layout"
     }
   }
 }

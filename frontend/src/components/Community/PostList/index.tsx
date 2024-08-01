@@ -35,10 +35,10 @@ export default function PostList({posts}: CommunityProps) {
           </Link>
           <div className={styles.iconBox}>
             <div className={styles.likeCount}>
-              <FaThumbsUp /> 좋아요 {post.likeCount}
+              <FaThumbsUp /> 좋아요 { post.likeCount ===0 ? undefined : post.likeCount}
             </div>
-            <div className={styles.commentCount}>
-              <FaComment /> 댓글 {post.commentList.length}
+            <div className={styles.commentCount}> 
+              <FaComment /> 댓글 { post.commentList.length===0 ? undefined : post.commentList.length }
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import type { ChangeEvent, KeyboardEvent} from 'react';
+import type { KeyboardEvent} from 'react';
 import { FaSearch} from 'react-icons/fa';
 import { FaX } from 'react-icons/fa6';
 
@@ -9,7 +9,7 @@ import styles from './SearchBar.module.scss';
 
 interface SearchBarProps {
   query: string;
-  onSearch: (searchTerm: string) => void;
+  onSearch: (searchTerm: string, isEnter:boolean) => void;
   onInputChange: (input: string) => void;
 }
 
@@ -18,13 +18,13 @@ export default function SearchBar({ query, onSearch, onInputChange} : SearchBarP
 
 
   function handleClear() {
-    onSearch('');
+    onSearch('', false);
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter') {
       if (query.trim() !== '') {
-        onSearch(query);
+        onSearch(query, true);
       }
     }
   }
@@ -44,8 +44,8 @@ export default function SearchBar({ query, onSearch, onInputChange} : SearchBarP
                 onChange={(event) => onInputChange(event.target.value)}
                 onKeyDown={handleKeyDown}
               />
-              <button className={stylesInput.clearButton} onClick={handleClear}>
-                { query ? <FaX className={styles.faX} /> : <FaSearch className={styles.faSearch}/>}
+              <button className={stylesInput.clearButton} >
+                { query ? <FaX onClick={handleClear} className={styles.faX} /> : <FaSearch className={styles.faSearch}/>}
               </button>
             </div>
           </div>

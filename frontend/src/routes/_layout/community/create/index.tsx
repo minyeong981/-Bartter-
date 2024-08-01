@@ -1,7 +1,7 @@
 import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {ChangeEvent} from 'react';
-import {useEffect,useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import GeneralButton from '@/components/Buttons/GeneralButton';
 import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
@@ -14,7 +14,7 @@ import styles from './create.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/community/create')({
+export const Route = createFileRoute('/_layout/community/create/')({
   component: PostCreate,
 });
 
@@ -22,6 +22,7 @@ export default function PostCreate() {
   const maxImages = 3; // 허용된 최대 이미지 개수
 
   const nav = useNavigate({from: '/community/create'});
+  const [ cannotCreate, setCannotCreate ] = useState(true); // 글자 제한
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [images, setImages] = useState<SimpleImage[]>([]);
@@ -35,14 +36,22 @@ export default function PostCreate() {
     setContent(event.target.value);
   }
 
-  const handleImageChange = (newImages: string[]) => {
-    const newImageList = newImages.map((imageUrl, index) => ({
-      imageId: index,
-      imageUrl: imageUrl,
-      imageOrder: index
+  function handleImageChange(newImages: string[]) {
+
+    const newImageList = newImages.map((imageUrl, imageIndex) => ({
+      imageId : imageIndex,
+      imageUrl : imageUrl,
+      imageOrder: imageIndex
     }))
-    setImages(newImageList)
+
+    setImages([...newImageList]);
+
   };
+
+  useEffect(()=> {
+    if (title.length>0 &&title.length < 51 && content.length>0) {
+    setCannotCreate(false) }
+  }, [title, content])
 
   // 나중에!! 이런 식으로
   // const handleSubmit = async (e: React.FormEvent) => {
@@ -92,12 +101,15 @@ export default function PostCreate() {
           value={content}
         />
 
+        <div className={cx('imageContainer')}>
         <p>사진 ({images.length} / {maxImages})</p>
-        <ImageInput onImageChange={handleImageChange} maxImages={maxImages} />
+        <ImageInput onImageChange={handleImageChange} maxImages={maxImages}/>
+        </div>
 
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
           onClick={handleSubmit}
+          disabled={cannotCreate}
         >
           작성완료
         </GeneralButton>

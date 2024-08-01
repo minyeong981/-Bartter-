@@ -1,3 +1,7 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
 
 .formContainer {
   display: flex;
@@ -13,12 +17,6 @@
 //   box-shadow: 0 2px 10px rgb(0 0 0 / 10%); 
 }
 
-.imageContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap:10px;
-  justify-content: flex-start;
-}
 
 .image {
   width: 110px;
@@ -28,3 +26,4 @@
   // borderRadius: 5px
 
 }
+
