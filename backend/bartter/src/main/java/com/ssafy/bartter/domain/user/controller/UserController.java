@@ -2,6 +2,7 @@ package com.ssafy.bartter.domain.user.controller;
 
 import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
+import com.ssafy.bartter.domain.user.dto.UserDto;
 import com.ssafy.bartter.domain.user.services.UserService;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.global.common.SimpleLocation;
@@ -18,7 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Objects;
 
 /**
  * User 와 관련된 요청을 처리하는 컨트롤러 클래스
@@ -106,6 +106,19 @@ public class UserController {
         return SuccessResponse.of(userLocation);
     }
 
+    /**
+     * 사용자의 프로필을 조회하는 메서드
+     *
+     * @param userId 사용자의 ID
+     * @return 조회 결과를 나타내는 SuccessResponse 객체
+     */
+    @GetMapping("/{userId}/profile")
+    public SuccessResponse<UserDto.UserProfile> getUserProfile(@PathVariable int userId) {
+        log.debug("Get User Profile : {} ", userId);
+        UserDto.UserProfile userProfile = userService.getUserProfile(userId);
+        return SuccessResponse.of(userProfile);
+    }
+
 
     /**
      * 사용자 탈퇴 요청을 처리하는 메서드
@@ -119,5 +132,7 @@ public class UserController {
         userService.deleteUser(userId);
         return SuccessResponse.empty();
     }
+
+
 
 }
