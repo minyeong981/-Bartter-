@@ -95,4 +95,38 @@ public class CommunityPostDto {
                     .build();
         }
     }
+
+    /**
+     * 동네모임 게시글 목록 조회
+     */
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    public static class SimpleCommunityPostDetail{
+        private final int communityPostId;
+        private final String title;
+        private final String content;
+        private final LocalDateTime createdAt;
+        private final int likeCount;
+        private final boolean isLike;
+        private final int commentCount;
+        private final String imageUrl;
+        private final boolean hasImage;
+        private final SimpleLocation location;
+
+        public static SimpleCommunityPostDetail of(CommunityPost post,int userId) {
+            return SimpleCommunityPostDetail.builder()
+                    .communityPostId(post.getId())
+                    .title(post.getTitle())
+                    .content(post.getContent())
+                    .createdAt(post.getCreatedAt())
+                    .likeCount(post.getLikeList().size())
+                    .isLike(post.getLikeList().stream().anyMatch(like -> like.getUser().getId().equals(userId)))
+                    .commentCount(post.getCommentList().size())
+                    .imageUrl(post.getImageList().isEmpty() ? null : post.getImageList().get(0).getImageUrl())
+                    .hasImage(post.getImageList().isEmpty() ? false: true)
+                    .location(SimpleLocation.of(post.getLocation()))
+                    .build();
+        }
+    }
 }

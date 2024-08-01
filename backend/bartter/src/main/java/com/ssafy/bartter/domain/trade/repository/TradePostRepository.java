@@ -62,4 +62,13 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
             "WHERE tp.id = :findTradePostId "
     )
     Optional<TradePost> findTradePostById(@Param("findTradePostId") int findTradePostId);
+
+
+    @Query("SELECT tp.id FROM TradePost tp " +
+            "WHERE LOWER(tp.title) LIKE LOWER(CONCAT('%', :keyword,'%'))" +
+            "OR LOWER(tp.content) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    Page<Integer> findTradePostListByKeyword(
+            @Param("keyword") String keyword,
+             Pageable pageable
+    );
 }

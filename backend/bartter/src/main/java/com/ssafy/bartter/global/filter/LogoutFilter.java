@@ -1,6 +1,6 @@
 package com.ssafy.bartter.global.filter;
 
-import com.ssafy.bartter.domain.auth.repository.RefreshRepository;
+import com.ssafy.bartter.domain.auth.repository.RedisRefreshRepository;
 import com.ssafy.bartter.domain.auth.utils.JwtUtil;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
@@ -26,7 +26,7 @@ import java.util.Objects;
 public class LogoutFilter extends GenericFilterBean {
 
     private final JwtUtil jwtUtil;
-    private final RefreshRepository refreshRepository;
+    private final RedisRefreshRepository redisRefreshRepository;
 
     /**
      * 요청을 필터링하여 로그아웃 요청을 처리한다
@@ -92,13 +92,13 @@ public class LogoutFilter extends GenericFilterBean {
 
         // DB에 저장되어 있는지 확인
         // DB에 없으면 => 로그아웃 한 상태
-        boolean isExist = Objects.nonNull(refreshRepository.find(refresh));
+        boolean isExist = Objects.nonNull(redisRefreshRepository.find(refresh));
         if (!isExist) {
             throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
         }
 
         // 로그아웃 수행: 데이터베이스와 클라이언트 쿠키에서 리프레시 토큰 삭제
-        refreshRepository.delete(refresh);
+        redisRefreshRepository.delete(refresh);
         Cookie cookie = new Cookie("refresh", null);
         cookie.setMaxAge(0);
         cookie.setPath("/");

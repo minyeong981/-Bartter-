@@ -22,7 +22,7 @@ public class UserDto {
         private final String username;
         private final String profileImage;
 
-        public static final SimpleUserProfile of(User user) {
+        public static SimpleUserProfile of(User user) {
             return SimpleUserProfile.builder()
                     .userId(user.getId())
                     .username(user.getUsername())
