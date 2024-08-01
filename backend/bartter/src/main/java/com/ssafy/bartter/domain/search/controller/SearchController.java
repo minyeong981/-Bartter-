@@ -22,7 +22,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchController {
 
-    private final RedisSearchLogRepository redisSearchLogRepository;
     private final SearchService searchService;
 
     @GetMapping("")
@@ -30,7 +29,7 @@ public class SearchController {
             @RequestParam(value = "keyword", required = false) String keyword,
             @CurrentUser UserAuthDto user) {
         searchService.saveRecentSearchKeyword(keyword, user.getUsername());
-        searchService.searchByKeyword(keyword);
+        searchService.searchByTotalKeyword(keyword);
 
         return SuccessResponse.of(null);
     }

@@ -23,6 +23,7 @@ public class TradePostService {
 
     private final LocationService locationService;
     private final TradePostRepository cropTradeRepository;
+    private final TradePostRepository tradePostRepository;
 
     @Transactional(readOnly = true)
     public List<TradePost> getTradePostList(int offset, int limit, int givenCategory, List<Integer> desiredCategories, int locationId) {
@@ -31,9 +32,7 @@ public class TradePostService {
         PageRequest pageable = PageRequest.of(offset, limit, Sort.by("createdAt").descending());
         int desiredCategoriesSize = (desiredCategories == null) ? 0 : desiredCategories.size();
 
-        log.debug("이전 오류 발생 안남 = 1");
         List<Integer> tradePostIds = cropTradeRepository.findTradePostIdList(nearbyLocationList, givenCategory, desiredCategories, desiredCategoriesSize, pageable).getContent();
-        log.debug("이전 오류 발생 안남 = 2");
         log.debug("{}", tradePostIds);
         return cropTradeRepository.findTradePostListByIdList(tradePostIds);
     }
@@ -43,7 +42,13 @@ public class TradePostService {
                 orElseThrow(() -> new CustomException(TRADE_POST_NOT_FOUND));
     }
 
+    public List<TradePost> getTradePostByKeyword(int offset, int limit, String keyword) {
+        PageRequest pageable = PageRequest.of(offset, limit, Sort.by("createdAt").descending());
+        List<Integer> tradePostIds = tradePostRepository.findTradePostListByKeyword(keyword,pageable).getContent();
+        return cropTradeRepository.findTradePostListByIdList(tradePostIds);
+    }
+
     public Location getLocation(double latitude, double longitude) {
-        return locationService.getCurrentLocation(latitude,longitude);
+        return locationService.getCurrentLocation(latitude, longitude);
     }
 }
