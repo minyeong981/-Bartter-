@@ -18,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 /**
  * User 와 관련된 요청을 처리하는 컨트롤러 클래스
  *
@@ -89,6 +91,19 @@ public class UserController {
         Location location = userService.updateUserLocation(userAuthDto.getId(), userLocationDto);
 
         return SuccessResponse.of(SimpleLocation.of(location));
+    }
+
+    /**
+     * 특정 유저의 위치 정보를 조회하는 메서드
+     *
+     * @param userId 조회할 사용자의 ID
+     * @return 위치 정보를 담은 응답 객체
+     */
+    @GetMapping("/{userId}/location")
+    public SuccessResponse<SimpleLocation> getUserLocation(@PathVariable int userId) {
+        log.debug("GET USER LOCATION for User ID: {}", userId);
+        SimpleLocation userLocation = userService.getUserLocation(userId);
+        return SuccessResponse.of(userLocation);
     }
 
 

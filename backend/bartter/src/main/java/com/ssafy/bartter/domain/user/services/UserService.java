@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * User 관련 비즈니스 로직을 처리하는 서비스 클래스
@@ -85,5 +86,21 @@ public class UserService {
         user.updateLocation(location);
         userRepository.save(user);
         return location;
+    }
+
+    /**
+     * 특정 사용자의 위치 정보를 조회하는 메서드
+     *
+     * @param userId 조회할 사용자의 ID
+     * @return 위치 정보를 담은 객체
+     */
+    @Transactional(readOnly = true)
+    public SimpleLocation getUserLocation(int userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        if (user.getLocation() == null) {
+            throw new CustomException(ErrorCode.USER_LOCATION_NOT_FOUND);
+        }
+        return SimpleLocation.of(user.getLocation());
     }
 }
