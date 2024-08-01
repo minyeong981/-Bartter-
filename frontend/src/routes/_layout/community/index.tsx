@@ -15,7 +15,6 @@ export const Route = createFileRoute('/_layout/community/')({
 
 export default function Community() {
   const posts = useRootStore(state => state.posts);
-  console.log(posts);
 
   const [activeComponent, setActiveComponent] = useState<string>('전체글');
 

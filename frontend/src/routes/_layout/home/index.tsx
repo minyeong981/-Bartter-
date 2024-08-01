@@ -9,6 +9,8 @@ import BarterCard from '@/components/BarterCard';
 import LinkButton from '@/components/Buttons/LinkButton';
 import PostList from '@/components/Community/PostList';
 import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons';
+import Location from '@/components/Header/Location';
+import MenuBar from '@/components/MenuBar';
 import HomeStory from '@/components/Story/HomeStory';
 import useCommunityStore from '@/store';
 
@@ -84,7 +86,8 @@ export default function Home() {
 
   return (
     <div className={cx('container')}>
-      <HeaderWithLabelAndButtons label="내위치" />
+      <MenuBar />
+      <HeaderWithLabelAndButtons label={<Location location='내위치' />} />
       <AdCarousel />
       <div className={cx('home-barter')}>
         <div className={cx('section-title')}>

@@ -1,6 +1,5 @@
-import {FaComment, FaThumbsUp} from 'react-icons/fa';
-
 import CommentList from '@/components/Community/CommentLIst';
+import LikeComment from '@/components/LikeComment';
 import UserNameLocation from '@/components/User/UserNameLocation';
 
 import styles from './postDetail.module.scss';
@@ -31,14 +30,7 @@ export default function PostDetail({
           />
         ))}
       </div>
-      <div className={styles.pIconBox}>
-        <div className={styles.pLikeCount}>
-          <FaThumbsUp /> 좋아요 { post.likeCount===0 ? undefined : post.likeCount}
-        </div>
-        <div className={styles.pCommentCount}>
-          <FaComment /> 댓글 { post.commentList.length===0 ? undefined : post.commentList.length}
-        </div>
-      </div>
+      <LikeComment likeCount={post.likeCount} commentCount={post.commentList.length} isLike={true}/>
       <CommentList Comments={comments} />
     </div>
   );

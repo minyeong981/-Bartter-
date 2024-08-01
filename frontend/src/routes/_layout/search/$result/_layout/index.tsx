@@ -16,7 +16,7 @@ export const Route = createFileRoute('/_layout/search/$result/_layout/')({
 export default function SearchResult() {
   
   const { result } = Route.useParams()
-  const sortBy = useSearch({from:'/_layout/search/$result'})
+  const { sortBy } : { sortBy : string} = Route.useSearch()
 
   const posts = useRootStore((state) => state.posts)
   return (

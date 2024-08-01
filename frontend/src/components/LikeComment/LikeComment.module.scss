@@ -1,0 +1,42 @@
+@use '@/styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+
+.iconBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 0;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+}
+
+.likeCount {
+    svg {
+        width: 20px;
+        height: 20px;
+
+        // padding-top: 5px;
+        // padding-top: 5px;
+    }
+
+    .liked {
+    color: colors.$primary;
+    fill: colors.$primary;
+
+    path {
+      stroke: colors.$primary;
+    }
+  }
+}
+
+
+.likeCount, .commentCount {
+  display: flex;
+  align-items: center;
+
+  @include typo.label
+}
