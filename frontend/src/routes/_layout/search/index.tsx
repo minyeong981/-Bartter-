@@ -6,9 +6,7 @@ import SearchBar from '@/components/Search/SearchBar';
 import SearchResult from '@/components/Search/SearchResult';
 import SearchSuggestion from '@/components/Search/SearchSuggestion';
 
-import styles from './search.module.scss';
-
-
+// import styles from './search.module.scss';
 
 export default function Search() {
 
@@ -21,20 +19,31 @@ export default function Search() {
   // 4. 검색어를 엔터를 쳐서 입력. 결과 단어를 이용해 결과 컴포넌트에서 검색 결과 화면 보여줌.
   const [ result, setResult ] = useState<string>('');
 
+
   // handleSearch 함수! enter를 치면 감지!
-  function handleSearch(searchTerm : string) {
+  function handleSearch(searchTerm : string, isEnter: boolean) {
 
     const trimmedSearchTerm = searchTerm.trim();
     setQuery(trimmedSearchTerm)
 
-    // 최근검색어 추가
-    setRecentSearch(prevSearches => {
-      const updatedSearches = [trimmedSearchTerm, ...prevSearches.filter((term) => term !== trimmedSearchTerm)];
-      return updatedSearches.slice(0, 10); // 10개 까지만 보여주기
-    })
+    if (trimmedSearchTerm === '') {
+      setResult('')
+    }
+
 
     // 검색 결과
-    setResult(result)
+    if (isEnter && trimmedSearchTerm !== '') {
+      setResult(trimmedSearchTerm)
+    }
+
+    // 최근검색어 추가
+    setRecentSearch(prevSearches => {
+      if ( trimmedSearchTerm !== '' ) {
+        const updatedSearches = [trimmedSearchTerm, ...prevSearches.filter((term) => term !== trimmedSearchTerm)];
+        return updatedSearches.slice(0, 10); // 10개 까지만 보여주기
+      }
+      return prevSearches.slice(0,10)
+    })
 
   }
     
@@ -69,8 +78,8 @@ return (
     <div>
       <SearchBar query={query} onSearch={handleSearch} onInputChange={handleInputChange} />
       { query === '' && <RecentSearch searches={recentSearch} onSearch={handleSearch}/> }
-      { query !== '' && result.length===0 && <SearchSuggestion query={query} suggestions={suggestions} onSearch={handleSearch} /> }
-      { result.length > 0  && <SearchResult result={result} /> }
+      { query !== '' && result === '' && <SearchSuggestion query={query} suggestions={suggestions} onSearch={handleSearch}/> }
+      { result !=='' && <SearchResult result={result} /> }
     </div>
   </div>
 );

@@ -1,7 +1,7 @@
 import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {ChangeEvent} from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import GeneralButton from '@/components/Buttons/GeneralButton';
 import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
@@ -14,7 +14,7 @@ import styles from './create.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/community/create')({
+export const Route = createFileRoute('/_layout/community/create/')({
   component: PostCreate,
 });
 
@@ -22,6 +22,7 @@ export default function PostCreate() {
   const maxImages = 3; // 허용된 최대 이미지 개수
 
   const nav = useNavigate({from: '/community/create'});
+  const [ cannotCreate, setCannotCreate ] = useState(true); // 글자 제한
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [images, setImages] = useState<SimpleImage[]>([]);
@@ -34,25 +35,23 @@ export default function PostCreate() {
   function handleContentChange(event: ChangeEvent<HTMLInputElement>) {
     setContent(event.target.value);
   }
-
-  function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
-    const files = event.target.files;
-    if (event.target && files) {
-      const newImage = Array.from(files).map((file, index) => ({
-        imageId: index,
-        imageUrl: URL.createObjectURL(file),
-        imageOrder: index,
-      }));
-      setImages(newImage);
-    }
-    console.log(images);
-  }
   
-  // const handleImageChange = (newImages: string[]) => {
-  //   setImages(newImages);
-  //   setImages(newImages.length > 0 ? newImages[newImages.length - 1] : '');
-  // };
+  function handleImageChange(newImages: string[]) {
 
+    const newImageList = newImages.map((imageUrl, imageIndex) => ({
+      imageId : imageIndex,
+      imageUrl : imageUrl,
+      imageOrder: imageIndex
+    }))
+    
+    setImages([...newImageList]);
+
+  };
+
+  useEffect(()=> {
+    if (title.length>0 &&title.length < 51 && content.length>0) {
+    setCannotCreate(false) }
+  }, [title, content])
 
   // 나중에!! 이런 식으로
   // const handleSubmit = async (e: React.FormEvent) => {
@@ -101,25 +100,16 @@ export default function PostCreate() {
           onChange={handleContentChange}
           value={content}
         />
-        <input type="file" multiple onChange={handleImageChange} />
-        <p>사진 ({images.length} / {maxImages})</p>
-        {/* <ImageInput onImageChange={handleImageChange} maxImages={maxImages}/> */}
 
         <div className={cx('imageContainer')}>
-          {images &&
-            images.map((img, imgIndex) => (
-              <img
-                key={imgIndex}
-                className={cx('image')}
-                src={img.imageUrl}
-                alt=""
-              />
-            ))}
+        <p>사진 ({images.length} / {maxImages})</p>
+        <ImageInput onImageChange={handleImageChange} maxImages={maxImages}/>
         </div>
 
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
           onClick={handleSubmit}
+          disabled={cannotCreate}
         >
           작성완료
         </GeneralButton>

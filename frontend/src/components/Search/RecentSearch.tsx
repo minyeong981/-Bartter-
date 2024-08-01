@@ -5,7 +5,7 @@ import styles from './RecentSearch.module.scss';
 
 interface RecentSearchProps {
     searches: string[];
-    onSearch: (searchTerm: string) => void;
+    onSearch: (searchTerm: string, isEnter:boolean) => void;
 }
 
 export default function RecentSearch({ searches, onSearch }: RecentSearchProps) {
@@ -20,7 +20,7 @@ export default function RecentSearch({ searches, onSearch }: RecentSearchProps) 
         <div className={styles.recentSearchContainer}>
             {searchList.map((search, searchIndex) => (
                 <div key={searchIndex} className={styles.searchItem}>
-                    <div className={styles.searchText} onClick={() => onSearch(search)}>
+                    <div className={styles.searchText} onClick={() => onSearch(search, true)}>
                         {search}
                     </div>
                     <button className={styles.deleteButton} onClick={() => onDelete(search)}>

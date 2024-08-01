@@ -1,25 +1,25 @@
-import classnames from 'classnames/bind';
-import type {PropsWithChildren, ReactNode} from 'react';
+import classNames from 'classnames';
+import type {HTMLAttributes, PropsWithChildren, ReactNode} from 'react';
 
 import BackButton from './BackButton/BackButton.tsx';
-import Index from './Container';
+import Container from './Container/index.tsx';
 import styles from './header.module.scss';
 
-const cx = classnames.bind(styles);
+const cx = classNames;
 
-interface HeaderWithLabelAndBackButtonProps {
+interface HeaderWithLabelAndBackButtonProps extends HTMLAttributes<HTMLDivElement> {
   label: ReactNode;
 }
 
 export default function HeaderWithLabelAndBackButton({
-  label,
+  className,label,...props
 }: PropsWithChildren<HeaderWithLabelAndBackButtonProps>) {
   return (
-    <Index>
-      <div className={cx('left-buttons')}>
+    <Container {...props} className={className}>
+      <div className={cx(styles['left-buttons'])}>
         <BackButton />
       </div>
-      <span className={cx('center', 'label')}>{label}</span>
-    </Index>
+      <span className={cx(styles['center'], styles['label'])}>{label}</span>
+    </Container>
   );
 }

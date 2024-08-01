@@ -51,6 +51,37 @@ const initialPost: CommunityPostList = [
     ],
     createdAt: '2024-05-20 09:30',
   },
+  {
+    communityPostId: 2,
+    user: {userId: String(0), nickname: 'user1', profileImage: UserImage},
+    location: {locationId: 1, locationName: '광주 장덕동'},
+    title: '게시글 제목2',
+    content: '게시글 내용입니다2.',
+    likeCount: 12,
+    commentList: [
+      {
+        commentId: 1,
+        user: {userId: '1', nickname: 'user1', profileImage: UserImage},
+        content: '댓글1',
+        created_at: '2024-07-03 12:30',
+      },
+      {
+        commentId: 2,
+        user: {userId: '1', nickname: 'user2', profileImage: UserImage},
+        content: '댓글2',
+        created_at: '2024-07-03 11:26',
+      },
+    ],
+    imageList: [
+      {imageId: 1, imageUrl: CommunityImage, imageOrder: 1},
+      {
+        imageId: 2,
+        imageUrl: CommunityImage,
+        imageOrder: 2,
+      },
+    ],
+    createdAt: '2024-05-31 11:30',
+  },
 ];
 
 export const createCommunitySlice: StateCreator<

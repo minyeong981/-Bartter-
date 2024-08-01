@@ -80,6 +80,7 @@ export const Route = createFileRoute('/_layout/home/')({
 
 export default function Home() {
   const posts = useCommunityStore(state => state.posts);
+  // console.log(posts)
 
   return (
     <div className={cx('container')}>

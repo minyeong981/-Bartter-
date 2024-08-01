@@ -54,11 +54,7 @@ export default function NeighborCarousel() {
           </div>
         ))}
       </div>
-      <div className={styles.viewMoreContainer}>
-        <LinkButton buttonStyle={{style: 'primary', size: 'medium'}}>
-          이웃 더보기
-        </LinkButton>
-      </div>
+
     </div>
   );
 }
