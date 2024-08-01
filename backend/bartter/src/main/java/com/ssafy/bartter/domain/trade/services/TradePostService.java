@@ -9,6 +9,7 @@ import com.ssafy.bartter.domain.trade.dto.TradePostDto.Create;
 import com.ssafy.bartter.domain.trade.entity.TradePost;
 import com.ssafy.bartter.domain.trade.entity.TradePostImage;
 import com.ssafy.bartter.domain.trade.entity.TradeWishCropCategory;
+import com.ssafy.bartter.domain.trade.repository.TradePostImageRepository;
 import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.domain.user.repository.UserRepository;
 import com.ssafy.bartter.global.common.Location;
@@ -38,13 +39,13 @@ import static com.ssafy.bartter.global.exception.ErrorCode.TRADE_POST_NOT_FOUND;
 public class TradePostService {
 
     private final UserRepository userRepository;
-    private final LocationService locationService;
-    private final LocationRepository locationRepository;
-
     private final CropRepository cropRepository;
     private final TradePostRepository cropTradeRepository;
-    private final TradePostRepository tradePostRepository;
     private final CropCategoryRepository cropCategoryRepository;
+    private final TradePostImageRepository tradePostImageRepository;
+    private final TradePostRepository tradePostRepository;
+
+    private final LocationService locationService;
     private final S3UploadService uploadService;
 
     public List<TradePost> getTradePostList(int offset, int limit, int givenCategory, List<Integer> desiredCategories, int locationId) {
@@ -77,14 +78,15 @@ public class TradePostService {
     public void create(Create request, List<MultipartFile> imageList, UserAuthDto user) {
         User currentUser = userRepository.findById(user.getId())
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        Location location = locationService.getById(request.getLocationId());
+
         Crop crop = null;
         if (request.getCropId() > 0) {
             crop = cropRepository.findById(request.getCropId())
                     .orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
         }
 
-        Location location = locationRepository.findById(request.getLocationId())
-                .orElseThrow(() -> new CustomException(ErrorCode.LOCATION_NOT_FOUND));
+
 
         CropCategory cropCategory = cropCategoryRepository.findById(request.getCropCategoryId())
                 .orElseThrow(() -> new CustomException(ErrorCode.CROP_CATEGORY_NOT_FOUND));
@@ -121,8 +123,13 @@ public class TradePostService {
     @Transactional
     public void delete(int tradePostId, UserAuthDto user) {
         log.debug("여기부터 조회 들어감");
-        if(tradePostRepository.isAuthor(user.getId(),tradePostId)){
-            tradePostRepository.deleteById(tradePostId);
+        boolean author = tradePostRepository.isAuthor(user.getId(), tradePostId);
+        log.debug("{}", author);
+
+        if(!author){
+            throw new CustomException(ErrorCode.TRADE_POST_NOT_FOUND, "해당 ID의 물물교환 게시글을 찾을 수 없거나 게시글 작성자가 아닙니다.");
         }
+        List<TradePostImage> imageList = tradePostImageRepository.findByTradePostId(tradePostId);
+        log.debug("{}",imageList);
     }
 }
