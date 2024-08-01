@@ -1,5 +1,7 @@
 package com.ssafy.bartter.domain.trade.dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.bartter.domain.crop.dto.CropCategoryDto.CropCategoryDetail;
 import com.ssafy.bartter.global.common.SimpleLocation;
@@ -34,9 +36,13 @@ public class TradePostDto {
         private TradeStatus status;
         private SimpleLocation location;
         private int likeCount;
+
         @JsonProperty("isLike")
+        @JsonIgnore
         private boolean isLike;
+
         @JsonProperty("isShare")
+        @JsonIgnore
         private boolean isShare;
         private LocalDateTime createdAt;
 
@@ -72,9 +78,7 @@ public class TradePostDto {
         private String nickname;
         private String profileImage;
 
-        @JsonProperty("isLike")
         private boolean isLike;
-        @JsonProperty("isShare")
         private boolean isShare;
         private boolean hasCrop;
         private int cropId;

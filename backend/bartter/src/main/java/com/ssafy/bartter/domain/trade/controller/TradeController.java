@@ -85,8 +85,6 @@ public class TradeController {
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
-
-//        log.debug("{}", create);
         log.debug("{}", imageList);
         cropTradeService.create(create, imageList, user);
         return SuccessResponse.empty();
