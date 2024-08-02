@@ -1,0 +1,64 @@
+@use '@/styles/constants/colors.scss' as colors;
+@use '@/styles/constants/typographies.scss' as typo;
+
+.diaryDetailContainer {
+  padding: 16px;
+  text-align: left;
+}
+
+.diaryTitle {
+  margin-bottom: 20px;
+  text-align: center;
+
+  @include typo.title;
+}
+
+.diaryImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.cropInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+
+  @include typo.main;
+
+  .cropImage {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+
+  .cropNickname {
+    @include typo.label;
+  }
+}
+
+.diaryContent {
+  margin-bottom: 20px;
+
+  @include typo.main;
+}
+
+.diaryDate {
+  margin-bottom: 20px;
+  color: gray;
+
+  @include typo.time;
+}
+
+.deleteButton {
+    button {
+        color: red !important;
+        border: 1px solid red !important;
+    }
+  
+}

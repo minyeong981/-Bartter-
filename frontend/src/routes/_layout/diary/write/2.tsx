@@ -83,7 +83,9 @@ function DiaryWritePage2() {
           selectedDate: (selectedDate || new Date()).toISOString(),
           diaryTitle: diaryTitle,
           diaryContent: diaryContent,
-          diaryImage: diaryImage
+          diaryImage: diaryImage,
+          cropImage: selectedCrop.cropImage,
+          cropNickname: selectedCrop.cropNickname
         }}
         disabled={!isFormValid}
       >

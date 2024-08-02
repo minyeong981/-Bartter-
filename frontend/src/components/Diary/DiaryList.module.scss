@@ -59,6 +59,19 @@
   flex-direction: column;
   gap: 5px;
 
-  @include typo.main;
+  h3 {
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
+  p {
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  // @include typo.main;
 }

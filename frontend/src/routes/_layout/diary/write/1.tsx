@@ -36,7 +36,6 @@ function DiaryWritePage() {
           buttonStyle={{style: 'primary', size: 'large'}}
           to="/diary/write/2"
           disabled={selectedCropId === null}
-          // search={{selectedCrop: selectedCrop}}
           search={{selectedCropId, selectedCrop}}
         >
           다음
