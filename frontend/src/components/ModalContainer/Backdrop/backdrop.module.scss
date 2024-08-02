@@ -1,0 +1,10 @@
+@use "@/styles/constants/colors" as colors;
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(#000,.8);
+}
