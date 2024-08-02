@@ -15,7 +15,6 @@ import com.ssafy.bartter.domain.user.repository.UserRepository;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
-import com.ssafy.bartter.global.repository.LocationRepository;
 import com.ssafy.bartter.global.service.LocationService;
 import com.ssafy.bartter.domain.trade.repository.TradePostRepository;
 import com.ssafy.bartter.global.service.S3UploadService;
@@ -28,8 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static com.ssafy.bartter.global.exception.ErrorCode.TRADE_POST_NOT_FOUND;
 
@@ -47,6 +44,7 @@ public class TradePostService {
 
     private final LocationService locationService;
     private final S3UploadService uploadService;
+    private final S3UploadService s3UploadService;
 
     public List<TradePost> getTradePostList(int offset, int limit, int givenCategory, List<Integer> desiredCategories, int locationId) {
         List<Location> nearbyLocationList = locationService.getNearbyLocationList(locationId);
@@ -86,8 +84,6 @@ public class TradePostService {
                     .orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
         }
 
-
-
         CropCategory cropCategory = cropCategoryRepository.findById(request.getCropCategoryId())
                 .orElseThrow(() -> new CustomException(ErrorCode.CROP_CATEGORY_NOT_FOUND));
 
@@ -120,16 +116,26 @@ public class TradePostService {
         tradePostRepository.save(tradePost);
     }
 
+    /**
+     * 게시글 삭제
+     * @param tradePostId 게시글 ID
+     * @param user 글 작성자 ID
+     */
     @Transactional
     public void delete(int tradePostId, UserAuthDto user) {
-        log.debug("여기부터 조회 들어감");
-        boolean author = tradePostRepository.isAuthor(user.getId(), tradePostId);
-        log.debug("{}", author);
-
-        if(!author){
-            throw new CustomException(ErrorCode.TRADE_POST_NOT_FOUND, "해당 ID의 물물교환 게시글을 찾을 수 없거나 게시글 작성자가 아닙니다.");
+        if(!tradePostRepository.findTradePostByTradePostIdAndUserId(user.getId(), tradePostId)){
+            throw new CustomException(ErrorCode.TRADE_POST_DELETE_INVALID_REQUEST);
         }
+
         List<TradePostImage> imageList = tradePostImageRepository.findByTradePostId(tradePostId);
-        log.debug("{}",imageList);
+        for(TradePostImage image : imageList){
+            try{
+                s3UploadService.delete(image.getImageUrl());
+            }catch (Exception e){
+                log.debug("오류 번호 : {}", image.getId());
+            }
+        }
+        
+        tradePostRepository.deleteById(tradePostId);
     }
 }

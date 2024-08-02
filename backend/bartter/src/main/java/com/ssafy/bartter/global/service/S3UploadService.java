@@ -160,7 +160,7 @@ public class S3UploadService {
     /**
      * Url key 추출 메서드
      * @param imageUrl
-     * @return Object의 Key값
+     * @return Object Key
      */
     private String getObjectNameFromUrl(String imageUrl) {
         if (imageUrl == null || !imageUrl.contains("/")) {

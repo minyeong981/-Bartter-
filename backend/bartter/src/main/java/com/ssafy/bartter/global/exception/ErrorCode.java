@@ -47,7 +47,8 @@ public enum ErrorCode {
     COMMUNITY_POST_LIKE_ALREADY_EXISTS(HttpStatus.NOT_FOUND, 5001, "해당 게시글에 이미 좋아요를 눌렀습니다."),
 
     // Trade - 6000
-    TRADE_POST_NOT_FOUND(HttpStatus.NOT_FOUND,6000,"해당 ID의 물물교환 게시글을 찾을 수 없습니다." )
+    TRADE_POST_NOT_FOUND(HttpStatus.NOT_FOUND,6000,"해당 ID의 물물교환 게시글을 찾을 수 없습니다." ),
+    TRADE_POST_DELETE_INVALID_REQUEST(HttpStatus.BAD_REQUEST, 6001, "해당 ID의 물물교환 게시글을 찾을 수 없거나 게시글 작성자가 아닙니다."),
 
     // Chat
 

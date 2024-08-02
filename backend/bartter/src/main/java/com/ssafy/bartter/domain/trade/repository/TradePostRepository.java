@@ -44,6 +44,11 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
             Pageable pageable
     );
 
+    /**
+     * 리스트에 있는 ID를 가진 포스트를 리턴해준다.
+     * @param idList ID가 담긴 리스트
+     * @return ID에 해당하는 TradePost
+     */
     @Query("SELECT DISTINCT tp FROM TradePost tp " +
             "LEFT JOIN FETCH tp.location loc " +
             "LEFT JOIN FETCH tp.likeList lk " +
@@ -51,6 +56,11 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
             "WHERE tp.id IN :idList")
     List<TradePost> findTradePostListByIdList(@Param("idList") List<Integer> idList);
 
+    /**
+     * 해당 ID를 가진 게시글을 리턴해준다.
+     * @param findTradePostId 찾고싶은 아이디
+     * @return 해당 ID를 가진 TradePost
+     */
     @Query("SELECT DISTINCT tp FROM TradePost tp " +
             "JOIN FETCH tp.user " +
             "LEFT JOIN FETCH tp.crop " +
@@ -63,6 +73,12 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
     )
     Optional<TradePost> findTradePostById(@Param("findTradePostId") int findTradePostId);
 
+    /**
+     * 해당 키워드를 가진 물물교환 게시글 ID 리스트를 리턴해준다.
+     * @param keyword 검색 할 키워드
+     * @param pageable 페이징 조건 
+     * @return 키워드가 포함된 페이징 ID
+     */
     @Query("SELECT tp.id FROM TradePost tp " +
             "WHERE LOWER(tp.title) LIKE LOWER(CONCAT('%', :keyword,'%'))" +
             "OR LOWER(tp.content) LIKE LOWER(CONCAT('%', :keyword, '%'))")
@@ -71,8 +87,14 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
              Pageable pageable
     );
 
+    /**
+     * 해당하는 ID를 가진 작성자와 포스트가 있는지 확인한다.
+     * @param userId 글작성자
+     * @param tradePostId 게시글 ID
+     * @return userId가 글작성자이고 tradePostId를 PK로 갖는 TradePost
+     */
     @Query("SELECT CASE WHEN COUNT(tr) > 0 THEN TRUE ELSE FALSE END FROM TradePost tr WHERE tr.user.id = :userId AND tr.id = :tradePostId")
-    boolean isAuthor(@Param("userId") int userId, @Param("tradePostId") int tradePostId);
+    boolean findTradePostByTradePostIdAndUserId(@Param("userId") int userId, @Param("tradePostId") int tradePostId);
 
 
 }
