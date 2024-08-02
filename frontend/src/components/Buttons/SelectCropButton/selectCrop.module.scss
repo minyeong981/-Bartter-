@@ -1,0 +1,12 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typographies;
+
+.selectCropButton {
+  @include typographies.button;
+
+  padding: 8px;
+  color: colors.$primary;
+  background-color: colors.$white;
+  border: 1px solid colors.$primary;
+  border-radius: 5px;
+}

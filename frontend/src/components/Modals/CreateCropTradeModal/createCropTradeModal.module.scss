@@ -1,0 +1,16 @@
+@use '@/styles/constants/typographies' as typographies;
+
+.text {
+  @include typographies.title;
+
+  text-align: center;
+}
+
+
+.buttonContainer {
+  @include typographies.button;
+
+  display: flex;
+  gap: 22px;
+  justify-content: center;
+}
