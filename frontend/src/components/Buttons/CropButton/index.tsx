@@ -1,6 +1,6 @@
-import classnames from "classnames/bind";
+import classnames from 'classnames/bind';
 
-import styles from './cropButton.module.scss'
+import styles from './cropButton.module.scss';
 
 interface CropButtonProps {
   onClick: (value: string) => void;
@@ -9,17 +9,24 @@ interface CropButtonProps {
   selected?: boolean;
 }
 
-const cx = classnames.bind(styles)
+const cx = classnames.bind(styles);
 
-export default function CropButton({value, imgUrl, selected, onClick}: CropButtonProps) {
+export default function CropButton({
+  value,
+  imgUrl,
+  selected,
+  onClick,
+}: CropButtonProps) {
   function handleClick() {
-    onClick(value)
+    onClick(value);
   }
 
-  return <div className={cx('cropButton', {selected})}>
-    <button onClick={handleClick}>
-      <img src={imgUrl} alt={value}/>
-    </button>
-    <label>{value}</label>
-  </div>
+  return (
+    <div className={cx('cropButton', {selected})}>
+      <button id={value} onClick={handleClick}>
+        <img src={imgUrl} alt={value} />
+      </button>
+      <label htmlFor={value}>{value}</label>
+    </div>
+  );
 }
