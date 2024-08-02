@@ -32,8 +32,7 @@ public class CropDiaryController {
     @Operation(summary = "농사일지 작성", description = "농사일지를 작성한다.")
     @PostMapping("")
     public SuccessResponse<CropDiaryDetail> createCropDiary(
-            @CurrentUser UserAuthDto currentUser
-            ,
+            @CurrentUser UserAuthDto currentUser,
             @ModelAttribute @Valid Create request,
             BindingResult bindingResult,
             MultipartFile image
