@@ -6,9 +6,7 @@ import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.domain.user.entity.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.BatchSize;
 
 import java.util.ArrayList;
@@ -21,6 +19,7 @@ import java.util.List;
  */
 @Entity
 @Getter
+@ToString
 @Table(name = "trade_post")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TradePost extends BaseEntity {
@@ -90,20 +89,20 @@ public class TradePost extends BaseEntity {
      * 물물교환 희망 농작물 카테고리 - 받고 싶은 농작물 카테고리
      */
     @OneToMany(mappedBy = "tradePost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @BatchSize(size = 10)
     private List<TradeWishCropCategory> wishCropCategoryList = new ArrayList<>();
 
     /**
      * 물물교환 게시글 이미지 목록
      */
     @OneToMany(mappedBy = "tradePost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @BatchSize(size = 3)
+    @BatchSize(size = 30)
     private List<TradePostImage> imageList = new ArrayList<>();
 
     /**
      * 농작물 물물교환 게시글 찜
      */
     @OneToMany(mappedBy = "tradePost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @BatchSize(size = 100)
     private List<TradePostLike> likeList = new ArrayList<>();
 
     /**
@@ -111,4 +110,16 @@ public class TradePost extends BaseEntity {
      */
     @OneToMany(mappedBy = "tradePost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Trade> tradeList = new ArrayList<>();
+
+    @Builder
+    public TradePost(User user, Crop crop, Location location, CropCategory category,
+                     String title, String content, boolean isShare) {
+        this.user = user;
+        this.crop = crop;
+        this.location = location;
+        this.category = category;
+        this.title = title;
+        this.content = content;
+        this.isShare = isShare;
+    }
 }

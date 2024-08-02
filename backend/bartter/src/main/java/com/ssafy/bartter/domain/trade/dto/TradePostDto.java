@@ -1,11 +1,19 @@
 package com.ssafy.bartter.domain.trade.dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.bartter.domain.crop.dto.CropCategoryDto.CropCategoryDetail;
+import com.ssafy.bartter.domain.user.dto.UserDto;
+import com.ssafy.bartter.domain.user.dto.UserDto.SimpleUserProfile;
 import com.ssafy.bartter.global.common.SimpleLocation;
 import com.ssafy.bartter.domain.trade.entity.TradePost;
 import com.ssafy.bartter.domain.trade.entity.TradeStatus;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -30,11 +38,16 @@ public class TradePostDto {
         private TradeStatus status;
         private SimpleLocation location;
         private int likeCount;
-        @JsonProperty("isLike")
-        private boolean isLike;
-        @JsonProperty("isShare")
-        private boolean isShare;
         private LocalDateTime createdAt;
+
+        @JsonProperty("isLike")
+        @JsonIgnore
+        private boolean isLike;
+
+        @JsonProperty("isShare")
+        @JsonIgnore
+        private boolean isShare;
+
 
         public static SimpleTradePostDetail of(TradePost tradePost) {
             // TODO: 현재 사용자의 userID가 1이라고 가정하고 구현 추후 리팩토링 예정
@@ -62,33 +75,22 @@ public class TradePostDto {
         private int tradePostId;
         private String title;
         private String content;
-
-        // TODO: SimpleUserProfile Refactoring
-        private int userId;
-        private String nickname;
-        private String profileImage;
-
-        @JsonProperty("isLike")
+        private SimpleUserProfile author;
         private boolean isLike;
-        @JsonProperty("isShare")
         private boolean isShare;
         private boolean hasCrop;
         private int cropId;
-
         private List<String> imageList;
         private SimpleLocation location;
         private List<CropCategoryDetail> desiredCategoryList;
         private LocalDateTime createdAt;
 
-        public static TradePostDetail of(TradePost tradePost, List<String> imageList,List<CropCategoryDetail> desiredCategoryList) {
-            int currentUserId = 1;
+        public static TradePostDetail of(TradePost tradePost, List<String> imageList, List<CropCategoryDetail> desiredCategoryList, int currentUserId) {
             return TradePostDetail.builder()
                     .tradePostId(tradePost.getId())
                     .title(tradePost.getTitle())
                     .content(tradePost.getContent())
-                    .userId(tradePost.getUser().getId())
-                    .nickname(tradePost.getUser().getNickname())
-                    .profileImage(tradePost.getUser().getProfileImage())
+                    .author(UserDto.SimpleUserProfile.of(tradePost.getUser()))
                     .hasCrop(tradePost.getCrop() != null)
                     .isShare(tradePost.isShare())
                     .isLike(tradePost.getLikeList().stream().anyMatch(like -> like.getUser().getId() == currentUserId))
@@ -104,7 +106,25 @@ public class TradePostDto {
     /**
      * 물물교환 게시글 작성 Dto
      */
+    @Data
     public static class Create {
 
+        @NotBlank
+        private String title;
+
+        @NotBlank
+        private String content;
+
+        private boolean shareStatus;
+
+        @Min(value = 0)
+        private int locationId;
+
+        private int cropId;
+
+        @Min(value = 0)
+        private int cropCategoryId;
+
+        private List<Integer> wishCropCategoryList;
     }
 }

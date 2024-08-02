@@ -50,6 +50,7 @@ public class LocationService {
 
     /**
      * 위치 ID를 통해 현재 동네 반경 5KM에 있는 Location을 가져오는 메서드
+     *
      * @param locationId 위치 Id
      * @return 반경 5KM에 있는 Location List
      */
@@ -69,5 +70,15 @@ public class LocationService {
         // 좌표를 4326 좌표계로 변환하여 생성 JTS에서는 좌표 순서 (경도, 위도) 이다.
         return new GeometryFactory(new PrecisionModel(), 4326). // 기본 정밀도 모델, 좌표계 4326
                 createPoint(new Coordinate(longitude, latitude)); // 경도와 위도로 Coordinate 객체 생성
+    }
+
+
+    /**
+     * ID를 통해 동네를 찾아주는 메서드
+     * @param locationId 지역 ID
+     * @return Location
+     */
+    public Location getById(int locationId) {
+        return locationRepository.findById(locationId).orElseThrow(() -> new CustomException(ErrorCode.INVALID_LOCATION));
     }
 }
