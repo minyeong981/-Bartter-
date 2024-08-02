@@ -132,10 +132,10 @@ public class TradePostService {
             try{
                 s3UploadService.delete(image.getImageUrl());
             }catch (Exception e){
-                log.debug("오류 번호 : {}", image.getId());
+                log.debug("오류 발생 : {}", image.getId());
             }
         }
-        
+
         tradePostRepository.deleteById(tradePostId);
     }
 }
