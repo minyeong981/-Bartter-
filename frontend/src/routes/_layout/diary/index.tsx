@@ -3,11 +3,11 @@ import classnames from 'classnames/bind';
 import type { ReactElement } from 'react';
 import { useEffect, useState } from 'react';
 
+import TodayAlarm from '@/components/Alarm/todayAlarm';
 import LinkButton from '@/components/Buttons/LinkButton';
 import CalendarPage from '@/components/Calendar/calendar';
 import MainCrops from '@/components/Crop/mainCrops';
 import DiaryList from '@/components/Diary/DiaryList';
-import TodayAlarm from '@/components/TodayAlarm/todayAlarm';
 import TwoButton from '@/components/TwoButton/TwoButton';
 import useRootStore from '@/store/index';
 

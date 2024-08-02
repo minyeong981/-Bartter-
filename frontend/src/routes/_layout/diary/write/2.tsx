@@ -5,6 +5,7 @@ import classnames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 
 import LinkButton from '@/components/Buttons/LinkButton';
+import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
 import ImageInput from '@/components/Inputs/ImageInput';
 import LabeledInput from '@/components/Inputs/LabeledInput';
 import LabeledTextArea from '@/components/Inputs/LabeledTextAreaInput';
@@ -50,47 +51,50 @@ function DiaryWritePage2() {
   }, [diaryTitle, diaryContent, diaryImage, selectedDate]);
 
   return (
-    <div className={cx('writePage2Container')}>
-      <div className={cx('profile')}>
-        <img src={selectedCrop?.image || ''} alt="등록한 작물" className={cx('profileImage')} />
-        <span className={cx('nickname')}>{selectedCrop?.nickname || ''}</span>
+    <div>
+      <HeaderWithLabelAndBackButton label='농사 일지' />
+      <div className={cx('writePage2Container')}>
+        <div className={cx('profile')}>
+          <img src={selectedCrop?.image || ''} alt="등록한 작물" className={cx('profileImage')} />
+          <span className={cx('nickname')}>{selectedCrop?.nickname || ''}</span>
+        </div>
+        <SemiCalendarInput
+          label="날짜"
+          selectedDate={selectedDate}
+          onDateChange={setSelectedDate}
+        />
+        <LabeledInput
+          label="제목"
+          placeholder=""
+          onChange={(e) => handleTitleChange(e.target.value)}
+          value={diaryTitle}
+        />
+        <LabeledTextArea
+          label="내용"
+          placeholder=""
+          value={diaryContent}
+          onChange={(e) => handleContentChange(e.target.value)}
+        />
+        <div className={cx('photoContainer')}>
+          <p className={cx('photoText')}>사진 ({diaryImage.length} / {maxImages})</p>
+          <ImageInput onImageChange={handleImageChange} maxImages={maxImages} />
+        </div>
+        <LinkButton
+          buttonStyle={{ style: 'primary', size: 'large' }}
+          to="/diary"
+          search={{
+            selectedDate: (selectedDate || new Date()).toISOString(),
+            diaryTitle: diaryTitle,
+            diaryContent: diaryContent,
+            diaryImage: diaryImage,
+            cropImage: selectedCrop.cropImage,
+            cropNickname: selectedCrop.cropNickname
+          }}
+          disabled={!isFormValid}
+        >
+          작성 완료
+        </LinkButton>
       </div>
-      <SemiCalendarInput
-        label="날짜"
-        selectedDate={selectedDate}
-        onDateChange={setSelectedDate}
-      />
-      <LabeledInput
-        label="제목"
-        placeholder=""
-        onChange={(e) => handleTitleChange(e.target.value)}
-        value={diaryTitle}
-      />
-      <LabeledTextArea
-        label="내용"
-        placeholder=""
-        value={diaryContent}
-        onChange={(e) => handleContentChange(e.target.value)}
-      />
-      <div className={cx('photoContainer')}>
-        <p className={cx('photoText')}>사진 ({diaryImage.length} / {maxImages})</p>
-        <ImageInput onImageChange={handleImageChange} maxImages={maxImages} />
-      </div>
-      <LinkButton
-        buttonStyle={{ style: 'primary', size: 'large' }}
-        to="/diary"
-        search={{
-          selectedDate: (selectedDate || new Date()).toISOString(),
-          diaryTitle: diaryTitle,
-          diaryContent: diaryContent,
-          diaryImage: diaryImage,
-          cropImage: selectedCrop.cropImage,
-          cropNickname: selectedCrop.cropNickname
-        }}
-        disabled={!isFormValid}
-      >
-        작성 완료
-      </LinkButton>
     </div>
   );
 }

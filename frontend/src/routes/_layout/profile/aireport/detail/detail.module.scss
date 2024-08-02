@@ -1,0 +1,21 @@
+.container {
+  padding: 16px;
+  text-align: center;
+
+  h1 {
+    margin-bottom: 16px;
+    font-size: 24px;
+  }
+
+  .cropImage {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin-bottom: 16px;
+    border-radius: 8px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}

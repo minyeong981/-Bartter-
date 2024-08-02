@@ -5,6 +5,7 @@ import { ko } from 'date-fns/locale';
 import { useEffect, useState } from 'react';
 
 import GeneralButton from '@/components/Buttons/GeneralButton';
+import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
 
 import styles from './diaryDetail.module.scss';
 
@@ -45,25 +46,28 @@ function DiaryDetail() {
   const formattedDate = format(new Date(diaryEntry.selectedDate), 'yyyy-MM-dd HH:mm', { locale: ko });
 
   return (
-    <div className={cx('diaryDetailContainer')}>
-      <h1 className={cx('diaryTitle')}>{diaryEntry.diaryTitle}</h1>
-      {diaryEntry.diaryImage && (
-        <img src={diaryEntry.diaryImage[0]} alt="Diary" className={cx('diaryImage')} />
-      )}
-      <div className={cx('cropInfo')}>
-        <img src={diaryEntry.cropImage} alt="Crop" className={cx('cropImage')} />
-        <span className={cx('cropNickname')}>{diaryEntry.cropNickname}</span>
+    <div>
+      <HeaderWithLabelAndBackButton label='농사 일지' />
+      <div className={cx('diaryDetailContainer')}>
+        <h1 className={cx('diaryTitle')}>{diaryEntry.diaryTitle}</h1>
+        {diaryEntry.diaryImage && (
+          <img src={diaryEntry.diaryImage[0]} alt="Diary" className={cx('diaryImage')} />
+        )}
+        <div className={cx('cropInfo')}>
+          <img src={diaryEntry.cropImage} alt="Crop" className={cx('cropImage')} />
+          <span className={cx('cropNickname')}>{diaryEntry.cropNickname}</span>
+        </div>
+        <p className={cx('diaryContent')}>{diaryEntry.diaryContent}</p>
+        <p className={cx('diaryDate')}>{formattedDate}</p>
+        <div className={cx('deleteButton')}>
+          <GeneralButton
+            onClick={() => handleDelete(diaryEntry.diaryId)}
+            buttonStyle={{ style: 'outlined', size: 'large' }}
+          >
+            삭제하기
+          </GeneralButton>
+        </div>        
       </div>
-      <p className={cx('diaryContent')}>{diaryEntry.diaryContent}</p>
-      <p className={cx('diaryDate')}>{formattedDate}</p>
-      <div className={cx('deleteButton')}>
-        <GeneralButton
-          onClick={() => handleDelete(diaryEntry.diaryId)}
-          buttonStyle={{ style: 'outlined', size: 'large' }}
-        >
-          삭제하기
-        </GeneralButton>
-      </div>        
     </div>
   );
 }
