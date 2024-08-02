@@ -22,14 +22,13 @@
 }
 
 .textAreaInput {
-  display: flex;
-  align-items: flex-start;
   width: 341px;
   height: 200px;
-  padding: 0 12px;
+  padding: 8px;
   overflow-y: auto;
   border: 1px solid colors.$primary;
   border-radius: 12px;
+
 
   &::placeholder {
     color: colors.$placeholder;
