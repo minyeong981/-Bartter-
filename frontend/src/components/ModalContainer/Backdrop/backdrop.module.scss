@@ -1,10 +1,12 @@
 @use "@/styles/constants/colors" as colors;
+@use '@/styles/constants/dimension' as dimension;
 
 .backdrop {
   position: absolute;
   inset: 0;
+  z-index: dimension.$modal;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(#000,.8);
+  background-color: rgba(#000, .8);
 }
