@@ -1,4 +1,5 @@
 @use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typographies;
 
 .generalInput {
   width: 341px;
@@ -13,6 +14,8 @@
 }
 
 .labeledInput {
+  @include typographies.label;
+
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -149,4 +152,35 @@
 .react-datepicker__day--selected:hover {
   background-color: transparent !important;
   border: 2px solid colors.$primary !important;
+}
+
+.checkbox {
+  display: flex;
+  flex-direction: column;
+  width: 341px;
+
+  span {
+    @include typographies.label;
+  }
+
+  input {
+    display: none;
+  }
+
+  label {
+    position: relative;
+    gap: 4px;
+    width: 24px;
+    height: 24px;
+    background-color: colors.$gray1;
+    border-radius: 12px;
+
+  }
+
+  input:checked + label::after {
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    content: url("@/assets/svg/check.svg");
+  }
 }
