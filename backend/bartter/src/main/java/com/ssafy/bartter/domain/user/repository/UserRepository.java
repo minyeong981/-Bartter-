@@ -27,4 +27,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             @Param("keyword") String keyword,
             Pageable pageable
     );
+
 }

@@ -230,4 +230,20 @@ public class User extends BaseEntity {
     public void updateLocation(Location location) {
         this.location = location;
     }
+
+    /**
+     * 내가 팔로우 하는 유저 수
+     * @return 팔로우 하는 유저 수
+     */
+    public int getFolloweeCount() {
+        return followeeList.size();
+    }
+
+    /**
+     * 나를 팔로우 하는 유저 수
+     * @return 팔로우하는 유저 수
+     */
+    public int getFollowerCount() {
+        return followerList.size();
+    }
 }
