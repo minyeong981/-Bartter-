@@ -53,8 +53,6 @@ import { Route as LayoutDiaryRegisterCrop1Import } from './routes/_layout/diary/
 import { Route as LayoutDiaryGrowDiaryCropIdImport } from './routes/_layout/diary/growDiary/$cropId'
 import { Route as LayoutCommunityDetailPostIdImport } from './routes/_layout/community/detail/$postId'
 import { Route as LayoutSearchResultLayoutIndexImport } from './routes/_layout/search/$result/_layout/index'
-import { Route as LayoutProfileNicknameDiaryIndexImport } from './routes/_layout/profile/$nickname/diary/index'
-import { Route as LayoutProfileNicknameCropStorageIndexImport } from './routes/_layout/profile/$nickname/cropStorage/index'
 
 // Create Virtual Routes
 
@@ -286,18 +284,6 @@ const LayoutSearchResultLayoutIndexRoute =
   LayoutSearchResultLayoutIndexImport.update({
     path: '/',
     getParentRoute: () => LayoutSearchResultLayoutRoute,
-  } as any)
-
-const LayoutProfileNicknameDiaryIndexRoute =
-  LayoutProfileNicknameDiaryIndexImport.update({
-    path: '/profile/$nickname/diary/',
-    getParentRoute: () => LayoutRoute,
-  } as any)
-
-const LayoutProfileNicknameCropStorageIndexRoute =
-  LayoutProfileNicknameCropStorageIndexImport.update({
-    path: '/profile/$nickname/cropStorage/',
-    getParentRoute: () => LayoutRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
@@ -598,20 +584,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutTradeLayoutIndexImport
       parentRoute: typeof LayoutTradeLayoutImport
     }
-    '/_layout/profile/$nickname/cropStorage/': {
-      id: '/_layout/profile/$nickname/cropStorage/'
-      path: '/profile/$nickname/cropStorage'
-      fullPath: '/profile/$nickname/cropStorage'
-      preLoaderRoute: typeof LayoutProfileNicknameCropStorageIndexImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/profile/$nickname/diary/': {
-      id: '/_layout/profile/$nickname/diary/'
-      path: '/profile/$nickname/diary'
-      fullPath: '/profile/$nickname/diary'
-      preLoaderRoute: typeof LayoutProfileNicknameDiaryIndexImport
-      parentRoute: typeof LayoutImport
-    }
     '/_layout/search/$result/_layout/': {
       id: '/_layout/search/$result/_layout/'
       path: '/'
@@ -673,8 +645,6 @@ export const routeTree = rootRoute.addChildren({
     LayoutProfileChatIndexRoute,
     LayoutProfilePickedIndexRoute,
     LayoutProfileWritedIndexRoute,
-    LayoutProfileNicknameCropStorageIndexRoute,
-    LayoutProfileNicknameDiaryIndexRoute,
   }),
   TestRoute,
 })
@@ -719,9 +689,7 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/profile/changelocation/",
         "/_layout/profile/chat/",
         "/_layout/profile/picked/",
-        "/_layout/profile/writed/",
-        "/_layout/profile/$nickname/cropStorage/",
-        "/_layout/profile/$nickname/diary/"
+        "/_layout/profile/writed/"
       ]
     },
     "/test": {
@@ -913,14 +881,6 @@ export const routeTree = rootRoute.addChildren({
     "/_layout/trade/_layout/": {
       "filePath": "_layout/trade/_layout/index.tsx",
       "parent": "/_layout/trade/_layout"
-    },
-    "/_layout/profile/$nickname/cropStorage/": {
-      "filePath": "_layout/profile/$nickname/cropStorage/index.tsx",
-      "parent": "/_layout"
-    },
-    "/_layout/profile/$nickname/diary/": {
-      "filePath": "_layout/profile/$nickname/diary/index.tsx",
-      "parent": "/_layout"
     },
     "/_layout/search/$result/_layout/": {
       "filePath": "_layout/search/$result/_layout/index.tsx",

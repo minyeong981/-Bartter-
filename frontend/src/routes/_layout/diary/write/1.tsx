@@ -4,6 +4,7 @@ import {useState} from 'react';
 
 import LinkButton from '@/components/Buttons/LinkButton';
 import MyCrops from "@/components/Crop/MyCrops.tsx";
+import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton'
 import useRootStore from '@/store';
 
 import styles from './write.module.scss';
@@ -28,19 +29,21 @@ function DiaryWritePage() {
   };
 
   return (
-    <div className={cx('DiaryWritePage')}>
-      <h1>어떤 작물의 일지인가요?</h1>
-      <MyCrops crops={crops} onCropClick={handleCropSelect}/>
-      <div className={cx('buttonContainer')}>
-        <LinkButton
-          buttonStyle={{style: 'primary', size: 'large'}}
-          to="/diary/write/2"
-          disabled={selectedCropId === null}
-          // search={{selectedCrop: selectedCrop}}
-          search={{selectedCropId, selectedCrop}}
-        >
-          다음
-        </LinkButton>
+    <div>
+      <HeaderWithLabelAndBackButton label='농사 일지'/>
+      <div className={cx('DiaryWritePage')}>
+        <h1>어떤 작물의 일지인가요?</h1>
+        <MyCrops crops={crops} onCropClick={handleCropSelect}/>
+        <div className={cx('buttonContainer')}>
+          <LinkButton
+            buttonStyle={{style: 'primary', size: 'large'}}
+            to="/diary/write/2"
+            disabled={selectedCropId === null}
+            search={{selectedCropId, selectedCrop}}
+          >
+            다음
+          </LinkButton>
+        </div>
       </div>
     </div>
   );
