@@ -40,4 +40,10 @@ public class TradePostLike extends BaseEntity {
     @JoinColumn(name = "trade_post_id", nullable = false)
     private TradePost tradePost;
 
+    public static TradePostLike of(User user, TradePost tradePost) {
+        TradePostLike tradePostLike = new TradePostLike();
+        tradePostLike.tradePost = tradePost;
+        tradePostLike.user = user;
+        return tradePostLike;
+    }
 }
