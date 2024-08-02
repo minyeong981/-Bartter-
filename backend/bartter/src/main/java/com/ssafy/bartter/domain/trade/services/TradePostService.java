@@ -20,13 +20,16 @@ import com.ssafy.bartter.domain.trade.repository.TradePostRepository;
 import com.ssafy.bartter.global.service.S3UploadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 import static com.ssafy.bartter.global.exception.ErrorCode.TRADE_POST_NOT_FOUND;
 
@@ -48,13 +51,14 @@ public class TradePostService {
 
     public List<TradePost> getTradePostList(int offset, int limit, int givenCategory, List<Integer> desiredCategories, int locationId) {
         List<Location> nearbyLocationList = locationService.getNearbyLocationList(locationId);
-        log.debug("{}", nearbyLocationList.size());
+        log.debug("근처 동네 개수 : {}", nearbyLocationList.size());
         PageRequest pageable = PageRequest.of(offset, limit, Sort.by("createdAt").descending());
         int desiredCategoriesSize = (desiredCategories == null) ? 0 : desiredCategories.size();
 
-        List<Integer> tradePostIds = cropTradeRepository.findTradePostIdList(nearbyLocationList, givenCategory, desiredCategories, desiredCategoriesSize, pageable).getContent();
-        log.debug("{}", tradePostIds);
-        return cropTradeRepository.findTradePostListByIdList(tradePostIds);
+        log.debug("offset:{}, limit:{}, givenCategory:{}, desiredCategories:{},desiredSize:{}",offset, limit, givenCategory, desiredCategories, desiredCategoriesSize);
+        List<Integer> idList = cropTradeRepository.findTradePostIdList(nearbyLocationList, givenCategory, desiredCategories, desiredCategoriesSize, pageable).getContent();
+        log.debug("{}",idList);
+        return cropTradeRepository.findTradePostListByIdList(idList);
     }
 
     public TradePost getTradePost(int tradePostId) {
@@ -97,7 +101,7 @@ public class TradePostService {
                 .isShare(request.isShareStatus())
                 .build();
 
-        if(request.getWishCropCategoryList() != null){
+        if (request.getWishCropCategoryList() != null) {
             // 해당 ID를 가진 카테고리 조회
             List<CropCategory> categoryList = cropCategoryRepository.findAllById(request.getWishCropCategoryList());
 
@@ -118,20 +122,21 @@ public class TradePostService {
 
     /**
      * 게시글 삭제
+     *
      * @param tradePostId 게시글 ID
-     * @param user 글 작성자 ID
+     * @param user        글 작성자 ID
      */
     @Transactional
     public void delete(int tradePostId, UserAuthDto user) {
-        if(!tradePostRepository.findTradePostByTradePostIdAndUserId(user.getId(), tradePostId)){
+        if (!tradePostRepository.findTradePostByTradePostIdAndUserId(user.getId(), tradePostId)) {
             throw new CustomException(ErrorCode.TRADE_POST_DELETE_INVALID_REQUEST);
         }
 
         List<TradePostImage> imageList = tradePostImageRepository.findByTradePostId(tradePostId);
-        for(TradePostImage image : imageList){
-            try{
+        for (TradePostImage image : imageList) {
+            try {
                 s3UploadService.delete(image.getImageUrl());
-            }catch (Exception e){
+            } catch (Exception e) {
                 log.debug("오류 발생 : {}", image.getId());
             }
         }

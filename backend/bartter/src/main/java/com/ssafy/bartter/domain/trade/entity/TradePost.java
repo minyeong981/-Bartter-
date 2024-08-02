@@ -89,20 +89,20 @@ public class TradePost extends BaseEntity {
      * 물물교환 희망 농작물 카테고리 - 받고 싶은 농작물 카테고리
      */
     @OneToMany(mappedBy = "tradePost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @BatchSize(size = 10)
     private List<TradeWishCropCategory> wishCropCategoryList = new ArrayList<>();
 
     /**
      * 물물교환 게시글 이미지 목록
      */
     @OneToMany(mappedBy = "tradePost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @BatchSize(size = 3)
+    @BatchSize(size = 30)
     private List<TradePostImage> imageList = new ArrayList<>();
 
     /**
      * 농작물 물물교환 게시글 찜
      */
     @OneToMany(mappedBy = "tradePost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @BatchSize(size = 100)
     private List<TradePostLike> likeList = new ArrayList<>();
 
     /**

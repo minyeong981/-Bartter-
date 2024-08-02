@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.bartter.domain.crop.dto.CropCategoryDto.CropCategoryDetail;
+import com.ssafy.bartter.domain.user.dto.UserDto;
+import com.ssafy.bartter.domain.user.dto.UserDto.SimpleUserProfile;
 import com.ssafy.bartter.global.common.SimpleLocation;
 import com.ssafy.bartter.domain.trade.entity.TradePost;
 import com.ssafy.bartter.domain.trade.entity.TradeStatus;
@@ -36,6 +38,7 @@ public class TradePostDto {
         private TradeStatus status;
         private SimpleLocation location;
         private int likeCount;
+        private LocalDateTime createdAt;
 
         @JsonProperty("isLike")
         @JsonIgnore
@@ -44,7 +47,7 @@ public class TradePostDto {
         @JsonProperty("isShare")
         @JsonIgnore
         private boolean isShare;
-        private LocalDateTime createdAt;
+
 
         public static SimpleTradePostDetail of(TradePost tradePost) {
             // TODO: 현재 사용자의 userID가 1이라고 가정하고 구현 추후 리팩토링 예정
@@ -72,31 +75,22 @@ public class TradePostDto {
         private int tradePostId;
         private String title;
         private String content;
-
-        // TODO: SimpleUserProfile Refactoring
-        private int userId;
-        private String nickname;
-        private String profileImage;
-
+        private SimpleUserProfile author;
         private boolean isLike;
         private boolean isShare;
         private boolean hasCrop;
         private int cropId;
-
         private List<String> imageList;
         private SimpleLocation location;
         private List<CropCategoryDetail> desiredCategoryList;
         private LocalDateTime createdAt;
 
-        public static TradePostDetail of(TradePost tradePost, List<String> imageList,List<CropCategoryDetail> desiredCategoryList) {
-            int currentUserId = 1;
+        public static TradePostDetail of(TradePost tradePost, List<String> imageList, List<CropCategoryDetail> desiredCategoryList, int currentUserId) {
             return TradePostDetail.builder()
                     .tradePostId(tradePost.getId())
                     .title(tradePost.getTitle())
                     .content(tradePost.getContent())
-                    .userId(tradePost.getUser().getId())
-                    .nickname(tradePost.getUser().getNickname())
-                    .profileImage(tradePost.getUser().getProfileImage())
+                    .author(UserDto.SimpleUserProfile.of(tradePost.getUser()))
                     .hasCrop(tradePost.getCrop() != null)
                     .isShare(tradePost.isShare())
                     .isLike(tradePost.getLikeList().stream().anyMatch(like -> like.getUser().getId() == currentUserId))

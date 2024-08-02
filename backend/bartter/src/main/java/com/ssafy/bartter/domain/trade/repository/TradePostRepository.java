@@ -10,32 +10,33 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * TradePostRepository
- * 
+ *
  * @author 김용수
  */
 public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
 
     /**
-     * 조건에 맞는 물물교환 게시글들의 Id를 리턴해준다.
-     * 
-     * @param nearbyLocationList 반경에 해당하는 지역 번호
-     * @param givenCategory 주고 싶은 카테고리 존재하지 않으면 0
-     * @param desiredCategories 받고 싶은 카테고리 존재하지 않으면 null
+     * 조건에 맞는 물물교환 게시글들의 Id를 리턴
+     *
+     * @param nearbyLocationList    반경에 해당하는 지역 번호
+     * @param givenCategory         주고 싶은 카테고리 존재하지 않으면 0
+     * @param desiredCategories     받고 싶은 카테고리 존재하지 않으면 null
      * @param desiredCategoriesSize 받고 싶은 카테고리의 개수
-     * @param pageable 페이징 조건
+     * @param pageable              페이징 조건
      * @return 페이징된 물물교환 게시글들의 ID값
      */
-    // TODO : fetch LAZY로 인한 N + 1 가능성 생각해보기 
     @Query("SELECT tp.id FROM TradePost tp " +
             "JOIN tp.location loc " + // 물물교환 게시글의 위치
             "LEFT JOIN tp.category cat " + // 물물교환 게시글의 카테고리
             "LEFT JOIN tp.wishCropCategoryList wcc " + // 해당 게시글의 원하는 카테고리
-            "WHERE (loc IN :nearbyLocationList) " + // 현재 위치에 해당하는 게시글만 가져온다.
+            "WHERE loc IN :nearbyLocationList " + // 현재 위치에 해당하는 게시글만 가져온다.
             "AND (:givenCategory = 0 OR wcc.category.id = :givenCategory) " + // 주고 싶은 카테고리가 0이라면 항상 True, 0이 아니라면 해당 게시글의 원하는 농작물에 내가 주고 싶은게 있는가 ?
-            "AND (:desiredCategoriesSize = 0 OR cat.id IN :desiredCategories) ") // 원하는 카테고리가 비어 있으면 항상 True, 그렇지 않으먄 카테고리 매핑
+            "AND (:desiredCategoriesSize = 0 OR cat.id IN :desiredCategories) " +  // 원하는 카테고리가 비어 있으면 항상 True, 그렇지 않으먄 카테고리 매핑
+            "GROUP BY tp.id ")
     Page<Integer> findTradePostIdList(
             @Param("nearbyLocationList") List<Location> nearbyLocationList,
             @Param("givenCategory") int givenCategory,
@@ -46,22 +47,24 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
 
     /**
      * 리스트에 있는 ID를 가진 포스트를 리턴해준다.
+     *
      * @param idList ID가 담긴 리스트
      * @return ID에 해당하는 TradePost
      */
     @Query("SELECT DISTINCT tp FROM TradePost tp " +
             "LEFT JOIN FETCH tp.location loc " +
             "LEFT JOIN FETCH tp.likeList lk " +
-            "LEFT JOIN tp.imageList img " +
-            "WHERE tp.id IN :idList")
+            "WHERE tp.id IN :idList " +
+            "ORDER BY tp.id DESC")
     List<TradePost> findTradePostListByIdList(@Param("idList") List<Integer> idList);
 
     /**
      * 해당 ID를 가진 게시글을 리턴해준다.
+     *
      * @param findTradePostId 찾고싶은 아이디
      * @return 해당 ID를 가진 TradePost
      */
-    @Query("SELECT DISTINCT tp FROM TradePost tp " +
+    @Query("SELECT tp FROM TradePost tp " +
             "JOIN FETCH tp.user " +
             "LEFT JOIN FETCH tp.crop " +
             "JOIN FETCH tp.location " +
@@ -75,8 +78,9 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
 
     /**
      * 해당 키워드를 가진 물물교환 게시글 ID 리스트를 리턴해준다.
-     * @param keyword 검색 할 키워드
-     * @param pageable 페이징 조건 
+     *
+     * @param keyword  검색 할 키워드
+     * @param pageable 페이징 조건
      * @return 키워드가 포함된 페이징 ID
      */
     @Query("SELECT tp.id FROM TradePost tp " +
@@ -84,12 +88,13 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
             "OR LOWER(tp.content) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     Page<Integer> findTradePostListByKeyword(
             @Param("keyword") String keyword,
-             Pageable pageable
+            Pageable pageable
     );
 
     /**
      * 해당하는 ID를 가진 작성자와 포스트가 있는지 확인한다.
-     * @param userId 글작성자
+     *
+     * @param userId      글작성자
      * @param tradePostId 게시글 ID
      * @return userId가 글작성자이고 tradePostId를 PK로 갖는 TradePost
      */

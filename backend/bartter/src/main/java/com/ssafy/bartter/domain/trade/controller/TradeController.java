@@ -8,6 +8,7 @@ import com.ssafy.bartter.domain.trade.dto.TradePostDto.Create;
 import com.ssafy.bartter.domain.trade.dto.TradePostDto.SimpleTradePostDetail;
 import com.ssafy.bartter.domain.trade.dto.TradePostDto.TradePostDetail;
 import com.ssafy.bartter.domain.trade.entity.TradePost;
+import com.ssafy.bartter.domain.trade.entity.TradePostImage;
 import com.ssafy.bartter.domain.trade.services.TradePostService;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.global.common.SimpleLocation;
@@ -46,18 +47,24 @@ public class TradeController {
             @CurrentUser UserAuthDto user
     ) {
         List<TradePost> tradePostList = cropTradeService.getTradePostList(page, limit, givenCategory, desiredCategories, user.getLocationId());
-        List<SimpleTradePostDetail> simpleTradePostList = tradePostList.stream().map(o -> SimpleTradePostDetail.of(o)).collect(Collectors.toList());
+        List<SimpleTradePostDetail> simpleTradePostList = tradePostList.stream().map(SimpleTradePostDetail::of).collect(Collectors.toList());
         return SuccessResponse.of(simpleTradePostList);
     }
 
     @GetMapping("/posts/{tradePostId}")
     @Operation(summary = "농작물 물물교환 상세 조회", description = "농작물 물물교환 게시글을 상세조회한다.")
-    public SuccessResponse<TradePostDetail> getTradePost(@PathVariable("tradePostId") int tradePostId) {
+    public SuccessResponse<TradePostDetail> getTradePost(
+            @PathVariable("tradePostId") int tradePostId,
+            @CurrentUser UserAuthDto user
+    ) {
         TradePost tradePost = cropTradeService.getTradePost(tradePostId);
-        List<String> imageList = tradePost.getImageList().stream().map(o -> o.getImageUrl()).collect(Collectors.toList());
-        List<CropCategoryDetail> desiredCategoryList = tradePost.getWishCropCategoryList().stream().map(o -> CropCategoryDetail.of(o.getCategory())).toList();
-        TradePostDetail tradePostDetail = TradePostDetail.of(tradePost, imageList, desiredCategoryList);
 
+        List<String> imageList = tradePost.getImageList().stream().map(TradePostImage::getImageUrl).toList();
+//        log.debug("{}", imageList);
+        List<CropCategoryDetail> desiredCategoryList = tradePost.getWishCropCategoryList().stream().map(o -> CropCategoryDetail.of(o.getCategory())).toList();
+//        log.debug("{}",desiredCategoryList);
+
+        TradePostDetail tradePostDetail = TradePostDetail.of(tradePost, imageList, desiredCategoryList, user.getId());
         return SuccessResponse.of(tradePostDetail);
     }
 

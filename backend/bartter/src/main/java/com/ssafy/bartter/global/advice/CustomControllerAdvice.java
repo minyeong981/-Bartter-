@@ -18,13 +18,13 @@ public class CustomControllerAdvice {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleException(Exception exception) {
-        log.error("",exception.getMessage());
+        log.error("",exception);
         return ErrorResponse.of(new CustomException(ErrorCode.SERVER_ERROR, "서버 에러가 발생했습니다."));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ErrorResponse handleReadableException(Exception exception) {
-        log.error("",exception.getMessage());
+        log.error("",exception);
         return ErrorResponse.of(new CustomException(ErrorCode.BAD_REQUEST));
     }
 
