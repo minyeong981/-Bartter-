@@ -15,7 +15,7 @@ import CropButton from '@/components/Buttons/CropButton';
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 
-import styles from './from.module.scss';
+import styles from './to.module.scss';
 
 const DUMMY_CROPS = [
   {imageUrl: ImageCorn, value: 'corn'},
@@ -32,27 +32,27 @@ const DUMMY_CROPS = [
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/trade/from/_layout/')({
-  component: FromPage,
+export const Route = createFileRoute('/_layout/trade/to/_layout/')({
+  component: ToPage,
 });
 
-function FromPage() {
-  const [cropsToGive, setCropsToGive] = useState<string[]>([]);
+function ToPage() {
+  const [cropsToGet, setCropsToGet] = useState<string[]>([]);
 
   function handleSelectCrop(crop: string) {
-    if (cropsToGive.includes(crop)) {
-      setCropsToGive(prevCrops =>
+    if (cropsToGet.includes(crop)) {
+      setCropsToGet(prevCrops =>
         prevCrops.filter(prevCrop => prevCrop !== crop),
       );
     } else {
-      setCropsToGive(prevCrops => [...prevCrops, crop]);
+      setCropsToGet(prevCrops => [...prevCrops, crop]);
     }
   }
 
   return (
-    <div className={cx('fromPage')}>
+    <div className={cx('toPage')}>
       <Heading>
-        주고 싶은 농작물을
+        받고 싶은 농작물을
         <br />
         선택하세요
       </Heading>
@@ -65,7 +65,7 @@ function FromPage() {
                 onClick={handleSelectCrop}
                 value={crop.value}
                 imgUrl={crop.imageUrl}
-                selected={cropsToGive.includes(crop.value)}
+                selected={cropsToGet.includes(crop.value)}
               />
             ))}
         </div>
@@ -73,7 +73,7 @@ function FromPage() {
       <div className={cx('buttonContainer')}>
         <LinkButton
           buttonStyle={{style: 'primary', size: 'large'}}
-          to="/trade/to"
+          to="/signup"
         >
           다음
         </LinkButton>
