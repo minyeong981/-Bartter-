@@ -1,6 +1,6 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
-import type { ChangeEvent } from 'react';
+import type {ChangeEvent} from 'react';
 
 import GeneralButton from '@/components/Buttons/GeneralButton';
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
@@ -17,7 +17,7 @@ export const Route = createFileRoute('/_layout/diary/registerCrop/3')({
 });
 
 function GetDesciptionPage() {
-  const { nickname, description, setDescription } = useRootStore(state => ({
+  const {nickname, description, setDescription} = useRootStore(state => ({
     nickname: state.nickname,
     description: state.description,
     setDescription: state.setDescription,
@@ -31,7 +31,7 @@ function GetDesciptionPage() {
 
   function handleContinueButton() {
     setDescription('');
-    navigate({ to: '/diary/registerCrop/5' });
+    navigate({to: '/diary/registerCrop/5'});
   }
 
   return (
@@ -47,20 +47,24 @@ function GetDesciptionPage() {
         <LabeledTextAreaInput
           label="작물 설명 (선택 사항)"
           placeholder="품종 등"
-          onChange={handleDescriptionChange as unknown as (e: ChangeEvent<HTMLInputElement>) => void}
+          onChange={
+            handleDescriptionChange as unknown as (
+              e: ChangeEvent<HTMLTextAreaElement>,
+            ) => void
+          }
           value={description}
         />
       </div>
       <div className={cx('buttonContainer')}>
         <LinkButton
-          buttonStyle={{ style: 'primary', size: 'large' }}
+          buttonStyle={{style: 'primary', size: 'large'}}
           to="/diary/registerCrop/4"
           disabled={!isValid}
         >
           다음
         </LinkButton>
         <GeneralButton
-          buttonStyle={{ style: 'outlined', size: 'large' }}
+          buttonStyle={{style: 'outlined', size: 'large'}}
           onClick={handleContinueButton}
         >
           건너뛰기

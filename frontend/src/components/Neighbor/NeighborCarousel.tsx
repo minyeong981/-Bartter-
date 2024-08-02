@@ -42,11 +42,15 @@ export default function NeighborCarousel() {
       <div className={styles.carouselContainer} ref={carouselRef}>
         {followings.map((following, followingIndex) => (
           <div key={followingIndex}>
-            <NeighborCard {...following} isfollow={false} />
+            <NeighborCard
+              nickname={following.nickname}
+              profileImage={following.profileImage}
+              userId={Number(following.userId)}
+              isfollow={false}
+            />
           </div>
         ))}
       </div>
-
     </div>
   );
 }
