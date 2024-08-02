@@ -1,8 +1,10 @@
 import classNames from 'classnames';
 import type {HTMLAttributes} from 'react';
-import { FaComment,FaThumbsUp  } from 'react-icons/fa6';
 
-// import like from '@/assets/image/like.png';
+import LikeIcon from '@/assets/image/like.png';
+import commentIcon from '@/assets/image/message.png'
+import notLikeIcon from '@/assets/image/notLike.png';
+
 import styles from './LikeComment.module.scss';
 
 interface PostLikeCommentProps extends HTMLAttributes<HTMLDivElement> {
@@ -25,13 +27,15 @@ export default function LikeComment({
   return (
     <div className={styles.iconBox}>
         <div {...props} className={cx(styles.likeCount, className)}>
-          <div className={cx(styles.like, {[styles.liked]: isLike})}>
-            <FaThumbsUp />좋아요 { !! likeCount && likeCount}
+          <div className={cx(styles.like)}>
+            <div className={cx(styles.liked)}> {isLike ? <img src={LikeIcon} alt="" /> : <img src={notLikeIcon} alt="" /> } </div>
+            좋아요 { !! likeCount && likeCount}
           </div>
         </div>
 
         <div {...props} className={cx(styles.commentCount, className)}> 
-            <FaComment className={cx(styles.comment)} /> 댓글 { !! commentCount && commentCount }
+            <img className={cx(styles.comment)} src={commentIcon} alt="" />
+            댓글 { !! commentCount && commentCount }
         </div>
     </div>)
 

@@ -44,7 +44,7 @@ export default function UserNameContent({comment}: UserNameContentProps) {
         alt=""
       />
 
-      {showDeleteConfirm && (
+      {showDeleteConfirm && ( 
         <div className={styles.deleteConfirm}>
           <div className={styles.confirmText}>댓글을 삭제하시겠습니까?</div>
           <div className={styles.buttonContainer}>

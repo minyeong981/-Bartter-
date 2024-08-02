@@ -1,3 +1,6 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typo;
+
 .home-barter-component {
   position: relative;
   width: 100%;
@@ -32,15 +35,26 @@
 
   .barter-title, .barter-time {
     width: 100%;
+    padding-left: 5px;
     margin: 5px 0;
-    text-align: center;
+    text-align: left;
+  }
+
+  .barter-title {
+    @include typo.label;
+  }
+
+  .barter-time {
+    @include typo.time;
+
+    color: colors.$placeholder;
   }
 
   .barter-likes {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    width: 100%;
+    width: 100%;  
     margin-top: auto;
   }
 

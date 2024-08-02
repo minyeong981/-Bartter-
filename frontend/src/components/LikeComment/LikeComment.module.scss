@@ -15,24 +15,25 @@
 }
 
 .likeCount {
-    svg {
-        width: 20px;
-        height: 20px;
+    .like {
+      display: flex;
+      align-items: center;
 
-        // padding-top: 5px;
-        // padding-top: 5px;
+      .liked img {
+        width: 22px;
+        height: 22px;
+        margin-right: 10px;
+    
+      }
     }
 
-    .liked {
-    color: colors.$primary;
-    fill: colors.$primary;
-
-    path {
-      stroke: colors.$primary;
-    }
-  }
 }
 
+.comment {
+  width: 22px;
+  height: 22px;
+  margin-right: 10px;
+}
 
 .likeCount, .commentCount {
   display: flex;

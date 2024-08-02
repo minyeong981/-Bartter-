@@ -57,6 +57,7 @@ type Title = string;
 type LikeCount = number;
 type CommentCount = number;
 type Image = string | null;
+type isLike = boolean;
 
 interface CommunityPost {
   communityPostId: CommunityPostId;

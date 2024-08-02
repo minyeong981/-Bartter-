@@ -2,7 +2,7 @@ import {useEffect, useRef} from 'react';
 
 import UserImage from '@/assets/image/유저.png';
 
-import LinkButton from '../Buttons/LinkButton';
+import NeighborCard from './NeighborCard';
 import styles from './NeighborCarousel.module.scss';
 
 const followings: SimpleUser[] = [
@@ -41,16 +41,8 @@ export default function NeighborCarousel() {
     <div>
       <div className={styles.carouselContainer} ref={carouselRef}>
         {followings.map((following, followingIndex) => (
-          <div key={followingIndex} className={styles.followingCard}>
-            <img
-              src={following.profileImage}
-              alt={following.nickname}
-              className={styles.profileImage}
-            />
-            <div className={styles.nickname}>{following.nickname}</div>
-            <LinkButton buttonStyle={{style: 'primary', size: 'tiny'}}>
-              팔로우
-            </LinkButton>
+          <div key={followingIndex}>
+            <NeighborCard {...following} isfollow={false} />
           </div>
         ))}
       </div>

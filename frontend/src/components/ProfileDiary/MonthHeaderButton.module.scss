@@ -1,0 +1,19 @@
+@use '@/styles/constants/colors.scss' as colors;
+
+.Button {
+    padding: 10px 20px;
+    font-size: 18px;
+    white-space: nowrap;
+    cursor: pointer;
+    background-color: colors.$gray1;
+    border: none;
+    border-radius: 5px;
+}
+
+
+@media (width <= 390px) {
+    .Button {
+        padding: 8px 10px; // 모바일에서는 버튼 패딩을 줄임
+        font-size: 16px; // 폰트 크기를 줄임
+    }
+}

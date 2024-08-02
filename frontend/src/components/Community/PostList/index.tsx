@@ -1,6 +1,6 @@
 
 import PostCard from '../PostCard';
-import styles from './postList.module.scss';
+import styles from './PostList.module.scss';
 
 interface CommunityProps {
   posts: CommunityPost[];

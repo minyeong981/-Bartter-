@@ -1,16 +1,16 @@
 import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 
+import UserImage from '@/assets/image/corn.png';
 import SweatPotato from '@/assets/image/고구마.png';
 import StroyImage from '@/assets/image/스토리1.png';
-import UserImage from '@/assets/image/유저.png';
 import AdCarousel from '@/components/AdCarousel';
 import BarterCard from '@/components/BarterCard';
 import LinkButton from '@/components/Buttons/LinkButton';
 import PostList from '@/components/Community/PostList';
 import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons';
 import Location from '@/components/Header/Location';
-import MenuBar from '@/components/MenuBar';
+// import MenuBar from '@/components/MenuBar';
 import HomeStory from '@/components/Story/HomeStory';
 import useCommunityStore from '@/store';
 
@@ -51,27 +51,32 @@ const barters = [
   },
 ];
 
-const storyData = [
+const NeighborStory = [
   {
-    diaryImageSrc: StroyImage,
-    profileImageSrc: UserImage,
-    userName: 'user1',
+    diaryImage: StroyImage,
+    profileImage: UserImage,
+    nickname: 'user1',
   },
   {
-    diaryImageSrc: StroyImage,
-    profileImageSrc: UserImage,
-    userName: 'user1',
+    diaryImage: StroyImage,
+    profileImage: UserImage,
+    nickname: 'user1',
   },
   {
-    diaryImageSrc: StroyImage,
-    profileImageSrc: UserImage,
-    userName: 'user1',
+    diaryImage: StroyImage,
+    profileImage: UserImage,
+    nickname: 'user1',
   },
   {
-    diaryImageSrc: StroyImage,
-    profileImageSrc: UserImage,
-    userName: 'user1',
+    diaryImage: StroyImage,
+    profileImage: UserImage,
+    nickname: 'user1',
   },
+  {
+    diaryImage: StroyImage,
+    profileImage: UserImage,
+    nickname: 'user1',
+  }
 ];
 
 const cx = classnames.bind(styles);
@@ -86,7 +91,7 @@ export default function Home() {
 
   return (
     <div className={cx('container')}>
-      <MenuBar />
+      {/* <MenuBar /> */}
       <HeaderWithLabelAndButtons label={<Location location='내위치' />} />
       <AdCarousel />
       <div className={cx('home-barter')}>
@@ -97,7 +102,10 @@ export default function Home() {
       </div>
 
       <div className={cx('link-button-container')}>
-        <LinkButton buttonStyle={{style: 'primary', size: 'medium'}}>
+        <LinkButton 
+        buttonStyle={{style: 'primary', size: 'medium'}}
+        to="/trade"
+        >
           물물 교환 더보기
         </LinkButton>
       </div>
@@ -119,7 +127,9 @@ export default function Home() {
       <div className={cx('home-story')}>
         <div className={cx('section-title')}>
           <div>이웃의 농사 일지</div>
-          <HomeStory followCards={storyData} />
+          <div>
+            <HomeStory stories={NeighborStory} />
+          </div>
         </div>
       </div>
     </div>

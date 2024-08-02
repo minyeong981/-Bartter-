@@ -44,46 +44,31 @@
 
 .textTitle {
   @include typo.title;
+
+  max-width: 180px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  color: black;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .text {
   @include typo.label;
 
+  max-width: 160px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  color: black;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  // color: colors.$placeholder;
 }
 
 .time {
   @include typo.time;
 
-}
-
-
-.textTitle, .text, .time {
   margin-bottom: 5px;
-  color: black;
-}
-
-
-.iconBox {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 10px 0;
-
-  svg {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-  }
-}
-
-.likeCount {
-  color: #4fba3e;
-}
-
-
-.likeCount, .commentCount {
-  display: flex;
-  align-items: center;
-
-  @include typo.label
+  color: colors.$placeholder;
 }

@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { FaUserGroup } from 'react-icons/fa6';
 
-import GeneralButton from '../Buttons/GeneralButton';
+import FollowButton from '@/components/Buttons/FollowButton'
+
 import styles from './ProfileInfo.module.scss'
 
 export default function ProfileInfo({userId, location, profileImage, nickname, followeeCount, followingCount, profileMessage} : UserProfile) {
@@ -27,7 +28,8 @@ export default function ProfileInfo({userId, location, profileImage, nickname, f
                 {nickname}
             </div>
             <div className={styles.followButton}>
-            { userId !=='김싸피' ? undefined : <GeneralButton disabled={isfollowed} onClick= {handleClick} buttonStyle={{style:'primary', size: 'tiny'}}>팔로우</GeneralButton>}
+            { userId !=='김싸피' ? undefined : <FollowButton isfollow={isfollowed} onClick={handleClick} /> }
+            {/* { userId !=='김싸피' ? undefined : <GeneralButton disabled={isfollowed} onClick= {handleClick} buttonStyle={{style:'primary', size: 'tiny'}}>팔로우</GeneralButton>} */}
             </div>
             <div className={styles.followBox}>
                 <div>

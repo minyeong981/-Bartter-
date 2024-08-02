@@ -1,0 +1,14 @@
+@use '@/styles/constants/colors.scss' as colors;
+@use '@/styles/constants/typographies.scss' as typo;
+
+.Container {
+    box-sizing: border-box;
+    max-width: 390px; 
+    margin: 0 auto; 
+  
+    @media (width <= 390px) {
+      width: 100%; 
+      padding: 10px; 
+    }
+
+  }

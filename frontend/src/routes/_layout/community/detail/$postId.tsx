@@ -5,18 +5,21 @@ import type {ChangeEvent, KeyboardEvent} from 'react';
 import {useState} from 'react';
 
 import UserImage from '@/assets/image/유저.png';
+import CommentList from '@/components/Community/CommentLIst';
 import PostDetail from '@/components/Community/PostDetail/index.tsx';
 import HeaderWithBackButton from '@/components/Header/HeaderWithBackButton';
+import LikeComment from '@/components/LikeComment';
+import UserNameLocation from '@/components/User/UserNameLocation';
 import useRootStore from '@/store';
 
 import styles from './../index.module.scss';
 
 export const Route = createFileRoute('/_layout/community/detail/$postId')({
   // loader: async({ params }) => fetchPost(params.postId),
-  component: Detail,
+  component: CommunityDetail,
 });
 
-export default function Detail() {
+export default function CommunityDetail() {
   const posts: CommunityPost[] = useRootStore(state => state.posts);
   // 일단 detail 1개니까.
   const postId = 1;
@@ -60,7 +63,10 @@ export default function Detail() {
   return (
     <div>
       <HeaderWithBackButton />
-      <PostDetail post={post} comments={post.commentList} />
+      <UserNameLocation post={post} />
+      <PostDetail post={post} />
+      <LikeComment likeCount={post.likeCount} commentCount={post.commentList.length} isLike={true}/>
+      <CommentList Comments={post.commentList}/>
       <div>
         <input
           className={styles.commentInput}

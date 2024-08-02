@@ -58,7 +58,7 @@ export default function SearchResult({ result } : {result : string }) {
       
       <div className={cx('following')}>
         <div className={cx('title')}>
-          <div>내 이웃</div>
+          <div className={cx('followingText')}><div className={cx('resultText')}> {result}</div>를 키우는 이웃 </div>
         </div>
         <NeighborCarousel />
 

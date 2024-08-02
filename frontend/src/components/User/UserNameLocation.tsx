@@ -1,19 +1,24 @@
+import { useNavigate } from '@tanstack/react-router';
 import {useState} from 'react';
 
 import Delete from '@/assets/image/delete.png';
+import useRootStore from '@/store';
 
 import styles from './UserNameContent.module.scss';
 
 export default function UserNameLocation({post}: {post: CommunityPost}) {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const nav = useNavigate({from:'/community/detail/$postId'})
+
+  const deletePost = useRootStore(state => state.deletePost)
 
   function handleClick() {
     setShowDeleteConfirm(true);
   }
 
   function handleDelete(postId: number) {
-    console.log(`게시글 삭제 ${postId}`);
-    setShowDeleteConfirm(false);
+    deletePost(postId)
+    nav({to: '/community'});
   }
 
   function handleCancel() {

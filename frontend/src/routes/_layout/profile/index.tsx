@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import ProfileImage from '@/assets/image/스토리1.png'
+import LinkButton from '@/components/Buttons/LinkButton'
 import SettingButton from '@/components/Buttons/SettingButton'
 import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton'
 import ProfileInfo from '@/components/User/ProfileInfo'
@@ -30,8 +31,8 @@ function Profile() {
       <HeaderWithLabelAndBackButton label='내프로필' />
       <ProfileInfo {...user} /> 
       <SettingButton to='/profile/AiReport'>AI 요약보고서</SettingButton>
-      <SettingButton to='/community'>농작물 창고</SettingButton>
-      <SettingButton to='/diary'>농사 일지</SettingButton>
+      <SettingButton to='/profile/$nickname/cropStorage' params={{nickname: '민영'}}>농작물 창고</SettingButton>
+      <SettingButton to='/profile/$nickname/diary' params={{nickname: '민영'}} >농사 일지</SettingButton>
       <SettingButton to='/profile/writed'>내가 쓴 글</SettingButton>
       <SettingButton to='/profile/picked'>찜 목록</SettingButton>
       <SettingButton to='/profile/chat'>채팅 목록</SettingButton>
@@ -44,8 +45,8 @@ function Profile() {
       <HeaderWithLabelAndBackButton label='프로필' />
       <ProfileInfo {...user} />
       <div className={styles.cropsCount}>받은 농작물 {6} 개</div>
-      <SettingButton to='/diary'>농작물 창고</SettingButton>
-      <SettingButton to='/diary'>농사 일지</SettingButton>
+      <SettingButton to='/profile/$nickname/cropStorage' params={{nickname: '민영'}} >농작물 창고</SettingButton>
+      <SettingButton to='/profile/$nickname/diary' params={{nickname: '민영'}} >농사 일지</SettingButton>
       </>
       )
     }
