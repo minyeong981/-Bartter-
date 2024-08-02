@@ -58,11 +58,8 @@ public class TradeController {
             @CurrentUser UserAuthDto user
     ) {
         TradePost tradePost = cropTradeService.getTradePost(tradePostId);
-
         List<String> imageList = tradePost.getImageList().stream().map(TradePostImage::getImageUrl).toList();
-//        log.debug("{}", imageList);
         List<CropCategoryDetail> desiredCategoryList = tradePost.getWishCropCategoryList().stream().map(o -> CropCategoryDetail.of(o.getCategory())).toList();
-//        log.debug("{}",desiredCategoryList);
 
         TradePostDetail tradePostDetail = TradePostDetail.of(tradePost, imageList, desiredCategoryList, user.getId());
         return SuccessResponse.of(tradePostDetail);
@@ -107,5 +104,26 @@ public class TradeController {
         cropTradeService.delete(tradePostId, user);
         return SuccessResponse.empty();
     }
+
+    @PostMapping("/posts/{tradePostId}/like")
+    @Operation(summary = "농작물 물물교환 게시글 좋아요", description = "농작물 물물교환 게시글을 좋아요한다.")
+    public SuccessResponse<Void> tradePostLike(
+            @PathVariable("tradePostId") int tradePostId,
+            @CurrentUser UserAuthDto user
+    ){
+        cropTradeService.like(tradePostId, user.getId());
+        return SuccessResponse.empty();
+    }
+
+    @DeleteMapping("/posts/{tradePostId}/like")
+    @Operation(summary = "농작물 물물교환 게시글 좋아요", description = "농작물 물물교환 게시글을 좋아요한다.")
+    public SuccessResponse<Void> tradePostUnLike(
+            @PathVariable("tradePostId") int tradePostId,
+            @CurrentUser UserAuthDto user
+    ){
+        cropTradeService.unLike(tradePostId, user.getId());
+        return SuccessResponse.empty();
+    }
+
 }
 

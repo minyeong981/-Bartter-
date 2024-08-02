@@ -30,7 +30,7 @@ public class CustomControllerAdvice {
 
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<ErrorResponse> handleCustomException(CustomException exception) {
-        log.error("CustomException: {}", exception.getMessage());
+        log.error("", exception);
         return ResponseEntity.status(exception.getErrorCode().getStatus())
                 .body(ErrorResponse.of(exception));
     }

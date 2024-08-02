@@ -8,8 +8,10 @@ import com.ssafy.bartter.domain.crop.repository.CropRepository;
 import com.ssafy.bartter.domain.trade.dto.TradePostDto.Create;
 import com.ssafy.bartter.domain.trade.entity.TradePost;
 import com.ssafy.bartter.domain.trade.entity.TradePostImage;
+import com.ssafy.bartter.domain.trade.entity.TradePostLike;
 import com.ssafy.bartter.domain.trade.entity.TradeWishCropCategory;
 import com.ssafy.bartter.domain.trade.repository.TradePostImageRepository;
+import com.ssafy.bartter.domain.trade.repository.TradePostLikeRepository;
 import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.domain.user.repository.UserRepository;
 import com.ssafy.bartter.global.common.Location;
@@ -20,16 +22,14 @@ import com.ssafy.bartter.domain.trade.repository.TradePostRepository;
 import com.ssafy.bartter.global.service.S3UploadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeSet;
+import java.util.Optional;
 
 import static com.ssafy.bartter.global.exception.ErrorCode.TRADE_POST_NOT_FOUND;
 
@@ -44,6 +44,7 @@ public class TradePostService {
     private final CropCategoryRepository cropCategoryRepository;
     private final TradePostImageRepository tradePostImageRepository;
     private final TradePostRepository tradePostRepository;
+    private final TradePostLikeRepository tradePostLikeRepository;
 
     private final LocationService locationService;
     private final S3UploadService uploadService;
@@ -55,9 +56,9 @@ public class TradePostService {
         PageRequest pageable = PageRequest.of(offset, limit, Sort.by("createdAt").descending());
         int desiredCategoriesSize = (desiredCategories == null) ? 0 : desiredCategories.size();
 
-        log.debug("offset:{}, limit:{}, givenCategory:{}, desiredCategories:{},desiredSize:{}",offset, limit, givenCategory, desiredCategories, desiredCategoriesSize);
+        log.debug("offset:{}, limit:{}, givenCategory:{}, desiredCategories:{},desiredSize:{}", offset, limit, givenCategory, desiredCategories, desiredCategoriesSize);
         List<Integer> idList = cropTradeRepository.findTradePostIdList(nearbyLocationList, givenCategory, desiredCategories, desiredCategoriesSize, pageable).getContent();
-        log.debug("{}",idList);
+        log.debug("{}", idList);
         return cropTradeRepository.findTradePostListByIdList(idList);
     }
 
@@ -128,7 +129,7 @@ public class TradePostService {
      */
     @Transactional
     public void delete(int tradePostId, UserAuthDto user) {
-        if (!tradePostRepository.findTradePostByTradePostIdAndUserId(user.getId(), tradePostId)) {
+        if (!tradePostRepository.existByUserIdAndTradePost(user.getId(), tradePostId)) {
             throw new CustomException(ErrorCode.TRADE_POST_DELETE_INVALID_REQUEST);
         }
 
@@ -142,5 +143,26 @@ public class TradePostService {
         }
 
         tradePostRepository.deleteById(tradePostId);
+    }
+
+    @Transactional
+    public void like(int tradePostId, int userId) {
+        if (tradePostRepository.likeExistByUserId(tradePostId, userId)) {
+            throw new CustomException(ErrorCode.TRADE_POST_LIKE_EXIST);
+        }
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        TradePost tradePost = tradePostRepository.findById(tradePostId)
+                .orElseThrow(() -> new CustomException(TRADE_POST_NOT_FOUND));
+
+        TradePostLike tradePostLike = TradePostLike.of(user, tradePost);
+        tradePostLikeRepository.save(tradePostLike);
+    }
+
+    @Transactional
+    public void unLike(int tradePostId, int userId) {
+        TradePostLike tradePostLike = tradePostLikeRepository.findByTradePostIdAndUserId(tradePostId, userId).orElseThrow(() -> new CustomException(ErrorCode.TRADE_POST_LIKE_NOT_FOUND));
+        tradePostLikeRepository.delete(tradePostLike);
     }
 }

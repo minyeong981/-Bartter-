@@ -10,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * TradePostRepository
@@ -35,7 +34,7 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
             "LEFT JOIN tp.wishCropCategoryList wcc " + // 해당 게시글의 원하는 카테고리
             "WHERE loc IN :nearbyLocationList " + // 현재 위치에 해당하는 게시글만 가져온다.
             "AND (:givenCategory = 0 OR wcc.category.id = :givenCategory) " + // 주고 싶은 카테고리가 0이라면 항상 True, 0이 아니라면 해당 게시글의 원하는 농작물에 내가 주고 싶은게 있는가 ?
-            "AND (:desiredCategoriesSize = 0 OR cat.id IN :desiredCategories) " +  // 원하는 카테고리가 비어 있으면 항상 True, 그렇지 않으먄 카테고리 매핑
+            "AND (:desiredCategoriesSize = 0 OR cat.id IN :desiredCategories) " + // 원하는 카테고리가 비어 있으면 항상 True, 그렇지 않으먄 카테고리 매핑
             "GROUP BY tp.id ")
     Page<Integer> findTradePostIdList(
             @Param("nearbyLocationList") List<Location> nearbyLocationList,
@@ -51,7 +50,7 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
      * @param idList ID가 담긴 리스트
      * @return ID에 해당하는 TradePost
      */
-    @Query("SELECT DISTINCT tp FROM TradePost tp " +
+    @Query("SELECT tp FROM TradePost tp " +
             "LEFT JOIN FETCH tp.location loc " +
             "LEFT JOIN FETCH tp.likeList lk " +
             "WHERE tp.id IN :idList " +
@@ -98,8 +97,25 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
      * @param tradePostId 게시글 ID
      * @return userId가 글작성자이고 tradePostId를 PK로 갖는 TradePost
      */
-    @Query("SELECT CASE WHEN COUNT(tr) > 0 THEN TRUE ELSE FALSE END FROM TradePost tr WHERE tr.user.id = :userId AND tr.id = :tradePostId")
-    boolean findTradePostByTradePostIdAndUserId(@Param("userId") int userId, @Param("tradePostId") int tradePostId);
+    @Query("SELECT " +
+            "CASE WHEN COUNT(tr) > 0 " +
+            "THEN TRUE " +
+            "ELSE FALSE " +
+            "END " +
+            "FROM TradePost tr " +
+            "WHERE tr.user.id = :userId " +
+            "AND tr.id = :tradePostId")
+    boolean existByUserIdAndTradePost(@Param("userId") int userId, @Param("tradePostId") int tradePostId);
 
 
+    @Query("SELECT " +
+            "CASE WHEN COUNT(li) > 0 " +
+            "THEN TRUE " +
+            "ELSE FALSE " +
+            "END " +
+            "FROM TradePost tp " +
+            "JOIN tp.likeList li " +
+            "WHERE li.user.id = :userId " +
+            "AND tp.id = :tradePostId")
+    boolean likeExistByUserId(@Param("tradePostId") int tradePostId, @Param("userId") int userId);
 }
