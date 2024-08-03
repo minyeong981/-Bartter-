@@ -1,23 +1,24 @@
-import { useNavigate } from '@tanstack/react-router';
+import {useNavigate} from '@tanstack/react-router';
 import {useState} from 'react';
 
-import Delete from '@/assets/image/delete.png';
+import {IconTrash} from '@/assets/svg';
+import ModalContainer from '@/components/ModalContainer';
 import useRootStore from '@/store';
 
 import styles from './UserNameContent.module.scss';
 
 export default function UserNameLocation({post}: {post: CommunityPost}) {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const nav = useNavigate({from:'/community/detail/$postId'})
+  const nav = useNavigate({from: '/community/detail/$postId'});
 
-  const deletePost = useRootStore(state => state.deletePost)
+  const deletePost = useRootStore(state => state.deletePost);
 
-  function handleClick() {
+  function handleClickTrash() {
     setShowDeleteConfirm(true);
   }
 
   function handleDelete(postId: number) {
-    deletePost(postId)
+    deletePost(postId);
     nav({to: '/community'});
   }
 
@@ -34,26 +35,24 @@ export default function UserNameLocation({post}: {post: CommunityPost}) {
       />
       <div className={styles.userInfo}>
         <div className={styles.userName}>{post.user.nickname}</div>
-        <div className={styles.Content}>{post.location.locationName}</div>
+        <div className={styles.content}>{post.location.locationName}</div>
         <div className={styles.createdDate}>{post.createdAt}</div>
       </div>
-      <img
-        className={styles.menuIcon}
-        onClick={() => handleClick()}
-        src={Delete}
-        alt="DeleteMenu"
-      />
-
+      <button onClick={handleClickTrash}>
+        <IconTrash className={styles.menuIcon} />
+      </button>
       {showDeleteConfirm && (
-        <div className={styles.deleteConfirm}>
-          <div className={styles.confirmText}>게시글을 삭제하시겠습니까?</div>
-          <div className={styles.buttonContainer}>
-            <button onClick={() => handleDelete(post.communityPostId)}>
-              네
-            </button>
-            <button onClick={handleCancel}>아니요</button>
+        <ModalContainer onClickOutside={handleCancel}>
+          <div className={styles.deleteConfirm}>
+            <div className={styles.confirmText}>게시글을 삭제하시겠습니까?</div>
+            <div className={styles.buttonContainer}>
+              <button onClick={() => handleDelete(post.communityPostId)}>
+                네
+              </button>
+              <button onClick={handleCancel}>아니요</button>
+            </div>
           </div>
-        </div>
+        </ModalContainer>
       )}
     </div>
   );
