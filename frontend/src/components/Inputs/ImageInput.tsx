@@ -1,18 +1,18 @@
 import classnames from 'classnames/bind';
-import type { ChangeEvent } from 'react';
-import { useRef,useState } from 'react';
-import { FaCamera, FaTimes } from 'react-icons/fa';
+import type {ChangeEvent} from 'react';
+import {useRef, useState} from 'react';
+import {FaCamera, FaTimes} from 'react-icons/fa';
 
 import styles from './input.module.scss';
 
 const cx = classnames.bind(styles);
 
-interface ImageInputProps {
+export interface ImageInputProps {
   onImageChange: (images: string[]) => void;
   maxImages: number;
 }
 
-function ImageInput({ onImageChange, maxImages }: ImageInputProps) {
+function ImageInput({onImageChange, maxImages}: ImageInputProps) {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -21,7 +21,7 @@ function ImageInput({ onImageChange, maxImages }: ImageInputProps) {
     if (files) {
       const newImagePreviews = Array.from(files).map(file => {
         const reader = new FileReader();
-        return new Promise<string>((resolve) => {
+        return new Promise<string>(resolve => {
           reader.onloadend = () => {
             resolve(reader.result as string);
           };
@@ -66,8 +66,15 @@ function ImageInput({ onImageChange, maxImages }: ImageInputProps) {
       <div className={cx('imagePreviewContainer')}>
         {imagePreviews.map((preview, index) => (
           <div key={index} className={cx('imageWrapper')}>
-            <img src={preview} alt={`이미지 미리보기 ${index + 1}`} className={cx('imagePreview')} />
-            <FaTimes className={cx('removeIcon')} onClick={() => handleRemoveImage(index)} />
+            <img
+              src={preview}
+              alt={`이미지 미리보기 ${index + 1}`}
+              className={cx('imagePreview')}
+            />
+            <FaTimes
+              className={cx('removeIcon')}
+              onClick={() => handleRemoveImage(index)}
+            />
           </div>
         ))}
       </div>
