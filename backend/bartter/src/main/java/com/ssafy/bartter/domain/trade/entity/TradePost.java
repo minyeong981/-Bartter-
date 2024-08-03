@@ -83,7 +83,7 @@ public class TradePost extends BaseEntity {
      */
     @Enumerated(EnumType.STRING)
     @Column(name = "trade_post_status")
-    private TradeStatus status = TradeStatus.NEW;
+    private TradeStatus status = TradeStatus.PROGRESS;
 
     /**
      * 물물교환 희망 농작물 카테고리 - 받고 싶은 농작물 카테고리
@@ -121,5 +121,13 @@ public class TradePost extends BaseEntity {
         this.title = title;
         this.content = content;
         this.isShare = isShare;
+    }
+
+    /**
+     * 상태를 변경하기 위한 메서드
+     * @param newStatus 새로운 상태
+     */
+    public void changeStatus(TradeStatus newStatus) {
+        this.status = newStatus;
     }
 }

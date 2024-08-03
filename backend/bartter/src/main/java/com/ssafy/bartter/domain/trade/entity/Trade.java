@@ -43,5 +43,5 @@ public class Trade extends BaseEntity {
      */
     @Enumerated(EnumType.STRING)
     @Column(name = "trade_status", nullable = false)
-    private TradeStatus status = TradeStatus.NEW;
+    private TradeStatus status = TradeStatus.PROGRESS;
 }
