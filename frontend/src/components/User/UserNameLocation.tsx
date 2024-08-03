@@ -1,4 +1,4 @@
-import {useNavigate} from '@tanstack/react-router';
+import {useRouter} from '@tanstack/react-router';
 import {useState} from 'react';
 
 import {IconTrash} from '@/assets/svg';
@@ -7,19 +7,32 @@ import useRootStore from '@/store';
 
 import styles from './UserNameContent.module.scss';
 
-export default function UserNameLocation({post}: {post: CommunityPost}) {
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const nav = useNavigate({from: '/community/detail/$postId'});
+interface UserNameLocationProps {
+  profileImage: ProfileImage;
+  nickname: Nickname;
+  locationName: LocationName;
+  createdAt: CreatedAt;
+  postId: CommunityPostId;
+}
 
+export default function UserNameLocation({
+  locationName,
+  nickname,
+  profileImage,
+  postId,
+  createdAt,
+}: UserNameLocationProps) {
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const {history} = useRouter();
   const deletePost = useRootStore(state => state.deletePost);
 
   function handleClickTrash() {
     setShowDeleteConfirm(true);
   }
 
-  function handleDelete(postId: number) {
+  function handleDelete() {
     deletePost(postId);
-    nav({to: '/community'});
+    history.back;
   }
 
   function handleCancel() {
@@ -30,13 +43,13 @@ export default function UserNameLocation({post}: {post: CommunityPost}) {
     <div className={styles.userInfoContainer}>
       <img
         className={styles.profileImage}
-        src={post.user.profileImage}
-        alt={`${post.user.nickname}'s profile`}
+        src={profileImage}
+        alt={`${nickname}'s profile`}
       />
       <div className={styles.userInfo}>
-        <div className={styles.userName}>{post.user.nickname}</div>
-        <div className={styles.content}>{post.location.locationName}</div>
-        <div className={styles.createdDate}>{post.createdAt}</div>
+        <div className={styles.userName}>{nickname}</div>
+        <div className={styles.content}>{locationName}</div>
+        <div className={styles.createdDate}>{createdAt}</div>
       </div>
       <button onClick={handleClickTrash}>
         <IconTrash className={styles.menuIcon} />
@@ -46,9 +59,7 @@ export default function UserNameLocation({post}: {post: CommunityPost}) {
           <div className={styles.deleteConfirm}>
             <div className={styles.confirmText}>게시글을 삭제하시겠습니까?</div>
             <div className={styles.buttonContainer}>
-              <button onClick={() => handleDelete(post.communityPostId)}>
-                네
-              </button>
+              <button onClick={handleDelete}>네</button>
               <button onClick={handleCancel}>아니요</button>
             </div>
           </div>
