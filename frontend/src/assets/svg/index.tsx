@@ -7,4 +7,5 @@ export {ReactComponent as IconKakao} from './kakao.svg';
 export {ReactComponent as IconMenu} from './menu.svg';
 export {ReactComponent as IconSearch} from './search.svg';
 export {ReactComponent as IconSetting} from './setting.svg';
+export {ReactComponent as IconTrash} from './trash.svg';
 export {ReactComponent as IconUser} from './user.svg';
