@@ -4,9 +4,19 @@
 .selectCropButton {
   @include typographies.button;
 
+  width: fit-content;
   padding: 8px;
   color: colors.$primary;
   background-color: colors.$white;
   border: 1px solid colors.$primary;
   border-radius: 5px;
+}
+
+.labeledSelectCropButton {
+  @include typographies.label;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 341px;
 }
