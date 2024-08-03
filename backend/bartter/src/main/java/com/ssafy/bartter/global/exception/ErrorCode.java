@@ -57,7 +57,7 @@ public enum ErrorCode {
     TRADE_POST_DELETE_INVALID_REQUEST(HttpStatus.BAD_REQUEST, 6001, "해당 ID의 물물교환 게시글을 찾을 수 없거나 게시글 작성자가 아닙니다."),
     TRADE_POST_LIKE_EXIST(HttpStatus.BAD_REQUEST, 6002," 사용자가 해당 물물교환 게시글을 이미 좋아요 했습니다. "),
     TRADE_POST_LIKE_NOT_FOUND(HttpStatus.NOT_FOUND,6003,"사용자가 해당 물물교환 게시글을 좋아요하지 않았습니다."),
-
+    TRADE_POST_SAME_STATUS(HttpStatus.BAD_REQUEST, 6004, "해당 물물교환 게시글에 대한 잘못된 상태 변경 요청입니다."),
 
     // Chat
 

@@ -9,6 +9,7 @@ import com.ssafy.bartter.domain.trade.dto.TradePostDto.SimpleTradePostDetail;
 import com.ssafy.bartter.domain.trade.dto.TradePostDto.TradePostDetail;
 import com.ssafy.bartter.domain.trade.entity.TradePost;
 import com.ssafy.bartter.domain.trade.entity.TradePostImage;
+import com.ssafy.bartter.domain.trade.entity.TradeStatus;
 import com.ssafy.bartter.domain.trade.services.TradePostService;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.global.common.SimpleLocation;
@@ -110,7 +111,7 @@ public class TradeController {
     public SuccessResponse<Void> tradePostLike(
             @PathVariable("tradePostId") int tradePostId,
             @CurrentUser UserAuthDto user
-    ){
+    ) {
         cropTradeService.like(tradePostId, user.getId());
         return SuccessResponse.empty();
     }
@@ -120,10 +121,27 @@ public class TradeController {
     public SuccessResponse<Void> tradePostUnLike(
             @PathVariable("tradePostId") int tradePostId,
             @CurrentUser UserAuthDto user
-    ){
+    ) {
         cropTradeService.unLike(tradePostId, user.getId());
         return SuccessResponse.empty();
     }
 
+    @PutMapping("/posts/{tradePostId}/progress")
+    public SuccessResponse<Void> setTradePostProgress(@PathVariable("tradePostId") int tradePostId) {
+        cropTradeService.changeStatus(tradePostId, TradeStatus.PROGRESS);
+        return SuccessResponse.empty();
+    }
+
+    @PutMapping("/posts/{tradePostId}/reserve")
+    public SuccessResponse<Void> setTradePostReserve(@PathVariable("tradePostId") int tradePostId) {
+        cropTradeService.changeStatus(tradePostId, TradeStatus.RESERVED);
+        return SuccessResponse.empty();
+    }
+
+    @PutMapping("/posts/{tradePostId}/complete")
+    public SuccessResponse<Void> setTradePostComplete(@PathVariable("tradePostId") int tradePostId) {
+        cropTradeService.changeStatus(tradePostId, TradeStatus.COMPLETED);
+        return SuccessResponse.empty();
+    }
 }
 

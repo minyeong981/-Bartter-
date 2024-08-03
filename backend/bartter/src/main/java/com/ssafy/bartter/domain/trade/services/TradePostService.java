@@ -6,10 +6,7 @@ import com.ssafy.bartter.domain.crop.entity.CropCategory;
 import com.ssafy.bartter.domain.crop.repository.CropCategoryRepository;
 import com.ssafy.bartter.domain.crop.repository.CropRepository;
 import com.ssafy.bartter.domain.trade.dto.TradePostDto.Create;
-import com.ssafy.bartter.domain.trade.entity.TradePost;
-import com.ssafy.bartter.domain.trade.entity.TradePostImage;
-import com.ssafy.bartter.domain.trade.entity.TradePostLike;
-import com.ssafy.bartter.domain.trade.entity.TradeWishCropCategory;
+import com.ssafy.bartter.domain.trade.entity.*;
 import com.ssafy.bartter.domain.trade.repository.TradePostImageRepository;
 import com.ssafy.bartter.domain.trade.repository.TradePostLikeRepository;
 import com.ssafy.bartter.domain.user.entity.User;
@@ -29,7 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.ssafy.bartter.global.exception.ErrorCode.TRADE_POST_NOT_FOUND;
 
@@ -165,5 +161,15 @@ public class TradePostService {
     public void unLike(int tradePostId, int userId) {
         TradePostLike tradePostLike = tradePostLikeRepository.findByTradePostIdAndUserId(tradePostId, userId).orElseThrow(() -> new CustomException(ErrorCode.TRADE_POST_LIKE_NOT_FOUND));
         tradePostLikeRepository.delete(tradePostLike);
+    }
+
+    @Transactional
+    public void changeStatus(int tradePostId, TradeStatus newStatus) {
+        TradePost tradePost = tradePostRepository.findTradePostById(tradePostId).orElseThrow(() -> new CustomException(TRADE_POST_NOT_FOUND));
+        if(tradePost.getStatus() == newStatus) {
+            throw new CustomException(ErrorCode.TRADE_POST_SAME_STATUS);
+        }
+        tradePost.changeStatus(newStatus);
+        tradePostRepository.save(tradePost);
     }
 }

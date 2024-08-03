@@ -122,4 +122,12 @@ public class TradePost extends BaseEntity {
         this.content = content;
         this.isShare = isShare;
     }
+
+    /**
+     * 상태를 변경하기 위한 메서드
+     * @param newStatus 새로운 상태
+     */
+    public void changeStatus(TradeStatus newStatus) {
+        this.status = newStatus;
+    }
 }
