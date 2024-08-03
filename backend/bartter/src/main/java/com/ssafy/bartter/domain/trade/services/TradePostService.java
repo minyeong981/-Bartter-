@@ -126,7 +126,7 @@ public class TradePostService {
     @Transactional
     public void delete(int tradePostId, UserAuthDto user) {
         if (!tradePostRepository.existByUserIdAndTradePost(user.getId(), tradePostId)) {
-            throw new CustomException(ErrorCode.TRADE_POST_DELETE_INVALID_REQUEST);
+            throw new CustomException(ErrorCode.TRADE_POST_INVALID_REQUEST);
         }
 
         List<TradePostImage> imageList = tradePostImageRepository.findByTradePostId(tradePostId);
@@ -164,9 +164,13 @@ public class TradePostService {
     }
 
     @Transactional
-    public void changeStatus(int tradePostId, TradeStatus newStatus) {
-        TradePost tradePost = tradePostRepository.findTradePostById(tradePostId).orElseThrow(() -> new CustomException(TRADE_POST_NOT_FOUND));
-        if(tradePost.getStatus() == newStatus) {
+    public void changeStatus(int tradePostId, int userId, TradeStatus newStatus) {
+        if (!tradePostRepository.existByUserIdAndTradePost(userId, tradePostId)) {
+            throw new CustomException(ErrorCode.TRADE_POST_INVALID_REQUEST);
+        }
+
+        TradePost tradePost = tradePostRepository.findTradePostById(tradePostId).get();
+        if (tradePost.getStatus() == newStatus) {
             throw new CustomException(ErrorCode.TRADE_POST_SAME_STATUS);
         }
         tradePost.changeStatus(newStatus);

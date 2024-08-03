@@ -127,20 +127,29 @@ public class TradeController {
     }
 
     @PutMapping("/posts/{tradePostId}/progress")
-    public SuccessResponse<Void> setTradePostProgress(@PathVariable("tradePostId") int tradePostId) {
-        cropTradeService.changeStatus(tradePostId, TradeStatus.PROGRESS);
+    public SuccessResponse<Void> setTradePostProgress(
+            @PathVariable("tradePostId") int tradePostId,
+            @CurrentUser UserAuthDto user
+    ) {
+        cropTradeService.changeStatus(tradePostId, user.getId(), TradeStatus.PROGRESS);
         return SuccessResponse.empty();
     }
 
     @PutMapping("/posts/{tradePostId}/reserve")
-    public SuccessResponse<Void> setTradePostReserve(@PathVariable("tradePostId") int tradePostId) {
-        cropTradeService.changeStatus(tradePostId, TradeStatus.RESERVED);
+    public SuccessResponse<Void> setTradePostReserve(
+            @PathVariable("tradePostId") int tradePostId,
+            @CurrentUser UserAuthDto user
+    ) {
+        cropTradeService.changeStatus(tradePostId, user.getId(), TradeStatus.RESERVED);
         return SuccessResponse.empty();
     }
 
     @PutMapping("/posts/{tradePostId}/complete")
-    public SuccessResponse<Void> setTradePostComplete(@PathVariable("tradePostId") int tradePostId) {
-        cropTradeService.changeStatus(tradePostId, TradeStatus.COMPLETED);
+    public SuccessResponse<Void> setTradePostComplete(
+            @PathVariable("tradePostId") int tradePostId,
+            @CurrentUser UserAuthDto user
+    ) {
+        cropTradeService.changeStatus(tradePostId, user.getId(), TradeStatus.COMPLETED);
         return SuccessResponse.empty();
     }
 }
