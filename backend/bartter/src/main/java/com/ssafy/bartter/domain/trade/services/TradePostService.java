@@ -150,13 +150,14 @@ public class TradePostService {
         if (tradePostRepository.likeExistByUserId(tradePostId, userId)) {
             throw new CustomException(ErrorCode.TRADE_POST_LIKE_EXIST);
         }
-
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         TradePost tradePost = tradePostRepository.findById(tradePostId)
                 .orElseThrow(() -> new CustomException(TRADE_POST_NOT_FOUND));
 
         TradePostLike tradePostLike = TradePostLike.of(user, tradePost);
+        user.getTradePostLikeList().add(tradePostLike);
+        tradePost.getLikeList().add(tradePostLike);
         tradePostLikeRepository.save(tradePostLike);
     }
 
