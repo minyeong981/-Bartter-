@@ -114,7 +114,7 @@ public class CropDiaryService {
     public List<CropDiary> getFolloweeDiaryList(int userId, int numOfDiaries) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         List<User> followeeList = user.getFolloweeList().stream().map(Follow::getFollowee).collect(Collectors.toList());
-        PageRequest pageable = PageRequest.of(0, numOfDiaries);
+        PageRequest pageable = PageRequest.of(0, numOfDiaries, Sort.by("createdAt").descending());
         return cropDiaryRepository.findAllByUserList(followeeList, pageable);
     }
 }
