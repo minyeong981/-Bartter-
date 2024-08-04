@@ -7,11 +7,11 @@ import Heading from '@/components/Heading';
 import ImageInput from '@/components/Inputs/ImageInput';
 import useRootStore from '@/store';
 
-import styles from './registerCrop.module.scss';
+import styles from '../registerCrop.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/diary/registerCrop/4')({
+export const Route = createFileRoute('/_layout/diary/registerCrop/_layout/4')({
   component: GetImagePage,
 });
 
@@ -36,7 +36,7 @@ function GetImagePage() {
   };
 
   return (
-    <div className={cx('registerPage')}>
+    <>
       <div className={cx('headingContainer')}>
         <Heading>
           {nickname}의
@@ -57,7 +57,7 @@ function GetImagePage() {
           다음
         </LinkButton>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -9,6 +9,7 @@ import CalendarPage from '@/components/Calendar/calendar';
 import MainCrops from '@/components/Crop/mainCrops';
 import DiaryList from '@/components/Diary/DiaryList';
 import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons'
+import Location from '@/components/Header/Location';
 import TwoButton from '@/components/TwoButton/TwoButton';
 import useRootStore from '@/store/index';
 
@@ -122,7 +123,7 @@ function DiaryPage() {
 
   return (
     <div>
-      <HeaderWithLabelAndButtons />
+      <HeaderWithLabelAndButtons label={<Location location='내위치' />} />
       <div className={cx('diaryContainer')}>
         <header className={cx('header')}>
           <TwoButton

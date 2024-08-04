@@ -149,20 +149,9 @@
           height: 2.2rem;
           margin: auto;
           background-color: colors.$primary;
+          color: white;
           border-radius: 50%;
         }
-      }
-
-      abbr {
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 2rem;
-        height: 2rem;
-        background: none;
-        border-radius: 50%;
-        
       }
     }
   }

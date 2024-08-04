@@ -8,11 +8,11 @@ import Heading from '@/components/Heading';
 import LabeledTextAreaInput from '@/components/Inputs/LabeledTextAreaInput';
 import useRootStore from '@/store';
 
-import styles from './registerCrop.module.scss';
+import styles from '../registerCrop.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/diary/registerCrop/3')({
+export const Route = createFileRoute('/_layout/diary/registerCrop/_layout/3')({
   component: GetDesciptionPage,
 });
 
@@ -35,7 +35,7 @@ function GetDesciptionPage() {
   }
 
   return (
-    <div className={cx('registerPage')}>
+    <>
       <div className={cx('headingContainer')}>
         <Heading>
           {nickname}을/를
@@ -70,7 +70,7 @@ function GetDesciptionPage() {
           건너뛰기
         </GeneralButton>
       </div>
-    </div>
+    </>
   );
 }
 

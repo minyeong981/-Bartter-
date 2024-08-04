@@ -10,11 +10,11 @@ import Heading from '@/components/Heading';
 import SemiCalendarInput from '@/components/Inputs/SemiCalendarInput';
 import useRootStore from '@/store';
 
-import styles from './registerCrop.module.scss';
+import styles from '../registerCrop.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/diary/registerCrop/2')({
+export const Route = createFileRoute('/_layout/diary/registerCrop/_layout/2')({
   component: GetDatePage,
 });
 
@@ -33,7 +33,7 @@ function GetDatePage() {
   }
 
   return (
-    <div className={cx('registerPage')}>
+    <>
       <div className={cx('headingContainer')}>
         <Heading>
           {nickname}과/와
@@ -56,7 +56,7 @@ function GetDatePage() {
           다음
         </LinkButton>
       </div>
-    </div>
+    </>
   );
 }
 

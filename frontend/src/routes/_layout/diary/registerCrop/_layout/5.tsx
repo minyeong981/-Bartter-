@@ -5,11 +5,11 @@ import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
 import Heading from '@/components/Heading';
 import useRootStore from '@/store';
 
-import styles from './registerCrop.module.scss';
+import styles from '../registerCrop.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/diary/registerCrop/5')({
+export const Route = createFileRoute('/_layout/diary/registerCrop/_layout/5')({
   component: CropProfilePage,
 });
 
@@ -41,10 +41,11 @@ function CropProfilePage() {
   return (
     <>
       <div className={cx('headingContainer')}>
-        <Heading>{nickname}</Heading>
+        <Heading>나만의 작물이 등록되었습니다.</Heading>
       </div>
       <div className={cx('inputContainer')}>
         <div>
+          {nickname}
           {displayImage && <img src={displayImage} alt={`${nickname}의 이미지`} />}
         </div>
         <div>
@@ -59,7 +60,7 @@ function CropProfilePage() {
           buttonStyle={{ style: 'primary', size: 'large' }}
           onClick={handleRegisterComplete}
         >
-          등록 완료
+          완료
         </GeneralButton>
       </div>
     </>

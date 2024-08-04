@@ -7,11 +7,11 @@ import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput';
 import useRootStore from '@/store';
 
-import styles from './registerCrop.module.scss';
+import styles from '../registerCrop.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/diary/registerCrop/1')({
+export const Route = createFileRoute('/_layout/diary/registerCrop/_layout/1')({
   component: GetNicknamePage,
 });
 
@@ -28,7 +28,7 @@ function GetNicknamePage() {
   };
 
   return (
-    <div className={cx('registerPage')}>
+    <>
       <div className={cx('headingContainer')}>
         <Heading>
           내 작물의
@@ -53,7 +53,7 @@ function GetNicknamePage() {
           다음
         </LinkButton>
       </div>
-    </div>
+    </>
   );
 }
 
