@@ -32,7 +32,7 @@ export default function UserNameLocation({
 
   function handleDelete() {
     deletePost(postId);
-    history.back;
+    history.back();
   }
 
   function handleCancel() {
