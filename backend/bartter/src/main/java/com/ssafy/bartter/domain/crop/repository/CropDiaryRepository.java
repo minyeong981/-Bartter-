@@ -1,6 +1,7 @@
 package com.ssafy.bartter.domain.crop.repository;
 
 import com.ssafy.bartter.domain.crop.entity.CropDiary;
+import com.ssafy.bartter.domain.user.entity.User;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,11 +23,24 @@ public interface CropDiaryRepository extends JpaRepository<CropDiary, Integer> {
                     + " WHERE c.user.id = :userId"
                     + " AND (:year = 0 OR YEAR(d.createdAt) = :year)"
                     + " AND (:month = 0 OR MONTH(d.createdAt) = :month)"
+                    + " ORDER BY d.createdAt"
     )
     List<CropDiary> findAllByDateAndCrop(
             @Param("year") int year,
             @Param("month") int month,
             @Param("userId") int userId,
+            PageRequest pageable
+    );
+
+    @Query(
+            "SELECT d FROM CropDiary d"
+                    + " LEFT JOIN FETCH d.crop c"
+                    + " LEFT JOIN FETCH c.user u"
+                    + " WHERE c.user in :userList"
+                    + " ORDER BY d.createdAt DESC"
+    )
+    List<CropDiary> findAllByUserList(
+            @Param("userList") List<User> userList,
             PageRequest pageable
     );
 

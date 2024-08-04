@@ -39,7 +39,6 @@ public class CommunityPostDto {
      * */
     @Builder
     @Getter
-    @AllArgsConstructor
     public static class CommunityPostDetail {
         private final Integer communityPostId;
         private final SimpleUserProfile author;
@@ -83,7 +82,6 @@ public class CommunityPostDto {
      * */
     @Builder
     @Getter
-    @AllArgsConstructor
     public static class SimpleCommunityImage {
         private final String imageUrl;
         private final Integer imageOrder;
@@ -101,7 +99,6 @@ public class CommunityPostDto {
      */
     @Builder
     @Getter
-    @AllArgsConstructor
     public static class SimpleCommunityPostDetail{
         private final int communityPostId;
         private final String title;

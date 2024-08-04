@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
  */
 @Builder
 @Getter
-@AllArgsConstructor
 public class CropTradeHistoryDto {
     private final List<CropProfile> give;
     private final List<CropProfile> receive;
