@@ -28,7 +28,6 @@ import { Route as LayoutSignupLayoutImport } from './routes/_layout/signup/_layo
 import { Route as LayoutTradeLayoutIndexImport } from './routes/_layout/trade/_layout/index'
 import { Route as LayoutProfileWritedIndexImport } from './routes/_layout/profile/writed/index'
 import { Route as LayoutProfilePickedIndexImport } from './routes/_layout/profile/picked/index'
-import { Route as LayoutProfileCropStorageIndexImport } from './routes/_layout/profile/cropStorage/index'
 import { Route as LayoutProfileChatIndexImport } from './routes/_layout/profile/chat/index'
 import { Route as LayoutProfileChangelocationIndexImport } from './routes/_layout/profile/changelocation/index'
 import { Route as LayoutProfileAireportIndexImport } from './routes/_layout/profile/aireport/index'
@@ -198,12 +197,6 @@ const LayoutProfilePickedIndexRoute = LayoutProfilePickedIndexImport.update({
   path: '/profile/picked/',
   getParentRoute: () => LayoutRoute,
 } as any)
-
-const LayoutProfileCropStorageIndexRoute =
-  LayoutProfileCropStorageIndexImport.update({
-    path: '/profile/cropStorage/',
-    getParentRoute: () => LayoutRoute,
-  } as any)
 
 const LayoutProfileChatIndexRoute = LayoutProfileChatIndexImport.update({
   path: '/profile/chat/',
@@ -741,13 +734,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProfileChatIndexImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/profile/cropStorage/': {
-      id: '/_layout/profile/cropStorage/'
-      path: '/profile/cropStorage'
-      fullPath: '/profile/cropStorage'
-      preLoaderRoute: typeof LayoutProfileCropStorageIndexImport
-      parentRoute: typeof LayoutImport
-    }
     '/_layout/profile/picked/': {
       id: '/_layout/profile/picked/'
       path: '/profile/picked'
@@ -946,7 +932,6 @@ export const routeTree = rootRoute.addChildren({
     LayoutProfileAireportIndexRoute,
     LayoutProfileChangelocationIndexRoute,
     LayoutProfileChatIndexRoute,
-    LayoutProfileCropStorageIndexRoute,
     LayoutProfilePickedIndexRoute,
     LayoutProfileWritedIndexRoute,
     LayoutProfileAireportDetailReportIdRoute,
@@ -991,7 +976,6 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/profile/aireport/",
         "/_layout/profile/changelocation/",
         "/_layout/profile/chat/",
-        "/_layout/profile/cropStorage/",
         "/_layout/profile/picked/",
         "/_layout/profile/writed/",
         "/_layout/profile/aireport/detail/$reportId",
@@ -1239,10 +1223,6 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout/profile/chat/": {
       "filePath": "_layout/profile/chat/index.tsx",
-      "parent": "/_layout"
-    },
-    "/_layout/profile/cropStorage/": {
-      "filePath": "_layout/profile/cropStorage/index.tsx",
       "parent": "/_layout"
     },
     "/_layout/profile/picked/": {

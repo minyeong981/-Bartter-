@@ -9,7 +9,6 @@
 .diaryTitle {
   margin-bottom: 20px;
   text-align: center;
-
   @include typo.title;
 }
 
@@ -28,7 +27,6 @@
   align-items: flex-start;
   justify-content: flex-start;
   margin-bottom: 20px;
-
   @include typo.main;
 
   .cropImage {
@@ -44,21 +42,63 @@
 
 .diaryContent {
   margin-bottom: 20px;
-
   @include typo.main;
 }
 
 .diaryDate {
   margin-bottom: 20px;
   color: gray;
-
   @include typo.time;
 }
 
 .deleteButton {
-    button {
-        color: red !important;
-        border: 1px solid red !important;
+  button {
+    color: red !important;
+    border: 1px solid red !important;
+  }
+}
+
+.deleteConfirm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  width: 300px;
+  padding: 20px;
+  text-align: center;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+  transform: translate(-50%, -50%);
+
+  .confirmText {
+    padding-bottom: 10px;
+    margin: 10px 0;
+    font-size: 20px;
+  }
+
+  .buttonContainer {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+  }
+
+  button {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: colors.$primary;
     }
-  
+
+    &:active {
+      background-color: colors.$primary;
+    }
+  }
 }
