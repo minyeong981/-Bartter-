@@ -1,11 +1,11 @@
 import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {ChangeEvent} from 'react';
+import { useState} from 'react';
 
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
-import useRootStore from '@/store';
 
 import styles from '../signup.module.scss';
 
@@ -15,8 +15,7 @@ export const Route = createFileRoute('/_layout/signup/_layout/1')({
 });
 
 function GetNamePage() {
-  const name = useRootStore(state => state.nickname);
-  const setName = useRootStore(state => state.setNickname);
+  const [name, setName] = useState('');
   const isValid = name.length >= 2;
 
   function handleNameChange(e: ChangeEvent<HTMLInputElement>) {
@@ -45,6 +44,7 @@ function GetNamePage() {
           buttonStyle={{style: 'primary', size: 'large'}}
           to="/signup/2"
           disabled={!isValid}
+          search={{name}}
         >
           다음
         </GeneralButton>

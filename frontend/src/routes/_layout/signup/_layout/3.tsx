@@ -1,4 +1,4 @@
-import {createFileRoute} from '@tanstack/react-router';
+import {createFileRoute, redirect} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {ChangeEvent} from 'react';
 import {useState} from 'react';
@@ -6,20 +6,33 @@ import {useState} from 'react';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
-import useRootStore from '@/store';
+import type {SearchParamFromPhase1} from '@/routes/_layout/signup/_layout/2.tsx';
 import {PASSWORD_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
+
+export interface SearchParamFromPhase2 extends SearchParamFromPhase1 {
+  userId?: UserId;
+}
 
 const cx = classnames.bind(styles);
 
 export const Route = createFileRoute('/_layout/signup/_layout/3')({
   component: GetPasswordPage,
+  validateSearch: (search: Record<string, unknown>): SearchParamFromPhase2 => {
+    return {
+      name: search.name !== 'undefined' ? (search.name as Name) : undefined,
+      userId:
+        search.userId !== 'undefined' ? (search.userId as UserId) : undefined,
+    };
+  },
+  beforeLoad: async ({search}) => {
+    if (!search.userId) throw redirect({to: '/signup/2', search: {...search}});
+  },
 });
 
 function GetPasswordPage() {
-  const password = useRootStore(state => state.password);
-  const setPassword = useRootStore(state => state.setPassword);
+  const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const isValid =
     password.match(PASSWORD_PATTERN) && password === confirmPassword;
@@ -62,6 +75,7 @@ function GetPasswordPage() {
           buttonStyle={{style: 'primary', size: 'large'}}
           to="/signup/4"
           disabled={!isValid}
+          search={prev => ({...prev, password})}
         >
           다음
         </GeneralButton>

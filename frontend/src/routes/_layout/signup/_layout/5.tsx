@@ -1,22 +1,41 @@
-import {createFileRoute} from '@tanstack/react-router';
+import {createFileRoute, redirect} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
+import {useState} from 'react';
 
 import BinaryButton from '@/components/BinaryButton';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
-import useRootStore from '@/store';
+import type {SearchParamFromPhase3} from '@/routes/_layout/signup/_layout/4.tsx';
 
 import styles from '../signup.module.scss';
 
 const cx = classnames.bind(styles);
 
+export interface SearchParamFromPhase4 extends SearchParamFromPhase3 {
+  birth?: Birth;
+}
+
 export const Route = createFileRoute('/_layout/signup/_layout/5')({
   component: GetGenderPage,
+  validateSearch: (search: Record<string, unknown>): SearchParamFromPhase4 => {
+    return {
+      name: search.name !== 'undefined' ? (search.name as Name) : undefined,
+      userId:
+        search.userId !== 'undefined' ? (search.userId as UserId) : undefined,
+      password:
+        search.password !== 'undefined'
+          ? (search.password as Password)
+          : undefined,
+      birth: search.birth !== 'undefined' ? (search.birth as Birth) : undefined,
+    };
+  },
+  beforeLoad: async ({search}) => {
+    if (!search.birth) throw redirect({to: '/signup/4', search: {...search}});
+  },
 });
 
 function GetGenderPage() {
-  const gender = useRootStore(state => state.gender);
-  const setGender = useRootStore(state => state.setGender);
+  const [gender, setGender] = useState<Gender>();
 
   function handleSelectGender(gender: string) {
     setGender(gender as Gender);
@@ -45,6 +64,7 @@ function GetGenderPage() {
           buttonStyle={{style: 'primary', size: 'large'}}
           disabled={!gender}
           to="/signup/6"
+          search={prev => ({...prev, gender})}
         >
           다음
         </GeneralButton>

@@ -1,24 +1,35 @@
-import {createFileRoute} from '@tanstack/react-router';
+import {createFileRoute, redirect} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {ChangeEvent} from 'react';
+import {useState} from 'react';
 
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
-import useRootStore from '@/store';
 import {USERID_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
+
+export interface SearchParamFromPhase1 {
+  name?: Name;
+}
 
 const cx = classnames.bind(styles);
 
 export const Route = createFileRoute('/_layout/signup/_layout/2')({
   component: GetUserId,
+  validateSearch: (search: Record<string, unknown>): SearchParamFromPhase1 => {
+    return {
+      name: search.name !== 'undefined' ? (search.name as Name) : undefined,
+    };
+  },
+  beforeLoad: async ({search}) => {
+    if (!search.name) throw redirect({to: '/signup/1'});
+  },
 });
 
 function GetUserId() {
-  const userId = useRootStore(state => state.username);
-  const setUserId = useRootStore(state => state.setUsername);
+  const [userId, setUserId] = useState('');
   const isValid = userId.match(USERID_PATTERN);
 
   function handleUserIdChange(e: ChangeEvent<HTMLInputElement>) {
@@ -47,6 +58,7 @@ function GetUserId() {
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
           to="/signup/3"
+          search={prev => ({...prev, userId})}
           disabled={!isValid}
         >
           다음

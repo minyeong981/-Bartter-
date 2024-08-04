@@ -7,14 +7,11 @@ import type {CommunitySlice} from '@/store/communitySlice.ts';
 import {createCommunitySlice} from '@/store/communitySlice.ts';
 import type {DiarySlice} from '@/store/diarySlice.ts';
 import {createDiarySlice} from '@/store/diarySlice.ts';
-import type {SignupSlice} from '@/store/signupSlice.ts';
-import {createSignupFormSlice} from '@/store/signupSlice.ts';
 
-const useRootStore = create<CommunitySlice & SignupSlice & AuthSlice & DiarySlice>()(
+const useRootStore = create<CommunitySlice & AuthSlice & DiarySlice>()(
   devtools(
     persist(
       (...a) => ({
-        ...createSignupFormSlice(...a),
         ...createCommunitySlice(...a),
         ...createDiarySlice(...a),
         ...createAuthSlice(...a),

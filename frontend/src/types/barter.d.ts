@@ -7,7 +7,7 @@ type Birth = string;
 type Gender = Male | Female;
 type Latitude = number;
 type Longitude = number;
-type PhoneNumber = string;
+type Phone = string;
 type Email = string;
 
 type UserId = string;
@@ -25,7 +25,7 @@ interface SignupForm {
   gender: Gender;
   latitude: Latitude;
   longitude: Longitude;
-  phone: PhoneNumber;
+  phone: Phone;
   email?: Email;
 }
 
