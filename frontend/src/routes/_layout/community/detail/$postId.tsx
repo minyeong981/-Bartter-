@@ -63,10 +63,20 @@ export default function CommunityDetail() {
   return (
     <div>
       <HeaderWithBackButton />
-      <UserNameLocation post={post} />
+      <UserNameLocation
+        locationName={post.location.locationName}
+        postId={post.communityPostId}
+        createdAt={post.createdAt}
+        nickname={post.user.nickname}
+        profileImage={post.user.profileImage}
+      />
       <PostDetail post={post} />
-      <LikeComment likeCount={post.likeCount} commentCount={post.commentList.length} isLike={true}/>
-      <CommentList Comments={post.commentList}/>
+      <LikeComment
+        likeCount={post.likeCount}
+        commentCount={post.commentList.length}
+        isLike={true}
+      />
+      <CommentList Comments={post.commentList} />
       <div>
         <input
           className={styles.commentInput}
