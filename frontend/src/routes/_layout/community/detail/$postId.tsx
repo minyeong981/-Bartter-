@@ -1,10 +1,7 @@
 import {createFileRoute} from '@tanstack/react-router';
-import {format} from 'date-fns';
-import {ko} from 'date-fns/locale';
 import type {ChangeEvent, KeyboardEvent} from 'react';
 import {useState} from 'react';
 
-import UserImage from '@/assets/image/유저.png';
 import CommentList from '@/components/Community/CommentLIst';
 import PostDetail from '@/components/Community/PostDetail/index.tsx';
 import HeaderWithBackButton from '@/components/Header/HeaderWithBackButton';
@@ -12,7 +9,7 @@ import LikeComment from '@/components/LikeComment';
 import UserNameLocation from '@/components/User/UserNameLocation';
 import useRootStore from '@/store';
 
-import styles from './../index.module.scss';
+import styles from './../community.module.scss';
 
 export const Route = createFileRoute('/_layout/community/detail/$postId')({
   // loader: async({ params }) => fetchPost(params.postId),
@@ -20,11 +17,12 @@ export const Route = createFileRoute('/_layout/community/detail/$postId')({
 });
 
 export default function CommunityDetail() {
+
+  const { postId } : { postId : number }= Route.useParams()
   const posts: CommunityPost[] = useRootStore(state => state.posts);
-  // 일단 detail 1개니까.
-  const postId = 1;
-  const post = posts[0];
-  // const { postId } : number = Route.useParams()
+
+  const post = posts[postId-1];
+
   const addComment = useRootStore(state => state.addComment);
 
   // const [post, setPost] = useState<CommunityPost | undefined>(undefined);
@@ -35,27 +33,15 @@ export default function CommunityDetail() {
 
   const [content, setContent] = useState('댓글을 입력하세요');
 
-  // const post : CommunityPost = posts.filter((post) => post.communityPostId === postId)
-
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setContent(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   }
 
   function handleKeyPress(event: KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter' && content.trim() !== '') {
-      const newComment: PostComment = {
-        commentId: 1,
-        user: {
-          userId: '99',
-          nickname: 'user99',
-          profileImage: UserImage,
-        },
-        content,
-        created_at: format(new Date(), 'yyyy-MM-dd HH:mm', {locale: ko}),
-      };
 
-      addComment(postId, newComment);
+      addComment(postId, content);
       setContent(''); // 초기화
     }
   }
@@ -66,7 +52,7 @@ export default function CommunityDetail() {
       <UserNameLocation post={post} />
       <PostDetail post={post} />
       <LikeComment likeCount={post.likeCount} commentCount={post.commentList.length} isLike={true}/>
-      <CommentList Comments={post.commentList}/>
+      <CommentList postId={post.communityPostId} Comments={post.commentList}/>
       <div>
         <input
           className={styles.commentInput}

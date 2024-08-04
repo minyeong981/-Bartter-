@@ -2,27 +2,25 @@ import {useState} from 'react';
 
 import Delete from '@/assets/image/delete.png';
 
+import DeleteCommentModal from '../Modals/DeleteCommentModal/deleteCommentModal';
 import styles from './UserNameContent.module.scss';
 
 interface UserNameContentProps {
+  postId : number;
   comment: PostComment;
-  onClick: React.MouseEventHandler<HTMLImageElement>;
 }
 
-export default function UserNameContent({comment}: UserNameContentProps) {
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+export default function UserNameContent({
+  postId,
+  comment}: UserNameContentProps) {
+  const [ isModalOpen, setIsModalOpen] = useState(false);
 
-  function handleClick() {
-    setShowDeleteConfirm(true);
+  function handleModalOpen() {
+    setIsModalOpen(true);
   }
 
-  function handleDelete(commentId: number) {
-    console.log(`댓글 삭제 ${commentId}`);
-    setShowDeleteConfirm(false);
-  }
-
-  function handleCancel() {
-    setShowDeleteConfirm(false);
+  function handleModalClose() {
+    setIsModalOpen(false);
   }
 
   return (
@@ -39,20 +37,12 @@ export default function UserNameContent({comment}: UserNameContentProps) {
       </div>
       <img
         className={styles.menuIcon}
-        onClick={handleClick}
+        onClick={handleModalOpen}
         src={Delete}
         alt=""
       />
 
-      {showDeleteConfirm && ( 
-        <div className={styles.deleteConfirm}>
-          <div className={styles.confirmText}>댓글을 삭제하시겠습니까?</div>
-          <div className={styles.buttonContainer}>
-            <button onClick={() => handleDelete(comment.commentId)}>네</button>
-            <button onClick={handleCancel}>아니요</button>
-          </div>
-        </div>
-      )}
+      {isModalOpen && <DeleteCommentModal postId={postId} commentId={comment.commentId} onClickOutside={handleModalClose} />}
     </div>
   );
 }

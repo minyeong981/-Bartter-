@@ -1,28 +1,20 @@
-import { useNavigate } from '@tanstack/react-router';
 import {useState} from 'react';
 
 import Delete from '@/assets/image/delete.png';
-import useRootStore from '@/store';
 
+import DeletePostModal from '../Modals/DeletePostModal/deletePostModal';
 import styles from './UserNameContent.module.scss';
 
 export default function UserNameLocation({post}: {post: CommunityPost}) {
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const nav = useNavigate({from:'/community/detail/$postId'})
 
-  const deletePost = useRootStore(state => state.deletePost)
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  function handleClick() {
-    setShowDeleteConfirm(true);
+  function handleModalOpen() {
+    setIsModalOpen(true)
   }
 
-  function handleDelete(postId: number) {
-    deletePost(postId)
-    nav({to: '/community'});
-  }
-
-  function handleCancel() {
-    setShowDeleteConfirm(false);
+  function handleModalClose() {
+    setIsModalOpen(false)
   }
 
   return (
@@ -39,22 +31,11 @@ export default function UserNameLocation({post}: {post: CommunityPost}) {
       </div>
       <img
         className={styles.menuIcon}
-        onClick={() => handleClick()}
+        onClick={handleModalOpen}
         src={Delete}
         alt="DeleteMenu"
       />
-
-      {showDeleteConfirm && (
-        <div className={styles.deleteConfirm}>
-          <div className={styles.confirmText}>게시글을 삭제하시겠습니까?</div>
-          <div className={styles.buttonContainer}>
-            <button onClick={() => handleDelete(post.communityPostId)}>
-              네
-            </button>
-            <button onClick={handleCancel}>아니요</button>
-          </div>
-        </div>
-      )}
+      { isModalOpen && <DeletePostModal postId={post.communityPostId} onClickOutside={handleModalClose}/>}
     </div>
   );
 }

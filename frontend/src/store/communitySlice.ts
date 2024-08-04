@@ -16,7 +16,8 @@ export interface CommunitySlice {
   posts: CommunityPostList;
   addPost: (newPost: CreatePost) => void;
   deletePost: (postId: number) => void;
-  addComment: (postId:number, comments : PostComment) => void;
+  addComment: (postId:number, newContent:string ) => void;
+  deleteComment: (postId:number, commentId:number) => void;
 }
 
 const initialPost: CommunityPostList = [
@@ -118,10 +119,16 @@ export const createCommunitySlice: StateCreator<
     set(state => ({
       posts: state.posts.filter(post => post.communityPostId !== postId),
     })),
-  addComment: (postId:number, newComment: PostComment) => 
+  addComment: (postId:number, newContent:string) => 
     set(state => ({
       posts : state.posts.map((post) => {
         if (post.communityPostId === postId) {
+          const newComment = {
+          commentId: post.commentList.length +1,
+          user: {userId: '1', nickname: 'user1', profileImage: UserImage},
+          content: newContent,
+          created_at: format(new Date(), 'yyyy-MM-dd HH:mm', {locale: ko}),
+          }
           return {
             ...post, commentList: [...post.commentList, newComment],
           };
@@ -129,7 +136,18 @@ export const createCommunitySlice: StateCreator<
         return post;
       })
     })
-    )
+    ),
+  deleteComment : (postId:number, commentId:number) => 
+    set(state => ({
+      posts : state.posts.map((post) => {
+        if (post.communityPostId === postId ) {
+          return {
+            ...post, commentList : post.commentList.filter((comment) => comment.commentId !== commentId)
+          };
+        }
+        return post;
+      })
+    })),
 });
 
 export default createCommunitySlice;
