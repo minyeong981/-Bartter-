@@ -19,7 +19,7 @@ public enum ErrorCode {
     INVALID_LOCATION(HttpStatus.BAD_REQUEST, 1005, "유효하지 않은 위치입니다."),
     LOCATION_NOT_FOUND(HttpStatus.NOT_FOUND, 1006, "해당 위치를 찾을 수 없습니다."),
     IMAGE_NOT_ADDED(HttpStatus.BAD_REQUEST, 1007, "이미지를 첨부해야 합니다."),
-
+    BAD_REQUEST(HttpStatus.BAD_REQUEST, 1008, "잘못된 요청입니다. 요청을 확인해주세요."),
     // Auth & User - 2000
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, 2000, "해당 ID의 사용자를 찾을 수 없습니다."),
     ACCESS_TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, 2001, "만료된 액세스 토큰입니다."),
@@ -53,11 +53,15 @@ public enum ErrorCode {
     COMMUNITY_POST_LIKE_ALREADY_EXISTS(HttpStatus.NOT_FOUND, 5001, "해당 게시글에 이미 좋아요를 눌렀습니다."),
 
     // Trade - 6000
-    TRADE_POST_NOT_FOUND(HttpStatus.NOT_FOUND,6000,"해당 ID의 물물교환 게시글을 찾을 수 없습니다." );
+    TRADE_POST_NOT_FOUND(HttpStatus.NOT_FOUND,6000,"해당 ID의 물물교환 게시글을 찾을 수 없습니다." ),
+    TRADE_POST_INVALID_REQUEST(HttpStatus.BAD_REQUEST, 6001, "해당 ID의 물물교환 게시글을 찾을 수 없거나 게시글 작성자가 아닙니다."),
+    TRADE_POST_LIKE_EXIST(HttpStatus.BAD_REQUEST, 6002," 사용자가 해당 물물교환 게시글을 이미 좋아요 했습니다. "),
+    TRADE_POST_LIKE_NOT_FOUND(HttpStatus.NOT_FOUND,6003,"사용자가 해당 물물교환 게시글을 좋아요하지 않았습니다."),
+    TRADE_POST_SAME_STATUS(HttpStatus.BAD_REQUEST, 6004, "해당 물물교환 게시글에 대한 잘못된 상태 변경 요청입니다."),
 
     // Chat
 
-
+    ;
     private final HttpStatus status;
     private final int code;
     private final String message;

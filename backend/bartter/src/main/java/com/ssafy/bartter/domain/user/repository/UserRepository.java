@@ -14,7 +14,12 @@ import org.springframework.data.repository.query.Param;
  * @author 김훈민
  */
 public interface UserRepository extends JpaRepository<User, Integer> {
-    User findByUsername(String username);
+
+    @Query("SELECT u FROM User u " +
+            "JOIN FETCH u.location " +
+            "WHERE u.username = :username")
+    User findByUsername(@Param("username") String username);
+
     boolean existsByUsername(String username);
 
 

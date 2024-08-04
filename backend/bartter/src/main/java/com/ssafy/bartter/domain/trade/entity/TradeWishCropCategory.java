@@ -35,4 +35,11 @@ public class TradeWishCropCategory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trade_post_id", nullable = false)
     private TradePost tradePost;
+
+    public static TradeWishCropCategory of(TradePost tradePost, CropCategory category) {
+        TradeWishCropCategory wishCropCategory = new TradeWishCropCategory();
+        wishCropCategory.tradePost = tradePost;
+        wishCropCategory.category = category;
+        return wishCropCategory;
+    }
 }
