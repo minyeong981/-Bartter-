@@ -52,7 +52,7 @@ const AiReportList: React.FC<AiReportListProps> = ({ reports }) => {
             <div key={report.id} className={cx('reportItem')}>
               <img src={report.cropImage} alt="Crop" className={cx('cropImage')} />
               <div className={cx('reportContent')}>
-                <p>{report.cropNickname}의 재배 요약 보고서</p>
+                <p>{report.cropNickname}의 재배 보고서</p>
                 <button onClick={() => handleDetailClick(report)} className={cx('detailButton')}>
                   상세 보기 &gt;
                 </button>

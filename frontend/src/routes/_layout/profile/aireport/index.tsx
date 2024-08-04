@@ -74,7 +74,7 @@ const ProfileAiReport: React.FC = () => {
       periodStartDate = getPastDate(3);
     } else if (period === '6개월') {
       periodStartDate = getPastDate(6);
-    } else if (period === '범위 설정') {
+    } else if (period === '기간 설정') {
       periodStartDate = startDate ?? new Date();
       periodEndDate = endDate ?? currentDate;
     } else {
@@ -114,12 +114,12 @@ const ProfileAiReport: React.FC = () => {
 
   return (
     <div className={cx('container')}>
-      <HeaderWithLabelAndBackButton label="AI 재배 요약 보고서" />
+      <HeaderWithLabelAndBackButton label="AI 요약 보고서" />
       <button className={cx('sortButton')} onClick={handleSortButtonClick}>
         {`${period} / ${sort}`} <img src={BottomArrow} alt="bottomArrow" />
       </button>
       {filteredReports.length === 0 ? (
-        <h3 className={cx('noReportsMessage')}>아직 AI 재배 요약 보고서가 없습니다.</h3>
+        <h3 className={cx('noReportsMessage')}>아직 AI 요약 보고서가 없습니다.</h3>
       ) : (
         <AiReportList reports={filteredReports} />
       )}

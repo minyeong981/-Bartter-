@@ -19,6 +19,7 @@
   
   .headerLeft, .headerRight {
     flex-grow: 1;
+    cursor: pointer;
   }
   
   .headerCenter {
@@ -27,4 +28,3 @@
     @include typo.title;
 
   }
-  

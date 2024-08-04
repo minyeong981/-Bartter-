@@ -25,7 +25,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, onApply }) => {
 
   const handlePeriodClick = (selectedPeriod: string) => {
     setActivePeriod(selectedPeriod);
-    if (selectedPeriod === '범위 설정') {
+    if (selectedPeriod === '기간 설정') {
       setIsRangePickerOpen(true);
     } else {
       setIsRangePickerOpen(false);
@@ -59,7 +59,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, onApply }) => {
         <div className={cx('modalSection')}>
           <h3>조회 기간</h3>
           <div className={cx('buttonGroup')}>
-            {['1개월', '3개월', '6개월', '범위 설정'].map(period => (
+            {['1개월', '3개월', '6개월', '기간 설정'].map(period => (
               <GeneralButton 
                 key={period}
                 buttonStyle={{style: 'outlined', size: 'medium'}}
@@ -80,7 +80,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, onApply }) => {
                   selectsStart 
                   startDate={startDate} 
                   endDate={endDate} 
-                  placeholderText="시작 날짜" 
+                  placeholderText="시작하는 날짜" 
                   maxDate={new Date()} 
                   locale={ko} 
                   dateFormat="yyyy.MM.dd"
