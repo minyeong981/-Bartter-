@@ -1,6 +1,8 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
+import Lottie from 'react-lottie-player';
 
+import registerAnimation from '@/assets/lottie/register.json';
 import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
 import Heading from '@/components/Heading';
 import useRootStore from '@/store';
@@ -14,7 +16,7 @@ export const Route = createFileRoute('/_layout/diary/registerCrop/_layout/5')({
 });
 
 function CropProfilePage() {
-  const { nickname, date, description, image, initialImage, addCrop, setActiveComponent, resetCropForm } = useRootStore(state=>state);
+  const { nickname, date, description, image, initialImage, addCrop, setActiveComponent, resetCropForm } = useRootStore(state => state);
 
   const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ function CropProfilePage() {
       image: image || initialImage,
       date,
       description,
-      name:nickname
+      name: nickname
     });
     setActiveComponent('내 작물');
     navigate({
@@ -43,16 +45,15 @@ function CropProfilePage() {
       <div className={cx('headingContainer')}>
         <Heading>나만의 작물이 등록되었습니다.</Heading>
       </div>
-      <div className={cx('inputContainer')}>
-        <div>
-          {nickname}
-          {displayImage && <img src={displayImage} alt={`${nickname}의 이미지`} />}
+      <Lottie loop animationData={registerAnimation} play className={cx('animation')} />
+      <div className={cx('noteStyle')}>
+        <div className={cx('leftSection')}>
+          {displayImage && <img src={displayImage} alt={`${nickname}의 이미지`} className={cx('cropImage')} />}
+          <div className={cx('nickname')}>{nickname}</div>
         </div>
-        <div>
-          처음 만난 날짜 : {date}
-        </div>
-        <div>
-          {description}
+        <div className={cx('rightSection')}>
+          <div className={cx('date')}>처음 만난 날짜: {date}</div>
+          <div className={cx('description')}>{description}</div>
         </div>
       </div>
       <div className={cx('buttonContainer')}>

@@ -18,7 +18,7 @@ function RegisterCropLayout() {
   const {pathname} = useLocation();
   const step = Number(pathname.split('/')[3]); // /diary/registerCrop/1 같은 형태의 경로에서 단계 번호를 추출
 
-  // 5단계에서는 프로그레스 바를 숨깁니다.
+  // 5단계에서는 프로그레스 바 숨기기
   const showProgressBar = step <= TOTAL_STEPS;
 
   return (
