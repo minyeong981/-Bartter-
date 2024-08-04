@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
 import static com.ssafy.bartter.domain.crop.dto.CropDiaryDto.Create;
@@ -102,6 +105,15 @@ public class CropDiaryService {
     public List<CropDiary> getCropDiaryList(int cropId) {
         Crop crop = cropRepository.findById(cropId).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
         return cropDiaryRepository.findAllByCropId(cropId);
+    }
+
+    /**
+     * 특정 농작물의 이번주차 농사일지 조회
+     */
+    @Transactional(readOnly = true)
+    public List<CropDiary> getWeeklyCropDiaryList(int cropId, LocalDate todayDate) {
+        LocalDate mondayDate = todayDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        return cropDiaryRepository.findAllByCropIdAndDateRange(cropId, mondayDate, todayDate);
     }
 }
 
