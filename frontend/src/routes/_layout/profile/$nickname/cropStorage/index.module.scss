@@ -22,11 +22,16 @@
     display: flex;
     justify-content: center;
 
-    img {
-      max-width: 100%;
-      height: auto;
-      margin: 10px;
+    // img {
+    //   max-width: 100%;
+    //   height: auto;
+    //   margin: 10px;
+    // }
+    .animation {
+      width: 200px; // 애니메이션 크기 조정
+      margin-bottom: 1rem;
     }
+
   }
 
   .toggleContainer {

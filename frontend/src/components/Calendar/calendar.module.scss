@@ -32,8 +32,8 @@
 
 .toggle-button {
   display: block;
-  margin: 0.5rem auto;
-  font-size: 0.875rem;
+  margin: 1px auto;
+  font-size: 14px;
   color: colors.$placeholder;
   cursor: pointer;
   background: none;
@@ -55,8 +55,8 @@
   border-radius: 50%;
 }
 
-hr {
-  margin: 10px 0 20px;
+.customHr {
+  margin: 5px 0 10px 0;
   border: none;
   border-top: 3px solid colors.$divider2;
 }
@@ -64,7 +64,7 @@ hr {
 .show-date {
   display: flex;
   justify-content: left;
-  margin-left: 16px;
+  margin: 20px 0 0 16px;
 
   @include typo.label;
 }
@@ -72,5 +72,5 @@ hr {
 .link-button-wrapper {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 10px;
 }

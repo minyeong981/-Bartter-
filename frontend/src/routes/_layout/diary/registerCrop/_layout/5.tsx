@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import Lottie from 'react-lottie-player';
 
-import registerAnimation from '@/assets/lottie/register.json';
+import RegisterAnimation from '@/assets/lottie/register.json';
 import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
 import Heading from '@/components/Heading';
 import useRootStore from '@/store';
@@ -45,7 +45,7 @@ function CropProfilePage() {
       <div className={cx('headingContainer')}>
         <Heading>나만의 작물이 등록되었습니다.</Heading>
       </div>
-      <Lottie loop animationData={registerAnimation} play className={cx('animation')} />
+      <Lottie loop animationData={RegisterAnimation} play className={cx('animation')} />
       <div className={cx('noteStyle')}>
         <div className={cx('leftSection')}>
           {displayImage && <img src={displayImage} alt={`${nickname}의 이미지`} className={cx('cropImage')} />}

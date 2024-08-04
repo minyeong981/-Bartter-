@@ -33,7 +33,7 @@ export default function CalendarPage({ onDateChange, diaryEntries = [] }: Calend
       <button className={cx('toggle-button')} onClick={toggleCalendar}>
         {isCollapsed ? '달력 펼치기' : '달력 접기'}
       </button>
-      <hr />
+      <hr className={cx('customHr')} />
     </div>
   );
 }

@@ -82,7 +82,7 @@ function GrowDiaryPage() {
 
   return (
     <>
-      <HeaderWithLabelAndBackButton label="농사 일지" />
+      <HeaderWithLabelAndBackButton label="성장 일지" />
       <div className={cx('growDiaryContainer')}>
         <div className={cx('profileSection')}>
           <img src={Tomato} alt={crop.nickname} className={cx('cropImage')} />

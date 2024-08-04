@@ -1,8 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import { useEffect, useState } from 'react';
+import Lottie from 'react-lottie-player';
 
 import Storage from '@/assets/image/cropStorage.png';
+import WarehouseAnimation from '@/assets/lottie/warehouse.json'
 import MyCrops from '@/components/Crop/MyCrops';
 import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
 import type { Crop } from '@/store/diarySlice';
@@ -62,7 +64,8 @@ function CropStoragePage() {
             )}
         </p>
         <div className={cx('storageImage')}>
-          <img src={Storage} alt="Storage" />
+          {/* <img src={Storage} alt="Storage" /> */}
+          <Lottie loop animationData={WarehouseAnimation} play className={cx('animation')}  />
         </div>
         <div className={cx('toggleContainer')}>
           <button
