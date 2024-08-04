@@ -2,7 +2,9 @@ package com.ssafy.bartter.global.config;
 
 import com.ssafy.bartter.domain.auth.config.JwtConfig;
 import com.ssafy.bartter.domain.auth.handler.CustomAuthenticationEntryPoint;
+import com.ssafy.bartter.domain.auth.handler.OAuth2SuccessHandler;
 import com.ssafy.bartter.domain.auth.repository.RedisRefreshRepository;
+import com.ssafy.bartter.domain.auth.service.OAuth2UserService;
 import com.ssafy.bartter.domain.auth.utils.CookieUtil;
 import com.ssafy.bartter.domain.auth.utils.JwtUtil;
 import com.ssafy.bartter.global.filter.JwtAuthenticationFilter;
@@ -39,6 +41,8 @@ public class SecurityConfig {
     private final CookieUtil cookieUtil;
     private final RedisRefreshRepository redisRefreshRepository;
     private final JwtConfig jwtConfig;
+    private final OAuth2UserService OAuth2UserService;
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -99,6 +103,14 @@ public class SecurityConfig {
                 );
         http
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), LoginFilter.class);
+
+        // oauth2 user service 연결
+        http
+                .oauth2Login((oauth2) -> oauth2
+                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
+                                .userService(OAuth2UserService))
+                        .successHandler(oAuth2SuccessHandler));
+
         http
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, cookieUtil, redisRefreshRepository, jwtConfig), UsernamePasswordAuthenticationFilter.class);
         http
