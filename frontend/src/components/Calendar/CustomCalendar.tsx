@@ -1,12 +1,12 @@
 import 'react-calendar/dist/Calendar.css';
 import './CustomCalendar.scss';
 
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {Calendar} from 'react-calendar';
 
 interface CustomCalendarProps {
   isCollapsed: boolean;
-  onDateChange: (date: Date) => void; // 날짜 변경 핸들러 추가
+  onDateChange: (date: Date) => void;
   highlightDates: Date[]; // 강조할 날짜 목록 추가
 }
 
@@ -14,16 +14,6 @@ export default function CustomCalendar({isCollapsed, onDateChange, highlightDate
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [currentWeek, setCurrentWeek] = useState<Date[]>([]);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
-
-  useEffect(() => {
-    updateCurrentWeek(selectedDate);
-  }, [selectedDate]);
-
-  useEffect(() => {
-    if (isCollapsed) {
-      updateCurrentWeek(selectedDate);
-    }
-  }, [isCollapsed, currentMonth]);
 
   const getStartOfWeek = (date: Date): Date => {
     const day = date.getDay();
@@ -33,11 +23,21 @@ export default function CustomCalendar({isCollapsed, onDateChange, highlightDate
     return new Date(startDate.setHours(0, 0, 0, 0));
   };
 
-  const updateCurrentWeek = (date: Date) => {
+  const updateCurrentWeek = useCallback((date: Date) => {
     const startOfWeek = getStartOfWeek(date);
     const week = Array.from({length: 7}, (_, i) => new Date(startOfWeek.getTime() + i * 86400000));
     setCurrentWeek(week);
-  };
+  }, []);
+
+  useEffect(() => {
+    updateCurrentWeek(selectedDate);
+  }, [selectedDate, updateCurrentWeek]);
+
+  useEffect(() => {
+    if (isCollapsed) {
+      updateCurrentWeek(selectedDate);
+    }
+  }, [isCollapsed, currentMonth, selectedDate, updateCurrentWeek]);
 
   const changeMonth = (increment: number) => {
     const newDate = new Date(currentMonth);
@@ -74,6 +74,29 @@ export default function CustomCalendar({isCollapsed, onDateChange, highlightDate
     return null;
   };
 
+  const getTileClassName = (date: Date) => {
+    const classes = [];
+    if (date.getDay() === 6) {
+      classes.push('saturday');
+    }
+    if (date.getDay() === 0) {
+      classes.push('sunday');
+    }
+    if (date.getMonth() !== currentMonth.getMonth()) {
+      classes.push('neighboringMonth');
+    }
+    if (date.toDateString() === new Date().toDateString()) {
+      classes.push('today');
+    }
+    if (date.toDateString() === selectedDate.toDateString()) {
+      classes.push('selected');
+    }
+    if (currentWeek.some(weekDate => weekDate.toDateString() === date.toDateString())) {
+      classes.push('current-week');
+    }
+    return classes.join(' ');
+  };
+
   const renderCollapsedCalendar = () => {
     return (
       <div className="react-calendar collapsed-calendar">
@@ -97,18 +120,12 @@ export default function CustomCalendar({isCollapsed, onDateChange, highlightDate
           {currentWeek.map((date) => (
             <div
               key={date.toDateString()}
-              className={`react-calendar__tile ${
-                date.getDay() === 0 ? 'sunday' : date.getDay() === 6 ? 'saturday' : ''
-              } ${
-                date.toDateString() === new Date().toDateString() ? 'today' : ''
-              } ${selectedDate && date.toDateString() === selectedDate.toDateString() ? 'selected' : ''} ${
-                currentWeek.some(weekDate => weekDate.toDateString() === date.toDateString()) ? 'current-week' : ''
-              }`}
+              className={`react-calendar__tile ${getTileClassName(date)}`}
               onClick={() => onClickDay(date)}
             >
               <abbr className="react-calendar__tile__abbr">{date.getDate()}</abbr>
               {highlightDates.some(highlightDate => highlightDate.toDateString() === date.toDateString()) &&
-                  <div className="highlight-dot"/>}
+                <div className="highlight-dot"/>}
             </div>
           ))}
         </div>
@@ -125,27 +142,10 @@ export default function CustomCalendar({isCollapsed, onDateChange, highlightDate
         formatMonthYear={(_, date) => formatMonthYear(date)}
         prevLabel="<"
         nextLabel=">"
-        tileClassName={({date, view}) => {
-          if (view === 'month' && date.getDay() === 6) {
-            return 'saturday';
-          }
-          if (view === 'month' && date.getDay() === 0) {
-            return 'sunday';
-          }
-          if (view === 'month' && date.toDateString() === new Date().toDateString()) {
-            return 'today';
-          }
-          if (view === 'month' && date.toDateString() === selectedDate.toDateString()) {
-            return 'selected';
-          }
-          if (currentWeek.some(weekDate => weekDate.toDateString() === date.toDateString())) {
-            return 'current-week';
-          }
-          return null;
-        }}
+        tileClassName={({date, view}) => view === 'month' ? getTileClassName(date) : null}
         formatDay={formatDay}
         formatShortWeekday={renderWeekday}
-        showNeighboringMonth={false}
+        showNeighboringMonth={true} // 이번 달이 아닌 날짜도 표시
         onClickDay={onClickDay}
         tileContent={tileContent}
       />

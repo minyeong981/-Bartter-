@@ -8,6 +8,7 @@ import LinkButton from '@/components/Buttons/LinkButton';
 import CalendarPage from '@/components/Calendar/calendar';
 import MainCrops from '@/components/Crop/mainCrops';
 import DiaryList from '@/components/Diary/DiaryList';
+import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons'
 import TwoButton from '@/components/TwoButton/TwoButton';
 import useRootStore from '@/store/index';
 
@@ -120,17 +121,21 @@ function DiaryPage() {
   }
 
   return (
-    <div className={cx('diaryContainer')}>
-      <header className={cx('header')}>
-        <TwoButton
-          first="달력"
-          second="내 작물"
-          activeButton={activeComponent}
-          onClick={handleButtonClick}
-        />
-      </header>
-      <div className={cx('container')}>{renderedComponent}</div>
+    <div>
+      <HeaderWithLabelAndButtons />
+      <div className={cx('diaryContainer')}>
+        <header className={cx('header')}>
+          <TwoButton
+            first="달력"
+            second="내 작물"
+            activeButton={activeComponent}
+            onClick={handleButtonClick}
+          />
+        </header>
+        <div className={cx('container')}>{renderedComponent}</div>
+      </div>
     </div>
+
   );
 }
 

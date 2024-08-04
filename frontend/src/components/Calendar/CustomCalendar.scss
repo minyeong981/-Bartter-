@@ -3,19 +3,18 @@
 @use '@/styles/constants/colors' as colors;
 
 .custom-calendar-container {
+  padding: 1rem; // 전체 패딩 적용
+
   .react-calendar {
     width: 100%;
-    padding: 1rem;
     border: none;
 
     &.collapsed-calendar {
-      .react-calendar__tile {
-        &.sunday {
-          color: red;
-        }
+      width: 100%; // 달력 크기 조정
 
-        &.saturday {
-          color: blue;
+      .react-calendar__tile {
+        &.neighboringMonth {
+          color: colors.$placeholder; // 이번 달이 아닌 날짜 색상 변경
         }
       }
     }
@@ -24,17 +23,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 1rem;
+      padding: 0 20px;
 
       button {
-        margin: 0 2%; // 버튼 좌우 간격
-        font-size: 1rem; // 버튼 글씨 크기
+        margin: 0 10px; // 버튼 좌우 간격 더 넓힘
         cursor: pointer;
         background: none;
         border: none;
+        @include typo.title;
 
         &:disabled {
-          color: grey;
+          color: rgb(128, 128, 128);
           cursor: default;
         }
 
@@ -97,43 +96,32 @@
         color: blue; // 토요일 색상
       }
 
-      &.today abbr {
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 2rem;
-        height: 2rem;
-        margin: auto;
-        color: black;
-        text-align: center;
-        background-color: rgb(0 0 0 / 20%);
-        border-radius: 50%;
+      &.neighboringMonth abbr {
+        color: colors.$placeholder; // 이번 달이 아닌 날짜 색상
       }
 
-      &.selected abbr {
-        color: black;
-        border-radius: 10px;
-      }
     }
 
     .react-calendar__tile {
       position: relative;
       box-sizing: border-box;
       max-width: 100%;
+      text-align: center;
       height: 3rem; // 타일 높이
       padding: 0.5rem; // 타일 패딩
       background: none;
+      border: none;
+      cursor: pointer;
+      line-height: 1.5rem;
 
       @include typo.main; // 기본 글씨 스타일 적용
 
-      &.react-calendar__tile--active {
+      &.react-calendar__tile--active,
+      &.today{
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 0;
-        border: 2px solid #20873f;
-        border-radius: 10px;
 
         abbr {
           display: flex;
@@ -142,7 +130,25 @@
           width: 2.2rem;
           height: 2.2rem;
           margin: auto;
-          background-color: transparent;
+          background-color: colors.$divider2;
+          border-radius: 50%;
+        }
+      }
+
+      &.selected {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+
+        abbr {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 2.2rem;
+          height: 2.2rem;
+          margin: auto;
+          background-color: colors.$primary;
           border-radius: 50%;
         }
       }
@@ -156,19 +162,21 @@
         height: 2rem;
         background: none;
         border-radius: 50%;
+        
       }
     }
   }
 
   &.collapsed {
     .react-calendar {
-      padding: 1rem; 
+      width: 22.4rem;
+      padding: 0 16px;
 
       .react-calendar__month-view__weekdays,
       .react-calendar__month-view__days {
         display: flex;
         justify-content: space-between;
-        margin: auto; // 접힌 상태와 펼친 상태의 마진을 동일하게 설정
+        padding: 0 4px;
       }
 
       .react-calendar__tile {
@@ -178,17 +186,23 @@
         justify-content: center;
         cursor: pointer;
 
-        &.selected {
-          background-color: transparent; // 배경색 제거
-          border: 2px solid #20873f; // 초록색 선
-          border-radius: 10px;
+        
+        &.sunday {
+          color: red; // 일요일 색상
         }
+
+        &.saturday {
+          color: blue; // 토요일 색상
+        }
+
+        &.neighboringMonth {
+          color: colors.$placeholder; // 이번 달이 아닌 날짜 색상 변경
+        }
+
       }
     }
   }
-
 }
-
 
 .highlight-dot {
   display: inline-block;
