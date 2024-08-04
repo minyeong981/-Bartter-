@@ -5,17 +5,16 @@ import classnames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 
 import LinkButton from '@/components/Buttons/LinkButton';
-import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
 import ImageInput from '@/components/Inputs/ImageInput';
 import LabeledInput from '@/components/Inputs/LabeledInput';
 import LabeledTextArea from '@/components/Inputs/LabeledTextAreaInput';
 import SemiCalendarInput from '@/components/Inputs/SemiCalendarInput';
 
-import styles from './write.module.scss';
+import styles from '../write.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/diary/write/2')({
+export const Route = createFileRoute('/_layout/diary/write/_layout/2')({
   component: DiaryWritePage2,
 });
 
@@ -52,9 +51,8 @@ function DiaryWritePage2() {
 
   return (
     <div>
-      <HeaderWithLabelAndBackButton label='농사 일지' />
       <div className={cx('writePage2Container')}>
-        <div className={cx('profile')}>
+        <div className={cx('CropProfile')}>
           <img src={selectedCrop?.image || ''} alt="등록한 작물" className={cx('profileImage')} />
           <span className={cx('nickname')}>{selectedCrop?.nickname || ''}</span>
         </div>

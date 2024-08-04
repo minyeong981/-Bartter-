@@ -33,6 +33,7 @@ import { Route as LayoutProfileChatIndexImport } from './routes/_layout/profile/
 import { Route as LayoutProfileChangelocationIndexImport } from './routes/_layout/profile/changelocation/index'
 import { Route as LayoutProfileAireportIndexImport } from './routes/_layout/profile/aireport/index'
 import { Route as LayoutLoginEntranceIndexImport } from './routes/_layout/login/entrance/index'
+import { Route as LayoutDiaryWriteIndexImport } from './routes/_layout/diary/write/index'
 import { Route as LayoutDiaryRegisterCropIndexImport } from './routes/_layout/diary/registerCrop/index'
 import { Route as LayoutCommunityCreateIndexImport } from './routes/_layout/community/create/index'
 import { Route as LayoutTradeWriteLayoutImport } from './routes/_layout/trade/write/_layout'
@@ -48,8 +49,7 @@ import { Route as LayoutSignupLayout3Import } from './routes/_layout/signup/_lay
 import { Route as LayoutSignupLayout2Import } from './routes/_layout/signup/_layout/2'
 import { Route as LayoutSignupLayout1Import } from './routes/_layout/signup/_layout/1'
 import { Route as LayoutSearchResultLayoutImport } from './routes/_layout/search/$result/_layout'
-import { Route as LayoutDiaryWrite2Import } from './routes/_layout/diary/write/2'
-import { Route as LayoutDiaryWrite1Import } from './routes/_layout/diary/write/1'
+import { Route as LayoutDiaryWriteLayoutImport } from './routes/_layout/diary/write/_layout'
 import { Route as LayoutDiaryRegisterCropLayoutImport } from './routes/_layout/diary/registerCrop/_layout'
 import { Route as LayoutDiaryGrowDiaryCropIdImport } from './routes/_layout/diary/growDiary/$cropId'
 import { Route as LayoutDiaryDetailDiaryIdImport } from './routes/_layout/diary/detail/$diaryId'
@@ -61,6 +61,8 @@ import { Route as LayoutSearchResultLayoutIndexImport } from './routes/_layout/s
 import { Route as LayoutProfileNicknameDiaryIndexImport } from './routes/_layout/profile/$nickname/diary/index'
 import { Route as LayoutProfileNicknameCropStorageIndexImport } from './routes/_layout/profile/$nickname/cropStorage/index'
 import { Route as LayoutProfileAireportDetailReportIdImport } from './routes/_layout/profile/aireport/detail/$reportId'
+import { Route as LayoutDiaryWriteLayout2Import } from './routes/_layout/diary/write/_layout/2'
+import { Route as LayoutDiaryWriteLayout1Import } from './routes/_layout/diary/write/_layout/1'
 import { Route as LayoutDiaryRegisterCropLayout5Import } from './routes/_layout/diary/registerCrop/_layout/5'
 import { Route as LayoutDiaryRegisterCropLayout4Import } from './routes/_layout/diary/registerCrop/_layout/4'
 import { Route as LayoutDiaryRegisterCropLayout3Import } from './routes/_layout/diary/registerCrop/_layout/3'
@@ -75,6 +77,7 @@ const LayoutTradeWriteImport = createFileRoute('/_layout/trade/write')()
 const LayoutTradeToImport = createFileRoute('/_layout/trade/to')()
 const LayoutTradeFromImport = createFileRoute('/_layout/trade/from')()
 const LayoutSearchResultImport = createFileRoute('/_layout/search/$result')()
+const LayoutDiaryWriteImport = createFileRoute('/_layout/diary/write')()
 const LayoutDiaryRegisterCropImport = createFileRoute(
   '/_layout/diary/registerCrop',
 )()
@@ -123,6 +126,11 @@ const LayoutTradeFromRoute = LayoutTradeFromImport.update({
 
 const LayoutSearchResultRoute = LayoutSearchResultImport.update({
   path: '/search/$result',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutDiaryWriteRoute = LayoutDiaryWriteImport.update({
+  path: '/diary/write',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -220,6 +228,11 @@ const LayoutLoginEntranceIndexRoute = LayoutLoginEntranceIndexImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
+const LayoutDiaryWriteIndexRoute = LayoutDiaryWriteIndexImport.update({
+  path: '/',
+  getParentRoute: () => LayoutDiaryWriteRoute,
+} as any)
+
 const LayoutDiaryRegisterCropIndexRoute =
   LayoutDiaryRegisterCropIndexImport.update({
     path: '/',
@@ -298,14 +311,9 @@ const LayoutSearchResultLayoutRoute = LayoutSearchResultLayoutImport.update({
   getParentRoute: () => LayoutSearchResultRoute,
 } as any)
 
-const LayoutDiaryWrite2Route = LayoutDiaryWrite2Import.update({
-  path: '/diary/write/2',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutDiaryWrite1Route = LayoutDiaryWrite1Import.update({
-  path: '/diary/write/1',
-  getParentRoute: () => LayoutRoute,
+const LayoutDiaryWriteLayoutRoute = LayoutDiaryWriteLayoutImport.update({
+  id: '/_layout',
+  getParentRoute: () => LayoutDiaryWriteRoute,
 } as any)
 
 const LayoutDiaryRegisterCropLayoutRoute =
@@ -373,6 +381,16 @@ const LayoutProfileAireportDetailReportIdRoute =
     path: '/profile/aireport/detail/$reportId',
     getParentRoute: () => LayoutRoute,
   } as any)
+
+const LayoutDiaryWriteLayout2Route = LayoutDiaryWriteLayout2Import.update({
+  path: '/2',
+  getParentRoute: () => LayoutDiaryWriteLayoutRoute,
+} as any)
+
+const LayoutDiaryWriteLayout1Route = LayoutDiaryWriteLayout1Import.update({
+  path: '/1',
+  getParentRoute: () => LayoutDiaryWriteLayoutRoute,
+} as any)
 
 const LayoutDiaryRegisterCropLayout5Route =
   LayoutDiaryRegisterCropLayout5Import.update({
@@ -541,19 +559,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutDiaryRegisterCropLayoutImport
       parentRoute: typeof LayoutDiaryRegisterCropRoute
     }
-    '/_layout/diary/write/1': {
-      id: '/_layout/diary/write/1'
-      path: '/diary/write/1'
-      fullPath: '/diary/write/1'
-      preLoaderRoute: typeof LayoutDiaryWrite1Import
+    '/_layout/diary/write': {
+      id: '/_layout/diary/write'
+      path: '/diary/write'
+      fullPath: '/diary/write'
+      preLoaderRoute: typeof LayoutDiaryWriteImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/diary/write/2': {
-      id: '/_layout/diary/write/2'
-      path: '/diary/write/2'
-      fullPath: '/diary/write/2'
-      preLoaderRoute: typeof LayoutDiaryWrite2Import
-      parentRoute: typeof LayoutImport
+    '/_layout/diary/write/_layout': {
+      id: '/_layout/diary/write/_layout'
+      path: '/diary/write'
+      fullPath: '/diary/write'
+      preLoaderRoute: typeof LayoutDiaryWriteLayoutImport
+      parentRoute: typeof LayoutDiaryWriteRoute
     }
     '/_layout/search/$result': {
       id: '/_layout/search/$result'
@@ -688,6 +706,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutDiaryRegisterCropIndexImport
       parentRoute: typeof LayoutDiaryRegisterCropImport
     }
+    '/_layout/diary/write/': {
+      id: '/_layout/diary/write/'
+      path: '/'
+      fullPath: '/diary/write/'
+      preLoaderRoute: typeof LayoutDiaryWriteIndexImport
+      parentRoute: typeof LayoutDiaryWriteImport
+    }
     '/_layout/login/entrance/': {
       id: '/_layout/login/entrance/'
       path: '/login/entrance'
@@ -778,6 +803,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/diary/registerCrop/5'
       preLoaderRoute: typeof LayoutDiaryRegisterCropLayout5Import
       parentRoute: typeof LayoutDiaryRegisterCropLayoutImport
+    }
+    '/_layout/diary/write/_layout/1': {
+      id: '/_layout/diary/write/_layout/1'
+      path: '/1'
+      fullPath: '/diary/write/1'
+      preLoaderRoute: typeof LayoutDiaryWriteLayout1Import
+      parentRoute: typeof LayoutDiaryWriteLayoutImport
+    }
+    '/_layout/diary/write/_layout/2': {
+      id: '/_layout/diary/write/_layout/2'
+      path: '/2'
+      fullPath: '/diary/write/2'
+      preLoaderRoute: typeof LayoutDiaryWriteLayout2Import
+      parentRoute: typeof LayoutDiaryWriteLayoutImport
     }
     '/_layout/profile/aireport/detail/$reportId': {
       id: '/_layout/profile/aireport/detail/$reportId'
@@ -890,8 +929,13 @@ export const routeTree = rootRoute.addChildren({
         }),
       LayoutDiaryRegisterCropIndexRoute,
     }),
-    LayoutDiaryWrite1Route,
-    LayoutDiaryWrite2Route,
+    LayoutDiaryWriteRoute: LayoutDiaryWriteRoute.addChildren({
+      LayoutDiaryWriteLayoutRoute: LayoutDiaryWriteLayoutRoute.addChildren({
+        LayoutDiaryWriteLayout1Route,
+        LayoutDiaryWriteLayout2Route,
+      }),
+      LayoutDiaryWriteIndexRoute,
+    }),
     LayoutSearchResultRoute: LayoutSearchResultRoute.addChildren({
       LayoutSearchResultLayoutRoute: LayoutSearchResultLayoutRoute.addChildren({
         LayoutSearchResultLayoutIndexRoute,
@@ -940,8 +984,7 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/diary/detail/$diaryId",
         "/_layout/diary/growDiary/$cropId",
         "/_layout/diary/registerCrop",
-        "/_layout/diary/write/1",
-        "/_layout/diary/write/2",
+        "/_layout/diary/write",
         "/_layout/search/$result",
         "/_layout/community/create/",
         "/_layout/login/entrance/",
@@ -1062,13 +1105,21 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/diary/registerCrop/_layout/5"
       ]
     },
-    "/_layout/diary/write/1": {
-      "filePath": "_layout/diary/write/1.tsx",
-      "parent": "/_layout"
+    "/_layout/diary/write": {
+      "filePath": "_layout/diary/write",
+      "parent": "/_layout",
+      "children": [
+        "/_layout/diary/write/_layout",
+        "/_layout/diary/write/"
+      ]
     },
-    "/_layout/diary/write/2": {
-      "filePath": "_layout/diary/write/2.tsx",
-      "parent": "/_layout"
+    "/_layout/diary/write/_layout": {
+      "filePath": "_layout/diary/write/_layout.tsx",
+      "parent": "/_layout/diary/write",
+      "children": [
+        "/_layout/diary/write/_layout/1",
+        "/_layout/diary/write/_layout/2"
+      ]
     },
     "/_layout/search/$result": {
       "filePath": "_layout/search/$result",
@@ -1170,6 +1221,10 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout/diary/registerCrop/index.tsx",
       "parent": "/_layout/diary/registerCrop"
     },
+    "/_layout/diary/write/": {
+      "filePath": "_layout/diary/write/index.tsx",
+      "parent": "/_layout/diary/write"
+    },
     "/_layout/login/entrance/": {
       "filePath": "_layout/login/entrance/index.tsx",
       "parent": "/_layout"
@@ -1221,6 +1276,14 @@ export const routeTree = rootRoute.addChildren({
     "/_layout/diary/registerCrop/_layout/5": {
       "filePath": "_layout/diary/registerCrop/_layout/5.tsx",
       "parent": "/_layout/diary/registerCrop/_layout"
+    },
+    "/_layout/diary/write/_layout/1": {
+      "filePath": "_layout/diary/write/_layout/1.tsx",
+      "parent": "/_layout/diary/write/_layout"
+    },
+    "/_layout/diary/write/_layout/2": {
+      "filePath": "_layout/diary/write/_layout/2.tsx",
+      "parent": "/_layout/diary/write/_layout"
     },
     "/_layout/profile/aireport/detail/$reportId": {
       "filePath": "_layout/profile/aireport/detail/$reportId.tsx",

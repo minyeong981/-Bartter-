@@ -3,15 +3,15 @@ import classnames from 'classnames/bind';
 import {useState} from 'react';
 
 import LinkButton from '@/components/Buttons/LinkButton';
-import MyCrops from "@/components/Crop/MyCrops.tsx";
-import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton'
+import MyCrops from '@/components/Crop/MyCrops';
+import Heading from '@/components/Heading';
 import useRootStore from '@/store';
 
-import styles from './write.module.scss';
+import styles from '../write.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/diary/write/1')({
+export const Route = createFileRoute('/_layout/diary/write/_layout/1')({
   component: DiaryWritePage,
 });
 
@@ -30,9 +30,10 @@ function DiaryWritePage() {
 
   return (
     <div>
-      <HeaderWithLabelAndBackButton label='농사 일지'/>
       <div className={cx('DiaryWritePage')}>
-        <h1>어떤 작물의 일지인가요?</h1>
+        <div className={cx('headingContainer')}>
+          <Heading>어떤 작물의 일지인가요?</Heading>  
+        </div>
         <MyCrops crops={crops} onCropClick={handleCropSelect}/>
         <div className={cx('buttonContainer')}>
           <LinkButton
