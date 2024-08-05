@@ -15,19 +15,19 @@ export default function Navigation() {
           </Link>
         </li>
         <li>
-          <Link to="/">
+          <Link to="/diary">
             <img src={ImageDiary} alt="농사일지" />
             <span>농사일지</span>
           </Link>
         </li>
         <li>
-          <Link to="/">
+          <Link to="/trade">
             <img src={ImageBarter} alt="물물 교환" />
             <span>물물 교환</span>
           </Link>
         </li>
         <li>
-          <Link to="/">
+          <Link to="/community">
             <img src={ImageGroup} alt="동네 모임" />
             <span>동네 모임</span>
           </Link>
