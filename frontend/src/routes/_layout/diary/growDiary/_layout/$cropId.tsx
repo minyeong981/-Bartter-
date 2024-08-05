@@ -7,11 +7,10 @@ import GrowDiary from '@/assets/image/growdiary.png';
 import Share from '@/assets/image/share.png';
 import Tomato from '@/assets/image/tomato.png'
 import Story1 from '@/assets/image/스토리1.png'
-import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
 import MonthHeader from '@/components/ProfileDiary/MonthHeader';
 import MonthHeaderButton from '@/components/ProfileDiary/MonthHeaderButton';
 
-import styles from './growDiary.module.scss';
+import styles from '../growDiary.module.scss';
 
 const cx = classnames.bind(styles);
 
@@ -43,7 +42,7 @@ const dummyDiaryEntries: DiaryEntry[] = [
   { diaryId: 3, selectedDate: '2023-06-10', diaryTitle: '일지 제목 3', diaryContent: '일지 내용 3', diaryImage: ['https://via.placeholder.com/100'], cropId: 2 },
 ];
 
-export const Route = createFileRoute('/_layout/diary/growDiary/$cropId')({
+export const Route = createFileRoute('/_layout/diary/growDiary/_layout/$cropId')({
   component: GrowDiaryPage,
 });
 
@@ -82,10 +81,12 @@ function GrowDiaryPage() {
 
   return (
     <>
-      <HeaderWithLabelAndBackButton label="성장 일지" />
       <div className={cx('growDiaryContainer')}>
         <div className={cx('profileSection')}>
-          <img src={Tomato} alt={crop.nickname} className={cx('cropImage')} />
+          <div className={cx('cropImage')}>
+            <img src={Tomato} alt={crop.nickname}  />
+          </div>
+          
           <div className={cx('cropInfo')}>
             <h2>{crop.owner}님의 {crop.nickname}</h2>
             <div className={cx('infoImages')}>
@@ -99,6 +100,7 @@ function GrowDiaryPage() {
               </div>
             </div>
           </div>
+        
         </div>
         <hr />
         <div className={cx('diarySection')}>

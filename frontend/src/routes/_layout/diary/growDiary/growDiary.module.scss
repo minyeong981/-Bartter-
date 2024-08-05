@@ -1,35 +1,59 @@
 @use '@/styles/constants/colors.scss' as colors;
 @use '@/styles/constants/typographies.scss' as typo;
 
+.growDiaryContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .profileSection {
-    img {
-        display: flex;
-        width: 100%;
-        height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .cropImage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 390px;
+      height: 100px;
+      overflow: hidden;
+      background-color: aliceblue;
     }
+
     h2 {
-        display: flex;
-        justify-content: center;
-        margin: 10px 0;
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
         
     }
 
     .infoImages {
         display: flex;
         justify-content: space-around;
-        margin: 20px 0;
         padding: 0 30px;
+        margin: 20px 0;
+
         .info {
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 12px;
+            align-items: center;
+
             img {
                 width: 50px;
                 height: 50px;
             }
+
             p {
                 margin: 0;
+
                 @include typo.label;
       
                 span {
@@ -65,7 +89,7 @@
   }
 
   hr {
+    margin: 20px 0 0;
     border: 0;
     border-top: 1px solid colors.$divider;
-    margin: 20px 0 0 0;
   }
