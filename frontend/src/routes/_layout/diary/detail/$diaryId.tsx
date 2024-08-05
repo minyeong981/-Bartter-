@@ -79,9 +79,11 @@ function DiaryDetail() {
       <HeaderWithLabelAndBackButton label="농사 일지" />
       <div className={cx('diaryDetailContainer')}>
         <h1 className={cx('diaryTitle')}>{diaryEntry.diaryTitle}</h1>
-        {diaryEntry.diaryImage && (
-          <img src={diaryEntry.diaryImage[0]} alt="Diary" className={cx('diaryImage')} />
+        <div className={cx('diaryImage')} >
+          {diaryEntry.diaryImage && (
+          <img src={diaryEntry.diaryImage[0]} alt="Diary" />
         )}
+        </div>
         <div className={cx('cropInfo')}>
           <img src={diaryEntry.cropImage} alt="Crop" className={cx('cropImage')} />
           <span className={cx('cropNickname')}>{diaryEntry.cropNickname}</span>

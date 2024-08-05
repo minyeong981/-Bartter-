@@ -4,16 +4,16 @@ import type { ReactElement } from 'react';
 import { useEffect, useState } from 'react';
 
 import TodayAlarm from '@/components/Alarm/todayAlarm';
+import FloatingButton from '@/components/Buttons/FloatingButton';
 import LinkButton from '@/components/Buttons/LinkButton';
 import CalendarPage from '@/components/Calendar/calendar';
+import CropModal from '@/components/Crop/CropModal';
 import MainCrops from '@/components/Crop/mainCrops';
 import DiaryList from '@/components/Diary/DiaryList';
-import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons';
-import Location from '@/components/Header/Location';
 import TwoButton from '@/components/TwoButton/TwoButton';
 import useRootStore from '@/store/index';
 
-import styles from './diary.module.scss';
+import styles from '../diary.module.scss';
 
 const cx = classnames.bind(styles);
 
@@ -27,13 +27,23 @@ interface DiaryEntry {
   cropImage: string;
 }
 
-export const Route = createFileRoute('/_layout/diary/')({
-  component: DiaryPage,
-});
-
 function DiaryPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { activeComponent, setActiveComponent } = useRootStore();
   const { selectedDate, diaryTitle, diaryContent, diaryImage, cropNickname, cropImage } = Route.useSearch<DiaryEntry>();
+  const { addCrop, crops, loadCrops, nickname, date, description, initialImage } = useRootStore(state => ({
+    addCrop: state.addCrop,
+    crops: state.crops,
+    loadCrops: state.loadCrops,
+    nickname: state.nickname,
+    date: state.date,
+    description: state.description,
+    initialImage: state.initialImage,
+  }));
+
+  useEffect(() => {
+    loadCrops();
+  }, [loadCrops]);
 
   const [diaryEntries, setDiaryEntries] = useState<DiaryEntry[]>([]);
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
@@ -73,6 +83,10 @@ function DiaryPage() {
     }
   }, [selectedDate, diaryTitle, diaryContent, diaryImage, cropNickname, cropImage]);
 
+  useEffect(() => {
+    checkDiaryEntry(currentDate);
+  }, [diaryEntries]);
+
   function handleDateChange(date: Date) {
     setCurrentDate(date);
     checkDiaryEntry(date);
@@ -83,13 +97,39 @@ function DiaryPage() {
     setHasDiaryEntry(hasEntry);
   }
 
+  function handleModalOpen() {
+    setIsModalOpen(true);
+  }
+
+  function handleModalClose() {
+    setIsModalOpen(false);
+  }
+
+  function handleCropSelect(id: number) {
+    const selectedCrop = crops.find(crop => crop.id === id);
+    if (selectedCrop) {
+      addCrop({
+        id: selectedCrop.id,
+        nickname: nickname || selectedCrop.name,
+        image: initialImage || selectedCrop.image,
+        date: date,
+        description: description,
+        name: selectedCrop.name,
+      });
+      // navigate({
+      //   to: '/diary/growDiary/$cropId',
+      //   params: {cropId: id.toString()},
+      // });
+    }
+  }
+
   let renderedComponent: null | ReactElement = null;
 
   switch (activeComponent) {
     case '달력':
       renderedComponent = (
         <>
-          <CalendarPage onDateChange={handleDateChange} />
+          <CalendarPage onDateChange={handleDateChange} diaryEntries={diaryEntries} />
           <div className={cx('content-wrapper')}>
             <div className={cx('show-date')}>
               {`${currentDate.getMonth() + 1}월 ${currentDate.getDate()}일`}
@@ -113,7 +153,21 @@ function DiaryPage() {
       );
       break;
     case '내 작물':
-      renderedComponent = <MainCrops />;
+      renderedComponent = (
+        <>
+          <MainCrops />
+          <FloatingButton onClick={handleModalOpen}>+ 등록하기</FloatingButton>
+          {isModalOpen && (
+            <CropModal
+              show={isModalOpen}
+              onClose={handleModalClose}
+              onCropSelect={handleCropSelect}
+              selectedCrop={null}
+              showSearchBar={true}
+            />
+          )}
+        </>
+      );
       break;
     default:
       renderedComponent = null;
@@ -124,22 +178,22 @@ function DiaryPage() {
   }
 
   return (
-    <div>
-      <HeaderWithLabelAndButtons label={<Location location='내위치' />} />
-      <div className={cx('diaryContainer')}>
-        <header className={cx('header')}>
-          <TwoButton
-            first="달력"
-            second="내 작물"
-            activeButton={activeComponent}
-            onClick={handleButtonClick}
-          />
-        </header>
-        <div className={cx('container')}>{renderedComponent}</div>
-      </div>
+    <div className={cx('diaryContainer')}>
+      <header className={cx('header')}>
+        <TwoButton
+          first="달력"
+          second="내 작물"
+          activeButton={activeComponent}
+          onClick={handleButtonClick}
+        />
+      </header>
+      <div className={cx('container')}>{renderedComponent}</div>
     </div>
-
   );
 }
+
+export const Route = createFileRoute('/_layout/diary/_layout/')({
+  component: DiaryPage,
+});
 
 export default DiaryPage;
