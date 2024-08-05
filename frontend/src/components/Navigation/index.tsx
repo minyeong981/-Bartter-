@@ -16,8 +16,8 @@ export default function Navigation() {
         </li>
         <li>
           <Link to="/diary">
-            <img src={ImageDiary} alt="농사일지" />
-            <span>농사일지</span>
+            <img src={ImageDiary} alt="농사 일지" />
+            <span>농사 일지</span>
           </Link>
         </li>
         <li>
