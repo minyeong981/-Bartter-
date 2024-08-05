@@ -9,12 +9,15 @@ import com.ssafy.bartter.domain.user.repository.UserRepository;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
+import java.util.List;
 
 /**
  * 농사일지 AI 요약 리포트 Service
@@ -27,7 +30,6 @@ import java.time.temporal.WeekFields;
 public class CropReportService {
 
     private final CropReportRepository cropReportRepository;
-    private final CropRepository cropRepository;
     private final UserRepository userRepository;
 
     public CropReport createCropReport(int userId, Crop crop, LocalDate todayDate, String content) {
@@ -48,5 +50,11 @@ public class CropReportService {
         return cropReportRepository.save(cropReport);
     }
 
+    @Transactional(readOnly = true)
+    public List<CropReport> getCropReportList(int userId, LocalDate startDate, LocalDate endDate, boolean desc) {
+        Sort.Direction sortDirection = (desc) ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Sort sort = Sort.by(sortDirection, "createdAt");
+        return cropReportRepository.findAllByDates(userId, startDate, endDate, sort);
+    }
 }
 
