@@ -88,4 +88,21 @@ public class CropDiaryDto {
                     .build();
         }
     }
+
+    /**
+     * 오직 농사일지 ID와 농사일지 이미지만 들어있는 Response
+     */
+    @Builder
+    @Getter
+    public static class CropDiaryThumbnail {
+        private final int cropDiaryId;
+        private final String image;
+
+        public static CropDiaryThumbnail of(CropDiary diary) {
+            return CropDiaryThumbnail.builder()
+                    .cropDiaryId(diary.getId())
+                    .image(diary.getImage())
+                    .build();
+        }
+    }
 }

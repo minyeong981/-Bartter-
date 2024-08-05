@@ -99,7 +99,7 @@ public class CommunityPostDto {
      */
     @Builder
     @Getter
-    public static class SimpleCommunityPostDetail{
+    public static class SimpleCommunityPostDetail {
         private final int communityPostId;
         private final String title;
         private final String content;

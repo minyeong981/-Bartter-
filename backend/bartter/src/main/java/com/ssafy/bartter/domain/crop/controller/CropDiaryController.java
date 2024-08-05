@@ -2,8 +2,14 @@ package com.ssafy.bartter.domain.crop.controller;
 
 import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
+import com.ssafy.bartter.domain.crop.dto.CropDiaryDto;
+import com.ssafy.bartter.domain.crop.dto.CropDiaryDto.CropDiaryThumbnail;
+import com.ssafy.bartter.domain.crop.dto.CropDiaryListDto;
+import com.ssafy.bartter.domain.crop.dto.CropDto;
+import com.ssafy.bartter.domain.crop.entity.Crop;
 import com.ssafy.bartter.domain.crop.entity.CropDiary;
 import com.ssafy.bartter.domain.crop.service.CropDiaryService;
+import com.ssafy.bartter.domain.crop.service.CropService;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.response.SuccessResponse;
@@ -28,6 +34,7 @@ import static com.ssafy.bartter.domain.crop.dto.CropDiaryDto.CropDiaryDetail;
 public class CropDiaryController {
 
     private final CropDiaryService cropDiaryService;
+    private final CropService cropService;
 
     @Operation(summary = "농사일지 작성", description = "농사일지를 작성한다.")
     @PostMapping("")
@@ -56,9 +63,15 @@ public class CropDiaryController {
 
     @Operation(summary = "농작물 ID로 농사일지 전체 조회", description = "해당 농작물의 농사일지 리스트를 조회한다.")
     @GetMapping("/{cropId}/diaries")
-    public SuccessResponse<List<CropDiaryDetail>> getCropDiaryList(@PathVariable("cropId") int cropId) {
+    public SuccessResponse<CropDiaryListDto> getCropDiaryList(@PathVariable("cropId") int cropId) {
+        Crop crop = cropService.getCrop(cropId);
+        int tradeCount = cropService.getTradeCount(cropId);
         List<CropDiary> diaryList = cropDiaryService.getCropDiaryList(cropId);
-        List<CropDiaryDetail> response = diaryList.stream().map(CropDiaryDetail::of).collect(Collectors.toList());
+        List<CropDiaryThumbnail> thumbnailList = diaryList.stream().map(CropDiaryThumbnail::of).collect(Collectors.toList());
+        CropDiaryListDto response = new CropDiaryListDto(
+                CropDto.CropForDiaryMetaData.of(crop, tradeCount),
+                thumbnailList
+        );
         return SuccessResponse.of(response);
     }
 
