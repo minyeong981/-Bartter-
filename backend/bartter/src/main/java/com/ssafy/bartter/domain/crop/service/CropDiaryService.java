@@ -121,8 +121,9 @@ public class CropDiaryService {
     public List<CropDiary> getWeeklyCropDiaryList(int cropId, LocalDate todayDate) {
         LocalDate mondayDate = todayDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         return cropDiaryRepository.findAllByCropIdAndDateRange(cropId, mondayDate.atStartOfDay(), todayDate.atTime(LocalTime.MAX));
+    }
 
-    /*
+    /**
      * 현재 로그인한 유저가 팔로우 하는 유저들의 농사일지 N개 (numOfDiaries) 조회
      */
     @Transactional(readOnly = true)
@@ -131,7 +132,6 @@ public class CropDiaryService {
         List<User> followeeList = user.getFolloweeList().stream().map(Follow::getFollowee).collect(Collectors.toList());
         PageRequest pageable = PageRequest.of(0, numOfDiaries, Sort.by("createdAt").descending());
         return cropDiaryRepository.findAllByUserList(followeeList, pageable);
->>>>>>> backend/bartter/src/main/java/com/ssafy/bartter/domain/crop/service/CropDiaryService.java
     }
 }
 
