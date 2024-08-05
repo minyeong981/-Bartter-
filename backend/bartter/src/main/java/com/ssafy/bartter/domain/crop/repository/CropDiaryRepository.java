@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -43,4 +45,15 @@ public interface CropDiaryRepository extends JpaRepository<CropDiary, Integer> {
     );
 
     List<CropDiary> findAllByCropId(int cropId);
+
+    @Query(
+            "SELECT d FROM CropDiary d"
+                    + " LEFT JOIN FETCH d.crop c"
+                    + " WHERE c.id = :cropId"
+                    + " AND (d.createdAt BETWEEN :startDateTime AND :endDateTime)"
+    )
+    List<CropDiary> findAllByCropIdAndDateRange(
+            @Param("cropId") int cropId,
+            @Param("startDateTime") LocalDateTime startDateTime,
+            @Param("endDateTime") LocalDateTime endDateTime);
 }

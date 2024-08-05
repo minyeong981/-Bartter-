@@ -1,5 +1,6 @@
 package com.ssafy.bartter.domain.crop.dto;
 
+import com.ssafy.bartter.domain.crop.dto.CropDto.SimpleCropProfile;
 import com.ssafy.bartter.domain.crop.entity.CropDiary;
 import com.ssafy.bartter.domain.user.dto.UserDto;
 import com.ssafy.bartter.domain.user.dto.UserDto.SimpleUserProfile;
@@ -9,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -32,6 +34,8 @@ public class CropDiaryDto {
 
         @NotBlank(message = "농사일지의 내용을 입력하세요.")
         private final String content;
+
+        private final LocalDate performDate;
     }
 
     /**
@@ -40,18 +44,22 @@ public class CropDiaryDto {
     @Builder
     @Getter
     public static class CropDiaryDetail {
-        private final CropDto.SimpleCropProfile crop;
+        private final int cropDiaryId;
+        private final SimpleCropProfile crop;
         private final String title;
         private final String content;
         private final String image;
+        private final LocalDate performDate;
         private final LocalDateTime createdAt;
 
         public static CropDiaryDetail of(CropDiary diary) {
             return CropDiaryDetail.builder()
-                    .crop(CropDto.SimpleCropProfile.of(diary.getCrop()))
+                    .cropDiaryId(diary.getId())
+                    .crop(SimpleCropProfile.of(diary.getCrop()))
                     .title(diary.getTitle())
                     .content(diary.getContent())
                     .image(diary.getImage())
+                    .performDate(diary.getPerformDate())
                     .createdAt(diary.getCreatedAt())
                     .build();
         }

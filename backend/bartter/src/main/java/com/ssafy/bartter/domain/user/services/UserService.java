@@ -1,14 +1,14 @@
 package com.ssafy.bartter.domain.user.services;
 
 import com.ssafy.bartter.domain.user.dto.UserDto;
+import com.ssafy.bartter.domain.user.dto.UserJoinDto;
 import com.ssafy.bartter.domain.user.entity.User;
+import com.ssafy.bartter.domain.user.repository.UserRepository;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.global.common.SimpleLocation;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.service.LocationService;
-import com.ssafy.bartter.domain.user.dto.UserJoinDto;
-import com.ssafy.bartter.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * User 관련 비즈니스 로직을 처리하는 서비스 클래스
@@ -127,5 +126,12 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         return UserDto.UserProfile.of(user);
+    }
+
+    /**
+     * 등록된 모든 사용자를 조회하는 메서드
+     */
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }
