@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 
 /**
  * User Entity 를 다루는 UserRepository
@@ -20,8 +22,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             "WHERE u.username = :username")
     User findByUsername(@Param("username") String username);
 
-    boolean existsByUsername(String username);
+    @Query("SELECT u FROM User u " +
+            "JOIN FETCH u.location " +
+            "WHERE u.id = :userId")
+    Optional<User> findByUserId(@Param("userId") int userId);
 
+    boolean existsByUsername(String username);
 
     @Query("SELECT u FROM User u " +
             "WHERE LOWER(u.nickname) LIKE LOWER(CONCAT('%', :keyword,'%'))")
