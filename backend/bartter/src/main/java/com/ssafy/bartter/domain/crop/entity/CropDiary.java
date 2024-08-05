@@ -4,6 +4,8 @@ import com.ssafy.bartter.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 /**
  * Crop Diary Entity
  *

@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
@@ -113,7 +114,7 @@ public class CropDiaryService {
     @Transactional(readOnly = true)
     public List<CropDiary> getWeeklyCropDiaryList(int cropId, LocalDate todayDate) {
         LocalDate mondayDate = todayDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        return cropDiaryRepository.findAllByCropIdAndDateRange(cropId, mondayDate, todayDate);
+        return cropDiaryRepository.findAllByCropIdAndDateRange(cropId, mondayDate.atStartOfDay(), todayDate.atTime(LocalTime.MAX));
     }
 }
 
