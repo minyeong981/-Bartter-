@@ -2,7 +2,10 @@ package com.ssafy.bartter.domain.user.controller;
 
 import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
+import com.ssafy.bartter.domain.community.dto.CommunityPostDto;
 import com.ssafy.bartter.domain.community.dto.CommunityPostDto.CommunityPostDetail;
+import com.ssafy.bartter.domain.community.dto.CommunityPostDto.MyCommunityPostDetail;
+import com.ssafy.bartter.domain.community.dto.CommunityPostDto.SimpleCommunityPostDetail;
 import com.ssafy.bartter.domain.community.entity.CommunityPost;
 import com.ssafy.bartter.domain.community.service.CommunityPostService;
 import com.ssafy.bartter.global.response.SuccessResponse;
@@ -26,14 +29,14 @@ public class UserCommunityPostController {
 
     @Operation(summary = "유저가 작성한 동네모임 게시글 전체 조회", description = "유저의 PK를 통해 유저가 작성한 동네모임 게시글 전체를 조회한다.")
     @GetMapping("/{userId}/community/posts")
-    public SuccessResponse<List<CommunityPostDetail>> getUserCommunityPostList(
+    public SuccessResponse<List<MyCommunityPostDetail>> getUserCommunityPostList(
             @PathVariable("userId") int userId,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "10") int limit,
             @CurrentUser UserAuthDto currentUser
     ) {
         List<CommunityPost> postList = communityPostService.getUserPostList(page, limit, userId);
-        List<CommunityPostDetail> response = postList.stream().map(o -> CommunityPostDetail.of(o, currentUser.getId())).collect(Collectors.toList());
+        List<MyCommunityPostDetail> response = postList.stream().map(o -> MyCommunityPostDetail.of(o, currentUser.getId())).collect(Collectors.toList());
         return SuccessResponse.of(response);
     }
 }

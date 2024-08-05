@@ -1,6 +1,7 @@
 package com.ssafy.bartter.domain.crop.dto;
 
 import com.ssafy.bartter.domain.crop.dto.CropDto.CropProfile;
+import com.ssafy.bartter.domain.crop.dto.CropDto.SimpleCropProfile;
 import com.ssafy.bartter.domain.crop.entity.Crop;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,13 +18,13 @@ import java.util.stream.Collectors;
 @Builder
 @Getter
 public class CropTradeHistoryDto {
-    private final List<CropProfile> give;
-    private final List<CropProfile> receive;
+    private final List<SimpleCropProfile> give;
+    private final List<SimpleCropProfile> receive;
 
     public static CropTradeHistoryDto of(List<Crop> give, List<Crop> receive) {
         return CropTradeHistoryDto.builder()
-                .give(give.stream().map(CropProfile::of).collect(Collectors.toList()))
-                .receive(receive.stream().map(CropProfile::of).collect(Collectors.toList()))
+                .give(give.stream().map(SimpleCropProfile::of).collect(Collectors.toList()))
+                .receive(receive.stream().map(SimpleCropProfile::of).collect(Collectors.toList()))
                 .build();
     }
 }

@@ -97,11 +97,13 @@ public class CropDiaryDto {
     public static class CropDiaryThumbnail {
         private final int cropDiaryId;
         private final String image;
+        private final LocalDate performDate;
 
         public static CropDiaryThumbnail of(CropDiary diary) {
             return CropDiaryThumbnail.builder()
                     .cropDiaryId(diary.getId())
                     .image(diary.getImage())
+                    .performDate(diary.getPerformDate())
                     .build();
         }
     }
