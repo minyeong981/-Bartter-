@@ -2,8 +2,10 @@ package com.ssafy.bartter.domain.crop.service;
 
 import com.ssafy.bartter.domain.crop.entity.Crop;
 import com.ssafy.bartter.domain.crop.entity.CropDiary;
+import com.ssafy.bartter.domain.crop.entity.CropReport;
 import com.ssafy.bartter.domain.crop.repository.CropDiaryRepository;
 import com.ssafy.bartter.domain.crop.repository.CropRepository;
+import com.ssafy.bartter.domain.user.entity.Follow;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.service.S3UploadService;
@@ -11,12 +13,18 @@ import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.ssafy.bartter.domain.crop.dto.CropDiaryDto.Create;
 
@@ -52,11 +60,14 @@ public class CropDiaryService {
 
         String imageUrl = s3UploadService.upload(image);
 
+        LocalDate performDate = (request.getPerformDate() == null) ? LocalDate.now() : request.getPerformDate();
+
         CropDiary diary = CropDiary.builder()
                 .crop(crop)
                 .title(request.getTitle())
                 .content(request.getContent())
                 .image(imageUrl)
+                .performDate(performDate)
                 .build();
 
         cropDiaryRepository.save(diary);
@@ -102,6 +113,26 @@ public class CropDiaryService {
     public List<CropDiary> getCropDiaryList(int cropId) {
         Crop crop = cropRepository.findById(cropId).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
         return cropDiaryRepository.findAllByCropId(cropId);
+    }
+
+    /**
+     * 특정 농작물의 이번주차 농사일지 조회
+     */
+    @Transactional(readOnly = true)
+    public List<CropDiary> getWeeklyCropDiaryList(int cropId, LocalDate todayDate) {
+        LocalDate mondayDate = todayDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        return cropDiaryRepository.findAllByCropIdAndDateRange(cropId, mondayDate.atStartOfDay(), todayDate.atTime(LocalTime.MAX));
+    }
+
+    /**
+     * 현재 로그인한 유저가 팔로우 하는 유저들의 농사일지 N개 (numOfDiaries) 조회
+     */
+    @Transactional(readOnly = true)
+    public List<CropDiary> getFolloweeDiaryList(int userId, int numOfDiaries) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        List<User> followeeList = user.getFolloweeList().stream().map(Follow::getFollowee).collect(Collectors.toList());
+        PageRequest pageable = PageRequest.of(0, numOfDiaries, Sort.by("createdAt").descending());
+        return cropDiaryRepository.findAllByUserList(followeeList, pageable);
     }
 }
 
