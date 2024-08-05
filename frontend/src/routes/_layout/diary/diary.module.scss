@@ -21,3 +21,27 @@
   justify-content: center;
   width: 100%;
 }
+
+.content-wrapper {
+  width: 100%;
+  padding: 1rem; // content-wrapper에 기본 패딩 적용
+}
+
+.diary-list-wrapper {
+  width: 100%;
+  padding: 1rem; // DiaryList 부분에만 패딩 적용
+}
+
+.diary {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  height: 100%;
+  padding: 0 20px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

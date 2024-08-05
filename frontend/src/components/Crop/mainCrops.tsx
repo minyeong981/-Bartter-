@@ -1,10 +1,8 @@
 import {useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 
 import notCrop from '@/assets/image/notCrop.png';
-import GeneralButton from '@/components/Buttons/GeneralButton';
-import CropModal from '@/components/Crop/CropModal';
 import MyCrops from '@/components/Crop/MyCrops.tsx';
 import useRootStore from '@/store';
 
@@ -13,7 +11,6 @@ import styles from './mainCrops.module.scss';
 const cx = classnames.bind(styles);
 
 export default function MainCrops() {
-  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const {addCrop, crops, loadCrops, nickname, date, description, initialImage} =
     useRootStore(state => ({
@@ -30,13 +27,6 @@ export default function MainCrops() {
     loadCrops();
   }, [loadCrops]);
 
-  function handleOpenModal() {
-    setShowModal(true);
-  }
-
-  function handleCloseModal() {
-    setShowModal(false);
-  }
 
   function handleCropSelect(id: number) {
     const selectedCrop = crops.find(crop => crop.id === id);
@@ -66,21 +56,14 @@ export default function MainCrops() {
       ) : (
         <MyCrops crops={crops} onCropClick={handleCropSelect} />
       )}
-      <CropModal
+      {/* <CropModal
         show={showModal}
         onClose={handleCloseModal}
         onCropSelect={handleCropSelect}
         selectedCrop={null}
         showSearchBar={true}
-      />
-      <div className={cx('floating-button')}>
-        <GeneralButton
-          buttonStyle={{style: 'floating', size: 'small'}}
-          onClick={handleOpenModal}
-        >
-          + 등록하기
-        </GeneralButton>
+      /> */}
       </div>
-    </div>
+
   );
 }

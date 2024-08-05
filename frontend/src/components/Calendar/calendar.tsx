@@ -9,7 +9,7 @@ const cx = classnames.bind(styles);
 
 interface CalendarPageProps {
   onDateChange: (date: Date) => void;
-  diaryEntries?: { selectedDate: Date }[];
+  diaryEntries?: { selectedDate: string }[];
 }
 
 export default function CalendarPage({ onDateChange, diaryEntries = [] }: CalendarPageProps) {

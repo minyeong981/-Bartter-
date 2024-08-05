@@ -3,7 +3,6 @@ import classnames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import Lottie from 'react-lottie-player';
 
-import Storage from '@/assets/image/cropStorage.png';
 import WarehouseAnimation from '@/assets/lottie/warehouse.json'
 import MyCrops from '@/components/Crop/MyCrops';
 import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';

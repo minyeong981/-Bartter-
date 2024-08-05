@@ -30,10 +30,11 @@
         cursor: pointer;
         background: none;
         border: none;
+
         @include typo.title;
 
         &:disabled {
-          color: rgb(128, 128, 128);
+          color: rgb(128 128 128);
           cursor: default;
         }
 
@@ -99,25 +100,24 @@
       &.neighboringMonth abbr {
         color: colors.$placeholder; // 이번 달이 아닌 날짜 색상
       }
-
     }
 
     .react-calendar__tile {
       position: relative;
       box-sizing: border-box;
       max-width: 100%;
-      text-align: center;
       height: 3rem; // 타일 높이
       padding: 0.5rem; // 타일 패딩
+      line-height: 1.5rem;
+      text-align: center;
+      cursor: pointer;
       background: none;
       border: none;
-      cursor: pointer;
-      line-height: 1.5rem;
 
       @include typo.main; // 기본 글씨 스타일 적용
 
       &.react-calendar__tile--active,
-      &.today{
+      &.today {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -148,8 +148,8 @@
           width: 2.2rem;
           height: 2.2rem;
           margin: auto;
-          background-color: colors.$primary;
           color: white;
+          background-color: colors.$primary;
           border-radius: 50%;
         }
       }
@@ -158,7 +158,7 @@
 
   &.collapsed {
     .react-calendar {
-      width: 22.4rem;
+      width: 22.5rem;
       padding: 0 16px;
 
       .react-calendar__month-view__weekdays,
@@ -175,7 +175,6 @@
         justify-content: center;
         cursor: pointer;
 
-        
         &.sunday {
           color: red; // 일요일 색상
         }
@@ -187,17 +186,31 @@
         &.neighboringMonth {
           color: colors.$placeholder; // 이번 달이 아닌 날짜 색상 변경
         }
-
       }
     }
   }
 }
 
 .highlight-dot {
-  display: inline-block;
   width: 6px;
   height: 6px;
-  margin-top: 40px; /* 숫자 밑에 점을 배치 */
+  margin: 2px auto 0; // 점을 숫자 아래 중앙에 배치
   background-color: green;
   border-radius: 50%;
+}
+
+.react-calendar__tile {
+  position: relative; // 점을 타일 내부에 위치시키기 위해 상대 위치 사용
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.react-calendar__tile--hasDot {
+  .react-calendar__tile__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
