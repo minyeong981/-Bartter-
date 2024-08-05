@@ -1,22 +1,18 @@
 @use '@/styles/constants/typographies.scss' as typo;
 @use '@/styles/constants/colors.scss' as colors;
 
-.floatingButton {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
+.community {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  height: 100%;
 
-  a {
-    padding: 10px;
-    font-weight: bold;
-    color: colors.$white;
+  // padding: 0 20px;
+  overflow-y: scroll;
 
-    // color: colors.$placeholder;
-    text-decoration: none;
-
-    &:hover {
-      box-shadow: 0 2px 8px rgb(0 0 0 / 35%);
-    }
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 
