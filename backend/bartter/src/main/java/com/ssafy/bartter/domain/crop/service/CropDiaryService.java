@@ -2,6 +2,7 @@ package com.ssafy.bartter.domain.crop.service;
 
 import com.ssafy.bartter.domain.crop.entity.Crop;
 import com.ssafy.bartter.domain.crop.entity.CropDiary;
+import com.ssafy.bartter.domain.crop.entity.CropReport;
 import com.ssafy.bartter.domain.crop.repository.CropDiaryRepository;
 import com.ssafy.bartter.domain.crop.repository.CropRepository;
 import com.ssafy.bartter.domain.user.entity.Follow;

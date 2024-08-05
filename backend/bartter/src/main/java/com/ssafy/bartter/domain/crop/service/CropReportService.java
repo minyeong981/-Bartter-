@@ -56,5 +56,16 @@ public class CropReportService {
         Sort sort = Sort.by(sortDirection, "createdAt");
         return cropReportRepository.findAllByDates(userId, startDate, endDate, sort);
     }
+
+    @Transactional(readOnly = true)
+    public CropReport getCropReport(int userId, int cropReportId) {
+        CropReport cropReport = cropReportRepository.findById(cropReportId).orElseThrow(() -> new CustomException(ErrorCode.CROP_REPORT_NOT_FOUND));
+
+        if (cropReport.getUser().getId() != userId) {
+            throw new CustomException(ErrorCode.UNAUTHENTICATED);
+        }
+
+        return cropReport;
+    }
 }
 
