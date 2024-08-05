@@ -56,11 +56,14 @@ public class CropDiaryService {
 
         String imageUrl = s3UploadService.upload(image);
 
+        LocalDate performDate = (request.getPerformDate() == null) ? LocalDate.now() : request.getPerformDate();
+
         CropDiary diary = CropDiary.builder()
                 .crop(crop)
                 .title(request.getTitle())
                 .content(request.getContent())
                 .image(imageUrl)
+                .performDate(performDate)
                 .build();
 
         cropDiaryRepository.save(diary);

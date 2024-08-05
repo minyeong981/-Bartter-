@@ -51,11 +51,18 @@ public class CropDiary extends BaseEntity {
     @Column(name = "crop_diary_image", nullable = false, length = 300)
     private String image;
 
+    /**
+     * 실제 농작업을 수행한 날짜
+     */
+    @Column(name = "crop_diary_perform_date", nullable = false)
+    private LocalDate performDate;
+
     @Builder
-    public CropDiary(Crop crop, String title, String content, String image) {
+    public CropDiary(Crop crop, String title, String content, String image, LocalDate performDate) {
         this.crop = crop;
         this.title = title;
         this.content = content;
         this.image = image;
+        this.performDate = performDate;
     }
 }
