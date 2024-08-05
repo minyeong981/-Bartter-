@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import GeneralButton from '@/components/Buttons/GeneralButton';
 import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
 
-import styles from './diaryDetail.module.scss';
+import styles from '../diaryDetail.module.scss';
 
 const cx = classnames.bind(styles);
 
@@ -112,7 +112,7 @@ function DiaryDetail() {
   );
 }
 
-export const Route = createFileRoute('/_layout/diary/detail/$diaryId')({
+export const Route = createFileRoute('/_layout/diary/detail/_layout/$diaryId')({
   component: DiaryDetail,
 });
 

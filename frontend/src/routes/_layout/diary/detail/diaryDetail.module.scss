@@ -2,8 +2,17 @@
 @use '@/styles/constants/typographies.scss' as typo;
 
 .diaryDetailContainer {
-  padding: 20px;
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  padding: 0 20px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
 }
 
 .diaryTitle {
