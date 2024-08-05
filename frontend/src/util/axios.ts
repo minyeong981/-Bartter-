@@ -13,7 +13,9 @@ const instance = axios.create({
 instance.interceptors.request.use(
   config => {
     const token = useRootStore.getState().token;
-    config.headers.setAuthorization(`Bearer ${token}`);
+    if (token) {
+      config.headers.setAuthorization(`Bearer ${token}`);
+    }
 
     return config;
   },
@@ -27,7 +29,7 @@ instance.interceptors.response.use(
     return response;
   },
   async error => {
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && error.response.data.code === 2001) {
       const response = await barter.reIssue();
       const token = parser.getAccessToken(response);
       useRootStore.getState().login(token);
