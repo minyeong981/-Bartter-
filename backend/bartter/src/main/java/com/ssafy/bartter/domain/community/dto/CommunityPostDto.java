@@ -99,7 +99,7 @@ public class CommunityPostDto {
      */
     @Builder
     @Getter
-    public static class SimpleCommunityPostDetail{
+    public static class SimpleCommunityPostDetail {
         private final int communityPostId;
         private final String title;
         private final String content;
@@ -120,6 +120,33 @@ public class CommunityPostDto {
                     .likeCount(post.getLikeList().size())
                     .isLike(post.getLikeList().stream().anyMatch(like -> like.getUser().getId().equals(userId)))
                     .commentCount(post.getCommentList().size())
+                    .imageUrl(post.getImageList().isEmpty() ? null : post.getImageList().get(0).getImageUrl())
+                    .hasImage(post.getImageList().isEmpty() ? false: true)
+                    .location(SimpleLocation.of(post.getLocation()))
+                    .build();
+        }
+    }
+
+    /**
+     * 내가 쓴 동네모임 게시글 목록 조회 (좋아요, 댓글 정보 없음)
+     */
+    @Builder
+    @Getter
+    public static class MyCommunityPostDetail {
+        private final int communityPostId;
+        private final String title;
+        private final String content;
+        private final LocalDateTime createdAt;
+        private final String imageUrl;
+        private final boolean hasImage;
+        private final SimpleLocation location;
+
+        public static MyCommunityPostDetail of(CommunityPost post,int userId) {
+            return MyCommunityPostDetail.builder()
+                    .communityPostId(post.getId())
+                    .title(post.getTitle())
+                    .content(post.getContent())
+                    .createdAt(post.getCreatedAt())
                     .imageUrl(post.getImageList().isEmpty() ? null : post.getImageList().get(0).getImageUrl())
                     .hasImage(post.getImageList().isEmpty() ? false: true)
                     .location(SimpleLocation.of(post.getLocation()))

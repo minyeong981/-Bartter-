@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 
 /**
@@ -42,7 +43,7 @@ public class CropDto {
     @Builder
     @Getter
     public static class CropProfile {
-        private final Integer cropId;
+        private final int cropId;
         private final SimpleUserProfile farmer;
         private final CropCategoryDto.CropCategoryDetail cropCategory;
         private final String nickname;
@@ -69,8 +70,8 @@ public class CropDto {
     @Builder
     @Getter
     public static class SimpleCropProfile {
-        private final Integer userId;
-        private final Integer cropId;
+        private final int userId;
+        private final int cropId;
         private final String nickname;
         private final String image;
 
@@ -80,6 +81,29 @@ public class CropDto {
                     .cropId(crop.getId())
                     .nickname(crop.getNickname())
                     .image(crop.getImage())
+                    .build();
+        }
+    }
+
+    /**
+     * 다이어리에 제공할 농작물 프로필 Response
+     */
+    @Builder
+    @Getter
+    public static class CropForDiaryMetaData {
+        private final String cropProfileImage;
+        private final String userNickname;
+        private final String cropNickname;
+        private final int dayWithCrop;
+        private final int tradeCount;
+
+        public static CropForDiaryMetaData of(Crop crop, int tradeCount) {
+            return CropForDiaryMetaData.builder()
+                    .cropProfileImage(crop.getImage())
+                    .userNickname(crop.getUser().getNickname())
+                    .cropNickname(crop.getNickname())
+                    .dayWithCrop(Period.between(crop.getGrowDate(), LocalDate.now()).getDays() + 1)  // 등록한 날짜부터 1일
+                    .tradeCount(tradeCount)
                     .build();
         }
     }

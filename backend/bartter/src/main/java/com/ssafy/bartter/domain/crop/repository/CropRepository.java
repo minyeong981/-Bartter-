@@ -42,4 +42,13 @@ public interface CropRepository extends JpaRepository<Crop, Integer> {
     List<Crop> findReceiveCropByUserId(
             @Param("userId") int userId
     );
+
+    @Query(
+            "SELECT COUNT(tp) FROM TradePost tp"
+                    + " WHERE tp.status = 'COMPLETED'"
+                    + " AND tp.crop.id = :cropId"
+    )
+    int getTradeCount(
+            @Param("cropId") int cropId
+    );
 }
