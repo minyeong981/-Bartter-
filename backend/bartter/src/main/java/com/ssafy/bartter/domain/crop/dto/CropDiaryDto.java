@@ -2,6 +2,8 @@ package com.ssafy.bartter.domain.crop.dto;
 
 import com.ssafy.bartter.domain.crop.dto.CropDto.SimpleCropProfile;
 import com.ssafy.bartter.domain.crop.entity.CropDiary;
+import com.ssafy.bartter.domain.user.dto.UserDto;
+import com.ssafy.bartter.domain.user.dto.UserDto.SimpleUserProfile;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -41,7 +43,6 @@ public class CropDiaryDto {
      */
     @Builder
     @Getter
-    @AllArgsConstructor
     public static class CropDiaryDetail {
         private final int cropDiaryId;
         private final SimpleCropProfile crop;
@@ -59,6 +60,30 @@ public class CropDiaryDto {
                     .content(diary.getContent())
                     .image(diary.getImage())
                     .performDate(diary.getPerformDate())
+                    .createdAt(diary.getCreatedAt())
+                    .build();
+        }
+    }
+
+    /**
+     * 농사일지 작성자의 정보가 추가된 농사일지 Response
+     * - 메인 화면에서 사용
+     */
+    @Builder
+    @Getter
+    public static class CropDiaryDetailWithUser {
+        private final SimpleUserProfile author;
+        private final String image;
+        private final String title;
+        private final String content;
+        private final LocalDateTime createdAt;
+
+        public static CropDiaryDetailWithUser of(CropDiary diary) {
+            return CropDiaryDetailWithUser.builder()
+                    .author(SimpleUserProfile.of(diary.getCrop().getUser()))
+                    .image(diary.getImage())
+                    .title(diary.getTitle())
+                    .content(diary.getContent())
                     .createdAt(diary.getCreatedAt())
                     .build();
         }

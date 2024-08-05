@@ -22,6 +22,7 @@ public interface CropRepository extends JpaRepository<Crop, Integer> {
                     + " ON tp.crop.id = c.id"
                     + " WHERE tp.user.id = :userId"
                     + " AND tp.status = 'COMPLETED'"
+                    + " ORDER BY tp.createdAt DESC"
     )
     List<Crop> findGiveCropByUserId(
             @Param("userId") int userId
@@ -36,6 +37,7 @@ public interface CropRepository extends JpaRepository<Crop, Integer> {
                     + " ON tp.crop.id = c.id"
                     + " WHERE t.status = 'COMPLETED'"
                     + " AND t.user.id = :userId"
+                    + " ORDER BY t.createdAt DESC"
     )
     List<Crop> findReceiveCropByUserId(
             @Param("userId") int userId

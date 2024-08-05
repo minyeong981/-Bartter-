@@ -20,13 +20,13 @@ public class UserDto {
     @Builder
     public static class SimpleUserProfile {
         private final Integer userId;
-        private final String username;
+        private final String nickname;
         private final String profileImage;
 
         public static SimpleUserProfile of(User user) {
             return SimpleUserProfile.builder()
                     .userId(user.getId())
-                    .username(user.getUsername())
+                    .nickname(user.getNickname())
                     .profileImage(user.getProfileImage())
                     .build();
         }
