@@ -27,6 +27,7 @@ const initialPost: CommunityPostList = [
     location: {locationId: 0, locationName: '광주 장덕동'},
     title: '게시글 제목',
     content: '게시글 내용입니다.',
+    isLike:true,
     likeCount: 12,
     commentList: [
       {
@@ -58,6 +59,7 @@ const initialPost: CommunityPostList = [
     location: {locationId: 1, locationName: '광주 장덕동'},
     title: '게시글 제목2',
     content: '게시글 내용입니다2.',
+    isLike:true,
     likeCount: 12,
     commentList: [
       {
@@ -107,6 +109,7 @@ export const createCommunitySlice: StateCreator<
         },
         title: newPost.title,
         content: newPost.content,
+        isLike:true,
         likeCount: 0,
         commentList: [],
         imageList: newPost.images,

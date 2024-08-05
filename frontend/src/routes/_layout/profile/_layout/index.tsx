@@ -2,10 +2,9 @@ import {createFileRoute} from '@tanstack/react-router';
 
 import ProfileImage from '@/assets/image/스토리1.png';
 import SettingButton from '@/components/Buttons/SettingButton';
-import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
 import ProfileInfo from '@/components/User/ProfileInfo';
 
-import styles from './index.module.scss';
+import styles from './../profile.module.scss';
 
 const user: UserProfile = {
   userId: '김싸피',
@@ -18,7 +17,7 @@ const user: UserProfile = {
     '직장 은퇴 후 집에서 텃받을 관리하면서 삶의 즐거움을 찾고있습니다.',
 };
 
-export const Route = createFileRoute('/_layout/profile/')({
+export const Route = createFileRoute('/_layout/profile/_layout/')({
   component: Profile,
 });
 
@@ -27,7 +26,6 @@ function Profile() {
     <div>
       {user.userId === '김싸피' ? (
         <>
-          <HeaderWithLabelAndBackButton label="내프로필" />
           <ProfileInfo {...user} />
           <SettingButton to="/profile/aireport">AI 요약보고서</SettingButton>
           <SettingButton
@@ -50,7 +48,6 @@ function Profile() {
         </>
       ) : (
         <>
-          <HeaderWithLabelAndBackButton label="프로필" />
           <ProfileInfo {...user} />
           <div className={styles.cropsCount}>받은 농작물 {6} 개</div>
           <SettingButton

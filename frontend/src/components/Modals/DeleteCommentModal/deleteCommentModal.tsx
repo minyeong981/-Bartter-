@@ -3,32 +3,21 @@ import classnames from 'classnames/bind';
 import GeneralButton from '@/components/Buttons/GeneralButton';
 import ModalContainer from '@/components/ModalContainer';
 import Backdrop from '@/components/ModalContainer/Backdrop';
-import useRootStore from '@/store';
 
 import styles from './deleteCommentModal.module.scss';
 
 interface DeleteCommentModalProps {
   onClickOutside: VoidFunction;
-  postId : number
-  commentId : number
+  onConfirm: () => void;
 }
 
 const cx = classnames.bind(styles);
 
 export default function DeleteCommentModal({
   onClickOutside,
-  postId,
-  commentId
+  onConfirm,
 }: DeleteCommentModalProps) {
 
-    const deleteComment = useRootStore(state => state.deleteComment)
-
-    function handleClick(postId : number, commentId : number) {
-        deleteComment(postId, commentId)
-        console.log(postId, commentId)
-        onClickOutside()
-
-    }
 
   return (
     <Backdrop>
@@ -40,7 +29,7 @@ export default function DeleteCommentModal({
         </p>
         <div className={cx('buttonContainer')}>
           <GeneralButton
-            onClick={() => handleClick(postId, commentId)}
+            onClick={() => onConfirm() }
             buttonStyle={{style: 'mono', size: 'tiny'}}
           >
             네

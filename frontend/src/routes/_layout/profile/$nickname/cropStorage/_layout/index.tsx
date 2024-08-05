@@ -5,14 +5,14 @@ import Lottie from 'react-lottie-player';
 
 import WarehouseAnimation from '@/assets/lottie/warehouse.json';
 import MyCrops from '@/components/Crop/MyCrops';
-import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
+// import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
 import type {Crop} from '@/store/diarySlice';
 
-import styles from './index.module.scss';
+import styles from './../cropStorage.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/profile/$nickname/cropStorage/')(
+export const Route = createFileRoute('/_layout/profile/$nickname/cropStorage/_layout/')(
   {
     component: CropStoragePage,
   },
@@ -74,7 +74,7 @@ function CropStoragePage() {
 
   return (
     <div>
-      <HeaderWithLabelAndBackButton label="농작물 창고" />
+      {/* <HeaderWithLabelAndBackButton label="농작물 창고" /> */}
       <div className={cx('cropStorageContainer')}>
         <h1>{nickname}님</h1>
         <h1>

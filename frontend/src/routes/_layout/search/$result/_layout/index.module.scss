@@ -1,9 +1,16 @@
 @use '@/styles/constants/typographies.scss' as typo;
 @use '@/styles/constants/colors.scss' as colors;
 
+// .HeaderWithLabelAndButtonsLayout {
+//     position: fixed;
+//     top: 0;
+// }
+
 .resultBox {
     @include typo.heading;
 
+    // position: fixed;
+    // top: 108px;
     display: flex;
     margin-top: 10px;
     margin-left: 20px;
@@ -14,3 +21,7 @@
     }
 }
 
+// .sortByResultFixed {
+//     position: fixed;
+//     top: 162px
+// }

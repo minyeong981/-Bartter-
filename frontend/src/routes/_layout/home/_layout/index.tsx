@@ -8,12 +8,10 @@ import AdCarousel from '@/components/AdCarousel';
 import BarterCard from '@/components/BarterCard';
 import LinkButton from '@/components/Buttons/LinkButton';
 import PostList from '@/components/Community/PostList';
-import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons';
-import Location from '@/components/Header/Location';
 import HomeStory from '@/components/Story/HomeStory';
 import useCommunityStore from '@/store';
 
-import styles from './home.module.scss';
+import styles from './../home.module.scss';
 
 const barters = [
   {
@@ -80,7 +78,7 @@ const NeighborStory = [
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/home/')({
+export const Route = createFileRoute('/_layout/home/_layout/')({
   component: Home,
 });
 
@@ -90,8 +88,6 @@ export default function Home() {
 
   return (
     <div className={cx('container')}>
-      {/* <MenuBar /> */}
-      <HeaderWithLabelAndButtons label={<Location location="내위치" />} />
       <AdCarousel />
       <div className={cx('home-barter')}>
         <div className={cx('section-title')}>
