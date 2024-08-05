@@ -78,7 +78,7 @@ const NeighborStory = [
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/home/_layout/')({
+export const Route = createFileRoute('/_layout/_home/')({
   component: Home,
 });
 

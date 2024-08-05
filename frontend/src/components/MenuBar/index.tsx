@@ -1,20 +1,19 @@
-
-import { useState } from 'react';
+import {useState} from 'react';
 
 import styles from './menubar.module.scss';
 
 export default function MenuBar() {
-  const [active, setActive] = useState('home');
+  const [active, setActive] = useState('index');
 
-  const handleClick = (name : string) => {
+  const handleClick = (name: string) => {
     setActive(name);
   };
 
   return (
     <div className={styles.bottomBar}>
       <button
-        className={`${styles.iconButton} ${active === 'home' ? styles.active : ''}`}
-        onClick={() => handleClick('home')}
+        className={`${styles.iconButton} ${active === 'index' ? styles.active : ''}`}
+        onClick={() => handleClick('index')}
       >
         <i className="fas fa-home" />
         <span>홈</span>
@@ -43,6 +42,3 @@ export default function MenuBar() {
     </div>
   );
 }
-
-
-

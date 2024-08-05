@@ -14,20 +14,20 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
+import { Route as LayoutHomeImport } from './routes/_layout/_home'
 import { Route as LayoutSignupIndexImport } from './routes/_layout/signup/index'
 import { Route as LayoutSearchIndexImport } from './routes/_layout/search/index'
 import { Route as LayoutLoginIndexImport } from './routes/_layout/login/index'
+import { Route as LayoutHomeIndexImport } from './routes/_layout/_home/index'
 import { Route as LayoutTradeLayoutImport } from './routes/_layout/trade/_layout'
 import { Route as LayoutSignupLayoutImport } from './routes/_layout/signup/_layout'
 import { Route as LayoutProfileLayoutImport } from './routes/_layout/profile/_layout'
-import { Route as LayoutHomeLayoutImport } from './routes/_layout/home/_layout'
 import { Route as LayoutDiaryLayoutImport } from './routes/_layout/diary/_layout'
 import { Route as LayoutCommunityLayoutImport } from './routes/_layout/community/_layout'
 import { Route as LayoutTradeLayoutIndexImport } from './routes/_layout/trade/_layout/index'
 import { Route as LayoutProfileAireportIndexImport } from './routes/_layout/profile/aireport/index'
 import { Route as LayoutProfileLayoutIndexImport } from './routes/_layout/profile/_layout/index'
 import { Route as LayoutLoginEntranceIndexImport } from './routes/_layout/login/entrance/index'
-import { Route as LayoutHomeLayoutIndexImport } from './routes/_layout/home/_layout/index'
 import { Route as LayoutDiaryWriteIndexImport } from './routes/_layout/diary/write/index'
 import { Route as LayoutDiaryRegisterCropIndexImport } from './routes/_layout/diary/registerCrop/index'
 import { Route as LayoutDiaryLayoutIndexImport } from './routes/_layout/diary/_layout/index'
@@ -86,7 +86,6 @@ import { Route as LayoutProfileNicknameCropStorageLayoutIndexImport } from './ro
 const LayoutTradeImport = createFileRoute('/_layout/trade')()
 const LayoutSignupImport = createFileRoute('/_layout/signup')()
 const LayoutProfileImport = createFileRoute('/_layout/profile')()
-const LayoutHomeImport = createFileRoute('/_layout/home')()
 const LayoutDiaryImport = createFileRoute('/_layout/diary')()
 const LayoutCommunityImport = createFileRoute('/_layout/community')()
 const LayoutTradeWriteImport = createFileRoute('/_layout/trade/write')()
@@ -138,11 +137,6 @@ const LayoutProfileRoute = LayoutProfileImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutHomeRoute = LayoutHomeImport.update({
-  path: '/home',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
 const LayoutDiaryRoute = LayoutDiaryImport.update({
   path: '/diary',
   getParentRoute: () => LayoutRoute,
@@ -150,6 +144,11 @@ const LayoutDiaryRoute = LayoutDiaryImport.update({
 
 const LayoutCommunityRoute = LayoutCommunityImport.update({
   path: '/community',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutHomeRoute = LayoutHomeImport.update({
+  id: '/_home',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -239,6 +238,11 @@ const LayoutLoginIndexRoute = LayoutLoginIndexImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
+const LayoutHomeIndexRoute = LayoutHomeIndexImport.update({
+  path: '/',
+  getParentRoute: () => LayoutHomeRoute,
+} as any)
+
 const LayoutTradeLayoutRoute = LayoutTradeLayoutImport.update({
   id: '/_layout',
   getParentRoute: () => LayoutTradeRoute,
@@ -252,11 +256,6 @@ const LayoutSignupLayoutRoute = LayoutSignupLayoutImport.update({
 const LayoutProfileLayoutRoute = LayoutProfileLayoutImport.update({
   id: '/_layout',
   getParentRoute: () => LayoutProfileRoute,
-} as any)
-
-const LayoutHomeLayoutRoute = LayoutHomeLayoutImport.update({
-  id: '/_layout',
-  getParentRoute: () => LayoutHomeRoute,
 } as any)
 
 const LayoutDiaryLayoutRoute = LayoutDiaryLayoutImport.update({
@@ -302,11 +301,6 @@ const LayoutProfileLayoutIndexRoute = LayoutProfileLayoutIndexImport.update({
 const LayoutLoginEntranceIndexRoute = LayoutLoginEntranceIndexImport.update({
   path: '/login/entrance/',
   getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutHomeLayoutIndexRoute = LayoutHomeLayoutIndexImport.update({
-  path: '/',
-  getParentRoute: () => LayoutHomeLayoutRoute,
 } as any)
 
 const LayoutDiaryWriteIndexRoute = LayoutDiaryWriteIndexImport.update({
@@ -612,6 +606,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
     }
+    '/_layout/_home': {
+      id: '/_layout/_home'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof LayoutHomeImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/community': {
       id: '/_layout/community'
       path: '/community'
@@ -639,20 +640,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/diary'
       preLoaderRoute: typeof LayoutDiaryLayoutImport
       parentRoute: typeof LayoutDiaryRoute
-    }
-    '/_layout/home': {
-      id: '/_layout/home'
-      path: '/home'
-      fullPath: '/home'
-      preLoaderRoute: typeof LayoutHomeImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/home/_layout': {
-      id: '/_layout/home/_layout'
-      path: '/home'
-      fullPath: '/home'
-      preLoaderRoute: typeof LayoutHomeLayoutImport
-      parentRoute: typeof LayoutHomeRoute
     }
     '/_layout/profile': {
       id: '/_layout/profile'
@@ -695,6 +682,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/trade'
       preLoaderRoute: typeof LayoutTradeLayoutImport
       parentRoute: typeof LayoutTradeRoute
+    }
+    '/_layout/_home/': {
+      id: '/_layout/_home/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof LayoutHomeIndexImport
+      parentRoute: typeof LayoutHomeImport
     }
     '/_layout/login/': {
       id: '/_layout/login/'
@@ -1011,13 +1005,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutDiaryWriteIndexImport
       parentRoute: typeof LayoutDiaryWriteImport
     }
-    '/_layout/home/_layout/': {
-      id: '/_layout/home/_layout/'
-      path: '/'
-      fullPath: '/home/'
-      preLoaderRoute: typeof LayoutHomeLayoutIndexImport
-      parentRoute: typeof LayoutHomeLayoutImport
-    }
     '/_layout/login/entrance/': {
       id: '/_layout/login/entrance/'
       path: '/login/entrance'
@@ -1235,6 +1222,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   LayoutRoute: LayoutRoute.addChildren({
+    LayoutHomeRoute: LayoutHomeRoute.addChildren({ LayoutHomeIndexRoute }),
     LayoutCommunityRoute: LayoutCommunityRoute.addChildren({
       LayoutCommunityLayoutRoute: LayoutCommunityLayoutRoute.addChildren({
         LayoutCommunityLayoutIndexRoute,
@@ -1279,11 +1267,6 @@ export const routeTree = rootRoute.addChildren({
           LayoutDiaryWriteLayout2Route,
         }),
         LayoutDiaryWriteIndexRoute,
-      }),
-    }),
-    LayoutHomeRoute: LayoutHomeRoute.addChildren({
-      LayoutHomeLayoutRoute: LayoutHomeLayoutRoute.addChildren({
-        LayoutHomeLayoutIndexRoute,
       }),
     }),
     LayoutProfileRoute: LayoutProfileRoute.addChildren({
@@ -1395,9 +1378,9 @@ export const routeTree = rootRoute.addChildren({
     "/_layout": {
       "filePath": "_layout.tsx",
       "children": [
+        "/_layout/_home",
         "/_layout/community",
         "/_layout/diary",
-        "/_layout/home",
         "/_layout/profile",
         "/_layout/signup",
         "/_layout/trade",
@@ -1405,6 +1388,13 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/search/",
         "/_layout/search/$result",
         "/_layout/login/entrance/"
+      ]
+    },
+    "/_layout/_home": {
+      "filePath": "_layout/_home.tsx",
+      "parent": "/_layout",
+      "children": [
+        "/_layout/_home/"
       ]
     },
     "/_layout/community": {
@@ -1439,20 +1429,6 @@ export const routeTree = rootRoute.addChildren({
       "parent": "/_layout/diary",
       "children": [
         "/_layout/diary/_layout/"
-      ]
-    },
-    "/_layout/home": {
-      "filePath": "_layout/home",
-      "parent": "/_layout",
-      "children": [
-        "/_layout/home/_layout"
-      ]
-    },
-    "/_layout/home/_layout": {
-      "filePath": "_layout/home/_layout.tsx",
-      "parent": "/_layout/home",
-      "children": [
-        "/_layout/home/_layout/"
       ]
     },
     "/_layout/profile": {
@@ -1517,6 +1493,10 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/_layout/trade/_layout/"
       ]
+    },
+    "/_layout/_home/": {
+      "filePath": "_layout/_home/index.tsx",
+      "parent": "/_layout/_home"
     },
     "/_layout/login/": {
       "filePath": "_layout/login/index.tsx",
@@ -1788,10 +1768,6 @@ export const routeTree = rootRoute.addChildren({
     "/_layout/diary/write/": {
       "filePath": "_layout/diary/write/index.tsx",
       "parent": "/_layout/diary/write"
-    },
-    "/_layout/home/_layout/": {
-      "filePath": "_layout/home/_layout/index.tsx",
-      "parent": "/_layout/home/_layout"
     },
     "/_layout/login/entrance/": {
       "filePath": "_layout/login/entrance/index.tsx",

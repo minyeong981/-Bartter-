@@ -6,7 +6,7 @@ import Navigation from '@/components/Navigation'
 
 import styles from './home.module.scss'
 
-export const Route = createFileRoute('/_layout/home/_layout')({
+export const Route = createFileRoute('/_layout/_home')({
   component: Home
 })
 
