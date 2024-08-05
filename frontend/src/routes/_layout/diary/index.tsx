@@ -8,7 +8,7 @@ import LinkButton from '@/components/Buttons/LinkButton';
 import CalendarPage from '@/components/Calendar/calendar';
 import MainCrops from '@/components/Crop/mainCrops';
 import DiaryList from '@/components/Diary/DiaryList';
-import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons'
+import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons';
 import Location from '@/components/Header/Location';
 import TwoButton from '@/components/TwoButton/TwoButton';
 import useRootStore from '@/store/index';
@@ -42,7 +42,9 @@ function DiaryPage() {
   useEffect(() => {
     const storedEntries = JSON.parse(localStorage.getItem('diaryEntries') || '[]') as DiaryEntry[];
     setDiaryEntries(storedEntries);
-    checkDiaryEntry(new Date());
+    const today = new Date();
+    checkDiaryEntry(today);
+    setCurrentDate(today);
   }, []);
 
   useEffect(() => {
