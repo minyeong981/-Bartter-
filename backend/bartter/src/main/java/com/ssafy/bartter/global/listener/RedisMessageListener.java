@@ -24,7 +24,7 @@ public class RedisMessageListener implements MessageListener {
         try {
             // Redis 메시지를 문자열로 변환
             String msg = new String(message.getBody());
-
+            log.debug("Pub : {}", msg);
             // 문자열을 ChatMessage 객체로 변환
             ChatMessage chatMessage = objectMapper.readValue(msg, ChatMessage.class);
 
@@ -32,7 +32,7 @@ public class RedisMessageListener implements MessageListener {
             messagingTemplate.convertAndSend("/sub/trade/chat/" + chatMessage.getTradeId(), chatMessage);
         } catch (Exception e) {
             log.debug("", e);
-            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE);
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, "잘못된 입력 추후 변경 예정 ");
         }
     }
 }
