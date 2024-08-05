@@ -41,7 +41,6 @@ public class CropDto {
      */
     @Builder
     @Getter
-    @AllArgsConstructor
     public static class CropProfile {
         private final Integer cropId;
         private final SimpleUserProfile farmer;
@@ -69,7 +68,6 @@ public class CropDto {
      */
     @Builder
     @Getter
-    @AllArgsConstructor
     public static class SimpleCropProfile {
         private final Integer userId;
         private final Integer cropId;

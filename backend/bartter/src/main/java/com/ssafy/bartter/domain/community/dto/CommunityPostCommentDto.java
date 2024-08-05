@@ -31,7 +31,6 @@ public class CommunityPostCommentDto {
      * */
     @Builder
     @Getter
-    @AllArgsConstructor
     public static class CommunityPostCommentDetail {
         private final Integer communityPostCommentId;
         private final SimpleUserProfile author;
