@@ -47,7 +47,7 @@ public class OpenAIService {
         this.cropReportService = cropReportService;
     }
 
-    @Scheduled(fixedRate = 100000000)
+//    @Scheduled(fixedRate = 100000000)
     public void generateAIReport() throws IOException {
 
         // 현재 등록된 전체 유저 목록을 조회한다
