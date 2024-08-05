@@ -73,7 +73,7 @@ function ToPage() {
       <div className={cx('buttonContainer')}>
         <LinkButton
           buttonStyle={{style: 'primary', size: 'large'}}
-          to="/signup"
+          to="/trade/write"
         >
           다음
         </LinkButton>

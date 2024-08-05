@@ -1,41 +1,70 @@
+import {useRouter} from '@tanstack/react-router';
 import {useState} from 'react';
 
-import Delete from '@/assets/image/delete.png';
+import {IconTrash} from '@/assets/svg';
+import ModalContainer from '@/components/ModalContainer';
+import useRootStore from '@/store';
 
-import DeletePostModal from '../Modals/DeletePostModal/deletePostModal';
 import styles from './UserNameContent.module.scss';
 
-export default function UserNameLocation({post}: {post: CommunityPost}) {
+interface UserNameLocationProps {
+  profileImage: ProfileImage;
+  nickname: Nickname;
+  locationName: LocationName;
+  createdAt: CreatedAt;
+  postId: CommunityPostId;
+}
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export default function UserNameLocation({
+  locationName,
+  nickname,
+  profileImage,
+  postId,
+  createdAt,
+}: UserNameLocationProps) {
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const {history} = useRouter();
+  const deletePost = useRootStore(state => state.deletePost);
 
-  function handleModalOpen() {
-    setIsModalOpen(true)
+  function handleClickTrash() {
+    setShowDeleteConfirm(true);
   }
 
-  function handleModalClose() {
-    setIsModalOpen(false)
+  function handleDelete() {
+    deletePost(postId);
+    history.back();
+  }
+
+  function handleCancel() {
+    setShowDeleteConfirm(false);
   }
 
   return (
     <div className={styles.userInfoContainer}>
       <img
         className={styles.profileImage}
-        src={post.user.profileImage}
-        alt={`${post.user.nickname}'s profile`}
+        src={profileImage}
+        alt={`${nickname}'s profile`}
       />
       <div className={styles.userInfo}>
-        <div className={styles.userName}>{post.user.nickname}</div>
-        <div className={styles.Content}>{post.location.locationName}</div>
-        <div className={styles.createdDate}>{post.createdAt}</div>
+        <div className={styles.userName}>{nickname}</div>
+        <div className={styles.content}>{locationName}</div>
+        <div className={styles.createdDate}>{createdAt}</div>
       </div>
-      <img
-        className={styles.menuIcon}
-        onClick={handleModalOpen}
-        src={Delete}
-        alt="DeleteMenu"
-      />
-      { isModalOpen && <DeletePostModal postId={post.communityPostId} onClickOutside={handleModalClose}/>}
+      <button onClick={handleClickTrash}>
+        <IconTrash className={styles.menuIcon} />
+      </button>
+      {showDeleteConfirm && (
+        <ModalContainer onClickOutside={handleCancel}>
+          <div className={styles.deleteConfirm}>
+            <div className={styles.confirmText}>게시글을 삭제하시겠습니까?</div>
+            <div className={styles.buttonContainer}>
+              <button onClick={handleDelete}>네</button>
+              <button onClick={handleCancel}>아니요</button>
+            </div>
+          </div>
+        </ModalContainer>
+      )}
     </div>
   );
 }

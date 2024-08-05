@@ -17,11 +17,10 @@ export const Route = createFileRoute('/_layout/community/detail/$postId')({
 });
 
 export default function CommunityDetail() {
-
-  const { postId } : { postId : number }= Route.useParams()
+  const {postId}: {postId: number} = Route.useParams();
   const posts: CommunityPost[] = useRootStore(state => state.posts);
 
-  const post = posts[postId-1];
+  const post = posts[postId - 1];
 
   const addComment = useRootStore(state => state.addComment);
 
@@ -40,7 +39,6 @@ export default function CommunityDetail() {
 
   function handleKeyPress(event: KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter' && content.trim() !== '') {
-
       addComment(postId, content);
       setContent(''); // 초기화
     }
@@ -49,10 +47,20 @@ export default function CommunityDetail() {
   return (
     <div>
       <HeaderWithBackButton />
-      <UserNameLocation post={post} />
+      <UserNameLocation
+        locationName={post.location.locationName}
+        postId={post.communityPostId}
+        createdAt={post.createdAt}
+        nickname={post.user.nickname}
+        profileImage={post.user.profileImage}
+      />
       <PostDetail post={post} />
-      <LikeComment likeCount={post.likeCount} commentCount={post.commentList.length} isLike={true}/>
-      <CommentList postId={post.communityPostId} Comments={post.commentList}/>
+      <LikeComment
+        likeCount={post.likeCount}
+        commentCount={post.commentList.length}
+        isLike={true}
+      />
+      <CommentList postId={post.communityPostId} Comments={post.commentList} />
       <div>
         <input
           className={styles.commentInput}

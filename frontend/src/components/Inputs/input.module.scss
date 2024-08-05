@@ -46,6 +46,14 @@
   display: none;
 }
 
+.labeledImageInput {
+  @include typographies.label;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .cameraIconContainer {
   display: flex;
   align-items: center;
