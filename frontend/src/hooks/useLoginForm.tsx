@@ -1,10 +1,5 @@
 import {useReducer} from 'react';
 
-interface LoginForm {
-  username: string;
-  password: string;
-}
-
 interface LoginFormAction {
   type: ActionType;
   payload: Partial<LoginForm>;

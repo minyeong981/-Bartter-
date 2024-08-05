@@ -1,6 +1,7 @@
+import {useMutation} from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
-import type {ChangeEvent} from 'react';
+import type {ChangeEvent, FormEvent} from 'react';
 
 import {ImageLogo} from '@/assets/image';
 import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
@@ -24,6 +25,17 @@ export const Route = createFileRoute('/_layout/login/')({
 function LoginPage() {
   const {form, handleUsernameChange, handlePasswordChange} = useLoginForm();
   const login = useRootStore(state => state.login);
+  const mutation = useMutation({
+    mutationFn: barter.login,
+    onSuccess: data => {
+      const token = parser.getAccessToken(data);
+      login(token);
+    },
+    onError: e => {
+      console.error(e);
+    },
+  });
+
   const isValid =
     form.username.match(USERID_PATTERN) &&
     form.password.match(PASSWORD_PATTERN);
@@ -36,10 +48,9 @@ function LoginPage() {
     handlePasswordChange(e.currentTarget.value);
   }
 
-  async function handleLogin() {
-    const response = await barter.login(form);
-    const accessToken = parser.getAccessToken(response);
-    login(accessToken);
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    mutation.mutate(form);
   }
 
   return (
@@ -48,23 +59,23 @@ function LoginPage() {
       <div className={cx('logo-container')}>
         <img src={ImageLogo} alt="logo image" />
       </div>
-      <form className={cx('form-container')}>
+      <form className={cx('form-container')} onSubmit={handleSubmit}>
         <GeneralInput
           placeholder="아이디"
           onChange={handleUsername}
           value={form.username}
-          pattern={USERID_PATTERN.source}
+          // pattern={USERID_PATTERN.source}
         />
         <GeneralInput
           placeholder="비밀번호"
           onChange={handlePassword}
           value={form.password}
-          pattern={USERID_PATTERN.source}
+          // pattern={USERID_PATTERN.source}
         />
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
-          onClick={handleLogin}
           disabled={!isValid}
+          type="submit"
         >
           로그인
         </GeneralButton>
