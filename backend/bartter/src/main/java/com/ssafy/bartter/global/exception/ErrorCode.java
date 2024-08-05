@@ -43,6 +43,7 @@ public enum ErrorCode {
     KAKAO_NICKNAME_NOT_FOUND(HttpStatus.BAD_REQUEST, 2017, "카카오 로그인에서 받은 정보에 닉네임이 없습니다"),
     KAKAO_EMAIL_NOT_FOUND(HttpStatus.BAD_REQUEST, 2018, "카카오 로그인에서 받은 정보에 이메일이 없습니다"),
     KAKAO_PROFILE_IMG_NOT_FOUND(HttpStatus.BAD_REQUEST, 2019, "카카오 로그인에서 받은 정보에 프로필 사진이 없습니다"),
+    SESSION_EXPIRED_OR_NOT_FOUND(HttpStatus.BAD_REQUEST, 2020, "세션이 만료되었거나 존재하지 않습니다"),
 
 
     // Crop - 3000

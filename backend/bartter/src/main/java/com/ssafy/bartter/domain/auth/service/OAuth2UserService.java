@@ -3,7 +3,6 @@ package com.ssafy.bartter.domain.auth.service;
 import com.ssafy.bartter.domain.auth.dto.CustomOAuth2User;
 import com.ssafy.bartter.domain.auth.dto.OAuth2ResponseDto;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
-import com.ssafy.bartter.domain.user.entity.Role;
 import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.domain.user.repository.UserRepository;
 import com.ssafy.bartter.global.exception.CustomException;
@@ -22,6 +21,13 @@ import java.util.Objects;
 import java.util.function.Function;
 
 
+/**
+ * OAuth2 사용자 서비스 클래스
+ * OAuth2 인증을 통해 사용자 정보를 로드하고 처리하는 역할
+ * 카카오 OAuth2를 통해 인증된 사용자 정보를 처리
+ *
+ * @author 김훈민
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -29,7 +35,14 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 
     private final UserRepository userRepository;
 
-    // OAuth2UserRequest => OAuth2 서버에서 제공되는 유저 정보
+    /**
+     * OAuth2 사용자 정보를 로드하는 메서드.
+     * 카카오 OAuth2 서버에서 사용자 정보를 로드하고, 사용자 정보를 검증 및 처리
+     *
+     * @param userRequest OAuth2UserRequest 객체
+     * @return OAuth2User 객체
+     * @throws OAuth2AuthenticationException OAuth2 인증 예외
+     */
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         // super 를 통해서 생성자를 불러서 값을 획득한다
@@ -83,6 +96,11 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         return new CustomOAuth2User(userAuthDto, false);
     }
 
+    /**
+     * OAuth 사용자 정보를 가져오는 함수를 반환하는 메서드.
+     *
+     * @return UserDetails 객체를 UserAuthDto 객체로 변환하는 함수
+     */
     @Bean
     public Function<UserDetails, UserAuthDto> fetchOAuthUser() {
         return authUserDetails -> {

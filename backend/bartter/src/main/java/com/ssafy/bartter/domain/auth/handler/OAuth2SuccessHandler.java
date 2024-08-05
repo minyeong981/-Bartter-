@@ -3,6 +3,7 @@ package com.ssafy.bartter.domain.auth.handler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.bartter.domain.auth.config.JwtConfig;
 import com.ssafy.bartter.domain.auth.dto.CustomOAuth2User;
+import com.ssafy.bartter.domain.auth.dto.OAuthTempUserInfoDto;
 import com.ssafy.bartter.domain.auth.repository.RedisRefreshRepository;
 import com.ssafy.bartter.domain.auth.utils.CookieUtil;
 import com.ssafy.bartter.domain.auth.utils.JwtUtil;
@@ -24,6 +25,13 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * OAuth2 인증 성공 핸들러 클래스
+ * OAuth2 인증이 성공한 후 사용자 정보를 처리하고 JWT 토큰을 생성하여 응답
+ * 임시 사용자일 경우 세션에 사용자 정보를 저장하고 에러 던짐
+ *
+ * @author 김훈민
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -44,19 +52,21 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         int userId = customOAuth2User.getUserId();
         String nickname = customOAuth2User.getName();
         String profileImage = customOAuth2User.getProfileImage();
+        String email = customOAuth2User.getEmail();
         boolean isTemporaryUser = customOAuth2User.isTemporaryUser();
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
         GrantedAuthority auth = iterator.next();
         String role = auth.getAuthority();
-        // TODO : 배포시 변경 필요
-        if (isTemporaryUser) {
-            // Generate token and add it to the cookie
-            String token = jwtUtil.generateToken("oauthToken", username, userId, role, jwtConfig.getRefreshTokenExpiration());
-            response.addCookie(cookieUtil.createCookie("OAuth", token));
 
-            // Create custom error response
+        if (isTemporaryUser) {
+            // 세션에 사용자 정보 저장
+            OAuthTempUserInfoDto userInfo = OAuthTempUserInfoDto.create(username, nickname, profileImage, email, role);
+            request.getSession().setAttribute("userInfo", userInfo);
+            // 세션 타임아웃 설정 (5분)
+            request.getSession().setMaxInactiveInterval(300);
+
             CustomException customException = new CustomException(ErrorCode.FIRST_LOGIN_REDIRECT);
             ErrorResponse errorResponse = ErrorResponse.of(customException);
 
