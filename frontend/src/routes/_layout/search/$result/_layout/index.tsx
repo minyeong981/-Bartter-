@@ -20,14 +20,19 @@ export default function SearchResult() {
   const posts = useRootStore(state => state.posts);
   return (
     <div>
+      <div className={styles.HeaderWithLabelAndButtonsLayout}>
       <HeaderWithLabelAndButtons label={<FaMapMarkerAlt />} />
+      </div>
       <div className={styles.resultBox}>
         <div className={styles.resultText}>{result}</div>
         검색 결과
       </div>
 
+      <div className={styles.sortByResultFixed}>
       {sortBy === '물물 교환' && '물물교환'}
       {sortBy === '동네 모임' && <PostList posts={posts} />}
+      </div>
+
     </div>
   );
 }

@@ -1,18 +1,21 @@
 import {useState} from 'react';
 
-import Delete from '@/assets/image/delete.png';
+// import Delete from '@/assets/image/delete.png';
+import { IconTrash } from '@/assets/svg';
 
 import DeleteCommentModal from '../Modals/DeleteCommentModal/deleteCommentModal';
 import styles from './UserNameContent.module.scss';
 
 interface UserNameContentProps {
-  postId : number;
   comment: PostComment;
+  onDelete: (commentId: number) => void;
 }
 
 export default function UserNameContent({
-  postId,
-  comment}: UserNameContentProps) {
+  comment,
+  onDelete,
+
+ }: UserNameContentProps) {
   const [ isModalOpen, setIsModalOpen] = useState(false);
 
   function handleModalOpen() {
@@ -21,6 +24,11 @@ export default function UserNameContent({
 
   function handleModalClose() {
     setIsModalOpen(false);
+  }
+
+  function handleConfirmDelete() {
+    onDelete(comment.commentId);
+    handleModalClose()
   }
 
   return (
@@ -35,14 +43,10 @@ export default function UserNameContent({
         <div className={styles.Content}>{comment.content}</div>
         <div className={styles.createdDate}>{comment.created_at}</div>
       </div>
-      <img
-        className={styles.menuIcon}
-        onClick={handleModalOpen}
-        src={Delete}
-        alt=""
-      />
-
-      {isModalOpen && <DeleteCommentModal postId={postId} commentId={comment.commentId} onClickOutside={handleModalClose} />}
+      <button onClick={handleModalOpen}>
+        <IconTrash className={styles.menuIcon} />
+      </button>
+      {isModalOpen && <DeleteCommentModal onConfirm={handleConfirmDelete} onClickOutside={handleModalClose} />}
     </div>
   );
 }

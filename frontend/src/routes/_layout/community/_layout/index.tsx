@@ -5,6 +5,7 @@ import PostList from '@/components/Community/PostList';
 import TwoButton from '@/components/TwoButton/TwoButton';
 import useRootStore from '@/store';
 
+import styles from './../community.module.scss'
 
 export const Route = createFileRoute('/_layout/community/_layout/')({
   component: CommunityList,
@@ -32,14 +33,15 @@ export default function CommunityList() {
 
   return (
     <div>
+      <div className={styles.twoButtonFixed}>
       <TwoButton
         first="전체글"
         second="동네글"
         activeButton={activeComponent}
         onClick={handleButtonClick}
       />
-      <div>{renderComponent()}</div>
-
+      </div>
+      <div className={styles.postList} >{renderComponent()}</div>
     </div>
   );
 }

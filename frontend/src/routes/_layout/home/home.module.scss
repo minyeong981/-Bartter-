@@ -1,6 +1,23 @@
 @use '@/styles/constants/typographies.scss' as typo;
 @use '@/styles/constants/colors.scss' as colors;
 
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  // align-items: center;
+  height: 100%;
+
+  // padding: 0 20px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+}
+
 .container {
   box-sizing: border-box;
   display: flex;

@@ -9,9 +9,9 @@ import DayDiary from '@/components/ProfileDiary/DayDiary';
 import MonthHeader from '@/components/ProfileDiary/MonthHeader';
 import MonthHeaderButton from '@/components/ProfileDiary/MonthHeaderButton';
 
-import styles from './index.module.scss';
+import styles from './../profileDiary.module.scss';
 
-export const Route = createFileRoute('/_layout/profile/$nickname/diary/')({
+export const Route = createFileRoute('/_layout/profile/$nickname/diary/_layout/')({
   component: ProfileCropDiary,
 });
 

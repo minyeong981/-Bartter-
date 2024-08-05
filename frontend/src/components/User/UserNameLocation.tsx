@@ -2,9 +2,8 @@ import {useRouter} from '@tanstack/react-router';
 import {useState} from 'react';
 
 import {IconTrash} from '@/assets/svg';
-import ModalContainer from '@/components/ModalContainer';
-import useRootStore from '@/store';
 
+import DeletePostModal from '../Modals/DeletePostModal/deletePostModal';
 import styles from './UserNameContent.module.scss';
 
 interface UserNameLocationProps {
@@ -15,28 +14,33 @@ interface UserNameLocationProps {
   postId: CommunityPostId;
 }
 
+interface onDeleteProps {
+  onDelete : (Id: number) => void;
+}
+
 export default function UserNameLocation({
   locationName,
   nickname,
   profileImage,
   postId,
   createdAt,
-}: UserNameLocationProps) {
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  onDelete
+}: UserNameLocationProps & onDeleteProps) {
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
   const {history} = useRouter();
-  const deletePost = useRootStore(state => state.deletePost);
 
   function handleClickTrash() {
-    setShowDeleteConfirm(true);
+    // setShowDeleteConfirm(true);
+    setIsModalOpen(true)
   }
 
-  function handleDelete() {
-    deletePost(postId);
+  function handleModalClose() {
+    setIsModalOpen(false)
+  }
+
+  function handleConfirmDelete() {
+    onDelete(postId);
     history.back();
-  }
-
-  function handleCancel() {
-    setShowDeleteConfirm(false);
   }
 
   return (
@@ -54,17 +58,7 @@ export default function UserNameLocation({
       <button onClick={handleClickTrash}>
         <IconTrash className={styles.menuIcon} />
       </button>
-      {showDeleteConfirm && (
-        <ModalContainer onClickOutside={handleCancel}>
-          <div className={styles.deleteConfirm}>
-            <div className={styles.confirmText}>게시글을 삭제하시겠습니까?</div>
-            <div className={styles.buttonContainer}>
-              <button onClick={handleDelete}>네</button>
-              <button onClick={handleCancel}>아니요</button>
-            </div>
-          </div>
-        </ModalContainer>
-      )}
+      {isModalOpen && <DeletePostModal onConfirm={handleConfirmDelete} onClickOutside={handleModalClose} />}
     </div>
   );
 }

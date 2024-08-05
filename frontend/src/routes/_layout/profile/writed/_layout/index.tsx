@@ -2,11 +2,12 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react';
 
 import PostList from '@/components/Community/PostList';
-import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton'
 import TwoButton from '@/components/TwoButton/TwoButton';
 import useRootStore from '@/store';
 
-export const Route = createFileRoute('/_layout/profile/writed/')({
+import styles from './../writed.module.scss'
+
+export const Route = createFileRoute('/_layout/profile/writed/_layout/')({
   component: ProfileWrited
 })
 
@@ -33,12 +34,13 @@ export default function ProfileWrited() {
 
   return (
     <div>
-      <HeaderWithLabelAndBackButton label='내가 쓴 글'/>
+      <div className={styles.twoButtonFixed}>
       <TwoButton 
       first='물물 교환'
       second='동네 모임'
       activeButton={activeComponent}
       onClick={handleButtonClick}/>
+      </div>
       <div>
         {renderComponent()}
       </div>

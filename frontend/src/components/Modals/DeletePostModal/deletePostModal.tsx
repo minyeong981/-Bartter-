@@ -1,34 +1,23 @@
-import { useNavigate } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 
 import GeneralButton from '@/components/Buttons/GeneralButton';
 import ModalContainer from '@/components/ModalContainer';
 import Backdrop from '@/components/ModalContainer/Backdrop';
-import useRootStore from '@/store';
 
 import styles from './deletePostModal.module.scss';
 
 interface DeletePostModalProps {
   onClickOutside: VoidFunction;
-  postId : number
+  onConfirm: () => void;
 }
 
 const cx = classnames.bind(styles);
 
 export default function DeletePostModal({
   onClickOutside,
-  postId
+  onConfirm
 }: DeletePostModalProps) {
 
-  const nav = useNavigate({from : '/community/detail/$postId'})
-
-  const deletePost = useRootStore(state => state.deletePost)
-
-    function handleClick(postId : number) {
-        console.log('delete Post', postId)
-        deletePost(postId)
-        nav({to:'/community'})
-    }
 
   return (
     <Backdrop>
@@ -40,7 +29,7 @@ export default function DeletePostModal({
         </p>
         <div className={cx('buttonContainer')}>
           <GeneralButton
-            onClick={() => handleClick(postId)}
+            onClick={() => onConfirm()}
             buttonStyle={{style: 'mono', size: 'tiny'}}
           >
             네
