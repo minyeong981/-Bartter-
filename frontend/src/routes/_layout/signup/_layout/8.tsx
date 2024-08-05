@@ -1,3 +1,4 @@
+import {useMutation} from '@tanstack/react-query';
 import {createFileRoute, redirect, useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 
@@ -40,29 +41,28 @@ function GetLocationPage() {
   const navigate = useNavigate({from: '/signup/8'});
   const {name, gender, password, userId, birth, phoneNumber, email} =
     Route.useSearch();
+  const mutation = useMutation({
+    mutationFn: barter.signup,
+    onSuccess: () => navigate({to: '/signup/9', search: {success: true}}),
+    onError: () => console.error('회원가입하는데 문제가 발생했습니다.'),
+  });
 
   async function handleSignup() {
-    try {
-      const {
-        coords: {latitude, longitude},
-      } = await getPosition();
-      await barter.signup({
-        gender: gender!,
-        birth: birth!,
-        latitude: latitude,
-        longitude: longitude,
-        email,
-        nickname: name!,
-        username: userId!,
-        password: password!,
-        phone: phoneNumber!,
-      });
-      await navigate({to: '/signup/9', search: {success: true}});
-      return;
-    } catch (e) {
-      console.error(e);
-      alert('회원가입을 하는데 실패했습니다.');
-    }
+    const {
+      coords: {latitude, longitude},
+    } = await getPosition();
+    mutation.mutate({
+      gender: gender!,
+      password: password!,
+      username: userId!,
+      birth: birth!,
+      phone: phoneNumber!,
+      email: email!,
+      nickname: name!,
+      latitude,
+      longitude,
+    });
+    return;
   }
 
   return (

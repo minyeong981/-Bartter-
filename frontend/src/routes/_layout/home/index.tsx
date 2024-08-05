@@ -3,14 +3,13 @@ import classnames from 'classnames/bind';
 
 import UserImage from '@/assets/image/corn.png';
 import SweatPotato from '@/assets/image/고구마.png';
-import StroyImage from '@/assets/image/스토리1.png';
+import StoryImage from '@/assets/image/스토리1.png';
 import AdCarousel from '@/components/AdCarousel';
 import BarterCard from '@/components/BarterCard';
 import LinkButton from '@/components/Buttons/LinkButton';
 import PostList from '@/components/Community/PostList';
 import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons';
 import Location from '@/components/Header/Location';
-// import MenuBar from '@/components/MenuBar';
 import HomeStory from '@/components/Story/HomeStory';
 import useCommunityStore from '@/store';
 
@@ -53,30 +52,30 @@ const barters = [
 
 const NeighborStory = [
   {
-    diaryImage: StroyImage,
+    diaryImage: StoryImage,
     profileImage: UserImage,
     nickname: 'user1',
   },
   {
-    diaryImage: StroyImage,
+    diaryImage: StoryImage,
     profileImage: UserImage,
     nickname: 'user1',
   },
   {
-    diaryImage: StroyImage,
+    diaryImage: StoryImage,
     profileImage: UserImage,
     nickname: 'user1',
   },
   {
-    diaryImage: StroyImage,
+    diaryImage: StoryImage,
     profileImage: UserImage,
     nickname: 'user1',
   },
   {
-    diaryImage: StroyImage,
+    diaryImage: StoryImage,
     profileImage: UserImage,
     nickname: 'user1',
-  }
+  },
 ];
 
 const cx = classnames.bind(styles);
@@ -92,7 +91,7 @@ export default function Home() {
   return (
     <div className={cx('container')}>
       {/* <MenuBar /> */}
-      <HeaderWithLabelAndButtons label={<Location location='내위치' />} />
+      <HeaderWithLabelAndButtons label={<Location location="내위치" />} />
       <AdCarousel />
       <div className={cx('home-barter')}>
         <div className={cx('section-title')}>
@@ -102,9 +101,9 @@ export default function Home() {
       </div>
 
       <div className={cx('link-button-container')}>
-        <LinkButton 
-        buttonStyle={{style: 'primary', size: 'medium'}}
-        to="/trade"
+        <LinkButton
+          buttonStyle={{style: 'primary', size: 'medium'}}
+          to="/trade"
         >
           물물 교환 더보기
         </LinkButton>

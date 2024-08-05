@@ -9,7 +9,7 @@ import type {SearchParamFromPhase7} from '@/routes/_layout/signup/_layout/8.tsx'
 
 import styles from '../signup.module.scss';
 
-interface SearchParamFromPhase8 extends SearchParamFromPhase7 {
+export interface SearchParamFromPhase8 extends SearchParamFromPhase7 {
   success: boolean;
 }
 
