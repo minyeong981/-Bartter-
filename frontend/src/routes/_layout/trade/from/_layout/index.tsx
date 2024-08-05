@@ -1,34 +1,14 @@
+import {useQuery} from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import {useState} from 'react';
 
-import {
-  ImageApple,
-  ImageCarrot,
-  ImageCorn,
-  ImageCucumber,
-  ImageEggPlant,
-  ImageGarlic,
-  ImageGrape,
-} from '@/assets/image';
 import CropButton from '@/components/Buttons/CropButton';
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
+import barter from '@/services/barter.ts';
 
 import styles from './from.module.scss';
-
-const DUMMY_CROPS = [
-  {imageUrl: ImageCorn, value: 'corn'},
-  {imageUrl: ImageCucumber, value: 'cucumber'},
-  {
-    imageUrl: ImageApple,
-    value: 'apple',
-  },
-  {imageUrl: ImageCarrot, value: 'carrot'},
-  {imageUrl: ImageGrape, value: 'grape'},
-  {imageUrl: ImageGarlic, value: 'garlic'},
-  {imageUrl: ImageEggPlant, value: 'eggplant'},
-];
 
 const cx = classnames.bind(styles);
 
@@ -37,7 +17,13 @@ export const Route = createFileRoute('/_layout/trade/from/_layout/')({
 });
 
 function FromPage() {
+  const {data} = useQuery({
+    queryKey: ['cropsCategory'],
+    queryFn: barter.getCropCategoryList,
+  });
   const [cropsToGive, setCropsToGive] = useState<string[]>([]);
+
+  console.log(data?.data.data);
 
   function handleSelectCrop(crop: string) {
     if (cropsToGive.includes(crop)) {
@@ -58,14 +44,14 @@ function FromPage() {
       </Heading>
       <div className={cx('cropListContainer')}>
         <div className={cx('cropList')}>
-          {DUMMY_CROPS.length &&
-            DUMMY_CROPS.map((crop, index) => (
+          {data?.data.data &&
+            data?.data.data.map((crop, index) => (
               <CropButton
-                key={`${index}-${crop.value}`}
+                key={`${index}-${crop.name}`}
                 onClick={handleSelectCrop}
-                value={crop.value}
-                imgUrl={crop.imageUrl}
-                selected={cropsToGive.includes(crop.value)}
+                value={crop.name}
+                imgUrl={crop.image!}
+                selected={cropsToGive.includes(crop.name)}
               />
             ))}
         </div>
