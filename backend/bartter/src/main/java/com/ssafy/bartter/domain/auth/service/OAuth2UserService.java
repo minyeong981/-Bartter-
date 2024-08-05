@@ -3,6 +3,7 @@ package com.ssafy.bartter.domain.auth.service;
 import com.ssafy.bartter.domain.auth.dto.CustomOAuth2User;
 import com.ssafy.bartter.domain.auth.dto.OAuth2ResponseDto;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
+import com.ssafy.bartter.domain.user.entity.Role;
 import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.domain.user.repository.UserRepository;
 import com.ssafy.bartter.global.exception.CustomException;
@@ -35,33 +36,37 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         OAuth2User oAuth2User = super.loadUser(userRequest);
         log.debug("oAuth2User : {}", oAuth2User);
 
-        // registrationId => kakao 인지 확인할 수 있다.
+        // kakao 로부터 들어온 정보 검증
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         if (!registrationId.equals("kakao")) {
             throw new CustomException(ErrorCode.INVALID_REGISTRATION_ID);
         }
         OAuth2ResponseDto oAuth2Response = new OAuth2ResponseDto(oAuth2User.getAttributes());
-
-        // Unique 한 username 생성
-        String username = oAuth2Response.getProvider() + "_" + oAuth2Response.getProviderId();
-        User user = userRepository.findByUsername(username);
-
-        // 한번도 로그인 하지 않은 경우
-        if(user == null){
-            // TODO: 처음 로그인한 경우, 추가 정보 입력 페이지로 프론트 측에서 보내야함
-            throw new CustomException(ErrorCode.FIRST_LOGIN_REDIRECT);
-        }
-
-        // 로그인 한 적 있는 경우엔 최신화를 해줌
         if(oAuth2Response.getNickname() == null)
             throw new CustomException(ErrorCode.KAKAO_NICKNAME_NOT_FOUND);
         if(oAuth2Response.getEmail() == null)
             throw new CustomException(ErrorCode.KAKAO_EMAIL_NOT_FOUND);
         if(oAuth2Response.getProfileImg() == null)
             throw new CustomException(ErrorCode.KAKAO_PROFILE_IMG_NOT_FOUND);
+        // error 처리 end
+
+        // Unique 한 username 생성
+        String username = oAuth2Response.getProvider() + "_" + oAuth2Response.getProviderId();
+        User user = userRepository.findByUsername(username);
+        // 한번도 로그인 하지 않은 경우
+        if(user == null){
+            UserAuthDto userAuthDto = UserAuthDto.builder()
+                    .username(username)
+                    .nickname(oAuth2Response.getNickname())
+                    .email(oAuth2Response.getEmail())
+                    .profileImage(oAuth2Response.getProfileImg())
+                    .build();
+            return new CustomOAuth2User(userAuthDto, true);
+        }
+
+
         user.updateProfile(oAuth2Response.getNickname(), oAuth2Response.getEmail(), oAuth2Response.getProfileImg());
         userRepository.save(user);
-
         // UserAuthDto 생성
         UserAuthDto userAuthDto = UserAuthDto.builder()
                 .id(user.getId())
@@ -75,7 +80,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
                 .profileImage(user.getProfileImage())
                 .profileMessage(user.getProfileMessage())
                 .build();
-        return new CustomOAuth2User(userAuthDto);
+        return new CustomOAuth2User(userAuthDto, false);
     }
 
     @Bean

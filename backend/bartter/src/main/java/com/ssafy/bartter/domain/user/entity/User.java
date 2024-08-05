@@ -202,7 +202,7 @@ public class User extends BaseEntity {
      */
     @Builder
     public User(String username, String password, String nickname, LocalDate birth, Gender gender,
-                Location location, String phone, String email) {
+                Location location, String phone, String email, String profileImage, String profileMessage, Role role) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
@@ -211,8 +211,9 @@ public class User extends BaseEntity {
         this.location = location;
         this.phone = phone;
         this.email = email;
-        this.profileImage = "default.png";
-        this.profileMessage = "Hi";
+        this.role = role == null ? Role.USER : role;
+        this.profileImage = profileImage == null ? "default.png" : profileImage;
+        this.profileMessage = profileMessage == null ? "Hi" : profileMessage;
         this.isAccountExpired = false;
     }
 

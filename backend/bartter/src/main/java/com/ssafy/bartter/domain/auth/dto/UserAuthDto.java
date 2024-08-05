@@ -2,6 +2,7 @@ package com.ssafy.bartter.domain.auth.dto;
 
 
 
+import com.ssafy.bartter.domain.user.entity.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -64,11 +65,17 @@ public class UserAuthDto {
      */
     private boolean isAccountExpired;
 
+    /**
+     * 사용자 이메일
+     */
+    private String email;
+
     @Builder
     public UserAuthDto(int id, String username, String password, int locationId, String locationName, String role,
-                       boolean isAccountExpired, String nickname, String profileImage, String profileMessage) {
+                       boolean isAccountExpired, String nickname, String profileImage, String profileMessage, String email) {
         this.id = id;
-        this.role = role;
+        this.role = role == null ? "USER" : role;;
+        this.email = email;
         this.nickname = nickname;
         this.username = username;
         this.password = password;

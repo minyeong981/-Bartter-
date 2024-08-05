@@ -15,6 +15,7 @@ import java.util.Map;
 public class CustomOAuth2User implements OAuth2User {
 
     private final transient UserAuthDto userAuthDto;
+    private final boolean isTemporaryUser;
 
     @Override
     public Map<String, Object> getAttributes() {
@@ -45,6 +46,14 @@ public class CustomOAuth2User implements OAuth2User {
 
     public int getUserId(){
         return userAuthDto.getId();
+    }
+
+    public boolean isAccountNonExpired() {
+        return !userAuthDto.isAccountExpired();
+    }
+
+    public String getProfileImage(){
+        return userAuthDto.getProfileImage();
     }
 
 }
