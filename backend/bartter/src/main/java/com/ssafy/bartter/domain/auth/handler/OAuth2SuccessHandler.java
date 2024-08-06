@@ -13,6 +13,7 @@ import com.ssafy.bartter.global.response.ErrorResponse;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -63,12 +64,12 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         if (isTemporaryUser) {
             // 세션에 사용자 정보 저장
             OAuthTempUserInfoDto userInfo = OAuthTempUserInfoDto.create(username, nickname, profileImage, email, role);
-            request.getSession().setAttribute("userInfo", userInfo);
-            
+            request.getSession(true).setAttribute("userInfo", userInfo);
+            log.debug("userInfo: {}", userInfo);
             // 세션 타임아웃 설정 (5분)
             request.getSession().setMaxInactiveInterval(300);
 
-            response.sendRedirect("http://localhost:5173/signup/additional");
+            response.sendRedirect("http://localhost:5173/signup/additional?issignup=true");
         }
         else {
             // 토큰 생성
@@ -82,6 +83,8 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             response.setHeader("Authorization", "Bearer " + access);
             response.addCookie(cookieUtil.createCookie("refresh", refresh));
             response.setStatus(HttpStatus.OK.value());
+
+            response.sendRedirect("http://localhost:5173/");
         }
     }
 

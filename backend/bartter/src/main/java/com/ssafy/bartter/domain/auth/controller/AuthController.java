@@ -85,13 +85,15 @@ public class AuthController {
     }
 
     @PostMapping("/additional-info")
-    public SuccessResponse<?> saveAdditionalInfo(HttpServletRequest request, HttpServletResponse response, @Valid SimpleLocation.LocationRequestDto locationRequestDto) {
+    public SuccessResponse<?> saveAdditionalInfo(HttpServletRequest request, HttpServletResponse response, @Valid @RequestBody SimpleLocation.LocationRequestDto locationRequestDto) {
         HttpSession session = request.getSession(false);
+        log.info("here : saveAdditionalInfo");
         if (session != null) {
             OAuthTempUserInfoDto userInfo = (OAuthTempUserInfoDto) session.getAttribute("userInfo");
 
             if (userInfo != null) {
                 // 회원가입 진행
+                log.info("here : saveAdditionalInfo locationRequestDto : {}", locationRequestDto);
                 User user = userService.registerKakaoUser(locationRequestDto, userInfo);
                 String username = user.getUsername();
                 String role = user.getRole().toString();
