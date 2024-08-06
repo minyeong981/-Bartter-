@@ -1,0 +1,193 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typographies;
+
+.generalInput {
+  width: 341px;
+  height: 48px;
+  padding: 0 12px;
+  border: 1px solid colors.$primary;
+  border-radius: 12px;
+
+  &::placeholder {
+    color: colors.$placeholder;
+  }
+}
+
+.labeledInput {
+  @include typographies.label;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.textAreaInput {
+  width: 341px;
+  height: 200px;
+  padding: 8px;
+  overflow-y: auto;
+  border: 1px solid colors.$primary;
+  border-radius: 12px;
+
+
+  &::placeholder {
+    color: colors.$placeholder;
+  }
+}
+
+.imageInputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.imageInput {
+  display: none;
+}
+
+.labeledImageInput {
+  @include typographies.label;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cameraIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 341px;
+  height: 100px;
+  cursor: pointer;
+  border: 1px solid colors.$primary;
+  border-radius: 12px;
+}
+
+.cameraIcon {
+  font-size: 3rem;
+  color: colors.$placeholder;
+}
+
+.imagePreviewContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-start; /* 왼쪽 정렬 */
+}
+
+.imageWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.imagePreview {
+  max-width: 100px;
+  max-height: 100px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.removeIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 1.2rem;
+  color: red;
+  cursor: pointer;
+  background: white;
+  border-radius: 50%;
+}
+
+.semiCalenderInput {
+  display: flex;
+  align-items: center;
+  width: 341px;
+  height: 48px;
+  padding: 0 12px;
+  border: 1px solid colors.$primary;
+  border-radius: 12px;
+}
+
+.datePicker {
+  display: flex;
+  align-items: center; /* 세로 가운데 정렬 */
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  border: none;
+}
+
+.customHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+
+  .navButton {
+    font-size: 1.2em;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .dateDisplay {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+}
+
+/* 선택된 날짜를 초록색 선으로 표시 */
+.react-datepicker__day--selected {
+  color: colors.$primary !important;
+  background-color: transparent !important;
+  border: 2px solid colors.$primary !important;
+  border-radius: 50% !important;
+}
+
+/* 년월, 요일 부분을 연한 초록색으로 표시 */
+.react-datepicker__current-month,
+.react-datepicker__day-name {
+  color: #{lighten(colors.$primary, 20%)} !important;
+}
+
+/* 선택된 날짜의 hover 효과를 초록색으로 */
+.react-datepicker__day--selected:hover {
+  background-color: transparent !important;
+  border: 2px solid colors.$primary !important;
+}
+
+.checkbox {
+  display: flex;
+  flex-direction: column;
+  width: 341px;
+
+  span {
+    @include typographies.label;
+  }
+
+  input {
+    display: none;
+  }
+
+  label {
+    position: relative;
+    gap: 4px;
+    width: 24px;
+    height: 24px;
+    background-color: colors.$gray1;
+    border-radius: 12px;
+
+  }
+
+  input:checked + label::after {
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    content: url("@/assets/svg/check.svg");
+  }
+}

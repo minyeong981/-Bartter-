@@ -1,0 +1,6 @@
+@use '@/styles/constants/typographies' as typographies;
+
+.heading {
+  @include typographies.heading;
+  align-self: flex-start;
+}

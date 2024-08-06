@@ -1,0 +1,85 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typo;
+
+.home-barter-component {
+  position: relative;
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+  overflow: hidden;
+
+  .carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .barter-card {
+    display: flex;
+    flex: 0 0 calc(50% - 10px);
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin: 0 5px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+  }
+
+  .barter-image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+
+  .barter-title, .barter-time {
+    width: 100%;
+    padding-left: 5px;
+    margin: 5px 0;
+    text-align: left;
+  }
+
+  .barter-title {
+    @include typo.label;
+  }
+
+  .barter-time {
+    @include typo.time;
+
+    color: colors.$placeholder;
+  }
+
+  .barter-likes {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;  
+    margin-top: auto;
+  }
+
+  .heart-icon {
+    margin-right: 5px;
+    color: red;
+  }
+
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+    background: none;
+    border: none;
+    transform: translateY(-50%);
+  }
+
+  .carousel-button.left {
+    left: 0;
+  }
+
+  .carousel-button.right {
+    right: 0;
+  }
+}

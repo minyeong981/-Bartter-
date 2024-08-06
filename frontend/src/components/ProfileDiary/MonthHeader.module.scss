@@ -1,0 +1,30 @@
+@use '@/styles/constants/typographies.scss' as typo;
+
+.Header {
+    display: flex;
+    align-items: center;
+    width: 100%; 
+    max-width: 390px;
+    padding: 10px 0; 
+
+  }
+  
+  .headerLeft, .headerCenter, .headerRight {
+    display: flex;
+    flex-basis: 0; 
+    flex-grow: 1; 
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .headerLeft, .headerRight {
+    flex-grow: 1;
+    cursor: pointer;
+  }
+  
+  .headerCenter {
+    flex-grow: 3;
+
+    @include typo.title;
+
+  }

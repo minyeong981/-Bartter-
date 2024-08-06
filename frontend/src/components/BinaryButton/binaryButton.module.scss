@@ -1,0 +1,30 @@
+@use '@/styles/constants/typographies' as typographies;
+@use '@/styles/constants/colors' as colors;
+
+.binaryButton {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+
+  input[type="radio"] {
+    display: none;
+
+    &:checked + label {
+      background-color: colors.$primary;
+    }
+  }
+
+  label {
+    @include typographies.button;
+    color: colors.$white;
+    height: 51px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: colors.$placeholder;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+}

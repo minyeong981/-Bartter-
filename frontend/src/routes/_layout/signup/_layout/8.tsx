@@ -1,0 +1,88 @@
+import {useMutation} from '@tanstack/react-query';
+import {createFileRoute, redirect, useNavigate} from '@tanstack/react-router';
+import classnames from 'classnames/bind';
+
+import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
+import Heading from '@/components/Heading';
+import type {SearchParamFromPhase6} from '@/routes/_layout/signup/_layout/7.tsx';
+import barter from '@/services/barter.ts';
+import {getPosition} from '@/util/geolocation.ts';
+
+import styles from '../signup.module.scss';
+
+const cx = classnames.bind(styles);
+
+export interface SearchParamFromPhase7 extends SearchParamFromPhase6 {
+  email?: Email;
+}
+
+export const Route = createFileRoute('/_layout/signup/_layout/8')({
+  component: GetLocationPage,
+  validateSearch: (search: Record<string, unknown>): SearchParamFromPhase7 => {
+    return {
+      name: search.name ? (search.name as Name) : undefined,
+      userId: search.userId ? (search.userId as UserId) : undefined,
+      password: search.password ? (search.password as Password) : undefined,
+      birth: search.birth ? (search.birth as Birth) : undefined,
+      gender: search.gender ? (search.gender as Gender) : undefined,
+      phoneNumber: search.phoneNumber
+        ? (search.phoneNumber as Phone)
+        : undefined,
+      email: search.email ? (search.email as Email) : undefined,
+    };
+  },
+  beforeLoad: async ({search}) => {
+    if (!search.phoneNumber)
+      throw redirect({to: '/signup/6', search: {...search}});
+  },
+});
+
+function GetLocationPage() {
+  const navigate = useNavigate({from: '/signup/8'});
+  const {name, gender, password, userId, birth, phoneNumber, email} =
+    Route.useSearch();
+  const mutation = useMutation({
+    mutationFn: barter.signup,
+    onSuccess: () => navigate({to: '/signup/9', search: {success: true}}),
+    onError: () => console.error('회원가입하는데 문제가 발생했습니다.'),
+  });
+
+  async function handleSignup() {
+    const {
+      coords: {latitude, longitude},
+    } = await getPosition();
+    mutation.mutate({
+      gender: gender!,
+      password: password!,
+      username: userId!,
+      birth: birth!,
+      phone: phoneNumber!,
+      email: email!,
+      nickname: name!,
+      latitude,
+      longitude,
+    });
+    return;
+  }
+
+  return (
+    <>
+      <div className={cx('headingContainer')}>
+        <Heading>
+          농부님의
+          <br />
+          위치를 등록해주세요
+        </Heading>
+      </div>
+      <div className={cx('inputContainer')} />
+      <div className={cx('buttonContainer')}>
+        <GeneralButton
+          buttonStyle={{style: 'primary', size: 'large'}}
+          onClick={handleSignup}
+        >
+          위치 등록하기
+        </GeneralButton>
+      </div>
+    </>
+  );
+}

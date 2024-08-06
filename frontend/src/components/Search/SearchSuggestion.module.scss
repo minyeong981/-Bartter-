@@ -1,0 +1,35 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies.scss' as typo;
+
+.suggestionsContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 360px;
+  }
+  
+  .suggestionItem {
+    display: flex;
+    align-items: center;
+    padding: 14px 0;
+    margin-left:30px;
+
+    @include typo.name;
+
+    cursor: pointer;
+    border-bottom: 1px solid colors.$divider2
+  }
+  
+  .suggestionItem:hover {
+    background-color: rgba( colors.$primary, 0.2);
+  }
+  
+  .icon {
+    margin-right: 10px;
+    margin-left:10px;
+    color: black;
+  }
+  
+  .highlighted {
+    color: colors.$primary; // 강조할 텍스트의 색상
+  }
+  

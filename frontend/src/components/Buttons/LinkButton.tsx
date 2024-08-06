@@ -8,13 +8,17 @@ type LinkButtonProps = LinkProps & ButtonStyle;
 
 const cx = classnames.bind(style);
 
-export default function GeneralButton({
+export default function LinkButton({
   children,
   buttonStyle,
+  disabled,
   ...props
 }: LinkButtonProps) {
   return (
-    <Link className={cx(['button', ...Object.values(buttonStyle)])} {...props}>
+    <Link
+      className={cx(['button', {disabled}, ...Object.values(buttonStyle)])}
+      {...props}
+    >
       {children}
     </Link>
   );

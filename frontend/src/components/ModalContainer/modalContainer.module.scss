@@ -1,0 +1,14 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typographies;
+
+.modalContainer {
+  @include typographies.title;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  padding: 22px;
+  background-color: colors.$white;
+  border-radius: 12px;
+}
