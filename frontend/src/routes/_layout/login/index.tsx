@@ -1,5 +1,5 @@
 import {useMutation} from '@tanstack/react-query';
-import {createFileRoute} from '@tanstack/react-router';
+import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {ChangeEvent, FormEvent} from 'react';
 
@@ -25,11 +25,13 @@ export const Route = createFileRoute('/_layout/login/')({
 function LoginPage() {
   const {form, handleUsernameChange, handlePasswordChange} = useLoginForm();
   const login = useRootStore(state => state.login);
+  const navigate = useNavigate({from: '/login'});
   const mutation = useMutation({
     mutationFn: barter.login,
-    onSuccess: data => {
+    onSuccess: async data => {
       const token = parser.getAccessToken(data);
       login(token);
+      await navigate({to: '/'});
     },
     onError: e => {
       console.error(e);
