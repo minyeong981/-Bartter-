@@ -1,26 +1,32 @@
 import { createFileRoute } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type { ChangeEvent } from 'react';
+import { useState} from 'react';
 
 import LinkButton from '@/components/Buttons/LinkButton';
+import type { SearchParamCrop } from '@/components/Crop/CropModal';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput';
-import useRootStore from '@/store';
 
 import styles from '../registerCrop.module.scss';
 
 const cx = classnames.bind(styles);
 
+export interface SearchParamNickName extends SearchParamCrop {
+  nickname: string
+}
+
 export const Route = createFileRoute('/_layout/diary/registerCrop/_layout/1')({
   component: GetNicknamePage,
+  validateSearch: ({crop}) : SearchParamCrop => {
+    return {
+      crop: crop as CropCategoryDetail
+    }
+  }
 });
 
 function GetNicknamePage() {
-  const { nickname, setNickname} = useRootStore(state => ({
-    nickname: state.nickname,
-    setNickname: state.setNickname,
-    resetCropForm: state.resetCropForm,
-  }));
+  const [nickname, setNickname] = useState('');
   const isValid = nickname.length >= 1 && nickname.length <= 30;
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,6 +55,7 @@ function GetNicknamePage() {
           buttonStyle={{ style: 'primary', size: 'large' }}
           to="/diary/registerCrop/2"
           disabled={!isValid}
+          search={(prev)=>({...prev, nickname})}
         >
           다음
         </LinkButton>

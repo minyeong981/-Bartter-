@@ -163,8 +163,33 @@ export default {
   /**
    * 농작물 프로필 등록
    */
-  postCropProfile: async (data: CropProfileForm) =>
-    axios.post<PostCropProfileResponse>('/crops', data),
+  postCropProfile: async (data: CropProfileForm) =>{
+    const form = new FormData()
+    
+    const jsonBlob = new Blob([JSON.stringify({
+    cropCategoryId: data.cropCategoryId,
+    nickname: data.nickname,
+    growDate: data.growDate,
+    description: data.description
+  })], { type: 'application/json' });
+   form.append('data', jsonBlob);
+   // 이미지 파일 추가
+  if (data.image && data.image.length > 0) {
+    data.image.forEach((file) => {
+      form.append(`image`, file);
+    });
+  }
+    // for(const [key,value] of Object.entries(data)){  
+    //   if(!value)continue;
+    //   console.log(value);
+    //   form.append(key,value)
+    // }
+
+    const response = axios.post<PostCropProfileResponse>('/crops', form, {headers:{
+      "Content-Type":"multipart/form-data"
+    }})
+    return response;
+  },
   /**
    * 농작물 프로필 상세조회
    */

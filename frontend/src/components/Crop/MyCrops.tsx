@@ -1,42 +1,40 @@
+import { useQuery } from "@tanstack/react-query";
 import classnames from "classnames/bind";
 import { useEffect, useState } from 'react';
 
-import useRootStore from '@/store';
-import type {Crop} from "@/store/diarySlice.ts";
+import barter from "@/services/barter";
 
 import styles from './myCrops.module.scss';
 
 const cx = classnames.bind(styles);
 
 interface MyCropsProps {
-  crops: Omit<Crop, 'description' | 'name'>[]
+  userId: number; // userId를 MyCropsProps에 추가
   onCropClick: (id: number) => void;
 }
 
-function MyCrops({ crops, onCropClick }: MyCropsProps) {
-  const { loadCrops, setInitialImage } = useRootStore(state => ({
-    loadCrops: state.loadCrops,
-    setInitialImage: state.setInitialImage,
-  }));
-  const [selectedCropId, setSelectedCropId] = useState<number | null>(null);
+function MyCrops({ userId, onCropClick }: MyCropsProps) {
+  const { data } = useQuery({
+    queryKey: ['cropProfile', userId],
+    queryFn: () => barter.getCropProfileListByUser(userId)
+  })
 
-  useEffect(() => {
-    loadCrops();
-  }, [loadCrops]);
+  const crops = data?.data.data
 
-  const handleCropClick = (id: number, image: string) => {
+  const handleCropClick = (id: number) => {
     setSelectedCropId(id);
-    setInitialImage(image);
     onCropClick(id);
+    navigate({ to: `/diary/crop/${id}` });
   };
+
 
   return (
     <div className={cx('crops-container')}>
       <h3 className={cx('crops-count')}>전체 작물 수 : {crops.length}</h3>
       <div className={cx('crop-list')}>
-        {crops.map(crop => (
+        {crops.map((crop,index) => (
           <div 
-            key={crop.id} 
+            key={`${index}-${crop.id}`} 
             className={cx('crop-card', { selected: selectedCropId === crop.id })} 
             onClick={() => handleCropClick(crop.id, crop.image)}
           >
