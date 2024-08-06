@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.ssafy.bartter.domain.chat.dto.ChatMessage;
+import com.ssafy.bartter.domain.trade.repository.TradeRepository;
 import com.ssafy.bartter.global.cache.CacheKey;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
@@ -21,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RedisChatService {
 
+    private final TradeRepository tradeRepository;
     private final RedisTemplate<String, Object> redisTemplate;
     private final ChannelTopic topic;
     private final Gson mapper;
@@ -36,12 +38,18 @@ public class RedisChatService {
     private void saveMessage(ChatMessage chatMessage) {
         String key = CacheKey.messageKey(chatMessage.getTradeId());
         String message = mapper.toJson(chatMessage);
-        
+
         log.debug("저장");
         redisTemplate.opsForList().rightPush(key, message);
     }
 
-    public List<ChatMessage> getTradeChat(int tradeId, int page, int limit) {
+    public List<ChatMessage> getTradeChat(int userId, int tradeId, int page, int limit) {
+        log.debug("{}, {}", userId, tradeId);
+        
+        if (!tradeRepository.existsByTradeIdAndUserId(userId, tradeId)){
+            throw new CustomException(ErrorCode.UNAUTHENTICATED);
+        }
+
         try {
             String key = CacheKey.messageKey(tradeId);
             ListOperations<String, Object> listOps = redisTemplate.opsForList();

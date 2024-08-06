@@ -22,5 +22,4 @@ public class ChatMessage {
     private String content; // 메시지 내용
     private int senderId; // 발신자 ID
     private int tradeId; // 거래 ID
-
 }
