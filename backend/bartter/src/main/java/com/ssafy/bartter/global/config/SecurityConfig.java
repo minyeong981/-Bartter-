@@ -97,7 +97,6 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-<<<<<<< backend/bartter/src/main/java/com/ssafy/bartter/global/config/SecurityConfig.java
                         .requestMatchers("/ws/**").permitAll()
                         .requestMatchers("/", "/login", "/user/join", "/user/location" ,"/oauth2/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
