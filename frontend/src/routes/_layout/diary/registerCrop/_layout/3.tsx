@@ -1,30 +1,41 @@
 import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {ChangeEvent} from 'react';
+import {useState} from 'react'
 
 import GeneralButton from '@/components/Buttons/GeneralButton';
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledTextAreaInput from '@/components/Inputs/LabeledTextAreaInput';
-import useRootStore from '@/store';
 
 import styles from '../registerCrop.module.scss';
+import type { SearchParamDate } from './2';
+
 
 const cx = classnames.bind(styles);
 
+export interface SearchParamDescription extends SearchParamDate {
+  description?: string;
+}
+
+
 export const Route = createFileRoute('/_layout/diary/registerCrop/_layout/3')({
   component: GetDesciptionPage,
+  validateSearch: ({crop, nickname, growDate}) : SearchParamDate => {
+    return {
+      crop: crop as CropCategoryDetail,
+      nickname: nickname as string,
+      growDate: growDate as string
+    }
+  }
 });
 
 function GetDesciptionPage() {
-  const {nickname, description, setDescription} = useRootStore(state => ({
-    nickname: state.nickname,
-    description: state.description,
-    setDescription: state.setDescription,
-  }));
-  const navigate = useNavigate();
+  const {nickname} = Route.useSearch()
+  const [description, setDescription] = useState('');
   const isValid = description.length <= 100;
 
+  const navigate = useNavigate()
   const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.currentTarget.value);
   };
@@ -60,6 +71,7 @@ function GetDesciptionPage() {
           buttonStyle={{style: 'primary', size: 'large'}}
           to="/diary/registerCrop/4"
           disabled={!isValid}
+          search={(prev) => ({...prev, description})}
         >
           다음
         </LinkButton>

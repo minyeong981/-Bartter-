@@ -14,6 +14,7 @@ export default {
   TRADE_PICKED_BY_USER: 'tradePickedByUser',
   TRADE_WRITTEN_BY_USER: 'tradeWrittenByUser',
   CROP_CATEGORY: 'cropCategory',
+  CROP_PROFILE: 'cropProfile',
   AI_REPORT_LIST: 'aiReportList',
   AI_REPORT_DETAIL: 'aiReportDetail',
   DIARY_AI_REPORT: 'diaryAiReport',

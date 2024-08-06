@@ -56,7 +56,7 @@ type CommunityPostId = number;
 type Title = string;
 type LikeCount = number;
 type CommentCount = number;
-type Image = string | null;
+type Image = File;
 type IsLike = boolean;
 
 interface CommunityPostForm {
@@ -192,8 +192,8 @@ interface CropProfileForm {
   cropCategoryId: CropCategoryId;
   nickname: Nickname;
   growDate: GrowDate;
-  description: Description;
-  image: Image;
+  description?: Description;
+  image?: Image[];
 }
 
 interface CropProfile {
@@ -203,7 +203,7 @@ interface CropProfile {
   nickname: Nickname;
   image: Image;
   growDate: GrowDate;
-  description: Description;
+  description?: Description;
 }
 
 interface CropDiary {

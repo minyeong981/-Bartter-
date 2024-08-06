@@ -1,25 +1,27 @@
 import classnames from 'classnames/bind';
-import type {ChangeEvent} from 'react';
-import {useRef, useState} from 'react';
-import {FaCamera, FaTimes} from 'react-icons/fa';
+import type { ChangeEvent } from 'react';
+import { useRef, useState } from 'react';
+import { FaCamera, FaTimes } from 'react-icons/fa';
 
 import styles from './input.module.scss';
 
 const cx = classnames.bind(styles);
 
 export interface ImageInputProps {
-  onImageChange: (images: string[]) => void;
+  onImageChange: (images: File[]) => void;
   maxImages: number;
 }
 
-function ImageInput({onImageChange, maxImages}: ImageInputProps) {
+function ImageInput({ onImageChange, maxImages }: ImageInputProps) {
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
     const files = event.target.files;
     if (files) {
-      const newImagePreviews = Array.from(files).map(file => {
+      const newImageFiles = Array.from(files);
+      const newImagePreviews = newImageFiles.map(file => {
         const reader = new FileReader();
         return new Promise<string>(resolve => {
           reader.onloadend = () => {
@@ -30,12 +32,17 @@ function ImageInput({onImageChange, maxImages}: ImageInputProps) {
       });
 
       Promise.all(newImagePreviews).then(previews => {
+        let updatedFiles = [...imageFiles, ...newImageFiles];
         let updatedPreviews = [...imagePreviews, ...previews];
-        if (updatedPreviews.length > maxImages) {
+
+        if (updatedFiles.length > maxImages) {
+          updatedFiles = updatedFiles.slice(-maxImages);
           updatedPreviews = updatedPreviews.slice(-maxImages);
         }
+
+        setImageFiles(updatedFiles);
         setImagePreviews(updatedPreviews);
-        onImageChange(updatedPreviews);
+        onImageChange(updatedFiles);
       });
     }
   }
@@ -45,9 +52,12 @@ function ImageInput({onImageChange, maxImages}: ImageInputProps) {
   }
 
   function handleRemoveImage(index: number) {
+    const updatedFiles = imageFiles.filter((_, i) => i !== index);
     const updatedPreviews = imagePreviews.filter((_, i) => i !== index);
+
+    setImageFiles(updatedFiles);
     setImagePreviews(updatedPreviews);
-    onImageChange(updatedPreviews);
+    onImageChange(updatedFiles);
   }
 
   return (
