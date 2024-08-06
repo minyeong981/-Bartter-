@@ -201,7 +201,7 @@ interface CropProfile {
   farmer: SimpleUser;
   cropCategory: CropCategoryDetail;
   nickname: Nickname;
-  image: Image;
+  image: Image[];
   growDate: GrowDate;
   description?: Description;
 }

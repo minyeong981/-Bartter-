@@ -3,7 +3,7 @@ import classnames from 'classnames/bind';
 import {useState} from 'react';
 
 import LinkButton from '@/components/Buttons/LinkButton';
-import MyCrops from '@/components/Crop/UserCrops';
+import UserCrops from '@/components/Crop/UserCrops';
 import Heading from '@/components/Heading';
 import useRootStore from '@/store';
 
@@ -34,7 +34,7 @@ function DiaryWritePage() {
         <div className={cx('headingContainer')}>
           <Heading>어떤 작물의 일지인가요?</Heading>  
         </div>
-        <MyCrops crops={crops} onCropClick={handleCropSelect}/>
+        <UserCrops userId={userId} onCropClick={handleCropSelect}/>
         <div className={cx('buttonContainer')}>
           <LinkButton
             buttonStyle={{style: 'primary', size: 'large'}}

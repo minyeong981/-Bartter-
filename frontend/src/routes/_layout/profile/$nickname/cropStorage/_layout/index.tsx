@@ -117,7 +117,7 @@ function CropStoragePage() {
         </div>
         {isUserCrops ? (
           <div className={cx('UserCropsContainer')}>
-            <UserCrops crops={UserCrops} onCropClick={handleCropClick} />
+            <UserCrops userId={userId} onCropClick={handleCropClick} />
           </div>
         ) : (
           <div className={cx('receivedCropsContainer')}>

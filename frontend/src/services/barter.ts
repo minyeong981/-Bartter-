@@ -165,20 +165,18 @@ export default {
    */
   postCropProfile: async (data: CropProfileForm) =>{
     const form = new FormData()
+
+    for(const[key,value]of Object.entries(data)){
+      if(!value)continue
+      if(key === 'image'){
+        console.log(value)
+        form.append(key,value[0]);
+      }else{
+      form.append(key,value)
+      }
+    }
     
-    const jsonBlob = new Blob([JSON.stringify({
-    cropCategoryId: data.cropCategoryId,
-    nickname: data.nickname,
-    growDate: data.growDate,
-    description: data.description
-  })], { type: 'application/json' });
-   form.append('data', jsonBlob);
-   // 이미지 파일 추가
-  if (data.image && data.image.length > 0) {
-    data.image.forEach((file) => {
-      form.append(`image`, file);
-    });
-  }
+
     const response = axios.post<PostCropProfileResponse>('/crops', form, {headers:{
       "Content-Type":"multipart/form-data"
     }})
