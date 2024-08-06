@@ -4,6 +4,7 @@ import classnames from 'classnames/bind';
 import {useState} from 'react';
 
 import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
+import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import Spinner from '@/components/Spinner';
 import barter from '@/services/barter.ts';
@@ -50,13 +51,13 @@ function AdditionalInfoPage() {
         >
           위치 등록하기
         </GeneralButton>
-        <GeneralButton
+        <LinkButton
           buttonStyle={{style: 'primary', size: 'large'}}
-          onClick={handleSubmitLocation}
+          to="/"
           disabled={!isSignupSuccess}
         >
           회원가입 완료
-        </GeneralButton>
+        </LinkButton>
       </div>
     </>
   );
