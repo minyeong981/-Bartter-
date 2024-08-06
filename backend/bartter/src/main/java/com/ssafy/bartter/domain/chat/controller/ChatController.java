@@ -5,7 +5,6 @@ import com.ssafy.bartter.domain.chat.service.RedisChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 @Slf4j
@@ -17,7 +16,7 @@ public class ChatController {
 
     @MessageMapping("/trade/chat")
     public void sendMessage(ChatMessage chatMessage){
-        log.debug("{}", chatMessage);
+        log.debug("전송 : {}", chatMessage);
         redisChatService.publish(chatMessage);
     }
 }

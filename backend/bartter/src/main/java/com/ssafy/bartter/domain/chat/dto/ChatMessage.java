@@ -1,12 +1,15 @@
 package com.ssafy.bartter.domain.chat.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
-@ToString
+import java.io.Serializable;
+
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ChatMessage {
 
     public enum MessageType{
@@ -19,4 +22,5 @@ public class ChatMessage {
     private String content; // 메시지 내용
     private int senderId; // 발신자 ID
     private int tradeId; // 거래 ID
+
 }

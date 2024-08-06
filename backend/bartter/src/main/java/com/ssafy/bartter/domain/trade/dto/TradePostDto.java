@@ -40,13 +40,9 @@ public class TradePostDto {
         private int likeCount;
         private LocalDateTime createdAt;
 
-        @JsonProperty("isLike")
-        @JsonIgnore
-        private boolean isLike;
+        private Boolean isLike;
 
-        @JsonProperty("isShare")
-        @JsonIgnore
-        private boolean isShare;
+        private Boolean isShare;
 
 
         public static SimpleTradePostDetail of(TradePost tradePost) {
@@ -76,7 +72,13 @@ public class TradePostDto {
         private String title;
         private String content;
         private SimpleUserProfile author;
+
+        @JsonProperty("isLike")
+        @JsonIgnore
         private boolean isLike;
+
+        @JsonProperty("isShare")
+        @JsonIgnore
         private boolean isShare;
         private boolean hasCrop;
         private int cropId;
