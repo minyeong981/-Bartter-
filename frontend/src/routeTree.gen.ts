@@ -37,6 +37,7 @@ import { Route as LayoutTradeWriteLayoutImport } from './routes/_layout/trade/wr
 import { Route as LayoutTradeToLayoutImport } from './routes/_layout/trade/to/_layout'
 import { Route as LayoutTradeFromLayoutImport } from './routes/_layout/trade/from/_layout'
 import { Route as LayoutTradeDetailLayoutImport } from './routes/_layout/trade/detail/_layout'
+import { Route as LayoutSignupLayoutAdditionalImport } from './routes/_layout/signup/_layout/additional'
 import { Route as LayoutSignupLayout9Import } from './routes/_layout/signup/_layout/9'
 import { Route as LayoutSignupLayout8Import } from './routes/_layout/signup/_layout/8'
 import { Route as LayoutSignupLayout7Import } from './routes/_layout/signup/_layout/7'
@@ -352,6 +353,12 @@ const LayoutTradeDetailLayoutRoute = LayoutTradeDetailLayoutImport.update({
   id: '/_layout',
   getParentRoute: () => LayoutTradeDetailRoute,
 } as any)
+
+const LayoutSignupLayoutAdditionalRoute =
+  LayoutSignupLayoutAdditionalImport.update({
+    path: '/additional',
+    getParentRoute: () => LayoutSignupLayoutRoute,
+  } as any)
 
 const LayoutSignupLayout9Route = LayoutSignupLayout9Import.update({
   path: '/9',
@@ -914,6 +921,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutSignupLayout9Import
       parentRoute: typeof LayoutSignupLayoutImport
     }
+    '/_layout/signup/_layout/additional': {
+      id: '/_layout/signup/_layout/additional'
+      path: '/additional'
+      fullPath: '/signup/additional'
+      preLoaderRoute: typeof LayoutSignupLayoutAdditionalImport
+      parentRoute: typeof LayoutSignupLayoutImport
+    }
     '/_layout/trade/detail': {
       id: '/_layout/trade/detail'
       path: '/detail'
@@ -1325,6 +1339,7 @@ export const routeTree = rootRoute.addChildren({
         LayoutSignupLayout7Route,
         LayoutSignupLayout8Route,
         LayoutSignupLayout9Route,
+        LayoutSignupLayoutAdditionalRoute,
       }),
       LayoutSignupIndexRoute,
     }),
@@ -1473,7 +1488,8 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/signup/_layout/6",
         "/_layout/signup/_layout/7",
         "/_layout/signup/_layout/8",
-        "/_layout/signup/_layout/9"
+        "/_layout/signup/_layout/9",
+        "/_layout/signup/_layout/additional"
       ]
     },
     "/_layout/trade": {
@@ -1691,6 +1707,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout/signup/_layout/9": {
       "filePath": "_layout/signup/_layout/9.tsx",
+      "parent": "/_layout/signup/_layout"
+    },
+    "/_layout/signup/_layout/additional": {
+      "filePath": "_layout/signup/_layout/additional.tsx",
       "parent": "/_layout/signup/_layout"
     },
     "/_layout/trade/detail": {

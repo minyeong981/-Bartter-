@@ -10,17 +10,25 @@ import styles from './entrance.module.scss';
 const cx = classnames.bind(styles);
 
 export const Route = createFileRoute('/_layout/login/entrance/')({
-  component: () => (
+  component: EntrancePage,
+});
+
+function EntrancePage() {
+  function handleKakaoButton() {
+    window.open('http://localhost:8080/oauth2/authorization/kakao', '_self');
+  }
+
+  return (
     <div className={cx('entrance')}>
       <div className={cx('logo-container')}>
         <img src={ImageLogo} alt="logo image" />
       </div>
       <div className={cx('button-container')}>
-        <KakaoButton />
-        <GeneralButton buttonStyle={{style: 'primary', size: 'large'}} to="../">
+        <KakaoButton onClick={handleKakaoButton} />
+        <GeneralButton buttonStyle={{style: 'primary', size: 'large'}} to="/">
           로그인
         </GeneralButton>
       </div>
     </div>
-  ),
-});
+  );
+}
