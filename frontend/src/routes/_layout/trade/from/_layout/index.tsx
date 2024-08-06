@@ -12,6 +12,10 @@ import styles from './from.module.scss';
 
 const cx = classnames.bind(styles);
 
+export interface SearchParamsFromFromPage {
+  cropsToGive: string[];
+}
+
 export const Route = createFileRoute('/_layout/trade/from/_layout/')({
   component: FromPage,
 });
@@ -22,8 +26,6 @@ function FromPage() {
     queryFn: barter.getCropCategoryList,
   });
   const [cropsToGive, setCropsToGive] = useState<string[]>([]);
-
-  console.log(data?.data.data);
 
   function handleSelectCrop(crop: string) {
     if (cropsToGive.includes(crop)) {
@@ -49,9 +51,10 @@ function FromPage() {
               <CropButton
                 key={`${index}-${crop.name}`}
                 onClick={handleSelectCrop}
-                value={crop.name}
+                value={String(crop.cropCategoryId)}
+                name={crop.name}
                 imgUrl={crop.image!}
-                selected={cropsToGive.includes(crop.name)}
+                selected={cropsToGive.includes(String(crop.cropCategoryId))}
               />
             ))}
         </div>
@@ -60,6 +63,7 @@ function FromPage() {
         <LinkButton
           buttonStyle={{style: 'primary', size: 'large'}}
           to="/trade/to"
+          search={{cropsToGive: cropsToGive}}
         >
           다음
         </LinkButton>

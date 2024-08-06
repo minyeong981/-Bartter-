@@ -9,6 +9,7 @@ import CheckboxInput from '@/components/Inputs/CheckboxInput.tsx';
 import LabeledImageInput from '@/components/Inputs/LabeledImageInput.tsx';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import LabeledTextAreaInput from '@/components/Inputs/LabeledTextAreaInput.tsx';
+import type {SearchParamsFromToPage} from '@/routes/_layout/trade/to/_layout/index.tsx';
 
 import styles from './write.module.scss';
 
@@ -16,6 +17,15 @@ const cx = classnames.bind(styles);
 
 export const Route = createFileRoute('/_layout/trade/write/_layout/')({
   component: WritePage,
+  validateSearch: ({
+    cropsToGive,
+    cropsToGet,
+  }: Record<string, unknown>): SearchParamsFromToPage => {
+    return {
+      cropsToGive: cropsToGive as string[],
+      cropsToGet: cropsToGet as string[],
+    };
+  },
 });
 
 function WritePage() {
