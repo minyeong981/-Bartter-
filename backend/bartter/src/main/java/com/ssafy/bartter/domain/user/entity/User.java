@@ -4,7 +4,8 @@ import com.ssafy.bartter.domain.community.entity.CommunityPost;
 import com.ssafy.bartter.domain.community.entity.CommunityPostComment;
 import com.ssafy.bartter.domain.community.entity.CommunityPostLike;
 import com.ssafy.bartter.domain.crop.entity.Crop;
-import com.ssafy.bartter.domain.crop.entity.CropReport;
+import com.ssafy.bartter.domain.report.entity.CropReport;
+import com.ssafy.bartter.domain.report.entity.DailyTip;
 import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.domain.trade.entity.Trade;
@@ -195,6 +196,12 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CropReport> cropReportList = new ArrayList<>();
 
+    /**
+     * 해당 사용자의 하루 농사 알리미 목록
+     * @Author 김가람
+     */
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<DailyTip> dailyTipList = new ArrayList<>();
 
     /**
      * User 엔티티의 빌더

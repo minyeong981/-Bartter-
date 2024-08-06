@@ -2,7 +2,6 @@ package com.ssafy.bartter.domain.crop.service;
 
 import com.ssafy.bartter.domain.crop.entity.Crop;
 import com.ssafy.bartter.domain.crop.entity.CropDiary;
-import com.ssafy.bartter.domain.crop.entity.CropReport;
 import com.ssafy.bartter.domain.crop.repository.CropDiaryRepository;
 import com.ssafy.bartter.domain.crop.repository.CropRepository;
 import com.ssafy.bartter.domain.user.entity.Follow;
@@ -13,7 +12,6 @@ import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

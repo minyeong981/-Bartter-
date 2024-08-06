@@ -2,18 +2,15 @@ package com.ssafy.bartter.global.service;
 
 import com.ssafy.bartter.domain.crop.entity.Crop;
 import com.ssafy.bartter.domain.crop.entity.CropDiary;
-import com.ssafy.bartter.domain.crop.entity.CropReport;
+import com.ssafy.bartter.domain.report.entity.CropReport;
 import com.ssafy.bartter.domain.crop.service.CropDiaryService;
-import com.ssafy.bartter.domain.crop.service.CropReportService;
-import com.ssafy.bartter.domain.crop.service.CropService;
+import com.ssafy.bartter.domain.report.service.CropReportService;
 import com.ssafy.bartter.domain.user.entity.User;
-import com.ssafy.bartter.domain.user.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

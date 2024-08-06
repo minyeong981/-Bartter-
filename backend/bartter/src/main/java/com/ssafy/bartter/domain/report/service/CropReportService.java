@@ -1,15 +1,13 @@
-package com.ssafy.bartter.domain.crop.service;
+package com.ssafy.bartter.domain.report.service;
 
 import com.ssafy.bartter.domain.crop.entity.Crop;
-import com.ssafy.bartter.domain.crop.entity.CropReport;
-import com.ssafy.bartter.domain.crop.repository.CropReportRepository;
-import com.ssafy.bartter.domain.crop.repository.CropRepository;
+import com.ssafy.bartter.domain.report.entity.CropReport;
+import com.ssafy.bartter.domain.report.repository.CropReportRepository;
 import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.domain.user.repository.UserRepository;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
