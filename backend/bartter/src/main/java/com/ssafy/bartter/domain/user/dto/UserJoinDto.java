@@ -28,7 +28,6 @@ public class UserJoinDto {
     /**
      * 사용자 비밀번호
      */
-    @NotNull(message = "비밀번호를 입력하세요.")
     private String password;
 
     /**
@@ -40,13 +39,11 @@ public class UserJoinDto {
     /**
      * 사용자 생년월일 (형식: "yyyy-MM-dd")
      */
-    @NotNull(message = "생년월일을 입력하세요.")
     private LocalDate birth;
 
     /**
      * 사용자 성별 ("F" 또는 "M")
      */
-    @NotNull(message = "성별을 선택하세요.")
     private Gender gender;
 
     /**
@@ -64,14 +61,10 @@ public class UserJoinDto {
     /**
      * 사용자 핸드폰 번호
      */
-    @NotNull(message = "핸드폰 번호를 입력하세요.")
-    @NotBlank(message = "핸드폰 번호를 입력하세요.")
     private String phone;
 
     /**
      * 사용자 이메일
      */
-    @NotNull(message = "이메일을 입력하세요.")
-    @NotBlank(message = "이메일을 입력하세요.")
     private String email;
 }
