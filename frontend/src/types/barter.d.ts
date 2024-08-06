@@ -260,6 +260,8 @@ interface SearchResult {
 interface Auth {
   isLogin: boolean;
   token: string;
+  userId: UserId;
+  username: Username;
 }
 
 interface BarterResponse<T> {

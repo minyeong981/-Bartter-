@@ -1,4 +1,14 @@
+import {jwtDecode} from 'jwt-decode';
 import type {StateCreator} from 'zustand';
+
+interface JWT_PAYLOAD {
+  category: string;
+  exp: number;
+  iat: number;
+  role: string;
+  sub: string;
+  userId: number;
+}
 
 export interface AuthSlice extends Auth {
   login: (token: string) => void;
@@ -8,6 +18,8 @@ export interface AuthSlice extends Auth {
 const INITIAL_AUTH_STATE: Auth = {
   token: '',
   isLogin: false,
+  userId: '',
+  username: '',
 };
 
 export const createAuthSlice: StateCreator<
@@ -17,6 +29,11 @@ export const createAuthSlice: StateCreator<
   AuthSlice
 > = set => ({
   ...INITIAL_AUTH_STATE,
-  login: token => set({token, isLogin: true}),
+  login: token => {
+    const payload = jwtDecode<JWT_PAYLOAD>(token);
+    const userId = String(payload.userId);
+    const {sub: username} = payload;
+    set({token, isLogin: true, userId, username});
+  },
   logout: () => set({...INITIAL_AUTH_STATE}),
 });
