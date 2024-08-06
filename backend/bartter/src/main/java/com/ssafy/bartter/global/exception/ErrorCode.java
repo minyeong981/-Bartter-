@@ -46,6 +46,7 @@ public enum ErrorCode {
     SESSION_EXPIRED_OR_NOT_FOUND(HttpStatus.BAD_REQUEST, 2020, "세션이 만료되었거나 존재하지 않습니다"),
 
 
+
     // Crop - 3000
     CROP_NOT_FOUND(HttpStatus.NOT_FOUND, 3000, "해당 ID의 농작물을 찾을 수 없습니다."),
     CROP_CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, 3001, "해당 ID의 농작물 카테고리를 찾을 수 없습니다."),
@@ -66,9 +67,13 @@ public enum ErrorCode {
     TRADE_POST_LIKE_NOT_FOUND(HttpStatus.NOT_FOUND,6003,"사용자가 해당 물물교환 게시글을 좋아요하지 않았습니다."),
     TRADE_POST_SAME_STATUS(HttpStatus.BAD_REQUEST, 6004, "해당 물물교환 게시글에 대한 잘못된 상태 변경 요청입니다."),
 
+    // Report - 7000
+    CROP_REPORT_NOT_FOUND(HttpStatus.NOT_FOUND,7000,"해당 ID의 AI 요약 리포트를 찾을 수 없습니다.")
+
     // Chat
 
     ;
+
     private final HttpStatus status;
     private final int code;
     private final String message;

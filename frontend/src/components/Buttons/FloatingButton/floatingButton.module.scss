@@ -1,0 +1,20 @@
+@use "@/styles/constants/colors" as colors;
+@use '@/styles/constants/dimension' as dimension;
+@use '@/styles/constants/typographies' as typographies;
+
+.floatingButton {
+  @include typographies.button;
+
+  position: absolute;
+  right: 10px;
+  bottom: 100px;
+  z-index: dimension.$foreground;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 53px;
+  padding: 0 21px;
+  color: colors.$white;
+  background-color: colors.$primary;
+  border-radius: 27px;
+}

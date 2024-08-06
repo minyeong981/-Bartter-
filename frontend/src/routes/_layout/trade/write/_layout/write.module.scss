@@ -1,0 +1,25 @@
+.writePage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding-top: 40px;
+
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 8;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 20px;
+    overflow-y: scroll;
+  }
+
+  .buttonContainer {
+    display: flex;
+    flex-grow: 1;
+    align-items: flex-end;
+  }
+}

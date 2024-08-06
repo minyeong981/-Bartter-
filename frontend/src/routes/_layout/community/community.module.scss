@@ -1,0 +1,33 @@
+@use '@/styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+
+.community {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  // align-items: center;
+  height: 100%;
+
+  // padding: 0 20px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.twoButtonFixed {
+  position: fixed;
+  top:53px;
+  width: 100%;
+  background-color: colors.$white;
+
+  // max-width: 390px;
+
+  // display: flex
+}
+
+.postList {
+  margin-top: 44px;
+}

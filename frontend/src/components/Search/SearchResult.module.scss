@@ -1,0 +1,56 @@
+@use '@/styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+
+
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+
+  .location {
+    @include typo.button
+  }
+
+  .title {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+    margin-left: 20px;
+    text-align: left;
+
+    @include typo.heading
+  }
+
+  .barter, .community, .following {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .link-button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  .followingText {
+    display: flex;
+  }
+
+  .resultText {
+    color: colors.$primary
+  }
+}
+
+// .carousel-inner {
+//   display: flex;
+//   width: 100%;
+//   transition: transform 0.5s ease-in-out;
+// }
+

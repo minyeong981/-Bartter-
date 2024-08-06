@@ -76,6 +76,15 @@ public class CropService {
     }
 
     /**
+     * 농작물 나눔 횟수 조회
+     */
+    @Transactional(readOnly = true)
+    public int getTradeCount(int cropId) {
+        Crop crop = cropRepository.findById(cropId).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
+        return cropRepository.getTradeCount(cropId);
+    }
+
+    /**
      * 유저의 농작물 프로필 전체 조회
      */
     @Transactional(readOnly = true)

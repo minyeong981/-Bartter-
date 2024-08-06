@@ -1,0 +1,53 @@
+@use '@/styles/constants/typographies' as typographies;
+@use '@/styles/constants/colors' as colors;
+
+.detailPage {
+  height: 100%;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .detail {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    padding: 20px 0;
+
+
+    .title {
+      @include typographies.title;
+
+      width: 100%;
+    }
+
+    .content {
+      width: 100%;
+
+      @include typographies.main;
+    }
+
+    .cropList {
+      width: 100%;
+
+      p {
+        @include typographies.main;
+
+        margin-bottom: 14px;
+      }
+
+      .crops {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-row-gap: 30px;
+      }
+    }
+  }
+
+  .padding {
+    padding: 0 26px;
+  }
+
+}

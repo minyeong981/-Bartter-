@@ -1,0 +1,60 @@
+@use '@/styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+
+.header {
+  display: flex;
+  align-items: center;
+  width: 390px;
+  padding: 10px;
+
+  .inputContainer {
+    position: relative;
+    flex-grow: 1;
+
+    input {
+      width: 100%;
+      padding: 8px 10px;
+
+      @include typo.main;
+
+      color: black;
+      background-color: colors.$gray1;
+      border: 1px solid colors.$gray1;
+      border-radius: 4px;
+
+      &::placeholder {
+        color: rgba(colors.$placeholder, 0.5)
+      }
+
+    }
+
+    .faSearch {
+      width: 25px;
+      height: 25px;
+      padding-right: 5px;
+    }
+
+    .faX {
+      width: 18px;
+      height: 18px;
+      padding-right: 5px;
+    }
+
+  }
+
+  .searchList {
+    margin-left: 20px;
+  }
+
+  .searchIcon {
+    margin-right: 10px;
+  }
+  
+  .searchBox {
+    padding-top: 5px;
+    padding-right: 250px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid colors.$gray1;
+
+  }
+}

@@ -1,0 +1,23 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typographies;
+
+.heart {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+
+  @include typographies.label;
+
+  .icon {
+    width: 24px;
+  }
+
+  .liked {
+    fill: colors.$red;
+
+    path {
+      stroke: colors.$red;
+
+    }
+  }
+}

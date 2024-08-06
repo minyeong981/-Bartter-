@@ -18,7 +18,6 @@ public class CropCategoryDto {
      */
     @Builder
     @Getter
-    @AllArgsConstructor
     public static class CropCategoryDetail {
         private final Integer cropCategoryId;
         private final String name;

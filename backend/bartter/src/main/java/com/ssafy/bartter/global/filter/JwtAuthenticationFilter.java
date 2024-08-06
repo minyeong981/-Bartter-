@@ -11,6 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +25,7 @@ import java.io.PrintWriter;
  *
  * @author 김훈민
  */
+@Slf4j
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -41,7 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
+        log.debug("{}", "여기서도 할 수 있음");
         // 헤더에서 accessToken 추출
         String accessToken = request.getHeader("Authorization");
         // 토큰이 없다면 다음 필터로 넘김
@@ -86,6 +88,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 .role(jwtUtil.getRole(accessToken))
                 .build();
 
+        log.debug("인증 성공 ");
         AuthUserDetails customUserDetails = new AuthUserDetails(userAuthDto);
         Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authToken);

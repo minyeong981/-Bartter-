@@ -1,0 +1,62 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typographies;
+
+.tradeCard {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+
+  img {
+    width: 120px;
+    height: 120px;
+    border-radius: 5px;
+  }
+
+  .tradeCardContent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 100%;
+
+    .title {
+      @include typographies.title;
+
+      width: 150px;
+      overflow: hidden;
+      color: colors.$black;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .location {
+      @include typographies.label;
+
+      color: colors.$placeholder;
+    }
+
+    .date {
+      @include typographies.time;
+
+      color: colors.$placeholder;
+    }
+
+    .share {
+      @include typographies.label;
+
+      color: colors.$share;
+    }
+  }
+}
+
+.topRight {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.bottomRight {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+}

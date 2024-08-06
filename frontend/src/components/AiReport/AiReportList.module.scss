@@ -1,0 +1,48 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies.scss' as typo;
+
+.reportItem {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+
+  .cropImage {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 50%;
+  }
+
+  .reportContent {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between; /* 상단과 하단 공간 분리 */
+    height: 100%;
+
+    p {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .detailButton {
+      align-self: flex-end;
+      padding: 5px 10px;
+      margin-top: auto; 
+      font-size: 14px; 
+      color: colors.$primary;
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+    }
+  }
+}
+
+h3 {
+    margin: 30px 0 10px;
+}

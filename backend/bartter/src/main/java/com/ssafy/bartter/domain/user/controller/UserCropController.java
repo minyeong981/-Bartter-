@@ -1,5 +1,10 @@
 package com.ssafy.bartter.domain.user.controller;
 
+import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
+import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
+import com.ssafy.bartter.domain.crop.dto.CropDiaryDto;
+import com.ssafy.bartter.domain.crop.dto.CropDiaryDto.CropDiaryDetailWithUser;
+import com.ssafy.bartter.domain.crop.dto.CropDto;
 import com.ssafy.bartter.domain.crop.dto.CropDto.CropProfile;
 import com.ssafy.bartter.domain.crop.dto.CropTradeHistoryDto;
 import com.ssafy.bartter.domain.crop.entity.Crop;
@@ -15,7 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.ssafy.bartter.domain.crop.dto.CropDiaryDto.*;
 import static com.ssafy.bartter.domain.crop.dto.CropDiaryDto.CropDiaryDetail;
+import static com.ssafy.bartter.domain.crop.dto.CropDto.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,9 +35,9 @@ public class UserCropController {
 
     @Operation(summary = "유저가 기르는 농작물 전체 조회", description = "유저의 PK를 통해 유저가 등록한 농작물 프로필 전체를 조회한다.")
     @GetMapping("/{userId}/crops")
-    public SuccessResponse<List<CropProfile>> getUserCropList(@PathVariable("userId") int userId) {
+    public SuccessResponse<List<SimpleCropProfile>> getUserCropList(@PathVariable("userId") int userId) {
         List<Crop> cropList = cropService.getUserCropList(userId);
-        List<CropProfile> response = cropList.stream().map(CropProfile::of).collect(Collectors.toList());
+        List<SimpleCropProfile> response = cropList.stream().map(SimpleCropProfile::of).collect(Collectors.toList());
         return SuccessResponse.of(response);
     }
 
@@ -45,7 +52,7 @@ public class UserCropController {
 
     @Operation(summary = "유저가 작성한 농사일지 전체 조회", description = "유저의 PK를 통해 유저가 작성한 농사일지 전체를 조회한다.")
     @GetMapping("/{userId}/crops/diaries")
-    public SuccessResponse<List<CropDiaryDetail>> getUserDiaryList(
+    public SuccessResponse<List<CropDiaryThumbnail>> getUserDiaryList(
             @PathVariable("userId") int userId,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "6") int limit,
@@ -53,7 +60,18 @@ public class UserCropController {
             @RequestParam(value = "month", defaultValue = "0") int month
     ) {
         List<CropDiary> diaryList = cropDiaryService.getUserDiaryList(userId, page, limit, year, month);
-        List<CropDiaryDetail> response = diaryList.stream().map(CropDiaryDetail::of).collect(Collectors.toList());
+        List<CropDiaryThumbnail> response = diaryList.stream().map(CropDiaryThumbnail::of).collect(Collectors.toList());
+        return SuccessResponse.of(response);
+    }
+
+    @Operation(summary = "로그인한 유저가 팔로우하는 이웃들의 농사일지 조회", description = "현재 로그인한 유저가 팔로우 한 사람들의 농사일지를 조회한다.")
+    @GetMapping("/follows/diaries")
+    public SuccessResponse<List<CropDiaryDetailWithUser>> getUserDiaryList(
+            @CurrentUser UserAuthDto currentUser,
+            @RequestParam(value = "count", defaultValue = "5") int count
+    ) {
+        List<CropDiary> diaryList = cropDiaryService.getFolloweeDiaryList(currentUser.getId(), count);
+        List<CropDiaryDetailWithUser> response = diaryList.stream().map(CropDiaryDetailWithUser::of).collect(Collectors.toList());
         return SuccessResponse.of(response);
     }
 }

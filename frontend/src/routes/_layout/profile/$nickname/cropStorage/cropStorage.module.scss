@@ -1,0 +1,84 @@
+@use '@/styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+
+.cropStorageLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  
+  // align-items: center;
+  height: 100%;
+  padding-bottom: 0;
+  
+  // padding: 0 20px;
+  overflow-y: scroll;
+  
+  &::-webkit-scrollbar {
+      display: none;
+  }
+      
+}
+
+.cropStorageContainer {
+  padding: 16px;
+  text-align: center;
+
+  h1 {
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+
+  p {
+    max-width: 300px;
+    margin: 20px;
+    text-align: left;
+
+    @include typo.name;
+  }
+
+  .storageImage {
+    display: flex;
+    justify-content: center;
+
+    // img {
+    //   max-width: 100%;
+    //   height: auto;
+    //   margin: 10px;
+    // }
+    .animation {
+      width: 200px; // 애니메이션 크기 조정
+      margin-bottom: 1rem;
+    }
+
+  }
+
+  .toggleContainer {
+    display: inline-flex;
+    padding: 5px;
+    margin-bottom: 20px;
+    background-color: colors.$divider;
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+
+    .toggleButton {
+      padding: 10px 20px;
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+      border-radius: 30px;
+      transition: background-color 0.1s, color 0.1s;
+
+      &.active {
+        color: colors.$white;
+        background-color: colors.$primary;
+      }
+
+      @include typo.alarm;
+    }
+  }
+
+    .myCropsContainer {
+        background-color: colors.$divider;
+        border-radius: 10px;
+    }
+}

@@ -1,0 +1,65 @@
+@use '@/styles/constants/colors.scss' as colors;
+@use '@/styles/constants/typographies.scss' as typo;
+
+.homeStory {
+  position: relative;
+  max-width: 390px;
+  overflow: hidden;
+
+  .carouselContainer {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .storyCard {
+      position: relative;
+      flex: 0 0 38%;
+      scroll-snap-align: start;
+      margin: 0 5px;
+
+      .diaryImage {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        width: 100%;
+        height: 200px; 
+        overflow: hidden;
+        border-radius: 10px;
+    }
+    
+      .profileImage {
+        position: absolute;
+        bottom: 28px;
+        left: 50%;
+        z-index: 2; 
+        width: 75px;
+        height: 75px;
+        background-color: colors.$white;
+        border: 2px solid colors.$white;
+        border-radius: 50%;
+        transform: translateX(-50%);
+      }
+
+      .nickname {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        z-index: 3;
+        padding: 5px 10px;
+        color: colors.$white;
+        border-radius: 10px;
+        transform: translateX(-50%);
+
+        @include typo.label;
+      }
+    }
+  }
+}

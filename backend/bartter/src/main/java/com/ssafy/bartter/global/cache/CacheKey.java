@@ -9,4 +9,8 @@ public class CacheKey {
     public static String searchLogKey(String username){
         return "searchLog#" + username;
     }
+
+    public static String messageKey(int tradeId) {
+        return "trade#chat#" + tradeId;
+    }
 }

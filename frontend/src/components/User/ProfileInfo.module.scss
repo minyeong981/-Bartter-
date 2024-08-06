@@ -1,0 +1,94 @@
+@use '@/styles/constants/colors.scss' as colors;
+@use '@/styles/constants/typographies.scss' as typo;
+
+.profileInfo {
+  border-bottom: solid 2px colors.$gray1;
+
+  .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 390px;
+      margin: 0 auto;
+    }
+    
+    .locationBox {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px 0;
+
+      @include typo.button
+    }
+    
+    .locationBox svg {
+      margin-right: 5px;
+    }
+    
+    .imgBox {
+      display: flex;
+      justify-content: center;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 10px;
+      overflow: hidden;
+      border-radius: 50%;
+    }
+    
+    .imgBox img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .nickname {
+      margin: 10px 0;
+      text-align: center;
+
+      @include typo.title
+    }
+    
+    .followButton {
+      display: flex;
+      justify-content: center;
+    }
+    
+    .followBox {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin: 10px 0;
+
+      @include typo.main
+    }
+    
+    .followBox div {
+      display: flex;
+      align-items: center;
+      padding: 5px;
+    }
+    
+    .followeeIcon, .followingIcon {
+      margin-right: 5px;
+    }
+    
+    .followeeIcon {
+    }
+    
+    .followingIcon {
+      color: black;
+    }
+    
+    .follweeCount, .follwingCount {
+      margin-left: 5px;
+    }
+    
+    .message {
+      margin: 40px;
+      margin-top: 20px;
+      color: colors.$placeholder;
+      text-align: left;
+
+      @include typo.label
+    }
+  }   

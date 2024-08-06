@@ -59,7 +59,7 @@ public class CommunityPostController {
 
     @Operation(summary = "동네모임 게시글 전체 조회", description = "동네모임 전체 게시글을 조회한다.")
     @GetMapping("")
-    public SuccessResponse<List<CommunityPostDetail>> getCommunityPostList(
+    public SuccessResponse<List<SimpleCommunityPostDetail>> getCommunityPostList(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "10") int limit,
             @RequestParam(value = "isCommunity", defaultValue = "false") boolean isCommunity,
@@ -68,8 +68,8 @@ public class CommunityPostController {
     ) {
         Integer userId = currentUser.getId();
         List<CommunityPost> postList = communityPostService.getPostList(page, limit, keyword, isCommunity, userId);
-        List<CommunityPostDetail> response = postList.stream()
-                .map((CommunityPost post) -> CommunityPostDetail.of(post, userId))
+        List<SimpleCommunityPostDetail> response = postList.stream()
+                .map((CommunityPost post) -> SimpleCommunityPostDetail.of(post, userId))
                 .collect(Collectors.toList());
         return SuccessResponse.of(response);
     }

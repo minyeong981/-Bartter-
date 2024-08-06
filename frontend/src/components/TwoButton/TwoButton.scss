@@ -1,0 +1,64 @@
+@use '@/styles/constants/colors.scss' as colors;
+@use '@/styles/constants/typographies.scss' as typo;
+
+.main-page {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin: 0 auto;
+
+  .button {
+    position: relative;
+    flex: 1;
+    padding: 20px 5%;
+    font-size: 20px;
+    color: colors.$placeholder; 
+    text-align: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
+
+    @include typo.list-main;
+
+    &::after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+      height: 4px;
+      content: '';
+      background-color: transparent;
+      background-color: colors.$placeholder;
+      transform: translateX(0);
+    }
+
+    &.active {
+      color: black;
+
+      &::after {
+        background-color: black;
+      }
+    }
+
+    &:not(.active) {
+      color: colors.$placeholder;
+    }
+  }
+
+  @media (width <= 768px) {
+    .button {
+      padding: 15px 5%;
+      font-size: 18px;
+    }
+  }
+
+  @media (width <= 480px) {
+    .button {
+      padding: 10px 5%;
+      font-size: 16px;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+@use '@/styles/constants/typographies' as typo;
+
+.text {
+  @include typo.title;
+
+  text-align: center;
+}
+
+.buttonContainer {
+  @include typo.button;
+
+  display: flex;
+  gap: 22px;
+  justify-content: center;
+}

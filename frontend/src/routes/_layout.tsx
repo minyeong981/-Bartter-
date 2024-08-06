@@ -1,6 +1,6 @@
 import {createFileRoute, Outlet} from '@tanstack/react-router';
 
-import classes from '../styles/layout/rootLayout.module.scss';
+import classes from '@/styles/layout/rootLayout.module.scss';
 
 export const Route = createFileRoute('/_layout')({
   component: Layout,
