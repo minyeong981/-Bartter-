@@ -4,6 +4,7 @@ import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
  * @author 김용수
  */
 @Entity
+@Getter
 @Table(name = "trade")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Trade extends BaseEntity {
@@ -44,4 +46,11 @@ public class Trade extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "trade_status", nullable = false)
     private TradeStatus status = TradeStatus.PROGRESS;
+
+    public static Trade of(User user, TradePost tradePost){
+        Trade trade = new Trade();
+        trade.user = user;
+        trade.tradePost = tradePost;
+        return trade;
+    }
 }

@@ -75,6 +75,9 @@ dependencies {
     // Redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
+    // WebSocket
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    
     // Spring AI for OpenAI
     implementation platform("org.springframework.ai:spring-ai-bom:1.0.0-SNAPSHOT")
     implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter'
