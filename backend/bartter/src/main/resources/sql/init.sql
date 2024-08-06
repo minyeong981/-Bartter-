@@ -1,35 +1,32 @@
 -- Drop foreign keys
--- ALTER TABLE community_post DROP FOREIGN KEY FK5voin9s2s70bvc490h58p0e9j;
--- ALTER TABLE community_post DROP FOREIGN KEY FKm5pbosagfniobhwcv6ot7tdcj;
--- ALTER TABLE community_post_comment DROP FOREIGN KEY FK8ka11yxw46wy8eoq28khik30x;
--- ALTER TABLE community_post_comment DROP FOREIGN KEY FKg8wvn8vmt4q4bd503rip4cuhp;
--- ALTER TABLE community_post_image DROP FOREIGN KEY FKfy6bcnk9stp5x189b0id1qhfd;
--- ALTER TABLE community_post_like DROP FOREIGN KEY FKhbe2v7or8saetjmpxhunb9goj;
--- ALTER TABLE community_post_like DROP FOREIGN KEY FK1k3gkv5pyhk8o09624rw2jhxv;
--- ALTER TABLE crop DROP FOREIGN KEY FK7eeejpksig8npa05cacj232h1;
--- ALTER TABLE crop DROP FOREIGN KEY FK76xv1sgky2q7kwe7g2elv05mp;
--- ALTER TABLE crop_diary DROP FOREIGN KEY FK8q9vt1evbntodygvpjjkfk13j;
--- ALTER TABLE crop_report DROP FOREIGN KEY FKdjihepcn6c37okg8mj8j8nwgp;
--- ALTER TABLE crop_report DROP FOREIGN KEY FK87n3i3cqrk01ihc74dvpesjsy;
--- ALTER TABLE follow DROP FOREIGN KEY FKjhmtcmoxpgcojx2p3h7lcphsq;
--- ALTER TABLE follow DROP FOREIGN KEY FKmow2qk674plvwyb4wqln37svv;
--- ALTER TABLE trade DROP FOREIGN KEY FKqrtut344cnig4qihs1te250dq;
--- ALTER TABLE trade DROP FOREIGN KEY FK1dqm16mo3cntjlxap3iusqvyt;
--- ALTER TABLE trade_post DROP FOREIGN KEY FK3fvfraumm3neqg2mb3xf6a52a;
--- ALTER TABLE trade_post DROP FOREIGN KEY FKk3qn5sfu51as2nevdt9mus92o;
--- ALTER TABLE trade_post DROP FOREIGN KEY FKfydlcx318xvm70cqnhn2s0295;
--- ALTER TABLE trade_post DROP FOREIGN KEY FKbbsoj791jofqymfm8h0gjfv25;
--- ALTER TABLE trade_post_image DROP FOREIGN KEY FKd2qajdbftrfqx5ujhjrprn1o7;
--- ALTER TABLE trade_post_like DROP FOREIGN KEY FK8wli9erfck1h74tno70qvhgly;
--- ALTER TABLE trade_post_like DROP FOREIGN KEY FKc54giobbn94jbk28og65f600f;
--- ALTER TABLE trade_wish_crop_category DROP FOREIGN KEY FKowo5w2q918jsb6663qcolq82k;
--- ALTER TABLE trade_wish_crop_category DROP FOREIGN KEY FKt5981unccllugrsq7vy4r31gj;
--- ALTER TABLE user DROP FOREIGN KEY FKneyhvoj17hax43m8dq3u7gbic;
+ALTER TABLE community_post DROP FOREIGN KEY FK5voin9s2s70bvc490h58p0e9j;
+ALTER TABLE community_post DROP FOREIGN KEY FKm5pbosagfniobhwcv6ot7tdcj;
+ALTER TABLE community_post_comment DROP FOREIGN KEY FK8ka11yxw46wy8eoq28khik30x;
+ALTER TABLE community_post_comment DROP FOREIGN KEY FKg8wvn8vmt4q4bd503rip4cuhp;
+ALTER TABLE community_post_image DROP FOREIGN KEY FKfy6bcnk9stp5x189b0id1qhfd;
+ALTER TABLE community_post_like DROP FOREIGN KEY FKhbe2v7or8saetjmpxhunb9goj;
+ALTER TABLE community_post_like DROP FOREIGN KEY FK1k3gkv5pyhk8o09624rw2jhxv;
+ALTER TABLE crop DROP FOREIGN KEY FK7eeejpksig8npa05cacj232h1;
+ALTER TABLE crop DROP FOREIGN KEY FK76xv1sgky2q7kwe7g2elv05mp;
+ALTER TABLE crop_diary DROP FOREIGN KEY FK8q9vt1evbntodygvpjjkfk13j;
+ALTER TABLE crop_report DROP FOREIGN KEY FKdjihepcn6c37okg8mj8j8nwgp;
+ALTER TABLE crop_report DROP FOREIGN KEY FK87n3i3cqrk01ihc74dvpesjsy;
+ALTER TABLE follow DROP FOREIGN KEY FKjhmtcmoxpgcojx2p3h7lcphsq;
+ALTER TABLE follow DROP FOREIGN KEY FKmow2qk674plvwyb4wqln37svv;
+ALTER TABLE trade DROP FOREIGN KEY FKqrtut344cnig4qihs1te250dq;
+ALTER TABLE trade DROP FOREIGN KEY FK1dqm16mo3cntjlxap3iusqvyt;
+ALTER TABLE trade_post DROP FOREIGN KEY FK3fvfraumm3neqg2mb3xf6a52a;
+ALTER TABLE trade_post DROP FOREIGN KEY FKk3qn5sfu51as2nevdt9mus92o;
+ALTER TABLE trade_post DROP FOREIGN KEY FKfydlcx318xvm70cqnhn2s0295;
+ALTER TABLE trade_post DROP FOREIGN KEY FKbbsoj791jofqymfm8h0gjfv25;
+ALTER TABLE trade_post_image DROP FOREIGN KEY FKd2qajdbftrfqx5ujhjrprn1o7;
+ALTER TABLE trade_post_like DROP FOREIGN KEY FK8wli9erfck1h74tno70qvhgly;
+ALTER TABLE trade_post_like DROP FOREIGN KEY FKc54giobbn94jbk28og65f600f;
+ALTER TABLE trade_wish_crop_category DROP FOREIGN KEY FKowo5w2q918jsb6663qcolq82k;
+ALTER TABLE trade_wish_crop_category DROP FOREIGN KEY FKt5981unccllugrsq7vy4r31gj;
+ALTER TABLE user DROP FOREIGN KEY FKneyhvoj17hax43m8dq3u7gbic;
 
 -- Drop tables
-DROP TABLE IF EXISTS community_post_like;
-DROP TABLE IF EXISTS community_post_image;
-DROP TABLE IF EXISTS community_post_comment;
 DROP TABLE IF EXISTS community_post;
 DROP TABLE IF EXISTS crop_report;
 DROP TABLE IF EXISTS crop_diary;
@@ -42,8 +39,6 @@ DROP TABLE IF EXISTS crop;
 DROP TABLE IF EXISTS crop_category;
 DROP TABLE IF EXISTS follow;
 DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS location;
-
 
 -- Create tables
 CREATE TABLE community_post (
@@ -55,7 +50,7 @@ CREATE TABLE community_post (
                                 community_post_title VARCHAR(50) NOT NULL,
                                 community_post_content VARCHAR(2000) NOT NULL,
                                 PRIMARY KEY (community_post_id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE community_post_comment (
                                         community_post_comment_id INTEGER NOT NULL AUTO_INCREMENT,
@@ -140,15 +135,14 @@ CREATE TABLE follow (
 ) ENGINE=InnoDB;
 
 CREATE TABLE location (
-    location_id      INT AUTO_INCREMENT PRIMARY KEY,
-    location_code    VARCHAR(10)                                                     NOT NULL,
-    location_name    VARCHAR(50)                                                     NOT NULL,
-    location_polygon GEOMETRY                                                        NOT NULL SRID 4326,
-    location_point   POINT                                                           NOT NULL SRID 4326,
-    created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP                             ,
-    updated_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
-    SPATIAL INDEX (location_polygon),
-    SPATIAL INDEX (location_point)
+                          location_id INTEGER NOT NULL AUTO_INCREMENT,
+                          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+                          location_code VARCHAR(10) NOT NULL,
+                          location_name VARCHAR(50) NOT NULL,
+                          location_point GEOMETRY NOT NULL,
+                          location_polygon GEOMETRY NOT NULL,
+                          PRIMARY KEY (location_id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE refresh (

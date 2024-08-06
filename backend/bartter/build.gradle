@@ -35,6 +35,9 @@ dependencies {
     // 스프링 시큐리티
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
+    // OAuth 2
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
     // jwt
     implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
     implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'

@@ -20,3 +20,4 @@ import java.lang.annotation.Target;
 @AuthenticationPrincipal(expression = "#this == 'anonymousUser' ? null : @fetchUser.apply(#this)")
 public @interface CurrentUser {
 }
+

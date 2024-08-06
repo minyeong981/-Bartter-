@@ -2,7 +2,9 @@ package com.ssafy.bartter.global.config;
 
 import com.ssafy.bartter.domain.auth.config.JwtConfig;
 import com.ssafy.bartter.domain.auth.handler.CustomAuthenticationEntryPoint;
+import com.ssafy.bartter.domain.auth.handler.OAuth2SuccessHandler;
 import com.ssafy.bartter.domain.auth.repository.RedisRefreshRepository;
+import com.ssafy.bartter.domain.auth.service.OAuth2UserService;
 import com.ssafy.bartter.domain.auth.utils.CookieUtil;
 import com.ssafy.bartter.domain.auth.utils.JwtUtil;
 import com.ssafy.bartter.global.filter.JwtAuthenticationFilter;
@@ -10,6 +12,7 @@ import com.ssafy.bartter.global.filter.LoginFilter;
 import com.ssafy.bartter.global.filter.LogoutFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +21,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -30,8 +34,9 @@ import java.util.Collections;
  *
  * @author 김훈민
  */
+@Slf4j
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final AuthenticationConfiguration authenticationConfiguration;
@@ -39,6 +44,8 @@ public class SecurityConfig {
     private final CookieUtil cookieUtil;
     private final RedisRefreshRepository redisRefreshRepository;
     private final JwtConfig jwtConfig;
+    private final OAuth2UserService oAuth2UserService;
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -54,7 +61,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomAuthenticationEntryPoint customAuthenticationEntryPoint) throws Exception {
-
         // cors
         http
                 .cors((corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
@@ -91,29 +97,44 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
+<<<<<<< backend/bartter/src/main/java/com/ssafy/bartter/global/config/SecurityConfig.java
                         .requestMatchers("/ws/**").permitAll()
-                        .requestMatchers("/", "/login", "/user/join", "/user/location").permitAll()
-                        .requestMatchers("/auth/reissue").permitAll()
-                        .requestMatchers("/swagger", "/swagger-ui.html", "/swagger-ui/**", "/api-docs", "/api-docs/**", "/v3/api-docs/**")
-                        .permitAll()
+                        .requestMatchers("/", "/login", "/user/join", "/user/location" ,"/oauth2/**").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/swagger", "/swagger-ui.html", "/swagger-ui/**", "/api-docs", "/api-docs/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 );
+
+        // oauth2 user service 연결
         http
-                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), LoginFilter.class);
+                .oauth2Login((oauth2) -> oauth2
+                        .userInfoEndpoint(userInfoEndpointConfig -> {
+                            userInfoEndpointConfig.userService(oAuth2UserService);
+                        })
+                        .successHandler(oAuth2SuccessHandler)
+                );
+
+
+
         http
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, cookieUtil, redisRefreshRepository, jwtConfig), UsernamePasswordAuthenticationFilter.class);
-        http
+                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), LoginFilter.class)
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, cookieUtil, redisRefreshRepository, jwtConfig), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new LogoutFilter(jwtUtil, redisRefreshRepository), org.springframework.security.web.authentication.logout.LogoutFilter.class);
+
 
         http
                 .exceptionHandling((exceptions) -> exceptions
                         .authenticationEntryPoint(customAuthenticationEntryPoint)
                 );
 
+
         http
                 .sessionManagement((session) -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
+
 
         return http.build();
     }
+
+
 }
