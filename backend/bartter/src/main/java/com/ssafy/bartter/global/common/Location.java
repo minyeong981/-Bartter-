@@ -1,13 +1,10 @@
 package com.ssafy.bartter.global.common;
 
-import com.ssafy.bartter.community.entity.CommunityPost;
-import com.ssafy.bartter.trade.entity.TradePost;
-import com.ssafy.bartter.user.entity.User;
+import com.ssafy.bartter.domain.community.entity.CommunityPost;
+import com.ssafy.bartter.domain.trade.entity.TradePost;
+import com.ssafy.bartter.domain.user.entity.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Point;
 
@@ -74,6 +71,7 @@ public class Location extends BaseEntity {
      */
     @OneToMany(mappedBy = "location", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<TradePost> tradePostList = new ArrayList<>();
+
 }
 
 

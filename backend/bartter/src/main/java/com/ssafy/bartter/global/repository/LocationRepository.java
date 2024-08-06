@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 위치 Entity를 다루는 LocationRepository
@@ -17,7 +18,7 @@ import java.util.List;
 public interface LocationRepository extends JpaRepository<Location, Integer> {
 
     @Query("SELECT l FROM Location l WHERE ST_CONTAINS(l.multiPolygon, :point) = true")
-    Location findLocationByPointContains(@Param("point") Point point);
+    Optional<Location> findLocationByPointContains(@Param("point") Point point);
 
     @Query(value = "SELECT * FROM location l WHERE ST_DISTANCE_SPHERE(l.location_point, :point) <= :radius", nativeQuery = true)
     List<Location> findLocationListWithinRadius(@Param("point") Point point, @Param("radius") double radius);

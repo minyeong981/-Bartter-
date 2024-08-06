@@ -5,7 +5,8 @@ import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.util.IOUtils;
-import com.ssafy.bartter.global.exception.ImageInvalidException;
+import com.ssafy.bartter.global.exception.CustomException;
+import com.ssafy.bartter.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,10 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -60,7 +57,7 @@ public class S3UploadService {
      */
     public String upload(MultipartFile image) {
         if (image.isEmpty() || Objects.isNull(image.getOriginalFilename())) {
-            throw new ImageInvalidException("이미지가 존재하지 않습니다.");
+            throw new CustomException(ErrorCode.EMPTY_FILE);
         }
         return url + uploadImage(image);
     }
@@ -76,7 +73,7 @@ public class S3UploadService {
         try {
             return uploadToS3(image);
         } catch (IOException e) {
-            throw new ImageInvalidException(e.getMessage());
+            throw new CustomException(ErrorCode.FAIL_TO_CREATE_FILE);
         }
     }
 
@@ -92,7 +89,7 @@ public class S3UploadService {
         String extension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1); // 파일 확장자
 
         // UUID를 사용하여 고유한 파일 이름 생성
-        String s3FileName = UUID.randomUUID().toString().substring(0, 10) + originalFileName;
+        String s3FileName = UUID.randomUUID().toString().substring(0, 14);
 
         // MultipartFile의 InputStream을 가져온 뒤, 바이트 배열로 변환
         byte[] bytes = IOUtils.toByteArray(image.getInputStream());
@@ -100,17 +97,33 @@ public class S3UploadService {
         ObjectMetadata metadata = new ObjectMetadata(); // S3에 업로드할 파일의 메타데이터 설정
         metadata.setContentType("image/" + extension); // 콘텐츠 타입 설정
         metadata.setContentLength(bytes.length); // 콘텐츠 길이 설정
-        // cb40f8b6-eLogo.png
+
         // 바이트 배열을 사용하여 ByteArrayInputStream 생성
         try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes)) {
             // S3에 파일 업로드 요청 생성
             PutObjectRequest putRequest = new PutObjectRequest(bucketName, s3FileName, byteArrayInputStream, metadata);
             amazonS3.putObject(putRequest); // S3 파일 업로드
         } catch (Exception e) {
-            throw new ImageInvalidException("이미지 업로드를 실패하였습니다.");
+            throw new CustomException(ErrorCode.FAIL_TO_CREATE_FILE);
         }
 
         return amazonS3.getUrl(bucketName, s3FileName).getPath();
+    }
+
+    public List<String> uploadImageList(List<MultipartFile> imageList) {
+        ArrayList<String> uploadedImageList = new ArrayList<>();
+        try{
+            for(MultipartFile image : imageList) {
+                String uploadFile = upload(image);
+                uploadedImageList.add(uploadFile);
+            }
+        } catch (Exception e) {
+            for(String uploadedImage : uploadedImageList) {
+                delete(uploadedImage);
+            }
+            throw new CustomException(ErrorCode.IMAGE_NOT_ADDED);
+        }
+        return uploadedImageList;
     }
 
     /**
@@ -121,38 +134,39 @@ public class S3UploadService {
     private void checkImageFile(String imageFileName) {
         int extensionIdx = imageFileName.lastIndexOf(".");
         if (extensionIdx == -1) {
-            throw new ImageInvalidException("유효하지 않은 확장자입니다.");
+            throw new CustomException(ErrorCode.NOT_SUPPORTED_EXTENSION);
         }
         String extension = imageFileName.substring(extensionIdx + 1).toLowerCase();
 
         if (!allowExtensionList.contains(extension)) {
-            throw new ImageInvalidException("지원하지 않는 확장자입니다.");
+            throw new CustomException(ErrorCode.NOT_SUPPORTED_EXTENSION);
         }
     }
 
     /**
      * 이미지 Url 삭제 메서드
      *
-     * @param imageUrl
+     * @param imageUrl AWS S3 ImageUrl
      */
     public void delete(String imageUrl) {
         try {
             String key = getObjectNameFromUrl(imageUrl);
             amazonS3.deleteObject(new DeleteObjectRequest(bucketName, key));
         } catch (Exception e) {
-            throw new ImageInvalidException("존재하지 않는 이미지입니다.");
+            throw new CustomException(ErrorCode.FAIL_TO_DELETE_FILE);
         }
     }
 
     /**
      * Url key 추출 메서드
      * @param imageUrl
-     * @return Object의 Key값
+     * @return Object Key
      */
     private String getObjectNameFromUrl(String imageUrl) {
         if (imageUrl == null || !imageUrl.contains("/")) {
-            throw new ImageInvalidException("유효하지 않은 URL 형식입니다.");
+            throw new CustomException(ErrorCode.FAIL_TO_DELETE_FILE);
         }
         return imageUrl.substring(imageUrl.indexOf("/") + 1);
     }
+
 }

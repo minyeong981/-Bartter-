@@ -21,7 +21,7 @@ public abstract class BaseEntity {
      * 생성일시
      */
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false,updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
 
     /**

@@ -13,12 +13,21 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
+      LANG: C.UTF-8
+      C_ALL: C.UTF-8
     volumes:
-      - ./mysql_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
 #      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./src/main/resources/sql/init.sql:/docker-entrypoint-initdb.d/01.sql
+      - ./src/main/resources/sql/dml/location.sql:/docker-entrypoint-initdb.d/02.sql
+      - ./src/main/resources/sql/dml/cropcategory.sql:/docker-entrypoint-initdb.d/03.sql
     ports:
       - 3306:3306
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping" ]
-      interval: 5s
-      retries: 10
+      test: ["CMD-SHELL", "mysqladmin ping -h bartter-db -u root -p$MYSQL_ROOT_PASSWORD || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  mysql_data:
+    driver: local
