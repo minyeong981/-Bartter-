@@ -38,9 +38,8 @@ public class AuthUserDetailsService implements UserDetailsService {
      */
     @Override
     @Transactional(readOnly = true)
-    public AuthUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public AuthUserDetails loadUserByUsername(String username) {
         User user = userRepository.findByUsername(username);
-
         if(user == null)
             throw new CustomException(ErrorCode.USER_NOT_FOUND);
         if(user.getLocation() == null)

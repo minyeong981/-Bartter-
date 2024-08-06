@@ -21,6 +21,7 @@ public enum ErrorCode {
     IMAGE_NOT_ADDED(HttpStatus.BAD_REQUEST, 1007, "이미지를 첨부해야 합니다."),
     BAD_REQUEST(HttpStatus.BAD_REQUEST, 1008, "잘못된 요청입니다. 요청을 확인해주세요."),
 
+
     // Auth & User - 2000
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, 2000, "해당 ID의 사용자를 찾을 수 없습니다."),
     ACCESS_TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, 2001, "만료된 액세스 토큰입니다."),
@@ -37,6 +38,14 @@ public enum ErrorCode {
     FOLLOW_SELF_NOT_ALLOWED(HttpStatus.BAD_REQUEST, 2012, "자기 자신을 팔로우할 수 없습니다."),
     UNFOLLOW_SELF_NOT_ALLOWED(HttpStatus.BAD_REQUEST, 2013, "자기 자신을 언팔로우할 수 없습니다."),
     FOLLOW_NOT_EXIST(HttpStatus.BAD_REQUEST, 2014, "팔로우한 적 없는 대상입니다."),
+    INVALID_REGISTRATION_ID(HttpStatus.BAD_REQUEST, 2015, "잘못된 registrationId 값입니다."),
+    FIRST_LOGIN_REDIRECT(HttpStatus.OK, 2016, "처음 로그인한 사용자, 추가 정보 입력 필요"),
+    KAKAO_NICKNAME_NOT_FOUND(HttpStatus.BAD_REQUEST, 2017, "카카오 로그인에서 받은 정보에 닉네임이 없습니다"),
+    KAKAO_EMAIL_NOT_FOUND(HttpStatus.BAD_REQUEST, 2018, "카카오 로그인에서 받은 정보에 이메일이 없습니다"),
+    KAKAO_PROFILE_IMG_NOT_FOUND(HttpStatus.BAD_REQUEST, 2019, "카카오 로그인에서 받은 정보에 프로필 사진이 없습니다"),
+    SESSION_EXPIRED_OR_NOT_FOUND(HttpStatus.BAD_REQUEST, 2020, "세션이 만료되었거나 존재하지 않습니다"),
+
+
 
     // Crop - 3000
     CROP_NOT_FOUND(HttpStatus.NOT_FOUND, 3000, "해당 ID의 농작물을 찾을 수 없습니다."),

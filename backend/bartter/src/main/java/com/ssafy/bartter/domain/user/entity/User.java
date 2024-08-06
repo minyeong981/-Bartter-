@@ -54,7 +54,7 @@ public class User extends BaseEntity {
     /**
      * 사용자 비밀번호
      */
-    @Column(name = "user_password", nullable = false, length = 255)
+    @Column(name = "user_password", length = 255)
     private String password;
 
     /**
@@ -73,26 +73,26 @@ public class User extends BaseEntity {
     /**
      * 사용자 핸드폰
      */
-    @Column(name = "user_phone", nullable = false, length = 11)
+    @Column(name = "user_phone", length = 11)
     private String phone;
 
     /**
      * 사용자 성별
      */
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_gender", nullable = false, length = 1)
+    @Column(name = "user_gender", length = 1)
     private Gender gender;
 
     /**
      * 사용자 이메일
      */
-    @Column(name = "user_email", length = 50, nullable = true)
+    @Column(name = "user_email", length = 50)
     private String email;
 
     /**
      * 사용자 생년월일
      */
-    @Column(name = "user_birth_date", nullable = false)
+    @Column(name = "user_birth_date")
     private LocalDate birth;
 
     /**
@@ -104,12 +104,12 @@ public class User extends BaseEntity {
     /**
      * 사용자 프로필 메시지
      */
-    @Column(name = "user_profile_message", nullable = true)
+    @Column(name = "user_profile_message")
     private String profileMessage;
 
     /**
      * 인증자
-     * Spring Security로 교체해야하는가?
+     *
      */
     @Enumerated(EnumType.STRING)
     @Column(name = "user_provider", nullable = false, length = 10)
@@ -202,7 +202,7 @@ public class User extends BaseEntity {
      */
     @Builder
     public User(String username, String password, String nickname, LocalDate birth, Gender gender,
-                Location location, String phone, String email) {
+                Location location, String phone, String email, String profileImage, String profileMessage, Role role) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
@@ -211,8 +211,9 @@ public class User extends BaseEntity {
         this.location = location;
         this.phone = phone;
         this.email = email;
-        this.profileImage = "default.png";
-        this.profileMessage = "Hi";
+        this.role = role == null ? Role.USER : role;
+        this.profileImage = profileImage == null ? "default.png" : profileImage;
+        this.profileMessage = profileMessage == null ? "Hi" : profileMessage;
         this.isAccountExpired = false;
     }
 
@@ -245,5 +246,14 @@ public class User extends BaseEntity {
      */
     public int getFollowerCount() {
         return followerList.size();
+    }
+
+    /**
+     * OAuth 로그인 시, 사용자의 nickname, email, profile image 를 업데이트 하는 메서드
+     */
+    public void updateProfile(String nickname, String email, String profileImage) {
+        this.nickname = nickname;
+        this.email = email;
+        this.profileImage = profileImage;
     }
 }
