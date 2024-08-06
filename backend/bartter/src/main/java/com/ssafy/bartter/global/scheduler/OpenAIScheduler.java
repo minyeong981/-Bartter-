@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
@@ -36,7 +35,7 @@ public class OpenAIScheduler {
      * 일요일마다 하루 농사 알리미를 생성하는 메소드
      * 일요일 아침 6시 생성 예정
      * */
-    @Scheduled(fixedRate = 100000000)
+//    @Scheduled(fixedRate = 100000000)
     public void createDailyFarmingAlarm() throws IOException {
 
         // 현재 등록된 전체 유저 목록을 조회한다
@@ -45,7 +44,7 @@ public class OpenAIScheduler {
         // 각 유저마다 농작물들의 요약 리포트를 생성한다
         for (User user : allUserList) {
 
-            log.info("Creating user weekly crop report for {}", user.getId());
+            log.info("Start creating user weekly crop report for {}", user.getUsername());
             List<Crop> userCropList = cropService.getUserCropList(user.getId());
 
             // 기본 알람
@@ -60,19 +59,32 @@ public class OpenAIScheduler {
             ));
 
 
-            if (!userCropList.isEmpty() ) {
+            if (!userCropList.isEmpty()) {
+                // AI 요약 리포트 생성
                 List<CropReport> weeklyCropReportList = openAiService.createWeeklyCropReport(user, userCropList);
+
                 if (!weeklyCropReportList.isEmpty()) {
                     // 기본 알람 비우기
                     alarmList.clear();
 
-                    // 요약 리포트에서 발췌한 알람으로 새롭게 생성해주기
+                    // AI 요약 리포트마다 다음주 작업 발췌한 후 파싱하여 알람으로 넣어주기
                     for (CropReport cropReport : weeklyCropReportList) {
-                        // parsing
+                        String[] sentences = cropReport.getContent().split("\n");
+
+                        for (int i = sentences.length - 1; i >= 0 ; i--) {
+                            String sentence = sentences[i];
+                            if (sentence.equals("### 다음 주의 작업")) break;
+                            if (!sentence.equals("\n")) {
+                                alarmList.add(sentence.substring(2, sentence.length() - 1));
+                            }
+                        }
                     }
+                } else {
+                    log.warn("No crop report generated for {}", user.getUsername());
                 }
-                log.warn("no user crops for {}", user.getId());
             }
+
+
 
 
         }

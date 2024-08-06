@@ -56,7 +56,7 @@ public class OpenAIService {
             List<CropDiary> diaryList = cropDiaryService.getWeeklyCropDiaryList(crop.getId(), LocalDate.now());
 
             if (diaryList.isEmpty()) {
-                log.warn("no weekly crop diaries for {}", crop.getNickname());
+                log.warn("No diary written for {}", crop.getNickname());
                 continue;
             }
 
@@ -70,6 +70,7 @@ public class OpenAIService {
 
             CropReport cropReport = cropReportService.createCropReport(user, crop, LocalDate.now(), response);
             createdReportList.add(cropReport);
+            log.info("Created crop report for {}", crop.getNickname());
         }
 
         return createdReportList;
@@ -125,6 +126,7 @@ public class OpenAIService {
             promptBuilder.append(cropDiary.getContent()).append("\n");
             promptBuilder.append("\n");
         }
+
         return promptBuilder.toString();
     }
 }
