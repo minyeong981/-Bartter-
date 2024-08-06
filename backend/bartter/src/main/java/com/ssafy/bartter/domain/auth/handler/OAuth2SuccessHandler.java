@@ -64,21 +64,11 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             // 세션에 사용자 정보 저장
             OAuthTempUserInfoDto userInfo = OAuthTempUserInfoDto.create(username, nickname, profileImage, email, role);
             request.getSession().setAttribute("userInfo", userInfo);
+            
             // 세션 타임아웃 설정 (5분)
             request.getSession().setMaxInactiveInterval(300);
 
-            CustomException customException = new CustomException(ErrorCode.FIRST_LOGIN_REDIRECT);
-            ErrorResponse errorResponse = ErrorResponse.of(customException);
-
-            // JSON 응답 작성
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-
-            // 객체를 JSON 문자열로 변환하여 응답 본문에 작성
-            ObjectMapper objectMapper = new ObjectMapper();
-            String jsonResponse = objectMapper.writeValueAsString(errorResponse);
-            response.getWriter().write(jsonResponse);
+            response.sendRedirect("http://localhost:5173/signup/additional");
         }
         else {
             // 토큰 생성
