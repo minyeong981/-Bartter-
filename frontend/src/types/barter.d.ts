@@ -186,6 +186,7 @@ interface CropTradeForm {
 }
 
 type GrowDate = string;
+type performDate = string;
 type Description = string;
 
 interface CropProfileForm {
@@ -224,6 +225,7 @@ interface CropDiaryForm {
   title: Title;
   content: Content;
   image: Image;
+  performDate?: PerformDate;
 }
 
 type CropDiaryId = number;

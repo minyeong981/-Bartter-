@@ -238,8 +238,24 @@ export default {
   /**
    * 농사일지 작성
    */
-  postCropDiary: async (data: CropDiaryForm) =>
-    axios.post<PostCropDiaryResponse>('/crops/diaries', data),
+  postCropDiary: async (data: CropDiaryForm) =>{
+    const form = new FormData()
+    for(const[key,value]of Object.entries(data)){
+      if(!value)continue
+      if(key === 'image'){
+        console.log(value)
+        form.append(key,value[0]);
+      }else{
+      form.append(key,value)
+      }
+    }  
+  
+  const response = axios.post<PostCropDiaryResponse>('/crops/diaries', form, {headers:{
+    "Content-Type":"multipart/form-data"
+  }})
+  return response;
+},
+
   /**
    * 농사일지 상세조회
    */

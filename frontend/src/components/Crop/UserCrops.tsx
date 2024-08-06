@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
 import classnames from "classnames/bind";
 import { useEffect, useState } from 'react';
 
@@ -12,40 +11,39 @@ const cx = classnames.bind(styles);
 
 interface UserCropsProps {
   userId: number;
+  onSelectCrop: (cropId: number) => void;
 }
 
-function UserCrops({ userId }: UserCropsProps) {
+function UserCrops({ userId, onSelectCrop }: UserCropsProps) {
   const { data } = useQuery({
     queryKey: ['cropProfile', userId],
     queryFn: () => barter.getCropProfileListByUser(userId)
   });
 
   const crops = data?.data.data || [];
-  const navigate = useNavigate();
   const [selectedCropId, setSelectedCropId] = useState<number | null>(null);
   const [imageUrl, setImageUrl] = useState<Record<number, string>>({});
 
   useEffect(() => {
     if (crops.length) {
-      for(const crop of crops){
-      const {image} = crop;
-      if (image instanceof Blob) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setImageUrl(prev=>({...prev,[crop.cropId]:reader.result as string}));
-        };
-        reader.readAsDataURL(image);
-      } else if (typeof image === 'string') {
-        setImageUrl(prev=>({...prev,[crop.cropId]:image}));
+      for (const crop of crops) {
+        const { image } = crop;
+        if (image instanceof Blob) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setImageUrl(prev => ({ ...prev, [crop.cropId]: reader.result as string }));
+          };
+          reader.readAsDataURL(image);
+        } else if (typeof image === 'string') {
+          setImageUrl(prev => ({ ...prev, [crop.cropId]: image }));
+        }
       }
-    }
     }
   }, [crops]);
 
-
   const handleCropClick = (cropId: number) => {
     setSelectedCropId(cropId);
-    navigate({ to: `/diary/growDiary/${cropId}` });
+    onSelectCrop(cropId); // 부모 컴포넌트로 cropId 전달
   };
 
   return (
