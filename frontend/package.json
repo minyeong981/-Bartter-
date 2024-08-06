@@ -14,8 +14,10 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.51.11",
+    "@tanstack/react-query-devtools": "^5.51.21",
     "@tanstack/react-router": "^1.45.8",
     "axios": "^1.7.2",
+    "browser-image-compression": "^2.0.2",
     "classnames": "^2.5.1",
     "date-fns": "^3.6.0",
     "immer": "^10.1.1",
@@ -32,6 +34,7 @@
     "@babel/core": "^7.24.9",
     "@babel/eslint-parser": "^7.24.8",
     "@svgr/rollup": "^8.1.0",
+    "@tanstack/eslint-plugin-query": "^5.51.15",
     "@tanstack/router-cli": "^1.45.8",
     "@tanstack/router-devtools": "^1.45.8",
     "@tanstack/router-plugin": "^1.45.8",

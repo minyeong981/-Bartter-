@@ -1,5 +1,6 @@
 import './styles/index.scss';
 
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {createRouter, RouterProvider} from '@tanstack/react-router';
 import {StrictMode} from 'react';
 import ReactDOM from 'react-dom/client';
@@ -7,8 +8,17 @@ import ReactDOM from 'react-dom/client';
 // Import the generated route tree
 import {routeTree} from './routeTree.gen.ts';
 
+const queryClient = new QueryClient();
+
 // Create a new router instance
-const router = createRouter({routeTree});
+const router = createRouter({
+  routeTree,
+  context: {
+    queryClient,
+  },
+  defaultPreload: 'intent',
+  defaultPreloadStaleTime: 0,
+});
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
@@ -31,11 +41,13 @@ async function enableMocking() {
 const rootElement = document.getElementById('root')!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
-  enableMocking().then(() =>
+  // enableMocking().then(() =>
     root.render(
       <StrictMode>
-        <RouterProvider router={router} />
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
       </StrictMode>,
-    ),
-  );
+    )
+  // );
 }

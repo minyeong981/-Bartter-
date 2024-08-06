@@ -26,6 +26,7 @@ const SemiCalendarInput: React.FC<SemiCalendarInputProps> = ({ label, selectedDa
           dateFormat="yyyy/MM/dd"
           className={cx('datePicker')}
           locale={ko} // 로케일 설정
+          maxDate={new Date()} // 오늘 이후 날짜 선택 불가
           renderCustomHeader={({
             date,
             decreaseMonth,

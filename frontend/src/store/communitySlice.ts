@@ -16,7 +16,8 @@ export interface CommunitySlice {
   posts: CommunityPostList;
   addPost: (newPost: CreatePost) => void;
   deletePost: (postId: number) => void;
-  addComment: (postId:number, comments : PostComment) => void;
+  addComment: (postId:number, newContent:string ) => void;
+  deleteComment: (postId:number, commentId:number) => void;
 }
 
 const initialPost: CommunityPostList = [
@@ -26,6 +27,7 @@ const initialPost: CommunityPostList = [
     location: {locationId: 0, locationName: '광주 장덕동'},
     title: '게시글 제목',
     content: '게시글 내용입니다.',
+    isLike:true,
     likeCount: 12,
     commentList: [
       {
@@ -57,6 +59,7 @@ const initialPost: CommunityPostList = [
     location: {locationId: 1, locationName: '광주 장덕동'},
     title: '게시글 제목2',
     content: '게시글 내용입니다2.',
+    isLike:true,
     likeCount: 12,
     commentList: [
       {
@@ -106,6 +109,7 @@ export const createCommunitySlice: StateCreator<
         },
         title: newPost.title,
         content: newPost.content,
+        isLike:true,
         likeCount: 0,
         commentList: [],
         imageList: newPost.images,
@@ -118,10 +122,16 @@ export const createCommunitySlice: StateCreator<
     set(state => ({
       posts: state.posts.filter(post => post.communityPostId !== postId),
     })),
-  addComment: (postId:number, newComment: PostComment) => 
+  addComment: (postId:number, newContent:string) => 
     set(state => ({
       posts : state.posts.map((post) => {
         if (post.communityPostId === postId) {
+          const newComment = {
+          commentId: post.commentList.length +1,
+          user: {userId: '1', nickname: 'user1', profileImage: UserImage},
+          content: newContent,
+          created_at: format(new Date(), 'yyyy-MM-dd HH:mm', {locale: ko}),
+          }
           return {
             ...post, commentList: [...post.commentList, newComment],
           };
@@ -129,7 +139,18 @@ export const createCommunitySlice: StateCreator<
         return post;
       })
     })
-    )
+    ),
+  deleteComment : (postId:number, commentId:number) => 
+    set(state => ({
+      posts : state.posts.map((post) => {
+        if (post.communityPostId === postId ) {
+          return {
+            ...post, commentList : post.commentList.filter((comment) => comment.commentId !== commentId)
+          };
+        }
+        return post;
+      })
+    })),
 });
 
 export default createCommunitySlice;

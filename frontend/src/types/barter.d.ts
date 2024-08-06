@@ -7,7 +7,7 @@ type Birth = string;
 type Gender = Male | Female;
 type Latitude = number;
 type Longitude = number;
-type PhoneNumber = string;
+type Phone = string;
 type Email = string;
 
 type UserId = string;
@@ -25,7 +25,7 @@ interface SignupForm {
   gender: Gender;
   latitude: Latitude;
   longitude: Longitude;
-  phone: PhoneNumber;
+  phone: Phone;
   email?: Email;
 }
 
@@ -57,6 +57,13 @@ type Title = string;
 type LikeCount = number;
 type CommentCount = number;
 type Image = string | null;
+type IsLike = boolean;
+
+interface CommunityPostForm {
+  title: Title;
+  content: Content;
+  images: Image[];
+}
 
 interface CommunityPost {
   communityPostId: CommunityPostId;
@@ -65,6 +72,7 @@ interface CommunityPost {
   title: Title;
   content: Content;
   likeCount: LikeCount;
+  isLike: IsLike;
   commentList: PostComment[];
   imageList: SimpleImage[];
   createdAt: CreatedAt;
@@ -123,7 +131,6 @@ interface UserLocation {
 
 type SimpleCropTradePostId = number;
 type Status = 'NEW' | 'IN_PROGRESS' | 'COMPLETED';
-type IsLike = boolean;
 type IsShare = boolean;
 
 interface SimpleCropTradePost {
@@ -166,6 +173,90 @@ interface CropTradePost {
   createdAt: CreatedAt;
 }
 
+type ShareStatus = boolean;
+
+interface CropTradeForm {
+  title: Title;
+  content: Content;
+  shareStatus: ShareStatus;
+  locationId: LocationId;
+  cropId: CropId;
+  cropCategoryId: CropCategoryId;
+  wishCropCategoryList: CropCategoryId[];
+}
+
+type GrowDate = string;
+type Description = string;
+
+interface CropProfileForm {
+  cropCategoryId: CropCategoryId;
+  nickname: Nickname;
+  growDate: GrowDate;
+  description: Description;
+  image: Image;
+}
+
+interface CropProfile {
+  cropId: CropId;
+  farmer: SimpleUser;
+  cropCategory: CropCategoryDetail;
+  nickname: Nickname;
+  image: Image;
+  growDate: GrowDate;
+  description: Description;
+}
+
+interface CropDiary {
+  crop: {
+    userId: UserId;
+    cropId: CropId;
+    nickname: Nickname;
+    image: Image;
+  };
+  title: Title;
+  content: Content;
+  image: Image;
+  createdAt: CreatedAt;
+}
+
+interface CropDiaryForm {
+  cropId: CropId;
+  title: Title;
+  content: Content;
+  image: Image;
+}
+
+type CropDiaryId = number;
+
+interface SearchResult {
+  userProfileList: SimpleUser[];
+  communityPostList: {
+    communityPostId: CommunityPostId;
+    title: Title;
+    content: Content;
+    createdAt: CreatedAt;
+    likeCount: LikeCount;
+    commentCount: CommentCount;
+    imageUrl: ImageUrl;
+    hasImage: boolean;
+    location: SimpleLocation;
+    like: boolean;
+  }[];
+  tradePostList: {
+    cropTradePostId: CropTradePostId;
+    title: Title;
+    imageUrl: ImageUrl;
+    status: Status;
+    location: SimpleLocation;
+    likeCount: LikeCount;
+    createdAt: CreatedAt;
+    share: ShareStatus;
+    like: boolean;
+    isLike: IsLike;
+    isShare: IsShare;
+  }[];
+}
+
 interface Auth {
   isLogin: boolean;
   token: string;
@@ -189,12 +280,27 @@ type GetCurrentLocationResponse = BarterResponse<SimpleLocation>;
 type GetUserProfileResponse = BarterResponse<UserProfile>;
 type GetUserLocationResponse = BarterResponse<UserLocation>;
 type GetCommunityPostListResponse = BarterResponse<CommunityPostList>;
-type PostCommunityPostResponse = BarterResponse<null>;
+type PostCommunityPostResponse = BarterResponse<CommunityPost>;
 type GetCommunityPostResponse = BarterResponse<CommunityPost>;
 type DeleteCommunityPostResponse = BarterResponse<null>;
-type PostCommentResponse = BarterResponse<null>;
+type GetCommunityPostListByUserResponse = BarterResponse<CommunityPostList>;
+type PostCommentResponse = BarterResponse<PostComment>;
 type DeleteCommentResponse = BarterResponse<null>;
 type PostLikeResponse = BarterResponse<null>;
+type PostUnLikeResponse = BarterResponse<null>;
 type GetTradePostListResponse = BarterResponse<SimpleCropTradePostList>;
 type GetTradePostResponse = BarterResponse<CropTradePost>;
-// TODO: 농작물 프로필 등록
+type GetCropCategoryListResponse = BarterResponse<CropCategoryDetail[]>;
+type PostCropProfileResponse = BarterResponse<CropProfile>;
+type GetCropProfileResponse = BarterResponse<CropProfile>;
+type GetCropProfileListByUserResponse = BarterResponse<CropProfile[]>;
+type GetCropDiaryListByUser = BarterResponse<CropDiary[]>;
+type GetCropDiaryListByCrop = BarterResponse<CropDiary[]>;
+type GetCropTradedByUser = BarterResponse<CropProfile[]>;
+type PostCropDiaryResponse = BarterResponse<CropDiary>;
+type GetCropDiaryResponse = BarterResponse<CropDiary>;
+type DeleteCropDiaryResponse = BarterResponse<null>;
+type GetNeighborCropDiaryListResponse = BarterResponse<CropDiary[]>;
+type GetRecentSearchKeywordListResponse = BarterResponse<string[]>;
+type DeleteRecentSearchKeywordResponse = BarterResponse<null>;
+type GetSearchResultResponse = BarterResponse<SearchResult>;

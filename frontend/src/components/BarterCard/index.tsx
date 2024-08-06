@@ -1,7 +1,7 @@
 import classnames from 'classnames/bind';
 import {useState} from 'react';
-import {FaHeart} from 'react-icons/fa';
 
+import Heart from '../Heart';
 import styles from './barterCard.module.scss';
 
 interface BarterCard {
@@ -57,8 +57,7 @@ export default function Barter({barterCards}: BarterCardProps) {
             <div className={cx('barter-title')}>{card.title}</div>
             <div className={cx('barter-time')}>{card.date}</div>
             <div className={cx('barter-likes')}>
-              <FaHeart className={cx('heart-icon')} />
-              <span>{card.likeCount}</span>
+              <Heart count={5} isLike={true} />
             </div>
           </div>
         ))}

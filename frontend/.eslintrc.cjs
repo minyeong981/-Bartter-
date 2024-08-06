@@ -8,6 +8,7 @@ module.exports = {
     'alloy',
     'alloy/react',
     'alloy/typescript',
+    "plugin:@tanstack/eslint-plugin-query/recommended",
     'plugin:import/recommended',
     'prettier',
   ],
@@ -31,7 +32,7 @@ module.exports = {
     'import/no-duplicates': 'error',
     'import/no-unresolved': 0
   },
-  settings:{
+  settings: {
     react: {
       version: 'detect',
     },

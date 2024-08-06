@@ -32,7 +32,7 @@ export default function PostCreate() {
     setTitle(event.target.value);
   }
 
-  function handleContentChange(event: ChangeEvent<HTMLInputElement>) {
+  function handleContentChange(event: ChangeEvent<HTMLTextAreaElement>) {
     setContent(event.target.value);
   }
 
@@ -40,16 +40,16 @@ export default function PostCreate() {
     const newImageList = newImages.map((imageUrl, imageIndex) => ({
       imageId: imageIndex,
       imageUrl: imageUrl,
-      imageOrder: imageIndex
-    }))
+      imageOrder: imageIndex,
+    }));
     setImages([...newImageList]);
   }
 
   useEffect(() => {
     if (title.length > 0 && title.length < 51 && content.length > 0) {
-      setCannotCreate(false)
+      setCannotCreate(false);
     }
-  }, [title, content])
+  }, [title, content]);
 
   // 나중에!! 이런 식으로
   // const handleSubmit = async (e: React.FormEvent) => {
@@ -81,7 +81,7 @@ export default function PostCreate() {
 
   return (
     <div className={cx('container')}>
-      <HeaderWithLabelAndBackButton label="글 작성하기"/>
+      <HeaderWithLabelAndBackButton label="글 작성하기" />
       <div className={cx('formContainer')}>
         <LabeledInput
           label="제목"
@@ -96,8 +96,10 @@ export default function PostCreate() {
           value={content}
         />
         <div className={cx('imageContainer')}>
-          <p>사진 ({images.length} / {maxImages})</p>
-          <ImageInput onImageChange={handleImageChange} maxImages={maxImages}/>
+          <p>
+            사진 ({images.length} / {maxImages})
+          </p>
+          <ImageInput onImageChange={handleImageChange} maxImages={maxImages} />
         </div>
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
