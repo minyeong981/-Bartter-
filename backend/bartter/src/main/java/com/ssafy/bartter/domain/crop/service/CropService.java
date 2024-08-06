@@ -39,10 +39,7 @@ public class CropService {
     public Crop createCrop(Create request, MultipartFile image, int userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         CropCategory cropCategory = cropCategoryRepository.findById(request.getCropCategoryId()).orElseThrow(() -> new CustomException(ErrorCode.CROP_CATEGORY_NOT_FOUND));
-        String imageUrl = null;
-        if (image != null) {
-            imageUrl = s3UploadService.upload(image);
-        }
+        String imageUrl = (image == null) ? cropCategory.getImage() : s3UploadService.upload(image);
 
         Crop crop = Crop.builder()
                 .user(user)
