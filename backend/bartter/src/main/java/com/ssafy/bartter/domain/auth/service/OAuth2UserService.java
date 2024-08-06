@@ -96,17 +96,16 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         return new CustomOAuth2User(userAuthDto, false);
     }
 
-    /**
-     * OAuth 사용자 정보를 가져오는 함수를 반환하는 메서드.
-     *
-     * @return UserDetails 객체를 UserAuthDto 객체로 변환하는 함수
-     */
-    @Bean
-    public Function<UserDetails, UserAuthDto> fetchOAuthUser() {
-        return authUserDetails -> {
-            if(Objects.isNull(authUserDetails)) throw new CustomException(ErrorCode.UNAUTHORIZED);
-            return ((CustomOAuth2User) authUserDetails).getUserAuthDto();
-        };
-    }
-
+//    /**
+//     * OAuth 사용자 정보를 가져오는 함수를 반환하는 메서드.
+//     *
+//     * @return UserDetails 객체를 UserAuthDto 객체로 변환하는 함수
+//     */
+//    @Bean
+//    public Function<UserDetails, UserAuthDto> fetchOAuthUser() {
+//        return authUserDetails -> {
+//            if(Objects.isNull(authUserDetails)) throw new CustomException(ErrorCode.UNAUTHORIZED);
+//            return ((CustomOAuth2User) authUserDetails).getUserAuthDto();
+//        };
+//    }
 }
