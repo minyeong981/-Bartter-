@@ -8,7 +8,7 @@ import FloatingButton from '@/components/Buttons/FloatingButton';
 import LinkButton from '@/components/Buttons/LinkButton';
 import CalendarPage from '@/components/Calendar/calendar';
 import CropModal from '@/components/Crop/CropModal';
-import MainCrops from '@/components/Crop/mainCrops';
+import UserCrops from '@/components/Crop/UserCrops';
 import DiaryList from '@/components/Diary/DiaryList';
 import useRootStore from '@/store/index';
 
@@ -154,7 +154,7 @@ function DiaryPage() {
     case '내 작물':
       renderedComponent = (
         <>
-          <MainCrops />
+          <UserCrops />
           <FloatingButton onClick={handleModalOpen}>+ 등록하기</FloatingButton>
           {isModalOpen && (
             <CropModal

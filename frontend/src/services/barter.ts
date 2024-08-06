@@ -179,12 +179,6 @@ export default {
       form.append(`image`, file);
     });
   }
-    // for(const [key,value] of Object.entries(data)){  
-    //   if(!value)continue;
-    //   console.log(value);
-    //   form.append(key,value)
-    // }
-
     const response = axios.post<PostCropProfileResponse>('/crops', form, {headers:{
       "Content-Type":"multipart/form-data"
     }})

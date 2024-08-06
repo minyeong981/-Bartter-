@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react';
 import Lottie from 'react-lottie-player';
 
 import WarehouseAnimation from '@/assets/lottie/warehouse.json';
-import MyCrops from '@/components/Crop/MyCrops';
+import UserCrops from '@/components/Crop/UserCrops';
 // import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
 import type {Crop} from '@/store/diarySlice';
 
@@ -20,12 +20,12 @@ export const Route = createFileRoute('/_layout/profile/$nickname/cropStorage/_la
 
 function CropStoragePage() {
   const {nickname} = Route.useParams();
-  const [myCrops, setMyCrops] = useState<Crop[]>([]);
+  const [UserCrops, setUserCrops] = useState<Crop[]>([]);
   const [receivedCrops, setReceivedCrops] = useState<Crop[]>([]); // 받은 농작물 데이터
-  const [isMyCrops, setIsMyCrops] = useState(true);
+  const [isUserCrops, setIsUserCrops] = useState(true);
 
   useEffect(() => {
-    setMyCrops([
+    setUserCrops([
       {
         id: 1,
         nickname: '작물1',
@@ -63,8 +63,8 @@ function CropStoragePage() {
     ]);
   }, []);
 
-  const handleToggle = (showMyCrops: boolean) => {
-    setIsMyCrops(showMyCrops);
+  const handleToggle = (showUserCrops: boolean) => {
+    setIsUserCrops(showUserCrops);
   };
 
   const handleCropClick = (cropId: number) => {
@@ -78,12 +78,12 @@ function CropStoragePage() {
       <div className={cx('cropStorageContainer')}>
         <h1>{nickname}님</h1>
         <h1>
-          {isMyCrops
-            ? `나의 작물 ${myCrops.length}개`
+          {isUserCrops
+            ? `나의 작물 ${UserCrops.length}개`
             : `물물교환 / 나눔 작물 ${receivedCrops.length}개`}
         </h1>
         <p>
-          {isMyCrops ? (
+          {isUserCrops ? (
             '나의 농작물을 선택하면 해당 농작물의 농사일지를 볼 수 있어요'
           ) : (
             <>
@@ -103,26 +103,26 @@ function CropStoragePage() {
         </div>
         <div className={cx('toggleContainer')}>
           <button
-            className={cx('toggleButton', {active: isMyCrops})}
+            className={cx('toggleButton', {active: isUserCrops})}
             onClick={() => handleToggle(true)}
           >
             나의 농작물
           </button>
           <button
-            className={cx('toggleButton', {active: !isMyCrops})}
+            className={cx('toggleButton', {active: !isUserCrops})}
             onClick={() => handleToggle(false)}
           >
             받은 농작물
           </button>
         </div>
-        {isMyCrops ? (
-          <div className={cx('myCropsContainer')}>
-            <MyCrops crops={myCrops} onCropClick={handleCropClick} />
+        {isUserCrops ? (
+          <div className={cx('UserCropsContainer')}>
+            <UserCrops crops={UserCrops} onCropClick={handleCropClick} />
           </div>
         ) : (
           <div className={cx('receivedCropsContainer')}>
             받은 작물
-            {/* <MyCrops crops={receivedCrops} onCropClick={handleCropClick} /> */}
+            {/* <UserCrops crops={receivedCrops} onCropClick={handleCropClick} /> */}
           </div>
         )}
       </div>

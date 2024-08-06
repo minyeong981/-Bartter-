@@ -10,7 +10,7 @@ type Longitude = number;
 type Phone = string;
 type Email = string;
 
-type UserId = string;
+type UserId = number;
 
 interface Coordinate {
   latitude: Latitude;

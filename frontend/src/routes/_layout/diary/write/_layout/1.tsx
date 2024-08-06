@@ -3,7 +3,7 @@ import classnames from 'classnames/bind';
 import {useState} from 'react';
 
 import LinkButton from '@/components/Buttons/LinkButton';
-import MyCrops from '@/components/Crop/MyCrops';
+import MyCrops from '@/components/Crop/UserCrops';
 import Heading from '@/components/Heading';
 import useRootStore from '@/store';
 
