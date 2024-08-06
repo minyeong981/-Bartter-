@@ -53,6 +53,7 @@ export default {
     axios.post<PostAdditionalInfoResponse>(
       '/auth/additional-info',
       additionalInfo,
+      {withCredentials: true},
     ),
 
   // 동네 모임
