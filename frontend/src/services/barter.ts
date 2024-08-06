@@ -46,6 +46,14 @@ export default {
    * 유저 팔로우 취소
    */
   unfollow: async (userId: UserId) => axios.post(`/user/${userId}/unfollow`),
+  /**
+   * 카카오 로그인 후 추가 정보 기입
+   */
+  additionalInfo: async (additionalInfo: AdditionalInfo) =>
+    axios.post<PostAdditionalInfoResponse>(
+      '/auth/additional-info',
+      additionalInfo,
+    ),
 
   // 동네 모임
   /**

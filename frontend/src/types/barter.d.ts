@@ -274,6 +274,11 @@ interface BarterResponse<T> {
 
 type CommunityPostList = CommunityPost[];
 
+interface AdditionalInfo {
+  latitude: Latitude;
+  longitude: Longitude;
+}
+
 type SignupResponse = BarterResponse<null>;
 type LoginResponse = BarterResponse<null>;
 type ReIssueResponse = BarterResponse<null>;
@@ -306,3 +311,4 @@ type GetNeighborCropDiaryListResponse = BarterResponse<CropDiary[]>;
 type GetRecentSearchKeywordListResponse = BarterResponse<string[]>;
 type DeleteRecentSearchKeywordResponse = BarterResponse<null>;
 type GetSearchResultResponse = BarterResponse<SearchResult>;
+type PostAdditionalInfoResponse = BarterResponse<null>;
