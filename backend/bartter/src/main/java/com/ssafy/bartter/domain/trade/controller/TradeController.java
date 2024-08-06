@@ -7,6 +7,7 @@ import com.ssafy.bartter.domain.chat.service.RedisChatService;
 import com.ssafy.bartter.domain.trade.dto.TradeDto;
 import com.ssafy.bartter.domain.trade.dto.TradeDto.TradeInfo;
 import com.ssafy.bartter.domain.trade.entity.Trade;
+import com.ssafy.bartter.domain.trade.entity.TradeStatus;
 import com.ssafy.bartter.domain.trade.services.TradeService;
 import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.global.response.SuccessResponse;
@@ -43,5 +44,33 @@ public class TradeController {
         log.debug("page= {}, limit ={} ", page, limit);
         List<ChatMessage> tradeChat = redisChatService.getTradeChat(user.getId(), tradeId, page, limit);
         return SuccessResponse.of(tradeChat);
+    }
+
+    @PutMapping("/{tradeId}/progress")
+    public SuccessResponse<Void> setTradeProgress(
+            @PathVariable("tradeId") int tradeId,
+            @CurrentUser UserAuthDto user
+    ) {
+        tradeService.changeStatus(tradeId, user.getId(), TradeStatus.PROGRESS);
+        return SuccessResponse.empty();
+    }
+
+    @PutMapping("/{tradeId}/reserve")
+    public SuccessResponse<Void> setTradePostReserve(
+            @PathVariable("tradeId") int tradeId,
+            @CurrentUser UserAuthDto user
+    ) {
+        tradeService.changeStatus(tradeId, user.getId(), TradeStatus.RESERVED);
+        return SuccessResponse.empty();
+    }
+
+    @PutMapping("/{tradeId}/complete")
+    public SuccessResponse<Void> setTradePostComplete(
+            @PathVariable("tradeId") int tradeId,
+            @CurrentUser UserAuthDto user
+    ) {
+        log.debug("tradeId : {}번 완료 상태로 변경 ", tradeId);
+        tradeService.changeStatus(tradeId, user.getId(), TradeStatus.COMPLETED);
+        return SuccessResponse.empty();
     }
 }
