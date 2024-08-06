@@ -49,9 +49,9 @@ public class OpenAIScheduler {
 
             Collections.shuffle(alarmMessageList);
 
-            for (int i = 1; i <= 7; i++) {
+            for (int i = 0; i < 7; i++) {
                 String message = alarmMessageList.get(i);
-                dailyTipService.createDailyTip(message, user, i);
+                dailyTipService.createDailyTip(message, user, i + 1);
             }
         }
     }
@@ -83,7 +83,7 @@ public class OpenAIScheduler {
     }
 
     private static List<String> extractMessagesFromReportList(List<CropReport> weeklyCropReportList) {
-        List<String> newAlarmMessageList = new ArrayList<>();
+        List<String> messagesFromReportList = new ArrayList<>();
 
         // AI 요약 리포트마다 다음주 작업 발췌한 후 파싱하여 알람으로 넣어주기
         for (CropReport cropReport : weeklyCropReportList) {
@@ -94,11 +94,12 @@ public class OpenAIScheduler {
                 if (sentence.equals("### 다음 주의 작업")) break;
 
                 if (!sentence.equals("\n")) {
-                    newAlarmMessageList.add(sentence.substring(2, sentence.length() - 1));
+                    messagesFromReportList.add(sentence.substring(2, sentence.length() - 1));
                 }
             }
         }
-        return newAlarmMessageList;
+
+        return messagesFromReportList;
     }
 
     /**
