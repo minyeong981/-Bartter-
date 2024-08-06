@@ -1,53 +1,53 @@
-import classnames from 'classnames/bind';
+// import { useQuery } from '@tanstack/react-query';
+// import classnames from 'classnames/bind';
 
-import styles from './DiaryList.module.scss';
+// import barter from '@/services/barter';
+// import useRootStore from '@/store';
 
-const cx = classnames.bind(styles);
+// import styles from './DiaryList.module.scss';
 
-interface DiaryEntry {
-  diaryId: number;
-  selectedDate: string;
-  diaryTitle: string;
-  diaryContent: string;
-  diaryImage: string[];
-}
+// const cx = classnames.bind(styles);
 
-interface DiaryListProps {
-  diaryEntries: DiaryEntry[];
-}
+// interface DiaryListProps {
+//   selectedDate: Date;
+// }
 
-function DiaryList({ diaryEntries }: DiaryListProps) {
-  const handleDetailClick = (entry: DiaryEntry) => {
-    const newUrl = `/diary/detail/${entry.diaryId}`;
-    const state = { entry };
-    
-    window.history.pushState(state, '', newUrl);
-    window.location.href = newUrl;
-  };
+// function DiaryList({ selectedDate }: DiaryListProps) {
+//   const userId = useRootStore(state => state.userId);
+//   const { data } = useQuery({
+//     queryKey: ['diaryList', userId],
+//     queryFn: () => barter.getCropDiary(userId)
+//   })
 
-  return (
-    <div className={cx('diaryListContainer')}>
-      <div className={cx('cardContainer')}>
-        {diaryEntries.map((entry, index) => (
-          <div className={cx('card')} key={index}>
-            <span 
-              className={cx('detailButton')} 
-              onClick={() => handleDetailClick(entry)}
-            >
-              상세보기 &gt;
-            </span>
-            <div className={cx('cardContent')}>
-              {entry.diaryImage && <img src={entry.diaryImage[0]} alt="Diary" className={cx('cardImage')} />}
-              <div className={cx('textContent')}>
-                <h3>{entry.diaryTitle}</h3>
-                <p>{entry.diaryContent}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+//   const diaryEntries  = data?.data.data || [];
 
-export default DiaryList;
+//   if (diaryEntries.length === 0) {
+//     return;
+//   }
+
+//   return (
+//     <div className={cx('diaryListContainer')}>
+//       <div className={cx('cardContainer')}>
+//         {diaryEntries.map((diary) => (
+//           <div className={cx('card')} key={diary.id}>
+//             <span 
+//               className={cx('detailButton')} 
+//               onClick={() => handleDetailClick(diary)}
+//             >
+//               상세보기 &gt;
+//             </span>
+//             <div className={cx('cardContent')}>
+//               {diary.image && <img src={diary.image[0]} alt="Diary" className={cx('cardImage')} />}
+//               <div className={cx('textContent')}>
+//                 <h3>{diary.title}</h3>
+//                 <p>{diary.content}</p>
+//               </div>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default DiaryList;
