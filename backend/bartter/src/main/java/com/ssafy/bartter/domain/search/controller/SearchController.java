@@ -50,13 +50,9 @@ public class SearchController {
     @DeleteMapping("/recent")
     @Operation(summary = "최근 검색어 삭제", description = "검색한 단어를 삭제한다.")
     public SuccessResponse<Void> deleteRecentSearchTerm(
-            @Valid @RequestBody Delete delete,
-            BindingResult bindingResult,
+            @RequestParam("keyword") String keyword,
             @CurrentUser UserAuthDto user) {
-        if (bindingResult.hasErrors()) {
-            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, "삭제 할 키워드가 존재하지않습니다.");
-        }
-        searchService.deleteRecentSearchKeyword(delete.getKeyword(), user.getUsername());
+        searchService.deleteRecentSearchKeyword(keyword, user.getUsername());
         return SuccessResponse.empty();
     }
 }

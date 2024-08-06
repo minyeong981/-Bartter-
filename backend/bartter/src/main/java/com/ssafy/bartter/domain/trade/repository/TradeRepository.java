@@ -4,9 +4,20 @@ import com.ssafy.bartter.domain.trade.entity.Trade;
 import com.ssafy.bartter.domain.trade.entity.TradePost;
 import com.ssafy.bartter.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
 public interface TradeRepository extends JpaRepository<Trade, Integer> {
     Optional<Trade> findByTradePostAndUser(TradePost tradePost, User user);
+
+    @Query("SELECT COUNT(t) > 0 " +
+            "FROM Trade t " +
+            "WHERE t.id = :tradeId " +
+            "AND (t.user.id = :userId OR t.tradePost.user.id = :userId)")
+    boolean existsByTradeIdAndUserId(
+            @Param("userId") int userId,
+            @Param("tradeId") int tradeId
+    );
 }

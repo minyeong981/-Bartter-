@@ -1,5 +1,7 @@
 package com.ssafy.bartter.global.config;
 
+import com.ssafy.bartter.global.interceptor.ChatPreHandler;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
@@ -10,8 +12,11 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 
 @Slf4j
 @Configuration
+@RequiredArgsConstructor
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
+    private final ChatPreHandler chatPreHandler;
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
@@ -36,6 +41,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureClientInboundChannel(ChannelRegistration registration) {
-//        registration.interceptors(chatPreHandler);
+        registration.interceptors(chatPreHandler);
     }
 }

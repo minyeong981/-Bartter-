@@ -42,4 +42,8 @@ public class TradeService {
         Trade trade = Trade.of(user, tradePost);
         return tradeRepository.save(trade);
     }
+
+    public boolean isParticipant(int userId, int tradeId) {
+        return tradeRepository.existsByTradeIdAndUserId(userId, tradeId);
+    }
 }

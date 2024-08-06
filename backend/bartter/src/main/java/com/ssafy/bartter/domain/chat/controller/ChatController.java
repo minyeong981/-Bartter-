@@ -1,5 +1,7 @@
 package com.ssafy.bartter.domain.chat.controller;
 
+import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
+import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
 import com.ssafy.bartter.domain.chat.dto.ChatMessage;
 import com.ssafy.bartter.domain.chat.service.RedisChatService;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +17,8 @@ public class ChatController {
     private final RedisChatService redisChatService;
 
     @MessageMapping("/trade/chat")
-    public void sendMessage(ChatMessage chatMessage){
-        log.debug("전송 : {}", chatMessage);
+    public void sendMessage(
+            ChatMessage chatMessage) {
         redisChatService.publish(chatMessage);
     }
 }
