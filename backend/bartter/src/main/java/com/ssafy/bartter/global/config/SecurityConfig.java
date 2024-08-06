@@ -69,7 +69,7 @@ public class SecurityConfig {
                     public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
 
                         CorsConfiguration configuration = new CorsConfiguration();
-
+                        // TODO : 배포시 변경 필요
                         configuration.setAllowedOrigins(Collections.singletonList("http://localhost:5173"));
                         configuration.setAllowedMethods(Collections.singletonList("*"));
                         configuration.setAllowCredentials(true);
@@ -97,7 +97,6 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-<<<<<<< backend/bartter/src/main/java/com/ssafy/bartter/global/config/SecurityConfig.java
                         .requestMatchers("/ws/**").permitAll()
                         .requestMatchers("/", "/login", "/user/join", "/user/location" ,"/oauth2/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
