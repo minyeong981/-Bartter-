@@ -1,10 +1,8 @@
 import styles from './postDetail.module.scss';
 
 export default function PostDetail({
-  post,
-}: {
-  post: CommunityPost;
-}) {
+  post
+    }: CommunityPost) {
   return (
     <div className={styles.postDetail}>
       <div className={styles.textBox}>
@@ -12,11 +10,11 @@ export default function PostDetail({
         <div className={styles.content}>{post.content}</div>
       </div>
       <div className={styles.imageContainer}>
-        {post.imageList.map((image, imgIndex) => (
+        {post.imageList.length !==0 && post.imageList.map((image, imgIndex) => (
           <img
             key={imgIndex}
             className={styles.image}
-            src={image.imageUrl}
+            src={'https://' + image.imageUrl}
             alt="Community Post"
           />
         ))}

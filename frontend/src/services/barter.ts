@@ -64,8 +64,29 @@ export default {
   /**
    * 게시글 작성
    */
-  postCommunityPost: async (data: CommunityPostForm) =>
-    axios.post<PostCommunityPostResponse>('/community/posts', data),
+  postCommunityPost: async (data: CommunityPostForm) => {
+    const formData = new FormData();
+
+    formData.append('title', data.title);
+    formData.append('content', data.content);
+    // 이미지 파일 추가
+    if (data.imageList && data.imageList.length > 0) {
+      data.imageList.forEach((image) => {
+        formData.append('imageList', image);
+      });
+    }
+    console.log(formData)
+    const response = await axios.post<PostCommunityPostResponse>('/community/posts', 
+      formData, 
+      { 
+        headers: {
+      "Content-Type": "multipart/form-data" 
+        },
+    }
+  );
+    return response;
+  },
+
   /**
    * 게시글 조회
    */
@@ -250,8 +271,15 @@ export default {
   /**
    * 최근 검색 키워드 삭제
    */
-  deleteRecentSearchKeyword: async () =>
-    axios.delete<DeleteRecentSearchKeywordResponse>(`/search/recent`),
+  deleteRecentSearchKeyword: async (keyword:Search) => {
+      axios.delete<DeleteRecentSearchKeywordResponse>(`/search/recent`, {params: {keyword}
+}
+  )
+},
+
+    
+
+    
   /**
    * 키워드 통합 검색
    */

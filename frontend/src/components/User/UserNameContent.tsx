@@ -1,3 +1,5 @@
+import {format} from 'date-fns';
+import {ko} from 'date-fns/locale';
 import {useState} from 'react';
 
 // import Delete from '@/assets/image/delete.png';
@@ -41,7 +43,7 @@ export default function UserNameContent({
       <div className={styles.userInfo}>
         <div className={styles.userName}>{comment.user.nickname}</div>
         <div className={styles.Content}>{comment.content}</div>
-        <div className={styles.createdDate}>{comment.created_at}</div>
+        <div className={styles.createdDate}>{format(comment.created_at, 'yyyy-MM-dd HH:mm', {locale: ko})}</div>
       </div>
       <button onClick={handleModalOpen}>
         <IconTrash className={styles.menuIcon} />

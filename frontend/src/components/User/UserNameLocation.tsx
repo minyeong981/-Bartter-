@@ -1,4 +1,6 @@
 import {useRouter} from '@tanstack/react-router';
+import {format} from 'date-fns';
+import {ko} from 'date-fns/locale';
 import {useState} from 'react';
 
 import {IconTrash} from '@/assets/svg';
@@ -53,7 +55,7 @@ export default function UserNameLocation({
       <div className={styles.userInfo}>
         <div className={styles.userName}>{nickname}</div>
         <div className={styles.content}>{locationName}</div>
-        <div className={styles.createdDate}>{createdAt}</div>
+        <div className={styles.createdDate}>{format(createdAt, 'yyyy-MM-dd HH:mm', {locale: ko})}</div>
       </div>
       <button onClick={handleClickTrash}>
         <IconTrash className={styles.menuIcon} />
