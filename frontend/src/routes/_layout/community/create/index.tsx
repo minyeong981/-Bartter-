@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query';
 import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {ChangeEvent} from 'react';
@@ -8,7 +9,7 @@ import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAnd
 import ImageInput from '@/components/Inputs/ImageInput';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import LabeledTextAreaInput from '@/components/Inputs/LabeledTextAreaInput';
-import useRootStore from '@/store';
+import barter from '@/services/barter';
 
 import styles from './create.module.scss';
 
@@ -25,8 +26,7 @@ export default function PostCreate() {
   const [cannotCreate, setCannotCreate] = useState(true); // 글자 제한
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [images, setImages] = useState<SimpleImage[]>([]);
-  const addPost = useRootStore(state => state.addPost);
+  const [imageList, setImageList] = useState<File[]>([]);
 
   function handleTitleChange(event: ChangeEvent<HTMLInputElement>) {
     setTitle(event.target.value);
@@ -36,13 +36,9 @@ export default function PostCreate() {
     setContent(event.target.value);
   }
 
-  function handleImageChange(newImages: string[]) {
-    const newImageList = newImages.map((imageUrl, imageIndex) => ({
-      imageId: imageIndex,
-      imageUrl: imageUrl,
-      imageOrder: imageIndex,
-    }));
-    setImages([...newImageList]);
+  function handleImageChange(newImages: File[]) {
+    // const newImageList = newImages
+    setImageList(newImages);
   }
 
   useEffect(() => {
@@ -51,32 +47,25 @@ export default function PostCreate() {
     }
   }, [title, content]);
 
-  // 나중에!! 이런 식으로
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault()
-
-  //   const response = await fetch('/posts', {
-  //     method: 'POST',
-  //     body: JSON.stringify({ title: 'My First Post' }),
-  //   })
-
-  //   const { id: postId } = await response.json()
-
-  //   if (response.ok) {
-  //     navigate({ to: '/posts/$postId', params: { postId } })
-  //   }
-  // }
+  const mutation = useMutation({
+    mutationFn: ( newPost : CommunityPostForm ) => {
+      return barter.postCommunityPost(newPost)
+    },
+    onSuccess: () => {
+      nav({ to: '/community' });
+    },
+  })
 
   function handleSubmit() {
     if (title && content) {
-      addPost({
-        userId: 0,
-        title,
-        content,
-        images,
-      });
+      const newPost : CommunityPostForm= {
+        title : title,
+        content: content,
+        imageList: imageList
+      };
+      console.log(newPost)
+      mutation.mutate(newPost)
     }
-    nav({to: '/community'});
   }
 
   return (
@@ -97,7 +86,7 @@ export default function PostCreate() {
         />
         <div className={cx('imageContainer')}>
           <p>
-            사진 ({images.length} / {maxImages})
+            사진 ({imageList.length} / {maxImages})
           </p>
           <ImageInput onImageChange={handleImageChange} maxImages={maxImages} />
         </div>

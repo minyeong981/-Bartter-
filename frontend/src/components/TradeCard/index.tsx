@@ -13,14 +13,14 @@ const cx = classnames.bind(styles);
 
 export default function TradeCard({
   cropTradePostId,
-  isShare,
-  likeCount,
-  isLike,
-  location,
   title,
-  status,
   imageURL,
+  status,
+  location,
+  likeCount,
   createdAt,
+  isLike,
+  isShare,
   ...props
 }: TradeCardProps) {
   return (

@@ -1,38 +1,89 @@
-import {createFileRoute} from '@tanstack/react-router';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {createFileRoute, useNavigate } from '@tanstack/react-router';
 import type {ChangeEvent, KeyboardEvent} from 'react';
-import {useEffect,useState} from 'react';
+import {useState} from 'react';
 
 import PostDetail from '@/components/Community/PostDetail/index.tsx';
-// import HeaderWithBackButton from '@/components/Header/HeaderWithBackButton';
 import LikeComment from '@/components/LikeComment';
 import UserNameContent from '@/components/User/UserNameContent';
 import UserNameLocation from '@/components/User/UserNameLocation';
-import useRootStore from '@/store';
+import barter from '@/services/barter';
 
 import styles from './../detail.module.scss';
 
 export const Route = createFileRoute('/_layout/community/detail/_layout/$postId')({
-  // loader: async({ params }) => fetchPost(params.postId),
   component: CommunityPostDetail
 });
 
 export default function CommunityPostDetail() {
+  const queryClient = useQueryClient();
   const {postId}: {postId: number} = Route.useParams();
-  const posts: CommunityPost[] = useRootStore(state => state.posts);
+  const [content, setContent] = useState(''); // 댓글
 
-  const deletePost = useRootStore(state => state.deletePost)
-  const addComment = useRootStore(state => state.addComment);
-  const deleteComment = useRootStore(state => state.deleteComment)
+  const nav = useNavigate({from: '/community/detail/$postId'})
 
-  const [post, setPost] = useState<CommunityPost | undefined>(undefined);
+  const { isPending, data } = useQuery({
+    queryKey: ['COMMUNITY_DETAIL', postId],
+    queryFn: () => barter.getCommunityPost(postId),
+    // enabled: !!postId
+  })
 
-  useEffect(() => {
-    const foundPost = posts.find(post => post.communityPostId === Number(postId));
-    setPost(foundPost);
+  const deletePost = useMutation({
+    mutationFn: ( postId : CommunityPostId ) => {
+      return barter.deleteCommunityPost(postId)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['COMMUNITY_LIST'])
+      nav({to: '/community'})
+    }
+  })
 
-  }, [postId, posts]);
+  // console.log(data?.data.data)
+  // 댓글 작성이 안됨.
+  const addComment = useMutation({
+    mutationFn: ({communityPostId, content} : { communityPostId:CommunityPostId; content: string }) =>  {
+      return barter.postCommunityComment(communityPostId, content)
+    },
+    onError: (error) => {
+      console.log('댓글 작성 실패', error)
+    },
+    onSuccess: (data) => {
+      console.log('댓글 생성 성공',data)
+      setContent(''); // 초기화
+      queryClient.invalidateQueries(['COMMUNITY_DETAIL', postId]);
+    }
+  })
 
-  const [content, setContent] = useState('');
+  const deleteComment = useMutation({
+    mutationFn: ({postId, commentId} : {postId:CommunityPostId; commentId : CommentId }) => {
+      return barter.deleteCommunityComment(postId, commentId)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['COMMUNITY_DETAIL', postId]);
+    }
+  })
+
+  const clickIsLikeTrue = useMutation({
+    mutationFn : ( postId : CommunityPostId ) => {
+      return barter.likeCommunityPost(postId)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['COMMUNITY_DETAIL', postId]);
+    }
+  })
+
+    const clickIsLikeFalse = useMutation({
+    mutationFn : ( postId : CommunityPostId ) => {
+      return barter.unLikeCommunityPost(postId)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['COMMUNITY_DETAIL', postId]);
+    }
+  })
+    
+  if ( isPending ) {
+    return <span>Loading...</span>
+  }
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setContent(event.target.value);
@@ -40,50 +91,52 @@ export default function CommunityPostDetail() {
 
   function handleKeyPress(event: KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter' && content.trim() !== '') {
-      addComment(Number(postId), content);
-      setContent(''); // 초기화
+      addComment.mutate({ communityPostId: Number(postId), content })
     }
   }
 
   function handleDeletePost(postId: number) {
-    deletePost(Number(postId))
+    deletePost.mutate(postId)
   }
 
   function handleDeleteComment(commentId:number) {
-    deleteComment(Number(postId), commentId)
-    console.log(postId, commentId)
-    setPost(prevPost => {
-      if (!prevPost) return prevPost;
-
-      return {
-        ...prevPost, 
-        commentList: prevPost.commentList.filter(comment => comment.commentId !== commentId)
-      };
-    });
+    deleteComment.mutate(postId, commentId)
   }
 
-  if (!post) {
-    return <div>Loading...</div>
+  function ChangeIsLike() {
+    if ( data?.data.data.isLike ) {
+      clickIsLikeFalse.mutate(postId)
+    } else {
+      clickIsLikeTrue.mutate(postId)
+    }
+
   }
+
+
+  if ( ! data?.data?.data) {
+  return <div>게시글이 없습니다.</div>
+  } 
+
 
   return (
     <div>
-      {/* <HeaderWithBackButton /> */}
       <UserNameLocation
-        locationName={post.location.locationName}
-        postId={post.communityPostId}
-        createdAt={post.createdAt}
-        nickname={post.user.nickname}
-        profileImage={post.user.profileImage}
-        onDelete={() => handleDeletePost(post.communityPostId)}
+        locationName={data.data.data.location.name}
+        postId={data.data.data.communityPostId}
+        createdAt={data.data.data.createdAt}
+        nickname={data.data.data.author.nickname}
+        profileImage={data.data.data.author.profileImage}
+        onDelete={() => handleDeletePost(data.data.data.communityPostId)}
       />
-      <PostDetail post={post} />
+      <PostDetail post={data.data.data} 
+        />
       <LikeComment
-        likeCount={post.likeCount}
-        commentCount={post.commentList.length}
-        isLike={true}
+        likeCount={data.data.data.likeCount}
+        commentCount={data.data.data.commentList.length}
+        isLike={data.data.data.isLike}
+        onClick={ChangeIsLike}
       />
-      { post.commentList.map((comment, commentIndex) => (
+      { data.data.data.commentList && data.data.data.commentList.map((comment, commentIndex) => (
         <UserNameContent key={commentIndex} comment={comment} onDelete={() => handleDeleteComment(comment.commentId)} />
       ))}
       <div>

@@ -39,7 +39,6 @@ type ImageUrl = string;
 type ImageOrder = number;
 
 interface SimpleImage {
-  imageId: ImageId;
   imageUrl: ImageUrl;
   imageOrder: ImageOrder;
 }
@@ -49,7 +48,7 @@ type LocationName = string;
 
 interface SimpleLocation {
   locationId: LocationId;
-  locationName: LocationName;
+  name: LocationName;
 }
 
 type CommunityPostId = number;
@@ -62,12 +61,12 @@ type IsLike = boolean;
 interface CommunityPostForm {
   title: Title;
   content: Content;
-  images: Image[];
+  imageList: File[];
 }
 
 interface CommunityPost {
   communityPostId: CommunityPostId;
-  user: SimpleUser;
+  author: SimpleUser;
   location: SimpleLocation;
   title: Title;
   content: Content;
@@ -84,6 +83,7 @@ interface SimpleCommunityPost {
   title: Title;
   content: Content;
   likeCount: LikeCount;
+  isLike: IsLike;
   commentCount: CommentCount;
   image: Image;
   createdAt: CreatedAt;
@@ -240,7 +240,7 @@ interface SearchResult {
     imageUrl: ImageUrl;
     hasImage: boolean;
     location: SimpleLocation;
-    like: boolean;
+    isLike: boolean;
   }[];
   tradePostList: {
     cropTradePostId: CropTradePostId;
@@ -250,9 +250,7 @@ interface SearchResult {
     location: SimpleLocation;
     likeCount: LikeCount;
     createdAt: CreatedAt;
-    share: ShareStatus;
-    like: boolean;
-    isLike: IsLike;
+    isLike: boolean;
     isShare: IsShare;
   }[];
 }
@@ -272,6 +270,11 @@ interface BarterResponse<T> {
   errors: string[];
 }
 
+type Search = string;
+
+// interface keyword {
+//   keyword : string
+// }
 type CommunityPostList = CommunityPost[];
 
 interface AdditionalInfo {
