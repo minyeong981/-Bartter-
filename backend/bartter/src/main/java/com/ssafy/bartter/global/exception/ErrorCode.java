@@ -21,7 +21,6 @@ public enum ErrorCode {
     IMAGE_NOT_ADDED(HttpStatus.BAD_REQUEST, 1007, "이미지를 첨부해야 합니다."),
     BAD_REQUEST(HttpStatus.BAD_REQUEST, 1008, "잘못된 요청입니다. 요청을 확인해주세요."),
 
-
     // Auth & User - 2000
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, 2000, "해당 ID의 사용자를 찾을 수 없습니다."),
     ACCESS_TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, 2001, "만료된 액세스 토큰입니다."),
@@ -44,8 +43,6 @@ public enum ErrorCode {
     KAKAO_EMAIL_NOT_FOUND(HttpStatus.BAD_REQUEST, 2018, "카카오 로그인에서 받은 정보에 이메일이 없습니다"),
     KAKAO_PROFILE_IMG_NOT_FOUND(HttpStatus.BAD_REQUEST, 2019, "카카오 로그인에서 받은 정보에 프로필 사진이 없습니다"),
     SESSION_EXPIRED_OR_NOT_FOUND(HttpStatus.BAD_REQUEST, 2020, "세션이 만료되었거나 존재하지 않습니다"),
-
-
 
     // Crop - 3000
     CROP_NOT_FOUND(HttpStatus.NOT_FOUND, 3000, "해당 ID의 농작물을 찾을 수 없습니다."),
@@ -70,7 +67,7 @@ public enum ErrorCode {
 
     // Report - 7000
     CROP_REPORT_NOT_FOUND(HttpStatus.NOT_FOUND,7000,"해당 ID의 AI 요약 리포트를 찾을 수 없습니다."),
-
+    DAILY_TIP_ALREADY_DISABLED(HttpStatus.BAD_REQUEST, 7001, "오늘의 알리미가 이미 비활성화 되었습니다.")
 ;
 
 
