@@ -44,13 +44,13 @@ public class CropDiaryDto {
     @Builder
     @Getter
     public static class CropDiaryDetail {
-        private final int cropDiaryId;
-        private final SimpleCropProfile crop;
-        private final String title;
-        private final String content;
-        private final String image;
-        private final LocalDate performDate;
-        private final LocalDateTime createdAt;
+        private int cropDiaryId;
+        private SimpleCropProfile crop;
+        private String title;
+        private String content;
+        private String image;
+        private LocalDate performDate;
+        private LocalDateTime createdAt;
 
         public static CropDiaryDetail of(CropDiary diary) {
             return CropDiaryDetail.builder()

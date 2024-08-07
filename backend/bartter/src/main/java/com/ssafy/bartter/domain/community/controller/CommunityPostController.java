@@ -4,6 +4,7 @@ package com.ssafy.bartter.domain.community.controller;
 import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
 import com.ssafy.bartter.domain.community.dto.CommunityPostDto;
+import com.ssafy.bartter.domain.community.dto.CommunityPostDto.Create;
 import com.ssafy.bartter.domain.community.entity.CommunityPost;
 import com.ssafy.bartter.domain.community.service.CommunityPostService;
 import com.ssafy.bartter.global.exception.CustomException;
@@ -32,9 +33,10 @@ public class CommunityPostController {
     @PostMapping("")
     public SuccessResponse<CommunityPostDto.CommunityPostDetail> createCommunityPost(
             @CurrentUser UserAuthDto currentUser,
-            @ModelAttribute @Valid CommunityPostDto.Create request,
+            @ModelAttribute @Valid Create request,
             BindingResult bindingResult,
-            @RequestPart(value = "imageList", required = false) MultipartFile[] imageList) {
+            @RequestPart(value = "imageList", required = false) MultipartFile[] imageList
+    ) {
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }

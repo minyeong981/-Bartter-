@@ -33,7 +33,7 @@ public class CommunityPostCommentDto {
     @Builder
     @Data
     public static class CommunityPostCommentDetail {
-        private final Integer communityPostCommentId;
+        private final int communityPostCommentId;
         private final SimpleUserProfile author;
         private final String content;
         private final LocalDateTime createdAt;

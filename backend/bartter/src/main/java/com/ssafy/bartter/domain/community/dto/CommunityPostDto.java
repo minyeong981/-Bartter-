@@ -43,7 +43,7 @@ public class CommunityPostDto {
     @Builder
     @Getter
     public static class CommunityPostDetail {
-        private final Integer communityPostId;
+        private final int communityPostId;
         private final SimpleUserProfile author;
         private final SimpleLocation location;
         private final String title;
@@ -54,7 +54,7 @@ public class CommunityPostDto {
         private final List<CommunityPostCommentDetail> commentList;
         private final LocalDateTime createdAt;
 
-        public static CommunityPostDetail of(CommunityPost post, Integer currentUserId) {
+        public static CommunityPostDetail of(CommunityPost post, int currentUserId) {
             return CommunityPostDetail.builder()
                     .communityPostId(post.getId())
                     .author(SimpleUserProfile.of(post.getUser()))
@@ -87,7 +87,7 @@ public class CommunityPostDto {
     @Getter
     public static class SimpleCommunityImage {
         private final String imageUrl;
-        private final Integer imageOrder;
+        private final int imageOrder;
 
         public static SimpleCommunityImage of(CommunityPostImage communityPostImage) {
             return SimpleCommunityImage.builder()
@@ -108,7 +108,7 @@ public class CommunityPostDto {
         private final String content;
         private final LocalDateTime createdAt;
         private final int likeCount;
-        private final boolean isLike;
+        private final Boolean isLike;
         private final int commentCount;
         private final String imageUrl;
         private final boolean hasImage;
@@ -124,7 +124,7 @@ public class CommunityPostDto {
                     .isLike(post.getLikeList().stream().anyMatch(like -> like.getUser().getId().equals(userId)))
                     .commentCount(post.getCommentList().size())
                     .imageUrl(post.getImageList().isEmpty() ? null : post.getImageList().get(0).getImageUrl())
-                    .hasImage(post.getImageList().isEmpty() ? false: true)
+                    .hasImage(!post.getImageList().isEmpty())
                     .location(SimpleLocation.of(post.getLocation()))
                     .build();
         }
@@ -144,14 +144,14 @@ public class CommunityPostDto {
         private final boolean hasImage;
         private final SimpleLocation location;
 
-        public static MyCommunityPostDetail of(CommunityPost post,int userId) {
+        public static MyCommunityPostDetail of(CommunityPost post) {
             return MyCommunityPostDetail.builder()
                     .communityPostId(post.getId())
                     .title(post.getTitle())
                     .content(post.getContent())
                     .createdAt(post.getCreatedAt())
                     .imageUrl(post.getImageList().isEmpty() ? null : post.getImageList().get(0).getImageUrl())
-                    .hasImage(post.getImageList().isEmpty() ? false: true)
+                    .hasImage(!post.getImageList().isEmpty())
                     .location(SimpleLocation.of(post.getLocation()))
                     .build();
         }

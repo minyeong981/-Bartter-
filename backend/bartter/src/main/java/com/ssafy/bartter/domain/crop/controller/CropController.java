@@ -41,7 +41,7 @@ public class CropController {
 
         List<CropCategoryDetail> response = cropCategoryList.stream()
                 .map(CropCategoryDetail::of)
-                .collect(Collectors.toList());
+                .toList();
         return SuccessResponse.of(response);
     }
 
@@ -50,8 +50,9 @@ public class CropController {
     public SuccessResponse<CropProfile> createCrop(
             @Valid Create request,
             BindingResult bindingResult,
-            @CurrentUser UserAuthDto currentUser,
-            @RequestPart(value = "image", required = false) MultipartFile image) {
+            @RequestPart(value = "image", required = false) MultipartFile image,
+            @CurrentUser UserAuthDto currentUser
+    ) {
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }

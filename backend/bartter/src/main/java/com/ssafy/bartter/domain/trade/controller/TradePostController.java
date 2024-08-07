@@ -47,7 +47,7 @@ public class TradePostController {
             @CurrentUser UserAuthDto user
     ) {
         List<TradePost> tradePostList = cropTradeService.getTradePostList(page, limit, givenCategory, desiredCategories, user.getLocationId());
-        List<SimpleTradePostDetail> simpleTradePostList = tradePostList.stream().map(SimpleTradePostDetail::of).collect(Collectors.toList());
+        List<SimpleTradePostDetail> simpleTradePostList = tradePostList.stream().map(o -> SimpleTradePostDetail.of(o,user.getId())).collect(Collectors.toList());
         return SuccessResponse.of(simpleTradePostList);
     }
 
