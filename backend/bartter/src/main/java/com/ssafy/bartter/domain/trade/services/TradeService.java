@@ -31,7 +31,7 @@ public class TradeService {
     public TradeInfo createOrGetTrade(int tradePostId, int userId) {
         TradePost tradePost = tradePostRepository.findTradePostById(tradePostId)
                 .orElseThrow(() -> new CustomException(ErrorCode.TRADE_POST_NOT_FOUND));
-        if(tradePost.getUser().getId() == userId){
+        if (tradePost.getUser().getId() == userId) {
             throw new CustomException(ErrorCode.BAD_REQUEST);
         }
 
@@ -40,7 +40,7 @@ public class TradeService {
 
         // 동일한 tradePost와 user가 있는지 조회
         Trade trade = tradeRepository.findByTradePostAndUser(tradePost, user).orElseGet(() -> createTrade(tradePost, user));
-        return TradeInfo.of(tradePost, trade.getId());
+        return TradeInfo.of(tradePost, trade.getId(), userId);
     }
 
     private Trade createTrade(TradePost tradePost, User user) {

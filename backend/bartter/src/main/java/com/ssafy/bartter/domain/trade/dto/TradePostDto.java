@@ -1,15 +1,11 @@
 package com.ssafy.bartter.domain.trade.dto;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.bartter.domain.crop.dto.CropCategoryDto.CropCategoryDetail;
 import com.ssafy.bartter.domain.user.dto.UserDto;
 import com.ssafy.bartter.domain.user.dto.UserDto.SimpleUserProfile;
 import com.ssafy.bartter.global.common.SimpleLocation;
 import com.ssafy.bartter.domain.trade.entity.TradePost;
 import com.ssafy.bartter.domain.trade.entity.TradeStatus;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
@@ -34,24 +30,20 @@ public class TradePostDto {
     public static class SimpleTradePostDetail {
         private int cropTradePostId;
         private String title;
-        private String imageURL;
+        private String image;
         private TradeStatus status;
         private SimpleLocation location;
         private int likeCount;
         private LocalDateTime createdAt;
-
         private Boolean isLike;
-
         private Boolean isShare;
 
 
-        public static SimpleTradePostDetail of(TradePost tradePost) {
-            // TODO: 현재 사용자의 userID가 1이라고 가정하고 구현 추후 리팩토링 예정
-            int currentUserId = 1;
+        public static SimpleTradePostDetail of(TradePost tradePost, int currentUserId) {
             return SimpleTradePostDetail.builder()
                     .cropTradePostId(tradePost.getId())
                     .title(tradePost.getTitle())
-                    .imageURL(tradePost.getImageList().isEmpty() ? null : tradePost.getImageList().get(0).getImageUrl())
+                    .image(tradePost.getImageList().isEmpty() ? null : tradePost.getImageList().get(0).getImageUrl())
                     .status(tradePost.getStatus())
                     .location(SimpleLocation.of(tradePost.getLocation()))
                     .likeCount(tradePost.getLikeList().size())
@@ -72,14 +64,8 @@ public class TradePostDto {
         private String title;
         private String content;
         private SimpleUserProfile author;
-
-        @JsonProperty("isLike")
-        @JsonIgnore
-        private boolean isLike;
-
-        @JsonProperty("isShare")
-        @JsonIgnore
-        private boolean isShare;
+        private Boolean isLike;
+        private Boolean isShare;
         private boolean hasCrop;
         private int cropId;
         private List<String> imageList;
@@ -111,20 +97,20 @@ public class TradePostDto {
     @Data
     public static class Create {
 
-        @NotBlank
+        @NotBlank(message = "제목을 입력해주세요")
         private String title;
 
-        @NotBlank
+        @NotBlank(message = "내용을 입력해주세요")
         private String content;
 
         private boolean shareStatus;
 
-        @Min(value = 0)
+        @Min(value = 0, message = "메시지를 입력해주세요")
         private int locationId;
 
         private int cropId;
 
-        @Min(value = 0)
+        @Min(value = 0, message = "농작물 카테고리를 선택해주세요")
         private int cropCategoryId;
 
         private List<Integer> wishCropCategoryList;

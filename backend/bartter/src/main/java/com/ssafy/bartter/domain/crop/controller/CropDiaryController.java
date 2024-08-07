@@ -5,6 +5,7 @@ import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
 import com.ssafy.bartter.domain.crop.dto.CropDiaryDto.CropDiaryThumbnail;
 import com.ssafy.bartter.domain.crop.dto.CropDiaryListDto;
 import com.ssafy.bartter.domain.crop.dto.CropDto;
+import com.ssafy.bartter.domain.crop.dto.CropDto.CropForDiaryMetaData;
 import com.ssafy.bartter.domain.crop.entity.Crop;
 import com.ssafy.bartter.domain.crop.entity.CropDiary;
 import com.ssafy.bartter.domain.crop.service.CropDiaryService;
@@ -38,10 +39,10 @@ public class CropDiaryController {
     @Operation(summary = "농사일지 작성", description = "농사일지를 작성한다.")
     @PostMapping("")
     public SuccessResponse<CropDiaryDetail> createCropDiary(
-            @CurrentUser UserAuthDto currentUser,
-            @ModelAttribute @Valid Create request,
+            @Valid Create request,
             BindingResult bindingResult,
-            @RequestPart(value = "image", required = false) MultipartFile image
+            @RequestPart(value = "image") MultipartFile image,
+            @CurrentUser UserAuthDto currentUser
     ) {
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
@@ -65,12 +66,12 @@ public class CropDiaryController {
     public SuccessResponse<CropDiaryListDto> getCropDiaryList(@PathVariable("cropId") int cropId) {
         Crop crop = cropService.getCrop(cropId);
         int tradeCount = cropService.getTradeCount(cropId);
+
         List<CropDiary> diaryList = cropDiaryService.getCropDiaryList(cropId);
-        List<CropDiaryThumbnail> thumbnailList = diaryList.stream().map(CropDiaryThumbnail::of).collect(Collectors.toList());
-        CropDiaryListDto response = CropDiaryListDto.builder()
-                .cropInfo(CropDto.CropForDiaryMetaData.of(crop, tradeCount))
-                .thumbnailList(thumbnailList)
-                .build();
+        List<CropDiaryThumbnail> thumbnailList = diaryList.stream().map(CropDiaryThumbnail::of).toList();
+        CropForDiaryMetaData metaData = CropForDiaryMetaData.of(crop, tradeCount);
+
+        CropDiaryListDto response = CropDiaryListDto.of(metaData, thumbnailList);
         return SuccessResponse.of(response);
     }
 

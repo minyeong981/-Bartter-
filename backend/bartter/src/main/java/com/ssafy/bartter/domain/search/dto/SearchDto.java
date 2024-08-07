@@ -28,9 +28,10 @@ public class SearchDto {
         private List<SimpleCommunityPostDetail> communityPostList;
         private List<SimpleTradePostDetail> tradePostList;
 
-        public static SimpleKeywordList of(List<SimpleUserProfile> userProfileList,
-                                        List<SimpleCommunityPostDetail> communityPostList,
-                                        List<SimpleTradePostDetail> tradePostList){
+        public static SimpleKeywordList of(
+                List<SimpleUserProfile> userProfileList,
+                List<SimpleCommunityPostDetail> communityPostList,
+                List<SimpleTradePostDetail> tradePostList){
             SimpleKeywordList simpleKeywordList = new SimpleKeywordList();
             simpleKeywordList.userProfileList = userProfileList;
             simpleKeywordList.communityPostList = communityPostList;
