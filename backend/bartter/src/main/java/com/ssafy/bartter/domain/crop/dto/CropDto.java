@@ -2,10 +2,12 @@ package com.ssafy.bartter.domain.crop.dto;
 
 import com.ssafy.bartter.domain.crop.entity.Crop;
 import com.ssafy.bartter.domain.user.dto.UserDto.SimpleUserProfile;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -22,8 +24,8 @@ public class CropDto {
     /**
      * 농작물 프로필 생성 Request
      */
-    @Getter
-    @AllArgsConstructor
+    @Data
+    @Schema(name = "CropCreateRequest", description = "농작물 프로필 생성 요청")
     public static class Create {
         @NotNull(message = "농작물 카테고리 정보를 입력하세요.")
         private final Integer cropCategoryId;

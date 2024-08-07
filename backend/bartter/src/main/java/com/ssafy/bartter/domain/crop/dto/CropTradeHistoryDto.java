@@ -1,9 +1,7 @@
 package com.ssafy.bartter.domain.crop.dto;
 
-import com.ssafy.bartter.domain.crop.dto.CropDto.CropProfile;
 import com.ssafy.bartter.domain.crop.dto.CropDto.SimpleCropProfile;
 import com.ssafy.bartter.domain.crop.entity.Crop;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 

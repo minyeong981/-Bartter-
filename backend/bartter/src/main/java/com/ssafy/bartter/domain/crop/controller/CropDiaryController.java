@@ -68,10 +68,10 @@ public class CropDiaryController {
         int tradeCount = cropService.getTradeCount(cropId);
         List<CropDiary> diaryList = cropDiaryService.getCropDiaryList(cropId);
         List<CropDiaryThumbnail> thumbnailList = diaryList.stream().map(CropDiaryThumbnail::of).collect(Collectors.toList());
-        CropDiaryListDto response = new CropDiaryListDto(
-                CropDto.CropForDiaryMetaData.of(crop, tradeCount),
-                thumbnailList
-        );
+        CropDiaryListDto response = CropDiaryListDto.builder()
+                .cropInfo(CropDto.CropForDiaryMetaData.of(crop, tradeCount))
+                .thumbnailList(thumbnailList)
+                .build();
         return SuccessResponse.of(response);
     }
 

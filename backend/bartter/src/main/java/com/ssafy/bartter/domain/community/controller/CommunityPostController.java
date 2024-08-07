@@ -3,9 +3,9 @@ package com.ssafy.bartter.domain.community.controller;
 
 import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
+import com.ssafy.bartter.domain.community.dto.CommunityPostDto;
 import com.ssafy.bartter.domain.community.entity.CommunityPost;
 import com.ssafy.bartter.domain.community.service.CommunityPostService;
-import com.ssafy.bartter.domain.community.dto.CommunityPostDto;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.response.SuccessResponse;
@@ -20,8 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.ssafy.bartter.domain.community.dto.CommunityPostDto.*;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/community/posts")
@@ -32,9 +30,9 @@ public class CommunityPostController {
 
     @Operation(summary = "동네모임 게시글 작성", description = "동네모임 게시글을 작성한다.")
     @PostMapping("")
-    public SuccessResponse<CommunityPostDetail> createCommunityPost(
+    public SuccessResponse<CommunityPostDto.CommunityPostDetail> createCommunityPost(
             @CurrentUser UserAuthDto currentUser,
-            @ModelAttribute @Valid Create request,
+            @ModelAttribute @Valid CommunityPostDto.Create request,
             BindingResult bindingResult,
             MultipartFile[] imageList) {
         if (bindingResult.hasErrors()) {
@@ -42,24 +40,24 @@ public class CommunityPostController {
         }
 
         CommunityPost post = communityPostService.createPost(request, imageList, currentUser.getId());
-        CommunityPostDetail response = CommunityPostDetail.of(post, currentUser.getId());
+        CommunityPostDto.CommunityPostDetail response = CommunityPostDto.CommunityPostDetail.of(post, currentUser.getId());
         return SuccessResponse.of(response);
     }
 
     @Operation(summary = "동네모임 게시글 상세 조회", description = "동네모임 게시글의 ID를 통해 게시글의 상세 정보를 조회한다.")
     @GetMapping("/{communityPostId}")
-    public SuccessResponse<CommunityPostDetail> getCommunityPost(
+    public SuccessResponse<CommunityPostDto.CommunityPostDetail> getCommunityPost(
             @PathVariable("communityPostId") int communityPostId,
             @CurrentUser UserAuthDto currentUser
     ) {
         CommunityPost post = communityPostService.getPost(communityPostId);
-        CommunityPostDetail response = CommunityPostDetail.of(post, currentUser.getId());
+        CommunityPostDto.CommunityPostDetail response = CommunityPostDto.CommunityPostDetail.of(post, currentUser.getId());
         return SuccessResponse.of(response);
     }
 
     @Operation(summary = "동네모임 게시글 전체 조회", description = "동네모임 전체 게시글을 조회한다.")
     @GetMapping("")
-    public SuccessResponse<List<SimpleCommunityPostDetail>> getCommunityPostList(
+    public SuccessResponse<List<CommunityPostDto.SimpleCommunityPostDetail>> getCommunityPostList(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "10") int limit,
             @RequestParam(value = "isCommunity", defaultValue = "false") boolean isCommunity,
@@ -68,8 +66,8 @@ public class CommunityPostController {
     ) {
         Integer userId = currentUser.getId();
         List<CommunityPost> postList = communityPostService.getPostList(page, limit, keyword, isCommunity, userId);
-        List<SimpleCommunityPostDetail> response = postList.stream()
-                .map((CommunityPost post) -> SimpleCommunityPostDetail.of(post, userId))
+        List<CommunityPostDto.SimpleCommunityPostDetail> response = postList.stream()
+                .map((CommunityPost post) -> CommunityPostDto.SimpleCommunityPostDetail.of(post, userId))
                 .collect(Collectors.toList());
         return SuccessResponse.of(response);
     }
