@@ -34,7 +34,7 @@ public class CommunityPostController {
             @CurrentUser UserAuthDto currentUser,
             @ModelAttribute @Valid CommunityPostDto.Create request,
             BindingResult bindingResult,
-            MultipartFile[] imageList) {
+            @RequestPart(value = "imageList", required = false) MultipartFile[] imageList) {
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }

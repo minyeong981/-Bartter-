@@ -30,11 +30,11 @@ public class CommunityPostDto {
     public static class Create {
         @Schema(description = "게시글 제목")
         @NotBlank(message = "게시글 제목을 입력하세요.")
-        private final String title;
+        private String title;
 
         @Schema(description = "게시글 내용")
         @NotBlank(message = "게시글 내용을 입력하세요.")
-        private final String content;
+        private String content;
     }
 
     /**

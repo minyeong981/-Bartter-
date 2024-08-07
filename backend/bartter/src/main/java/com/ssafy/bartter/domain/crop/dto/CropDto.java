@@ -28,13 +28,13 @@ public class CropDto {
     @Schema(name = "CropCreateRequest", description = "농작물 프로필 생성 요청")
     public static class Create {
         @NotNull(message = "농작물 카테고리 정보를 입력하세요.")
-        private final Integer cropCategoryId;
+        private Integer cropCategoryId;
 
         @NotBlank(message = "닉네임을 입력하세요.")
-        private final String nickname;
+        private String nickname;
 
         @NotNull(message = "파종 날짜를 입력하세요.")
-        private final LocalDate growDate;
+        private LocalDate growDate;
 
         private String description;
     }

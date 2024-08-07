@@ -48,10 +48,10 @@ public class CropController {
     @Operation(summary = "농작물 프로필 등록", description = "농작물 프로필을 등록한 후 생성된 데이터를 반환한다.")
     @PostMapping("")
     public SuccessResponse<CropProfile> createCrop(
-            @CurrentUser UserAuthDto currentUser,
-            @ModelAttribute @Valid Create request,
+            @Valid Create request,
             BindingResult bindingResult,
-            MultipartFile image) {
+            @CurrentUser UserAuthDto currentUser,
+            @RequestPart(value = "image", required = false) MultipartFile image) {
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
