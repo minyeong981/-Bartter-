@@ -18,7 +18,7 @@ import java.util.Collection;
 @RequiredArgsConstructor
 public class AuthUserDetails implements UserDetails {
 
-    // TODO : Location id 가 있어야하고 위치가 변경되면 여기 Location id 가 새로 등록되어야함
+    // TODO : 위치가 변경되면 여기 Location id 가 새로 등록되어야 한다
     private final transient UserAuthDto userAuthDto;
 
     public int getUserId() {

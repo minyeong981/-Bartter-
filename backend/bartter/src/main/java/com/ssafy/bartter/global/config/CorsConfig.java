@@ -12,9 +12,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
+    // TODO : 배포시 변경 필요
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry) {
         corsRegistry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173");
+                .allowedMethods("*")
+                .allowedOrigins("http://localhost:5173")
+                .allowCredentials(true);;
     }
 }

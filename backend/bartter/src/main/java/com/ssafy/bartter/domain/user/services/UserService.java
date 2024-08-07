@@ -1,5 +1,6 @@
 package com.ssafy.bartter.domain.user.services;
 
+import com.ssafy.bartter.domain.auth.dto.OAuthTempUserInfoDto;
 import com.ssafy.bartter.domain.user.dto.UserDto;
 import com.ssafy.bartter.domain.user.dto.UserJoinDto;
 import com.ssafy.bartter.domain.user.entity.User;
@@ -126,6 +127,25 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         return UserDto.UserProfile.of(user);
+    }
+
+
+    /**
+     * 카카오 유저 회원가입 메서드
+     */
+    public User registerKakaoUser(SimpleLocation.LocationRequestDto locationRequestDto, OAuthTempUserInfoDto userInfo) {
+        log.debug("SimpleLocation.LocationRequestDto locationRequestDto : {}", locationRequestDto);
+        Location location = locationService.getCurrentLocation(locationRequestDto.getLatitude(), locationRequestDto.getLongitude());
+
+        User user = User.builder()
+                .username(userInfo.getUsername())
+                .nickname(userInfo.getNickname())
+                .location(location)
+                .email(userInfo.getEmail())
+                .profileImage(userInfo.getProfileImage())
+                .build();
+
+        return userRepository.save(user);
     }
 
     /**

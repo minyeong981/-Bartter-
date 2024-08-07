@@ -49,6 +49,19 @@ public class JwtUtil {
                 .compact();
     }
 
+    public String generateOAuthToken(String category, String username, String nickname, String profileImage ,String role, Long expiredMs) {
+        return Jwts.builder()
+                .subject(username)
+                .claim("profileImage", profileImage)
+                .claim("nickname", nickname)
+                .claim("role", role)
+                .claim("category", category)
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + expiredMs))
+                .signWith(secretKey, Jwts.SIG.HS256)
+                .compact();
+    }
+
     /**
      * JWT 토큰의 만료 여부를 확인하는 메서드
      *
