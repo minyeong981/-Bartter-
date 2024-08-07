@@ -29,7 +29,7 @@ public class UserFollowController {
      * @throws CustomException 자신을 팔로우하려는 경우 예외 발생
      */
     @PostMapping("/{userId}")
-    public SuccessResponse<Void> followUser(@CurrentUser UserAuthDto currentUser, @PathVariable int userId) {
+    public SuccessResponse<Void> followUser(@CurrentUser UserAuthDto currentUser, @PathVariable("userId") int userId) {
         if(currentUser.getId() == userId)
             throw new CustomException(ErrorCode.FOLLOW_SELF_NOT_ALLOWED);
         followService.followUser(currentUser.getId(), userId);
@@ -45,7 +45,7 @@ public class UserFollowController {
      * @throws CustomException 자신을 언팔로우하려는 경우 예외 발생
      */
     @DeleteMapping("/{userId}")
-    public SuccessResponse<Void> unfollowUser(@CurrentUser UserAuthDto currentUser, @PathVariable int userId) {
+    public SuccessResponse<Void> unfollowUser(@CurrentUser UserAuthDto currentUser, @PathVariable("userId") int userId) {
         if(currentUser.getId() == userId)
             throw new CustomException(ErrorCode.UNFOLLOW_SELF_NOT_ALLOWED);
         followService.unfollowUser(currentUser.getId(), userId);
