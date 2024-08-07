@@ -13,6 +13,7 @@ import java.util.List;
  * @author 김가람
  */
 public interface CropCategoryRepository extends JpaRepository<CropCategory, Integer> {
+
     List<CropCategory> findAllByNameContaining(String name);
 
     @Query("SELECT cc FROM CropCategory  cc " +

@@ -44,16 +44,15 @@ public class CropDiaryService {
     /**
      * 농사일지 작성
      */
-    public CropDiary createCropDiary(Create request, MultipartFile image, int
-            userId) {
+    public CropDiary createCropDiary(
+            Create request,
+            MultipartFile image,
+            int userId
+    ) {
         Crop crop = cropRepository.findById(request.getCropId()).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
 
         if (!crop.getUser().getId().equals(userId)) {
             throw new CustomException(ErrorCode.UNAUTHENTICATED);
-        }
-
-        if (image == null) {
-            throw new CustomException(ErrorCode.IMAGE_NOT_ADDED);
         }
 
         String imageUrl = s3UploadService.upload(image);

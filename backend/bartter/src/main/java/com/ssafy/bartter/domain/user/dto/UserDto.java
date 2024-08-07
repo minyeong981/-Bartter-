@@ -19,9 +19,9 @@ public class UserDto {
     @Getter
     @Builder
     public static class SimpleUserProfile {
-        private final Integer userId;
-        private final String nickname;
-        private final String profileImage;
+        private int userId;
+        private String nickname;
+        private String profileImage;
 
         public static SimpleUserProfile of(User user) {
             return SimpleUserProfile.builder()
@@ -38,15 +38,16 @@ public class UserDto {
     @Getter
     @Builder
     public static class UserProfile {
-        private final Integer userId;
-        private final String profileImage;
-        private final String nickname;
-        private final String profileMessage;
-        private final SimpleLocation simpleLocation;
-        private final int followerCount;
-        private final int followeeCount;
+        private int userId;
+        private String profileImage;
+        private String nickname;
+        private String profileMessage;
+        private SimpleLocation location;
+        private int followerCount;
+        private int followeeCount;
+        private Boolean isFollowed;
 
-        public static UserProfile of(User user) {
+        public static UserProfile of(User user, Boolean isFollowed) {
             return UserProfile.builder()
                     .userId(user.getId())
                     .nickname(user.getNickname())
@@ -54,7 +55,8 @@ public class UserDto {
                     .followeeCount(user.getFolloweeCount())
                     .followerCount(user.getFollowerCount())
                     .profileMessage(user.getProfileMessage())
-                    .simpleLocation(SimpleLocation.of(user.getLocation()))
+                    .location(SimpleLocation.of(user.getLocation()))
+                    .isFollowed(isFollowed)
                     .build();
         }
     }

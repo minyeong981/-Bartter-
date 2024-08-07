@@ -1,10 +1,7 @@
 package com.ssafy.bartter.domain.user.dto;
 
 import com.ssafy.bartter.domain.user.entity.Gender;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -18,7 +15,6 @@ import java.time.LocalDate;
  * @author 김훈민
  */
 @Data
-@NoArgsConstructor
 public class UserJoinDto {
 
     /**
@@ -75,5 +71,6 @@ public class UserJoinDto {
     /**
      * 사용자 이메일
      */
+    @Email(message = "유효한 이메일 형식이 아닙니다.")
     private String email;
 }

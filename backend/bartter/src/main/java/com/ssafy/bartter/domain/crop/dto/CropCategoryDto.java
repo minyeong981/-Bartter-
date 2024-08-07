@@ -19,7 +19,7 @@ public class CropCategoryDto {
     @Builder
     @Getter
     public static class CropCategoryDetail {
-        private final Integer cropCategoryId;
+        private final int cropCategoryId;
         private final String name;
         private final String image;
 

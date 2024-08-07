@@ -11,6 +11,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 @Slf4j
 @RestControllerAdvice
@@ -27,6 +28,12 @@ public class CustomControllerAdvice {
     public ErrorResponse handleReadableException(Exception exception) {
         log.error("",exception);
         return ErrorResponse.of(new CustomException(ErrorCode.BAD_REQUEST));
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ErrorResponse handleExceededException(Exception exception) {
+        log.error("",exception);
+        return ErrorResponse.of(new CustomException(ErrorCode.MAXIMUM_UPDATE_SIZE_EXCEEDED));
     }
 
     @ExceptionHandler(CustomException.class)
