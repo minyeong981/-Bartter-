@@ -132,6 +132,18 @@ public class CropDiaryService {
         PageRequest pageable = PageRequest.of(0, numOfDiaries, Sort.by("createdAt").descending());
         return cropDiaryRepository.findAllByUserList(followeeList, pageable);
     }
+
+    /**
+     * 특정 달에 유저가 농사일지를 작성한 일자들을 조회한다.
+     */
+    @Transactional(readOnly = true)
+    public List<LocalDate> getUserDiaryWrittenDateList(int userId, int month) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        if (!(month >= 1 && month <= 12)) {
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE);
+        }
+        return cropDiaryRepository.findDiaryWrittenDates(userId, month);
+    }
 }
 
 

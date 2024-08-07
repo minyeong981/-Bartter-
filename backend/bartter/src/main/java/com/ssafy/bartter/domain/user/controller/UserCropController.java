@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,6 +62,16 @@ public class UserCropController {
     ) {
         List<CropDiary> diaryList = cropDiaryService.getUserDiaryList(userId, page, limit, year, month);
         List<CropDiaryThumbnail> response = diaryList.stream().map(CropDiaryThumbnail::of).collect(Collectors.toList());
+        return SuccessResponse.of(response);
+    }
+
+    @Operation(summary = "현재 로그인한 유저가 특정달에 농사일지를 작성한 일자들을 조회", description = "특정 달에 유저가 농사일지를 작성한 일자들을 조회하여 리스트로 반환한다.")
+    @GetMapping("/crops/diaries/checks")
+    public SuccessResponse<List<LocalDate>> getUserDiaryWrittenDateList(
+            @CurrentUser UserAuthDto currentUser,
+            @RequestParam(value = "month") int month
+    ) {
+        List<LocalDate> response = cropDiaryService.getUserDiaryWrittenDateList(currentUser.getId(), month);
         return SuccessResponse.of(response);
     }
 
