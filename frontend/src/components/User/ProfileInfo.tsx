@@ -1,41 +1,55 @@
-import { useState } from 'react'
-import { FaMapMarkerAlt } from 'react-icons/fa';
 import { FaUserGroup } from 'react-icons/fa6';
 
 import FollowButton from '@/components/Buttons/FollowButton'
 
+import Location from '../Header/Location';
+import ProfileImgComponent from './ProfileImgComponent';
 import styles from './ProfileInfo.module.scss'
 
-export default function ProfileInfo({userId, location, profileImage, nickname, followeeCount, followingCount, profileMessage} : UserProfile) {
+interface ProfileInfoProps {
+    userId: UserId;
+    location: SimpleLocation;
+    profileImage: ProfileImage;
+    nickname: Nickname;
+    followerCount: FollowingCount;
+    followeeCount: FolloweeCount;
+    profileMessage: ProfileMessage;
+    isFollowed: boolean;
+    isMe: boolean;
+    onClick? : React.MouseEventHandler<HTMLButtonElement>;
+}
 
-    const [ isfollowed, setIsfollowed ] = useState(false)
-
-    // 다른 유저 팔로우 하고 싶을때 이미 팔로우한 유저인지에 따라 버튼 색 변해야함!
-    function handleClick() {
-        console.log(isfollowed)
-        setIsfollowed((prevIsfollowed) => !prevIsfollowed)
-    }
+export default function ProfileInfo({ 
+    userId, 
+    location, 
+    profileImage, 
+    nickname, 
+    followeeCount, 
+    followerCount, 
+    profileMessage,
+    isFollowed,
+    isMe,
+    onClick } : ProfileInfoProps) {
 
     return (
         <div className={styles.profileInfo}>
             <div className={styles.locationBox}>
-            <FaMapMarkerAlt /> <div className={styles.locationBox}>{location.locationName}</div>
+            <Location location={location.name} />
             </div>
             <div className={styles.imgBox}>
-                <img src={profileImage} alt="" />
+                <img src={'https://'+profileImage} alt={`${userId}`} />
             </div>
             <div className={styles.nickname}>
                 {nickname}
             </div>
             <div className={styles.followButton}>
-            { userId !=='김싸피' ? undefined : <FollowButton isfollow={isfollowed} onClick={handleClick} /> }
-            {/* { userId !=='김싸피' ? undefined : <GeneralButton disabled={isfollowed} onClick= {handleClick} buttonStyle={{style:'primary', size: 'tiny'}}>팔로우</GeneralButton>} */}
+            { onClick && !isMe && <FollowButton isfollow={isFollowed} onClick={onClick} /> }
             </div>
             <div className={styles.followBox}>
                 <div>
                     <FaUserGroup className={styles.followeeIcon} /> 
                     팔로워 
-                    <div className={styles.follweeCount}>{followeeCount} </div>
+                    <div className={styles.follweeCount}>{followerCount} </div>
                 </div>
                 <div>
                     |
@@ -43,7 +57,7 @@ export default function ProfileInfo({userId, location, profileImage, nickname, f
                 <div>
                     <FaUserGroup className={styles.followingIcon} /> 
                     팔로잉 
-                    <div className={styles.follwingCount}>{followingCount}</div>
+                    <div className={styles.follwingCount}>{followeeCount}</div>
                 </div>
             </div>
             <div className={styles.message}>

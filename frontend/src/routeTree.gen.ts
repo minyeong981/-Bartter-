@@ -52,6 +52,7 @@ import { Route as LayoutProfileWritedLayoutImport } from './routes/_layout/profi
 import { Route as LayoutProfilePickedLayoutImport } from './routes/_layout/profile/picked/_layout'
 import { Route as LayoutProfileChatLayoutImport } from './routes/_layout/profile/chat/_layout'
 import { Route as LayoutProfileChangelocationLayoutImport } from './routes/_layout/profile/changelocation/_layout'
+import { Route as LayoutProfileUserIdLayoutImport } from './routes/_layout/profile/$userId/_layout'
 import { Route as LayoutDiaryWriteLayoutImport } from './routes/_layout/diary/write/_layout'
 import { Route as LayoutDiaryRegisterCropLayoutImport } from './routes/_layout/diary/registerCrop/_layout'
 import { Route as LayoutDiaryGrowDiaryLayoutImport } from './routes/_layout/diary/growDiary/_layout'
@@ -65,10 +66,11 @@ import { Route as LayoutProfileWritedLayoutIndexImport } from './routes/_layout/
 import { Route as LayoutProfilePickedLayoutIndexImport } from './routes/_layout/profile/picked/_layout/index'
 import { Route as LayoutProfileChatLayoutIndexImport } from './routes/_layout/profile/chat/_layout/index'
 import { Route as LayoutProfileChangelocationLayoutIndexImport } from './routes/_layout/profile/changelocation/_layout/index'
+import { Route as LayoutProfileUserIdLayoutIndexImport } from './routes/_layout/profile/$userId/_layout/index'
 import { Route as LayoutTradeDetailLayoutTradeIdImport } from './routes/_layout/trade/detail/_layout/$tradeId'
 import { Route as LayoutProfileAireportDetailReportIdImport } from './routes/_layout/profile/aireport/detail/$reportId'
-import { Route as LayoutProfileNicknameDiaryLayoutImport } from './routes/_layout/profile/$nickname/diary/_layout'
-import { Route as LayoutProfileNicknameCropStorageLayoutImport } from './routes/_layout/profile/$nickname/cropStorage/_layout'
+import { Route as LayoutProfileUserIdDiaryLayoutImport } from './routes/_layout/profile/$userId/diary/_layout'
+import { Route as LayoutProfileUserIdCropStorageLayoutImport } from './routes/_layout/profile/$userId/cropStorage/_layout'
 import { Route as LayoutDiaryWriteLayout2Import } from './routes/_layout/diary/write/_layout/2'
 import { Route as LayoutDiaryWriteLayout1Import } from './routes/_layout/diary/write/_layout/1'
 import { Route as LayoutDiaryRegisterCropLayout5Import } from './routes/_layout/diary/registerCrop/_layout/5'
@@ -79,8 +81,8 @@ import { Route as LayoutDiaryRegisterCropLayout1Import } from './routes/_layout/
 import { Route as LayoutDiaryGrowDiaryLayoutCropIdImport } from './routes/_layout/diary/growDiary/_layout/$cropId'
 import { Route as LayoutDiaryDetailLayoutDiaryIdImport } from './routes/_layout/diary/detail/_layout/$diaryId'
 import { Route as LayoutCommunityDetailLayoutPostIdImport } from './routes/_layout/community/detail/_layout/$postId'
-import { Route as LayoutProfileNicknameDiaryLayoutIndexImport } from './routes/_layout/profile/$nickname/diary/_layout/index'
-import { Route as LayoutProfileNicknameCropStorageLayoutIndexImport } from './routes/_layout/profile/$nickname/cropStorage/_layout/index'
+import { Route as LayoutProfileUserIdDiaryLayoutIndexImport } from './routes/_layout/profile/$userId/diary/_layout/index'
+import { Route as LayoutProfileUserIdCropStorageLayoutIndexImport } from './routes/_layout/profile/$userId/cropStorage/_layout/index'
 
 // Create Virtual Routes
 
@@ -100,6 +102,7 @@ const LayoutProfileChatImport = createFileRoute('/_layout/profile/chat')()
 const LayoutProfileChangelocationImport = createFileRoute(
   '/_layout/profile/changelocation',
 )()
+const LayoutProfileUserIdImport = createFileRoute('/_layout/profile/$userId')()
 const LayoutDiaryWriteImport = createFileRoute('/_layout/diary/write')()
 const LayoutDiaryRegisterCropImport = createFileRoute(
   '/_layout/diary/registerCrop',
@@ -109,11 +112,11 @@ const LayoutDiaryDetailImport = createFileRoute('/_layout/diary/detail')()
 const LayoutCommunityDetailImport = createFileRoute(
   '/_layout/community/detail',
 )()
-const LayoutProfileNicknameDiaryImport = createFileRoute(
-  '/_layout/profile/$nickname/diary',
+const LayoutProfileUserIdDiaryImport = createFileRoute(
+  '/_layout/profile/$userId/diary',
 )()
-const LayoutProfileNicknameCropStorageImport = createFileRoute(
-  '/_layout/profile/$nickname/cropStorage',
+const LayoutProfileUserIdCropStorageImport = createFileRoute(
+  '/_layout/profile/$userId/cropStorage',
 )()
 
 // Create/Update Routes
@@ -199,6 +202,11 @@ const LayoutProfileChangelocationRoute =
     getParentRoute: () => LayoutProfileRoute,
   } as any)
 
+const LayoutProfileUserIdRoute = LayoutProfileUserIdImport.update({
+  path: '/$userId',
+  getParentRoute: () => LayoutProfileRoute,
+} as any)
+
 const LayoutDiaryWriteRoute = LayoutDiaryWriteImport.update({
   path: '/write',
   getParentRoute: () => LayoutDiaryRoute,
@@ -269,17 +277,15 @@ const LayoutCommunityLayoutRoute = LayoutCommunityLayoutImport.update({
   getParentRoute: () => LayoutCommunityRoute,
 } as any)
 
-const LayoutProfileNicknameDiaryRoute = LayoutProfileNicknameDiaryImport.update(
-  {
-    path: '/$nickname/diary',
-    getParentRoute: () => LayoutProfileRoute,
-  } as any,
-)
+const LayoutProfileUserIdDiaryRoute = LayoutProfileUserIdDiaryImport.update({
+  path: '/diary',
+  getParentRoute: () => LayoutProfileUserIdRoute,
+} as any)
 
-const LayoutProfileNicknameCropStorageRoute =
-  LayoutProfileNicknameCropStorageImport.update({
-    path: '/$nickname/cropStorage',
-    getParentRoute: () => LayoutProfileRoute,
+const LayoutProfileUserIdCropStorageRoute =
+  LayoutProfileUserIdCropStorageImport.update({
+    path: '/cropStorage',
+    getParentRoute: () => LayoutProfileUserIdRoute,
   } as any)
 
 const LayoutTradeLayoutIndexRoute = LayoutTradeLayoutIndexImport.update({
@@ -431,6 +437,11 @@ const LayoutProfileChangelocationLayoutRoute =
     getParentRoute: () => LayoutProfileChangelocationRoute,
   } as any)
 
+const LayoutProfileUserIdLayoutRoute = LayoutProfileUserIdLayoutImport.update({
+  id: '/_layout',
+  getParentRoute: () => LayoutProfileUserIdRoute,
+} as any)
+
 const LayoutDiaryWriteLayoutRoute = LayoutDiaryWriteLayoutImport.update({
   id: '/_layout',
   getParentRoute: () => LayoutDiaryWriteRoute,
@@ -508,6 +519,12 @@ const LayoutProfileChangelocationLayoutIndexRoute =
     getParentRoute: () => LayoutProfileChangelocationLayoutRoute,
   } as any)
 
+const LayoutProfileUserIdLayoutIndexRoute =
+  LayoutProfileUserIdLayoutIndexImport.update({
+    path: '/',
+    getParentRoute: () => LayoutProfileUserIdLayoutRoute,
+  } as any)
+
 const LayoutTradeDetailLayoutTradeIdRoute =
   LayoutTradeDetailLayoutTradeIdImport.update({
     path: '/$tradeId',
@@ -520,16 +537,16 @@ const LayoutProfileAireportDetailReportIdRoute =
     getParentRoute: () => LayoutProfileRoute,
   } as any)
 
-const LayoutProfileNicknameDiaryLayoutRoute =
-  LayoutProfileNicknameDiaryLayoutImport.update({
+const LayoutProfileUserIdDiaryLayoutRoute =
+  LayoutProfileUserIdDiaryLayoutImport.update({
     id: '/_layout',
-    getParentRoute: () => LayoutProfileNicknameDiaryRoute,
+    getParentRoute: () => LayoutProfileUserIdDiaryRoute,
   } as any)
 
-const LayoutProfileNicknameCropStorageLayoutRoute =
-  LayoutProfileNicknameCropStorageLayoutImport.update({
+const LayoutProfileUserIdCropStorageLayoutRoute =
+  LayoutProfileUserIdCropStorageLayoutImport.update({
     id: '/_layout',
-    getParentRoute: () => LayoutProfileNicknameCropStorageRoute,
+    getParentRoute: () => LayoutProfileUserIdCropStorageRoute,
   } as any)
 
 const LayoutDiaryWriteLayout2Route = LayoutDiaryWriteLayout2Import.update({
@@ -590,16 +607,16 @@ const LayoutCommunityDetailLayoutPostIdRoute =
     getParentRoute: () => LayoutCommunityDetailLayoutRoute,
   } as any)
 
-const LayoutProfileNicknameDiaryLayoutIndexRoute =
-  LayoutProfileNicknameDiaryLayoutIndexImport.update({
+const LayoutProfileUserIdDiaryLayoutIndexRoute =
+  LayoutProfileUserIdDiaryLayoutIndexImport.update({
     path: '/',
-    getParentRoute: () => LayoutProfileNicknameDiaryLayoutRoute,
+    getParentRoute: () => LayoutProfileUserIdDiaryLayoutRoute,
   } as any)
 
-const LayoutProfileNicknameCropStorageLayoutIndexRoute =
-  LayoutProfileNicknameCropStorageLayoutIndexImport.update({
+const LayoutProfileUserIdCropStorageLayoutIndexRoute =
+  LayoutProfileUserIdCropStorageLayoutIndexImport.update({
     path: '/',
-    getParentRoute: () => LayoutProfileNicknameCropStorageLayoutRoute,
+    getParentRoute: () => LayoutProfileUserIdCropStorageLayoutRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
@@ -787,6 +804,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/diary/write'
       preLoaderRoute: typeof LayoutDiaryWriteLayoutImport
       parentRoute: typeof LayoutDiaryWriteRoute
+    }
+    '/_layout/profile/$userId': {
+      id: '/_layout/profile/$userId'
+      path: '/$userId'
+      fullPath: '/profile/$userId'
+      preLoaderRoute: typeof LayoutProfileUserIdImport
+      parentRoute: typeof LayoutProfileImport
+    }
+    '/_layout/profile/$userId/_layout': {
+      id: '/_layout/profile/$userId/_layout'
+      path: '/$userId'
+      fullPath: '/profile/$userId'
+      preLoaderRoute: typeof LayoutProfileUserIdLayoutImport
+      parentRoute: typeof LayoutProfileUserIdRoute
     }
     '/_layout/profile/changelocation': {
       id: '/_layout/profile/changelocation'
@@ -1117,33 +1148,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutDiaryWriteLayout2Import
       parentRoute: typeof LayoutDiaryWriteLayoutImport
     }
-    '/_layout/profile/$nickname/cropStorage': {
-      id: '/_layout/profile/$nickname/cropStorage'
-      path: '/$nickname/cropStorage'
-      fullPath: '/profile/$nickname/cropStorage'
-      preLoaderRoute: typeof LayoutProfileNicknameCropStorageImport
-      parentRoute: typeof LayoutProfileImport
+    '/_layout/profile/$userId/cropStorage': {
+      id: '/_layout/profile/$userId/cropStorage'
+      path: '/cropStorage'
+      fullPath: '/profile/$userId/cropStorage'
+      preLoaderRoute: typeof LayoutProfileUserIdCropStorageImport
+      parentRoute: typeof LayoutProfileUserIdImport
     }
-    '/_layout/profile/$nickname/cropStorage/_layout': {
-      id: '/_layout/profile/$nickname/cropStorage/_layout'
-      path: '/$nickname/cropStorage'
-      fullPath: '/profile/$nickname/cropStorage'
-      preLoaderRoute: typeof LayoutProfileNicknameCropStorageLayoutImport
-      parentRoute: typeof LayoutProfileNicknameCropStorageRoute
+    '/_layout/profile/$userId/cropStorage/_layout': {
+      id: '/_layout/profile/$userId/cropStorage/_layout'
+      path: '/cropStorage'
+      fullPath: '/profile/$userId/cropStorage'
+      preLoaderRoute: typeof LayoutProfileUserIdCropStorageLayoutImport
+      parentRoute: typeof LayoutProfileUserIdCropStorageRoute
     }
-    '/_layout/profile/$nickname/diary': {
-      id: '/_layout/profile/$nickname/diary'
-      path: '/$nickname/diary'
-      fullPath: '/profile/$nickname/diary'
-      preLoaderRoute: typeof LayoutProfileNicknameDiaryImport
-      parentRoute: typeof LayoutProfileImport
+    '/_layout/profile/$userId/diary': {
+      id: '/_layout/profile/$userId/diary'
+      path: '/diary'
+      fullPath: '/profile/$userId/diary'
+      preLoaderRoute: typeof LayoutProfileUserIdDiaryImport
+      parentRoute: typeof LayoutProfileUserIdImport
     }
-    '/_layout/profile/$nickname/diary/_layout': {
-      id: '/_layout/profile/$nickname/diary/_layout'
-      path: '/$nickname/diary'
-      fullPath: '/profile/$nickname/diary'
-      preLoaderRoute: typeof LayoutProfileNicknameDiaryLayoutImport
-      parentRoute: typeof LayoutProfileNicknameDiaryRoute
+    '/_layout/profile/$userId/diary/_layout': {
+      id: '/_layout/profile/$userId/diary/_layout'
+      path: '/diary'
+      fullPath: '/profile/$userId/diary'
+      preLoaderRoute: typeof LayoutProfileUserIdDiaryLayoutImport
+      parentRoute: typeof LayoutProfileUserIdDiaryRoute
     }
     '/_layout/profile/aireport/detail/$reportId': {
       id: '/_layout/profile/aireport/detail/$reportId'
@@ -1158,6 +1189,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/trade/detail/$tradeId'
       preLoaderRoute: typeof LayoutTradeDetailLayoutTradeIdImport
       parentRoute: typeof LayoutTradeDetailLayoutImport
+    }
+    '/_layout/profile/$userId/_layout/': {
+      id: '/_layout/profile/$userId/_layout/'
+      path: '/'
+      fullPath: '/profile/$userId/'
+      preLoaderRoute: typeof LayoutProfileUserIdLayoutIndexImport
+      parentRoute: typeof LayoutProfileUserIdLayoutImport
     }
     '/_layout/profile/changelocation/_layout/': {
       id: '/_layout/profile/changelocation/_layout/'
@@ -1215,19 +1253,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutTradeWriteLayoutIndexImport
       parentRoute: typeof LayoutTradeWriteLayoutImport
     }
-    '/_layout/profile/$nickname/cropStorage/_layout/': {
-      id: '/_layout/profile/$nickname/cropStorage/_layout/'
+    '/_layout/profile/$userId/cropStorage/_layout/': {
+      id: '/_layout/profile/$userId/cropStorage/_layout/'
       path: '/'
-      fullPath: '/profile/$nickname/cropStorage/'
-      preLoaderRoute: typeof LayoutProfileNicknameCropStorageLayoutIndexImport
-      parentRoute: typeof LayoutProfileNicknameCropStorageLayoutImport
+      fullPath: '/profile/$userId/cropStorage/'
+      preLoaderRoute: typeof LayoutProfileUserIdCropStorageLayoutIndexImport
+      parentRoute: typeof LayoutProfileUserIdCropStorageLayoutImport
     }
-    '/_layout/profile/$nickname/diary/_layout/': {
-      id: '/_layout/profile/$nickname/diary/_layout/'
+    '/_layout/profile/$userId/diary/_layout/': {
+      id: '/_layout/profile/$userId/diary/_layout/'
       path: '/'
-      fullPath: '/profile/$nickname/diary/'
-      preLoaderRoute: typeof LayoutProfileNicknameDiaryLayoutIndexImport
-      parentRoute: typeof LayoutProfileNicknameDiaryLayoutImport
+      fullPath: '/profile/$userId/diary/'
+      preLoaderRoute: typeof LayoutProfileUserIdDiaryLayoutIndexImport
+      parentRoute: typeof LayoutProfileUserIdDiaryLayoutImport
     }
   }
 }
@@ -1287,6 +1325,26 @@ export const routeTree = rootRoute.addChildren({
       LayoutProfileLayoutRoute: LayoutProfileLayoutRoute.addChildren({
         LayoutProfileLayoutIndexRoute,
       }),
+      LayoutProfileUserIdRoute: LayoutProfileUserIdRoute.addChildren({
+        LayoutProfileUserIdLayoutRoute:
+          LayoutProfileUserIdLayoutRoute.addChildren({
+            LayoutProfileUserIdLayoutIndexRoute,
+          }),
+        LayoutProfileUserIdCropStorageRoute:
+          LayoutProfileUserIdCropStorageRoute.addChildren({
+            LayoutProfileUserIdCropStorageLayoutRoute:
+              LayoutProfileUserIdCropStorageLayoutRoute.addChildren({
+                LayoutProfileUserIdCropStorageLayoutIndexRoute,
+              }),
+          }),
+        LayoutProfileUserIdDiaryRoute:
+          LayoutProfileUserIdDiaryRoute.addChildren({
+            LayoutProfileUserIdDiaryLayoutRoute:
+              LayoutProfileUserIdDiaryLayoutRoute.addChildren({
+                LayoutProfileUserIdDiaryLayoutIndexRoute,
+              }),
+          }),
+      }),
       LayoutProfileChangelocationRoute:
         LayoutProfileChangelocationRoute.addChildren({
           LayoutProfileChangelocationLayoutRoute:
@@ -1312,20 +1370,6 @@ export const routeTree = rootRoute.addChildren({
           }),
       }),
       LayoutProfileAireportIndexRoute,
-      LayoutProfileNicknameCropStorageRoute:
-        LayoutProfileNicknameCropStorageRoute.addChildren({
-          LayoutProfileNicknameCropStorageLayoutRoute:
-            LayoutProfileNicknameCropStorageLayoutRoute.addChildren({
-              LayoutProfileNicknameCropStorageLayoutIndexRoute,
-            }),
-        }),
-      LayoutProfileNicknameDiaryRoute:
-        LayoutProfileNicknameDiaryRoute.addChildren({
-          LayoutProfileNicknameDiaryLayoutRoute:
-            LayoutProfileNicknameDiaryLayoutRoute.addChildren({
-              LayoutProfileNicknameDiaryLayoutIndexRoute,
-            }),
-        }),
       LayoutProfileAireportDetailReportIdRoute,
     }),
     LayoutSignupRoute: LayoutSignupRoute.addChildren({
@@ -1451,13 +1495,12 @@ export const routeTree = rootRoute.addChildren({
       "parent": "/_layout",
       "children": [
         "/_layout/profile/_layout",
+        "/_layout/profile/$userId",
         "/_layout/profile/changelocation",
         "/_layout/profile/chat",
         "/_layout/profile/picked",
         "/_layout/profile/writed",
         "/_layout/profile/aireport/",
-        "/_layout/profile/$nickname/cropStorage",
-        "/_layout/profile/$nickname/diary",
         "/_layout/profile/aireport/detail/$reportId"
       ]
     },
@@ -1601,6 +1644,22 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/_layout/diary/write/_layout/1",
         "/_layout/diary/write/_layout/2"
+      ]
+    },
+    "/_layout/profile/$userId": {
+      "filePath": "_layout/profile/$userId",
+      "parent": "/_layout/profile",
+      "children": [
+        "/_layout/profile/$userId/_layout",
+        "/_layout/profile/$userId/cropStorage",
+        "/_layout/profile/$userId/diary"
+      ]
+    },
+    "/_layout/profile/$userId/_layout": {
+      "filePath": "_layout/profile/$userId/_layout.tsx",
+      "parent": "/_layout/profile/$userId",
+      "children": [
+        "/_layout/profile/$userId/_layout/"
       ]
     },
     "/_layout/profile/changelocation": {
@@ -1845,32 +1904,32 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout/diary/write/_layout/2.tsx",
       "parent": "/_layout/diary/write/_layout"
     },
-    "/_layout/profile/$nickname/cropStorage": {
-      "filePath": "_layout/profile/$nickname/cropStorage",
-      "parent": "/_layout/profile",
+    "/_layout/profile/$userId/cropStorage": {
+      "filePath": "_layout/profile/$userId/cropStorage",
+      "parent": "/_layout/profile/$userId",
       "children": [
-        "/_layout/profile/$nickname/cropStorage/_layout"
+        "/_layout/profile/$userId/cropStorage/_layout"
       ]
     },
-    "/_layout/profile/$nickname/cropStorage/_layout": {
-      "filePath": "_layout/profile/$nickname/cropStorage/_layout.tsx",
-      "parent": "/_layout/profile/$nickname/cropStorage",
+    "/_layout/profile/$userId/cropStorage/_layout": {
+      "filePath": "_layout/profile/$userId/cropStorage/_layout.tsx",
+      "parent": "/_layout/profile/$userId/cropStorage",
       "children": [
-        "/_layout/profile/$nickname/cropStorage/_layout/"
+        "/_layout/profile/$userId/cropStorage/_layout/"
       ]
     },
-    "/_layout/profile/$nickname/diary": {
-      "filePath": "_layout/profile/$nickname/diary",
-      "parent": "/_layout/profile",
+    "/_layout/profile/$userId/diary": {
+      "filePath": "_layout/profile/$userId/diary",
+      "parent": "/_layout/profile/$userId",
       "children": [
-        "/_layout/profile/$nickname/diary/_layout"
+        "/_layout/profile/$userId/diary/_layout"
       ]
     },
-    "/_layout/profile/$nickname/diary/_layout": {
-      "filePath": "_layout/profile/$nickname/diary/_layout.tsx",
-      "parent": "/_layout/profile/$nickname/diary",
+    "/_layout/profile/$userId/diary/_layout": {
+      "filePath": "_layout/profile/$userId/diary/_layout.tsx",
+      "parent": "/_layout/profile/$userId/diary",
       "children": [
-        "/_layout/profile/$nickname/diary/_layout/"
+        "/_layout/profile/$userId/diary/_layout/"
       ]
     },
     "/_layout/profile/aireport/detail/$reportId": {
@@ -1880,6 +1939,10 @@ export const routeTree = rootRoute.addChildren({
     "/_layout/trade/detail/_layout/$tradeId": {
       "filePath": "_layout/trade/detail/_layout/$tradeId.tsx",
       "parent": "/_layout/trade/detail/_layout"
+    },
+    "/_layout/profile/$userId/_layout/": {
+      "filePath": "_layout/profile/$userId/_layout/index.tsx",
+      "parent": "/_layout/profile/$userId/_layout"
     },
     "/_layout/profile/changelocation/_layout/": {
       "filePath": "_layout/profile/changelocation/_layout/index.tsx",
@@ -1913,13 +1976,13 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout/trade/write/_layout/index.tsx",
       "parent": "/_layout/trade/write/_layout"
     },
-    "/_layout/profile/$nickname/cropStorage/_layout/": {
-      "filePath": "_layout/profile/$nickname/cropStorage/_layout/index.tsx",
-      "parent": "/_layout/profile/$nickname/cropStorage/_layout"
+    "/_layout/profile/$userId/cropStorage/_layout/": {
+      "filePath": "_layout/profile/$userId/cropStorage/_layout/index.tsx",
+      "parent": "/_layout/profile/$userId/cropStorage/_layout"
     },
-    "/_layout/profile/$nickname/diary/_layout/": {
-      "filePath": "_layout/profile/$nickname/diary/_layout/index.tsx",
-      "parent": "/_layout/profile/$nickname/diary/_layout"
+    "/_layout/profile/$userId/diary/_layout/": {
+      "filePath": "_layout/profile/$userId/diary/_layout/index.tsx",
+      "parent": "/_layout/profile/$userId/diary/_layout"
     }
   }
 }

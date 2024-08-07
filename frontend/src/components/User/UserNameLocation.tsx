@@ -6,6 +6,7 @@ import {useState} from 'react';
 import {IconTrash} from '@/assets/svg';
 
 import DeletePostModal from '../Modals/DeletePostModal/deletePostModal';
+import ProfileImgComponent from './ProfileImgComponent';
 import styles from './UserNameContent.module.scss';
 
 interface UserNameLocationProps {
@@ -14,6 +15,7 @@ interface UserNameLocationProps {
   locationName: LocationName;
   createdAt: CreatedAt;
   postId: CommunityPostId;
+  userId: UserId;
 }
 
 interface onDeleteProps {
@@ -25,6 +27,7 @@ export default function UserNameLocation({
   nickname,
   profileImage,
   postId,
+  userId,
   createdAt,
   onDelete
 }: UserNameLocationProps & onDeleteProps) {
@@ -47,11 +50,7 @@ export default function UserNameLocation({
 
   return (
     <div className={styles.userInfoContainer}>
-      <img
-        className={styles.profileImage}
-        src={profileImage}
-        alt={`${nickname}'s profile`}
-      />
+      <ProfileImgComponent userId={userId} profileImage={profileImage}/>
       <div className={styles.userInfo}>
         <div className={styles.userName}>{nickname}</div>
         <div className={styles.content}>{locationName}</div>

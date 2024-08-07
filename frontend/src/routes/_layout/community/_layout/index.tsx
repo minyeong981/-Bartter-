@@ -5,6 +5,7 @@ import {useState} from 'react';
 import PostList from '@/components/Community/PostList';
 import TwoButton from '@/components/TwoButton/TwoButton';
 import barter from '@/services/barter';
+import querykeys from '@/util/querykeys';
 
 import styles from './../community.module.scss'
 
@@ -20,7 +21,7 @@ export default function CommunityList() {
   const [limit] = useState<number>(10)
 
   const { data , isPending } = useQuery({
-    queryKey: ['COMMUNITY_LIST', page, limit, isCommunity],
+    queryKey: [ querykeys.COMMUNITY_LIST, page, limit, isCommunity],
     queryFn:()=> barter.getCommunityPostList(page, limit, isCommunity)
   })
 

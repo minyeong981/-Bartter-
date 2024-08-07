@@ -40,11 +40,11 @@ export default {
   /**
    * 유저 팔로우
    */
-  follow: async (userId: UserId) => axios.post(`/user/${userId}/follow`),
+  follow: async (userId: UserId) => axios.post(`/follow/${userId}`),
   /**
    * 유저 팔로우 취소
    */
-  unfollow: async (userId: UserId) => axios.post(`/user/${userId}/unfollow`),
+  unfollow: async (userId: UserId) => axios.delete(`/follow/${userId}`),
   /**
    * 카카오 로그인 후 추가 정보 기입
    */

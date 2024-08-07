@@ -1,9 +1,7 @@
 import classnames from 'classnames/bind';
 
-import PostCard from '@/components/Community/PostCard'
+import PostList from "@/components/Community/PostList"
 
-// import PostList from "@/component/Community/PostList"
-// import useCommunityStore from '@/store';
 import LinkButton from '../Buttons/LinkButton';
 import Location from '../Header/Location';
 import NeighborCarousel from '../Neighbor/NeighborCarousel';
@@ -13,7 +11,6 @@ import styles from './SearchResult.module.scss'
 const cx = classnames.bind(styles);
 
 export default function SearchResult({search, results} :{ search : string, results : SearchResult }) {
-    // const posts = useCommunityStore(state => state.posts);
     // const location  = '장덕동'
 
     return (
@@ -43,10 +40,7 @@ export default function SearchResult({search, results} :{ search : string, resul
         <div className={cx('title')}>
           <div>동네 모임</div>
         </div>
-        {/* <PostList posts={results.communityPostList} /> */}
-        {/* {results.communityPostList.map((post, index) => 
-        <PostCard key={index} post={{...post}}/>
-        )} */}
+        <PostList posts={results.communityPostList} />
       </div>
       <div className={cx('link-button-container')}>
         <LinkButton

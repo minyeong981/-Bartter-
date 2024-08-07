@@ -5,8 +5,9 @@ import {useEffect,useState } from 'react';
 import RecentSearch from '@/components/Search/RecentSearch';
 import SearchBar from '@/components/Search/SearchBar';
 import SearchResult from '@/components/Search/SearchResult';
-// import SearchSuggestion from '@/components/Search/SearchSuggestion';
+import SearchSuggestion from '@/components/Search/SearchSuggestion';
 import barter from '@/services/barter';
+import querykeys from '@/util/querykeys';
 
 // import styles from './search.module.scss';
 
@@ -17,7 +18,7 @@ export default function Search() {
   const queryClient = useQueryClient();
 
   // 3. 검색어 제안리스트 현재 검색중인 query를 이용해 api로 요청하여 검색어 제안 보여줌 이것도 10개만 표시하기
-  // const [ suggestions, setSuggestions ] = useState<string[]>([]);
+  const [ suggestions, setSuggestions ] = useState<string[]>(['감자', '고구마', '오이', '당근', '수박', '가지', '배', '감', '바나나', '사과', '옥수수']);
  
   const initialSearchResult: SearchResult = {
     userProfileList: [],
@@ -28,7 +29,7 @@ export default function Search() {
 
   // 최근 검색어 가져오기
   const { isPending, data } = useQuery({
-    queryKey: ['SEARCH'],
+    queryKey: [querykeys.SEARCH],
     queryFn: barter.getRecentSearchKeywordList
   })
 
@@ -39,7 +40,7 @@ export default function Search() {
       console.log('검색어 삭제 실패')
       },
       onSuccess: () => {
-      queryClient.invalidateQueries('SEARCH');
+      queryClient.invalidateQueries(querykeys.SEARCH);
       console.log('검색어 삭제 성공')
     },
     })
@@ -51,7 +52,7 @@ export default function Search() {
     console.log('검색 실패')
     },
     onSuccess: (data) => {
-      queryClient.invalidateQueries('SEARCH');
+      queryClient.invalidateQueries(querykeys.SEARCH);
       console.log('검색 성공')
       console.log(data.data.data)
       setResults(data.data.data)
@@ -116,7 +117,7 @@ return (
         onSearch={handleSearch} 
         onDeleteSearch={handleDeleteSearch}
         /> }
-      {/* { query !== '' && result === '' && <SearchSuggestion query={query} suggestions={suggestions} onSearch={handleSearch}/> } */}
+      { query !== '' && !isSearch && <SearchSuggestion query={query} suggestions={suggestions} onSearch={handleSearch}/> }
       { query !== '' && isSearch && <SearchResult results={results} search={query}/> }
   </div>
 );

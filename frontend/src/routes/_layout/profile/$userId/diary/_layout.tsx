@@ -4,7 +4,7 @@ import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAnd
 
 import styles from './profileDiary.module.scss'
 
-export const Route = createFileRoute('/_layout/profile/$nickname/diary/_layout')({
+export const Route = createFileRoute('/_layout/profile/$userId/diary/_layout')({
   component: ProfileDiaryLayout
 })
 
