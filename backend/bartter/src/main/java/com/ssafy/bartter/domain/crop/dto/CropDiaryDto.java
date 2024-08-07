@@ -27,15 +27,15 @@ public class CropDiaryDto {
     @Schema(name = "CropDiaryCreateRequest", description = "농사일지 작성 요청")
     public static class Create {
         @NotNull(message = "농작물 프로필 정보를 입력하세요.")
-        private final Integer cropId;
+        private Integer cropId;
 
         @NotBlank(message = "농사일지의 제목을 입력하세요.")
-        private final String title;
+        private String title;
 
         @NotBlank(message = "농사일지의 내용을 입력하세요.")
-        private final String content;
+        private String content;
 
-        private final LocalDate performDate;
+        private LocalDate performDate;
     }
 
     /**
