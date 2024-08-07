@@ -29,7 +29,7 @@ export default function UserNameContent({
   }
 
   function handleConfirmDelete() {
-    onDelete(comment.commentId);
+    onDelete(comment.CommunityPostCommentId);
     handleModalClose()
   }
 
@@ -37,13 +37,13 @@ export default function UserNameContent({
     <div className={styles.userInfoContainer}>
       <img
         className={styles.profileImage}
-        src={comment.user.profileImage}
-        alt={`${comment.user.nickname}'s profile`}
+        src={comment.author.profileImage}
+        alt={`${comment.author.nickname}'s profile`}
       />
       <div className={styles.userInfo}>
-        <div className={styles.userName}>{comment.user.nickname}</div>
+        <div className={styles.userName}>{comment.author.nickname}</div>
         <div className={styles.Content}>{comment.content}</div>
-        <div className={styles.createdDate}>{format(comment.created_at, 'yyyy-MM-dd HH:mm', {locale: ko})}</div>
+        <div className={styles.createdDate}>{format(comment.createdAt, 'yyyy-MM-dd HH:mm', {locale: ko})}</div>
       </div>
       <button onClick={handleModalOpen}>
         <IconTrash className={styles.menuIcon} />

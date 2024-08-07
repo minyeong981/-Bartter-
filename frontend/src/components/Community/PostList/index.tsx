@@ -2,7 +2,7 @@ import PostCard from '../PostCard';
 import styles from './postList.module.scss';
 
 interface CommunityProps {
-  posts: CommunityPost[];
+  posts: SimpleCommunityPost[];
 }
 
 export default function PostList({posts}: CommunityProps) {

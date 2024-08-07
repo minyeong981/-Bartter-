@@ -32,6 +32,11 @@ export default function CommunityPostDetail() {
     mutationFn: ( postId : CommunityPostId ) => {
       return barter.deleteCommunityPost(postId)
     },
+    onError: ()=> {
+    console.log('작성자만 삭제할 수 있습니다.')
+    window.alert('작성자만 삭제할 수 있습니다.')
+    nav({to: `/community/${postId}`})
+    }, 
     onSuccess: () => {
       queryClient.invalidateQueries(['COMMUNITY_LIST'])
       nav({to: '/community'})
@@ -100,7 +105,7 @@ export default function CommunityPostDetail() {
   }
 
   function handleDeleteComment(commentId:number) {
-    deleteComment.mutate(postId, commentId)
+    deleteComment.mutate({postId:Number(postId), commentId:commentId})
   }
 
   function ChangeIsLike() {
@@ -136,9 +141,9 @@ export default function CommunityPostDetail() {
         isLike={data.data.data.isLike}
         onClick={ChangeIsLike}
       />
-      { data.data.data.commentList && data.data.data.commentList.map((comment, commentIndex) => (
-        <UserNameContent key={commentIndex} comment={comment} onDelete={() => handleDeleteComment(comment.commentId)} />
-      ))}
+      { data.data.data.commentList && data.data.data.commentList.map((comment, commentIndex) => 
+        <UserNameContent key={commentIndex} comment={comment} onDelete={() => handleDeleteComment(comment.communityPostCommentId)} />
+      )}
       <div>
         <input
           className={styles.commentInput}
