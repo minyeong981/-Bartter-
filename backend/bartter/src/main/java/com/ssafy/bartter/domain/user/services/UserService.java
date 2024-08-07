@@ -134,6 +134,7 @@ public class UserService {
      * 카카오 유저 회원가입 메서드
      */
     public User registerKakaoUser(SimpleLocation.LocationRequestDto locationRequestDto, OAuthTempUserInfoDto userInfo) {
+        log.debug("SimpleLocation.LocationRequestDto locationRequestDto : {}", locationRequestDto);
         Location location = locationService.getCurrentLocation(locationRequestDto.getLatitude(), locationRequestDto.getLongitude());
 
         User user = User.builder()

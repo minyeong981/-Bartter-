@@ -1,6 +1,6 @@
-package com.ssafy.bartter.domain.crop.dto;
+package com.ssafy.bartter.domain.report.dto;
 
-import com.ssafy.bartter.domain.crop.entity.CropReport;
+import com.ssafy.bartter.domain.report.entity.CropReport;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -2,7 +2,6 @@ package com.ssafy.bartter.domain.crop.controller;
 
 import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
-import com.ssafy.bartter.domain.crop.dto.CropDiaryDto;
 import com.ssafy.bartter.domain.crop.dto.CropDiaryDto.CropDiaryThumbnail;
 import com.ssafy.bartter.domain.crop.dto.CropDiaryListDto;
 import com.ssafy.bartter.domain.crop.dto.CropDto;
@@ -42,7 +41,7 @@ public class CropDiaryController {
             @CurrentUser UserAuthDto currentUser,
             @ModelAttribute @Valid Create request,
             BindingResult bindingResult,
-            MultipartFile image
+            @RequestPart(value = "image", required = false) MultipartFile image
     ) {
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
@@ -68,10 +67,10 @@ public class CropDiaryController {
         int tradeCount = cropService.getTradeCount(cropId);
         List<CropDiary> diaryList = cropDiaryService.getCropDiaryList(cropId);
         List<CropDiaryThumbnail> thumbnailList = diaryList.stream().map(CropDiaryThumbnail::of).collect(Collectors.toList());
-        CropDiaryListDto response = new CropDiaryListDto(
-                CropDto.CropForDiaryMetaData.of(crop, tradeCount),
-                thumbnailList
-        );
+        CropDiaryListDto response = CropDiaryListDto.builder()
+                .cropInfo(CropDto.CropForDiaryMetaData.of(crop, tradeCount))
+                .thumbnailList(thumbnailList)
+                .build();
         return SuccessResponse.of(response);
     }
 

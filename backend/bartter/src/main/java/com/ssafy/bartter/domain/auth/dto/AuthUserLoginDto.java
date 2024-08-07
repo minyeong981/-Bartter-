@@ -1,5 +1,6 @@
 package com.ssafy.bartter.domain.auth.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +9,7 @@ import lombok.NoArgsConstructor;
  *
  * @author 김훈민
  */
-@Getter
+@Data
 @NoArgsConstructor
 public class AuthUserLoginDto {
     /**

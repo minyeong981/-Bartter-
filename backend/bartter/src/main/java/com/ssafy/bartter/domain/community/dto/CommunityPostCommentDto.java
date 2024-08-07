@@ -2,10 +2,10 @@ package com.ssafy.bartter.domain.community.dto;
 
 import com.ssafy.bartter.domain.community.entity.CommunityPostComment;
 import com.ssafy.bartter.domain.user.dto.UserDto.SimpleUserProfile;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
@@ -19,18 +19,19 @@ public class CommunityPostCommentDto {
     /**
      * 동네모임 댓글 작성 Request
      * */
-    @Getter
-    @AllArgsConstructor
+    @Data
+    @Schema(name = "CommunityPostCommentCreateRequest", description = "동네모임 댓글 작성 요청")
     public static class Create {
+        @Schema(description = "댓글 내용")
         @NotBlank(message = "댓글 내용을 입력하세요.")
-        private final String content;
+        private String content;
     }
 
     /**
      * 동네모임 댓글 Response
      * */
     @Builder
-    @Getter
+    @Data
     public static class CommunityPostCommentDetail {
         private final Integer communityPostCommentId;
         private final SimpleUserProfile author;
