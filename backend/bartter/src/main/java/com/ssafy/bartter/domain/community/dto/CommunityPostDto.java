@@ -3,11 +3,12 @@ package com.ssafy.bartter.domain.community.dto;
 import com.ssafy.bartter.domain.community.dto.CommunityPostCommentDto.CommunityPostCommentDetail;
 import com.ssafy.bartter.domain.community.entity.CommunityPost;
 import com.ssafy.bartter.domain.community.entity.CommunityPostImage;
-import com.ssafy.bartter.global.common.SimpleLocation;
 import com.ssafy.bartter.domain.user.dto.UserDto.SimpleUserProfile;
+import com.ssafy.bartter.global.common.SimpleLocation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -24,12 +25,14 @@ public class CommunityPostDto {
     /**
      * 동네모임 게시글 Request
      * */
-    @Getter
-    @AllArgsConstructor
+    @Data
+    @Schema(name = "CommunityPostCreateRequest", description = "동네모임 게시글 작성 요청")
     public static class Create {
+        @Schema(description = "게시글 제목")
         @NotBlank(message = "게시글 제목을 입력하세요.")
         private final String title;
 
+        @Schema(description = "게시글 내용")
         @NotBlank(message = "게시글 내용을 입력하세요.")
         private final String content;
     }

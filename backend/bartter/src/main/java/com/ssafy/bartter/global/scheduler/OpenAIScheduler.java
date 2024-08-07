@@ -39,7 +39,7 @@ public class OpenAIScheduler {
      */
 //    @Scheduled(fixedRate = 0 0 6 * * 0)
     @Scheduled(fixedRate = 100000000)
-    private void saveDailyTipMessage() throws IOException {
+    public void saveDailyTipMessage() throws IOException {
         List<User> allUserList = userService.getAllUsers();
 
         dailyTipService.disableAll();
