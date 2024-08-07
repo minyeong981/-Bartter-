@@ -36,11 +36,11 @@ public interface CropRepository extends JpaRepository<Crop, Integer> {
             @Param("userId") Integer userId
     );
 
-    // TODO : DTO 변환 후 쿼리 체크
     @Query(
-            "SELECT tp.crop FROM TradePost tp"
-                    + " LEFT JOIN FETCH Crop c"
-                    + " ON tp.crop.id = c.id"
+            "SELECT c FROM TradePost tp"
+                    + " JOIN tp.crop c"
+                    + " JOIN FETCH c.user"
+                    + " JOIN FETCH c.category"
                     + " WHERE tp.user.id = :userId"
                     + " AND tp.status = 'COMPLETED'"
                     + " ORDER BY tp.createdAt DESC"
@@ -49,13 +49,12 @@ public interface CropRepository extends JpaRepository<Crop, Integer> {
             @Param("userId") int userId
     );
 
-    // TODO : DTO 변환 후 쿼리 체크
     @Query(
-            "SELECT t.tradePost.crop FROM Trade t"
-                    + " LEFT JOIN FETCH TradePost tp"
-                    + " ON t.tradePost.id = tp.id"
-                    + " LEFT JOIN FETCH Crop c"
-                    + " ON tp.crop.id = c.id"
+            "SELECT c FROM Trade t"
+                    + " JOIN t.tradePost tp"
+                    + " JOIN tp.crop c"
+                    + " JOIN FETCH c.user"
+                    + " JOIN FETCH c.category"
                     + " WHERE t.status = 'COMPLETED'"
                     + " AND t.user.id = :userId"
                     + " ORDER BY t.createdAt DESC"
