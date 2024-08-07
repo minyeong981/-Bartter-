@@ -1,8 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
+import {useQuery} from '@tanstack/react-query';
 import classnames from 'classnames/bind';
-import { useState } from 'react';
+import {useState} from 'react';
 
-import xIcon from '@/assets/image/xIcon.png'
+import xIcon from '@/assets/image/xIcon.png';
 import CropButton from '@/components/Buttons/CropButton';
 import LinkButton from '@/components/Buttons/LinkButton';
 import barter from '@/services/barter';
@@ -14,34 +14,108 @@ const cx = classnames.bind(styles);
 
 const decomposeHangul = (text: string) => {
   const INITIALS = [
-    "ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"
+    'ㄱ',
+    'ㄲ',
+    'ㄴ',
+    'ㄷ',
+    'ㄸ',
+    'ㄹ',
+    'ㅁ',
+    'ㅂ',
+    'ㅃ',
+    'ㅅ',
+    'ㅆ',
+    'ㅇ',
+    'ㅈ',
+    'ㅉ',
+    'ㅊ',
+    'ㅋ',
+    'ㅌ',
+    'ㅍ',
+    'ㅎ',
   ];
   const MEDIALS = [
-    "ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"
+    'ㅏ',
+    'ㅐ',
+    'ㅑ',
+    'ㅒ',
+    'ㅓ',
+    'ㅔ',
+    'ㅕ',
+    'ㅖ',
+    'ㅗ',
+    'ㅘ',
+    'ㅙ',
+    'ㅚ',
+    'ㅛ',
+    'ㅜ',
+    'ㅝ',
+    'ㅞ',
+    'ㅟ',
+    'ㅠ',
+    'ㅡ',
+    'ㅢ',
+    'ㅣ',
   ];
   const FINALS = [
-    "", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ", "ㄽ", "ㄾ", "ㄿ", "ㅀ", "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"
+    '',
+    'ㄱ',
+    'ㄲ',
+    'ㄳ',
+    'ㄴ',
+    'ㄵ',
+    'ㄶ',
+    'ㄷ',
+    'ㄹ',
+    'ㄺ',
+    'ㄻ',
+    'ㄼ',
+    'ㄽ',
+    'ㄾ',
+    'ㄿ',
+    'ㅀ',
+    'ㅁ',
+    'ㅂ',
+    'ㅄ',
+    'ㅅ',
+    'ㅆ',
+    'ㅇ',
+    'ㅈ',
+    'ㅊ',
+    'ㅋ',
+    'ㅌ',
+    'ㅍ',
+    'ㅎ',
   ];
 
-  return text.split('').map(char => {
-    const code = char.charCodeAt(0) - 44032;
-    if (code >= 0 && code <= 11171) {
-      const initial = INITIALS[Math.floor(code / 588)];
-      const medial = MEDIALS[Math.floor((code % 588) / 28)];
-      const final = FINALS[code % 28];
-      return initial + medial + final;
-    } else {
-      return char;
-    }
-  }).join('');
+  return text
+    .split('')
+    .map(char => {
+      const code = char.charCodeAt(0) - 44032;
+      if (code >= 0 && code <= 11171) {
+        const initial = INITIALS[Math.floor(code / 588)];
+        const medial = MEDIALS[Math.floor((code % 588) / 28)];
+        const final = FINALS[code % 28];
+        return initial + medial + final;
+      } else {
+        return char;
+      }
+    })
+    .join('');
 };
 
 export interface SearchParamCrop {
-  crop: CropCategoryDetail
+  crop: CropCategoryDetail;
 }
 
-export default function CropModal({ onClose, showSearchBar }: { onClose: () => void, showSearchBar?: boolean }) {
-  const { data } = useQuery({
+export default function CropModal({
+  onClose,
+  showSearchBar,
+}: {
+  onClose: () => void;
+  showSearchBar?: boolean;
+}) {
+  const {data} = useQuery({
     queryKey: ['cropsCategory'],
     queryFn: barter.getCropCategoryList,
   });
@@ -56,12 +130,16 @@ export default function CropModal({ onClose, showSearchBar }: { onClose: () => v
   const searchTermLower = searchTerm.toLowerCase();
   const searchTermDecomposed = decomposeHangul(searchTermLower);
 
-  const filteredCrops = data?.data.data.filter((crop: CropCategoryDetail) => {
-    const cropName = crop.name.toLowerCase();
-    const cropDecomposed = decomposeHangul(cropName);
+  const filteredCrops =
+    data?.data.data.filter((crop: CropCategoryDetail) => {
+      const cropName = crop.name.toLowerCase();
+      const cropDecomposed = decomposeHangul(cropName);
 
-    return cropName.includes(searchTermLower) || cropDecomposed.startsWith(searchTermDecomposed);
-  }) || [];
+      return (
+        cropName.includes(searchTermLower) ||
+        cropDecomposed.startsWith(searchTermDecomposed)
+      );
+    }) || [];
 
   return (
     <div className={cx('modalBackdrop')}>
@@ -76,7 +154,8 @@ export default function CropModal({ onClose, showSearchBar }: { onClose: () => v
               <CropButton
                 key={`${index}-${crop.name}`}
                 onClick={() => handleSelectCrop(crop)}
-                value={crop.name}
+                value={String(crop.cropCategoryId)}
+                name={crop.name}
                 imgUrl={crop.image || ''}
                 selected={selectedCrop?.name === crop.name}
               />
@@ -87,10 +166,10 @@ export default function CropModal({ onClose, showSearchBar }: { onClose: () => v
         </div>
         <div className={cx('buttonContainer')}>
           <LinkButton
-            buttonStyle={{ style: 'primary', size: 'large' }}
+            buttonStyle={{style: 'primary', size: 'large'}}
             to="/diary/registerCrop/1"
             disabled={selectedCrop === null}
-            search={{crop:selectedCrop}}
+            search={{crop: selectedCrop}}
           >
             다음
           </LinkButton>
