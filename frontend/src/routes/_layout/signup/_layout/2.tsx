@@ -29,11 +29,11 @@ export const Route = createFileRoute('/_layout/signup/_layout/2')({
 });
 
 function GetUserId() {
-  const [userId, setUserId] = useState('');
-  const isValid = userId.match(USERID_PATTERN);
+  const [username, setUsername] = useState('');
+  const isValid = username.match(USERID_PATTERN);
 
   function handleUserIdChange(e: ChangeEvent<HTMLInputElement>) {
-    setUserId(e.currentTarget.value);
+    setUsername(e.currentTarget.value);
   }
 
   return (
@@ -50,7 +50,7 @@ function GetUserId() {
           label="아이디"
           placeholder="아이디를 입력해주세요"
           onChange={handleUserIdChange}
-          value={userId}
+          value={username}
           pattern={USERID_PATTERN.source}
         />
       </div>
@@ -58,7 +58,7 @@ function GetUserId() {
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
           to="/signup/3"
-          search={prev => ({...prev, userId})}
+          search={prev => ({...prev, username: username})}
           disabled={!isValid}
         >
           다음

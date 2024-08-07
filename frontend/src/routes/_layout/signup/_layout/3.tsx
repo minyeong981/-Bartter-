@@ -12,7 +12,7 @@ import {PASSWORD_PATTERN} from '@/util/validation.ts';
 import styles from '../signup.module.scss';
 
 export interface SearchParamFromPhase2 extends SearchParamFromPhase1 {
-  userId?: UserId;
+  username?: Username;
 }
 
 const cx = classnames.bind(styles);
@@ -22,12 +22,15 @@ export const Route = createFileRoute('/_layout/signup/_layout/3')({
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase2 => {
     return {
       name: search.name !== 'undefined' ? (search.name as Name) : undefined,
-      userId:
-        search.userId !== 'undefined' ? (search.userId as UserId) : undefined,
+      username:
+        search.username !== 'undefined'
+          ? (search.username as Username)
+          : undefined,
     };
   },
   beforeLoad: async ({search}) => {
-    if (!search.userId) throw redirect({to: '/signup/2', search: {...search}});
+    if (!search.username)
+      throw redirect({to: '/signup/2', search: {...search}});
   },
 });
 

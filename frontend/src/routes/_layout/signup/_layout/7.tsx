@@ -23,7 +23,7 @@ export const Route = createFileRoute('/_layout/signup/_layout/7')({
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase6 => {
     return {
       name: search.name ? (search.name as Name) : undefined,
-      userId: search.userId ? (search.userId as UserId) : undefined,
+      username: search.username ? (search.username as Username) : undefined,
       password: search.password ? (search.password as Password) : undefined,
       birth: search.birth ? (search.birth as Birth) : undefined,
       gender: search.gender ? (search.gender as Gender) : undefined,

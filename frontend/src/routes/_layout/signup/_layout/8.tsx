@@ -4,6 +4,7 @@ import classnames from 'classnames/bind';
 
 import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
 import Heading from '@/components/Heading';
+import Spinner from '@/components/Spinner';
 import type {SearchParamFromPhase6} from '@/routes/_layout/signup/_layout/7.tsx';
 import barter from '@/services/barter.ts';
 import {getPosition} from '@/util/geolocation.ts';
@@ -21,7 +22,7 @@ export const Route = createFileRoute('/_layout/signup/_layout/8')({
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase7 => {
     return {
       name: search.name ? (search.name as Name) : undefined,
-      userId: search.userId ? (search.userId as UserId) : undefined,
+      username: search.username ? (search.username as Username) : undefined,
       password: search.password ? (search.password as Password) : undefined,
       birth: search.birth ? (search.birth as Birth) : undefined,
       gender: search.gender ? (search.gender as Gender) : undefined,
@@ -39,9 +40,9 @@ export const Route = createFileRoute('/_layout/signup/_layout/8')({
 
 function GetLocationPage() {
   const navigate = useNavigate({from: '/signup/8'});
-  const {name, gender, password, userId, birth, phoneNumber, email} =
+  const {name, gender, password, username, birth, phoneNumber, email} =
     Route.useSearch();
-  const mutation = useMutation({
+  const {mutate, isPending} = useMutation({
     mutationFn: barter.signup,
     onSuccess: () => navigate({to: '/signup/9', search: {success: true}}),
     onError: () => console.error('회원가입하는데 문제가 발생했습니다.'),
@@ -51,10 +52,10 @@ function GetLocationPage() {
     const {
       coords: {latitude, longitude},
     } = await getPosition();
-    mutation.mutate({
+    mutate({
       gender: gender!,
       password: password!,
-      username: userId!,
+      username: username!,
       birth: birth!,
       phone: phoneNumber!,
       email: email!,
@@ -64,6 +65,8 @@ function GetLocationPage() {
     });
     return;
   }
+
+  if (isPending) return <Spinner />;
 
   return (
     <>
