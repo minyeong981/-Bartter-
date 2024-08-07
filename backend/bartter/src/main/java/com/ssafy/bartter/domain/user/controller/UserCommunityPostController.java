@@ -36,7 +36,7 @@ public class UserCommunityPostController {
             @CurrentUser UserAuthDto currentUser
     ) {
         List<CommunityPost> postList = communityPostService.getUserPostList(page, limit, userId);
-        List<MyCommunityPostDetail> response = postList.stream().map(o -> MyCommunityPostDetail.of(o, currentUser.getId())).collect(Collectors.toList());
+        List<MyCommunityPostDetail> response = postList.stream().map(MyCommunityPostDetail::of).toList();
         return SuccessResponse.of(response);
     }
 }

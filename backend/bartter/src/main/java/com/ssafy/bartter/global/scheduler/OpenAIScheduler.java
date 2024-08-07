@@ -38,7 +38,7 @@ public class OpenAIScheduler {
      * 일요일 아침 6시마다 등록된 모든 유저의 요약 리포트와 알람을 생성하여 저장
      */
 //    @Scheduled(fixedRate = 0 0 6 * * 0)
-    @Scheduled(fixedRate = 100000000)
+//    @Scheduled(fixedRate = 100000000)
     public void saveDailyTipMessage() throws IOException {
         List<User> allUserList = userService.getAllUsers();
 

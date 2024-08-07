@@ -1,7 +1,6 @@
 package com.ssafy.bartter.domain.auth.dto;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**

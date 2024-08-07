@@ -43,6 +43,7 @@ public class RedisChatService {
         redisTemplate.opsForList().rightPush(key, message);
     }
 
+    // TODO: Repository로 빼내기
     public List<ChatMessage> getTradeChat(int userId, int tradeId, int page, int limit) {
         log.debug("{}, {}", userId, tradeId);
         

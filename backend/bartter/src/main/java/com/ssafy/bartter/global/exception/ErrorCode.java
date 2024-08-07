@@ -20,6 +20,7 @@ public enum ErrorCode {
     LOCATION_NOT_FOUND(HttpStatus.NOT_FOUND, 1006, "해당 위치를 찾을 수 없습니다."),
     IMAGE_NOT_ADDED(HttpStatus.BAD_REQUEST, 1007, "이미지를 첨부해야 합니다."),
     BAD_REQUEST(HttpStatus.BAD_REQUEST, 1008, "잘못된 요청입니다. 요청을 확인해주세요."),
+    MAXIMUM_UPDATE_SIZE_EXCEEDED(HttpStatus.BAD_REQUEST, 1009, "파일 용량은 1MB를 초과 할 수 없습니다."),
 
 
     // Auth & User - 2000

@@ -12,10 +12,10 @@ public class TradeDto {
         private int tradeId;
         private SimpleTradePostDetail simpleTradePostDetail;
 
-        public static TradeInfo of(TradePost tradePost, int tradeId){
+        public static TradeInfo of(TradePost tradePost, int tradeId, int userId){
             TradeInfo tradeInfo = new TradeInfo();
             tradeInfo.tradeId = tradeId;
-            tradeInfo.simpleTradePostDetail = SimpleTradePostDetail.of(tradePost);
+            tradeInfo.simpleTradePostDetail = SimpleTradePostDetail.of(tradePost,userId);
             return tradeInfo;
         }
     }
