@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
+import { useNavigate } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
+import { useEffect, useState } from 'react';
 
 import barter from '@/services/barter';
 import useRootStore from '@/store';
@@ -12,23 +14,44 @@ interface DiaryListProps {
   selectedDate: Date;
 }
 
-function DiaryList({ selectedDate }: DiaryListProps) {
+export default function DiaryList({ selectedDate }: DiaryListProps) {
   const userId = useRootStore(state => state.userId);
-  const { data } = useQuery({
+  const navigate = useNavigate();
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['diaryList', userId],
     queryFn: () => barter.getCropDiary(userId)
-  })
+  });
 
-  const diaryEntries  = data?.data.data || [];
+  const [filteredDiaries, setFilteredDiaries] = useState<any[]>([]);
 
-  if (diaryEntries.length === 0) {
-    return;
-  }
+  useEffect(() => {
+    if (data) {
+      const diaryEntries = data.data.data || [];
+      const filteredEntries = diaryEntries.filter((diary: any) => {
+        const diaryDate = new Date(diary.performDate);
+        return (
+          diaryDate.getFullYear() === selectedDate.getFullYear() &&
+          diaryDate.getMonth() === selectedDate.getMonth() &&
+          diaryDate.getDate() === selectedDate.getDate()
+        );
+      });
+      setFilteredDiaries(filteredEntries);
+    }
+  }, [data, selectedDate]);
+
+  const handleDetailClick = (diary: any) => {
+    navigate({
+      to: `/diary/detail/${diary.id}`
+    });
+  };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>오류가 발생했습니다.</div>;
 
   return (
     <div className={cx('diaryListContainer')}>
       <div className={cx('cardContainer')}>
-        {diaryEntries.map((diary) => (
+        {filteredDiaries.map((diary) => (
           <div className={cx('card')} key={diary.id}>
             <span 
               className={cx('detailButton')} 
@@ -50,4 +73,3 @@ function DiaryList({ selectedDate }: DiaryListProps) {
   );
 }
 
-export default DiaryList;

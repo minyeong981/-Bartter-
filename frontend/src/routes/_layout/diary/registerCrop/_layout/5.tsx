@@ -98,7 +98,7 @@ export const Route = createFileRoute('/_layout/diary/registerCrop/_layout/5')({
 
 function CropProfilePage() {
   const { cropId } = Route.useSearch();
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<File[]>([]);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['cropProfile', cropId],
@@ -106,21 +106,29 @@ function CropProfilePage() {
     enabled: !!cropId,
   });
 
+
+
+  // useEffect(() => {
+  //   if (data && data.data.data.image) {
+  //     const image = data.data.data.image;
+  //     if (image instanceof Blob) {
+  //       const reader = new FileReader();
+  //       reader.onloadend = () => {
+  //         setImageUrl(reader.result as string);
+  //       };
+  //       reader.readAsDataURL(image);
+  //     } else if (typeof image === 'string') {
+  //       setImageUrl(image);
+  //     }
+  //   }
+  // }, [data]);
+
   useEffect(() => {
     if (data && data.data.data.image) {
-      const image = data.data.data.image;
-      if (image instanceof Blob) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setImageUrl(reader.result as string);
-        };
-        reader.readAsDataURL(image);
-      } else if (typeof image === 'string') {
-        setImageUrl(image);
-      }
+      setImageUrl(data.data.data.image);
     }
   }, [data]);
-
+  
   if (isLoading) return <Spinner />;
   if (isError || !data) {
     console.error('오류가 발생했습니다. 데이터:', data);

@@ -15,6 +15,7 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
   const [currentWeek, setCurrentWeek] = useState<Date[]>([]);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
 
+
   const getStartOfWeek = (date: Date): Date => {
     const day = date.getDay();
     const diff = date.getDate() - day;
@@ -29,16 +30,19 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
     setCurrentWeek(week);
   }, []);
 
+  // 선택한 날짜의 주 업데이트
   useEffect(() => {
     updateCurrentWeek(selectedDate);
   }, [selectedDate, updateCurrentWeek]);
 
+  // 달력 접었을 때 선택한 날짜의 주 업데이트
   useEffect(() => {
     if (isCollapsed) {
       updateCurrentWeek(selectedDate);
     }
   }, [isCollapsed, currentMonth, selectedDate, updateCurrentWeek]);
 
+  // 달 변경
   const changeMonth = (increment: number) => {
     const newDate = new Date(currentMonth);
     newDate.setMonth(currentMonth.getMonth() + increment);
@@ -46,6 +50,7 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
     setSelectedDate(new Date(newDate.setDate(selectedDate.getDate())));
   };
 
+  // 년, 월 커스텀 => 2021. 09 형식
   const formatMonthYear = (date: Date): string => {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -56,17 +61,21 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
     return date.getDate().toString();
   };
 
+
+  // 요일 커스텀
   const renderWeekday = (_: string | undefined, date: Date): string => {
     const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
     return weekdays[date.getDay()];
   };
 
+  // 날짜 클릭하면 선택된 날짜, 해당 날짜의 주 변경 및 부모 컴포넌트에 선택된 날짜 전달
   const onClickDay = (date: Date) => {
     setSelectedDate(date);
     updateCurrentWeek(date);
     onDateChange(date); // 부모 컴포넌트에 선택된 날짜 전달
   };
 
+  // 해당 달에 다이어리 있으면 날짜 비교 후 점 찍기
   const tileContent = ({ date, view }: { date: Date, view: string }) => {
     if (view === 'month' && highlightDates.some(highlightDate => highlightDate.toDateString() === date.toDateString())) {
       return <div className="highlight-dot" />;
@@ -74,6 +83,8 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
     return null;
   };
 
+
+  // 기본 달력 세팅
   const getTileClassName = (date: Date) => {
     const classes = [];
     if (date.getDay() === 6) {
@@ -97,6 +108,7 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
     return classes.join(' ');
   };
 
+  // 달력 접었을 때 세팅
   const renderCollapsedCalendar = () => {
     return (
       <div className="react-calendar collapsed-calendar">
@@ -109,6 +121,7 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
             {'>'}
           </button>
         </div>
+
         <div className="react-calendar__month-view__weekdays">
           {currentWeek.map((date, index) => (
             <div key={index} className="react-calendar__month-view__weekdays__weekday">
@@ -116,6 +129,7 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
             </div>
           ))}
         </div>
+
         <div className="react-calendar__month-view__days">
           {currentWeek.map((date) => (
             <div
@@ -134,6 +148,8 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
     );
   };
 
+
+  // 달력 펼쳤을 때 세팅
   const renderFullCalendar = () => {
     return (
       <Calendar

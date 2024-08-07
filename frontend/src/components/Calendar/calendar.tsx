@@ -1,8 +1,10 @@
+// import { useQuery } from '@tanstack/react-query';
 import classnames from 'classnames/bind';
 import { useState } from 'react';
 
 import CustomCalendar from '@/components/Calendar/CustomCalendar';
 
+// import barter from '@/services/barter';
 import styles from './calendar.module.scss';
 
 const cx = classnames.bind(styles);
@@ -13,6 +15,12 @@ interface CalendarPageProps {
 }
 
 export default function CalendarPage({ onDateChange, diaryEntries = [] }: CalendarPageProps) {
+  // const { data } = useQuery({
+  //   queryKey: ['hasDiary'],
+  //   queryFn: () => barter.
+  // })
+
+  // const hasDiary = data.data;
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleCalendar = () => {

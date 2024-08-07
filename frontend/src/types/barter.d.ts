@@ -377,7 +377,6 @@ interface CropProfileForm {
   description: Description;
 }
 
-interface CropDiaryForm {}
 
 type AdditionalInfo = Location;
 
