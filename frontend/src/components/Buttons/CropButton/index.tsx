@@ -5,6 +5,7 @@ import styles from './cropButton.module.scss';
 interface CropButtonProps {
   onClick: (value: string) => void;
   value: string;
+  name: string;
   imgUrl: string;
   selected?: boolean;
 }
@@ -15,6 +16,7 @@ export default function CropButton({
   value,
   imgUrl,
   selected,
+  name,
   onClick,
 }: CropButtonProps) {
   function handleClick() {
@@ -24,9 +26,9 @@ export default function CropButton({
   return (
     <div className={cx('cropButton', {selected})}>
       <button id={value} onClick={handleClick}>
-        <img src={'http://' + imgUrl} alt={value} />
+        <img src={'http://' + imgUrl} alt={name} />
       </button>
-      <label htmlFor={value}>{value}</label>
+      <label htmlFor={name}>{name}</label>
     </div>
   );
 }

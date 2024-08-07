@@ -1,42 +1,38 @@
+import {useQuery} from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import {useState} from 'react';
 
-import {
-  ImageApple,
-  ImageCarrot,
-  ImageCorn,
-  ImageCucumber,
-  ImageEggPlant,
-  ImageGarlic,
-  ImageGrape,
-} from '@/assets/image';
 import CropButton from '@/components/Buttons/CropButton';
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
+import type {SearchParamsFromFromPage} from '@/routes/_layout/trade/from/_layout/index.tsx';
+import barter from '@/services/barter.ts';
 
 import styles from './to.module.scss';
 
-const DUMMY_CROPS = [
-  {imageUrl: ImageCorn, value: 'corn'},
-  {imageUrl: ImageCucumber, value: 'cucumber'},
-  {
-    imageUrl: ImageApple,
-    value: 'apple',
-  },
-  {imageUrl: ImageCarrot, value: 'carrot'},
-  {imageUrl: ImageGrape, value: 'grape'},
-  {imageUrl: ImageGarlic, value: 'garlic'},
-  {imageUrl: ImageEggPlant, value: 'eggplant'},
-];
+export interface SearchParamsFromToPage extends SearchParamsFromFromPage {
+  cropsToGet: string[];
+}
 
 const cx = classnames.bind(styles);
 
 export const Route = createFileRoute('/_layout/trade/to/_layout/')({
   component: ToPage,
+  validateSearch: ({
+    cropsToGive,
+  }: Record<string, unknown>): SearchParamsFromFromPage => {
+    return {
+      cropsToGive: cropsToGive as string[],
+    };
+  },
 });
 
 function ToPage() {
+  const {data} = useQuery({
+    queryKey: ['cropsCategory'],
+    queryFn: barter.getCropCategoryList,
+  });
   const [cropsToGet, setCropsToGet] = useState<string[]>([]);
 
   function handleSelectCrop(crop: string) {
@@ -58,14 +54,15 @@ function ToPage() {
       </Heading>
       <div className={cx('cropListContainer')}>
         <div className={cx('cropList')}>
-          {DUMMY_CROPS.length &&
-            DUMMY_CROPS.map((crop, index) => (
+          {data?.data.data &&
+            data?.data.data.map((crop, index) => (
               <CropButton
-                key={`${index}-${crop.value}`}
+                key={`${index}-${crop.name}`}
                 onClick={handleSelectCrop}
-                value={crop.value}
-                imgUrl={crop.imageUrl}
-                selected={cropsToGet.includes(crop.value)}
+                value={String(crop.cropCategoryId)}
+                name={crop.name}
+                imgUrl={crop.image!}
+                selected={cropsToGet.includes(String(crop.cropCategoryId))}
               />
             ))}
         </div>
@@ -74,6 +71,7 @@ function ToPage() {
         <LinkButton
           buttonStyle={{style: 'primary', size: 'large'}}
           to="/trade/write"
+          search={prev => ({...prev, cropsToGet: cropsToGet})}
         >
           다음
         </LinkButton>
