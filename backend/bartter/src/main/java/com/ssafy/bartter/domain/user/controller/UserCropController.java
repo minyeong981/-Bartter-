@@ -2,10 +2,7 @@ package com.ssafy.bartter.domain.user.controller;
 
 import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
-import com.ssafy.bartter.domain.crop.dto.CropDiaryDto;
 import com.ssafy.bartter.domain.crop.dto.CropDiaryDto.CropDiaryDetailWithUser;
-import com.ssafy.bartter.domain.crop.dto.CropDto;
-import com.ssafy.bartter.domain.crop.dto.CropDto.CropProfile;
 import com.ssafy.bartter.domain.crop.dto.CropTradeHistoryDto;
 import com.ssafy.bartter.domain.crop.entity.Crop;
 import com.ssafy.bartter.domain.crop.entity.CropDiary;
@@ -21,9 +18,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.ssafy.bartter.domain.crop.dto.CropDiaryDto.*;
 import static com.ssafy.bartter.domain.crop.dto.CropDiaryDto.CropDiaryDetail;
-import static com.ssafy.bartter.domain.crop.dto.CropDto.*;
+import static com.ssafy.bartter.domain.crop.dto.CropDiaryDto.CropDiaryThumbnail;
+import static com.ssafy.bartter.domain.crop.dto.CropDto.SimpleCropProfile;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,14 +39,6 @@ public class UserCropController {
         return SuccessResponse.of(response);
     }
 
-    @Operation(summary = "유저가 교환 & 나눔한 농작물 컬렉션 조회", description = "유저의 PK를 통해 유저가 교환 & 나눔한 농작물과 교환 & 나눔받은 농작물을 조회한다.")
-    @GetMapping("/{userId}/crops/trades")
-    public SuccessResponse<CropTradeHistoryDto> getUserTradeCropList(@PathVariable("userId") int userId) {
-        List<Crop> giveList = cropService.getUserGiveCropList(userId);
-        List<Crop> receiveList = cropService.getUserReceiveCropList(userId);
-        CropTradeHistoryDto response = CropTradeHistoryDto.of(giveList, receiveList);
-        return SuccessResponse.of(response);
-    }
 
     @Operation(summary = "유저가 작성한 농사일지 전체 조회", description = "유저의 PK를 통해 유저가 작성한 농사일지 전체를 조회한다.")
     @GetMapping("/{userId}/crops/diaries")

@@ -145,6 +145,9 @@ public class CropDiaryService {
         return cropDiaryRepository.findDiaryWrittenDateList(userId, year, month);
     }
 
+    /**
+     * 특정 날짜에 유저가 작성한 농사일지 리스트를 조회한다.
+     */
     public List<CropDiary> getUserDiaryListByDate(int userId, LocalDate date) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         return cropDiaryRepository.findByUserIdAndPerformDate(userId, date);

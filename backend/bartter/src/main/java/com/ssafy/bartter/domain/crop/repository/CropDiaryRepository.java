@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * CropDiaryRepository
@@ -17,6 +18,26 @@ import java.util.List;
  * @author 김가람
  */
 public interface CropDiaryRepository extends JpaRepository<CropDiary, Integer> {
+
+    @Query(
+            "SELECT d FROM CropDiary d"
+                    + " LEFT JOIN FETCH d.crop c"
+                    + " LEFT JOIN FETCH c.user u"
+                    + " WHERE d.id = :cropDiaryId"
+    )
+    Optional<CropDiary> findById(
+            @Param("cropDiaryId") int cropDiaryId
+    );
+
+    @Query(
+            "SELECT d FROM CropDiary d"
+                    + " LEFT JOIN FETCH d.crop c"
+                    + " LEFT JOIN FETCH c.user u"
+                    + " WHERE c.id = :cropId"
+    )
+    List<CropDiary> findAllByCropId(
+            @Param("cropId") int cropId
+    );
 
     @Query(
             "SELECT d FROM CropDiary d"
@@ -44,7 +65,6 @@ public interface CropDiaryRepository extends JpaRepository<CropDiary, Integer> {
             PageRequest pageable
     );
 
-    List<CropDiary> findAllByCropId(int cropId);
 
     @Query(
             "SELECT d FROM CropDiary d"

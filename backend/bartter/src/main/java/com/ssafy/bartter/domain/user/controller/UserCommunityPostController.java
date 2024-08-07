@@ -2,10 +2,7 @@ package com.ssafy.bartter.domain.user.controller;
 
 import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
-import com.ssafy.bartter.domain.community.dto.CommunityPostDto;
-import com.ssafy.bartter.domain.community.dto.CommunityPostDto.CommunityPostDetail;
 import com.ssafy.bartter.domain.community.dto.CommunityPostDto.MyCommunityPostDetail;
-import com.ssafy.bartter.domain.community.dto.CommunityPostDto.SimpleCommunityPostDetail;
 import com.ssafy.bartter.domain.community.entity.CommunityPost;
 import com.ssafy.bartter.domain.community.service.CommunityPostService;
 import com.ssafy.bartter.global.response.SuccessResponse;

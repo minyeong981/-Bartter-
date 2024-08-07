@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * CropRepository
@@ -14,7 +15,26 @@ import java.util.List;
  * @author 김가람
  */
 public interface CropRepository extends JpaRepository<Crop, Integer> {
-    List<Crop> findAllByUserId(Integer userId);
+
+    @Query(
+            "SELECT c FROM Crop c"
+                    + " JOIN FETCH c.user"
+                    + " JOIN FETCH c.category"
+                    + " WHERE c.id = :cropId"
+    )
+    Optional<Crop> findById(
+            @Param("cropId") int cropId
+    );
+
+    @Query(
+            "SELECT c FROM Crop c"
+            + " JOIN FETCH c.user"
+            + " JOIN FETCH c.category"
+            + " WHERE c.user.id = :userId"
+    )
+    List<Crop> findAllByUserId(
+            @Param("userId") Integer userId
+    );
 
     // TODO : DTO 변환 후 쿼리 체크
     @Query(
