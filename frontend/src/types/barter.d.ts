@@ -10,7 +10,7 @@ type Longitude = number;
 type Phone = string;
 type Email = string;
 
-type UserId = string;
+type UserId = number;
 
 interface Coordinate {
   latitude: Latitude;
@@ -55,7 +55,7 @@ type CommunityPostId = number;
 type Title = string;
 type LikeCount = number;
 type CommentCount = number;
-type Image = string | null;
+type Image = File;
 type IsLike = boolean;
 
 interface CommunityPostForm {
@@ -186,14 +186,15 @@ interface CropTradeForm {
 }
 
 type GrowDate = string;
+type performDate = string;
 type Description = string;
 
 interface CropProfileForm {
   cropCategoryId: CropCategoryId;
   nickname: Nickname;
   growDate: GrowDate;
-  description: Description;
-  image: Image;
+  description?: Description;
+  image?: Image[];
 }
 
 interface CropProfile {
@@ -201,9 +202,9 @@ interface CropProfile {
   farmer: SimpleUser;
   cropCategory: CropCategoryDetail;
   nickname: Nickname;
-  image: Image;
+  image: Image[];
   growDate: GrowDate;
-  description: Description;
+  description?: Description;
 }
 
 interface CropDiary {
@@ -224,6 +225,7 @@ interface CropDiaryForm {
   title: Title;
   content: Content;
   image: Image;
+  performDate?: PerformDate;
 }
 
 type CropDiaryId = number;

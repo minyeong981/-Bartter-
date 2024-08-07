@@ -36,8 +36,8 @@ function ImageInput({ onImageChange, maxImages }: ImageInputProps) {
         let updatedPreviews = [...imagePreviews, ...previews];
 
         if (updatedFiles.length > maxImages) {
-          updatedFiles = updatedFiles.slice(0, maxImages); // Changed from slice(-maxImages) to slice(0, maxImages)
-          updatedPreviews = updatedPreviews.slice(0, maxImages); // Changed from slice(-maxImages) to slice(0, maxImages)
+          updatedFiles = updatedFiles.slice(-maxImages);
+          updatedPreviews = updatedPreviews.slice(-maxImages);
         }
 
         setImageFiles(updatedFiles);

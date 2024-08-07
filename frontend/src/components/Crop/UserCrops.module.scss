@@ -1,13 +1,21 @@
 @use '@/styles/constants/colors.scss' as colors;
 @use '@/styles/constants/typographies.scss' as typo;
 
-.crops-component {
+.crops-container {
   display: flex;
-  justify-content: center;
-
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px;
+  padding: 16px;
 }
 
-.crops-list {
+.crops-count {
+  width: 100%;
+  margin: 1rem 0;
+  text-align: left; 
+}
+
+.crop-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr); // 3개씩 나열되도록 설정
   gap: 0.5rem 2rem; 
@@ -18,10 +26,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0.5rem;
+  padding: 16px; 
   margin: 10px 0;
+  border: none;
   transition: border-color 0.3s;
 
+  &:hover {
+    border-color: colors.$primary;
+  }
 
   &.selected .crop-image-container {
     border-color: colors.$primary;
@@ -37,17 +49,44 @@
   overflow: hidden;
   border: 2px solid colors.$divider2;
   border-radius: 50%;
+  transition: border-color 0.3s;
+
+  &.selected {
+    border-color: colors.$primary; /* 선택된 경우 초록색으로 변경 */
+  }
 }
 
 .crop-image {
-  width: 70%;
-  height: 70%;
-  object-fit: cover;
+  &.default {
+    width: 70%; 
+    height: 70%; 
+  }
+  
+  &.attached {
+    width: 100%;
+    height: 100%;
+  }
+  
+  // object-fit: cover;
 }
 
-.crop-name {
+.crop-info {
   margin-top: 0.3rem;
   text-align: center;
 
   @include typo.name;
 }
+
+.no-crops {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 7rem;
+
+  img {
+    width: 15rem; 
+    height: auto;
+  }
+}
+
+

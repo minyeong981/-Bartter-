@@ -193,8 +193,25 @@ export default {
   /**
    * 농작물 프로필 등록
    */
-  postCropProfile: async (data: CropProfileForm) =>
-    axios.post<PostCropProfileResponse>('/crops', data),
+  postCropProfile: async (data: CropProfileForm) =>{
+    const form = new FormData()
+
+    for(const[key,value]of Object.entries(data)){
+      if(!value)continue
+      if(key === 'image'){
+        console.log(value)
+        form.append(key,value[0]);
+      }else{
+      form.append(key,value)
+      }
+    }
+    
+
+    const response = axios.post<PostCropProfileResponse>('/crops', form, {headers:{
+      "Content-Type":"multipart/form-data"
+    }})
+    return response;
+  },
   /**
    * 농작물 프로필 상세조회
    */
@@ -251,8 +268,24 @@ export default {
   /**
    * 농사일지 작성
    */
-  postCropDiary: async (data: CropDiaryForm) =>
-    axios.post<PostCropDiaryResponse>('/crops/diaries', data),
+  postCropDiary: async (data: CropDiaryForm) =>{
+    const form = new FormData()
+    for(const[key,value]of Object.entries(data)){
+      if(!value)continue
+      if(key === 'image'){
+        console.log(value)
+        form.append(key,value[0]);
+      }else{
+      form.append(key,value)
+      }
+    }  
+  
+  const response = axios.post<PostCropDiaryResponse>('/crops/diaries', form, {headers:{
+    "Content-Type":"multipart/form-data"
+  }})
+  return response;
+},
+
   /**
    * 농사일지 상세조회
    */
