@@ -79,14 +79,15 @@ interface CommunityPost {
 
 interface SimpleCommunityPost {
   communityPostId: CommunityPostId;
-  location: SimpleLocation;
   title: Title;
   content: Content;
-  likeCount: LikeCount;
-  isLike: IsLike;
-  commentCount: CommentCount;
-  image: Image;
   createdAt: CreatedAt;
+  likeCount: LikeCount;
+  commentCount: CommentCount;
+  imageUrl: ImageUrl;
+  hasImage:boolean;
+  location: SimpleLocation;
+  like: IsLike;
 }
 
 type ProfileImage = string;
@@ -102,10 +103,10 @@ type Content = string;
 type CreatedAt = string;
 
 interface PostComment {
-  commentId: CommentId;
-  user: SimpleUser;
+  communityPostCommentId: CommentId;
+  author: SimpleUser;
   content: Content;
-  created_at: CreatedAt;
+  createdAt: CreatedAt;
 }
 
 type FollowingCount = number;

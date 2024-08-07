@@ -7,17 +7,17 @@ import LikeComment from '@/components/LikeComment';
 import styles from './postCard.module.scss';
 
 export default function PostCard({
-    author,
-    commentList, 
     communityPostId,  
+    title, 
     content, 
     createdAt,
-    imageList, 
-    isLike,
     likeCount, 
+    commentCount, 
+    imageUrl, 
+    hasImage,
     location,
-    title, 
-    }: CommunityPost) {
+    like,
+    }: SimpleCommunityPost) {
          return (
         <div className={styles.communityCard}>
           <div className={styles.location}>{location.name}</div>
@@ -33,15 +33,15 @@ export default function PostCard({
               <div className={styles.text}>{content}</div>
               <div className={styles.time}>{format(createdAt, 'yyyy-MM-dd HH:mm', {locale: ko})}</div>
             </div>
-            {/* {image && <img src={image} alt={title} />} */}
-            {imageList.map(
+            {hasImage && <img src={imageUrl} alt={title} />}
+            {/* {imageList.map(
               (image, imgIndex) =>
                 imgIndex === 0 && (
                   <img key={imgIndex} src={'https://' + image.imageUrl} alt={title} />
                 ),
-            )}
+            )} */}
           </Link>
-          <LikeComment likeCount={likeCount} commentCount={commentList.length} isLike={isLike}/>
+          <LikeComment likeCount={likeCount} commentCount={commentCount} isLike={like}/>
         </div>
   );
 }

@@ -84,7 +84,6 @@ export default {
         formData.append('imageList', image);
       });
     }
-    console.log(formData)
     const response = await axios.post<PostCommunityPostResponse>('/community/posts', 
       formData, 
       { 
@@ -116,8 +115,8 @@ export default {
     data: Content,
   ) =>
     axios.post<PostCommentResponse>(
-      `/community/posts/${communityPostId}/comments`,
-      data,
+      `/community/posts/${communityPostId}/comment`,
+      {'content' : data},
     ),
   /**
    * 커뮤니티 댓글 삭제
@@ -127,7 +126,7 @@ export default {
     commentId: CommentId,
   ) =>
     axios.delete<DeleteCommentResponse>(
-      `/community/posts/${communityPostId}/comments/${commentId}`,
+      `/community/posts/${communityPostId}/comment/${commentId}`,
     ),
   /**
    * 커뮤니티 게시글 좋아요
