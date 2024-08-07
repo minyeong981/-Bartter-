@@ -4,7 +4,7 @@ import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAnd
 
 import styles from './cropStorage.module.scss'
 
-export const Route = createFileRoute('/_layout/profile/$nickname/cropStorage/_layout')({
+export const Route = createFileRoute('/_layout/profile/$userId/cropStorage/_layout')({
   component: CropStorageLayout
 })
 

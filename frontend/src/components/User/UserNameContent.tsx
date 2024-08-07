@@ -2,10 +2,10 @@ import {format} from 'date-fns';
 import {ko} from 'date-fns/locale';
 import {useState} from 'react';
 
-// import Delete from '@/assets/image/delete.png';
 import { IconTrash } from '@/assets/svg';
 
 import DeleteCommentModal from '../Modals/DeleteCommentModal/deleteCommentModal';
+import ProfileImgComponent from './ProfileImgComponent';
 import styles from './UserNameContent.module.scss';
 
 interface UserNameContentProps {
@@ -29,17 +29,13 @@ export default function UserNameContent({
   }
 
   function handleConfirmDelete() {
-    onDelete(comment.CommunityPostCommentId);
+    onDelete(comment.communityPostCommentId);
     handleModalClose()
   }
 
   return (
     <div className={styles.userInfoContainer}>
-      <img
-        className={styles.profileImage}
-        src={comment.author.profileImage}
-        alt={`${comment.author.nickname}'s profile`}
-      />
+      <ProfileImgComponent userId={comment.author.userId} profileImage={comment.author.profileImage}/>
       <div className={styles.userInfo}>
         <div className={styles.userName}>{comment.author.nickname}</div>
         <div className={styles.Content}>{comment.content}</div>

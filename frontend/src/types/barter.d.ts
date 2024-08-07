@@ -67,7 +67,7 @@ interface CommunityPostForm {
 interface CommunityPost {
   communityPostId: CommunityPostId;
   author: SimpleUser;
-  location: SimpleLocation;
+  simpleLocation: SimpleLocation;
   title: Title;
   content: Content;
   likeCount: LikeCount;
@@ -118,9 +118,10 @@ interface UserProfile {
   location: SimpleLocation;
   profileImage: ProfileImage;
   nickname: Nickname;
-  followingCount: FollowingCount;
+  followerCount: FollowingCount;
   followeeCount: FolloweeCount;
   profileMessage: ProfileMessage;
+  isFollowed: boolean;
 }
 
 type Name = string;

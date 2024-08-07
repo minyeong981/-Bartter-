@@ -33,13 +33,7 @@ export default function PostCard({
               <div className={styles.text}>{content}</div>
               <div className={styles.time}>{format(createdAt, 'yyyy-MM-dd HH:mm', {locale: ko})}</div>
             </div>
-            {hasImage && <img src={imageUrl} alt={title} />}
-            {/* {imageList.map(
-              (image, imgIndex) =>
-                imgIndex === 0 && (
-                  <img key={imgIndex} src={'https://' + image.imageUrl} alt={title} />
-                ),
-            )} */}
+            {hasImage && <img src={'https://'+imageUrl} alt={title} />}
           </Link>
           <LikeComment likeCount={likeCount} commentCount={commentCount} isLike={like}/>
         </div>

@@ -12,7 +12,7 @@ import styles from './../cropStorage.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/profile/$nickname/cropStorage/_layout/')(
+export const Route = createFileRoute('/_layout/profile/$userId/cropStorage/_layout/')(
   {
     component: CropStoragePage,
   },

@@ -8,6 +8,7 @@ import LikeComment from '@/components/LikeComment';
 import UserNameContent from '@/components/User/UserNameContent';
 import UserNameLocation from '@/components/User/UserNameLocation';
 import barter from '@/services/barter';
+import querykeys from '@/util/querykeys';
 
 import styles from './../detail.module.scss';
 
@@ -20,10 +21,10 @@ export default function CommunityPostDetail() {
   const {postId}: {postId: number} = Route.useParams();
   const [content, setContent] = useState(''); // 댓글
 
-  const nav = useNavigate({from: '/community/detail/$postId'})
+  const navigate = useNavigate({from: '/community/detail/$postId'})
 
   const { isPending, data } = useQuery({
-    queryKey: ['COMMUNITY_DETAIL', postId],
+    queryKey: [ querykeys.COMMUNITY_DETAIL, postId],
     queryFn: () => barter.getCommunityPost(postId),
     // enabled: !!postId
   })
@@ -33,18 +34,16 @@ export default function CommunityPostDetail() {
       return barter.deleteCommunityPost(postId)
     },
     onError: ()=> {
-    console.log('작성자만 삭제할 수 있습니다.')
     window.alert('작성자만 삭제할 수 있습니다.')
-    nav({to: `/community/${postId}`})
+    navigate({to: `/community/detail/${postId}`})
     }, 
     onSuccess: () => {
-      queryClient.invalidateQueries(['COMMUNITY_LIST'])
-      nav({to: '/community'})
+      queryClient.invalidateQueries([querykeys.COMMUNITY_DETAIL, postId])
+      navigate({to: '/community'})
     }
   })
 
   // console.log(data?.data.data)
-  // 댓글 작성이 안됨.
   const addComment = useMutation({
     mutationFn: ({communityPostId, content} : { communityPostId:CommunityPostId; content: string }) =>  {
       return barter.postCommunityComment(communityPostId, content)
@@ -55,7 +54,7 @@ export default function CommunityPostDetail() {
     onSuccess: (data) => {
       console.log('댓글 생성 성공',data)
       setContent(''); // 초기화
-      queryClient.invalidateQueries(['COMMUNITY_DETAIL', postId]);
+      queryClient.invalidateQueries([querykeys.COMMUNITY_DETAIL, postId]);
     }
   })
 
@@ -63,8 +62,12 @@ export default function CommunityPostDetail() {
     mutationFn: ({postId, commentId} : {postId:CommunityPostId; commentId : CommentId }) => {
       return barter.deleteCommunityComment(postId, commentId)
     },
+    onError: () => {
+      window.alert('작성자만 삭제할 수 있습니다.')
+      navigate({to: `/community/detail/${postId}`})
+    },
     onSuccess: () => {
-      queryClient.invalidateQueries(['COMMUNITY_DETAIL', postId]);
+      queryClient.invalidateQueries([querykeys.COMMUNITY_DETAIL, postId]);
     }
   })
 
@@ -73,7 +76,7 @@ export default function CommunityPostDetail() {
       return barter.likeCommunityPost(postId)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(['COMMUNITY_DETAIL', postId]);
+      queryClient.invalidateQueries([querykeys.COMMUNITY_DETAIL, postId]);
     }
   })
 
@@ -82,7 +85,7 @@ export default function CommunityPostDetail() {
       return barter.unLikeCommunityPost(postId)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(['COMMUNITY_DETAIL', postId]);
+      queryClient.invalidateQueries([querykeys.COMMUNITY_DETAIL, postId]);
     }
   })
     
@@ -129,6 +132,7 @@ export default function CommunityPostDetail() {
         locationName={data.data.data.location.name}
         postId={data.data.data.communityPostId}
         createdAt={data.data.data.createdAt}
+        userId={data.data.data.author.userId}
         nickname={data.data.data.author.nickname}
         profileImage={data.data.data.author.profileImage}
         onDelete={() => handleDeletePost(data.data.data.communityPostId)}
