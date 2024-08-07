@@ -1,6 +1,6 @@
-package com.ssafy.bartter.domain.crop.repository;
+package com.ssafy.bartter.domain.report.repository;
 
-import com.ssafy.bartter.domain.crop.entity.CropReport;
+import com.ssafy.bartter.domain.report.entity.CropReport;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

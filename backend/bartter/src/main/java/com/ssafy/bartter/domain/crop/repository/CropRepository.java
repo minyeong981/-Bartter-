@@ -1,6 +1,7 @@
 package com.ssafy.bartter.domain.crop.repository;
 
 import com.ssafy.bartter.domain.crop.entity.Crop;
+import com.ssafy.bartter.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

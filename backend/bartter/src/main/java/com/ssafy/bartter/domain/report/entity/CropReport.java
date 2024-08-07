@@ -1,5 +1,6 @@
-package com.ssafy.bartter.domain.crop.entity;
+package com.ssafy.bartter.domain.report.entity;
 
+import com.ssafy.bartter.domain.crop.entity.Crop;
 import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.domain.user.entity.User;
 import jakarta.persistence.*;

@@ -2,9 +2,9 @@ package com.ssafy.bartter.domain.community.controller;
 
 import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
+import com.ssafy.bartter.domain.community.dto.CommunityPostCommentDto;
 import com.ssafy.bartter.domain.community.entity.CommunityPostComment;
 import com.ssafy.bartter.domain.community.service.CommunityPostCommentService;
-import com.ssafy.bartter.domain.community.dto.CommunityPostCommentDto;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.response.SuccessResponse;
@@ -14,8 +14,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import static com.ssafy.bartter.domain.community.dto.CommunityPostCommentDto.*;
 
 
 @RestController
@@ -28,17 +26,17 @@ public class CommunityPostCommentController {
 
     @Operation(summary = "동네모임 게시글 댓글 작성", description = "특정 ID를 가진 동네모임 게시글의 댓글을 작성한다.")
     @PostMapping("/{communityPostId}/comment")
-    public SuccessResponse<CommunityPostCommentDetail> createComment(
+    public SuccessResponse<CommunityPostCommentDto.CommunityPostCommentDetail> createComment(
             @PathVariable("communityPostId") int communityPostId,
             @CurrentUser UserAuthDto currentUser,
-            @RequestBody @Valid Create request,
+            @RequestBody @Valid CommunityPostCommentDto.Create request,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
 
         CommunityPostComment comment = communityPostCommentService.createComment(communityPostId, request, currentUser.getId());
-        CommunityPostCommentDetail response = CommunityPostCommentDetail.of(comment);
+        CommunityPostCommentDto.CommunityPostCommentDetail response = CommunityPostCommentDto.CommunityPostCommentDetail.of(comment);
         return SuccessResponse.of(response);
     }
 
