@@ -14,7 +14,7 @@ interface DiaryListProps {
   selectedDate: Date;
 }
 
-function DiaryList({ selectedDate }: DiaryListProps) {
+export default function DiaryList({ selectedDate }: DiaryListProps) {
   const userId = useRootStore(state => state.userId);
   const navigate = useNavigate();
   const { data, isLoading, isError } = useQuery({
@@ -73,4 +73,3 @@ function DiaryList({ selectedDate }: DiaryListProps) {
   );
 }
 
-export default DiaryList;
