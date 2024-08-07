@@ -17,7 +17,6 @@ const Text: Record<Status, string | null> = {
 
 export default function Status({status, className, ...props}: StatusProps) {
   const text = Text[status];
-  console.log('text', text);
   if (!text) return;
 
   return (
