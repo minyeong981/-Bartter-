@@ -137,12 +137,12 @@ public class CropDiaryService {
      * 특정 달에 유저가 농사일지를 작성한 일자들을 조회한다.
      */
     @Transactional(readOnly = true)
-    public List<LocalDate> getUserDiaryWrittenDateList(int userId, int month) {
+    public List<LocalDate> getUserDiaryWrittenDateList(int userId, int year, int month) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         if (!(month >= 1 && month <= 12)) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE);
         }
-        return cropDiaryRepository.findDiaryWrittenDateList(userId, month);
+        return cropDiaryRepository.findDiaryWrittenDateList(userId, year, month);
     }
 
     public List<CropDiary> getUserDiaryListByDate(int userId, LocalDate date) {

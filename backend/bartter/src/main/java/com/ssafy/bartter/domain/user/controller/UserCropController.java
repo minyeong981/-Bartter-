@@ -80,9 +80,10 @@ public class UserCropController {
     @GetMapping("/crops/diaries/dates")
     public SuccessResponse<List<LocalDate>> getUserDiaryWrittenDateList(
             @CurrentUser UserAuthDto currentUser,
+            @RequestParam(value = "year") int year,
             @RequestParam(value = "month") int month
     ) {
-        List<LocalDate> response = cropDiaryService.getUserDiaryWrittenDateList(currentUser.getId(), month);
+        List<LocalDate> response = cropDiaryService.getUserDiaryWrittenDateList(currentUser.getId(), year, month);
         return SuccessResponse.of(response);
     }
 

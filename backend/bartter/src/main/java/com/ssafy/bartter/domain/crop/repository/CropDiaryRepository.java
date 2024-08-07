@@ -60,10 +60,12 @@ public interface CropDiaryRepository extends JpaRepository<CropDiary, Integer> {
     @Query(
             "SELECT DISTINCT d.performDate FROM CropDiary d"
                     + " WHERE d.crop.user.id = :userId"
+                    + " AND YEAR(d.performDate) = :year"
                     + " AND MONTH(d.performDate) = :month"
     )
     List<LocalDate> findDiaryWrittenDateList(
             @Param("userId") int userId,
+            @Param("year") int year,
             @Param("month") int month);
 
 
