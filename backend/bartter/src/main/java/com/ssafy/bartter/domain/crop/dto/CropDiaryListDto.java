@@ -8,8 +8,15 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-@Builder
+//@Builder
 public class CropDiaryListDto {
     public CropForDiaryMetaData cropInfo;
     public List<CropDiaryThumbnail> thumbnailList;
+
+    public static CropDiaryListDto of(CropForDiaryMetaData cropInfo, List<CropDiaryThumbnail> thumbnailList) {
+        CropDiaryListDto dto = new CropDiaryListDto();
+        dto.cropInfo = cropInfo;
+        dto.thumbnailList = thumbnailList;
+        return dto;
+    }
 }

@@ -46,7 +46,7 @@ public class SearchService {
 
         List<TradePost> tradePostList = searchTradePostByKeyword(0, 2, keyword, userId);
         List<SimpleTradePostDetail> simpleTradePostList =
-                tradePostList.stream().map(SimpleTradePostDetail::of).toList();
+                tradePostList.stream().map(o -> SimpleTradePostDetail.of(o, userId)).toList();
 
         return SimpleKeywordList.of(simpleUserList, simpleCommunityPostList, simpleTradePostList);
     }

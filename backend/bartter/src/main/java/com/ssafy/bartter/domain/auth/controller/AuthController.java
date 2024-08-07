@@ -1,7 +1,6 @@
 package com.ssafy.bartter.domain.auth.controller;
 
 import com.ssafy.bartter.domain.auth.dto.OAuthTempUserInfoDto;
-import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
 import com.ssafy.bartter.domain.auth.repository.RedisRefreshRepository;
 import com.ssafy.bartter.domain.auth.config.JwtConfig;
 import com.ssafy.bartter.domain.auth.utils.CookieUtil;
@@ -19,7 +18,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,28 +47,20 @@ public class AuthController {
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("refresh")) {
                 refresh = cookie.getValue();
+                break;
             }
         }
-        log.debug("refresh : {}", refresh);
+
+        // response status code
         if (refresh == null) {
-            // response status code
             throw new CustomException(ErrorCode.REFRESH_TOKEN_MISSING);
         }
 
         // expired check
         jwtUtil.isExpired(refresh);
 
-        // 토큰이 refresh 인지 확인
-        String category = jwtUtil.getCategory(refresh);
-        if (!category.equals("refreshToken")) {
-            // response status code
-            throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
-        }
-
         // DB에 저장되어 있는지 확인
-        boolean isExist = Objects.nonNull(refreshRepository.find(refresh));
-        if (!isExist) {
-            // response body
+        if (!Objects.nonNull(refreshRepository.find(refresh))) {
             throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
         }
 

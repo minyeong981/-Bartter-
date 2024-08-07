@@ -42,8 +42,6 @@ public class AuthUserDetailsService implements UserDetailsService {
         User user = userRepository.findByUsername(username);
         if(user == null)
             throw new CustomException(ErrorCode.USER_NOT_FOUND);
-        if(user.getLocation() == null)
-            throw new CustomException(ErrorCode.USER_LOCATION_NOT_FOUND);
         if(user.getDeletedAt() != null)
             throw new CustomException(ErrorCode.USER_ACCOUNT_DEACTIVATED);
 
