@@ -4,6 +4,7 @@ import com.ssafy.bartter.domain.auth.dto.OAuthTempUserInfoDto;
 import com.ssafy.bartter.domain.user.dto.UserDto;
 import com.ssafy.bartter.domain.user.dto.UserJoinDto;
 import com.ssafy.bartter.domain.user.entity.User;
+import com.ssafy.bartter.domain.user.repository.FollowRepository;
 import com.ssafy.bartter.domain.user.repository.UserRepository;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.global.common.SimpleLocation;
@@ -30,8 +31,10 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final FollowRepository followRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final LocationService locationService;
+
 
     /**
      * 사용자의 가입 절차를 처리하는 메서드
@@ -122,10 +125,11 @@ public class UserService {
      * @param userId 사용자의 ID
      * @return 사용자의 프로필 정보
      */
-    public UserDto.UserProfile getUserProfile(int userId) {
+    public UserDto.UserProfile getUserProfile(int userId, int currentUserId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
-        return UserDto.UserProfile.of(user);
+        boolean isFollowed = followRepository.existsByFollowerIdAndFolloweeId(currentUserId, userId);
+        return UserDto.UserProfile.of(user, isFollowed);
     }
 
 

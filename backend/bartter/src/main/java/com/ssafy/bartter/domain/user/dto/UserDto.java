@@ -45,8 +45,9 @@ public class UserDto {
         private SimpleLocation location;
         private int followerCount;
         private int followeeCount;
+        private Boolean isFollowed;
 
-        public static UserProfile of(User user) {
+        public static UserProfile of(User user, Boolean isFollowed) {
             return UserProfile.builder()
                     .userId(user.getId())
                     .nickname(user.getNickname())
@@ -55,6 +56,7 @@ public class UserDto {
                     .followerCount(user.getFollowerCount())
                     .profileMessage(user.getProfileMessage())
                     .location(SimpleLocation.of(user.getLocation()))
+                    .isFollowed(isFollowed)
                     .build();
         }
     }

@@ -100,7 +100,7 @@ public class UserController {
      * @return 위치 정보를 담은 응답 객체
      */
     @GetMapping("/{userId}/location")
-    public SuccessResponse<SimpleLocation> getUserLocation(@PathVariable int userId) {
+    public SuccessResponse<SimpleLocation> getUserLocation(@PathVariable("userId") int userId) {
         log.debug("GET USER LOCATION for User ID: {}", userId);
         SimpleLocation userLocation = userService.getUserLocation(userId);
         return SuccessResponse.of(userLocation);
@@ -113,9 +113,11 @@ public class UserController {
      * @return 조회 결과를 나타내는 SuccessResponse 객체
      */
     @GetMapping("/{userId}/profile")
-    public SuccessResponse<UserDto.UserProfile> getUserProfile(@PathVariable int userId) {
+    public SuccessResponse<UserDto.UserProfile> getUserProfile(
+            @PathVariable("userId") int userId,
+            @CurrentUser UserAuthDto currentUser) {
         log.debug("Get User Profile : {} ", userId);
-        UserDto.UserProfile userProfile = userService.getUserProfile(userId);
+        UserDto.UserProfile userProfile = userService.getUserProfile(userId, currentUser.getId());
         return SuccessResponse.of(userProfile);
     }
 
@@ -127,7 +129,7 @@ public class UserController {
      * @return 탈퇴 처리 결과를 나타내는 SuccessResponse 객체
      */
     @DeleteMapping("/{userId}")
-    public SuccessResponse<Void> deleteUser(@PathVariable int userId) {
+    public SuccessResponse<Void> deleteUser(@PathVariable("userId") int userId) {
         log.debug("DELETE USER : {} ", userId);
         userService.deleteUser(userId);
         return SuccessResponse.empty();
