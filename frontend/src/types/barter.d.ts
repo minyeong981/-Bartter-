@@ -208,7 +208,10 @@ interface CropProfile {
   description?: Description;
 }
 
+type DairyId = Number;
+
 interface CropDiary {
+  diaryId: CropDiaryId;
   crop: {
     userId: UserId;
     cropId: CropId;
