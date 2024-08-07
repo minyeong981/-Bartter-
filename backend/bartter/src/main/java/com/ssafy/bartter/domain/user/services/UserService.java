@@ -40,7 +40,6 @@ public class UserService {
      * @param userJoinDto 사용자의 가입 정보를 담은 DTO
      */
     public void joinProcess(UserJoinDto userJoinDto) {
-
         String username = userJoinDto.getUsername();
         boolean isExist = userRepository.existsByUsername(username);
 

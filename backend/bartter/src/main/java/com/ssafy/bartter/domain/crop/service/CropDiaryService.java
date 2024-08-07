@@ -44,16 +44,15 @@ public class CropDiaryService {
     /**
      * 농사일지 작성
      */
-    public CropDiary createCropDiary(Create request, MultipartFile image, int
-            userId) {
+    public CropDiary createCropDiary(
+            Create request,
+            MultipartFile image,
+            int userId
+    ) {
         Crop crop = cropRepository.findById(request.getCropId()).orElseThrow(() -> new CustomException(ErrorCode.CROP_NOT_FOUND));
 
         if (!crop.getUser().getId().equals(userId)) {
             throw new CustomException(ErrorCode.UNAUTHENTICATED);
-        }
-
-        if (image == null) {
-            throw new CustomException(ErrorCode.IMAGE_NOT_ADDED);
         }
 
         String imageUrl = s3UploadService.upload(image);
@@ -100,7 +99,7 @@ public class CropDiaryService {
     @Transactional(readOnly = true)
     public List<CropDiary> getUserDiaryList(int userId, int page, int limit, int year, int month) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
-        PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
+        PageRequest pageable = PageRequest.of(page, limit, Sort.by("performDate").descending());
         return cropDiaryRepository.findAllByDateAndCrop(year, month, userId, pageable);
     }
 
@@ -131,6 +130,23 @@ public class CropDiaryService {
         List<User> followeeList = user.getFolloweeList().stream().map(Follow::getFollowee).collect(Collectors.toList());
         PageRequest pageable = PageRequest.of(0, numOfDiaries, Sort.by("createdAt").descending());
         return cropDiaryRepository.findAllByUserList(followeeList, pageable);
+    }
+
+    /**
+     * 특정 달에 유저가 농사일지를 작성한 일자들을 조회한다.
+     */
+    @Transactional(readOnly = true)
+    public List<LocalDate> getUserDiaryWrittenDateList(int userId, int month) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        if (!(month >= 1 && month <= 12)) {
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE);
+        }
+        return cropDiaryRepository.findDiaryWrittenDateList(userId, month);
+    }
+
+    public List<CropDiary> getUserDiaryListByDate(int userId, LocalDate date) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        return cropDiaryRepository.findByUserIdAndPerformDate(userId, date);
     }
 }
 

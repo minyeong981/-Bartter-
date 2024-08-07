@@ -1,5 +1,6 @@
 package com.ssafy.bartter.domain.crop.dto;
 
+import com.ssafy.bartter.domain.crop.dto.CropCategoryDto.CropCategoryDetail;
 import com.ssafy.bartter.domain.crop.entity.Crop;
 import com.ssafy.bartter.domain.user.dto.UserDto.SimpleUserProfile;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -28,7 +29,7 @@ public class CropDto {
     @Schema(name = "CropCreateRequest", description = "농작물 프로필 생성 요청")
     public static class Create {
         @NotNull(message = "농작물 카테고리 정보를 입력하세요.")
-        private Integer cropCategoryId;
+        private int cropCategoryId;
 
         @NotBlank(message = "닉네임을 입력하세요.")
         private String nickname;
@@ -45,19 +46,19 @@ public class CropDto {
     @Builder
     @Getter
     public static class CropProfile {
-        private final int cropId;
-        private final SimpleUserProfile farmer;
-        private final CropCategoryDto.CropCategoryDetail cropCategory;
-        private final String nickname;
-        private final String image;
-        private final LocalDate growDate;
-        private final String description;
+        private int cropId;
+        private SimpleUserProfile farmer;
+        private CropCategoryDetail cropCategory;
+        private String nickname;
+        private String image;
+        private LocalDate growDate;
+        private String description;
 
         public static CropProfile of(Crop crop) {
             return CropProfile.builder()
                     .cropId(crop.getId())
                     .farmer(SimpleUserProfile.of(crop.getUser()))
-                    .cropCategory(CropCategoryDto.CropCategoryDetail.of(crop.getCategory()))
+                    .cropCategory(CropCategoryDetail.of(crop.getCategory()))
                     .nickname(crop.getNickname())
                     .growDate(crop.getGrowDate())
                     .description(crop.getDescription())
@@ -72,10 +73,10 @@ public class CropDto {
     @Builder
     @Getter
     public static class SimpleCropProfile {
-        private final int userId;
-        private final int cropId;
-        private final String nickname;
-        private final String image;
+        private int userId;
+        private int cropId;
+        private String nickname;
+        private String image;
 
         public static SimpleCropProfile of(Crop crop) {
             return SimpleCropProfile.builder()
@@ -93,11 +94,11 @@ public class CropDto {
     @Builder
     @Getter
     public static class CropForDiaryMetaData {
-        private final String cropProfileImage;
-        private final String userNickname;
-        private final String cropNickname;
-        private final int dayWithCrop;
-        private final int tradeCount;
+        private String cropProfileImage;
+        private String userNickname;
+        private String cropNickname;
+        private int dayWithCrop;
+        private int tradeCount;
 
         public static CropForDiaryMetaData of(Crop crop, int tradeCount) {
             return CropForDiaryMetaData.builder()

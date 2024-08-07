@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 @Builder
 @Getter
 public class CropTradeHistoryDto {
-    private final List<SimpleCropProfile> give;
-    private final List<SimpleCropProfile> receive;
+    private List<SimpleCropProfile> give;
+    private List<SimpleCropProfile> receive;
 
     public static CropTradeHistoryDto of(List<Crop> give, List<Crop> receive) {
         return CropTradeHistoryDto.builder()
