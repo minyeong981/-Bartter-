@@ -4,6 +4,7 @@ import com.ssafy.bartter.domain.trade.dto.TradeDto;
 import com.ssafy.bartter.domain.trade.dto.TradeDto.TradeInfo;
 import com.ssafy.bartter.domain.trade.entity.Trade;
 import com.ssafy.bartter.domain.trade.entity.TradePost;
+import com.ssafy.bartter.domain.trade.entity.TradeStatus;
 import com.ssafy.bartter.domain.trade.repository.TradePostRepository;
 import com.ssafy.bartter.domain.trade.repository.TradeRepository;
 import com.ssafy.bartter.domain.user.entity.User;
@@ -30,6 +31,10 @@ public class TradeService {
     public TradeInfo createOrGetTrade(int tradePostId, int userId) {
         TradePost tradePost = tradePostRepository.findTradePostById(tradePostId)
                 .orElseThrow(() -> new CustomException(ErrorCode.TRADE_POST_NOT_FOUND));
+        if(tradePost.getUser().getId() == userId){
+            throw new CustomException(ErrorCode.BAD_REQUEST);
+        }
+
         User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
@@ -41,5 +46,29 @@ public class TradeService {
     private Trade createTrade(TradePost tradePost, User user) {
         Trade trade = Trade.of(user, tradePost);
         return tradeRepository.save(trade);
+    }
+
+    public boolean isParticipant(int userId, int tradeId) {
+        return tradeRepository.existsByTradeIdAndUserId(userId, tradeId);
+    }
+
+    @Transactional
+    public void changeStatus(int tradeId, int userId, TradeStatus newStatus) {
+        log.debug("tradeId : {}, userId:{} ", tradeId, userId);
+        if (!tradeRepository.existByUserIdAndTradePost(userId, tradeId)) {
+            throw new CustomException(ErrorCode.BAD_REQUEST, "게시글 상태를 변경 할 권한이 없습니다.");
+        }
+
+        // 해당 게시글의 정보 변경
+        Trade trade = tradeRepository.findById(tradeId).orElseThrow(() -> new CustomException(ErrorCode.TRADE_NOT_FOUND));
+        if (trade.getStatus() == newStatus) {
+            throw new CustomException(ErrorCode.TRADE_POST_SAME_STATUS);
+        }
+        trade.changeStatus(newStatus);
+
+        tradeRepository.save(trade);
+
+        TradePost tradePost = trade.getTradePost();
+        tradePost.changeStatus(newStatus);
     }
 }

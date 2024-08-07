@@ -1,5 +1,6 @@
 package com.ssafy.bartter.community.service;
 
+import com.ssafy.bartter.domain.community.dto.CommunityPostCommentDto;
 import com.ssafy.bartter.domain.community.entity.CommunityPost;
 import com.ssafy.bartter.domain.community.entity.CommunityPostComment;
 import com.ssafy.bartter.domain.community.repository.CommunityPostCommentRepository;
@@ -57,7 +58,7 @@ class CommunityPostCommentServiceTest {
         given(communityPostCommentRepository.save(any(CommunityPostComment.class))).willReturn(mockComment);
 
         // when
-        CommunityPostComment comment = communityPostCommentService.createComment(1, new Create("content"), 1);
+        CommunityPostComment comment = communityPostCommentService.createComment(1, new CommunityPostCommentDto.Create("content"), 1);
 
         // then
         assertThat(comment).isNotNull();

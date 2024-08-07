@@ -85,7 +85,7 @@ public class AuthController {
     }
 
     @PostMapping("/additional-info")
-    public SuccessResponse<?> saveAdditionalInfo(HttpServletRequest request, HttpServletResponse response, @Valid SimpleLocation.LocationRequestDto locationRequestDto) {
+    public SuccessResponse<?> saveAdditionalInfo(HttpServletRequest request, HttpServletResponse response, @Valid @RequestBody SimpleLocation.LocationRequestDto locationRequestDto) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             OAuthTempUserInfoDto userInfo = (OAuthTempUserInfoDto) session.getAttribute("userInfo");
@@ -96,19 +96,6 @@ public class AuthController {
                 String username = user.getUsername();
                 String role = user.getRole().toString();
 
-                // UserAuthDto 생성
-                UserAuthDto userAuthDto = UserAuthDto.builder()
-                        .id(user.getId())
-                        .username(user.getUsername())
-                        .password(user.getPassword())
-                        .locationId(user.getLocation().getId())
-                        .locationName(user.getLocation().getName())
-                        .role(user.getRole().toString())
-                        .isAccountExpired(user.isAccountExpired())
-                        .nickname(user.getNickname())
-                        .profileImage(user.getProfileImage())
-                        .profileMessage(user.getProfileMessage())
-                        .build();
                 // 세션 무효화
                 session.invalidate();
                 generateAndSaveTokens(response, username, user.getId(), role);

@@ -1,5 +1,6 @@
 package com.ssafy.bartter.domain.trade.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.bartter.global.common.BaseEntity;
 import com.ssafy.bartter.domain.user.entity.User;
 import jakarta.persistence.*;
@@ -38,6 +39,7 @@ public class Trade extends BaseEntity {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trade_post_id", nullable = false)
+    @JsonIgnore
     private TradePost tradePost;
 
     /**
@@ -52,5 +54,9 @@ public class Trade extends BaseEntity {
         trade.user = user;
         trade.tradePost = tradePost;
         return trade;
+    }
+
+    public void changeStatus(TradeStatus newStatus){
+        this.status = newStatus;
     }
 }

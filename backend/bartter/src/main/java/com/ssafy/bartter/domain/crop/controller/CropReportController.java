@@ -2,12 +2,9 @@ package com.ssafy.bartter.domain.crop.controller;
 
 import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
-import com.ssafy.bartter.domain.crop.dto.CropReportDto;
-import com.ssafy.bartter.domain.crop.dto.CropReportDto.SimpleCropReportDetail;
-import com.ssafy.bartter.domain.crop.entity.Crop;
-import com.ssafy.bartter.domain.crop.entity.CropReport;
-import com.ssafy.bartter.domain.crop.service.CropDiaryService;
-import com.ssafy.bartter.domain.crop.service.CropReportService;
+import com.ssafy.bartter.domain.report.dto.CropReportDto.SimpleCropReportDetail;
+import com.ssafy.bartter.domain.report.entity.CropReport;
+import com.ssafy.bartter.domain.report.service.CropReportService;
 import com.ssafy.bartter.global.response.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.ssafy.bartter.domain.crop.dto.CropReportDto.*;
+import static com.ssafy.bartter.domain.report.dto.CropReportDto.*;
 
 @RestController
 @RequiredArgsConstructor
