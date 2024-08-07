@@ -1,4 +1,4 @@
-package com.ssafy.bartter.domain.crop.controller;
+package com.ssafy.bartter.domain.report.controller;
 
 import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;

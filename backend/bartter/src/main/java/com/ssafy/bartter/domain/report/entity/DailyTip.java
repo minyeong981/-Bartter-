@@ -54,7 +54,7 @@ public class DailyTip extends BaseEntity {
      * 알림 활성화 여부
      * */
     @Column(name = "daily_tip_is_enabled", nullable = false)
-    private boolean isEnabled = true;
+    private Boolean isEnabled = true;
 
     @Builder
     public DailyTip(Integer weekday, String content) {
