@@ -62,7 +62,18 @@ public interface CropDiaryRepository extends JpaRepository<CropDiary, Integer> {
                     + " WHERE d.crop.user.id = :userId"
                     + " AND MONTH(d.performDate) = :month"
     )
-    List<LocalDate> findDiaryWrittenDates(
+    List<LocalDate> findDiaryWrittenDateList(
             @Param("userId") int userId,
             @Param("month") int month);
+
+
+    @Query(
+            "SELECT d FROM CropDiary d"
+                    + " LEFT JOIN FETCH d.crop c"
+                    + " WHERE d.crop.user.id = :userId"
+                    + " AND d.performDate = :date"
+    )
+    List<CropDiary> findByUserIdAndPerformDate(
+            @Param("userId") int userId,
+            @Param("date") LocalDate date);
 }

@@ -100,7 +100,7 @@ public class CropDiaryService {
     @Transactional(readOnly = true)
     public List<CropDiary> getUserDiaryList(int userId, int page, int limit, int year, int month) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
-        PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
+        PageRequest pageable = PageRequest.of(page, limit, Sort.by("performDate").descending());
         return cropDiaryRepository.findAllByDateAndCrop(year, month, userId, pageable);
     }
 
@@ -142,7 +142,12 @@ public class CropDiaryService {
         if (!(month >= 1 && month <= 12)) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE);
         }
-        return cropDiaryRepository.findDiaryWrittenDates(userId, month);
+        return cropDiaryRepository.findDiaryWrittenDateList(userId, month);
+    }
+
+    public List<CropDiary> getUserDiaryListByDate(int userId, LocalDate date) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        return cropDiaryRepository.findByUserIdAndPerformDate(userId, date);
     }
 }
 

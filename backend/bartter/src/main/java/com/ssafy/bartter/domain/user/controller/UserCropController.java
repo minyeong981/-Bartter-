@@ -65,8 +65,19 @@ public class UserCropController {
         return SuccessResponse.of(response);
     }
 
+    @Operation(summary = "특정 날짜에 유저가 작성한 농사일지 전체 조회", description = "특정 날짜에 유저가 작성한 농사일지를 전체 조회한다.")
+    @GetMapping("/{userId}/crops/diaries/daily")
+    public SuccessResponse<List<CropDiaryDetail>> getUserDiaryListByDate(
+            @PathVariable("userId") int userId,
+            @RequestParam(value = "date") LocalDate date
+    ) {
+        List<CropDiary> diaryList = cropDiaryService.getUserDiaryListByDate(userId, date);
+        List<CropDiaryDetail> response = diaryList.stream().map(CropDiaryDetail::of).toList();
+        return SuccessResponse.of(response);
+    }
+
     @Operation(summary = "현재 로그인한 유저가 특정달에 농사일지를 작성한 일자들을 조회", description = "특정 달에 유저가 농사일지를 작성한 일자들을 조회하여 리스트로 반환한다.")
-    @GetMapping("/crops/diaries/checks")
+    @GetMapping("/crops/diaries/dates")
     public SuccessResponse<List<LocalDate>> getUserDiaryWrittenDateList(
             @CurrentUser UserAuthDto currentUser,
             @RequestParam(value = "month") int month
