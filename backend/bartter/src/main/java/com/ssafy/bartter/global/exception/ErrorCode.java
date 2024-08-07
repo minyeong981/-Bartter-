@@ -66,13 +66,13 @@ public enum ErrorCode {
     TRADE_POST_LIKE_EXIST(HttpStatus.BAD_REQUEST, 6002," 사용자가 해당 물물교환 게시글을 이미 좋아요 했습니다. "),
     TRADE_POST_LIKE_NOT_FOUND(HttpStatus.NOT_FOUND,6003,"사용자가 해당 물물교환 게시글을 좋아요하지 않았습니다."),
     TRADE_POST_SAME_STATUS(HttpStatus.BAD_REQUEST, 6004, "해당 물물교환 게시글에 대한 잘못된 상태 변경 요청입니다."),
+    TRADE_NOT_FOUND(HttpStatus.NOT_FOUND, 6005, "해당 거래를 찾을 수 없습니다"),
 
     // Report - 7000
-    CROP_REPORT_NOT_FOUND(HttpStatus.NOT_FOUND,7000,"해당 ID의 AI 요약 리포트를 찾을 수 없습니다.")
+    CROP_REPORT_NOT_FOUND(HttpStatus.NOT_FOUND,7000,"해당 ID의 AI 요약 리포트를 찾을 수 없습니다."),
 
-    // Chat
+;
 
-    ;
 
     private final HttpStatus status;
     private final int code;
