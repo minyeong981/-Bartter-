@@ -42,8 +42,8 @@ function GrowDiaryPage() {
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>오류가 발생했습니다.</div>;
 
-  const diary = data?.data || {};
-  const diaryEntries = diary.thumbnailList || [];
+  const diary = data?.data.cropInfo || {};
+  const diaryEntries = data?.data.thumbnailList || [];
 
   const diaryEntriesByMonth = diaryEntries.reduce((acc: Record<string, { cropDiaryId: number; image: string; performDate: string }[]>, entry) => {
     const month = format(new Date(entry.performDate), 'yyyy-MM');

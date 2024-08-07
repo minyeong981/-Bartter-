@@ -1,5 +1,6 @@
 export default {
   COMMENT: 'comment',
+  HAS_DIARY: 'hasDiary',
   DIARY_LIST: 'diaryList',
   DIARY_DETAIL: 'diaryDetail',
   TRADE_LIST: 'tradeList',
