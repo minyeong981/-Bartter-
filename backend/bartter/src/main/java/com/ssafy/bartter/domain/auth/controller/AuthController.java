@@ -11,6 +11,8 @@ import com.ssafy.bartter.global.common.SimpleLocation;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.response.SuccessResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,10 +28,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
+
+/**
+ * 인증과 관련된 요청을 처리하는 컨트롤러 클래스
+ *
+ * @author 김훈민
+ */
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
+@Tag(name = "인증 API", description = "인증과 관련된 API입니다.")
 public class AuthController {
 
     private final JwtConfig jwtConfig;
@@ -38,7 +47,16 @@ public class AuthController {
     private final CookieUtil cookieUtil;
     private final UserService userService;
 
+
+    /**
+     * 리프레시 토큰을 이용하여 새로운 액세스 토큰을 발행하는 메서드
+     *
+     * @param request  HttpServletRequest 객체
+     * @param response HttpServletResponse 객체
+     * @return 성공 여부를 나타내는 SuccessResponse 객체
+     */
     @PostMapping("/reissue")
+    @Operation(summary = "토큰 재발행", description = "리프레시 토큰을 이용하여 새로운 액세스 토큰을 발행합니다.")
     public SuccessResponse<Void> reissue(HttpServletRequest request, HttpServletResponse response) {
         log.info("reissue");
         // get refresh token
@@ -74,7 +92,16 @@ public class AuthController {
         return SuccessResponse.empty();
     }
 
+    /**
+     * OAuth 로그인 후 추가 정보를 저장하고 JWT 토큰을 발행하는 메서드
+     *
+     * @param request             HttpServletRequest 객체
+     * @param response            HttpServletResponse 객체
+     * @param locationRequestDto  위치 정보를 담은 DTO
+     * @return 성공 여부를 나타내는 SuccessResponse 객체
+     */
     @PostMapping("/additional-info")
+    @Operation(summary = "추가 정보 저장", description = "OAuth 로그인 후 추가 정보를 저장하고 JWT 토큰을 발행합니다.")
     public SuccessResponse<?> saveAdditionalInfo(HttpServletRequest request, HttpServletResponse response, @Valid @RequestBody SimpleLocation.LocationRequestDto locationRequestDto) {
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -96,7 +123,14 @@ public class AuthController {
     }
 
 
-
+    /**
+     * 새로운 JWT 토큰을 생성하고 응답에 저장하는 메서드
+     *
+     * @param response HttpServletResponse 객체
+     * @param username 사용자 이름
+     * @param userId   사용자 ID
+     * @param role     사용자 역할
+     */
     private void generateAndSaveTokens(HttpServletResponse response, String username, int userId, String role) {
         // make new JWT
         String newAccess = jwtUtil.generateToken("accessToken", username, userId, role, jwtConfig.getAccessTokenExpiration());
