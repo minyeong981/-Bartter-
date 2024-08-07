@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * CropRepository
@@ -14,13 +15,32 @@ import java.util.List;
  * @author 김가람
  */
 public interface CropRepository extends JpaRepository<Crop, Integer> {
-    List<Crop> findAllByUserId(Integer userId);
 
-    // TODO : DTO 변환 후 쿼리 체크
     @Query(
-            "SELECT tp.crop FROM TradePost tp"
-                    + " LEFT JOIN FETCH Crop c"
-                    + " ON tp.crop.id = c.id"
+            "SELECT c FROM Crop c"
+                    + " JOIN FETCH c.user"
+                    + " JOIN FETCH c.category"
+                    + " WHERE c.id = :cropId"
+    )
+    Optional<Crop> findById(
+            @Param("cropId") int cropId
+    );
+
+    @Query(
+            "SELECT c FROM Crop c"
+            + " JOIN FETCH c.user"
+            + " JOIN FETCH c.category"
+            + " WHERE c.user.id = :userId"
+    )
+    List<Crop> findAllByUserId(
+            @Param("userId") Integer userId
+    );
+
+    @Query(
+            "SELECT c FROM TradePost tp"
+                    + " JOIN tp.crop c"
+                    + " JOIN FETCH c.user"
+                    + " JOIN FETCH c.category"
                     + " WHERE tp.user.id = :userId"
                     + " AND tp.status = 'COMPLETED'"
                     + " ORDER BY tp.createdAt DESC"
@@ -29,13 +49,12 @@ public interface CropRepository extends JpaRepository<Crop, Integer> {
             @Param("userId") int userId
     );
 
-    // TODO : DTO 변환 후 쿼리 체크
     @Query(
-            "SELECT t.tradePost.crop FROM Trade t"
-                    + " LEFT JOIN FETCH TradePost tp"
-                    + " ON t.tradePost.id = tp.id"
-                    + " LEFT JOIN FETCH Crop c"
-                    + " ON tp.crop.id = c.id"
+            "SELECT c FROM Trade t"
+                    + " JOIN t.tradePost tp"
+                    + " JOIN tp.crop c"
+                    + " JOIN FETCH c.user"
+                    + " JOIN FETCH c.category"
                     + " WHERE t.status = 'COMPLETED'"
                     + " AND t.user.id = :userId"
                     + " ORDER BY t.createdAt DESC"

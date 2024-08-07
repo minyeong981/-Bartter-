@@ -62,8 +62,6 @@ public class CropService {
         return cropCategoryRepository.findAllByNameContaining(name);
     }
 
-    // TODO : Fetch join - CropCategory
-
     /**
      * 농작물 프로필 상세 조회
      */
@@ -90,8 +88,6 @@ public class CropService {
         return cropRepository.findAllByUserId(userId);
     }
 
-    // TODO : TEST
-
     /**
      * 유저가 교환 & 나눔(give)한 농작물
      */
@@ -100,8 +96,6 @@ public class CropService {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         return cropRepository.findGiveCropByUserId(userId);
     }
-
-    // TODO : TEST
 
     /**
      * 유저가 교환 & 나눔(receive)한 농작물
