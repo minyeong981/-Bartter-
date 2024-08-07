@@ -3,9 +3,12 @@ package com.ssafy.bartter.domain.user.dto;
 import com.ssafy.bartter.domain.user.entity.Gender;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
@@ -14,8 +17,8 @@ import java.time.LocalDate;
  *
  * @author 김훈민
  */
-@Getter
-@Builder
+@Data
+@NoArgsConstructor
 public class UserJoinDto {
 
     /**
@@ -28,6 +31,7 @@ public class UserJoinDto {
     /**
      * 사용자 비밀번호
      */
+    @NotBlank(message = "비밀번호를 입력하세요.")
     private String password;
 
     /**
@@ -39,11 +43,13 @@ public class UserJoinDto {
     /**
      * 사용자 생년월일 (형식: "yyyy-MM-dd")
      */
+    @NotNull(message = "생년월일을 입력하세요.")
     private LocalDate birth;
 
     /**
      * 사용자 성별 ("F" 또는 "M")
      */
+    @NotNull(message = "성별을 입력하세요.")
     private Gender gender;
 
     /**
@@ -60,7 +66,10 @@ public class UserJoinDto {
 
     /**
      * 사용자 핸드폰 번호
+     * 11글자가 되어야 한다
      */
+    @NotNull(message = "핸드폰 번호를 입력하세요.")
+    @Pattern(regexp = "^\\d{11}$", message = "핸드폰 번호는 11글자 숫자여야 합니다.")
     private String phone;
 
     /**

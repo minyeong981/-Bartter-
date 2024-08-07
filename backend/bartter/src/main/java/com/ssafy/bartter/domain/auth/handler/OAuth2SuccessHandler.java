@@ -1,19 +1,14 @@
 package com.ssafy.bartter.domain.auth.handler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.bartter.domain.auth.config.JwtConfig;
 import com.ssafy.bartter.domain.auth.dto.CustomOAuth2User;
 import com.ssafy.bartter.domain.auth.dto.OAuthTempUserInfoDto;
 import com.ssafy.bartter.domain.auth.repository.RedisRefreshRepository;
 import com.ssafy.bartter.domain.auth.utils.CookieUtil;
 import com.ssafy.bartter.domain.auth.utils.JwtUtil;
-import com.ssafy.bartter.global.exception.CustomException;
-import com.ssafy.bartter.global.exception.ErrorCode;
-import com.ssafy.bartter.global.response.ErrorResponse;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
