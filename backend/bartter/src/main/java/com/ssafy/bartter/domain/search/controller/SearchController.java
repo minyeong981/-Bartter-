@@ -8,6 +8,9 @@ import com.ssafy.bartter.domain.search.service.SearchService;
 import com.ssafy.bartter.domain.trade.dto.TradePostDto;
 import com.ssafy.bartter.domain.trade.dto.TradePostDto.SimpleTradePostDetail;
 import com.ssafy.bartter.domain.trade.entity.TradePost;
+import com.ssafy.bartter.domain.user.dto.UserDto;
+import com.ssafy.bartter.domain.user.dto.UserDto.SimpleUserProfile;
+import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.response.SuccessResponse;
@@ -58,10 +61,30 @@ public class SearchController {
         if(!StringUtils.hasText(searchKeyword)){
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, "키워드를 입력해주세요");
         }
-        List<TradePost> tradePostList = searchService.searchTradePostByKeyword(page, limit, searchKeyword);
-        List<SimpleTradePostDetail> simpleTradePostList = tradePostList.stream().map(o -> SimpleTradePostDetail.of(o, user.getId())).toList();
+        List<TradePost> keywordContainsTradePostList = searchService.searchTradePostByKeyword(page, limit, searchKeyword);
+        List<SimpleTradePostDetail> simpleTradePostList = keywordContainsTradePostList.stream()
+                .map(o -> SimpleTradePostDetail.of(o, user.getId())).toList();
         return SuccessResponse.of(simpleTradePostList);
     }
+
+    @GetMapping("/users")
+    @Operation(summary = "사용자 통합검색", description = "해당 키워드가 닉네임인 사용자들을 페이징해서 처리합니다.")
+    public SuccessResponse<List<SimpleUserProfile>> getSearchUserList(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "limit", defaultValue = "10") int limit,
+            @RequestParam(value = "keyword") String keyword,
+            @CurrentUser UserAuthDto user
+    ){
+        String searchKeyword = keyword.trim();
+        if(!StringUtils.hasText(searchKeyword)){
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, "키워드를 입력해주세요");
+        }
+        List<User> keywordContainsUserList = searchService.searchUserByKeyword(page, limit, searchKeyword);
+        List<SimpleUserProfile> simpleUserList = keywordContainsUserList.stream()
+                .map(SimpleUserProfile::of).toList();
+        return SuccessResponse.of(simpleUserList);
+    }
+
 
     @GetMapping("/recent")
     @Operation(summary = "최근 검색어 목록", description = "가장 촤근 검색한 단어(최대 10개)를 리턴한다. ")
