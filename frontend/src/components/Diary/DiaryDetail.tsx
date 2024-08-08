@@ -16,12 +16,15 @@ export default function DiaryDetail({ cropDiaryId }: { cropDiaryId: number }) {
     queryKey: [querykeys.DIARY_DETAIL, cropDiaryId],
     queryFn: () => barter.getCropDiary(cropDiaryId)
   });
-  console.log(data)
+
   const diaryThumbnail = data.data.data
 
   if (!diaryThumbnail.image) return;
 
+  // const images = diaryThumbnail.image.split(',');
+
   return (
+    // ui 한 줄에 하나씩 / 한 줄에 두개씩?
     <div className={cx('diaryDetailContainer')}>
       <div className={cx('thumbnailList')}>
         <img

@@ -1,6 +1,6 @@
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import classnames from 'classnames/bind';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import CustomCalendar from '@/components/Calendar/CustomCalendar';
 import barter from '@/services/barter';
@@ -19,19 +19,25 @@ export default function CalendarPage({ onDateChange }: CalendarPageProps) {
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [highlightDates, setHighlightDates] = useState<Date[]>([]);
 
   const { data } = useSuspenseQuery({
     queryKey: [querykeys.HAS_DIARY, year, month],
     queryFn: () => barter.getHasDiary(year, month),
-  })
-  const responseData = data.data.data;
+  });
 
+  useEffect(() => {
+    if (data) {
+      const responseData = data.data.data;
+      const newHighlightDates = responseData.map((isDiary) => new Date(isDiary));
+      setHighlightDates(newHighlightDates);
+    }
+  }, [data, year, month]);
 
   const toggleCalendar = () => {
     setIsCollapsed(!isCollapsed);
   };
 
-  const highlightDates = responseData.map(isDiary => new Date(isDiary));
   const handleMonthYearChange = (year: number, month: number) => {
     setYear(year);
     setMonth(month);
@@ -60,3 +66,4 @@ export default function CalendarPage({ onDateChange }: CalendarPageProps) {
     </div>
   );
 }
+

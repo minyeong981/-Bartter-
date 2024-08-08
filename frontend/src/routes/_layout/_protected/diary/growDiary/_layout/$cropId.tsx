@@ -81,7 +81,6 @@ function GrowDiaryPage() {
         <div className={cx('entries')}>
           {filteredEntries.map((entry) => (
             <div key={entry.cropDiaryId} className={cx('entry')}>
-              {entry.cropDiaryId}
               <DiaryDetail cropDiaryId={entry.cropDiaryId} />
             </div>
           ))}
