@@ -32,7 +32,7 @@ public interface CommunityPostRepository extends JpaRepository<CommunityPost, In
             "SELECT p FROM CommunityPost p"
                     + " JOIN FETCH p.user u"
                     + " JOIN FETCH p.location"
-                    + " JOIN FETCH p.imageList"
+                    + " LEFT JOIN FETCH p.imageList"
                     + " WHERE u.id = :userId"
     )
     List<CommunityPost> findAllByUserId(
