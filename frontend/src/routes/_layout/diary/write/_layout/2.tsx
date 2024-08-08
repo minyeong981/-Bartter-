@@ -1,6 +1,6 @@
 import 'react-datepicker/dist/react-datepicker.css';
 
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient  } from '@tanstack/react-query';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import { format } from 'date-fns';
@@ -14,6 +14,7 @@ import LabeledTextArea from '@/components/Inputs/LabeledTextAreaInput';
 import SemiCalendarInput from '@/components/Inputs/SemiCalendarInput';
 import barter from '@/services/barter';
 import useRootStore from '@/store';
+import querykeys from '@/util/querykeys';
 
 import styles from '../write.module.scss';
 import type { SearchParamCropId } from './1';
@@ -31,10 +32,11 @@ export const Route = createFileRoute('/_layout/diary/write/_layout/2')({
 
 export default function DiaryWritePage2() {
   const userId = useRootStore(state => state.userId);
+  const queryClient = useQueryClient();
   const { cropId } = Route.useSearch<{ cropId: number }>();
 
   const { data } = useQuery({
-    queryKey: ['cropProfile', userId],
+    queryKey: [querykeys.CROP_PROFILE, userId],
     queryFn: () => barter.getCropProfileListByUser(userId),
   });
 
@@ -76,7 +78,8 @@ export default function DiaryWritePage2() {
     onSuccess: (diaryData) => {
       console.log('mutation success:', diaryData);
       if (diaryData.data.isSuccess) {
-        navigate({ to: '/diary' });
+        queryClient.invalidateQueries([querykeys.CROP_PROFILE])
+        navigate({ to: `/diary`});
       } else {
         console.error('농사 일지 등록하는데 문제가 발생했습니다.');
       }
