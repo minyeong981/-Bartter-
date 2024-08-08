@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.temporal.WeekFields;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class CropReportService {
     public List<CropReport> getCropReportList(int userId, LocalDate startDate, LocalDate endDate, boolean desc) {
         Sort.Direction sortDirection = (desc) ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sort = Sort.by(sortDirection, "createdAt");
-        return cropReportRepository.findAllByDates(userId, startDate, endDate, sort);
+        return cropReportRepository.findAllByDates(userId, startDate.atStartOfDay(), endDate.atTime(LocalTime.MAX), sort);
     }
 
     @Transactional(readOnly = true)

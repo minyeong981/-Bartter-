@@ -1,5 +1,6 @@
 package com.ssafy.bartter.global.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -12,12 +13,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
+    @Value("${APP_DOMAIN_URL}")
+    private String APP_DOMAIN_URL;
+
     // TODO : 배포시 변경 필요
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry) {
         corsRegistry.addMapping("/**")
                 .allowedMethods("*")
-                .allowedOrigins("http://localhost:5173")
-                .allowCredentials(true);;
+                .allowedOrigins(APP_DOMAIN_URL)
+                .allowCredentials(true);
     }
 }

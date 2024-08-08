@@ -49,7 +49,7 @@ public class OpenAIScheduler {
 
             Collections.shuffle(alarmMessageList);
 
-            for (int i = 0; i < 7; i++) {
+            for (int i = 1; i <= 7; i++) {
                 String message = alarmMessageList.get(i);
                 dailyTipService.createDailyTip(message, user, i + 1);
             }

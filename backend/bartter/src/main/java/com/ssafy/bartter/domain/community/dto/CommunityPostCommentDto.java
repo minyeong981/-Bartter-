@@ -34,6 +34,7 @@ public class CommunityPostCommentDto {
     @Data
     public static class CommunityPostCommentDetail {
         private final int communityPostCommentId;
+        private final int communityPostId;
         private final SimpleUserProfile author;
         private final String content;
         private final LocalDateTime createdAt;
@@ -41,6 +42,7 @@ public class CommunityPostCommentDto {
         public static CommunityPostCommentDetail of(CommunityPostComment comment) {
             return CommunityPostCommentDetail.builder()
                     .communityPostCommentId(comment.getId())
+                    .communityPostId(comment.getCommunityPost().getId())
                     .author(SimpleUserProfile.of(comment.getUser()))
                     .content(comment.getContent())
                     .createdAt(comment.getCreatedAt())

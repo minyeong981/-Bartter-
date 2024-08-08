@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -23,7 +24,7 @@ public class CustomControllerAdvice {
         return ErrorResponse.of(new CustomException(ErrorCode.SERVER_ERROR, "서버 에러가 발생했습니다."));
     }
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ExceptionHandler({HttpMessageNotReadableException.class})
     public ErrorResponse handleReadableException(Exception exception) {
         log.error("",exception);
         return ErrorResponse.of(new CustomException(ErrorCode.BAD_REQUEST));
@@ -42,5 +43,9 @@ public class CustomControllerAdvice {
                 .body(ErrorResponse.of(exception));
     }
 
-
+    @ExceptionHandler({MissingServletRequestParameterException.class})
+    public ErrorResponse handleRequestParameterException(Exception exception) {
+        log.error("",exception);
+        return ErrorResponse.of(new CustomException(ErrorCode.EMPTY_REQUEST_PARAMETER));
+    }
 }
