@@ -8,6 +8,7 @@ const instance = axios.create({
   baseURL: 'http://localhost:8080',
   responseType: 'json',
   timeout: 4000,
+  withCredentials:true
 });
 
 instance.interceptors.request.use(
