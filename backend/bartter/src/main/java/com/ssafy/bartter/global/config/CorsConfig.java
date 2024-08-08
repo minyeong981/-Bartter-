@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
-    @Value("${APP_DOMAIN_URL}")
+    @Value("${app.domain.url}")
     private String APP_DOMAIN_URL;
 
     // TODO : 배포시 변경 필요
