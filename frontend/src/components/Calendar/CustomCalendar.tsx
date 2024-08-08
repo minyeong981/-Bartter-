@@ -13,7 +13,6 @@ interface CustomCalendarProps {
 }
 
 export default function CustomCalendar({ isCollapsed, onDateChange, onMonthYearChange, highlightDates, selectedDate }: CustomCalendarProps) {
-  // const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [currentWeek, setCurrentWeek] = useState<Date[]>([]);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
 
@@ -82,7 +81,7 @@ export default function CustomCalendar({ isCollapsed, onDateChange, onMonthYearC
     onDateChange(date);
   };
 
-  // 해당 달에 다이어리 있으면 날짜 비교 후 점 찍기
+  // 다이어리 있는 날짜에 점 찍기
   const tileContent = ({ date, view }: { date: Date, view: string }) => {
     if (view === 'month' && highlightDates.some(highlightDate => highlightDate.toDateString() === date.toDateString())) {
       return <div className="highlight-dot" />;

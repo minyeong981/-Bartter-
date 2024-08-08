@@ -32,13 +32,13 @@ export default function DeleteDiaryModal({
             onClick={() => onConfirm()}
             buttonStyle={{style: 'mono', size: 'tiny'}}
           >
-            네
+            삭제
           </GeneralButton>
           <GeneralButton
             onClick={onClickOutside}
             buttonStyle={{style: 'primary', size: 'tiny'}}
           >
-            아니요
+            취소
           </GeneralButton>
         </div>
       </ModalContainer>

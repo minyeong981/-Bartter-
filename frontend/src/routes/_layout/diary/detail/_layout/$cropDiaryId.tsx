@@ -1,5 +1,5 @@
 // userId와 일지 쓴 작성자의 id가 같으면 삭제하기 버튼 보이기, 아니면 숨기기
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import { format } from 'date-fns';
@@ -18,13 +18,17 @@ const cx = classnames.bind(styles);
 
 export default function DiaryDetail() {
   const queryClient = useQueryClient();
-  const {cropDiaryId}: {cropDiaryId: number} = Route.useParams();
-
+  const {cropDiaryId} = Route.useParams();
   const navigate = useNavigate();
-  const { data } = useQuery({
+  
+  const { data } = useSuspenseQuery({
     queryKey: [querykeys.DIARY_DETAIL, cropDiaryId],
-    queryFn: () => barter.getCropDiary(cropDiaryId)
+    queryFn: () => barter.getCropDiary(Number(cropDiaryId))
   });
+
+  const responseData = data.data.data
+  
+
 
   const deleteDiary = useMutation({
     mutationFn: (cropDiaryId: number) => {
@@ -35,7 +39,7 @@ export default function DiaryDetail() {
       window.alert('작성자만 삭제할 수 있습니다.');
     }, 
     onSuccess: () => {
-      queryClient.invalidateQueries([querykeys.DIARY_DETAIL]);
+      queryClient.invalidateQueries({queryKey:[querykeys.DIARY_DETAIL]});
       navigate({ to: '/diary' });
     }
   });
@@ -45,32 +49,33 @@ export default function DiaryDetail() {
   const isValidDate = (date: any) => {
     return !isNaN(new Date(date).getTime());
   };
-  console.log(data
-  )
 
-  const formattedDate = isValidDate(data.createdAt)
-    ? format((data.createdAt, 'yyyy-MM-dd HH:mm', { locale: ko }))
+  const formattedDate = isValidDate(responseData.createdAt)
+    ? format(responseData.createdAt, 'yyyy-MM-dd HH:mm', { locale: ko })
     : 'Invalid date';
 
   const handleDeleteDiary = (diaryId: number) => {
     deleteDiary.mutate(diaryId);
   };
 
+//  console.log(responseData)
   return (
     <div>
       <HeaderWithLabelAndBackButton label="농사 일지" />
       <div className={cx('diaryDetailContainer')}>
-        <h1 className={cx('diaryTitle')}>{data.title}</h1>
+        <h1 className={cx('diaryTitle')}>{responseData.title}</h1>
         <div className={cx('diaryImage')}>
-          {data.image && (
-            <img src={'http://' + data.image} alt="Diary" />
+          {responseData.image && (
+            <img src={'http://' + responseData.image} alt="Diary" />
           )}
         </div>
         <div className={cx('cropInfo')}>
-          <img src={'http://' + data.crop.image} alt="Crop" className={cx('cropImage')} />
-          <span className={cx('cropNickname')}>{data.crop.nickname}</span>
+          {/* <img src={'http://' + responseData.crop.image} alt="Crop" className={cx('cropImage')} /> */}
+          {/* <img src={`http://${responseData.crop.image}`} alt="Crop" className={cx('cropImage')} /> */}
+
+          <span className={cx('cropNickname')}>{responseData.crop.nickname}</span>
         </div>
-        <p className={cx('diaryContent')}>{data.content}</p>
+        <p className={cx('diaryContent')}>{responseData.content}</p>
         <p className={cx('diaryDate')}>{formattedDate}</p>
         <div className={cx('deleteButton')}>
           <GeneralButton
@@ -85,7 +90,7 @@ export default function DiaryDetail() {
         <DeleteDiaryModal
           onClickOutside={() => setIsModalOpen(false)}
           onConfirm={() => {
-            handleDeleteDiary(cropDiaryId);
+            handleDeleteDiary(Number(cropDiaryId));
             setIsModalOpen(false);
           }}
         />
