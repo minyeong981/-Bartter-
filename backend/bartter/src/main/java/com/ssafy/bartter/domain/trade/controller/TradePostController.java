@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 @Tag(name = "농작물 물물교환 API", description = "농작물 물물교환 게시글 등록/목록/상세조회 관련 API")
 public class TradePostController {
 
-    private final TradePostService cropTradeService;
+    private final TradePostService tradePostService;
 
     @GetMapping("")
     @Operation(summary = "농작물 물물교환 목록 조회", description = "농작물 물물교환 게시글 목록을 조회한다. ")
@@ -46,7 +46,7 @@ public class TradePostController {
             @RequestParam(value = "desiredCategories", required = false) List<Integer> desiredCategories,
             @CurrentUser UserAuthDto user
     ) {
-        List<TradePost> tradePostList = cropTradeService.getTradePostList(page, limit, givenCategory, desiredCategories, user.getLocationId());
+        List<TradePost> tradePostList = tradePostService.getTradePostList(page, limit, givenCategory, desiredCategories, user.getLocationId());
         List<SimpleTradePostDetail> simpleTradePostList = tradePostList.stream().map(o -> SimpleTradePostDetail.of(o,user.getId())).collect(Collectors.toList());
         return SuccessResponse.of(simpleTradePostList);
     }
@@ -57,7 +57,7 @@ public class TradePostController {
             @PathVariable("tradePostId") int tradePostId,
             @CurrentUser UserAuthDto user
     ) {
-        TradePost tradePost = cropTradeService.getTradePost(tradePostId);
+        TradePost tradePost = tradePostService.getTradePost(tradePostId);
         List<String> imageList = tradePost.getImageList().stream().map(TradePostImage::getImageUrl).toList();
         List<CropCategoryDetail> desiredCategoryList = tradePost.getWishCropCategoryList().stream().map(o -> CropCategoryDetail.of(o.getCategory())).toList();
 
@@ -75,7 +75,7 @@ public class TradePostController {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
         log.debug("hasErrors: {} , request: {} ", bindingResult.hasErrors(), request);
-        Location location = cropTradeService.getLocation(request.getLatitude(), request.getLongitude());
+        Location location = tradePostService.getLocation(request.getLatitude(), request.getLongitude());
         return SuccessResponse.of(SimpleLocation.of(location));
     }
 
@@ -91,7 +91,7 @@ public class TradePostController {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
         log.debug("{}", imageList);
-        cropTradeService.create(create, imageList, user);
+        tradePostService.create(create, imageList, user);
         return SuccessResponse.empty();
     }
 
@@ -101,7 +101,7 @@ public class TradePostController {
             @PathVariable("tradePostId") int tradePostId,
             @CurrentUser UserAuthDto user
     ) {
-        cropTradeService.delete(tradePostId, user);
+        tradePostService.delete(tradePostId, user);
         return SuccessResponse.empty();
     }
 
@@ -111,7 +111,7 @@ public class TradePostController {
             @PathVariable("tradePostId") int tradePostId,
             @CurrentUser UserAuthDto user
     ) {
-        cropTradeService.like(tradePostId, user.getId());
+        tradePostService.like(tradePostId, user.getId());
         return SuccessResponse.empty();
     }
 
@@ -121,7 +121,7 @@ public class TradePostController {
             @PathVariable("tradePostId") int tradePostId,
             @CurrentUser UserAuthDto user
     ) {
-        cropTradeService.unLike(tradePostId, user.getId());
+        tradePostService.unLike(tradePostId, user.getId());
         return SuccessResponse.empty();
     }
 
@@ -130,7 +130,7 @@ public class TradePostController {
             @PathVariable("tradePostId") int tradePostId,
             @CurrentUser UserAuthDto user
     ) {
-        cropTradeService.changeStatus(tradePostId, user.getId(), TradeStatus.PROGRESS);
+        tradePostService.changeStatus(tradePostId, user.getId(), TradeStatus.PROGRESS);
         return SuccessResponse.empty();
     }
 
@@ -139,7 +139,7 @@ public class TradePostController {
             @PathVariable("tradePostId") int tradePostId,
             @CurrentUser UserAuthDto user
     ) {
-        cropTradeService.changeStatus(tradePostId, user.getId(), TradeStatus.RESERVED);
+        tradePostService.changeStatus(tradePostId, user.getId(), TradeStatus.RESERVED);
         return SuccessResponse.empty();
     }
 
@@ -148,7 +148,7 @@ public class TradePostController {
             @PathVariable("tradePostId") int tradePostId,
             @CurrentUser UserAuthDto user
     ) {
-        cropTradeService.changeStatus(tradePostId, user.getId(), TradeStatus.COMPLETED);
+        tradePostService.changeStatus(tradePostId, user.getId(), TradeStatus.COMPLETED);
         return SuccessResponse.empty();
     }
 }

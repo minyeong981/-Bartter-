@@ -2,10 +2,7 @@ package com.ssafy.bartter.domain.user.controller;
 
 import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
-import com.ssafy.bartter.domain.crop.dto.CropDiaryDto;
 import com.ssafy.bartter.domain.crop.dto.CropDiaryDto.CropDiaryDetailWithUser;
-import com.ssafy.bartter.domain.crop.dto.CropDto;
-import com.ssafy.bartter.domain.crop.dto.CropDto.CropProfile;
 import com.ssafy.bartter.domain.crop.dto.CropTradeHistoryDto;
 import com.ssafy.bartter.domain.crop.entity.Crop;
 import com.ssafy.bartter.domain.crop.entity.CropDiary;
@@ -21,9 +18,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.ssafy.bartter.domain.crop.dto.CropDiaryDto.*;
 import static com.ssafy.bartter.domain.crop.dto.CropDiaryDto.CropDiaryDetail;
-import static com.ssafy.bartter.domain.crop.dto.CropDto.*;
+import static com.ssafy.bartter.domain.crop.dto.CropDiaryDto.CropDiaryThumbnail;
+import static com.ssafy.bartter.domain.crop.dto.CropDto.SimpleCropProfile;
 
 @RestController
 @RequiredArgsConstructor
@@ -80,9 +77,10 @@ public class UserCropController {
     @GetMapping("/crops/diaries/dates")
     public SuccessResponse<List<LocalDate>> getUserDiaryWrittenDateList(
             @CurrentUser UserAuthDto currentUser,
+            @RequestParam(value = "year") int year,
             @RequestParam(value = "month") int month
     ) {
-        List<LocalDate> response = cropDiaryService.getUserDiaryWrittenDateList(currentUser.getId(), month);
+        List<LocalDate> response = cropDiaryService.getUserDiaryWrittenDateList(currentUser.getId(), year, month);
         return SuccessResponse.of(response);
     }
 

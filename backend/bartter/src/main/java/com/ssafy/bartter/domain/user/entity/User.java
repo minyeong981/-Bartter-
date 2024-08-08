@@ -13,6 +13,7 @@ import com.ssafy.bartter.domain.trade.entity.TradePost;
 import com.ssafy.bartter.domain.trade.entity.TradePostLike;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -219,7 +220,7 @@ public class User extends BaseEntity {
         this.phone = phone;
         this.email = email;
         this.role = role == null ? Role.USER : role;
-        this.profileImage = profileImage == null ? "default.png" : profileImage;
+        this.profileImage = profileImage == null ? "defaultUser.png" : profileImage;
         this.profileMessage = profileMessage == null ? "Hi" : profileMessage;
         this.isAccountExpired = false;
     }
