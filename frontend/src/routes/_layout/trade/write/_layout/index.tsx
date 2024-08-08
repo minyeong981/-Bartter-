@@ -18,17 +18,21 @@ const cx = classnames.bind(styles);
 export const Route = createFileRoute('/_layout/trade/write/_layout/')({
   component: WritePage,
   validateSearch: ({
-    cropsToGive,
+    cropToGive,
     cropsToGet,
   }: Record<string, unknown>): SearchParamsFromToPage => {
     return {
-      cropsToGive: cropsToGive as string[],
-      cropsToGet: cropsToGet as string[],
+      cropToGive: cropToGive as CropCategoryDetail,
+      cropsToGet: cropsToGet as CropCategoryDetail[],
     };
   },
 });
 
 function WritePage() {
+  const {cropToGive, cropsToGet} = Route.useSearch();
+
+  console.log(cropsToGet);
+
   return (
     <div className={cx('writePage')}>
       <div className={cx('inputContainer')}>
@@ -37,11 +41,11 @@ function WritePage() {
         <CheckboxInput label="나눔인가요?" />
         <LabeledSelectCropButton
           label="주고 싶은 작물"
-          selectedCrops={['상추', '고추', '바나나', '상추']}
+          selectedCrops={[cropToGive!.name]}
         />
         <LabeledSelectCropButton
           label="받고 싶은 작물"
-          selectedCrops={['상추', '고추', '바나나', '상추']}
+          selectedCrops={cropsToGet.map(crop => crop.name)}
         />
 
         <LabeledTextAreaInput label="내용" placeholder="내용을 입력하세요" />

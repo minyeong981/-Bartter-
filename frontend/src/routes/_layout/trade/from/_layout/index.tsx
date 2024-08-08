@@ -7,14 +7,13 @@ import CropButton from '@/components/Buttons/CropButton';
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import barter from '@/services/barter.ts';
-import useRootStore from '@/store';
 
 import styles from './from.module.scss';
 
 const cx = classnames.bind(styles);
 
 export interface SearchParamsFromFromPage {
-  cropToGive?: string;
+  cropToGive?: CropCategoryDetail;
 }
 
 export const Route = createFileRoute('/_layout/trade/from/_layout/')({
@@ -22,15 +21,14 @@ export const Route = createFileRoute('/_layout/trade/from/_layout/')({
 });
 
 function FromPage() {
-  const {userId} = useRootStore(state => state);
   const {data} = useSuspenseQuery({
-    queryKey: ['cropProfile', userId],
-    queryFn: () => barter.getCropProfileListByUser(userId),
+    queryKey: ['cropsCategory'],
+    queryFn: barter.getCropCategoryList,
   });
-  const [cropToGive, setCropToGive] = useState<string>('');
+  const [cropToGive, setCropToGive] = useState<CropCategoryDetail>();
 
-  function handleSelectCrop(cropId: string) {
-    setCropToGive(prev => (prev === cropId ? '' : cropId));
+  function handleSelectCrop(crop: CropCategoryDetail) {
+    setCropToGive(prev => (prev === crop ? undefined : crop));
   }
 
   return (
@@ -45,12 +43,12 @@ function FromPage() {
           {data.data.data.length &&
             data.data.data.map((crop, index) => (
               <CropButton
-                key={`${index}-${crop.cropId}`}
+                key={`${index}-${crop.cropCategoryId}`}
                 onClick={handleSelectCrop}
-                value={String(crop.cropId)}
-                name={crop.nickname}
+                value={crop}
+                name={crop.name}
                 imgUrl={crop.image}
-                selected={cropToGive === String(crop.cropId)}
+                selected={cropToGive === crop}
               />
             ))}
         </div>
