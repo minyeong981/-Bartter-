@@ -1,4 +1,4 @@
-import {useQuery} from '@tanstack/react-query';
+import {useSuspenseQuery} from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import {useState} from 'react';
@@ -7,13 +7,14 @@ import CropButton from '@/components/Buttons/CropButton';
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import barter from '@/services/barter.ts';
+import useRootStore from '@/store';
 
 import styles from './from.module.scss';
 
 const cx = classnames.bind(styles);
 
 export interface SearchParamsFromFromPage {
-  cropsToGive: string[];
+  cropToGive?: string;
 }
 
 export const Route = createFileRoute('/_layout/trade/from/_layout/')({
@@ -21,20 +22,15 @@ export const Route = createFileRoute('/_layout/trade/from/_layout/')({
 });
 
 function FromPage() {
-  const {data} = useQuery({
-    queryKey: ['cropsCategory'],
-    queryFn: barter.getCropCategoryList,
+  const {userId} = useRootStore(state => state);
+  const {data} = useSuspenseQuery({
+    queryKey: ['cropProfile', userId],
+    queryFn: () => barter.getCropProfileListByUser(userId),
   });
-  const [cropsToGive, setCropsToGive] = useState<string[]>([]);
+  const [cropToGive, setCropToGive] = useState<string>('');
 
-  function handleSelectCrop(crop: string) {
-    if (cropsToGive.includes(crop)) {
-      setCropsToGive(prevCrops =>
-        prevCrops.filter(prevCrop => prevCrop !== crop),
-      );
-    } else {
-      setCropsToGive(prevCrops => [...prevCrops, crop]);
-    }
+  function handleSelectCrop(cropId: string) {
+    setCropToGive(prev => (prev === cropId ? '' : cropId));
   }
 
   return (
@@ -46,15 +42,15 @@ function FromPage() {
       </Heading>
       <div className={cx('cropListContainer')}>
         <div className={cx('cropList')}>
-          {data?.data.data &&
-            data?.data.data.map((crop, index) => (
+          {data.data.data.length &&
+            data.data.data.map((crop, index) => (
               <CropButton
-                key={`${index}-${crop.name}`}
+                key={`${index}-${crop.cropId}`}
                 onClick={handleSelectCrop}
-                value={String(crop.cropCategoryId)}
-                name={crop.name}
-                imgUrl={crop.image!}
-                selected={cropsToGive.includes(String(crop.cropCategoryId))}
+                value={String(crop.cropId)}
+                name={crop.nickname}
+                imgUrl={crop.image}
+                selected={cropToGive === String(crop.cropId)}
               />
             ))}
         </div>
@@ -63,7 +59,8 @@ function FromPage() {
         <LinkButton
           buttonStyle={{style: 'primary', size: 'large'}}
           to="/trade/to"
-          search={{cropsToGive: cropsToGive}}
+          search={{cropToGive: cropToGive}}
+          disabled={!cropToGive}
         >
           다음
         </LinkButton>
