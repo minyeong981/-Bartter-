@@ -44,14 +44,14 @@ public class SearchService {
         List<SimpleCommunityPostDetail> simpleCommunityPostList = communityPostList.stream()
                 .map(o -> SimpleCommunityPostDetail.of(o, userId)).toList();
 
-        List<TradePost> tradePostList = searchTradePostByKeyword(0, 2, keyword, userId);
+        List<TradePost> tradePostList = searchTradePostByKeyword(0, 2, keyword);
         List<SimpleTradePostDetail> simpleTradePostList =
                 tradePostList.stream().map(o -> SimpleTradePostDetail.of(o, userId)).toList();
 
         return SimpleKeywordList.of(simpleUserList, simpleCommunityPostList, simpleTradePostList);
     }
 
-    public List<TradePost> searchTradePostByKeyword(int offset, int limit, String keyword, int userId) {
+    public List<TradePost> searchTradePostByKeyword(int offset, int limit, String keyword) {
         return tradePostService.getTradePostByKeyword(offset,limit,keyword);
     }
 
