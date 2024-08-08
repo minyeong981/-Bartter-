@@ -1,5 +1,7 @@
 import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
+import type {ChangeEvent} from 'react';
+import {useState} from 'react';
 
 import {ImageLettuce} from '@/assets/image';
 import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
@@ -18,35 +20,72 @@ const cx = classnames.bind(styles);
 export const Route = createFileRoute('/_layout/trade/write/_layout/')({
   component: WritePage,
   validateSearch: ({
-    cropsToGive,
+    cropToGive,
     cropsToGet,
   }: Record<string, unknown>): SearchParamsFromToPage => {
     return {
-      cropsToGive: cropsToGive as string[],
-      cropsToGet: cropsToGet as string[],
+      cropToGive: cropToGive as CropCategoryDetail,
+      cropsToGet: cropsToGet as CropCategoryDetail[],
     };
   },
 });
 
 function WritePage() {
+  const {cropToGive, cropsToGet} = Route.useSearch();
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [isShared, setIsShared] = useState(false);
+  const [images, setImages] = useState<File[]>([]);
+
+  function handleTitleChange(e: ChangeEvent<HTMLInputElement>) {
+    setTitle(e.currentTarget.value);
+  }
+
+  function handleDescriptionChange(e: ChangeEvent<HTMLTextAreaElement>) {
+    setDescription(e.currentTarget.value);
+  }
+
+  function handleCheckboxChange(e: ChangeEvent<HTMLInputElement>) {
+    console.log(e.currentTarget.checked);
+    setIsShared(e.currentTarget.checked);
+  }
+
+  function handleImageFileChange(files: File[]) {
+    setImages(files);
+  }
+
   return (
     <div className={cx('writePage')}>
       <div className={cx('inputContainer')}>
         <CropImage imgSrc={ImageLettuce} label="상추" />
-        <LabeledInput label="제목" placeholder="제목을 입력하세요" />
-        <CheckboxInput label="나눔인가요?" />
+        <LabeledInput
+          label="제목"
+          placeholder="제목을 입력하세요"
+          value={title}
+          onChange={handleTitleChange}
+        />
+        <CheckboxInput
+          label="나눔인가요?"
+          checked={isShared}
+          onChange={handleCheckboxChange}
+        />
         <LabeledSelectCropButton
           label="주고 싶은 작물"
-          selectedCrops={['상추', '고추', '바나나', '상추']}
+          selectedCrops={[cropToGive!.name]}
         />
         <LabeledSelectCropButton
           label="받고 싶은 작물"
-          selectedCrops={['상추', '고추', '바나나', '상추']}
+          selectedCrops={cropsToGet.map(crop => crop.name)}
         />
 
-        <LabeledTextAreaInput label="내용" placeholder="내용을 입력하세요" />
+        <LabeledTextAreaInput
+          label="내용"
+          placeholder="내용을 입력하세요"
+          value={description}
+          onChange={handleDescriptionChange}
+        />
         <LabeledImageInput
-          onImageChange={() => null}
+          onImageChange={handleImageFileChange}
           maxImages={3}
           label="사진"
         />

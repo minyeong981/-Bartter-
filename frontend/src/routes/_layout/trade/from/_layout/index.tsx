@@ -1,4 +1,4 @@
-import {useQuery} from '@tanstack/react-query';
+import {useSuspenseQuery} from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import {useState} from 'react';
@@ -13,7 +13,7 @@ import styles from './from.module.scss';
 const cx = classnames.bind(styles);
 
 export interface SearchParamsFromFromPage {
-  cropsToGive: string[];
+  cropToGive?: CropCategoryDetail;
 }
 
 export const Route = createFileRoute('/_layout/trade/from/_layout/')({
@@ -21,20 +21,14 @@ export const Route = createFileRoute('/_layout/trade/from/_layout/')({
 });
 
 function FromPage() {
-  const {data} = useQuery({
+  const {data} = useSuspenseQuery({
     queryKey: ['cropsCategory'],
     queryFn: barter.getCropCategoryList,
   });
-  const [cropsToGive, setCropsToGive] = useState<string[]>([]);
+  const [cropToGive, setCropToGive] = useState<CropCategoryDetail>();
 
-  function handleSelectCrop(crop: string) {
-    if (cropsToGive.includes(crop)) {
-      setCropsToGive(prevCrops =>
-        prevCrops.filter(prevCrop => prevCrop !== crop),
-      );
-    } else {
-      setCropsToGive(prevCrops => [...prevCrops, crop]);
-    }
+  function handleSelectCrop(crop: CropCategoryDetail) {
+    setCropToGive(prev => (prev === crop ? undefined : crop));
   }
 
   return (
@@ -46,15 +40,15 @@ function FromPage() {
       </Heading>
       <div className={cx('cropListContainer')}>
         <div className={cx('cropList')}>
-          {data?.data.data &&
-            data?.data.data.map((crop, index) => (
+          {data.data.data.length &&
+            data.data.data.map((crop, index) => (
               <CropButton
-                key={`${index}-${crop.name}`}
+                key={`${index}-${crop.cropCategoryId}`}
                 onClick={handleSelectCrop}
-                value={String(crop.cropCategoryId)}
+                value={crop}
                 name={crop.name}
-                imgUrl={crop.image!}
-                selected={cropsToGive.includes(String(crop.cropCategoryId))}
+                imgUrl={crop.image}
+                selected={cropToGive === crop}
               />
             ))}
         </div>
@@ -63,7 +57,8 @@ function FromPage() {
         <LinkButton
           buttonStyle={{style: 'primary', size: 'large'}}
           to="/trade/to"
-          search={{cropsToGive: cropsToGive}}
+          search={{cropToGive: cropToGive}}
+          disabled={!cropToGive}
         >
           다음
         </LinkButton>

@@ -12,7 +12,7 @@ import barter from '@/services/barter.ts';
 import styles from './to.module.scss';
 
 export interface SearchParamsFromToPage extends SearchParamsFromFromPage {
-  cropsToGet: string[];
+  cropsToGet: CropCategoryDetail[];
 }
 
 const cx = classnames.bind(styles);
@@ -20,10 +20,10 @@ const cx = classnames.bind(styles);
 export const Route = createFileRoute('/_layout/trade/to/_layout/')({
   component: ToPage,
   validateSearch: ({
-    cropsToGive,
+    cropToGive,
   }: Record<string, unknown>): SearchParamsFromFromPage => {
     return {
-      cropsToGive: cropsToGive as string[],
+      cropToGive: cropToGive as CropCategoryDetail,
     };
   },
 });
@@ -33,9 +33,9 @@ function ToPage() {
     queryKey: ['cropsCategory'],
     queryFn: barter.getCropCategoryList,
   });
-  const [cropsToGet, setCropsToGet] = useState<string[]>([]);
+  const [cropsToGet, setCropsToGet] = useState<CropCategoryDetail[]>([]);
 
-  function handleSelectCrop(crop: string) {
+  function handleSelectCrop(crop: CropCategoryDetail) {
     if (cropsToGet.includes(crop)) {
       setCropsToGet(prevCrops =>
         prevCrops.filter(prevCrop => prevCrop !== crop),
@@ -59,10 +59,10 @@ function ToPage() {
               <CropButton
                 key={`${index}-${crop.name}`}
                 onClick={handleSelectCrop}
-                value={String(crop.cropCategoryId)}
+                value={crop}
                 name={crop.name}
-                imgUrl={crop.image!}
-                selected={cropsToGet.includes(String(crop.cropCategoryId))}
+                imgUrl={crop.image}
+                selected={cropsToGet.includes(crop)}
               />
             ))}
         </div>
@@ -71,7 +71,11 @@ function ToPage() {
         <LinkButton
           buttonStyle={{style: 'primary', size: 'large'}}
           to="/trade/write"
-          search={prev => ({...prev, cropsToGet: cropsToGet})}
+          search={(prev: SearchParamsFromFromPage) => ({
+            ...prev,
+            cropsToGet: cropsToGet,
+          })}
+          disabled={cropsToGet.length === 0}
         >
           다음
         </LinkButton>
