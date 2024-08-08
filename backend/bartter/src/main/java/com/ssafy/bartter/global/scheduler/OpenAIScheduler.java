@@ -87,7 +87,7 @@ public class OpenAIScheduler {
 
         // AI 요약 리포트마다 다음주 작업 발췌한 후 파싱하여 알람으로 넣어주기
         for (CropReport cropReport : weeklyCropReportList) {
-            String[] sentences = cropReport.getContent().split("\n");
+                String[] sentences = cropReport.getContent().split("\n");
 
             for (int i = sentences.length - 1; i >= 0; i--) {
                 String sentence = sentences[i];
