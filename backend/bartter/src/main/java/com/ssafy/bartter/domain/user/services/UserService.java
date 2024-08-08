@@ -13,6 +13,7 @@ import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.service.LocationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,9 @@ public class UserService {
     private final FollowRepository followRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final LocationService locationService;
+
+    @Value("${cloud.aws.url}")
+    private String url;
 
 
     /**
@@ -63,6 +67,7 @@ public class UserService {
                 .location(location)
                 .phone(userJoinDto.getPhone())
                 .email(userJoinDto.getEmail())
+                .profileImage(url + "/defaultUser")
                 .build();
         userRepository.save(user);
     }
