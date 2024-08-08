@@ -27,7 +27,7 @@ public class CropDiaryDto {
     @Schema(name = "CropDiaryCreateRequest", description = "농사일지 작성 요청")
     public static class Create {
         @NotNull(message = "농작물 프로필 정보를 입력하세요.")
-        private Integer cropId;
+        private int cropId;
 
         @NotBlank(message = "농사일지의 제목을 입력하세요.")
         private String title;
@@ -72,15 +72,17 @@ public class CropDiaryDto {
     @Builder
     @Getter
     public static class CropDiaryDetailWithUser {
-        private final SimpleUserProfile author;
-        private final String image;
-        private final String title;
-        private final String content;
-        private final LocalDateTime createdAt;
+        private SimpleUserProfile author;
+        private int cropDiaryId;
+        private String image;
+        private String title;
+        private String content;
+        private LocalDateTime createdAt;
 
         public static CropDiaryDetailWithUser of(CropDiary diary) {
             return CropDiaryDetailWithUser.builder()
                     .author(SimpleUserProfile.of(diary.getCrop().getUser()))
+                    .cropDiaryId(diary.getId())
                     .image(diary.getImage())
                     .title(diary.getTitle())
                     .content(diary.getContent())
