@@ -20,13 +20,14 @@ export const Route = createFileRoute('/_layout/_protected/_home/')({
 });
 
 export default function Home() {
+  const givenCategory = 0;
   const isCommunity = false
   const [ page, setPage ] = useState<number>(0);
   const [limit] = useState<number>(2)
 
   const { data: trade } = useSuspenseQuery({
-    queryKey: [querykeys.TRADE_LIST, page, limit],
-    queryFn: ()=> barter.getTradePostList(page, 4)
+    queryKey: [querykeys.TRADE_LIST, page, limit, givenCategory],
+    queryFn: ()=> barter.getTradePostList(0, 10, 0)
   })
 
   const { data:community } = useSuspenseQuery({
@@ -42,7 +43,6 @@ export default function Home() {
   const trades = trade.data.data
   const posts = community.data.data
   const crops = cropStory.data.data
-  console.log(trades)
 
   return (
     <div className={cx('container')}>

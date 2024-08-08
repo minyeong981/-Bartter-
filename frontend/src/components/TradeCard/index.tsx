@@ -7,14 +7,14 @@ import Status from '@/components/Status';
 
 import styles from './tradeCard.module.scss';
 
-type TradeCardProps = SimpleCropTradePost & LinkProps;
+type TradeCardProps = SimpleTradePostDetail & LinkProps;
 
 const cx = classnames.bind(styles);
 
 export default function TradeCard({
-  cropTradePostId,
+  // cropTradePostId,
   title,
-  imageURL,
+  image,
   status,
   location,
   likeCount,
@@ -25,10 +25,10 @@ export default function TradeCard({
 }: TradeCardProps) {
   return (
     <Link className={cx('tradeCard')} {...props}>
-      <img src={imageURL} alt="이미지" />
+      <img src={`https://${image}`} alt="이미지" />
       <div className={cx('tradeCardContent')}>
         <h3 className={cx('title')}>{title}</h3>
-        <p className={cx('location')}>{location.locationName}</p>
+        <p className={cx('location')}>{location.name}</p>
         <p className={cx('date')}>{createdAt}</p>
         <p className={cx('share')}>{isShare && '나눔'}</p>
         <Status status={status} className={styles['topRight']} />

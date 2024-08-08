@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient,useSuspenseQuery } from '@tanstack/react-query';
 import {createFileRoute, useNavigate } from '@tanstack/react-router';
 import type {ChangeEvent, KeyboardEvent} from 'react';
 import {useState} from 'react';
@@ -18,12 +18,12 @@ export const Route = createFileRoute('/_layout/_protected/community/detail/_layo
 
 export default function CommunityPostDetail() {
   const queryClient = useQueryClient();
-  const {postId}: {postId: number} = Route.useParams();
+  const {postId}: {postId: CommunityPostId} = Route.useParams();
   const [content, setContent] = useState(''); // 댓글
 
   const navigate = useNavigate({from: '/community/detail/$postId'})
 
-  const { isPending, data } = useQuery({
+  const { data } = useSuspenseQuery({
     queryKey: [ querykeys.COMMUNITY_DETAIL, postId],
     queryFn: () => barter.getCommunityPost(postId),
     // enabled: !!postId
@@ -43,7 +43,6 @@ export default function CommunityPostDetail() {
     }
   })
 
-  // console.log(data?.data.data)
   const addComment = useMutation({
     mutationFn: ({communityPostId, content} : { communityPostId:CommunityPostId; content: string }) =>  {
       return barter.postCommunityComment(communityPostId, content)
@@ -89,9 +88,6 @@ export default function CommunityPostDetail() {
     }
   })
     
-  if ( isPending ) {
-    return <span>Loading...</span>
-  }
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setContent(event.target.value);
@@ -120,32 +116,27 @@ export default function CommunityPostDetail() {
 
   }
 
-
-  if ( ! data?.data?.data) {
-  return <div>게시글이 없습니다.</div>
-  } 
-
+  const post = data.data.data
 
   return (
     <div>
       <UserNameLocation
-        locationName={data.data.data.location.name}
-        postId={data.data.data.communityPostId}
-        createdAt={data.data.data.createdAt}
-        userId={data.data.data.author.userId}
-        nickname={data.data.data.author.nickname}
-        profileImage={data.data.data.author.profileImage}
-        onDelete={() => handleDeletePost(data.data.data.communityPostId)}
+        locationName={post.location.name}
+        postId={post.communityPostId}
+        createdAt={post.createdAt}
+        userId={post.author.userId}
+        nickname={post.author.nickname}
+        profileImage={post.author.profileImage}
+        onDelete={() => handleDeletePost(post.communityPostId)}
       />
-      <PostDetail post={data.data.data} 
-        />
+      <PostDetail {...post} />
       <LikeComment
-        likeCount={data.data.data.likeCount}
-        commentCount={data.data.data.commentList.length}
-        isLike={data.data.data.isLike}
+        likeCount={post.likeCount}
+        commentCount={post.commentList.length}
+        isLike={post.isLike}
         onClick={ChangeIsLike}
       />
-      { data.data.data.commentList && data.data.data.commentList.map((comment, commentIndex) => 
+      { post.commentList && post.commentList.map((comment, commentIndex) => 
         <UserNameContent key={commentIndex} comment={comment} onDelete={() => handleDeleteComment(comment.communityPostCommentId)} />
       )}
       <div>
