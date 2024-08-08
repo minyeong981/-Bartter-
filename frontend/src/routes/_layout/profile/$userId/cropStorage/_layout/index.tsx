@@ -1,12 +1,14 @@
-import {createFileRoute} from '@tanstack/react-router';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import {createFileRoute, useNavigate,useParams} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import {useEffect, useState} from 'react';
 import Lottie from 'react-lottie-player';
 
 import WarehouseAnimation from '@/assets/lottie/warehouse.json';
 import UserCrops from '@/components/Crop/UserCrops';
-// import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
-import type {Crop} from '@/store/diarySlice';
+import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
+import barter from '@/services/barter';
+import querykeys from '@/util/querykeys';
 
 import styles from './../cropStorage.module.scss';
 
@@ -19,64 +21,38 @@ export const Route = createFileRoute('/_layout/profile/$userId/cropStorage/_layo
 );
 
 function CropStoragePage() {
-  const {nickname} = Route.useParams();
-  const [UserCrops, setUserCrops] = useState<Crop[]>([]);
-  const [receivedCrops, setReceivedCrops] = useState<Crop[]>([]); // 받은 농작물 데이터
+  // const {nickname} = Route.useParams();
+  // const [UserCrops, setUserCrops] = useState<Crop[]>([]);
+  // const [receivedCrops, setReceivedCrops] = useState<Crop[]>([]); // 받은 농작물 데이터
   const [isUserCrops, setIsUserCrops] = useState(true);
+  const userId = Route.useParams()
+  const navigate = useNavigate()
+  const { data: userCropsStorage  } = useSuspenseQuery({
+    queryKey: [querykeys.PROFILE, useId],
+    queryFn: () => barter.getCropProfileListByUser(userId)
+  })
 
-  useEffect(() => {
-    setUserCrops([
-      {
-        id: 1,
-        nickname: '작물1',
-        date: '1',
-        description: '',
-        image: '',
-        name: '',
-      },
-      {
-        id: 2,
-        nickname: '작물2',
-        date: '1',
-        description: '',
-        image: '',
-        name: '',
-      },
-    ]); // 실제로는 API 등을 통해 데이터를 가져옴
-    setReceivedCrops([
-      {
-        id: 3,
-        nickname: '받은작물1',
-        date: '1',
-        description: '',
-        image: '',
-        name: '',
-      },
-      {
-        id: 4,
-        nickname: '받은작물2',
-        date: '1',
-        description: '',
-        image: '',
-        name: '',
-      },
-    ]);
-  }, []);
+  const { data: userTradesStorage } = useSuspenseQuery({
+    queryKey: [querykeys.PROFILE, userId],
+    queryFn: () => barter.getCropListTradedByUser(userId)
+  })
+
+  // const responseUserCrops : userCropsStorage.data.data
+
 
   const handleToggle = (showUserCrops: boolean) => {
     setIsUserCrops(showUserCrops);
   };
 
   const handleCropClick = (cropId: number) => {
-    const newUrl = `/diary/growDiary/${cropId}`;
-    window.location.href = newUrl;
+    navigate({to: `/diary/growDiary/${cropId}`})
   };
 
   return (
     <div>
-      {/* <HeaderWithLabelAndBackButton label="농작물 창고" /> */}
+      <HeaderWithLabelAndBackButton label="농작물 창고" />
       <div className={cx('cropStorageContainer')}>
-        <h1>{nickname}님</h1>
+        <h1>{responseUserCrops.n}님</h1>
         <h1>
           {isUserCrops
             ? `나의 작물 ${UserCrops.length}개`

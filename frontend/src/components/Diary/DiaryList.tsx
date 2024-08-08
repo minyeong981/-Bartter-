@@ -1,8 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 
 import barter from '@/services/barter';
+import querykeys from '@/util/querykeys';
 
 import styles from './DiaryList.module.scss';
 
@@ -15,12 +16,12 @@ interface DiaryListProps {
 
 export default function DiaryList({ userId, selectedDate }: DiaryListProps) {
   const navigate = useNavigate();
-  const { data } = useQuery({
-    queryKey: ['diaryList', userId, selectedDate],
+  const { data } = useSuspenseQuery({
+    queryKey: [querykeys.DIARY_LIST, userId, selectedDate],
     queryFn: () => barter.getCropDiaryListByDate(userId, selectedDate)
   });
 
-  const diaryEntries = data?.data || [];
+  const diaryEntries = data.data.data
 
   const handleDetailClick = (diaryId: number) => {
     navigate({ to: `/diary/detail/${diaryId}` });
@@ -39,7 +40,7 @@ export default function DiaryList({ userId, selectedDate }: DiaryListProps) {
               상세보기 &gt;
             </span>
             <div className={cx('cardContent')}>
-              {diary.image && <img src={diary.image} alt="Diary" className={cx('cardImage')} />}
+              {diary.image && <img src={'http://' + diary.image} alt="Diary" className={cx('cardImage')} />}
               <div className={cx('textContent')}>
                 <h3>{diary.title}</h3>
                 <p>{diary.content}</p>

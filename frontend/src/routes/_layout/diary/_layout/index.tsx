@@ -27,7 +27,7 @@ function DiaryPage() {
   const { activeComponent } = useRootStore();
 
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
-  console.log(currentDate)
+
   function handleDateChange(date: Date) {
     setCurrentDate(date);
   }
@@ -41,7 +41,7 @@ function DiaryPage() {
   }
 
   function handleSelectCrop(cropId: number) {
-    navigate({ to: `/diary/growDiary/${cropId}` });
+    navigate({ to: `/diary/growDiary/${cropId}`});
   }
 
   // Date 형식으로 포맷
@@ -81,7 +81,7 @@ function DiaryPage() {
       renderedComponent = (
         <>
           <UserCrops userId={userId} onSelectCrop={handleSelectCrop} />
-          <FloatingButton onClick={handleModalOpen}>+ 등록하기</FloatingButton>
+          <FloatingButton onClick={handleModalOpen}>+ 등록하기 ${userId}</FloatingButton>
           {isModalOpen && (
             <CropModal
               show={isModalOpen}

@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query';
 import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {ChangeEvent} from 'react';
@@ -7,6 +8,7 @@ import GeneralButton from '@/components/Buttons/GeneralButton';
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledTextAreaInput from '@/components/Inputs/LabeledTextAreaInput';
+import barter from '@/services/barter';
 
 import styles from '../registerCrop.module.scss';
 import type { SearchParamDate } from './2';
@@ -31,19 +33,43 @@ export const Route = createFileRoute('/_layout/diary/registerCrop/_layout/3')({
 });
 
 function GetDesciptionPage() {
-  const {nickname} = Route.useSearch()
+  const {crop, nickname, growDate} = Route.useSearch()
   const [description, setDescription] = useState('');
   const isValid = description.length <= 100;
 
   const navigate = useNavigate()
+    const mutation = useMutation({
+    mutationFn: barter.postCropProfile,
+    onSuccess: (data) =>{
+      console.log(data.data.isSuccess);
+      const cropId = data.data.data.cropId
+      if(data.data.isSuccess && cropId){
+        console.log("성공 ", data.data.data.cropId)
+        navigate({to: '/diary/registerCrop/5', search:{cropId}} )
+      }else{
+        console.error('농작물 등록하는데 문제가 발생했습니다.')
+      }
+    },
+    onError: () => console.error('농작물 등록하는데 문제가 발생했습니다.'),
+  });
+
+  async function handleContinueButton() {
+    mutation.mutate({
+      cropCategoryId: crop.cropCategoryId,
+      nickname: nickname,
+      growDate: growDate,
+      description: description && description,
+      // image: image.length > 0 ? image : undefined
+    });
+    return;
+  }
   const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.currentTarget.value);
   };
 
-  function handleContinueButton() {
-    setDescription('');
-    navigate({to: '/diary/registerCrop/5'});
-  }
+
+
+  
 
   return (
     <>

@@ -254,7 +254,6 @@ export default {
   getCropDiaryListByDate: async (userId: UserId, date: string) =>
     axios.get<GetDiaryListByDateResponse>(`/users/${userId}/crops/diaries/daily`, {
       params: {
-        userId,
         date
       }
     }),  

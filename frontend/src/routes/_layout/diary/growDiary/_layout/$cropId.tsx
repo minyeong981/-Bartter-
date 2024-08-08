@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import { format } from 'date-fns';
@@ -10,6 +10,7 @@ import DiaryDetail from '@/components/Diary/DiaryDetail';
 import MonthHeader from '@/components/ProfileDiary/MonthHeader';
 import MonthHeaderButton from '@/components/ProfileDiary/MonthHeaderButton';
 import barter from '@/services/barter';
+import querykeys from '@/util/querykeys';
 
 import styles from '../growDiary.module.scss';
 
@@ -20,7 +21,16 @@ export const Route = createFileRoute('/_layout/diary/growDiary/_layout/$cropId')
 });
 
 function GrowDiaryPage() {
-  const { cropId } = Route.useSearch<{ cropId: number }>();
+  const { cropId } = Route.useParams();
+
+  const { data } = useSuspenseQuery({
+    queryKey: [querykeys.DIARY_DETAIL, cropId],
+    queryFn: () => barter.getCropDiaryListByCrop(cropId),
+  });
+
+  const cropDiary = data.data.data;
+  const cropInfo = cropDiary.cropInfo;
+  const thumbnailList = cropDiary.thumbnailList;
 
   const [pivotDate, setPivotDate] = useState(new Date());
 
@@ -34,46 +44,37 @@ function GrowDiaryPage() {
 
   const formatMonth = (month: number) => (month < 9 ? `0${month + 1}` : `${month + 1}`);
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['diaryDetail', cropId],
-    queryFn: () => barter.getCropDiaryListByCrop(cropId),
-  });
-
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>오류가 발생했습니다.</div>;
-
-  const diary = data?.data.cropInfo || {};
-  const diaryEntries = data?.data.thumbnailList || [];
-
-  const diaryEntriesByMonth = diaryEntries.reduce((acc: Record<string, { cropDiaryId: number; image: string; performDate: string }[]>, entry) => {
-    const month = format(new Date(entry.performDate), 'yyyy-MM');
+  const diaryEntriesByMonth = thumbnailList.reduce((acc: Record<string, { cropDiaryId: number; image: string; performDate: string }[]>, diary) => {
+    const month = format(new Date(diary.performDate), 'yyyy-MM');
     if (!acc[month]) {
       acc[month] = [];
     }
-    acc[month].push(entry);
+    acc[month].push(diary);
     return acc;
   }, {});
 
   return (
     <div className={cx('growDiaryContainer')}>
-      <div className={cx('profileSection')}>
-        <div className={cx('cropImage')}>
-          <img src={'http://' + diary.cropInfo.cropProfileImage} alt={diary.cropInfo.cropNickname} />
-        </div>
-        <div className={cx('cropInfo')}>
-          <h2>{diary.cropInfo.userNickname}님의 {diary.cropInfo.cropNickname}</h2>
-          <div className={cx('infoImages')}>
-            <div className={cx('info')}>
-              <img src={GrowDiary} alt="growDiary" />
-              <p><span>{diary.cropInfo.dayWithCrop}</span>일째</p>
-            </div>
-            <div className={cx('info')}>
-              <img src={Share} alt="share" />
-              <p><span>{diary.cropInfo.tradeCount}</span> 회</p>
+      {cropInfo && (
+        <div className={cx('profileSection')}>
+          <div className={cx('cropImage')}>
+            <img src={'http://' + cropInfo.cropProfileImage} alt={cropInfo.cropNickname} />
+          </div>
+          <div className={cx('cropInfo')}>
+            <h2>{cropInfo.userNickname}님의 {cropInfo.cropNickname}</h2>
+            <div className={cx('infoImages')}>
+              <div className={cx('info')}>
+                <img src={GrowDiary} alt="growDiary" />
+                <p><span>{cropInfo.dayWithCrop}</span>일째</p>
+              </div>
+              <div className={cx('info')}>
+                <img src={Share} alt="share" />
+                <p><span>{cropInfo.tradeCount}</span> 회</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
       <hr />
       <div className={cx('diarySection')}>
         {Object.entries(diaryEntriesByMonth).map(([month, entries]) => (
