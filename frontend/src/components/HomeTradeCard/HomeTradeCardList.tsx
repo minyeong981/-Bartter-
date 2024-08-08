@@ -5,7 +5,7 @@ import HomeTradeCard from './HomeTradeCard';
 import styles from './HomeTradeCardList.module.scss';
 
 interface BarterCardProps {
-  barterCards: SimpleTradePostDetail[];
+  trades: SimpleTradePostDetail[];
 }
 
 const cx = classnames.bind(styles);
@@ -39,7 +39,7 @@ export default function HomeTradeCardList({trades}: BarterCardProps) {
         }}
       >
         {trades.map((trade, tradeIndex) => (
-          <HomeTradeCard key={tradeIndex} {...trade}/>
+          <HomeTradeCard key={tradeIndex} {...trade} />
         ))}
       </div>
       <button className={cx('carousel-button', 'right')} onClick={handleNext}>
