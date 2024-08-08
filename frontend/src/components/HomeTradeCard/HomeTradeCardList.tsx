@@ -1,25 +1,16 @@
 import classnames from 'classnames/bind';
 import {useState} from 'react';
 
-import Heart from '../Heart';
-import styles from './barterCard.module.scss';
-
-interface BarterCard {
-  location: string;
-  title: string;
-  content: string;
-  date: string;
-  imageSrc: string;
-  likeCount: number;
-}
+import HomeTradeCard from './HomeTradeCard';
+import styles from './HomeTradeCardList.module.scss';
 
 interface BarterCardProps {
-  barterCards: BarterCard[];
+  barterCards: SimpleTradePostDetail[];
 }
 
 const cx = classnames.bind(styles);
 
-export default function Barter({barterCards}: BarterCardProps) {
+export default function HomeTradeCardList({trades}: BarterCardProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const cardWidth = 180;
   const cardsToShow = 2;
@@ -32,7 +23,7 @@ export default function Barter({barterCards}: BarterCardProps) {
 
   const handleNext = () => {
     setCurrentIndex(prevIndex =>
-      Math.min(prevIndex + cardsToShow, barterCards.length - cardsToShow),
+      Math.min(prevIndex + cardsToShow, trades.length - cardsToShow),
     );
   };
 
@@ -47,19 +38,8 @@ export default function Barter({barterCards}: BarterCardProps) {
           transform: `translateX(-${currentIndex * (cardWidth + cardSpacing)}px)`,
         }}
       >
-        {barterCards.map((card, index) => (
-          <div className={cx('barter-card')} key={index}>
-            <img
-              className={cx('barter-image')}
-              src={card.imageSrc}
-              alt={card.title}
-            />
-            <div className={cx('barter-title')}>{card.title}</div>
-            <div className={cx('barter-time')}>{card.date}</div>
-            <div className={cx('barter-likes')}>
-              <Heart count={5} isLike={true} />
-            </div>
-          </div>
+        {trades.map((trade, tradeIndex) => (
+          <HomeTradeCard key={tradeIndex} {...trade}/>
         ))}
       </div>
       <button className={cx('carousel-button', 'right')} onClick={handleNext}>

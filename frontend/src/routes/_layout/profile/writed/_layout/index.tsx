@@ -16,7 +16,7 @@ export const Route = createFileRoute('/_layout/profile/writed/_layout/')({
 
 export default function ProfileWrited() {
 
-  const userId = useRootStore((state) => state.userId)
+  const userId:UserId = useRootStore((state) => state.userId)
   const [activeComponent, setActiveComponent] = useState<string>('물물교환');
 
   const { data:community, isPending } = useQuery({

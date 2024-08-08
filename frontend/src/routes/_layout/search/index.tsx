@@ -1,6 +1,6 @@
 import { useMutation,useQuery,useQueryClient } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import {useEffect,useState } from 'react';
+import {useEffect, useState } from 'react';
 
 import RecentSearch from '@/components/Search/RecentSearch';
 import SearchBar from '@/components/Search/SearchBar';
@@ -20,12 +20,12 @@ export default function Search() {
   // 3. 검색어 제안리스트 현재 검색중인 query를 이용해 api로 요청하여 검색어 제안 보여줌 이것도 10개만 표시하기
   const [ suggestions, setSuggestions ] = useState<string[]>(['감자', '고구마', '오이', '당근', '수박', '가지', '배', '감', '바나나', '사과', '옥수수']);
  
-  const initialSearchResult: SearchResult = {
+  const initialSearchResult: SimpleKeywordList = {
     userProfileList: [],
     communityPostList: [],
     tradePostList: []
   }
-  const [ results, setResults ] = useState<SearchResult>(initialSearchResult);
+  const [ results, setResults ] = useState<SimpleKeywordList>(initialSearchResult);
 
   // 최근 검색어 가져오기
   const { isPending, data } = useQuery({
@@ -40,7 +40,7 @@ export default function Search() {
       console.log('검색어 삭제 실패')
       },
       onSuccess: () => {
-      queryClient.invalidateQueries(querykeys.SEARCH);
+      queryClient.invalidateQueries({queryKey:[querykeys.SEARCH]});
       console.log('검색어 삭제 성공')
     },
     })
@@ -52,7 +52,7 @@ export default function Search() {
     console.log('검색 실패')
     },
     onSuccess: (data) => {
-      queryClient.invalidateQueries(querykeys.SEARCH);
+      queryClient.invalidateQueries({queryKey:[querykeys.SEARCH]});
       console.log('검색 성공')
       console.log(data.data.data)
       setResults(data.data.data)

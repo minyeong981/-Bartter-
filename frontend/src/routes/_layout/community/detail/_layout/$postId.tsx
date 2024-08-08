@@ -38,7 +38,7 @@ export default function CommunityPostDetail() {
     navigate({to: `/community/detail/${postId}`})
     }, 
     onSuccess: () => {
-      queryClient.invalidateQueries([querykeys.COMMUNITY_DETAIL, postId])
+      queryClient.invalidateQueries({queryKey : [querykeys.COMMUNITY_DETAIL]});
       navigate({to: '/community'})
     }
   })
@@ -54,7 +54,7 @@ export default function CommunityPostDetail() {
     onSuccess: (data) => {
       console.log('댓글 생성 성공',data)
       setContent(''); // 초기화
-      queryClient.invalidateQueries([querykeys.COMMUNITY_DETAIL, postId]);
+      queryClient.invalidateQueries({queryKey : [querykeys.COMMUNITY_DETAIL]});
     }
   })
 
@@ -67,7 +67,7 @@ export default function CommunityPostDetail() {
       navigate({to: `/community/detail/${postId}`})
     },
     onSuccess: () => {
-      queryClient.invalidateQueries([querykeys.COMMUNITY_DETAIL, postId]);
+      queryClient.invalidateQueries({queryKey : [querykeys.COMMUNITY_DETAIL]});
     }
   })
 
@@ -76,7 +76,7 @@ export default function CommunityPostDetail() {
       return barter.likeCommunityPost(postId)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries([querykeys.COMMUNITY_DETAIL, postId]);
+      queryClient.invalidateQueries({queryKey : [querykeys.COMMUNITY_DETAIL]});
     }
   })
 
@@ -85,7 +85,7 @@ export default function CommunityPostDetail() {
       return barter.unLikeCommunityPost(postId)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries([querykeys.COMMUNITY_DETAIL, postId]);
+      queryClient.invalidateQueries({queryKey : [querykeys.COMMUNITY_DETAIL]});
     }
   })
     

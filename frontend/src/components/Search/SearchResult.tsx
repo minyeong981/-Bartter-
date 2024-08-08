@@ -36,12 +36,18 @@ export default function SearchResult({search, results} :{ search : string, resul
         </LinkButton>
       </div>
 
-      <div className={cx('community')}>
+      { results.communityPostList.length===0 ?  (
+        <div>관련된 동네모임 게시글이 없습니다.</div>
+        )
+        : ( 
+        <>
+        <div className={cx('community')}>
         <div className={cx('title')}>
           <div>동네 모임</div>
         </div>
         <PostList posts={results.communityPostList} />
       </div>
+
       <div className={cx('link-button-container')}>
         <LinkButton
           buttonStyle={{style: 'primary', size: 'medium'}}
@@ -52,26 +58,17 @@ export default function SearchResult({search, results} :{ search : string, resul
           동네 모임 더보기
         </LinkButton>
       </div>
+      </>
+      )
+      }
 
-      
       <div className={cx('following')}>
         <div className={cx('title')}>
-          <div className={cx('followingText')}><div className={cx('resultText')}> {search}</div>를 키우는 이웃 </div>
+          <div className={cx('followingText')}><div className={cx('resultText')}> {search}</div>이웃 </div>
         </div>
         <NeighborCarousel followings={results.userProfileList}/>
 
       </div>
-      <div className={cx('link-button-container')}>
-        <LinkButton
-          buttonStyle={{style: 'primary', size: 'medium'}}
-          search={{sortBy:'내 이웃'}} 
-          to='/search/$result' 
-          params={{result: `${search}`}} 
-        >
-          이웃 더보기
-        </LinkButton>
-      </div>
-
     </div>
     )
 }

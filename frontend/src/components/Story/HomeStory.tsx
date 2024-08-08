@@ -1,7 +1,12 @@
 import styles from './HomeStory.module.scss';
 import StoryCard from './StoryCard';
 
-export default function HomeStory(stories: CropDiaryDetailWithUser[]) {
+interface HomeStoryProps{
+  stories: CropDiaryDetailWithUser[]
+}
+
+export default function HomeStory({stories}: HomeStoryProps) {
+  console.log(stories)
   return (
     <div className={styles.homeStory}>
       <div className={styles.carouselContainer}>

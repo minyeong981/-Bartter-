@@ -3,7 +3,6 @@ import { FaUserGroup } from 'react-icons/fa6';
 import FollowButton from '@/components/Buttons/FollowButton'
 
 import Location from '../Header/Location';
-import ProfileImgComponent from './ProfileImgComponent';
 import styles from './ProfileInfo.module.scss'
 
 interface ProfileInfoProps {
@@ -11,7 +10,7 @@ interface ProfileInfoProps {
     location: SimpleLocation;
     profileImage: ProfileImage;
     nickname: Nickname;
-    followerCount: FollowingCount;
+    followerCount: FollowerCount;
     followeeCount: FolloweeCount;
     profileMessage: ProfileMessage;
     isFollowed: boolean;

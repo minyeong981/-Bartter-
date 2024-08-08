@@ -381,7 +381,6 @@ interface CropProfileForm {
   description: Description;
 }
 
-
 type AdditionalInfo = Location;
 
 type GetCommunityPostListByUserId = BarterResponse<MyCommunityPostDetail[]>;
@@ -401,7 +400,7 @@ type GetCropsByUserIdResponse = BarterResponse<SimpleCropProfile[]>;
 type GetCropsTradedByUserIdResponse = BarterResponse<CropTradeHistoryDto>;
 type GetDiaryListByUserIdResponse = BarterResponse<CropDiaryThumbnail[]>;
 type GetDiaryListByDateResponse = BarterResponse<CropDiaryDetail[]>;
-type GetDiaryListOfNeighborResponse = BarterResponse<CropDiaryDetailWithUser>;
+type GetDiaryListOfNeighborResponse = BarterResponse<CropDiaryDetailWithUser[]>;
 type GetSearch = BarterResponse<SimpleKeywordList>;
 type GetRecentKeyword = BarterResponse<string[]>;
 type DeleteKeyword = BarterResponse<null>;
