@@ -21,11 +21,11 @@ function EntrancePage() {
   return (
     <div className={cx('entrance')}>
       <div className={cx('logo-container')}>
-        <img src={ImageLogo} alt="logo image" />
+        <img src={ImageLogo} alt="logo image"/>
       </div>
       <div className={cx('button-container')}>
-        <KakaoButton onClick={handleKakaoButton} />
-        <GeneralButton buttonStyle={{style: 'primary', size: 'large'}} to="/">
+        <KakaoButton onClick={handleKakaoButton}/>
+        <GeneralButton buttonStyle={{style: 'primary', size: 'large'}} to="/login">
           로그인
         </GeneralButton>
       </div>
