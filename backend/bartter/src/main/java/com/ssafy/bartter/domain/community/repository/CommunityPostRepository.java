@@ -2,10 +2,10 @@ package com.ssafy.bartter.domain.community.repository;
 
 import com.ssafy.bartter.domain.community.entity.CommunityPost;
 import com.ssafy.bartter.global.common.Location;
-import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
