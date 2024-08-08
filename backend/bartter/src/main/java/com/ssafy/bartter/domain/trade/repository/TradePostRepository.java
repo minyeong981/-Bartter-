@@ -3,6 +3,7 @@ package com.ssafy.bartter.domain.trade.repository;
 import com.ssafy.bartter.domain.trade.entity.TradePost;
 import com.ssafy.bartter.global.common.Location;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -43,6 +44,10 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
             @Param("desiredCategoriesSize") int desiredCategoriesSize,
             Pageable pageable
     );
+
+    @Query("SELECT tp.id FROM TradePost  tp " +
+            "WHERE tp.user.id = :userId ")
+    List<Integer> findTradePostIdListByUserId(@Param("userId") int userId, PageRequest pageable);
 
     /**
      * 리스트에 있는 ID를 가진 포스트를 리턴해준다.
@@ -118,4 +123,5 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
             "WHERE li.user.id = :userId " +
             "AND tp.id = :tradePostId")
     boolean likeExistByUserId(@Param("tradePostId") int tradePostId, @Param("userId") int userId);
+
 }

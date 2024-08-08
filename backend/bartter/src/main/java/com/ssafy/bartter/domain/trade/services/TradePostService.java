@@ -46,15 +46,23 @@ public class TradePostService {
     private final S3UploadService uploadService;
     private final S3UploadService s3UploadService;
 
-    public List<TradePost> getTradePostList(int offset, int limit, int givenCategory, List<Integer> desiredCategories, int locationId) {
+    public List<TradePost> getTradePostList(int page, int limit, int givenCategory, List<Integer> desiredCategories, int locationId) {
         List<Location> nearbyLocationList = locationService.getNearbyLocationList(locationId);
         log.debug("근처 동네 개수 : {}", nearbyLocationList.size());
-        PageRequest pageable = PageRequest.of(offset, limit, Sort.by("createdAt").descending());
+        PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
         int desiredCategoriesSize = (desiredCategories == null) ? 0 : desiredCategories.size();
 
-        log.debug("offset:{}, limit:{}, givenCategory:{}, desiredCategories:{},desiredSize:{}", offset, limit, givenCategory, desiredCategories, desiredCategoriesSize);
+        log.debug("offset:{}, limit:{}, givenCategory:{}, desiredCategories:{},desiredSize:{}", page, limit, givenCategory, desiredCategories, desiredCategoriesSize);
         List<Integer> idList = cropTradeRepository.findTradePostIdList(nearbyLocationList, givenCategory, desiredCategories, desiredCategoriesSize, pageable).getContent();
         log.debug("{}", idList);
+        return cropTradeRepository.findTradePostListByIdList(idList);
+    }
+
+
+    public List<TradePost> getTradePostListById(int page, int limit, int userId) {
+        PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
+        List<Integer> idList = cropTradeRepository.findTradePostIdListByUserId(userId, pageable);
+        log.debug("현재 사용자가 작성한 글 목록({}, {}개): {}", page, limit, idList);
         return cropTradeRepository.findTradePostListByIdList(idList);
     }
 
@@ -176,4 +184,5 @@ public class TradePostService {
         tradePost.changeStatus(newStatus);
         tradePostRepository.save(tradePost);
     }
+
 }
