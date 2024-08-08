@@ -132,6 +132,7 @@ interface CropDiaryDetail {
   crop: SimpleCropProfile;
   title: Title;
   content: Content;
+  image: Image;
   performDate: PerformDate;
   createdAt: CreatedAt;
 }
@@ -399,6 +400,7 @@ type GetAiReportDetailResponse = BarterResponse<CropReportDetail>;
 type GetCropsByUserIdResponse = BarterResponse<SimpleCropProfile[]>;
 type GetCropsTradedByUserIdResponse = BarterResponse<CropTradeHistoryDto>;
 type GetDiaryListByUserIdResponse = BarterResponse<CropDiaryThumbnail[]>;
+type GetDiaryListByDateResponse = BarterResponse<CropDiaryDetail[]>;
 type GetDiaryListOfNeighborResponse = BarterResponse<CropDiaryDetailWithUser>;
 type GetSearch = BarterResponse<SimpleKeywordList>;
 type GetRecentKeyword = BarterResponse<string[]>;
@@ -415,6 +417,7 @@ type PostJoin = BarterResponse<null>;
 type GetUserProfileResponse = BarterResponse<UserProfile>;
 type PostUserLocation = BarterResponse<SimpleLocation>;
 type GetUserLocationResponse = BarterResponse<SimpleLocation>;
+type GetHasDiaryResponse = BarterResponse<string[]>;
 
 // TODO: 농작물 물물교환 API 부터는 GET요청만 정의
 // type SignupResponse = BarterResponse<null>;

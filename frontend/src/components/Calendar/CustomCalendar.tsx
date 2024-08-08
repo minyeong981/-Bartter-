@@ -7,15 +7,17 @@ import { Calendar } from 'react-calendar';
 interface CustomCalendarProps {
   isCollapsed: boolean;
   onDateChange: (date: Date) => void;
+  onMonthYearChange: (year: number, month: number) => void;
   highlightDates: Date[]; // 강조할 날짜 목록
+  selectedDate: Date; 
 }
 
-export default function CustomCalendar({ isCollapsed, onDateChange, highlightDates }: CustomCalendarProps) {
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+export default function CustomCalendar({ isCollapsed, onDateChange, onMonthYearChange, highlightDates, selectedDate }: CustomCalendarProps) {
+  // const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [currentWeek, setCurrentWeek] = useState<Date[]>([]);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
 
-
+  // 시작하는 요일 -> 일요일부터 설정
   const getStartOfWeek = (date: Date): Date => {
     const day = date.getDay();
     const diff = date.getDate() - day;
@@ -24,16 +26,19 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
     return new Date(startDate.setHours(0, 0, 0, 0));
   };
 
+
   const updateCurrentWeek = useCallback((date: Date) => {
     const startOfWeek = getStartOfWeek(date);
     const week = Array.from({ length: 7 }, (_, i) => new Date(startOfWeek.getTime() + i * 86400000));
     setCurrentWeek(week);
   }, []);
 
+
   // 선택한 날짜의 주 업데이트
   useEffect(() => {
     updateCurrentWeek(selectedDate);
   }, [selectedDate, updateCurrentWeek]);
+
 
   // 달력 접었을 때 선택한 날짜의 주 업데이트
   useEffect(() => {
@@ -42,20 +47,24 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
     }
   }, [isCollapsed, currentMonth, selectedDate, updateCurrentWeek]);
 
+
   // 달 변경
   const changeMonth = (increment: number) => {
     const newDate = new Date(currentMonth);
     newDate.setMonth(currentMonth.getMonth() + increment);
     setCurrentMonth(newDate);
-    setSelectedDate(new Date(newDate.setDate(selectedDate.getDate())));
+    onMonthYearChange(newDate.getFullYear(), newDate.getMonth() + 1);
   };
 
+
   // 년, 월 커스텀 => 2021. 09 형식
-  const formatMonthYear = (date: Date): string => {
+  const formatMonthYear = (_: string | undefined, date: Date) => {
+    if (!date) return '';
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     return `${year}. ${month}`;
   };
+
 
   const formatDay = (_: string | undefined, date: Date): string => {
     return date.getDate().toString();
@@ -68,11 +77,9 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
     return weekdays[date.getDay()];
   };
 
-  // 날짜 클릭하면 선택된 날짜, 해당 날짜의 주 변경 및 부모 컴포넌트에 선택된 날짜 전달
+  // 날짜 클릭하면 부모 컴포넌트에 선택된 날짜 전달
   const onClickDay = (date: Date) => {
-    setSelectedDate(date);
-    updateCurrentWeek(date);
-    onDateChange(date); // 부모 컴포넌트에 선택된 날짜 전달
+    onDateChange(date);
   };
 
   // 해당 달에 다이어리 있으면 날짜 비교 후 점 찍기
@@ -116,7 +123,7 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
           <button className="react-calendar__navigation__prev-button" onClick={() => changeMonth(-1)}>
             {'<'}
           </button>
-          <span className="react-calendar__navigation__label">{formatMonthYear(currentMonth)}</span>
+          <span className="react-calendar__navigation__label">{formatMonthYear('', currentMonth)}</span>
           <button className="react-calendar__navigation__next-button" onClick={() => changeMonth(1)}>
             {'>'}
           </button>
@@ -156,7 +163,7 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
         activeStartDate={currentMonth}
         onActiveStartDateChange={({ activeStartDate }) => setCurrentMonth(activeStartDate as Date)}
         locale="en-US"
-        formatMonthYear={(_, date) => formatMonthYear(date)}
+        formatMonthYear={(_, date) => formatMonthYear(_, date)}
         prevLabel="<"
         nextLabel=">"
         tileClassName={({ date, view }) => view === 'month' ? getTileClassName(date) : null}

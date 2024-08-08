@@ -10,6 +10,7 @@ import GeneralButton from '@/components/Buttons/GeneralButton';
 import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
 import DeleteDiaryModal from '@/components/Modals/DeleteDiaryModal/deleteDiaryModal';
 import barter from '@/services/barter';
+import querykeys from '@/util/querykeys';
 
 import styles from '../diaryDetail.module.scss';
 
@@ -17,39 +18,38 @@ const cx = classnames.bind(styles);
 
 export default function DiaryDetail() {
   const queryClient = useQueryClient();
-  const diaryId = 4;
-  // const {diaryId}: {diaryId: number} = Route.useParams();
+  const {cropDiaryId}: {cropDiaryId: number} = Route.useParams();
 
   const navigate = useNavigate();
   const { data } = useQuery({
-    queryKey: ['diaryDetail', diaryId],
-    queryFn: () => barter.getCropDiary(diaryId)
+    queryKey: [querykeys.DIARY_DETAIL, cropDiaryId],
+    queryFn: () => barter.getCropDiary(cropDiaryId)
   });
 
   const deleteDiary = useMutation({
-    mutationFn: (diaryId: number) => {
-      return barter.deleteCropDiary(diaryId);
+    mutationFn: (cropDiaryId: number) => {
+      return barter.deleteCropDiary(cropDiaryId);
     },
     onError: () => {
       console.log('작성자만 삭제할 수 있습니다.');
       window.alert('작성자만 삭제할 수 있습니다.');
     }, 
     onSuccess: () => {
-      queryClient.invalidateQueries(['diaryDetail']);
+      queryClient.invalidateQueries([querykeys.DIARY_DETAIL]);
       navigate({ to: '/diary' });
     }
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const diary = data?.data.data || {};
-
   const isValidDate = (date: any) => {
     return !isNaN(new Date(date).getTime());
   };
+  console.log(data
+  )
 
-  const formattedDate = isValidDate(diary.createdAt)
-    ? format(new Date(diary.createdAt), 'yyyy-MM-dd HH:mm', { locale: ko })
+  const formattedDate = isValidDate(data.createdAt)
+    ? format((data.createdAt, 'yyyy-MM-dd HH:mm', { locale: ko }))
     : 'Invalid date';
 
   const handleDeleteDiary = (diaryId: number) => {
@@ -60,17 +60,17 @@ export default function DiaryDetail() {
     <div>
       <HeaderWithLabelAndBackButton label="농사 일지" />
       <div className={cx('diaryDetailContainer')}>
-        <h1 className={cx('diaryTitle')}>{diary.title}</h1>
+        <h1 className={cx('diaryTitle')}>{data.title}</h1>
         <div className={cx('diaryImage')}>
-          {diary.image && (
-            <img src={'http://' + diary.image} alt="Diary" />
+          {data.image && (
+            <img src={'http://' + data.image} alt="Diary" />
           )}
         </div>
         <div className={cx('cropInfo')}>
-          <img src={'http://' + diary.data?.image} alt="Crop" className={cx('cropImage')} />
-          <span className={cx('cropNickname')}>{diary.data?.nickname}</span>
+          <img src={'http://' + data.crop.image} alt="Crop" className={cx('cropImage')} />
+          <span className={cx('cropNickname')}>{data.crop.nickname}</span>
         </div>
-        <p className={cx('diaryContent')}>{diary.content}</p>
+        <p className={cx('diaryContent')}>{data.content}</p>
         <p className={cx('diaryDate')}>{formattedDate}</p>
         <div className={cx('deleteButton')}>
           <GeneralButton
@@ -85,7 +85,7 @@ export default function DiaryDetail() {
         <DeleteDiaryModal
           onClickOutside={() => setIsModalOpen(false)}
           onConfirm={() => {
-            handleDeleteDiary(diaryId);
+            handleDeleteDiary(cropDiaryId);
             setIsModalOpen(false);
           }}
         />
@@ -93,6 +93,6 @@ export default function DiaryDetail() {
     </div>
   );
 }
-export const Route = createFileRoute('/_layout/diary/detail/_layout/$diaryId')({
+export const Route = createFileRoute('/_layout/diary/detail/_layout/$cropDiaryId')({
   component: DiaryDetail,
 });

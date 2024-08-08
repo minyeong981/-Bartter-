@@ -3,7 +3,7 @@ import classnames from 'classnames/bind';
 import type { ReactElement } from 'react';
 import { useState } from 'react';
 
-// import TodayAlarm from '@/components/Alarm/todayAlarm';
+import TodayAlarm from '@/components/Alarm/todayAlarm';
 import FloatingButton from '@/components/Buttons/FloatingButton';
 import LinkButton from '@/components/Buttons/LinkButton';
 import CalendarPage from '@/components/Calendar/calendar';
@@ -27,7 +27,7 @@ function DiaryPage() {
   const { activeComponent } = useRootStore();
 
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
-
+  console.log(currentDate)
   function handleDateChange(date: Date) {
     setCurrentDate(date);
   }
@@ -44,6 +44,14 @@ function DiaryPage() {
     navigate({ to: `/diary/growDiary/${cropId}` });
   }
 
+  // Date 형식으로 포맷
+  function formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
   let renderedComponent: null | ReactElement = null;
 
   switch (activeComponent) {
@@ -55,7 +63,8 @@ function DiaryPage() {
             <div className={cx('show-date')}>
               {`${currentDate.getMonth() + 1}월 ${currentDate.getDate()}일`}
             </div>
-            <DiaryList selectedDate={currentDate} />
+            <TodayAlarm />
+            <DiaryList userId={userId} selectedDate={formatDate(currentDate)} />
             <div className={cx('link-button-wrapper')}>
               <LinkButton
                 to="/diary/write/1"

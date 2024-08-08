@@ -249,6 +249,16 @@ export default {
   getCropDiaryListByCrop: async (cropId: CropId) =>
     axios.get<GetDiaryListByCropIdResponse>(`/crops/diaries/${cropId}/diaries`),
   /**
+   * 특정 날짜에 유저가 작성한 농사일지 전체 목록 조회
+   */
+  getCropDiaryListByDate: async (userId: UserId, date: string) =>
+    axios.get<GetDiaryListByDateResponse>(`/users/${userId}/crops/diaries/daily`, {
+      params: {
+        userId,
+        date
+      }
+    }),  
+  /**
    * 유저가 교환 & 나눔한 농작물 조회
    */
   getCropListTradedByUser: async (userId: UserId) =>
@@ -293,7 +303,16 @@ export default {
     axios.get<GetDiaryListOfNeighborResponse>(`/users/follows/diaries`, {
       params: {count},
     }),
-
+  /**
+   * 현재 로그인한 유저가 특정 달에 농사일지를 작성한 일지들을 조회
+   */
+  getHasDiary: async (year: number, month: number) =>
+    axios.get<GetHasDiaryResponse>(`users/crops/diaries/dates`, {
+      params: {
+        year,
+        month,
+      }
+    }),
   // 통합검색
   /**
    * 최근 검색 키워드
