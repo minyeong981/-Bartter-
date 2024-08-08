@@ -17,8 +17,7 @@ public class ChatController {
     private final RedisChatService redisChatService;
 
     @MessageMapping("/trade/chat")
-    public void sendMessage(
-            ChatMessage chatMessage) {
+    public void sendMessage(ChatMessage chatMessage) {
         redisChatService.publish(chatMessage);
     }
 }

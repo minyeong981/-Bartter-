@@ -69,6 +69,7 @@ public class TradeController {
     ) {
         log.debug("page= {}, limit ={} ", page, limit);
         List<ChatMessage> tradeChat = redisChatService.getTradeChat(user.getId(), tradeId, page, limit);
+
         return SuccessResponse.of(tradeChat);
     }
 

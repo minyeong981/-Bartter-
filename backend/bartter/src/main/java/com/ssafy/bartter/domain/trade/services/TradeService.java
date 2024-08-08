@@ -48,8 +48,10 @@ public class TradeService {
         return tradeRepository.save(trade);
     }
 
-    public boolean isParticipant(int userId, int tradeId) {
-        return tradeRepository.existsByTradeIdAndUserId(userId, tradeId);
+    public void isParticipant(int userId, int tradeId) {
+        if(!tradeRepository.existsByTradeIdAndUserId(userId, tradeId)){
+            throw new CustomException(ErrorCode.TRADE_NOT_FOUND);
+        }
     }
 
     @Transactional

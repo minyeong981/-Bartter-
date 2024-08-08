@@ -3,7 +3,9 @@ package com.ssafy.bartter.global.interceptor;
 
 import com.google.gson.Gson;
 import com.ssafy.bartter.domain.auth.utils.JwtUtil;
+import com.ssafy.bartter.domain.chat.service.RedisChatService;
 import com.ssafy.bartter.domain.trade.repository.TradeRepository;
+import com.ssafy.bartter.domain.trade.services.TradeService;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -17,26 +19,56 @@ import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.stereotype.Component;
 
 
+/**
+ * 채팅 참여시 토큰 인증 및 참여 기록을 남기기 위한 ChatPreHandler
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class ChatPreHandler implements ChannelInterceptor {
 
+    private final RedisChatService redisChatService;
+    private final TradeService tradeService;
     private final JwtUtil jwtUtil;
 
     @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
-        isUserValid(message);
+        StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+        if (accessor == null) {
+            throw new CustomException(ErrorCode.BAD_REQUEST, "StompHeader가 존재하지않습니다. 다시 요청해주세요");
+        }
+        switch (accessor.getCommand()) {
+            case CONNECT:
+                addSession(accessor);
+                break;
+            case SUBSCRIBE:
+                addParticipant(accessor);
+                break;
+            case DISCONNECT:
+                removeSession(accessor);
+                break;
+        }
+
         return message;
     }
 
-    private void isUserValid(Message<?> message) {
-        StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-        if (accessor.getCommand() == StompCommand.CONNECT) {
-            // 토큰 있는지 확인 후 소켓 연결
-            getUserId(accessor);
-            log.debug("CONNECT 연결");
-        }
+    private void addParticipant(StompHeaderAccessor accessor) {
+        int userId = redisChatService.getUserIdBySessionId(accessor.getSessionId());
+        String[] destination = accessor.getDestination().split("/");
+        int tradeId = Integer.parseInt(destination[4]);
+
+        tradeService.isParticipant(userId, tradeId);
+        redisChatService.addParticipant(userId, tradeId);
+    }
+
+
+    private void removeSession(StompHeaderAccessor accessor) {
+        redisChatService.removeSession(accessor.getSessionId());
+    }
+
+    private void addSession(StompHeaderAccessor accessor) {
+        int userId = getUserId(accessor);
+        redisChatService.addSession(accessor.getSessionId(), userId);
     }
 
     private int getUserId(StompHeaderAccessor accessor) {

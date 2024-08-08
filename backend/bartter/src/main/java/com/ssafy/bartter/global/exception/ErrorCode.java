@@ -22,6 +22,7 @@ public enum ErrorCode {
     BAD_REQUEST(HttpStatus.BAD_REQUEST, 1008, "잘못된 요청입니다. 요청을 확인해주세요."),
     MAXIMUM_UPDATE_SIZE_EXCEEDED(HttpStatus.BAD_REQUEST, 1009, "파일 용량은 1MB를 초과 할 수 없습니다."),
     EMPTY_REQUEST_PARAMETER(HttpStatus.BAD_REQUEST, 1010, "필수 요청 파라미터가 입력되지 않았습니다."),
+
     // Auth & User - 2000
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, 2000, "해당 ID의 사용자를 찾을 수 없습니다."),
     ACCESS_TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, 2001, "만료된 액세스 토큰입니다."),
@@ -65,6 +66,7 @@ public enum ErrorCode {
     TRADE_POST_LIKE_NOT_FOUND(HttpStatus.NOT_FOUND,6003,"사용자가 해당 물물교환 게시글을 좋아요하지 않았습니다."),
     TRADE_POST_SAME_STATUS(HttpStatus.BAD_REQUEST, 6004, "해당 물물교환 게시글에 대한 잘못된 상태 변경 요청입니다."),
     TRADE_NOT_FOUND(HttpStatus.NOT_FOUND, 6005, "해당 거래를 찾을 수 없습니다"),
+    TRADE_CHAT_UNAUTHENTICATED(HttpStatus.UNAUTHORIZED,6006, "해당 채팅방에 접근 권한이 없습니다."),
 
     // Report - 7000
     CROP_REPORT_NOT_FOUND(HttpStatus.NOT_FOUND,7000,"해당 ID의 AI 요약 리포트를 찾을 수 없습니다."),
