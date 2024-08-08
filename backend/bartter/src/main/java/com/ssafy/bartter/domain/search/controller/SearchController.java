@@ -2,6 +2,9 @@ package com.ssafy.bartter.domain.search.controller;
 
 import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
+import com.ssafy.bartter.domain.community.dto.CommunityPostDto;
+import com.ssafy.bartter.domain.community.dto.CommunityPostDto.SimpleCommunityPostDetail;
+import com.ssafy.bartter.domain.community.entity.CommunityPost;
 import com.ssafy.bartter.domain.search.dto.SearchDto.Delete;
 import com.ssafy.bartter.domain.search.dto.SearchDto.SimpleKeywordList;
 import com.ssafy.bartter.domain.search.service.SearchService;
@@ -83,6 +86,24 @@ public class SearchController {
         List<SimpleUserProfile> simpleUserList = keywordContainsUserList.stream()
                 .map(SimpleUserProfile::of).toList();
         return SuccessResponse.of(simpleUserList);
+    }
+
+    @GetMapping("/community")
+    @Operation(summary = "동네모임 통합검색", description = "해당 키워드가 제목 혹은 내용에 들어간 커뮤니티를 페이징해서 처리합니다.")
+    public SuccessResponse<List<SimpleCommunityPostDetail>> getSearchCommunityList(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "limit", defaultValue = "10") int limit,
+            @RequestParam(value = "keyword") String keyword,
+            @CurrentUser UserAuthDto user
+    ){
+        String searchKeyword = keyword.trim();
+        if(!StringUtils.hasText(searchKeyword)){
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, "키워드를 입력해주세요");
+        }
+        List<CommunityPost> keywordContainsCommunityList = searchService.searchCommunityByKeyword(page, limit, searchKeyword, user.getId());
+        List<SimpleCommunityPostDetail> simpleCommunityPostList = keywordContainsCommunityList.stream()
+                .map(o -> SimpleCommunityPostDetail.of(o, user.getId())).toList();
+        return SuccessResponse.of(simpleCommunityPostList);
     }
 
 
