@@ -181,6 +181,7 @@ interface CropDiaryThumbnail {
 
 interface CropDiaryDetailWithUser {
   author: SimpleUserProfile;
+  cropDiaryId: CropDiaryId;
   image: Image;
   title: Title;
   content: Content;
@@ -318,6 +319,7 @@ type ProfileMessage = string;
 
 type FollowerCount = number;
 type FolloweeCount = number;
+type IsFollowed = boolean;
 
 interface UserProfile {
   userId: UserId;
@@ -327,6 +329,7 @@ interface UserProfile {
   location: SimpleLocation;
   followerCount: FollowerCount;
   followeeCount: FolloweeCount;
+  isFollowed: IsFollowed;
 }
 
 interface Auth {

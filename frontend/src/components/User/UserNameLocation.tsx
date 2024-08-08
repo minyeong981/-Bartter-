@@ -12,7 +12,7 @@ import styles from './UserNameContent.module.scss';
 interface UserNameLocationProps {
   profileImage: ProfileImage;
   nickname: Nickname;
-  locationName: LocationName;
+  locationName: Name;
   createdAt: CreatedAt;
   postId: CommunityPostId;
   userId: UserId;

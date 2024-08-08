@@ -16,8 +16,8 @@ export default function PostCard({
     imageUrl, 
     hasImage,
     location,
-    like,
-    }: SimpleCommunityPost) {
+    isLike,
+    }: SimpleCommunityPostDetail) {
          return (
         <div className={styles.communityCard}>
           <div className={styles.location}>{location.name}</div>
@@ -35,7 +35,7 @@ export default function PostCard({
             </div>
             {hasImage && <img src={'https://'+imageUrl} alt={title} />}
           </Link>
-          <LikeComment likeCount={likeCount} commentCount={commentCount} isLike={like}/>
+          <LikeComment likeCount={likeCount} commentCount={commentCount} isLike={isLike}/>
         </div>
   );
 }

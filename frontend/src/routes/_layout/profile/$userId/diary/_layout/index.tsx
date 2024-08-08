@@ -15,59 +15,6 @@ export const Route = createFileRoute('/_layout/profile/$userId/diary/_layout/')(
   component: ProfileCropDiary,
 });
 
-interface Crop {
-  userId: number;
-  cropId: number;
-  nickname: string;
-  image: string;
-}
-
-export interface CropDiaryProps {
-  crop: Crop;
-  title: string;
-  content: string;
-  image: string;
-  createdAt: string;
-}
-
-const data: CropDiaryProps[] = [
-  {
-    crop: {
-      userId: 0,
-      cropId: 0,
-      nickname: '당근',
-      image: carrot,
-    },
-    title: '농사 일지 제목1',
-    content: '농사 일지 내용',
-    image: corn,
-    createdAt: '2024-08-11T02:11:05.883Z',
-  },
-  {
-    crop: {
-      userId: 0,
-      cropId: 0,
-      nickname: '당근',
-      image: carrot,
-    },
-    title: '농사 일지 제목2',
-    content: '농사 일지 내용',
-    image: corn,
-    createdAt: '2024-08-11T02:11:05.883Z',
-  },
-  {
-    crop: {
-      userId: 0,
-      cropId: 0,
-      nickname: '당근',
-      image: carrot,
-    },
-    title: '농사 일지 제목3',
-    content: '농사 일지 내용',
-    image: corn,
-    createdAt: '2024-08-20T02:11:05.883Z',
-  },
-];
 
 const getMonthlyData = (pivotDate: Date, data: CropDiaryProps[]) => {
   const beginTime = new Date(

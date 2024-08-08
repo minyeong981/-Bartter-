@@ -146,7 +146,7 @@ export default {
    */
   getCommunityPostListByUser: async (userId: UserId) =>
     axios.get<GetCommunityPostListByUserId>(
-      `/users/$${userId}/community/posts`,
+      `/users/${userId}/community/posts`,
     ),
 
   // 나눔/물물교환
@@ -290,7 +290,7 @@ export default {
    * 현재 로그인한 유저의 이웃의 농사일지 조회
    */
   getNeighborCropDiaryList: async (count: number) =>
-    axios.get<GetDiaryListOfNeighborResponse>(`/crops/diaries/neighbors`, {
+    axios.get<GetDiaryListOfNeighborResponse>(`/users/follows/diaries`, {
       params: {count},
     }),
 

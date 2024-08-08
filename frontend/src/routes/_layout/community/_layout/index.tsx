@@ -28,8 +28,6 @@ export default function CommunityList() {
   if (isPending) {
     return <span>Loading...</span>
   }
-  
-  // console.log(data?.data.data)
 
   const renderComponent = () => {
 
@@ -39,14 +37,6 @@ export default function CommunityList() {
 
     return <PostList posts={data.data.data}/>
 
-    // switch (activeComponent) {
-    //   case '전체글':
-    //     return data?.data.data ? <PostList posts={data.data.data} /> : null;
-    //   case '동네글':
-    //     return data?.data.data ? <PostList posts={data.data.data} /> : null;
-    //   default:
-    //     return null;
-    // }
   };
 
   const handleButtonClick = (button: string) => {

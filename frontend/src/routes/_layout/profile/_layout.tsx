@@ -11,7 +11,7 @@ export const Route = createFileRoute('/_layout/profile/_layout')({
 export default function MyProfileLayout() {
   return (
     <div className={styles.profileLayout}>
-    <HeaderWithLabelAndBackButton label="내 프로필" />
+    <HeaderWithLabelAndBackButton label="프로필" />
     <Outlet />
    </div>
   )

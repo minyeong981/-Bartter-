@@ -9,7 +9,7 @@ import ProfileImgComponent from './ProfileImgComponent';
 import styles from './UserNameContent.module.scss';
 
 interface UserNameContentProps {
-  comment: PostComment;
+  comment: CommunityPostCommentDetail;
   onDelete: (commentId: number) => void;
 }
 

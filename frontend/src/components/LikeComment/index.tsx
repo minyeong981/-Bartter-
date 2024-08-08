@@ -10,9 +10,9 @@ import styles from './LikeComment.module.scss';
 interface PostLikeCommentProps extends HTMLAttributes<HTMLDivElement> {
   likeCount: LikeCount;
   isLike: IsLike;
-  commentCount: number; // 상세 게시글에서는 commentCount 타입 있음. 전체 조회에서는 없음
+  commentCount: CommentCount; // 상세 게시글에서는 commentCount 타입 있음. 전체 조회에서는 없음
   className?: string;
-  onClick: MouseEventHandler<HTMLDivElement>;
+  onClick?: MouseEventHandler<HTMLDivElement>;
 
 }
 

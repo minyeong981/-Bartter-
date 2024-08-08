@@ -5,6 +5,7 @@ import { useEffect,useState } from 'react';
 import SettingButton from '@/components/Buttons/SettingButton';
 import ProfileInfo from '@/components/User/ProfileInfo';
 import barter from '@/services/barter';
+import useRootStore from '@/store';
 import querykeys from '@/util/querykeys';
 
 import styles from './../../profile.module.scss';
@@ -14,6 +15,7 @@ export const Route = createFileRoute('/_layout/profile/$userId/_layout/')({
 });
 
 function Profile() {
+  const myId = useRootStore((state) => state.userId)
   const queryClient = useQueryClient();
 
   const { userId } : {userId : UserId } = Route.useParams();
@@ -69,7 +71,7 @@ function Profile() {
   if ( ! profileData?.data?.data) {
     return <div>사용자가 존재하지 않습니다.</div>
     } 
-
+  
   if ( ! cropData?.data?.data) {
     return <div>받은 농작물이 존재하지 않습니다.</div>
     } 
@@ -85,7 +87,32 @@ function Profile() {
   }
 
   return (
-    <div>
+    <div>{ myId === userId ? (
+
+      <>
+      <ProfileInfo {...profileData.data.data} isMe={true}/>
+    <SettingButton to="/profile/aireport">AI 요약보고서</SettingButton>
+    <SettingButton
+      to="/profile/$userId/cropStorage"
+      params={{userId: userId.toString()}}
+    >
+      농작물 창고
+    </SettingButton>
+    <SettingButton
+      to="/profile/$userId/diary"
+      params={{userId: userId.toString()}}
+    >
+      농사 일지
+    </SettingButton>
+    <SettingButton to="/profile/writed">내가 쓴 글</SettingButton>
+    <SettingButton to="/profile/picked">찜 목록</SettingButton>
+    <SettingButton to="/profile/chat">채팅 목록</SettingButton>
+    <SettingButton to="/profile/changelocation">위치 수정</SettingButton>
+    <SettingButton to="/community">로그아웃</SettingButton>
+      </>
+          )
+          : ( 
+          <>
           <ProfileInfo {...profileData.data.data} isMe={false} onClick={handleFollow} />
           <div className={styles.cropsCount}>받은 농작물 {cropData.data.data.receive.length} 개</div>
           <SettingButton
@@ -100,6 +127,9 @@ function Profile() {
           >
             농사 일지
           </SettingButton>
+          </>
+          )
+          }
     </div>
   );
 }
