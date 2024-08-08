@@ -5,6 +5,9 @@ import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
 import com.ssafy.bartter.domain.search.dto.SearchDto.Delete;
 import com.ssafy.bartter.domain.search.dto.SearchDto.SimpleKeywordList;
 import com.ssafy.bartter.domain.search.service.SearchService;
+import com.ssafy.bartter.domain.trade.dto.TradePostDto;
+import com.ssafy.bartter.domain.trade.dto.TradePostDto.SimpleTradePostDetail;
+import com.ssafy.bartter.domain.trade.entity.TradePost;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.response.SuccessResponse;
@@ -13,6 +16,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,13 +36,31 @@ public class SearchController {
     public SuccessResponse<SimpleKeywordList> getSearchList(
             @RequestParam(value = "keyword", required = false) String keyword,
             @CurrentUser UserAuthDto user) {
-        if(keyword == null){
+        String searchKeyword = keyword.trim();
+        if(!StringUtils.hasText(searchKeyword)){
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, "키워드를 입력해주세요");
         }
-        searchService.saveRecentSearchKeyword(keyword, user.getUsername());
-        SimpleKeywordList keywordList = searchService.searchByTotalKeyword(keyword, user.getId());
+        searchService.saveRecentSearchKeyword(keyword.trim(), user.getUsername());
+        SimpleKeywordList keywordList = searchService.searchByTotalKeyword(searchKeyword, user.getId());
 
         return SuccessResponse.of(keywordList);
+    }
+
+    @GetMapping("/trades")
+    @Operation(summary = "물물교환 통합검색", description = "해당 키워드가 제목, 내용에 표시된 물물교환 게시글을 페이징해서 처리합니다.")
+    public SuccessResponse<List<SimpleTradePostDetail>> getSearchTradePostList(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "limit", defaultValue = "10") int limit,
+            @RequestParam(value = "keyword") String keyword,
+            @CurrentUser UserAuthDto user
+    ){
+        String searchKeyword = keyword.trim();
+        if(!StringUtils.hasText(searchKeyword)){
+            throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, "키워드를 입력해주세요");
+        }
+        List<TradePost> tradePostList = searchService.searchTradePostByKeyword(page, limit, searchKeyword);
+        List<SimpleTradePostDetail> simpleTradePostList = tradePostList.stream().map(o -> SimpleTradePostDetail.of(o, user.getId())).toList();
+        return SuccessResponse.of(simpleTradePostList);
     }
 
     @GetMapping("/recent")
@@ -55,4 +77,5 @@ public class SearchController {
         searchService.deleteRecentSearchKeyword(keyword, user.getUsername());
         return SuccessResponse.empty();
     }
+
 }
