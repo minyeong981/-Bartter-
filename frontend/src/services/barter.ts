@@ -21,7 +21,7 @@ export default {
   /**
    * 현재 위치 조회
    */
-  getCurrentLocation: async (data: Location) =>
+  getCurrentLocation: async (data: Position) =>
     axios.post<PostUserLocation>('/user/location', data),
   /**
    * 유저 프로필 조회
@@ -145,9 +145,7 @@ export default {
    * 유저가 작성한 동네모임 게시글 전체 조회
    */
   getCommunityPostListByUser: async (userId: UserId) =>
-    axios.get<GetCommunityPostListByUserId>(
-      `/users/${userId}/community/posts`,
-    ),
+    axios.get<GetCommunityPostListByUserId>(`/users/${userId}/community/posts`),
 
   // 나눔/물물교환
   /**
@@ -166,8 +164,18 @@ export default {
   /**
    * 물물교환 글 작성
    */
-  postTradePost: async (data: CropTradeForm) =>
-    axios.post('/trade/posts', data),
+  postTradePost: async ({create, images}: CropTradeForm) => {
+    const formData = new FormData();
+    formData.append(
+      'create',
+      new Blob([JSON.stringify(create)], {type: 'application/json'}),
+    );
+    images.forEach(image => formData.append('images', image));
+
+    return axios.post('/trade/posts', formData, {
+      headers: {'Content-Type': 'multipart/form-data'},
+    });
+  },
   /**
    * 물물교환 게시글 찜
    */
@@ -252,11 +260,14 @@ export default {
    * 특정 날짜에 유저가 작성한 농사일지 전체 목록 조회
    */
   getCropDiaryListByDate: async (userId: UserId, date: string) =>
-    axios.get<GetDiaryListByDateResponse>(`/users/${userId}/crops/diaries/daily`, {
-      params: {
-        date
-      }
-    }),  
+    axios.get<GetDiaryListByDateResponse>(
+      `/users/${userId}/crops/diaries/daily`,
+      {
+        params: {
+          date,
+        },
+      },
+    ),
   /**
    * 유저가 교환 & 나눔한 농작물 조회
    */
@@ -310,7 +321,7 @@ export default {
       params: {
         year,
         month,
-      }
+      },
     }),
   // 통합검색
   /**

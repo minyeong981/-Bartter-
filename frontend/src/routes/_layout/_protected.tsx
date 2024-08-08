@@ -13,8 +13,6 @@ function Protected() {
   const {isLogin, login} = useRootStore(state => state);
   const navigate = useNavigate();
 
-  console.log('in');
-
   useEffect(() => {
     if (isLogin) return;
 
