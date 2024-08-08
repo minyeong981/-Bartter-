@@ -47,7 +47,6 @@ public class CommunityPostService {
      */
     @Transactional(readOnly = true)
     public List<CommunityPost> getPostList(int page, int limit, String keyword, boolean isCommunity, int userId) {
-
         // 전체 게시글 조회에서는 빈 ArrayList로 남아있다
         List<Location> nearbyLocationList = new ArrayList<>();
 
