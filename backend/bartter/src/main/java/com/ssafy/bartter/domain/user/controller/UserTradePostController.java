@@ -26,7 +26,7 @@ public class UserTradePostController {
 
     private final TradePostService tradePostService;
 
-    @Operation(summary = "현재 유저가 작성한 작성한 동네모임 게시글 페이징 조회", description = "유저의 PK를 통해 유저가 작성한 동네모임 게시글 전체를 조회한다.")
+    @Operation(summary = "현재 유저가 작성한 동네모임 게시글 페이징 조회", description = "유저의 PK를 통해 유저가 작성한 동네모임 게시글 전체를 조회한다.")
     @GetMapping("/{userId}/trades/posts")
     public SuccessResponse<List<SimpleTradePostDetail>> getTradePostListById(
             @PathVariable("userId") int userId,
@@ -35,6 +35,20 @@ public class UserTradePostController {
             @CurrentUser UserAuthDto user
     ) {
         List<TradePost> tradePostList = tradePostService.getTradePostListById(page, limit, user.getId());
+        List<SimpleTradePostDetail> simpleTradePostList = tradePostList.stream()
+                .map(o -> SimpleTradePostDetail.of(o, user.getId())).toList();
+        return SuccessResponse.of(simpleTradePostList);
+    }
+
+    @Operation(summary = "현재 유저가 좋아요한 물물교환 게시글 조회", description = "현재 접속중인 사용자가 좋아요한 물물교환 게시글을 조회한다.")
+    @GetMapping("/{userId}/trades/posts/likes")
+    public SuccessResponse<List<SimpleTradePostDetail>> getTradePostLikeList(
+            @PathVariable("userId") int userId,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "limit", defaultValue = "10") int limit,
+            @CurrentUser UserAuthDto user
+    ) {
+        List<TradePost> tradePostList = tradePostService.getTradePostLikeList(page, limit, user.getId());
         List<SimpleTradePostDetail> simpleTradePostList = tradePostList.stream()
                 .map(o -> SimpleTradePostDetail.of(o, user.getId())).toList();
         return SuccessResponse.of(simpleTradePostList);

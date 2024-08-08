@@ -45,7 +45,13 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
             Pageable pageable
     );
 
-    @Query("SELECT tp.id FROM TradePost  tp " +
+    /**
+     * 해당 ID를 가진 사용자가 작성한 물물교환 게시글들의 ID 조회
+     * @param userId 사용자 ID
+     * @param pageable 페이징 조건
+     * @return 물물교환 게시글 ID 리스트
+     */
+    @Query("SELECT tp.id FROM TradePost tp " +
             "WHERE tp.user.id = :userId ")
     List<Integer> findTradePostIdListByUserId(@Param("userId") int userId, PageRequest pageable);
 
@@ -123,5 +129,6 @@ public interface TradePostRepository extends JpaRepository<TradePost, Integer> {
             "WHERE li.user.id = :userId " +
             "AND tp.id = :tradePostId")
     boolean likeExistByUserId(@Param("tradePostId") int tradePostId, @Param("userId") int userId);
+
 
 }
