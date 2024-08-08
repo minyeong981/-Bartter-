@@ -48,7 +48,7 @@ public class SecurityConfig {
     private final OAuth2UserService oAuth2UserService;
     private final OAuth2SuccessHandler oAuth2SuccessHandler;
 
-    @Value("${APP_DOMAIN_URL}")
+    @Value("${app.domain.url}")
     private String APP_DOMAIN_URL;
 
     @Bean

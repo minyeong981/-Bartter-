@@ -67,7 +67,7 @@ public class UserService {
                 .location(location)
                 .phone(userJoinDto.getPhone())
                 .email(userJoinDto.getEmail())
-                .profileImage(url + "/defaultUser")
+                .profileImage(url + "/defaultProfile")
                 .build();
         userRepository.save(user);
     }
