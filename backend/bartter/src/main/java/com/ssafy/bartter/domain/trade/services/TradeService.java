@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -34,8 +35,12 @@ public class TradeService {
         User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
+         int user1Id = tradePost.getUser().getId();
+         int tradeUserId = tradePost.getId();
+         log.debug("거래자 : {}, 글쓴이 : {}",user1Id,tradeUserId);
         // 동일한 tradePost와 user가 있는지 조회
         Trade trade = tradeRepository.findByTradePostAndUser(tradePost, user).orElseGet(() -> createTrade(tradePost, user));
+
         return TradeInfo.of(tradePost, trade.getId(), userId);
     }
 
@@ -48,6 +53,12 @@ public class TradeService {
         if(!tradeRepository.existsByTradeIdAndUserId(userId, tradeId)){
             throw new CustomException(ErrorCode.TRADE_CHAT_UNAUTHENTICATED);
         }
+    }
+
+    public List<Integer> getParticipantList(int tradeId) {
+        int requesterId  = tradeRepository.findTradeUserIdByTradeId(tradeId);
+        int receiverId  = tradeRepository.findTradePostUserIdByTradeId(tradeId);
+        return List.of(requesterId, receiverId);
     }
 
     @Transactional
@@ -69,4 +80,5 @@ public class TradeService {
         TradePost tradePost = trade.getTradePost();
         tradePost.changeStatus(newStatus);
     }
+
 }

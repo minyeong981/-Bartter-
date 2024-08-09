@@ -11,6 +11,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 레디스에 메시지를 저장하기위한 Repository
@@ -67,19 +68,33 @@ public class RedisChatRepository {
         redisTemplate.opsForHash().delete(key, String.valueOf(userId));
     }
 
-    public void addSession(String sessionId, int userId) {
-        String key = CacheKey.stompSessionKey();
-        redisTemplate.opsForHash().put(key, sessionId, userId);
+    public boolean existByTradeId(int tradeId) {
+        String key = CacheKey.tradeInfoKey(tradeId);
+        Boolean isExist = redisTemplate.hasKey(key);
+        return Boolean.TRUE.equals(isExist);
     }
 
-    public void removeSession(String sessionId) {
-        String key = CacheKey.stompSessionKey();
-        redisTemplate.opsForHash().delete(key, sessionId);
+    public void addTradeRoomInfo(int tradeId, List<Integer> userIdList) {
+        String key = CacheKey.tradeInfoKey(tradeId);
+
+        // userIdList의 각 요소를 개별적으로 Redis에 저장
+        userIdList.forEach(userId -> redisTemplate.opsForList().rightPush(key, userId));
+
+        redisTemplate.expire(key, 1, TimeUnit.HOURS);
     }
 
-    public int getUserIdBySessionId(String sessionId) {
-        String key = CacheKey.stompSessionKey();
-        Integer id = (Integer) redisTemplate.opsForHash().get(key, sessionId);
-        return id != null ? id : 0;
+    public void removeTradeRoomInfo(int tradeId) {
+        String key = CacheKey.tradeInfoKey(tradeId);
+        redisTemplate.delete(key);
+    }
+
+    public List<Integer> getTradeInfo(int tradeId) {
+        String key = CacheKey.tradeInfoKey(tradeId);
+//        List<Object> range = redisTemplate.opsForList().range(key, 0, -1);
+//        log.debug("{}",range);
+//        log.debug("{}",range.get(0));
+//        List<Object> list = (List<Object>) range.get(0);
+//        log.debug("{}",list.get(0));
+        return List.of();
     }
 }

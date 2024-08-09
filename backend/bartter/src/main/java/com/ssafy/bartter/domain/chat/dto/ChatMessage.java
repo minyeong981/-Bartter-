@@ -19,5 +19,6 @@ public class ChatMessage {
     private MessageType type; // 메시지 타입
     private String content; // 메시지 내용
     private int senderId; // 발신자 ID
+    private int receiverId;
     private int tradeId; // 거래 ID
 }

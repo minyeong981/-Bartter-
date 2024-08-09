@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
@@ -24,8 +25,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ChatPreHandler implements ChannelInterceptor {
 
-    private final RedisChatService redisChatService;
-    private final TradeService tradeService;
     private final JwtUtil jwtUtil;
 
     @Override
@@ -34,10 +33,9 @@ public class ChatPreHandler implements ChannelInterceptor {
         if (accessor == null) {
             throw new CustomException(ErrorCode.BAD_REQUEST, "StompHeader가 존재하지않습니다. 다시 요청해주세요");
         }
-        switch (accessor.getCommand()) {
-            case CONNECT:
-                validToken(accessor);
-                break;
+
+        if (accessor.getCommand() == StompCommand.CONNECT) {
+            validToken(accessor);
         }
 
         return message;

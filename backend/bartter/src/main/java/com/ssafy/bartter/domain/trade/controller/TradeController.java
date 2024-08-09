@@ -41,7 +41,7 @@ public class TradeController {
      * @return 물물교환 정보
      */
     @GetMapping("/{tradePostId}")
-    @Operation(summary = "거래 조회", description = "특정 거래 정보를 조회합니다.")
+    @Operation(summary = "채팅방 정보 조회", description = "채팅방 정보를 조회합니다.")
     public SuccessResponse<TradeInfo> getTrade(
             @PathVariable int tradePostId,
             @CurrentUser UserAuthDto user
@@ -69,7 +69,6 @@ public class TradeController {
     ) {
         log.debug("page= {}, limit ={} ", page, limit);
         List<ChatMessage> tradeChat = redisChatService.getTradeChat(user.getId(), tradeId, page, limit);
-
         return SuccessResponse.of(tradeChat);
     }
 
