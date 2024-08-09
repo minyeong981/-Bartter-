@@ -35,7 +35,6 @@ export default function UserNameLocation({
   const {history} = useRouter();
 
   function handleClickTrash() {
-    // setShowDeleteConfirm(true);
     setIsModalOpen(true)
   }
 

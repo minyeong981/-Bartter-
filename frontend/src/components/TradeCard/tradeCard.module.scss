@@ -7,8 +7,10 @@
   width: 100%;
 
   img {
+    flex-shrink: 0;
     width: 120px;
     height: 120px;
+    object-fit: cover;
     border-radius: 5px;
   }
 

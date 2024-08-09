@@ -352,7 +352,7 @@ type Search = string;
 
 type CommunityPostList = CommunityPost[];
 
-interface Location {
+interface Position {
   longitude: Longitude;
   latitude: Latitude;
 }
@@ -363,10 +363,11 @@ interface CropTradeForm {
     content: Content;
     shareStatus: boolean;
     locationId: LocationId;
-    cropId: CropId;
+    cropId?: CropId;
+    cropCategoryId: CropCategoryId;
     wishCropCategoryList: CropCategoryId[];
   };
-  images: Image[];
+  images: File[];
 }
 
 interface CommunityPostForm {
@@ -381,7 +382,7 @@ interface CropProfileForm {
   description: Description;
 }
 
-type AdditionalInfo = Location;
+type AdditionalInfo = Position;
 
 type GetCommunityPostListByUserId = BarterResponse<MyCommunityPostDetail[]>;
 type GetCommunityPostList = BarterResponse<SimpleCommunityPostDetail[]>;

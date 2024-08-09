@@ -7,7 +7,7 @@ export default function ProfileImgComponent({userId,profileImage} :
         profileImage: ProfileImage
     }
 ) {
-    
+
     return (
         <div>
             <Link to={`/profile/${userId}`}>

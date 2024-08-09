@@ -1,9 +1,9 @@
-import {createFileRoute} from '@tanstack/react-router';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {ChangeEvent} from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
-import {ImageLettuce} from '@/assets/image';
 import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
 import LabeledSelectCropButton from '@/components/Buttons/SelectCropButton/LabeledSelectCropButton.tsx';
 import CropImage from '@/components/CropImage';
@@ -11,18 +11,23 @@ import CheckboxInput from '@/components/Inputs/CheckboxInput.tsx';
 import LabeledImageInput from '@/components/Inputs/LabeledImageInput.tsx';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import LabeledTextAreaInput from '@/components/Inputs/LabeledTextAreaInput.tsx';
-import type {SearchParamsFromToPage} from '@/routes/_layout/trade/to/_layout/index.tsx';
+import type {SearchParamsFromToPage} from '@/routes/_layout/_protected/trade/to/_layout/index.tsx';
+import barter from '@/services/barter.ts';
+import useRootStore from "@/store";
+import {getPosition} from '@/util/geolocation.ts';
 
 import styles from './write.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/_protected/trade/write/_layout/')({
+export const Route = createFileRoute(
+  '/_layout/_protected/trade/write/_layout/',
+)({
   component: WritePage,
   validateSearch: ({
-    cropToGive,
-    cropsToGet,
-  }: Record<string, unknown>): SearchParamsFromToPage => {
+                     cropToGive,
+                     cropsToGet
+                   }: Record<string, unknown>): SearchParamsFromToPage => {
     return {
       cropToGive: cropToGive as CropCategoryDetail,
       cropsToGet: cropsToGet as CropCategoryDetail[],
@@ -31,18 +36,44 @@ export const Route = createFileRoute('/_layout/_protected/trade/write/_layout/')
 });
 
 function WritePage() {
+  const userId = useRootStore(state => state.userId);
+  const queryClient = useQueryClient();
+  const navigate = useNavigate({from: '/trade/write'});
   const {cropToGive, cropsToGet} = Route.useSearch();
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [content, setContent] = useState('');
   const [isShared, setIsShared] = useState(false);
   const [images, setImages] = useState<File[]>([]);
+  const [position, setPosition] = useState<SimpleLocation>();
+
+  const {mutate: getUserLocation} = useMutation({
+    mutationFn: barter.getUserLocation, onSuccess: ({data}) => {
+      setPosition(data.data)
+    }
+  })
+  const {mutate: getLocation} = useMutation({
+    mutationFn: barter.getCurrentLocation,
+    onSuccess: ({data}) => {
+      setPosition(data.data);
+    },
+  });
+  const {mutate: submitForm} = useMutation({
+    mutationFn: barter.postTradePost,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({queryKey: ['tradeList']});
+      await navigate({to: '/trade'});
+    },
+  });
+
+  const disabled =
+    !cropToGive || !cropsToGet.length || !title || !content || !images.length;
 
   function handleTitleChange(e: ChangeEvent<HTMLInputElement>) {
     setTitle(e.currentTarget.value);
   }
 
   function handleDescriptionChange(e: ChangeEvent<HTMLTextAreaElement>) {
-    setDescription(e.currentTarget.value);
+    setContent(e.currentTarget.value);
   }
 
   function handleCheckboxChange(e: ChangeEvent<HTMLInputElement>) {
@@ -54,10 +85,33 @@ function WritePage() {
     setImages(files);
   }
 
+  async function handleGetLocation() {
+    const {coords} = await getPosition();
+    getLocation(coords);
+  }
+
+  useEffect(() => {
+    getUserLocation(userId);
+  }, [getUserLocation, userId]);
+
+  function handleSubmit() {
+    submitForm({
+      create: {
+        title,
+        content,
+        shareStatus: isShared,
+        cropCategoryId: cropToGive!.cropCategoryId,
+        locationId: position!.locationId,
+        wishCropCategoryList: isShared ? [] : cropsToGet.map(crop => crop.cropCategoryId),
+      },
+      images,
+    });
+  }
+
   return (
     <div className={cx('writePage')}>
       <div className={cx('inputContainer')}>
-        <CropImage imgSrc={ImageLettuce} label="상추" />
+        <CropImage imgSrc={cropToGive!.image} label={cropToGive!.name}/>
         <LabeledInput
           label="제목"
           placeholder="제목을 입력하세요"
@@ -73,15 +127,14 @@ function WritePage() {
           label="주고 싶은 작물"
           selectedCrops={[cropToGive!.name]}
         />
-        <LabeledSelectCropButton
-          label="받고 싶은 작물"
-          selectedCrops={cropsToGet.map(crop => crop.name)}
-        />
-
+        {!isShared && <LabeledSelectCropButton
+            label="받고 싶은 작물"
+            selectedCrops={cropsToGet.map(crop => crop.name)}
+        />}
         <LabeledTextAreaInput
           label="내용"
           placeholder="내용을 입력하세요"
-          value={description}
+          value={content}
           onChange={handleDescriptionChange}
         />
         <LabeledImageInput
@@ -89,12 +142,21 @@ function WritePage() {
           maxImages={3}
           label="사진"
         />
-        <GeneralButton buttonStyle={{style: 'outlined', size: 'large'}}>
-          위치 등록
+        <GeneralButton
+          buttonStyle={{style: 'outlined', size: 'large'}}
+          onClick={handleGetLocation}
+          type="button"
+        >
+          {position?.name || '위치 등록'}
         </GeneralButton>
       </div>
       <div className={cx('buttonContainer')}>
-        <GeneralButton buttonStyle={{style: 'primary', size: 'large'}}>
+        <GeneralButton
+          buttonStyle={{style: 'primary', size: 'large'}}
+          disabled={disabled}
+          type="button"
+          onClick={handleSubmit}
+        >
           작성 완료
         </GeneralButton>
       </div>

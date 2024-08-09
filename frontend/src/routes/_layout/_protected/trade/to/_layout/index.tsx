@@ -6,7 +6,7 @@ import {useState} from 'react';
 import CropButton from '@/components/Buttons/CropButton';
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
-import type {SearchParamsFromFromPage} from '@/routes/_layout/trade/from/_layout/index.tsx';
+import type {SearchParamsFromFromPage} from '@/routes/_layout/_protected/trade/from/_layout/index.tsx';
 import barter from '@/services/barter.ts';
 
 import styles from './to.module.scss';

@@ -21,7 +21,7 @@ export default {
   /**
    * 현재 위치 조회
    */
-  getCurrentLocation: async (data: Location) =>
+  getCurrentLocation: async (data: Position) =>
     axios.post<PostUserLocation>('/user/location', data),
   /**
    * 유저 프로필 조회
@@ -145,9 +145,7 @@ export default {
    * 유저가 작성한 동네모임 게시글 전체 조회
    */
   getCommunityPostListByUser: async (userId: UserId) =>
-    axios.get<GetCommunityPostListByUserId>(
-      `/users/${userId}/community/posts`,
-    ),
+    axios.get<GetCommunityPostListByUserId>(`/users/${userId}/community/posts`),
 
   // 나눔/물물교환
   /**
@@ -166,17 +164,44 @@ export default {
   /**
    * 물물교환 글 작성
    */
-  postTradePost: async (data: CropTradeForm) =>
-    axios.post('/trade/posts', data),
+  postTradePost: async ({create, images}: CropTradeForm) => {
+    const formData = new FormData();
+
+    for (const [key, value] of Object.entries(create)) {
+      if (value === typeof 'object') {
+        if (Array.isArray(value)) {
+          for (const arrVal of value) {
+            formData.append(key, arrVal);
+          }
+        } else {
+          formData.append(key, JSON.stringify(value));
+        }
+      } else {
+        formData.append(key, String(value))
+      }
+    }
+
+    images.forEach((image) => {
+      formData.append('images', image);
+    });
+
+    for (const [key, value] of formData.entries()) {
+      console.log(key, value)
+    }
+
+    return axios.post('/trades/posts', formData, {
+      headers: {'Content-Type': 'multipart/form-data'},
+    });
+  },
   /**
    * 물물교환 게시글 찜
    */
-  dipTradePost: async (tradePostId: TradePostId) =>
+  likeTradePost: async (tradePostId: TradePostId) =>
     axios.post(`/trades/posts/${tradePostId}/like`),
   /**
    * 물물교환 게시글 찜 취소
    */
-  unDipTradePost: async (tradePostId: TradePostId) =>
+  unLikeTradePost: async (tradePostId: TradePostId) =>
     axios.delete(`/trades/posts/${tradePostId}/like`),
   /**
    * 물물교환 게시글 예약
@@ -201,6 +226,10 @@ export default {
       axios.get<GetPickedTradePostListByUserId>(`/users/${userId}/trades/posts/likes`, {
         params: {page, limit},
       }),
+  /**
+   * 물물교환 게시글 삭제
+   */
+  deleteTradePost: async(tradePostId: TradePostId) =>axios.delete(`/trades/posts/${tradePostId}`),
 
   // 농사일지
   /**
@@ -270,11 +299,14 @@ export default {
    * 특정 날짜에 유저가 작성한 농사일지 전체 목록 조회
    */
   getCropDiaryListByDate: async (userId: UserId, date: string) =>
-    axios.get<GetDiaryListByDateResponse>(`/users/${userId}/crops/diaries/daily`, {
-      params: {
-        date
-      }
-    }),  
+    axios.get<GetDiaryListByDateResponse>(
+      `/users/${userId}/crops/diaries/daily`,
+      {
+        params: {
+          date,
+        },
+      },
+    ),
   /**
    * 유저가 교환 & 나눔한 농작물 조회
    */
@@ -328,7 +360,7 @@ export default {
       params: {
         year,
         month,
-      }
+      },
     }),
   // 통합검색
   /**
@@ -348,37 +380,4 @@ export default {
    */
   searchByKeyword: async (keyword: string) =>
     axios.get<GetSearch>('/search', {params: {keyword}}),
-  /**
- * 키워드 통합 검색 물물교환 전체 조회
- */
-  getTradePostListByKeyword: async (keyword: string, page?:number, limit?:number) =>
-    axios.get<GetTradePostListByKeyword>('/search/trades', {
-      params: {
-        keyword, 
-        page, 
-        limit
-      }
-    }),
-      /**
- * 키워드 통합 검색 동네모임 전체 조회
- */
-  getCommunityPostListByKeyword: async (keyword: string, page?:number, limit?:number) =>
-    axios.get<GetCommunityPostListByKeyword>('/search/community', {
-      params: {
-        keyword, 
-        page, 
-        limit
-      }
-    }),
-      /**
- * 키워드 통합 검색 사용자 전체 조회
- */
-  getUserListByKeyword: async (keyword: string, page?:number, limit?:number) =>
-    axios.get<GetUserListByKeyword>('/search/users', {
-      params: {
-        keyword, 
-        page, 
-        limit
-      }
-    }),
 };
