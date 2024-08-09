@@ -22,7 +22,6 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.*;
 
 @ActiveProfiles("test")
-//@Sql({"/schema.sql", "/data.sql"})
 @Transactional
 @SpringBootTest
 class CommunityPostCommentServiceTest {
@@ -83,7 +82,7 @@ class CommunityPostCommentServiceTest {
 
     @DisplayName("작성자가 아니면 댓글을 삭제할 수 없다.")
     @Test
-    void 동네모임_댓글_삭제_실패() {
+    void 동네모임_댓글_삭제_인가_실패() {
         // given
         CommunityPostCommentDto.Create request = new CommunityPostCommentDto.Create();
         request.setContent("댓글");

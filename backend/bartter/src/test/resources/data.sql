@@ -293,7 +293,7 @@ INSERT INTO user  (delete_status, location_id, user_birth_date, user_id, created
 VALUES (_binary '\0',1,'1990-01-01',1,'2024-08-04 19:31:58',NULL,'2024-08-04 19:31:58','01012345678','user1@example.com','testuser1',NULL,'testuser1','12341234','default.png','Hi','M');
 
 INSERT INTO user  (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone, user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image, user_profile_message, user_gender)
-VALUES (_binary '\0',1,'1990-01-01',2,'2024-08-04 19:32:03',NULL,'2024-08-04 19:32:03','01012345678','user2@example.com','testuser2',NULL,'testuser2','12341234','default.png','Hi','M');
+VALUES (_binary '\0',5,'1990-01-01',2,'2024-08-04 19:32:03',NULL,'2024-08-04 19:32:03','01012345678','user2@example.com','testuser2',NULL,'testuser2','12341234','default.png','Hi','M');
 
 INSERT INTO user  (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone, user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image, user_profile_message, user_gender)
-VALUES (_binary '\0',1,'1990-01-01',3,'2024-08-04 19:43:17',NULL,'2024-08-04 19:43:17','01012345678','user3@example.com','testuser3',NULL,'testuser3','12341234','default.png','Hi','M');
+VALUES (_binary '\0',25,'1990-01-01',3,'2024-08-04 19:43:17',NULL,'2024-08-04 19:43:17','01012345678','user3@example.com','testuser3',NULL,'testuser3','12341234','default.png','Hi','M');
