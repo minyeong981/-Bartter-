@@ -1,0 +1,69 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typographies;
+
+.chatting {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  height: 100%;
+
+  .board {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    height: 100%;
+    padding: 140px 5px 0;
+    overflow-y: scroll;
+
+    .message {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      height: 28px;
+      padding: 4px;
+      color: colors.$black;
+      background-color: colors.$gray1;
+      border-radius: 4px;
+
+      &.mine {
+        align-self: flex-end;
+      }
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .inputContainer {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 0 5px;
+
+    input {
+      @include typographies.chat;
+
+      flex-grow: 1;
+      height: 33px;
+      padding: 0 8px;
+      font-size: 22px;
+      background-color: colors.$gray1;
+      border: 0;
+      border-radius: 4px;
+    }
+
+    button {
+      @include typographies.label;
+
+      height: 100%;
+      padding: 0 10px;
+      color: colors.$white;
+      background-color: colors.$primary;
+      border-radius: 4px;
+    }
+  }
+}
