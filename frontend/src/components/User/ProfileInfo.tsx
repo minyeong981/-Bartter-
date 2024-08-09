@@ -30,10 +30,13 @@ export default function ProfileInfo({
     isMe,
     onClick } : ProfileInfoProps) {
 
+        const locationName = location.name.split(' ').slice(1,2) + ' ' + location.name.split(' ').slice(2,3)
+
+
     return (
         <div className={styles.profileInfo}>
             <div className={styles.locationBox}>
-            <Location location={location.name} />
+            <Location location={locationName} />
             </div>
             <div className={styles.imgBox}>
                 <img src={profileImage} alt={`${userId}`} />

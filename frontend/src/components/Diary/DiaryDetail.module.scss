@@ -14,9 +14,9 @@
   img {
     width: 100%;
     height: auto;
-    border-radius: 10px; // 모서리를 둥글게 설정
-    object-fit: cover; // 이미지를 컨테이너에 맞추기
     cursor: pointer;
+    object-fit: cover; // 이미지를 컨테이너에 맞추기
+    // border-radius: 10px; // 모서리를 둥글게 설정
     transition: transform 0.2s;
   
     &:hover {

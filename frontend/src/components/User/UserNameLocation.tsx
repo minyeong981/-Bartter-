@@ -4,6 +4,7 @@ import {ko} from 'date-fns/locale';
 import {useState} from 'react';
 
 import {IconTrash} from '@/assets/svg';
+import useRootStore from '@/store';
 
 import DeletePostModal from '../Modals/DeletePostModal/deletePostModal';
 import ProfileImgComponent from './ProfileImgComponent';
@@ -31,6 +32,8 @@ export default function UserNameLocation({
   createdAt,
   onDelete
 }: UserNameLocationProps & onDeleteProps) {
+
+  const myId = useRootStore((state) => state.userId)
   const [ isModalOpen, setIsModalOpen ] = useState(false);
   const {history} = useRouter();
 
@@ -55,9 +58,11 @@ export default function UserNameLocation({
         <div className={styles.content}>{locationName}</div>
         <div className={styles.createdDate}>{format(createdAt, 'yyyy-MM-dd HH:mm', {locale: ko})}</div>
       </div>
-      <button onClick={handleClickTrash}>
+      { Number(myId) === Number(userId) &&
+        <button onClick={handleClickTrash}>
         <IconTrash className={styles.menuIcon} />
       </button>
+      }
       {isModalOpen && <DeletePostModal onConfirm={handleConfirmDelete} onClickOutside={handleModalClose} />}
     </div>
   );
