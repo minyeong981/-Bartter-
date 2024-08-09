@@ -2,12 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import {createFileRoute } from '@tanstack/react-router';
 import {useEffect, useState} from 'react';
 
+import EmptyPost from '@/components/Empty/EmptyPost';
 import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
 import DayDiary from '@/components/ProfileDiary/DayDiary';
 import MonthHeader from '@/components/ProfileDiary/MonthHeader';
 import MonthHeaderButton from '@/components/ProfileDiary/MonthHeaderButton';
 import barter from '@/services/barter';
-// import useRootStore from '@/store';
 import querykeys from '@/util/querykeys';
 
 import styles from './../profileDiary.module.scss';
@@ -74,7 +74,7 @@ export default function ProfileCropDiary() {
         rightChild={<MonthHeaderButton text=">" onClick={onIncreaseMonth} />}
       />
       {diaries.length === 0 ? (
-        <div>해당 달에 작성된 일지가 없습니다.</div>
+        <div><EmptyPost text='해당 일자에 작성된 일지가 없습니다.'/></div>
       ) : (
         <div>
           {groupedDiary.map((diaryByDay, index) =>

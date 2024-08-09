@@ -3,6 +3,7 @@ import {ko} from 'date-fns/locale';
 import {useState} from 'react';
 
 import { IconTrash } from '@/assets/svg';
+import useRootStore from '@/store';
 
 import DeleteCommentModal from '../Modals/DeleteCommentModal/deleteCommentModal';
 import ProfileImgComponent from './ProfileImgComponent';
@@ -18,6 +19,9 @@ export default function UserNameContent({
   onDelete,
 
  }: UserNameContentProps) {
+
+  const myId  = useRootStore((state) => state.userId)
+  const userId  = comment.author.userId;
   const [ isModalOpen, setIsModalOpen] = useState(false);
 
   function handleModalOpen() {
@@ -41,9 +45,11 @@ export default function UserNameContent({
         <div className={styles.Content}>{comment.content}</div>
         <div className={styles.createdDate}>{format(comment.createdAt, 'yyyy-MM-dd HH:mm', {locale: ko})}</div>
       </div>
+      { Number(myId) === Number(userId) && 
       <button onClick={handleModalOpen}>
         <IconTrash className={styles.menuIcon} />
       </button>
+      }
       {isModalOpen && <DeleteCommentModal onConfirm={handleConfirmDelete} onClickOutside={handleModalClose} />}
     </div>
   );

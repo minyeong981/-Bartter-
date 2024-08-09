@@ -34,8 +34,7 @@ export default function CommunityPostDetail() {
       return barter.deleteCommunityPost(postId)
     },
     onError: ()=> {
-    window.alert('작성자만 삭제할 수 있습니다.')
-    navigate({to: `/community/detail/${postId}`})
+      console.log('게시글 삭제 실패')
     }, 
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey : [querykeys.COMMUNITY_DETAIL]});
@@ -50,20 +49,19 @@ export default function CommunityPostDetail() {
     onError: (error) => {
       console.log('댓글 작성 실패', error)
     },
-    onSuccess: (data) => {
-      console.log('댓글 생성 성공',data)
+    onSuccess: () => {
+      console.log('댓글 생성 성공')
       setContent(''); // 초기화
       queryClient.invalidateQueries({queryKey : [querykeys.COMMUNITY_DETAIL]});
     }
   })
 
   const deleteComment = useMutation({
-    mutationFn: ({postId, commentId} : {postId:CommunityPostId; commentId : CommentId }) => {
+    mutationFn: ({postId, commentId} : {postId:CommunityPostId; commentId : CommunityPostCommentId }) => {
       return barter.deleteCommunityComment(postId, commentId)
     },
     onError: () => {
-      window.alert('작성자만 삭제할 수 있습니다.')
-      navigate({to: `/community/detail/${postId}`})
+      console.log('댓글 삭제 실패')
     },
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey : [querykeys.COMMUNITY_DETAIL]});

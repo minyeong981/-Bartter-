@@ -1,4 +1,4 @@
-import { useMutation, useQuery , useQueryClient} from '@tanstack/react-query';
+import { useMutation, useQueryClient,useSuspenseQuery } from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router';
 import { useEffect,useState } from 'react';
 
@@ -20,23 +20,26 @@ function Profile() {
 
   const { userId } : {userId : UserId } = Route.useParams();
 
-  const { isPending, data:profileData } = useQuery({
+  const { data:profileData } = useSuspenseQuery({
     queryKey: [querykeys.PROFILE, userId],
     queryFn: () => barter.getUserProfile(Number(userId))
   });
 
-  const { data:cropData } = useQuery({
+  const { data:cropData } = useSuspenseQuery({
     queryKey: [querykeys.CROP_PROFILE, userId],
     queryFn: () => barter.getCropListTradedByUser(Number(userId))
   });
 
   const [ isFollowed, setIsFollowed ] = useState<boolean>(false);
 
+  const userData = profileData.data.data;
+  const cropCount = cropData.data.data.receive.length;
+
   useEffect(() => {
-    if (profileData?.data.data.isFollowed !== undefined) {
-      setIsFollowed(profileData.data.data.isFollowed);
+    if (userData.isFollowed !== undefined) {
+      setIsFollowed(userData.isFollowed);
     }
-  }, [profileData]);
+  }, [userData]);
 
   const onFollow = useMutation({
     mutationFn: (userId : UserId) => {
@@ -63,18 +66,6 @@ function Profile() {
       }
   })
 
-  if ( isPending ) {
-    return <span>Loading...</span>
-  }
-
-  if ( ! profileData?.data?.data) {
-    return <div>사용자가 존재하지 않습니다.</div>
-    } 
-  
-  if ( ! cropData?.data?.data) {
-    return <div>받은 농작물이 존재하지 않습니다.</div>
-    } 
-
   function handleFollow() {
     if (isFollowed !== undefined) {
       if (isFollowed) {
@@ -89,7 +80,7 @@ function Profile() {
     <div>{ myId === userId ? (
 
       <>
-      <ProfileInfo {...profileData.data.data} isMe={true}/>
+      <ProfileInfo {...userData} isMe={true}/>
     <SettingButton to="/profile/aireport">AI 요약보고서</SettingButton>
     <SettingButton
       to="/profile/$userId/cropStorage"
@@ -112,8 +103,8 @@ function Profile() {
           )
           : ( 
           <>
-          <ProfileInfo {...profileData.data.data} isMe={false} onClick={handleFollow} />
-          <div className={styles.cropsCount}>받은 농작물 {cropData.data.data.receive.length} 개</div>
+          <ProfileInfo {...userData} isMe={false} onClick={handleFollow} />
+          <div className={styles.cropsCount}>받은 농작물 {cropCount} 개</div>
           <SettingButton
             to="/profile/$userId/cropStorage"
             params={{userId: userId.toString() }}

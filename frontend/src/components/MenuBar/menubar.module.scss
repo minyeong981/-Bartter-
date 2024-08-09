@@ -1,5 +1,6 @@
 @use '@/styles/constants/colors' as colors;
 @use '@/styles/constants/dimension' as dimension;
+@use '../../styles/constants/typographies' as typo;
 
 .navigation {
   position: fixed;
@@ -84,10 +85,10 @@
     }
 
     span {
-      margin-top: 8px;
-      font-size: 12px;
-      font-weight: 500;
-    }
+      margin-top: 5px;
+
+      @include typo.comment; 
+    }              
   }
 
   .lottie {
