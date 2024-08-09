@@ -6,6 +6,7 @@ import {useContext} from "react";
 import CropButton from "@/components/Buttons/CropButton";
 import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
 import Carousel from '@/components/Carousel';
+import CheckboxInput from "@/components/Inputs/CheckboxInput.tsx";
 import UserNameLocation from '@/components/User/UserNameLocation.tsx';
 import {TradeContext} from "@/routes/_layout/_protected/trade/detail/_layout.tsx";
 import barter from "@/services/barter.ts";
@@ -31,6 +32,7 @@ function TradeDetailPage() {
     content,
     desiredCategoryList,
     hasCrop,
+    isShare
   } = useContext(TradeContext)!
   const navigate = Route.useNavigate();
   const {mutate: deletePost} = useMutation({
@@ -60,10 +62,16 @@ function TradeDetailPage() {
       <div className={cx('detail')}>
         <h1 className={cx('title', 'padding')}>{title}</h1>
         <p className={cx('content', 'padding')}>{content}</p>
+        <CheckboxInput
+          label="나눔인가요?"
+          checked={isShare}
+          onChange={()=>null}
+          disabled
+        />
         {hasCrop && <GeneralButton buttonStyle={{style: 'primary', size: 'large'}}>
           작물의 성장일기 보러가기 🗓
         </GeneralButton>}
-        <div className={cx('cropList', 'padding')}>
+        {!!desiredCategoryList.length && <div className={cx('cropList', 'padding')}>
           <p>받고싶은 작물 목록</p>
           <div className={cx('crops')}>
             {desiredCategoryList.length &&
@@ -77,7 +85,7 @@ function TradeDetailPage() {
                 />
               ))}
           </div>
-        </div>
+        </div>}
       </div>
     </div>
   );
