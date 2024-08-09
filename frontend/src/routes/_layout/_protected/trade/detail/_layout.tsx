@@ -21,7 +21,7 @@ const DEFAULT_TRADE_DETAIL:TradePostDetail = {
   desiredCategoryList:[],
 }
 
-export const TradeContext = createContext<TradePostDetail | null>(DEFAULT_TRADE_DETAIL);
+export const TradeContext = createContext<TradePostDetail>(DEFAULT_TRADE_DETAIL);
 
 export const Route = createFileRoute('/_layout/_protected/trade/detail/_layout')({
   component: TradeDetailLayout,

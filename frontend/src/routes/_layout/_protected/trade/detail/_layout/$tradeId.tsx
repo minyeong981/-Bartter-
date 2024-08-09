@@ -33,7 +33,7 @@ function TradeDetailPage() {
     desiredCategoryList,
     hasCrop,
     isShare
-  } = useContext(TradeContext)!
+  } = useContext(TradeContext)
   const navigate = Route.useNavigate();
   const {mutate: deletePost} = useMutation({
     mutationFn: barter.deleteTradePost, onSuccess: async () => {
