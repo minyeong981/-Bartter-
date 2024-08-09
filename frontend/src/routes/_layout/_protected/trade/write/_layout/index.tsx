@@ -95,7 +95,6 @@ function WritePage() {
   }, [getUserLocation, userId]);
 
   function handleSubmit() {
-    // console.log(images);
     submitForm({
       create: {
         title,
@@ -103,7 +102,7 @@ function WritePage() {
         shareStatus: isShared,
         cropCategoryId: cropToGive!.cropCategoryId,
         locationId: position!.locationId,
-        wishCropCategoryList: cropsToGet.map(crop => crop.cropCategoryId),
+        wishCropCategoryList: isShared ? [] : cropsToGet.map(crop => crop.cropCategoryId),
       },
       images,
     });
@@ -128,11 +127,10 @@ function WritePage() {
           label="주고 싶은 작물"
           selectedCrops={[cropToGive!.name]}
         />
-        <LabeledSelectCropButton
-          label="받고 싶은 작물"
-          selectedCrops={cropsToGet.map(crop => crop.name)}
-        />
-
+        {!isShared && <LabeledSelectCropButton
+            label="받고 싶은 작물"
+            selectedCrops={cropsToGet.map(crop => crop.name)}
+        />}
         <LabeledTextAreaInput
           label="내용"
           placeholder="내용을 입력하세요"
