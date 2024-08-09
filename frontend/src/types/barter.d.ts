@@ -12,15 +12,15 @@ interface SimpleLocation {
   name: Name;
 }
 
-interface MyCommunityPostDetail {
-  communityPostId: CommunityPostId;
-  title: Title;
-  content: Content;
-  createdAt: CreatedAt;
-  imageUrl: ImageUrl;
-  hasImage: HasImage;
-  location: SimpleLocation;
-}
+// interface MyCommunityPostDetail {
+//   communityPostId: CommunityPostId;
+//   title: Title;
+//   content: Content;
+//   createdAt: CreatedAt;
+//   imageUrl: ImageUrl;
+//   hasImage: HasImage;
+//   location: SimpleLocation;
+// }
 
 type LikeCount = number;
 type IsLike = boolean;
@@ -405,6 +405,8 @@ type GetSearch = BarterResponse<SimpleKeywordList>;
 type GetRecentKeyword = BarterResponse<string[]>;
 type DeleteKeyword = BarterResponse<null>;
 type GetCropTradeListResponse = BarterResponse<SimpleTradePostDetail[]>;
+type GetTradePostListByUserId = BarterResponse<SimpleTradePostDetail[]>;
+type GetPickedTradePostListByUserId = BarterResponse<SimpleTradePostDetail[]>;
 type GetCropTradeDetailResponse = BarterResponse<TradePostDetail>;
 type GetCropProfile = BarterResponse<CropProfile>;
 type GetCropCategoryList = BarterResponse<CropCategoryDetail[]>;

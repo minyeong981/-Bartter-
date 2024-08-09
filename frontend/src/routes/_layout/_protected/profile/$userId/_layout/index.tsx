@@ -46,7 +46,7 @@ function Profile() {
       window.alert('팔로우 실패')
       }, 
       onSuccess: () => {
-        queryClient.invalidateQueries([querykeys.PROFILE])
+        queryClient.invalidateQueries({queryKey : [querykeys.PROFILE]});
         setIsFollowed(true)
       }
   })
@@ -59,8 +59,7 @@ function Profile() {
       window.alert('언팔로우 실패')
       }, 
       onSuccess: () => {
-        queryClient.invalidateQueries([querykeys.PROFILE])
-        setIsFollowed(false)
+        queryClient.invalidateQueries({queryKey : [querykeys.PROFILE]});
       }
   })
 

@@ -153,10 +153,10 @@ export default {
   /**
    * 물물교환 게시글 목록 조회
    */
-  getTradePostList: async (page: number, limit: number) =>
+  getTradePostList: async (page?: number, limit?: number, givenCategory?: number) =>
     axios.get<GetCropTradeListResponse>(
-      `/trades/posts?page=${page}&limit=${limit}`,
-      {params: {page, limit}},
+      `/trades/posts`,
+      {params: {page, limit, givenCategory}},
     ),
   /**
    * 물물교환 게시글 상세 조회
@@ -183,6 +183,24 @@ export default {
    */
   reserveTradePost: async (tradePostId: TradePostId) =>
     axios.post(`/trades/post/${tradePostId}/reservation`),
+    /**
+   * 유저가 작성한 물물교환 게시글 전체 조회
+   */
+    getTradePostListByUser: async (userId: UserId) =>
+      axios.get<GetCommunityPostListByUserId>(
+        `/users/${userId}/trades/posts`,
+      ),
+    /**
+     * 유저가 찜한 물물교환 게시글 전체 조회
+     */
+    getPickedTradePostList: async (
+      userId: UserId,
+      page?: number,
+      limit?: number,
+    ) =>
+      axios.get<GetPickedTradePostListByUserId>(`/users/${userId}/trades/posts/likes`, {
+        params: {page, limit},
+      }),
 
   // 농사일지
   /**
@@ -231,15 +249,15 @@ export default {
     userId: UserId,
     page?: number,
     limit?: number,
-    isCommunity?: boolean,
-    keyword?: string,
+    year?: number,
+    month?: number,
   ) =>
     axios.get<GetDiaryListByUserIdResponse>(`/users/${userId}/crops/diaries`, {
       params: {
         page,
         limit,
-        isCommunity,
-        keyword,
+        year,
+        month,
       },
     }),
   /**

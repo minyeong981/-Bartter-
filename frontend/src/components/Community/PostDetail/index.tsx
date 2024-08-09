@@ -1,24 +1,19 @@
 import styles from './postDetail.module.scss';
+import PostImageCarousel from './PostImageCarousel';
+
 
 export default function PostDetail({
-  post
-    }: CommunityPost) {
+  title,
+  content,
+  imageList
+    }: CommunityPostDetail) {
   return (
     <div className={styles.postDetail}>
       <div className={styles.textBox}>
-        <div className={styles.title}>{post.title}</div>
-        <div className={styles.content}>{post.content}</div>
+        <div className={styles.title}>{title}</div>
+        <div className={styles.content}>{content}</div>
       </div>
-      <div className={styles.imageContainer}>
-        {post.imageList.length !==0 && post.imageList.map((image, imgIndex) => (
-          <img
-            key={imgIndex}
-            className={styles.image}
-            src={'https://' + image.imageUrl}
-            alt="Community Post"
-          />
-        ))}
-      </div>
+      {imageList.length >0 && <PostImageCarousel imageList={imageList}/>}
     </div>
   );
 }

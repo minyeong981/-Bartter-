@@ -1,19 +1,19 @@
 import classnames from 'classnames/bind';
 import {useRef, useState} from 'react';
 
-import styles from './carousel.module.scss';
+import styles from './PostImageCarousel.module.scss';
 
-interface CarouselProps {
-  images?: string[];
+interface PostCarouselProps {
+  imageList?: SimpleCommunityImage[];
 }
 
 const cx = classnames.bind(styles);
 
-export default function Carousel({images}: CarouselProps) {
+export default function PostImageCarousel({imageList}: PostCarouselProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const indicator = `${selectedIndex + 1} / ${images.length}`;
+  const indicator = `${selectedIndex + 1} / ${imageList.length}`;
 
   function handleScroll() {
     if (!carouselRef.current) return;
@@ -30,9 +30,9 @@ export default function Carousel({images}: CarouselProps) {
         ref={carouselRef}
         onScroll={handleScroll}
       >
-        {images.length &&
-          images.map((imageUrl, index) => (
-            <img key={`image-${index}`} src={imageUrl} alt="작물 이미지" />
+        {imageList.length &&
+          imageList.map((image, index) => (
+            <img key={`image-${index}`} src={`https://${image.imageUrl}`} alt="작물 이미지" />
           ))}
       </div>
       <div className={cx('indicator')}>{indicator}</div>

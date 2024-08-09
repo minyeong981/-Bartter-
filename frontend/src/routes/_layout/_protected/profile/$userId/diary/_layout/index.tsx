@@ -1,13 +1,14 @@
-import {createFileRoute} from '@tanstack/react-router';
-import {format} from 'date-fns';
-import {useState} from 'react';
+import { useQuery } from '@tanstack/react-query';
+import {createFileRoute } from '@tanstack/react-router';
+import {useEffect, useState} from 'react';
 
-import carrot from '@/assets/image/carrot.png';
-import corn from '@/assets/image/corn.png';
 import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
 import DayDiary from '@/components/ProfileDiary/DayDiary';
 import MonthHeader from '@/components/ProfileDiary/MonthHeader';
 import MonthHeaderButton from '@/components/ProfileDiary/MonthHeaderButton';
+import barter from '@/services/barter';
+// import useRootStore from '@/store';
+import querykeys from '@/util/querykeys';
 
 import styles from './../profileDiary.module.scss';
 
@@ -15,82 +16,74 @@ export const Route = createFileRoute('/_layout/_protected/profile/$userId/diary/
   component: ProfileCropDiary,
 });
 
+function groupByDate(diaries : CropDiaryThumbnail[]) {
+  const groupedDiary = Array.from({length: 32}, ()=> []);
 
-const getMonthlyData = (pivotDate: Date, data: CropDiaryProps[]) => {
-  const beginTime = new Date(
-    pivotDate.getFullYear(),
-    pivotDate.getMonth(),
-    1,
-    0,
-    0,
-    0,
-  ).getTime();
-
-  const endTime = new Date(
-    pivotDate.getFullYear(),
-    pivotDate.getMonth() + 1,
-    0,
-    23,
-    59,
-    59,
-  ).getTime();
-
-  return data.filter(item => {
-    const itemDate = new Date(item.createdAt).getTime();
-    return beginTime <= itemDate && itemDate <= endTime;
+  diaries.forEach(diary => {
+    const date = new Date(diary.performDate);
+    const day = date.getDate();
+    groupedDiary[day].push(diary);
   });
-};
-
-function groupByDate(data: CropDiaryProps[]) {
-  return data.reduce((accumulator, item) => {
-    const dateKey = format(new Date(item.createdAt), 'yyyy-MM-dd');
-
-    if (!accumulator[dateKey]) {
-      accumulator[dateKey] = []; // 해당 날짜에 대한 배열 생성
-    }
-
-    // 이미 배열 있었다면, 혹은 생성한 후
-    accumulator[dateKey].push(item);
-    return accumulator;
-  }, []);
+  return groupedDiary
 }
 
 export default function ProfileCropDiary() {
-  const {nickname}: {nickname: string} = Route.useParams();
-  const [pivotDate, setPivotDate] = useState(new Date());
 
-  const monthlyData = getMonthlyData(pivotDate, data);
-  const groupedMonthlyData = groupByDate(monthlyData);
+  const { userId }: {userId: UserId} = Route.useParams();
+  const [pivotDate, setPivotDate] = useState<Date>(new Date());
+  const [year, setYear ] = useState<number>(pivotDate.getFullYear())
+  const [month, setMonth ] = useState<number>(pivotDate.getMonth()+1)
+  const page = 0;
+  const limit = 100;
 
+  const { data : cropDiary } = useQuery({
+    queryKey: [querykeys.DIARY_LIST, userId, page, limit, year, month],
+    queryFn: () => barter.getCropDiaryListByUser(userId, page, limit, year, month) // 달은 +1
+  })
+
+
+  const diaries = cropDiary?.data.data || [];
   const onDecreaseMonth = () => {
-    setPivotDate(new Date(pivotDate.getFullYear(), pivotDate.getMonth() - 1));
+    const newDate = new Date(pivotDate.getFullYear(), pivotDate.getMonth() - 1);
+    setPivotDate(newDate);
+    setYear(newDate.getFullYear());
+    setMonth(newDate.getMonth() + 1); // getMonth는 0부터 시작하기 때문에 +1
   };
 
   const onIncreaseMonth = () => {
-    setPivotDate(new Date(pivotDate.getFullYear(), pivotDate.getMonth() + 1));
+    const newDate = new Date(pivotDate.getFullYear(), pivotDate.getMonth() + 1);
+    setPivotDate(newDate);
+    setYear(newDate.getFullYear());
+    setMonth(newDate.getMonth() + 1); // getMonth는 0부터 시작하기 때문에 +1
   };
 
-  const formatMonth = month => (month < 9 ? `0${month + 1}` : `${month + 1}`);
+  useEffect(() => {
+    // const groupedDiary = groupByDate(diaries);
+  }, [pivotDate, cropDiary]);
+
+  const groupedDiary = groupByDate(diaries);
+
+  const formatMonth = m => (m < 9 ? `0${m + 1}` : `${m + 1}`);
 
   return (
     <div className={styles.Container}>
       <HeaderWithLabelAndBackButton label="농사 일지" />
       <MonthHeader
-        title={`${pivotDate.getFullYear()}.
-            ${formatMonth(pivotDate.getMonth())}`}
+        title={`${pivotDate.getFullYear()}.${formatMonth(pivotDate.getMonth())}`}
         leftChild={<MonthHeaderButton text="<" onClick={onDecreaseMonth} />}
         rightChild={<MonthHeaderButton text=">" onClick={onIncreaseMonth} />}
       />
-      <h1> params 확인 : {nickname} </h1>
-      <div className={styles.overflow}>
-        {Object.keys(groupedMonthlyData)
-          .sort()
-          .map(date => (
-            <div key={date}>
-              <DayDiary date={date} diaries={groupedMonthlyData[date]} />
-            </div>
-          ))}
-      </div>
+      {diaries.length === 0 ? (
+        <div>해당 달에 작성된 일지가 없습니다.</div>
+      ) : (
+        <div>
+          {groupedDiary.map((diaryByDay, index) =>
+            diaryByDay.length > 0 ? (
+              <DayDiary key={index} diaries={diaryByDay}/>
+            ) : null
+          )}
+        </div>
+      )}
     </div>
-  );
+   );
 }

@@ -1,0 +1,18 @@
+.diaryImage {
+    width: calc(33.33% - 10px); 
+    margin-right: 5px; 
+    margin-bottom: 5px;
+    overflow: hidden; 
+    border-radius: 5px; 
+    box-shadow: 0 4px 8px rgb(0 0 0 / 10%); 
+
+    img {
+        display: block;
+        width: 100px;
+        height: 100px;
+    }
+
+    &:nth-child(3n) {
+        margin-right: 0; 
+    }
+}
