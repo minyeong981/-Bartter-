@@ -1,13 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
-import { useEffect, useState } from 'react';
 import Lottie from 'react-lottie-player';
 
 import RegisterAnimation from '@/assets/lottie/register.json';
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
-import Spinner from '@/components/Spinner';
 import barter from '@/services/barter';
 
 import styles from '../registerCrop.module.scss';
@@ -26,28 +24,15 @@ export const Route = createFileRoute('/_layout/_protected/diary/registerCrop/_la
 
 function CropProfilePage() {
   const { cropId } = Route.useSearch();
-  const [imageUrl, setImageUrl] = useState<File[]>([]);
+  // const [imageUrl, setImageUrl] = useState<File>();
 
-  const { data, isLoading, isError } = useQuery({
+  const { data } = useSuspenseQuery({
     queryKey: ['cropProfile', cropId],
     queryFn: () => barter.getCropProfile(cropId),
-    enabled: !!cropId,
   });
 
 
-  useEffect(() => {
-    if (data && data.data.data.image) {
-      setImageUrl(data.data.data.image);
-    }
-  }, [data]);
-  
-  if (isLoading) return <Spinner />;
-  if (isError || !data) {
-    console.error('오류가 발생했습니다. 데이터:', data);
-    return <div>오류가 발생했습니다.</div>;
-  }
-
-  const { nickname, growDate, description } = data.data.data;
+  const { nickname, growDate, description, image} = data.data.data;
 
   return (
     <>
@@ -57,7 +42,7 @@ function CropProfilePage() {
       <Lottie loop animationData={RegisterAnimation} play className={cx('animation')} />
       <div className={cx('noteStyle')}>
         <div className={cx('leftSection')}>
-          {imageUrl && <img src={imageUrl} alt={`${nickname}의 이미지`} className={cx('cropImage')} />}
+          {image && <img src={image} alt={`${nickname}의 이미지`} className={cx('cropImage')} />}
           <div className={cx('nickname')}>{nickname}</div>
         </div>
         <div className={cx('rightSection')}>

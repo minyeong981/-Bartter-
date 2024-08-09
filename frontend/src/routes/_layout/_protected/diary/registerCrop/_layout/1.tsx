@@ -18,11 +18,6 @@ export interface SearchParamNickName extends SearchParamCrop {
 
 export const Route = createFileRoute('/_layout/_protected/diary/registerCrop/_layout/1')({
   component: GetNicknamePage,
-  validateSearch: ({crop}) : SearchParamCrop => {
-    return {
-      crop: crop as CropCategoryDetail
-    }
-  }
 });
 
 function GetNicknamePage() {

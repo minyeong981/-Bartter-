@@ -45,7 +45,7 @@ export default function ProfileInfo({
                 {nickname}
             </div>
             <div className={styles.followButton}>
-            { onClick && !isMe && <FollowButton isfollow={isFollowed} onClick={onClick} /> }
+            { onClick && !isMe && <FollowButton isfollow={isFollowed} onClick={onClick}/> }
             </div>
             <div className={styles.followBox}>
                 <div>

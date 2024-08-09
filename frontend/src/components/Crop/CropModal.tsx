@@ -112,8 +112,11 @@ export default function CropModal({
   onClose,
   showSearchBar,
 }: {
+  show:boolean;
   onClose: () => void;
   showSearchBar?: boolean;
+  onCropSelect: (cropId : number) => void;
+  selectedCrop: null;
 }) {
   const {data} = useQuery({
     queryKey: ['cropsCategory'],

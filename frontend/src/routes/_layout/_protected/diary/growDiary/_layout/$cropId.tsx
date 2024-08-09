@@ -25,7 +25,7 @@ function GrowDiaryPage() {
 
   const { data } = useSuspenseQuery({
     queryKey: [querykeys.DIARY_DETAIL, cropId],
-    queryFn: () => barter.getCropDiaryListByCrop(cropId),
+    queryFn: () => barter.getCropDiaryListByCrop(Number(cropId)),
   });
 
   const cropDiary = data.data.data;

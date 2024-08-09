@@ -1,12 +1,13 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
-import { useState } from 'react';
+import { Suspense,useState } from 'react';
 import Lottie from 'react-lottie-player';
 
 import WarehouseAnimation from '@/assets/lottie/warehouse.json';
-// import GeneralButton from '@/components/Buttons/GeneralButton';
+import GeneralButton from '@/components/Buttons/GeneralButton';
 import barter from '@/services/barter';
+import useRootStore from '@/store';
 import querykeys from '@/util/querykeys';
 
 import styles from './../cropStorage.module.scss';
@@ -18,13 +19,15 @@ export const Route = createFileRoute('/_layout/_protected/profile/$userId/cropSt
 });
 
 function CropStoragePage() {
+  const myId = useRootStore((state) => state.userId);
+  const myNickname = useRootStore((state) => state.nickname);
   const { userId } = Route.useParams();
   const navigate = useNavigate();
   const [isUserCrops, setIsUserCrops] = useState(true);
 
   const { data: userProfileInfo } = useSuspenseQuery({
     queryKey: [querykeys.PROFILE, userId],
-    queryFn: () => barter.getUserProfile(Number(userId))
+    queryFn: () => barter.getUserProfile(Number(userId)),
   });
 
   const { data: userCropsStorage } = useSuspenseQuery({
@@ -37,25 +40,31 @@ function CropStoragePage() {
     queryFn: () => barter.getCropListTradedByUser(Number(userId)),
   });
 
-  const handleToggle = (showUserCrops) => {
+  const handleToggle = (showUserCrops: boolean) => {
     setIsUserCrops(showUserCrops);
   };
 
-  const handleCropClick = (cropId : number) => {
-    navigate({to:`/diary/growDiary/${cropId}`});
+  const handleCropClick = (cropId: number) => {
+    navigate({ to: `/diary/growDiary/${cropId}` });
   };
 
-  // const handleBarterClick = () => {
-  //   navigate('/trade');
-  // };
+  const handleGoToDiary = () => {
+    navigate({ to: '/diary' });
+  };
+
+  const handleGoToTrade = () => {
+    navigate({ to: '/trade' });
+  };
 
   const myCrops = userCropsStorage?.data?.data || [];
   const receivedCrops = userTradesStorage?.data?.data?.receive || [];
+  const isMyProfile = Number(myId) === Number(userId);
+  const nickname = isMyProfile ? myNickname : userProfileInfo?.data?.data?.nickname;
 
   return (
     <div>
       <div className={cx('cropStorageContainer')}>
-        <h1>{userProfileInfo.data.data.nickname}님</h1>
+        <h1>{nickname}님</h1>
         <h1>
           {isUserCrops
             ? `나의 작물 ${myCrops.length}개`
@@ -79,12 +88,15 @@ function CropStoragePage() {
         </div>
         {isUserCrops ? (
           <div className={cx('myCropsContainer')}>
-            {myCrops.length === 0 ? (
+            {myCrops.length === 0 && isMyProfile ? (
               <div className={cx('notCrop')}>
                 <h3>아직 등록한 작물이 없습니다.</h3>
-                {/* <GeneralButton
-                  buttonStyle={{style:'primary', size:'medium'}} 
-                  onClick={() => handleCropClick(someCropId)}>작물 등록 하러 가기</GeneralButton> */}
+                <GeneralButton 
+                  className={cx('actionButton')} 
+                  buttonStyle={{style:'primary', size:'medium'}}
+                  onClick={handleGoToDiary}>
+                  농작물 등록 하러 가기
+                </GeneralButton>
               </div>
             ) : (
               myCrops.map((myCrop) => (
@@ -94,29 +106,26 @@ function CropStoragePage() {
                   onClick={() => handleCropClick(myCrop.cropId)}
                 >
                   <div className={cx('crop-image')}>
-                    <img
-                      src={myCrop.image}
-                      alt={myCrop.nickname}
-                    />
+                    <img src={myCrop.image} alt={myCrop.nickname} />
                   </div>
                   <div className={cx('crop-nickname')}>
                     <p>{myCrop.nickname}</p>
-                  </div>                    
+                  </div>
                 </div>
               ))
             )}
           </div>
         ) : (
           <div className={cx('receivedCropsContainer')}>
-            {receivedCrops.length === 0 ? (
+            {receivedCrops.length === 0 && isMyProfile ? (
               <div className={cx('notCrop')}>
                 <h3>아직 물물 교환 / 나눔 받은 작물이 없습니다.</h3>
-                {/* <GeneralButton
-                  buttonStyle={{ style: 'primary', size: 'medium' }}
-                  onClick={handleBarterClick}
-                >
+                <GeneralButton 
+                  className={cx('actionButton')}
+                  buttonStyle={{style:'primary', size:'medium'}}
+                  onClick={handleGoToTrade}>
                   물물교환 하러 가기
-                </GeneralButton> */}
+                </GeneralButton>
               </div>
             ) : (
               receivedCrops.map((tradeCrop) => (
@@ -125,16 +134,12 @@ function CropStoragePage() {
                   className={cx('crop-image-container')}
                   onClick={() => handleCropClick(tradeCrop.cropId)}
                 >
-                <div className={cx('crop-image')}>
-                  <img
-                    src={tradeCrop.image}
-                    alt={tradeCrop.nickname}
-                    className={cx('crop-image')}
-                  />
-                </div>
-                <div className={cx('crop-nickname')}>
-                  <p>{tradeCrop.nickname}</p>
-                </div>
+                  <div className={cx('crop-image')}>
+                    <img src={tradeCrop.image} alt={tradeCrop.nickname} className={cx('crop-image')} />
+                  </div>
+                  <div className={cx('crop-nickname')}>
+                    <p>{tradeCrop.nickname}</p>
+                  </div>
                 </div>
               ))
             )}
@@ -145,4 +150,10 @@ function CropStoragePage() {
   );
 }
 
-export default CropStoragePage;
+export default function WrappedCropStoragePage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CropStoragePage />
+    </Suspense>
+  );
+}

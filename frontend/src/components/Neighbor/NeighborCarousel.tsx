@@ -3,8 +3,12 @@ import {useEffect, useRef} from 'react';
 import NeighborCard from './NeighborCard';
 import styles from './NeighborCarousel.module.scss';
 
+interface NeighborCarouselProps {
+  followings : SimpleUserProfileByKeyword[];
+  onClick: (userId : UserId, isFollow:IsFollowed) => void;
+}
 
-export default function NeighborCarousel({followings} : { followings : SimpleUserProfile[]}) {
+export default function NeighborCarousel({followings, onClick} : NeighborCarouselProps ) {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -22,7 +26,8 @@ export default function NeighborCarousel({followings} : { followings : SimpleUse
               nickname={following.nickname}
               profileImage={following.profileImage}
               userId={Number(following.userId)}
-              isfollow={true}
+              isFollow={following.isFollow}
+              onClick={onClick}
             />
           </div>
         ))}

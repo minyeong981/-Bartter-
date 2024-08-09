@@ -21,7 +21,8 @@ export default function SearchResult() {
   const userId : UserId = useRootStore((state) => state.userId)
   const { keyword } : { keyword : string}= Route.useParams();
   const {sortBy}: {sortBy: string} = Route.useSearch();
-  const [ page, setPage ] = useState<number>(0);
+  // const [ page, setPage ] = useState<number>(0);
+  const page =0;
   const [limit] = useState<number>(1000)
 
   const {data} = useSuspenseQuery({

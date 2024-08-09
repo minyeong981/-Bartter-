@@ -1,11 +1,10 @@
 import { useMutation,useQuery,useQueryClient, useSuspenseQuery} from '@tanstack/react-query';
 import { createFileRoute} from '@tanstack/react-router';
-import {useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import RecentSearch from '@/components/Search/RecentSearch';
 import SearchBar from '@/components/Search/SearchBar';
 import SearchResult from '@/components/Search/SearchResult';
-import SearchSuggestion from '@/components/Search/SearchSuggestion';
 import Spinner from '@/components/Spinner';
 import barter from '@/services/barter';
 import useRootStore from '@/store';
@@ -15,29 +14,21 @@ import querykeys from '@/util/querykeys';
 
 export default function Search() {
 
-  const userId = useRootStore((state) => state.userId)
+  const myId = useRootStore((state) => state.userId)
   const [ query, setQuery ] = useState<string>('');
-  const [ isSearch, setIsSearch ] = useState<boolean>(false);
   const queryClient = useQueryClient();
 
   // 3. 검색어 제안리스트 현재 검색중인 query를 이용해 api로 요청하여 검색어 제안 보여줌 이것도 10개만 표시하기
-  const [ suggestions, setSuggestions ] = useState<string[]>(['감자', '고구마', '오이', '당근', '수박', '가지', '배', '감', '바나나', '사과', '옥수수']);
+  // const [ suggestions, setSuggestions ] = useState<string[]>(['감자', '고구마', '오이', '당근', '수박', '가지', '배', '감', '바나나', '사과', '옥수수']);
  
-  const initialSearchResult: SimpleKeywordList = {
-    userProfileList: [],
-    communityPostList: [],
-    tradePostList: []
-  }
-  const [ results, setResults ] = useState<SimpleKeywordList>(initialSearchResult);
-
   const {data : Location} = useSuspenseQuery({
-    queryKey: [querykeys.LOCATION, userId],
-    queryFn: () => barter.getUserLocation(userId)
+    queryKey: [querykeys.LOCATION, myId],
+    queryFn: () => barter.getUserLocation(myId)
   })
 
   // 최근 검색어 가져오기
   const { isPending, data:recent } = useQuery({
-    queryKey: [querykeys.SEARCH],
+    queryKey: [querykeys.SEARCH_RECENT],
     queryFn: barter.getRecentSearchKeywordList
   })
 
@@ -48,46 +39,39 @@ export default function Search() {
       console.log('검색어 삭제 실패')
       },
       onSuccess: () => {
-      queryClient.invalidateQueries({queryKey:[querykeys.SEARCH]});
+      queryClient.invalidateQueries({queryKey:[querykeys.SEARCH_RECENT]});
     },
     })
 
   // 검색 결과
-  const mutation = useMutation({
-    mutationFn:barter.searchByKeyword,
-    onError: () => {
-    console.log('검색 실패')
-    },
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({queryKey:[querykeys.SEARCH]});
-      setResults(data.data.data)
-    },
+  const { data:Result } = useQuery({
+    queryKey: [querykeys.SEARCH, query],
+    queryFn: () => barter.searchByKeyword(query)
   })
 
-  // 검색어 제안
-  // const mutation = useMutation({
-  //   mutationFn: barter.
-  // })
+  // 팔로우 하기, 취소
+  const followMutation = useMutation({
+    mutationFn: (data :{ userId : UserId, isFollow: IsFollowed}) => {
+      if (data.isFollow) {
+        return barter.unfollow(data.userId)
+      } else {
+        return barter.follow(data.userId)
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey : [querykeys.SEARCH]});
+    
+    }
+  })
 
   if (isPending ) {
     return <Spinner />
   }
 
-  // handleSearch 함수! enter를 치면 감지!
-  async function handleSearch(searchTerm : string, isEnter: boolean) {
+  async function handleSearch(searchTerm : string) {
     const trimmedSearchTerm = searchTerm.trim();
     setQuery(trimmedSearchTerm)
 
-    if (trimmedSearchTerm === '') {
-      setIsSearch(false)
-      setResults(initialSearchResult)
-    }
-
-    // 검색 결과 컴포넌트 띄우기
-    if (isEnter && trimmedSearchTerm !== '') {
-      setIsSearch(isEnter)
-      mutation.mutate(trimmedSearchTerm)
-    }
   }
     
   function handleInputChange(input: string) {
@@ -97,24 +81,14 @@ export default function Search() {
   function handleDeleteSearch(searchTerm : string) {
     deleteMutation.mutate(searchTerm);
   }
+
+  function handleFollowClick(userId: UserId, isFollow: IsFollowed) {
+    followMutation.mutate({userId, isFollow})
+  }
   
   const recentData = recent?.data.data || []
-  const location = Location.data.data.name.split(' ').slice(2,3);
+  const location = Location.data.data.name.split(' ').slice(2,3).toString();
 
-  // // 검색어 제안은 query가 변할때마다 감지하여 검색어제안을 보여주어야함.
-  // useEffect(() => {
-  //   if (query.length > 0) {
-  //     // 검색어 제안 가져오기 api로
-  //     fetch(`https://example.com/api/suggestion?=${query}`)
-  //       .then(response => response.json())
-  //       .then((data) => {
-  //         setSuggestions(data.suggestions);
-  //       });
-  //   setSuggestions(['사', '사과', '사과나무', '사용법'].slice(0,10))
-  //   } else {
-  //     setSuggestions([]);
-  //   }
-  // }, [query])
 
 return (
   <div>
@@ -125,8 +99,7 @@ return (
         onSearch={handleSearch} 
         onDeleteSearch={handleDeleteSearch}
         /> }
-      { query !== '' && !isSearch && <SearchSuggestion query={query} suggestions={suggestions} onSearch={handleSearch}/> }
-      { query !== '' && isSearch && <SearchResult results={results} search={query} location={location} /> }
+      { query !== '' && Result?.data.data && <SearchResult results={Result.data.data} search={query} location={location} onFollowClick={handleFollowClick} /> }
   </div>
 );
 }

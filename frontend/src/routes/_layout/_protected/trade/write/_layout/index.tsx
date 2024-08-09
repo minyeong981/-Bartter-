@@ -49,7 +49,7 @@ function WritePage() {
   const userId = useRootStore(state => state.userId);
   const queryClient = useQueryClient();
   const navigate = useNavigate({from: '/trade/write'});
-  const {cropToGive, cropsToGet, myCrop} = Route.useSearch();
+  const {cropToGive, cropsToGet} = Route.useSearch();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [isShared, setIsShared] = useState(false);

@@ -77,7 +77,7 @@ function Profile() {
   }
 
   return (
-    <div>{ myId === userId ? (
+    <div>{ Number(myId) === Number(userId) ? (
 
       <>
       <ProfileInfo {...userData} isMe={true}/>

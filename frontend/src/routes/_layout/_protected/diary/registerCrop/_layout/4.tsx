@@ -16,7 +16,7 @@ const cx = classnames.bind(styles);
 
 
 export interface SearchParamImage extends SearchParamDescription {
-  image?: string[];
+  image?: File[];
 }
 
 export const Route = createFileRoute('/_layout/_protected/diary/registerCrop/_layout/4')({
@@ -34,7 +34,7 @@ export const Route = createFileRoute('/_layout/_protected/diary/registerCrop/_la
 function GetImagePage() {
   const { crop, nickname, growDate, description } = Route.useSearch();
   const maxImages = 1; // 허용된 최대 이미지 개수
-  const [image, setImage] = useState<Image[]>([]);
+  const [image, setImage] = useState<File[]>([]);
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: barter.postCropProfile,
@@ -62,7 +62,7 @@ function GetImagePage() {
     return;
   }
 
-  const handleImageChange = (newImage: string[]) => {
+  const handleImageChange = (newImage: File[]) => {
     setImage(newImage);
   };
 

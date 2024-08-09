@@ -46,6 +46,7 @@ import { Route as LayoutProtectedCommunityCreateIndexImport } from './routes/_la
 import { Route as LayoutProtectedCommunityLayoutIndexImport } from './routes/_layout/_protected/community/_layout/index'
 import { Route as LayoutProtectedTradeWriteLayoutImport } from './routes/_layout/_protected/trade/write/_layout'
 import { Route as LayoutProtectedTradeToLayoutImport } from './routes/_layout/_protected/trade/to/_layout'
+import { Route as LayoutProtectedTradeMycropsLayoutImport } from './routes/_layout/_protected/trade/mycrops/_layout'
 import { Route as LayoutProtectedTradeFromLayoutImport } from './routes/_layout/_protected/trade/from/_layout'
 import { Route as LayoutProtectedTradeDetailLayoutImport } from './routes/_layout/_protected/trade/detail/_layout'
 import { Route as LayoutProtectedSearchKeywordLayoutImport } from './routes/_layout/_protected/search/$keyword/_layout'
@@ -62,6 +63,7 @@ import { Route as LayoutProtectedDiaryDetailLayoutImport } from './routes/_layou
 import { Route as LayoutProtectedCommunityDetailLayoutImport } from './routes/_layout/_protected/community/detail/_layout'
 import { Route as LayoutProtectedTradeWriteLayoutIndexImport } from './routes/_layout/_protected/trade/write/_layout/index'
 import { Route as LayoutProtectedTradeToLayoutIndexImport } from './routes/_layout/_protected/trade/to/_layout/index'
+import { Route as LayoutProtectedTradeMycropsLayoutIndexImport } from './routes/_layout/_protected/trade/mycrops/_layout/index'
 import { Route as LayoutProtectedTradeFromLayoutIndexImport } from './routes/_layout/_protected/trade/from/_layout/index'
 import { Route as LayoutProtectedSearchKeywordLayoutIndexImport } from './routes/_layout/_protected/search/$keyword/_layout/index'
 import { Route as LayoutProtectedProfileWritedLayoutIndexImport } from './routes/_layout/_protected/profile/writed/_layout/index'
@@ -106,6 +108,9 @@ const LayoutProtectedTradeWriteImport = createFileRoute(
 )()
 const LayoutProtectedTradeToImport = createFileRoute(
   '/_layout/_protected/trade/to',
+)()
+const LayoutProtectedTradeMycropsImport = createFileRoute(
+  '/_layout/_protected/trade/mycrops',
 )()
 const LayoutProtectedTradeFromImport = createFileRoute(
   '/_layout/_protected/trade/from',
@@ -222,6 +227,12 @@ const LayoutProtectedTradeToRoute = LayoutProtectedTradeToImport.update({
   path: '/to',
   getParentRoute: () => LayoutProtectedTradeRoute,
 } as any)
+
+const LayoutProtectedTradeMycropsRoute =
+  LayoutProtectedTradeMycropsImport.update({
+    path: '/mycrops',
+    getParentRoute: () => LayoutProtectedTradeRoute,
+  } as any)
 
 const LayoutProtectedTradeFromRoute = LayoutProtectedTradeFromImport.update({
   path: '/from',
@@ -474,6 +485,12 @@ const LayoutProtectedTradeToLayoutRoute =
     getParentRoute: () => LayoutProtectedTradeToRoute,
   } as any)
 
+const LayoutProtectedTradeMycropsLayoutRoute =
+  LayoutProtectedTradeMycropsLayoutImport.update({
+    id: '/_layout',
+    getParentRoute: () => LayoutProtectedTradeMycropsRoute,
+  } as any)
+
 const LayoutProtectedTradeFromLayoutRoute =
   LayoutProtectedTradeFromLayoutImport.update({
     id: '/_layout',
@@ -568,6 +585,12 @@ const LayoutProtectedTradeToLayoutIndexRoute =
   LayoutProtectedTradeToLayoutIndexImport.update({
     path: '/',
     getParentRoute: () => LayoutProtectedTradeToLayoutRoute,
+  } as any)
+
+const LayoutProtectedTradeMycropsLayoutIndexRoute =
+  LayoutProtectedTradeMycropsLayoutIndexImport.update({
+    path: '/',
+    getParentRoute: () => LayoutProtectedTradeMycropsLayoutRoute,
   } as any)
 
 const LayoutProtectedTradeFromLayoutIndexRoute =
@@ -1104,6 +1127,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProtectedTradeFromLayoutImport
       parentRoute: typeof LayoutProtectedTradeFromRoute
     }
+    '/_layout/_protected/trade/mycrops': {
+      id: '/_layout/_protected/trade/mycrops'
+      path: '/mycrops'
+      fullPath: '/trade/mycrops'
+      preLoaderRoute: typeof LayoutProtectedTradeMycropsImport
+      parentRoute: typeof LayoutProtectedTradeImport
+    }
+    '/_layout/_protected/trade/mycrops/_layout': {
+      id: '/_layout/_protected/trade/mycrops/_layout'
+      path: '/mycrops'
+      fullPath: '/trade/mycrops'
+      preLoaderRoute: typeof LayoutProtectedTradeMycropsLayoutImport
+      parentRoute: typeof LayoutProtectedTradeMycropsRoute
+    }
     '/_layout/_protected/trade/to': {
       id: '/_layout/_protected/trade/to'
       path: '/to'
@@ -1342,6 +1379,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProtectedTradeFromLayoutIndexImport
       parentRoute: typeof LayoutProtectedTradeFromLayoutImport
     }
+    '/_layout/_protected/trade/mycrops/_layout/': {
+      id: '/_layout/_protected/trade/mycrops/_layout/'
+      path: '/'
+      fullPath: '/trade/mycrops/'
+      preLoaderRoute: typeof LayoutProtectedTradeMycropsLayoutIndexImport
+      parentRoute: typeof LayoutProtectedTradeMycropsLayoutImport
+    }
     '/_layout/_protected/trade/to/_layout/': {
       id: '/_layout/_protected/trade/to/_layout/'
       path: '/'
@@ -1525,6 +1569,13 @@ export const routeTree = rootRoute.addChildren({
                 LayoutProtectedTradeFromLayoutIndexRoute,
               }),
           }),
+        LayoutProtectedTradeMycropsRoute:
+          LayoutProtectedTradeMycropsRoute.addChildren({
+            LayoutProtectedTradeMycropsLayoutRoute:
+              LayoutProtectedTradeMycropsLayoutRoute.addChildren({
+                LayoutProtectedTradeMycropsLayoutIndexRoute,
+              }),
+          }),
         LayoutProtectedTradeToRoute: LayoutProtectedTradeToRoute.addChildren({
           LayoutProtectedTradeToLayoutRoute:
             LayoutProtectedTradeToLayoutRoute.addChildren({
@@ -1701,6 +1752,7 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/_protected/trade/_layout",
         "/_layout/_protected/trade/detail",
         "/_layout/_protected/trade/from",
+        "/_layout/_protected/trade/mycrops",
         "/_layout/_protected/trade/to",
         "/_layout/_protected/trade/write"
       ]
@@ -1970,6 +2022,20 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/_protected/trade/from/_layout/"
       ]
     },
+    "/_layout/_protected/trade/mycrops": {
+      "filePath": "_layout/_protected/trade/mycrops",
+      "parent": "/_layout/_protected/trade",
+      "children": [
+        "/_layout/_protected/trade/mycrops/_layout"
+      ]
+    },
+    "/_layout/_protected/trade/mycrops/_layout": {
+      "filePath": "_layout/_protected/trade/mycrops/_layout.tsx",
+      "parent": "/_layout/_protected/trade/mycrops",
+      "children": [
+        "/_layout/_protected/trade/mycrops/_layout/"
+      ]
+    },
     "/_layout/_protected/trade/to": {
       "filePath": "_layout/_protected/trade/to",
       "parent": "/_layout/_protected/trade",
@@ -2129,6 +2195,10 @@ export const routeTree = rootRoute.addChildren({
     "/_layout/_protected/trade/from/_layout/": {
       "filePath": "_layout/_protected/trade/from/_layout/index.tsx",
       "parent": "/_layout/_protected/trade/from/_layout"
+    },
+    "/_layout/_protected/trade/mycrops/_layout/": {
+      "filePath": "_layout/_protected/trade/mycrops/_layout/index.tsx",
+      "parent": "/_layout/_protected/trade/mycrops/_layout"
     },
     "/_layout/_protected/trade/to/_layout/": {
       "filePath": "_layout/_protected/trade/to/_layout/index.tsx",
