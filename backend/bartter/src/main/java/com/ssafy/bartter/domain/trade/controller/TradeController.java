@@ -30,6 +30,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "물물교환 API", description = "거래와 관련된 API 입니다")
 public class TradeController {
+
     private final TradeService tradeService;
     private final RedisChatService redisChatService;
 

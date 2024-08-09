@@ -3,7 +3,6 @@ package com.ssafy.bartter.domain.chat.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -19,6 +18,5 @@ public class ChatMessage {
     private MessageType type; // 메시지 타입
     private String content; // 메시지 내용
     private int senderId; // 발신자 ID
-    private int receiverId;
     private int tradeId; // 거래 ID
 }

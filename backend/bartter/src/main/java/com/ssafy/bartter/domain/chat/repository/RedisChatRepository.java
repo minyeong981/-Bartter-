@@ -89,12 +89,10 @@ public class RedisChatRepository {
     }
 
     public List<Integer> getTradeInfo(int tradeId) {
+        log.debug("현재 방 - {}", tradeId);
         String key = CacheKey.tradeInfoKey(tradeId);
-//        List<Object> range = redisTemplate.opsForList().range(key, 0, -1);
-//        log.debug("{}",range);
-//        log.debug("{}",range.get(0));
-//        List<Object> list = (List<Object>) range.get(0);
-//        log.debug("{}",list.get(0));
-        return List.of();
+        List<Object> range = redisTemplate.opsForList().range(key, 0, -1);
+        log.debug("{}", range);
+        return List.of((Integer) range.get(0), (Integer) range.get(1));
     }
 }

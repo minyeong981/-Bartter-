@@ -3,7 +3,6 @@ package com.ssafy.bartter.domain.chat.service;
 import com.ssafy.bartter.domain.chat.dto.ChatMessage;
 import com.ssafy.bartter.domain.chat.repository.RedisChatRepository;
 import com.ssafy.bartter.domain.trade.services.TradeService;
-import com.ssafy.bartter.global.cache.CacheKey;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -37,17 +36,16 @@ public class RedisChatService {
     }
 
     private void saveMessage(ChatMessage chatMessage) {
+        log.debug("메시지 저장 : {}", chatMessage);
         redisChatRepository.save(chatMessage);
     }
 
     public void join(ChatMessage chatMessage) {
         int tradeId = chatMessage.getTradeId();
         int userId = chatMessage.getSenderId();
-
-        log.debug("{} 유저 {}번 방 참여", userId, tradeId);
-        addTradeRoomInfo(tradeId);
-        tradeService.isParticipant(userId, tradeId);
+        tradeService.isParticipant(userId, tradeId); // 유효한 참여인지 확인
         redisChatRepository.addParticipant(userId, tradeId);
+        addTradeRoomInfo(tradeId);
     }
 
     public void leave(ChatMessage chatMessage) {
@@ -56,23 +54,49 @@ public class RedisChatService {
         redisChatRepository.removeParticipant(chatMessage.getSenderId());
     }
 
+    /**
+     * 해당 채팅을 가져온다.
+     * @param userId 회원 아이디
+     * @param tradeId 거래 아이디
+     * @param page 페이지 오프셋
+     * @param limit 제한
+     * @return 메시지가 담겨있는 리스트
+     */
     public List<ChatMessage> getTradeChat(int userId, int tradeId, int page, int limit) {
         validateChatParticipant(userId, tradeId);
         return redisChatRepository.getTradeChat(tradeId, page, limit);
     }
 
+    /**
+     * 해당 방에 참여하고 있는지 확인한다.
+     * @param userId 유저 ID
+     * @param tradeId 거래 ID
+     */
+    private void validateChatParticipant(int userId, int tradeId) {
+        if (redisChatRepository.getParticipantTradeId(userId) != tradeId) {
+            throw new CustomException(ErrorCode.UNAUTHENTICATED, "현재 참여하고 있지않은 채팅방입니다.");
+        }else{
+            log.debug("현재 참여하고 있는 유저와 방의 번호 :{}, {}", userId, tradeId);
+        }
+    }
+
+    /**
+     * 현재 사용자가 참여한 방의 번호를 반환
+     * @param userId 사용자 ID
+     * @return 현재 사용자가 참여한 방의 번호
+     */
     public int getParticipantTradeId(int userId) {
         return redisChatRepository.getParticipantTradeId(userId);
     }
 
-    private void validateChatParticipant(int userId, int tradeId) {
-        if (redisChatRepository.getParticipantTradeId(userId) != tradeId) {
-            throw new CustomException(ErrorCode.UNAUTHENTICATED, "현재 참여하고 있지않은 채팅방입니다.");
-        }
-    }
-
+    /**
+     * 방 정보가 있으면 return
+     * 없으면 해당 방에 참여한 사람들의 정보를 넣는다.
+     * @param tradeId 거래 채팅 정보
+     */
     private void addTradeRoomInfo(int tradeId) {
         if (redisChatRepository.existByTradeId(tradeId)) {
+            log.debug("해당방이 이미 존재함 : {}",tradeId);
             return;
         }
         List<Integer> participantIdList = tradeService.getParticipantList(tradeId);

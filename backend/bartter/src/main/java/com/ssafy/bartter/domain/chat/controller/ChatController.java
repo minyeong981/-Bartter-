@@ -18,6 +18,8 @@ public class ChatController {
 
     @MessageMapping("/trade/chat")
     public void sendMessage(ChatMessage chatMessage) {
+        log.debug("send chat message: {}", chatMessage);
+
         switch (chatMessage.getType()){
             case CHAT:
                 redisChatService.publish(chatMessage);

@@ -10,7 +10,5 @@ public class CacheKey {
 
     public static String currentTradeKey() { return "trade:current"; }
 
-    public static String stompSessionKey(){ return "stomp:session"; }
-
     public static String tradeInfoKey(int tradeId ) { return "trade:info:" + tradeId; }
 }
