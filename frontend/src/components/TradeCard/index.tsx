@@ -7,31 +7,32 @@ import Status from '@/components/Status';
 
 import styles from './tradeCard.module.scss';
 
-type TradeCardProps = SimpleCropTradePost & LinkProps;
+type TradeCardProps = SimpleTradePostDetail & LinkProps;
 
 const cx = classnames.bind(styles);
 
 export default function TradeCard({
-  cropTradePostId,
-  title,
-  imageURL,
-  status,
-  location,
-  likeCount,
-  createdAt,
-  isLike,
-  isShare,
-  ...props
-}: TradeCardProps) {
+                                    cropTradePostId,
+                                    title,
+                                    image,
+                                    status,
+                                    location,
+                                    likeCount,
+                                    createdAt,
+                                    isLike,
+                                    isShare,
+                                    ...props
+                                  }: TradeCardProps) {
   return (
-    <Link className={cx('tradeCard')} {...props}>
-      <img src={imageURL} alt="이미지" />
+    <Link className={cx('tradeCard')} {...props} to="/trade/detail/$tradeId"
+          params={{tradeId: String(cropTradePostId)}}>
+      <img src={'http://' + image} alt="이미지"/>
       <div className={cx('tradeCardContent')}>
         <h3 className={cx('title')}>{title}</h3>
-        <p className={cx('location')}>{location.locationName}</p>
+        <p className={cx('location')}>{location.name}</p>
         <p className={cx('date')}>{createdAt}</p>
         <p className={cx('share')}>{isShare && '나눔'}</p>
-        <Status status={status} className={styles['topRight']} />
+        <Status status={status} className={styles['topRight']}/>
         <Heart
           count={likeCount}
           isLike={isLike}
