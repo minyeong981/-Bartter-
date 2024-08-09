@@ -2,16 +2,12 @@ package com.ssafy.bartter.domain.search.controller;
 
 import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
-import com.ssafy.bartter.domain.community.dto.CommunityPostDto;
 import com.ssafy.bartter.domain.community.dto.CommunityPostDto.SimpleCommunityPostDetail;
 import com.ssafy.bartter.domain.community.entity.CommunityPost;
-import com.ssafy.bartter.domain.search.dto.SearchDto.Delete;
 import com.ssafy.bartter.domain.search.dto.SearchDto.SimpleKeywordList;
 import com.ssafy.bartter.domain.search.service.SearchService;
-import com.ssafy.bartter.domain.trade.dto.TradePostDto;
 import com.ssafy.bartter.domain.trade.dto.TradePostDto.SimpleTradePostDetail;
 import com.ssafy.bartter.domain.trade.entity.TradePost;
-import com.ssafy.bartter.domain.user.dto.UserDto;
 import com.ssafy.bartter.domain.user.dto.UserDto.SimpleUserProfile;
 import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.global.exception.CustomException;
@@ -19,11 +15,9 @@ import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.response.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,14 +34,13 @@ public class SearchController {
     @GetMapping("")
     @Operation(summary = "통합검색", description = "키워드가 들어간 물물교환 게시글 2개, 커뮤니티 게시글 2개, 유저 정보5개")
     public SuccessResponse<SimpleKeywordList> getSearchList(
-            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "keyword") String keyword,
             @CurrentUser UserAuthDto user) {
-        String searchKeyword = keyword.trim();
-        if(!StringUtils.hasText(searchKeyword)){
+        if (keyword.trim().isEmpty()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, "키워드를 입력해주세요");
         }
         searchService.saveRecentSearchKeyword(keyword.trim(), user.getUsername());
-        SimpleKeywordList keywordList = searchService.searchByTotalKeyword(searchKeyword, user.getId());
+        SimpleKeywordList keywordList = searchService.searchByTotalKeyword(keyword, user.getId());
 
         return SuccessResponse.of(keywordList);
     }

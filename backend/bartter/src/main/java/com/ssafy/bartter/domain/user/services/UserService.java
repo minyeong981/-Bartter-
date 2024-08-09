@@ -90,7 +90,7 @@ public class UserService {
      */
     public List<User> getUsers(int offset, int limit, String keyword) {
         PageRequest pageable = PageRequest.of(offset, limit);
-        return userRepository.findUserListByKeyword(keyword,pageable).getContent();
+        return userRepository.findUserListByKeyword(keyword, pageable).getContent();
     }
 
     /**
