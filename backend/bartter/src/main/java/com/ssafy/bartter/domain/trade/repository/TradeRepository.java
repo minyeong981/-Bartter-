@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface TradeRepository extends JpaRepository<Trade, Integer> {
@@ -36,4 +37,12 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
             "JOIN FETCH t.tradePost " +
             "WHERE t.id = :tradeId")
     Optional<Trade> findById(@Param("tradeId") int tradeId);
+
+    @Query("SELECT t.user.id FROM Trade t " +
+            "WHERE t.id = :tradeId ")
+    Integer findTradeUserIdByTradeId(@Param("tradeId") int tradeId);
+
+    @Query("SELECT t.tradePost.user.id FROM Trade t " +
+            "WHERE t.id = :tradeId ")
+    Integer findTradePostUserIdByTradeId(@Param("tradeId") int tradeId);
 }

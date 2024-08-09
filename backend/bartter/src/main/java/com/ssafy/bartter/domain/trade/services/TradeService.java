@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -31,15 +32,15 @@ public class TradeService {
     public TradeInfo createOrGetTrade(int tradePostId, int userId) {
         TradePost tradePost = tradePostRepository.findTradePostById(tradePostId)
                 .orElseThrow(() -> new CustomException(ErrorCode.TRADE_POST_NOT_FOUND));
-        if (tradePost.getUser().getId() == userId) {
-            throw new CustomException(ErrorCode.BAD_REQUEST);
-        }
-
         User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
+         int user1Id = tradePost.getUser().getId();
+         int tradeUserId = tradePost.getId();
+         log.debug("거래자 : {}, 글쓴이 : {}",user1Id,tradeUserId);
         // 동일한 tradePost와 user가 있는지 조회
         Trade trade = tradeRepository.findByTradePostAndUser(tradePost, user).orElseGet(() -> createTrade(tradePost, user));
+
         return TradeInfo.of(tradePost, trade.getId(), userId);
     }
 
@@ -48,8 +49,16 @@ public class TradeService {
         return tradeRepository.save(trade);
     }
 
-    public boolean isParticipant(int userId, int tradeId) {
-        return tradeRepository.existsByTradeIdAndUserId(userId, tradeId);
+    public void isParticipant(int userId, int tradeId) {
+        if(!tradeRepository.existsByTradeIdAndUserId(userId, tradeId)){
+            throw new CustomException(ErrorCode.TRADE_CHAT_UNAUTHENTICATED);
+        }
+    }
+
+    public List<Integer> getParticipantList(int tradeId) {
+        int requesterId  = tradeRepository.findTradeUserIdByTradeId(tradeId);
+        int receiverId  = tradeRepository.findTradePostUserIdByTradeId(tradeId);
+        return List.of(requesterId, receiverId);
     }
 
     @Transactional
@@ -71,4 +80,5 @@ public class TradeService {
         TradePost tradePost = trade.getTradePost();
         tradePost.changeStatus(newStatus);
     }
+
 }

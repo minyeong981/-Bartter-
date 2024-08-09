@@ -30,6 +30,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "물물교환 API", description = "거래와 관련된 API 입니다")
 public class TradeController {
+
     private final TradeService tradeService;
     private final RedisChatService redisChatService;
 
@@ -41,7 +42,7 @@ public class TradeController {
      * @return 물물교환 정보
      */
     @GetMapping("/{tradePostId}")
-    @Operation(summary = "거래 조회", description = "특정 거래 정보를 조회합니다.")
+    @Operation(summary = "채팅방 정보 조회", description = "채팅방 정보를 조회합니다.")
     public SuccessResponse<TradeInfo> getTrade(
             @PathVariable int tradePostId,
             @CurrentUser UserAuthDto user
