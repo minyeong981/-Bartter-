@@ -28,6 +28,7 @@ export default function DiaryDetail({ cropDiaryId }: { cropDiaryId: number }) {
     <div className={cx('diaryDetailContainer')}>
       <div className={cx('thumbnailList')}>
         <img
+          className={cx('thumbnail')}
           src={diaryThumbnail.image}
           alt={`Diary entry ${diaryThumbnail.cropDiaryId}`}
           onClick={() => navigate({ to: `/diary/detail/${diaryThumbnail.cropDiaryId}` })}

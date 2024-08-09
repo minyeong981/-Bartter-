@@ -53,6 +53,7 @@ import { Route as LayoutProtectedProfileWritedLayoutImport } from './routes/_lay
 import { Route as LayoutProtectedProfilePickedLayoutImport } from './routes/_layout/_protected/profile/picked/_layout'
 import { Route as LayoutProtectedProfileChatLayoutImport } from './routes/_layout/_protected/profile/chat/_layout'
 import { Route as LayoutProtectedProfileChangelocationLayoutImport } from './routes/_layout/_protected/profile/changelocation/_layout'
+import { Route as LayoutProtectedProfileAireportLayoutImport } from './routes/_layout/_protected/profile/aireport/_layout'
 import { Route as LayoutProtectedProfileUserIdLayoutImport } from './routes/_layout/_protected/profile/$userId/_layout'
 import { Route as LayoutProtectedDiaryWriteLayoutImport } from './routes/_layout/_protected/diary/write/_layout'
 import { Route as LayoutProtectedDiaryRegisterCropLayoutImport } from './routes/_layout/_protected/diary/registerCrop/_layout'
@@ -69,7 +70,6 @@ import { Route as LayoutProtectedProfileChatLayoutIndexImport } from './routes/_
 import { Route as LayoutProtectedProfileChangelocationLayoutIndexImport } from './routes/_layout/_protected/profile/changelocation/_layout/index'
 import { Route as LayoutProtectedProfileUserIdLayoutIndexImport } from './routes/_layout/_protected/profile/$userId/_layout/index'
 import { Route as LayoutProtectedTradeDetailLayoutTradeIdImport } from './routes/_layout/_protected/trade/detail/_layout/$tradeId'
-import { Route as LayoutProtectedProfileAireportDetailReportIdImport } from './routes/_layout/_protected/profile/aireport/detail/$reportId'
 import { Route as LayoutProtectedProfileUserIdDiaryLayoutImport } from './routes/_layout/_protected/profile/$userId/diary/_layout'
 import { Route as LayoutProtectedProfileUserIdCropStorageLayoutImport } from './routes/_layout/_protected/profile/$userId/cropStorage/_layout'
 import { Route as LayoutProtectedDiaryWriteLayout2Import } from './routes/_layout/_protected/diary/write/_layout/2'
@@ -84,6 +84,7 @@ import { Route as LayoutProtectedDiaryDetailLayoutCropDiaryIdImport } from './ro
 import { Route as LayoutProtectedCommunityDetailLayoutPostIdImport } from './routes/_layout/_protected/community/detail/_layout/$postId'
 import { Route as LayoutProtectedProfileUserIdDiaryLayoutIndexImport } from './routes/_layout/_protected/profile/$userId/diary/_layout/index'
 import { Route as LayoutProtectedProfileUserIdCropStorageLayoutIndexImport } from './routes/_layout/_protected/profile/$userId/cropStorage/_layout/index'
+import { Route as LayoutProtectedProfileAireportLayoutDetailCropReportIdImport } from './routes/_layout/_protected/profile/aireport/_layout/detail/$cropReportId'
 
 // Create Virtual Routes
 
@@ -126,6 +127,9 @@ const LayoutProtectedProfileChatImport = createFileRoute(
 )()
 const LayoutProtectedProfileChangelocationImport = createFileRoute(
   '/_layout/_protected/profile/changelocation',
+)()
+const LayoutProtectedProfileAireportImport = createFileRoute(
+  '/_layout/_protected/profile/aireport',
 )()
 const LayoutProtectedProfileUserIdImport = createFileRoute(
   '/_layout/_protected/profile/$userId',
@@ -259,6 +263,12 @@ const LayoutProtectedProfileChatRoute = LayoutProtectedProfileChatImport.update(
 const LayoutProtectedProfileChangelocationRoute =
   LayoutProtectedProfileChangelocationImport.update({
     path: '/changelocation',
+    getParentRoute: () => LayoutProtectedProfileRoute,
+  } as any)
+
+const LayoutProtectedProfileAireportRoute =
+  LayoutProtectedProfileAireportImport.update({
+    path: '/aireport',
     getParentRoute: () => LayoutProtectedProfileRoute,
   } as any)
 
@@ -412,8 +422,8 @@ const LayoutProtectedTradeLayoutIndexRoute =
 
 const LayoutProtectedProfileAireportIndexRoute =
   LayoutProtectedProfileAireportIndexImport.update({
-    path: '/aireport/',
-    getParentRoute: () => LayoutProtectedProfileRoute,
+    path: '/',
+    getParentRoute: () => LayoutProtectedProfileAireportRoute,
   } as any)
 
 const LayoutProtectedProfileLayoutIndexRoute =
@@ -504,6 +514,12 @@ const LayoutProtectedProfileChangelocationLayoutRoute =
   LayoutProtectedProfileChangelocationLayoutImport.update({
     id: '/_layout',
     getParentRoute: () => LayoutProtectedProfileChangelocationRoute,
+  } as any)
+
+const LayoutProtectedProfileAireportLayoutRoute =
+  LayoutProtectedProfileAireportLayoutImport.update({
+    id: '/_layout',
+    getParentRoute: () => LayoutProtectedProfileAireportRoute,
   } as any)
 
 const LayoutProtectedProfileUserIdLayoutRoute =
@@ -602,12 +618,6 @@ const LayoutProtectedTradeDetailLayoutTradeIdRoute =
     getParentRoute: () => LayoutProtectedTradeDetailLayoutRoute,
   } as any)
 
-const LayoutProtectedProfileAireportDetailReportIdRoute =
-  LayoutProtectedProfileAireportDetailReportIdImport.update({
-    path: '/aireport/detail/$reportId',
-    getParentRoute: () => LayoutProtectedProfileRoute,
-  } as any)
-
 const LayoutProtectedProfileUserIdDiaryLayoutRoute =
   LayoutProtectedProfileUserIdDiaryLayoutImport.update({
     id: '/_layout',
@@ -690,6 +700,12 @@ const LayoutProtectedProfileUserIdCropStorageLayoutIndexRoute =
   LayoutProtectedProfileUserIdCropStorageLayoutIndexImport.update({
     path: '/',
     getParentRoute: () => LayoutProtectedProfileUserIdCropStorageLayoutRoute,
+  } as any)
+
+const LayoutProtectedProfileAireportLayoutDetailCropReportIdRoute =
+  LayoutProtectedProfileAireportLayoutDetailCropReportIdImport.update({
+    path: '/detail/$cropReportId',
+    getParentRoute: () => LayoutProtectedProfileAireportLayoutRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
@@ -976,6 +992,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProtectedProfileUserIdLayoutImport
       parentRoute: typeof LayoutProtectedProfileUserIdRoute
     }
+    '/_layout/_protected/profile/aireport': {
+      id: '/_layout/_protected/profile/aireport'
+      path: '/aireport'
+      fullPath: '/profile/aireport'
+      preLoaderRoute: typeof LayoutProtectedProfileAireportImport
+      parentRoute: typeof LayoutProtectedProfileImport
+    }
+    '/_layout/_protected/profile/aireport/_layout': {
+      id: '/_layout/_protected/profile/aireport/_layout'
+      path: '/aireport'
+      fullPath: '/profile/aireport'
+      preLoaderRoute: typeof LayoutProtectedProfileAireportLayoutImport
+      parentRoute: typeof LayoutProtectedProfileAireportRoute
+    }
     '/_layout/_protected/profile/changelocation': {
       id: '/_layout/_protected/profile/changelocation'
       path: '/changelocation'
@@ -1146,10 +1176,10 @@ declare module '@tanstack/react-router' {
     }
     '/_layout/_protected/profile/aireport/': {
       id: '/_layout/_protected/profile/aireport/'
-      path: '/aireport'
-      fullPath: '/profile/aireport'
+      path: '/'
+      fullPath: '/profile/aireport/'
       preLoaderRoute: typeof LayoutProtectedProfileAireportIndexImport
-      parentRoute: typeof LayoutProtectedProfileImport
+      parentRoute: typeof LayoutProtectedProfileAireportImport
     }
     '/_layout/_protected/trade/_layout/': {
       id: '/_layout/_protected/trade/_layout/'
@@ -1256,13 +1286,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProtectedProfileUserIdDiaryLayoutImport
       parentRoute: typeof LayoutProtectedProfileUserIdDiaryRoute
     }
-    '/_layout/_protected/profile/aireport/detail/$reportId': {
-      id: '/_layout/_protected/profile/aireport/detail/$reportId'
-      path: '/aireport/detail/$reportId'
-      fullPath: '/profile/aireport/detail/$reportId'
-      preLoaderRoute: typeof LayoutProtectedProfileAireportDetailReportIdImport
-      parentRoute: typeof LayoutProtectedProfileImport
-    }
     '/_layout/_protected/trade/detail/_layout/$tradeId': {
       id: '/_layout/_protected/trade/detail/_layout/$tradeId'
       path: '/$tradeId'
@@ -1332,6 +1355,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/trade/write/'
       preLoaderRoute: typeof LayoutProtectedTradeWriteLayoutIndexImport
       parentRoute: typeof LayoutProtectedTradeWriteLayoutImport
+    }
+    '/_layout/_protected/profile/aireport/_layout/detail/$cropReportId': {
+      id: '/_layout/_protected/profile/aireport/_layout/detail/$cropReportId'
+      path: '/detail/$cropReportId'
+      fullPath: '/profile/aireport/detail/$cropReportId'
+      preLoaderRoute: typeof LayoutProtectedProfileAireportLayoutDetailCropReportIdImport
+      parentRoute: typeof LayoutProtectedProfileAireportLayoutImport
     }
     '/_layout/_protected/profile/$userId/cropStorage/_layout/': {
       id: '/_layout/_protected/profile/$userId/cropStorage/_layout/'
@@ -1439,6 +1469,14 @@ export const routeTree = rootRoute.addChildren({
                   }),
               }),
           }),
+        LayoutProtectedProfileAireportRoute:
+          LayoutProtectedProfileAireportRoute.addChildren({
+            LayoutProtectedProfileAireportLayoutRoute:
+              LayoutProtectedProfileAireportLayoutRoute.addChildren({
+                LayoutProtectedProfileAireportLayoutDetailCropReportIdRoute,
+              }),
+            LayoutProtectedProfileAireportIndexRoute,
+          }),
         LayoutProtectedProfileChangelocationRoute:
           LayoutProtectedProfileChangelocationRoute.addChildren({
             LayoutProtectedProfileChangelocationLayoutRoute:
@@ -1467,8 +1505,6 @@ export const routeTree = rootRoute.addChildren({
                 LayoutProtectedProfileWritedLayoutIndexRoute,
               }),
           }),
-        LayoutProtectedProfileAireportIndexRoute,
-        LayoutProtectedProfileAireportDetailReportIdRoute,
       }),
       LayoutProtectedTradeRoute: LayoutProtectedTradeRoute.addChildren({
         LayoutProtectedTradeLayoutRoute:
@@ -1644,12 +1680,11 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/_layout/_protected/profile/_layout",
         "/_layout/_protected/profile/$userId",
+        "/_layout/_protected/profile/aireport",
         "/_layout/_protected/profile/changelocation",
         "/_layout/_protected/profile/chat",
         "/_layout/_protected/profile/picked",
-        "/_layout/_protected/profile/writed",
-        "/_layout/_protected/profile/aireport/",
-        "/_layout/_protected/profile/aireport/detail/$reportId"
+        "/_layout/_protected/profile/writed"
       ]
     },
     "/_layout/_protected/profile/_layout": {
@@ -1822,6 +1857,21 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/_protected/profile/$userId/_layout/"
       ]
     },
+    "/_layout/_protected/profile/aireport": {
+      "filePath": "_layout/_protected/profile/aireport",
+      "parent": "/_layout/_protected/profile",
+      "children": [
+        "/_layout/_protected/profile/aireport/_layout",
+        "/_layout/_protected/profile/aireport/"
+      ]
+    },
+    "/_layout/_protected/profile/aireport/_layout": {
+      "filePath": "_layout/_protected/profile/aireport/_layout.tsx",
+      "parent": "/_layout/_protected/profile/aireport",
+      "children": [
+        "/_layout/_protected/profile/aireport/_layout/detail/$cropReportId"
+      ]
+    },
     "/_layout/_protected/profile/changelocation": {
       "filePath": "_layout/_protected/profile/changelocation",
       "parent": "/_layout/_protected/profile",
@@ -1974,7 +2024,7 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout/_protected/profile/aireport/": {
       "filePath": "_layout/_protected/profile/aireport/index.tsx",
-      "parent": "/_layout/_protected/profile"
+      "parent": "/_layout/_protected/profile/aireport"
     },
     "/_layout/_protected/trade/_layout/": {
       "filePath": "_layout/_protected/trade/_layout/index.tsx",
@@ -2048,10 +2098,6 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/_protected/profile/$userId/diary/_layout/"
       ]
     },
-    "/_layout/_protected/profile/aireport/detail/$reportId": {
-      "filePath": "_layout/_protected/profile/aireport/detail/$reportId.tsx",
-      "parent": "/_layout/_protected/profile"
-    },
     "/_layout/_protected/trade/detail/_layout/$tradeId": {
       "filePath": "_layout/_protected/trade/detail/_layout/$tradeId.tsx",
       "parent": "/_layout/_protected/trade/detail/_layout"
@@ -2091,6 +2137,10 @@ export const routeTree = rootRoute.addChildren({
     "/_layout/_protected/trade/write/_layout/": {
       "filePath": "_layout/_protected/trade/write/_layout/index.tsx",
       "parent": "/_layout/_protected/trade/write/_layout"
+    },
+    "/_layout/_protected/profile/aireport/_layout/detail/$cropReportId": {
+      "filePath": "_layout/_protected/profile/aireport/_layout/detail/$cropReportId.tsx",
+      "parent": "/_layout/_protected/profile/aireport/_layout"
     },
     "/_layout/_protected/profile/$userId/cropStorage/_layout/": {
       "filePath": "_layout/_protected/profile/$userId/cropStorage/_layout/index.tsx",

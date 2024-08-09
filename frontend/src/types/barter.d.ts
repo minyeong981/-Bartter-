@@ -153,7 +153,7 @@ interface SimpleCropReportDetail {
 type ReportContent = string;
 
 interface CropReportDetail {
-  reportId: ReportId;
+  cropReportId: ReportId;
   cropNickname: CropNickname;
   cropProfileImage: CropProfileImage;
   reportTitle: ReportTitle;

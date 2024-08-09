@@ -198,8 +198,8 @@ export default function AiReportList({ filterOptions }: AiReportListProps) {
     groupedReports.get(key)!.reports.push(report);
   });
 
-  const handleDetailClick = (reportId: ReportId) => {
-    navigate({ to: `/diary/detail/${reportId}` });
+  const handleDetailClick = (cropReportId: number) => {
+    navigate({ to: `/profile/aireport/detail/${cropReportId}` });
   };
   console.log()
   return (
@@ -214,7 +214,7 @@ export default function AiReportList({ filterOptions }: AiReportListProps) {
                 <div className={cx('reportContent')}>
                   <p>{report.reportTitle}</p>
                   <button onClick={() => handleDetailClick(report.reportId)} className={cx('detailButton')}>
-                    상세 보기 &gt;
+                    {report.reportId}상세 보기 &gt;
                   </button>
                 </div>
               </div>
