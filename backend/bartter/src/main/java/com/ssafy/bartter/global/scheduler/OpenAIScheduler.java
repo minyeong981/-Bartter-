@@ -104,7 +104,7 @@ public class OpenAIScheduler {
 
     /**
      * 농작물을 등록하지 않았거나 농사일지가 없을 때 반환해 줄 기본 알림 메시지 리스트
-     * */
+     */
     private static ArrayList<String> getBasicAlarmList() {
         return new ArrayList<>(List.of(
                 "작물별로 농사 일지를 작성해 보세요",
