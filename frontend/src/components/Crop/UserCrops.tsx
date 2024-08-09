@@ -66,7 +66,7 @@ function UserCrops({ userId, onSelectCrop }: UserCropsProps) {
                 <div className={cx('crop-image-container', { selected: selectedCropId === crop.cropId })}>
                   {imageUrl[crop.cropId] ? (
                     <img
-                      src={'http://' + imageUrl[crop.cropId]}
+                      src={imageUrl[crop.cropId]}
                       alt={crop.nickname}
                       className={cx('crop-image', {
                         'default-image': selectedCropId !== crop.cropId,

@@ -119,7 +119,7 @@ export default function DiaryWritePage2() {
     <div>
       <div className={cx('writePage2Container')}>
         <div className={cx('CropProfile')}>
-          <img src={diaryCrop?.image ? 'http://' + diaryCrop.image : ''} alt="등록한 작물" className={cx('profileImage')} />
+          <img src={diaryCrop?.image ? diaryCrop.image : ''} alt="등록한 작물" className={cx('profileImage')} />
           <span className={cx('nickname')}>{diaryCrop?.nickname || ''}</span>
         </div>
         <SemiCalendarInput

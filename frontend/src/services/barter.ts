@@ -361,6 +361,20 @@ export default {
    */
   deleteDailyTip: async () =>
     axios.patch<DeleteDailyTip>('/crops/tips'),
+
+  // AI 요약 리포트
+  /**
+   * AI 요약 리포트 전체 조회
+   */
+  getAiReportList: async (startDate: string, endDate: string, desc?: boolean) =>
+    axios.get<GetAiReportListResponse>('/crops/reports', {params: {
+      startDate, endDate, desc}
+    }),
+    /**
+   * AI 요약 리포트 상세 조회
+   */
+  getAiReportDetail: async (cropReportId: ReportId) =>
+    axios.get<GetAiReportDetailResponse>(`/crops/reports/${cropReportId}`),
 };
 
 
