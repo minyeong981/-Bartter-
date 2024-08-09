@@ -44,14 +44,10 @@ function GrowDiaryPage() {
 
   const formatMonth = (month: number) => (month < 9 ? `0${month + 1}` : `${month + 1}`);
 
-  const diaryEntriesByMonth = thumbnailList.reduce((acc: Record<string, { cropDiaryId: number; image: string; performDate: string }[]>, diary) => {
-    const month = format(new Date(diary.performDate), 'yyyy-MM');
-    if (!acc[month]) {
-      acc[month] = [];
-    }
-    acc[month].push(diary);
-    return acc;
-  }, {});
+  const currentMonth = format(pivotDate, 'yyyy-MM');
+  const filteredEntries = thumbnailList.filter((entry) =>
+    format(new Date(entry.performDate), 'yyyy-MM') === currentMonth
+  );
 
   return (
     <div className={cx('growDiaryContainer')}>
@@ -77,22 +73,18 @@ function GrowDiaryPage() {
       )}
       <hr />
       <div className={cx('diarySection')}>
-        {Object.entries(diaryEntriesByMonth).map(([month, entries]) => (
-          <div key={month} className={cx('monthSection')}>
-            <MonthHeader
-              title={`${pivotDate.getFullYear()}.${formatMonth(pivotDate.getMonth())}`}
-              leftChild={<MonthHeaderButton text="<" onClick={onDecreaseMonth} />}
-              rightChild={<MonthHeaderButton text=">" onClick={onIncreaseMonth} />}
-            />
-            <div className={cx('entries')}>
-              {entries.map((entry) => (
-                <div key={entry.cropDiaryId} className={cx('entry')}>
-                  <DiaryDetail cropDiaryId={entry.cropDiaryId} />
-                </div>
-              ))}
+        <MonthHeader
+          title={`${pivotDate.getFullYear()}.${formatMonth(pivotDate.getMonth())}`}
+          leftChild={<MonthHeaderButton text="<" onClick={onDecreaseMonth} />}
+          rightChild={<MonthHeaderButton text=">" onClick={onIncreaseMonth} />}
+        />
+        <div className={cx('entries')}>
+          {filteredEntries.map((entry) => (
+            <div key={entry.cropDiaryId} className={cx('entry')}>
+              <DiaryDetail cropDiaryId={entry.cropDiaryId} />
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

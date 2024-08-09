@@ -1,4 +1,4 @@
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 
@@ -12,25 +12,25 @@ const cx = classnames.bind(styles);
 export default function DiaryDetail({ cropDiaryId }: { cropDiaryId: number }) {
   const navigate = useNavigate();
 
-  const { data, isLoading, isError } = useSuspenseQuery({
+  const { data } = useSuspenseQuery({
     queryKey: [querykeys.DIARY_DETAIL, cropDiaryId],
-    queryFn: () => barter.getCropDiaryListByCrop(cropDiaryId)
+    queryFn: () => barter.getCropDiary(cropDiaryId)
   });
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>오류가 발생했습니다.</div>;
+  const diaryThumbnail = data.data.data
 
-  const thumbnailEntry = data.data.data.thumbnailList.find((entry: { cropDiaryId: number }) => entry.cropDiaryId === cropDiaryId);
+  if (!diaryThumbnail.image) return;
 
-  if (!thumbnailEntry) return <div>데이터가 없습니다.</div>;
+  // const images = diaryThumbnail.image.split(',');
 
   return (
+    // ui 한 줄에 하나씩 / 한 줄에 두개씩?
     <div className={cx('diaryDetailContainer')}>
       <div className={cx('thumbnailList')}>
         <img
-          src={'http://' + thumbnailEntry.image}
-          alt={`Diary entry ${thumbnailEntry.cropDiaryId}`}
-          onClick={() => navigate({ to: `/diary/detail/${thumbnailEntry.cropDiaryId}` })}
+          src={'http://' + diaryThumbnail.image}
+          alt={`Diary entry ${diaryThumbnail.cropDiaryId}`}
+          onClick={() => navigate({ to: `/diary/detail/${diaryThumbnail.cropDiaryId}` })}
         />
       </div>
     </div>

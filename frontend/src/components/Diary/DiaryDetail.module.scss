@@ -1,0 +1,26 @@
+.diaryDetailContainer {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .thumbnailList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); // 2개씩 나열되도록 설정
+    gap: 10px; 
+    width: 100%;
+  }
+  
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px; // 모서리를 둥글게 설정
+    object-fit: cover; // 이미지를 컨테이너에 맞추기
+    cursor: pointer;
+    transition: transform 0.2s;
+  
+    &:hover {
+      transform: scale(1.05); // hover 시 약간 확대
+    }
+  }
+  

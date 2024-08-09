@@ -81,7 +81,7 @@ function DiaryPage() {
       renderedComponent = (
         <>
           <UserCrops userId={userId} onSelectCrop={handleSelectCrop} />
-          <FloatingButton onClick={handleModalOpen}>+ 등록하기 ${userId}</FloatingButton>
+          <FloatingButton onClick={handleModalOpen}>+ 등록하기</FloatingButton>
           {isModalOpen && (
             <CropModal
               show={isModalOpen}

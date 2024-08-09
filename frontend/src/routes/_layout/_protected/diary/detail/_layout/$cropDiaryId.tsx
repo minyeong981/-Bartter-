@@ -71,7 +71,7 @@ export default function DiaryDetail() {
         </div>
         <div className={cx('cropInfo')}>
           {/* <img src={'http://' + responseData.crop.image} alt="Crop" className={cx('cropImage')} /> */}
-          {/* <img src={`http://${responseData.crop.image}`} alt="Crop" className={cx('cropImage')} /> */}
+          <img src={`http://${responseData.crop.image}`} alt="Crop" className={cx('cropImage')} />
 
           <span className={cx('cropNickname')}>{responseData.crop.nickname}</span>
         </div>
