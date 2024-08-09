@@ -32,7 +32,7 @@ export default function PostImageCarousel({imageList}: PostCarouselProps) {
       >
         {imageList.length &&
           imageList.map((image, index) => (
-            <img key={`image-${index}`} src={`https://${image.imageUrl}`} alt="작물 이미지" />
+            <img key={`image-${index}`} src={image.imageUrl} alt="작물 이미지" />
           ))}
       </div>
       <div className={cx('indicator')}>{indicator}</div>

@@ -18,9 +18,12 @@ export default function PostCard({
     location,
     isLike,
     }: SimpleCommunityPostDetail) {
+
+      const simpleLocationName = location.name.split(' ').slice(1,2) + ' ' + location.name.split(' ').slice(2,3)
+
          return (
         <div className={styles.communityCard}>
-          <div className={styles.location}>{location.name}</div>
+          <div className={styles.location}>{simpleLocationName}</div>
           <Link
             className={styles.cardContent}
             to="/community/detail/$postId"

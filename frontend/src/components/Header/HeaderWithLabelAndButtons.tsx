@@ -23,7 +23,9 @@ export default function HeaderWithLabelAndButtons({
         <Link to="/profile">
           <IconUser className={cx('icon')} />
         </Link>
-        <Link to='/search'>
+        <Link 
+        to='/search'
+         >
           <IconSearch className={cx('icon')} />
         </Link>
         <Link>

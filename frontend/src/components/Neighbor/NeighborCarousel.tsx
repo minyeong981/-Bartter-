@@ -4,7 +4,7 @@ import NeighborCard from './NeighborCard';
 import styles from './NeighborCarousel.module.scss';
 
 
-export default function NeighborCarousel({followings} : { followings : SimpleUser[]}) {
+export default function NeighborCarousel({followings} : { followings : SimpleUserProfile[]}) {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

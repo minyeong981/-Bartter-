@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 
+import EmptyPicked from '@/components/Empty/EmptyPicked'
 import TradeCard from '@/components/TradeCard'
 import barter from '@/services/barter'
 import useRootStore from '@/store'
@@ -12,30 +13,34 @@ export const Route = createFileRoute('/_layout/_protected/profile/picked/_layout
 
 export default function ProfilePicked() {
 
-  // const userId = useRootStore((state) => state.userId)
+  const userId = useRootStore((state) => state.userId)
 
-  // const page=0;
-  // const limit=100;
+  const page=0;
+  const limit=100;
 
-  // const { data, isPending } = useQuery({
-  //   queryKey: [querykeys.TRADE_LIST, userId, page, limit],
-  //   queryFn: () => barter.getPickedTradePostList(userId,0,10)
-  // })
+  const { data } = useQuery({
+    queryKey: [querykeys.TRADE_LIST, userId, page, limit],
+    queryFn: () => barter.getPickedTradePostList(userId,0,10)
+  })
 
-  // if (isPending) {
-  //   return (
-  //     <div>찜한 글이 없습니다.</div>
-  //   )
-  // }
-
-  // const pickedPosts = data?.data.data || [];
-  // console.log(pickedPosts)
+  const pickedPosts = data?.data.data || [];
+  console.log(pickedPosts)
 
   return (
   <div>
-  {/* pickedPosts.length===0 ?pickedPosts.map((trade, index) => {}
-    <TradeCard key={index} {...trade} />
-  ) */}
+    { pickedPosts.length===0 ? (
+      // <div>찜한 글이 없습니다.</div>
+      <div>
+        <EmptyPicked />
+      </div>
+        
+    ) : (
+      <div>
+        {pickedPosts.map((trade, index) => 
+        <TradeCard key={index} {...trade} />
+        )}
+      </div>
+     )}
   </div>
   )
 }

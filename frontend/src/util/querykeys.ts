@@ -11,6 +11,7 @@ export default {
   COMMUNITY_LIKE: 'communityLike',
   COMMUNITY_WRITTEN_BY_USER: 'communityWrittenByUser',
   PROFILE: 'profile',
+  PROFILE_LIST: 'profileList',
   NEIGHBOR_CROP_LIST: 'neighborCropList',
   TRADE_PICKED_BY_USER: 'tradePickedByUser',
   TRADE_WRITTEN_BY_USER: 'tradeWrittenByUser',
@@ -20,4 +21,5 @@ export default {
   AI_REPORT_DETAIL: 'aiReportDetail',
   DIARY_AI_REPORT: 'diaryAiReport',
   SEARCH: 'search',
+  LOCATION: 'location',
 };

@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react';
 
 import PostList from '@/components/Community/PostList';
+import EmptyPost from '@/components/Empty/EmptyPost';
 import TradeCard from '@/components/TradeCard';
 import TwoButton from '@/components/TwoButton/TwoButton';
 import barter from '@/services/barter';
@@ -41,7 +42,9 @@ export default function ProfileWrited() {
     switch (activeComponent) {
       case '물물 교환':
         return trades.length===0 ? (
-        <div>작서한 물물교환 게시글이 없습니다.</div>
+          <div>
+            <EmptyPost text='작성한 물물교환 게시글이 없습니다.' />
+          </div>
         ) : (
           trades.map((trade, index) => 
             <TradeCard key={index} {...trade}/>
@@ -49,7 +52,9 @@ export default function ProfileWrited() {
         );
       case '동네 모임':
         return posts.length===0 ? (
-          <div>작성한 동네모임 게시글이 없습니다.</div>
+          <div>
+          <EmptyPost text='작성한 동네모임 게시글이 없습니다.' />
+        </div>
         ) : ( 
         <PostList posts={posts} />
       )

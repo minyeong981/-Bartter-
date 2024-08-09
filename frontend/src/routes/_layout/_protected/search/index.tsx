@@ -1,18 +1,21 @@
-import { useMutation,useQuery,useQueryClient } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { useMutation,useQuery,useQueryClient, useSuspenseQuery} from '@tanstack/react-query';
+import { createFileRoute} from '@tanstack/react-router';
 import {useEffect, useState } from 'react';
 
 import RecentSearch from '@/components/Search/RecentSearch';
 import SearchBar from '@/components/Search/SearchBar';
 import SearchResult from '@/components/Search/SearchResult';
 import SearchSuggestion from '@/components/Search/SearchSuggestion';
+import Spinner from '@/components/Spinner';
 import barter from '@/services/barter';
+import useRootStore from '@/store';
 import querykeys from '@/util/querykeys';
 
 // import styles from './search.module.scss';
 
 export default function Search() {
 
+  const userId = useRootStore((state) => state.userId)
   const [ query, setQuery ] = useState<string>('');
   const [ isSearch, setIsSearch ] = useState<boolean>(false);
   const queryClient = useQueryClient();
@@ -27,8 +30,13 @@ export default function Search() {
   }
   const [ results, setResults ] = useState<SimpleKeywordList>(initialSearchResult);
 
+  const {data : Location} = useSuspenseQuery({
+    queryKey: [querykeys.LOCATION, userId],
+    queryFn: () => barter.getUserLocation(userId)
+  })
+
   // 최근 검색어 가져오기
-  const { isPending, data } = useQuery({
+  const { isPending, data:recent } = useQuery({
     queryKey: [querykeys.SEARCH],
     queryFn: barter.getRecentSearchKeywordList
   })
@@ -41,7 +49,6 @@ export default function Search() {
       },
       onSuccess: () => {
       queryClient.invalidateQueries({queryKey:[querykeys.SEARCH]});
-      console.log('검색어 삭제 성공')
     },
     })
 
@@ -53,8 +60,6 @@ export default function Search() {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({queryKey:[querykeys.SEARCH]});
-      console.log('검색 성공')
-      console.log(data.data.data)
       setResults(data.data.data)
     },
   })
@@ -65,7 +70,7 @@ export default function Search() {
   // })
 
   if (isPending ) {
-    return <span>Loading...</span>
+    return <Spinner />
   }
 
   // handleSearch 함수! enter를 치면 감지!
@@ -92,6 +97,9 @@ export default function Search() {
   function handleDeleteSearch(searchTerm : string) {
     deleteMutation.mutate(searchTerm);
   }
+  
+  const recentData = recent?.data.data || []
+  const location = Location.data.data.name.split(' ').slice(2,3);
 
   // // 검색어 제안은 query가 변할때마다 감지하여 검색어제안을 보여주어야함.
   // useEffect(() => {
@@ -111,14 +119,14 @@ export default function Search() {
 return (
   <div>
       <SearchBar query={query} onSearch={handleSearch} onInputChange={handleInputChange} />
-      { query === '' && data && 
+      { query === '' && recentData && 
       <RecentSearch 
-        searches={data.data.data} 
+        searches={recentData} 
         onSearch={handleSearch} 
         onDeleteSearch={handleDeleteSearch}
         /> }
       { query !== '' && !isSearch && <SearchSuggestion query={query} suggestions={suggestions} onSearch={handleSearch}/> }
-      { query !== '' && isSearch && <SearchResult results={results} search={query}/> }
+      { query !== '' && isSearch && <SearchResult results={results} search={query} location={location} /> }
   </div>
 );
 }

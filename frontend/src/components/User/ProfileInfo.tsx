@@ -36,7 +36,7 @@ export default function ProfileInfo({
             <Location location={location.name} />
             </div>
             <div className={styles.imgBox}>
-                <img src={`https://${profileImage}`} alt={`${userId}`} />
+                <img src={profileImage} alt={`${userId}`} />
             </div>
             <div className={styles.nickname}>
                 {nickname}

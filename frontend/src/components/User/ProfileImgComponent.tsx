@@ -11,7 +11,7 @@ export default function ProfileImgComponent({userId,profileImage} :
     return (
         <div>
             <Link to={`/profile/${userId}`}>
-                <img className={styles.profileImage} src={`https://${profileImage}`} alt="" />
+                <img className={styles.profileImage} src={profileImage} alt="" />
             </Link>
         </div>
     )

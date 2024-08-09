@@ -49,15 +49,23 @@ export default function Home() {
       <AdCarousel />
       <div className={cx('home-barter')}>
         <div className={cx('section-title')}>
-          <div>물물 교환</div>
+          물물 교환
         </div>
-        <HomeTradeCardList trades={trades} />
+        { trades.length===0 ? (
+          <div className={cx('empty-text')}>물물 교환 게시글이 없습니다.</div>
+        ) : (
+          <div>
+          <HomeTradeCardList trades={trades} />
+          </div>
+        )
+        }
       </div>
 
       <div className={cx('link-button-container')}>
         <LinkButton
           buttonStyle={{style: 'primary', size: 'medium'}}
           to="/trade"
+          disabled={trades.length===0}
         >
           물물 교환 더보기
         </LinkButton>
@@ -65,11 +73,11 @@ export default function Home() {
 
       <div className={cx('home-community')}>
         <div className={cx('section-title')}>
-          <div>동네 모임</div>
+          동네 모임
         </div>
         { posts.length===0 ? 
         ( 
-          <div>동네 모임 게시글이 없습니다.</div>
+          <div className={cx('empty-text')}>동네 모임 게시글이 없습니다.</div>
         )
         : (
         <PostList posts={posts}/>
@@ -80,15 +88,19 @@ export default function Home() {
         <LinkButton
           buttonStyle={{style: 'primary', size: 'medium'}}
           to="/community"
+          disabled={posts.length===0}
         >
           동네 모임 더보기
         </LinkButton>
       </div>
       <div className={cx('home-story')}>
+      <div className={cx('section-title')}>
+        이웃의 농사일지
+      </div>
         <div className={cx('section-title')}>
-          <div>이웃의 농사 일지</div>
-          <div>
-            <HomeStory stories={crops} />
+          {crops.length===0 && <div className={cx('empty-text')}>이웃이 아직 없네요! 이웃을 만들어보세요!</div>}
+          <div >
+            { crops.length!==0 && <HomeStory stories={crops} />}
           </div>
         </div>
       </div>

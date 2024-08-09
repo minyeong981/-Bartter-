@@ -348,4 +348,37 @@ export default {
    */
   searchByKeyword: async (keyword: string) =>
     axios.get<GetSearch>('/search', {params: {keyword}}),
+  /**
+ * 키워드 통합 검색 물물교환 전체 조회
+ */
+  getTradePostListByKeyword: async (keyword: string, page?:number, limit?:number) =>
+    axios.get<GetTradePostListByKeyword>('/search/trades', {
+      params: {
+        keyword, 
+        page, 
+        limit
+      }
+    }),
+      /**
+ * 키워드 통합 검색 동네모임 전체 조회
+ */
+  getCommunityPostListByKeyword: async (keyword: string, page?:number, limit?:number) =>
+    axios.get<GetCommunityPostListByKeyword>('/search/community', {
+      params: {
+        keyword, 
+        page, 
+        limit
+      }
+    }),
+      /**
+ * 키워드 통합 검색 사용자 전체 조회
+ */
+  getUserListByKeyword: async (keyword: string, page?:number, limit?:number) =>
+    axios.get<GetUserListByKeyword>('/search/users', {
+      params: {
+        keyword, 
+        page, 
+        limit
+      }
+    }),
 };

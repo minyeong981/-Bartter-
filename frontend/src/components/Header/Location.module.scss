@@ -1,15 +1,21 @@
 @use '@/styles/constants/typographies.scss' as typo;
 
 .location {
-    @include typo.button;
+    display: flex;
+    align-items: center; 
 
     svg {
         width: 25px;
         height: 25px;
-        padding-top: 5px;
+        padding-top: 2px;
         padding-right: 5px;
-    };
+    }
 
-};
+    .location-icon {
+        margin-bottom: 2px;
+    }
 
-
+    .location-text {
+        @include typo.button;
+    }
+}

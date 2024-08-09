@@ -4,7 +4,7 @@ import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAnd
 
 import styles from './layout.module.scss'
 
-export const Route = createFileRoute('/_layout/_protected/search/$result/_layout')({
+export const Route = createFileRoute('/_layout/_protected/search/$keyword/_layout')({
   component: SearchResultLayout
 })
 

@@ -48,7 +48,7 @@ import { Route as LayoutProtectedTradeWriteLayoutImport } from './routes/_layout
 import { Route as LayoutProtectedTradeToLayoutImport } from './routes/_layout/_protected/trade/to/_layout'
 import { Route as LayoutProtectedTradeFromLayoutImport } from './routes/_layout/_protected/trade/from/_layout'
 import { Route as LayoutProtectedTradeDetailLayoutImport } from './routes/_layout/_protected/trade/detail/_layout'
-import { Route as LayoutProtectedSearchResultLayoutImport } from './routes/_layout/_protected/search/$result/_layout'
+import { Route as LayoutProtectedSearchKeywordLayoutImport } from './routes/_layout/_protected/search/$keyword/_layout'
 import { Route as LayoutProtectedProfileWritedLayoutImport } from './routes/_layout/_protected/profile/writed/_layout'
 import { Route as LayoutProtectedProfilePickedLayoutImport } from './routes/_layout/_protected/profile/picked/_layout'
 import { Route as LayoutProtectedProfileChatLayoutImport } from './routes/_layout/_protected/profile/chat/_layout'
@@ -62,7 +62,7 @@ import { Route as LayoutProtectedCommunityDetailLayoutImport } from './routes/_l
 import { Route as LayoutProtectedTradeWriteLayoutIndexImport } from './routes/_layout/_protected/trade/write/_layout/index'
 import { Route as LayoutProtectedTradeToLayoutIndexImport } from './routes/_layout/_protected/trade/to/_layout/index'
 import { Route as LayoutProtectedTradeFromLayoutIndexImport } from './routes/_layout/_protected/trade/from/_layout/index'
-import { Route as LayoutProtectedSearchResultLayoutIndexImport } from './routes/_layout/_protected/search/$result/_layout/index'
+import { Route as LayoutProtectedSearchKeywordLayoutIndexImport } from './routes/_layout/_protected/search/$keyword/_layout/index'
 import { Route as LayoutProtectedProfileWritedLayoutIndexImport } from './routes/_layout/_protected/profile/writed/_layout/index'
 import { Route as LayoutProtectedProfilePickedLayoutIndexImport } from './routes/_layout/_protected/profile/picked/_layout/index'
 import { Route as LayoutProtectedProfileChatLayoutIndexImport } from './routes/_layout/_protected/profile/chat/_layout/index'
@@ -112,8 +112,8 @@ const LayoutProtectedTradeFromImport = createFileRoute(
 const LayoutProtectedTradeDetailImport = createFileRoute(
   '/_layout/_protected/trade/detail',
 )()
-const LayoutProtectedSearchResultImport = createFileRoute(
-  '/_layout/_protected/search/$result',
+const LayoutProtectedSearchKeywordImport = createFileRoute(
+  '/_layout/_protected/search/$keyword',
 )()
 const LayoutProtectedProfileWritedImport = createFileRoute(
   '/_layout/_protected/profile/writed',
@@ -231,9 +231,9 @@ const LayoutProtectedTradeDetailRoute = LayoutProtectedTradeDetailImport.update(
   } as any,
 )
 
-const LayoutProtectedSearchResultRoute =
-  LayoutProtectedSearchResultImport.update({
-    path: '/search/$result',
+const LayoutProtectedSearchKeywordRoute =
+  LayoutProtectedSearchKeywordImport.update({
+    path: '/search/$keyword',
     getParentRoute: () => LayoutProtectedRoute,
   } as any)
 
@@ -476,10 +476,10 @@ const LayoutProtectedTradeDetailLayoutRoute =
     getParentRoute: () => LayoutProtectedTradeDetailRoute,
   } as any)
 
-const LayoutProtectedSearchResultLayoutRoute =
-  LayoutProtectedSearchResultLayoutImport.update({
+const LayoutProtectedSearchKeywordLayoutRoute =
+  LayoutProtectedSearchKeywordLayoutImport.update({
     id: '/_layout',
-    getParentRoute: () => LayoutProtectedSearchResultRoute,
+    getParentRoute: () => LayoutProtectedSearchKeywordRoute,
   } as any)
 
 const LayoutProtectedProfileWritedLayoutRoute =
@@ -560,10 +560,10 @@ const LayoutProtectedTradeFromLayoutIndexRoute =
     getParentRoute: () => LayoutProtectedTradeFromLayoutRoute,
   } as any)
 
-const LayoutProtectedSearchResultLayoutIndexRoute =
-  LayoutProtectedSearchResultLayoutIndexImport.update({
+const LayoutProtectedSearchKeywordLayoutIndexRoute =
+  LayoutProtectedSearchKeywordLayoutIndexImport.update({
     path: '/',
-    getParentRoute: () => LayoutProtectedSearchResultLayoutRoute,
+    getParentRoute: () => LayoutProtectedSearchKeywordLayoutRoute,
   } as any)
 
 const LayoutProtectedProfileWritedLayoutIndexRoute =
@@ -1032,19 +1032,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProtectedProfileWritedLayoutImport
       parentRoute: typeof LayoutProtectedProfileWritedRoute
     }
-    '/_layout/_protected/search/$result': {
-      id: '/_layout/_protected/search/$result'
-      path: '/search/$result'
-      fullPath: '/search/$result'
-      preLoaderRoute: typeof LayoutProtectedSearchResultImport
+    '/_layout/_protected/search/$keyword': {
+      id: '/_layout/_protected/search/$keyword'
+      path: '/search/$keyword'
+      fullPath: '/search/$keyword'
+      preLoaderRoute: typeof LayoutProtectedSearchKeywordImport
       parentRoute: typeof LayoutProtectedImport
     }
-    '/_layout/_protected/search/$result/_layout': {
-      id: '/_layout/_protected/search/$result/_layout'
-      path: '/search/$result'
-      fullPath: '/search/$result'
-      preLoaderRoute: typeof LayoutProtectedSearchResultLayoutImport
-      parentRoute: typeof LayoutProtectedSearchResultRoute
+    '/_layout/_protected/search/$keyword/_layout': {
+      id: '/_layout/_protected/search/$keyword/_layout'
+      path: '/search/$keyword'
+      fullPath: '/search/$keyword'
+      preLoaderRoute: typeof LayoutProtectedSearchKeywordLayoutImport
+      parentRoute: typeof LayoutProtectedSearchKeywordRoute
     }
     '/_layout/_protected/trade/detail': {
       id: '/_layout/_protected/trade/detail'
@@ -1305,12 +1305,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProtectedProfileWritedLayoutIndexImport
       parentRoute: typeof LayoutProtectedProfileWritedLayoutImport
     }
-    '/_layout/_protected/search/$result/_layout/': {
-      id: '/_layout/_protected/search/$result/_layout/'
+    '/_layout/_protected/search/$keyword/_layout/': {
+      id: '/_layout/_protected/search/$keyword/_layout/'
       path: '/'
-      fullPath: '/search/$result/'
-      preLoaderRoute: typeof LayoutProtectedSearchResultLayoutIndexImport
-      parentRoute: typeof LayoutProtectedSearchResultLayoutImport
+      fullPath: '/search/$keyword/'
+      preLoaderRoute: typeof LayoutProtectedSearchKeywordLayoutIndexImport
+      parentRoute: typeof LayoutProtectedSearchKeywordLayoutImport
     }
     '/_layout/_protected/trade/from/_layout/': {
       id: '/_layout/_protected/trade/from/_layout/'
@@ -1504,11 +1504,11 @@ export const routeTree = rootRoute.addChildren({
           }),
       }),
       LayoutProtectedSearchIndexRoute,
-      LayoutProtectedSearchResultRoute:
-        LayoutProtectedSearchResultRoute.addChildren({
-          LayoutProtectedSearchResultLayoutRoute:
-            LayoutProtectedSearchResultLayoutRoute.addChildren({
-              LayoutProtectedSearchResultLayoutIndexRoute,
+      LayoutProtectedSearchKeywordRoute:
+        LayoutProtectedSearchKeywordRoute.addChildren({
+          LayoutProtectedSearchKeywordLayoutRoute:
+            LayoutProtectedSearchKeywordLayoutRoute.addChildren({
+              LayoutProtectedSearchKeywordLayoutIndexRoute,
             }),
         }),
     }),
@@ -1562,7 +1562,7 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/_protected/profile",
         "/_layout/_protected/trade",
         "/_layout/_protected/search/",
-        "/_layout/_protected/search/$result"
+        "/_layout/_protected/search/$keyword"
       ]
     },
     "/_layout/_protected/_home": {
@@ -1878,18 +1878,18 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/_protected/profile/writed/_layout/"
       ]
     },
-    "/_layout/_protected/search/$result": {
-      "filePath": "_layout/_protected/search/$result",
+    "/_layout/_protected/search/$keyword": {
+      "filePath": "_layout/_protected/search/$keyword",
       "parent": "/_layout/_protected",
       "children": [
-        "/_layout/_protected/search/$result/_layout"
+        "/_layout/_protected/search/$keyword/_layout"
       ]
     },
-    "/_layout/_protected/search/$result/_layout": {
-      "filePath": "_layout/_protected/search/$result/_layout.tsx",
-      "parent": "/_layout/_protected/search/$result",
+    "/_layout/_protected/search/$keyword/_layout": {
+      "filePath": "_layout/_protected/search/$keyword/_layout.tsx",
+      "parent": "/_layout/_protected/search/$keyword",
       "children": [
-        "/_layout/_protected/search/$result/_layout/"
+        "/_layout/_protected/search/$keyword/_layout/"
       ]
     },
     "/_layout/_protected/trade/detail": {
@@ -2076,9 +2076,9 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout/_protected/profile/writed/_layout/index.tsx",
       "parent": "/_layout/_protected/profile/writed/_layout"
     },
-    "/_layout/_protected/search/$result/_layout/": {
-      "filePath": "_layout/_protected/search/$result/_layout/index.tsx",
-      "parent": "/_layout/_protected/search/$result/_layout"
+    "/_layout/_protected/search/$keyword/_layout/": {
+      "filePath": "_layout/_protected/search/$keyword/_layout/index.tsx",
+      "parent": "/_layout/_protected/search/$keyword/_layout"
     },
     "/_layout/_protected/trade/from/_layout/": {
       "filePath": "_layout/_protected/trade/from/_layout/index.tsx",

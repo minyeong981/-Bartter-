@@ -9,14 +9,13 @@
 .resultBox {
     @include typo.heading;
 
-    // position: fixed;
-    // top: 108px;
     display: flex;
     margin-top: 10px;
     margin-left: 20px;
 
     .resultText {
         padding-right: 10px;
+        margin-bottom: 10px;
         color: colors.$primary;
     }
 }
