@@ -121,4 +121,8 @@ public class RedisChatService {
         log.debug("{}번 유저한테 알람 보내기",id);
     }
 
+    public String getLastMessage(int tradeId) {
+        List<ChatMessage> tradeChat = redisChatRepository.getTradeChat(tradeId, 0, 1);
+        return tradeChat.isEmpty() ? "채팅이 시작되었습니다" : tradeChat.get(0).getContent();
+    }
 }

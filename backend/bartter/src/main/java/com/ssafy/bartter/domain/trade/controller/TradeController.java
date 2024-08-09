@@ -5,6 +5,7 @@ import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
 import com.ssafy.bartter.domain.chat.dto.ChatMessage;
 import com.ssafy.bartter.domain.chat.service.RedisChatService;
 import com.ssafy.bartter.domain.trade.dto.TradeDto;
+import com.ssafy.bartter.domain.trade.dto.TradeDto.SimpleTradeInfo;
 import com.ssafy.bartter.domain.trade.dto.TradeDto.TradeInfo;
 import com.ssafy.bartter.domain.trade.entity.Trade;
 import com.ssafy.bartter.domain.trade.entity.TradeStatus;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,11 +46,35 @@ public class TradeController {
     @GetMapping("/{tradePostId}")
     @Operation(summary = "채팅방 정보 조회", description = "채팅방 정보를 조회합니다.")
     public SuccessResponse<TradeInfo> getTrade(
-            @PathVariable int tradePostId,
+            @PathVariable("tradePostId")  int tradePostId,
             @CurrentUser UserAuthDto user
     ) {
         TradeInfo tradeInfo = tradeService.createOrGetTrade(tradePostId, user.getId());
         return SuccessResponse.of(tradeInfo);
+    }
+
+    /**
+     * 특정 물물교환 게시글의 거래 내역을 조회하는 메서드
+     *
+     * @param tradePostId 물물교환 게시글 ID
+     * @param user 현재 사용자 정보
+     * @return 물물교환 게시글에 해당하는 물물교환 거래의 정보
+     */
+    @GetMapping("/{tradePostId}/history")
+    @Operation(summary = "채팅방 정보 조회", description = "게시글 정보를 기준으로 채팅방 정보를 조회합니다.")
+    public SuccessResponse<List<SimpleTradeInfo>> getTradeListByTradePostId(
+            @PathVariable("tradePostId") int tradePostId,
+            @CurrentUser UserAuthDto user
+    ) {
+        List<Trade> tradeList = tradeService.getTradeListByTradePostId(tradePostId);
+
+        List<SimpleTradeInfo> simpleTradeInfoList = tradeList.stream()
+                .map(trade -> {
+            String lastMessage = redisChatService.getLastMessage(trade.getId());
+            return SimpleTradeInfo.of(trade, lastMessage);
+        }).toList();
+
+        return SuccessResponse.of(simpleTradeInfoList);
     }
 
     /**
