@@ -28,8 +28,6 @@ export default function DiaryDetail() {
 
   const responseData = data.data.data
   
-
-
   const deleteDiary = useMutation({
     mutationFn: (cropDiaryId: number) => {
       return barter.deleteCropDiary(cropDiaryId);

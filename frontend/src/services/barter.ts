@@ -348,4 +348,19 @@ export default {
    */
   searchByKeyword: async (keyword: string) =>
     axios.get<GetSearch>('/search', {params: {keyword}}),
+
+  // 하루 농사 알리미
+  /**
+   * 하루 알리미 조회
+   */
+  getDailyTip: async () =>
+    axios.get<GetDailyTip>('/crops/tips'),
+
+  /**
+   * 하루 알리미 삭제
+   */
+  deleteDailyTip: async () =>
+    axios.patch<DeleteDailyTip>('/crops/tips'),
 };
+
+

@@ -1,53 +1,49 @@
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import classnames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import TodayAlarmOut from '@/assets/image/todayAlarmOut.png';
+import barter from '@/services/barter';
+import querykeys from '@/util/querykeys';
 
 import styles from './todayAlarm.module.scss';
 
-interface TodayAlarmProps {
-  hasDiaryEntry: boolean;
-}
-
 const cx = classnames.bind(styles);
 
-export default function TodayAlarm({ hasDiaryEntry }: TodayAlarmProps) {
+export default function TodayAlarm() {
+  const { data } = useSuspenseQuery({
+    queryKey: [querykeys.DAILY_TIP],
+    queryFn: () => barter.getDailyTip()
+  });
+
   const [isVisible, setIsVisible] = useState(true);
 
-  useEffect(() => {
-    const isHidden = localStorage.getItem('hideTodayAlarm');
-    if (isHidden) {
-      const hiddenUntil = new Date(isHidden);
-      if (hiddenUntil > new Date()) {
-        setIsVisible(false);
-      } else {
-        localStorage.removeItem('hideTodayAlarm');
-      }
+  const mutation = useMutation({
+    mutationFn: () => barter.deleteDailyTip(),
+    onSuccess: () => {
+      setIsVisible(false);
+    },
+    onError: (error) => {
+      console.error('하루 알리미 삭제에 실패했습니다:', error);
     }
-  }, []);
+  });
 
   const hideTodayAlarmForDay = () => {
-    const now = new Date();
-    const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-    localStorage.setItem('hideTodayAlarm', tomorrow.toISOString());
-    setIsVisible(false);
+    mutation.mutate();
   };
 
-  if (!isVisible) {
+  // data.data.data가 빈 문자열이면 alarm-content를 숨김
+  const shouldShowContent = data.data.data !== '';
+
+  if (!isVisible || !shouldShowContent) {
     return null;
   }
 
   return (
     <div className={cx('today-alarm')}>
       <div className={cx('alarm-content')}>
-        {hasDiaryEntry ? (
-          <p>오늘의 일지가 작성되었습니다.</p>
-        ) : (
-          <>
-            <p>💡 오늘의 정보!</p>
-            <p>아직 작성된 일지가 없습니다.</p>
-          </>
-        )}
+        <p>💡 오늘의 정보!</p>
+        {data.data.data}
       </div>
       <div className={cx('alarm-actions')}>
         <button onClick={hideTodayAlarmForDay}>오늘 하루 안 보기</button>

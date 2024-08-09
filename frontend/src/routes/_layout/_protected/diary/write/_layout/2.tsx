@@ -66,6 +66,8 @@ export default function DiaryWritePage2() {
     setPerformDate(date);
   };
 
+
+
   useEffect(() => {
     const isTitleValid = title.length >= 1 && title.length <= 50;
     const isContentValid = content.length >= 1 && content.length <= 2000;
