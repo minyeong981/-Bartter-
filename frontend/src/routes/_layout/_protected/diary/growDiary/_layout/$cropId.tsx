@@ -54,7 +54,7 @@ function GrowDiaryPage() {
       {cropInfo && (
         <div className={cx('profileSection')}>
           <div className={cx('cropImage')}>
-            <img src={'http://' + cropInfo.cropProfileImage} alt={cropInfo.cropNickname} />
+            <img src={cropInfo.cropProfileImage} alt={cropInfo.cropNickname} />
           </div>
           <div className={cx('cropInfo')}>
             <h2>{cropInfo.userNickname}님의 {cropInfo.cropNickname}</h2>

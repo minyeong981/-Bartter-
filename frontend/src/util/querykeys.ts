@@ -19,7 +19,7 @@ export default {
   CROP_PROFILE: 'cropProfile',
   AI_REPORT_LIST: 'aiReportList',
   AI_REPORT_DETAIL: 'aiReportDetail',
-  DIARY_AI_REPORT: 'diaryAiReport',
+  DAILY_TIP: 'dailyTip',
   SEARCH: 'search',
   LOCATION: 'location',
 };

@@ -24,11 +24,12 @@ export default function DiaryDetail({ cropDiaryId }: { cropDiaryId: number }) {
   // const images = diaryThumbnail.image.split(',');
 
   return (
-    // ui 한 줄에 하나씩 / 한 줄에 두개씩?
+    // ui 한 줄에 두개씩 -> 변경해야함
     <div className={cx('diaryDetailContainer')}>
       <div className={cx('thumbnailList')}>
         <img
-          src={'http://' + diaryThumbnail.image}
+          className={cx('thumbnail')}
+          src={diaryThumbnail.image}
           alt={`Diary entry ${diaryThumbnail.cropDiaryId}`}
           onClick={() => navigate({ to: `/diary/detail/${diaryThumbnail.cropDiaryId}` })}
         />

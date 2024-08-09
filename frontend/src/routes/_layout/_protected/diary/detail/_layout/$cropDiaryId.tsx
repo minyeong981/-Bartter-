@@ -28,8 +28,6 @@ export default function DiaryDetail() {
 
   const responseData = data.data.data
   
-
-
   const deleteDiary = useMutation({
     mutationFn: (cropDiaryId: number) => {
       return barter.deleteCropDiary(cropDiaryId);
@@ -66,12 +64,11 @@ export default function DiaryDetail() {
         <h1 className={cx('diaryTitle')}>{responseData.title}</h1>
         <div className={cx('diaryImage')}>
           {responseData.image && (
-            <img src={'http://' + responseData.image} alt="Diary" />
+            <img src={responseData.image} alt="Diary" />
           )}
         </div>
         <div className={cx('cropInfo')}>
-          {/* <img src={'http://' + responseData.crop.image} alt="Crop" className={cx('cropImage')} /> */}
-          <img src={`http://${responseData.crop.image}`} alt="Crop" className={cx('cropImage')} />
+          <img src={responseData.crop.image} alt="Crop" className={cx('cropImage')} />
 
           <span className={cx('cropNickname')}>{responseData.crop.nickname}</span>
         </div>

@@ -26,7 +26,7 @@ export default function CropButton<T>({
   return (
     <div className={cx('cropButton', {selected})}>
       <button id={String(value)} onClick={handleClick}>
-        <img src={'http://' + imgUrl} alt={name} />
+        <img src={imgUrl} alt={name} />
       </button>
       <label htmlFor={name}>{name}</label>
     </div>

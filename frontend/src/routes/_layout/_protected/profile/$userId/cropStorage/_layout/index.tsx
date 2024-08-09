@@ -95,7 +95,7 @@ function CropStoragePage() {
                 >
                   <div className={cx('crop-image')}>
                     <img
-                      src={'http://' + myCrop.image}
+                      src={myCrop.image}
                       alt={myCrop.nickname}
                     />
                   </div>
@@ -127,7 +127,7 @@ function CropStoragePage() {
                 >
                 <div className={cx('crop-image')}>
                   <img
-                    src={'http://' + tradeCrop.image}
+                    src={tradeCrop.image}
                     alt={tradeCrop.nickname}
                     className={cx('crop-image')}
                   />

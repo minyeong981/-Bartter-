@@ -153,7 +153,7 @@ interface SimpleCropReportDetail {
 type ReportContent = string;
 
 interface CropReportDetail {
-  reportId: ReportId;
+  cropReportId: ReportId;
   cropNickname: CropNickname;
   cropProfileImage: CropProfileImage;
   reportTitle: ReportTitle;
@@ -397,6 +397,8 @@ type GetDiaryDetailResponse = BarterResponse<CropDiaryDetail>;
 type DeleteDiaryResponse = BarterResponse<null>;
 type GetAiReportListResponse = BarterResponse<SimpleCropReportDetail[]>;
 type GetAiReportDetailResponse = BarterResponse<CropReportDetail>;
+type GetDailyTip = BarterResponse<string>;
+type DeleteDailyTip = BarterResponse<null>;
 type GetCropsByUserIdResponse = BarterResponse<SimpleCropProfile[]>;
 type GetCropsTradedByUserIdResponse = BarterResponse<CropTradeHistoryDto>;
 type GetDiaryListByUserIdResponse = BarterResponse<CropDiaryThumbnail[]>;

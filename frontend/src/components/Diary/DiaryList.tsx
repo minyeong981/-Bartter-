@@ -40,7 +40,7 @@ export default function DiaryList({ userId, selectedDate }: DiaryListProps) {
               상세보기 &gt;
             </span>
             <div className={cx('cardContent')}>
-              {diary.image && <img src={'http://' + diary.image} alt="Diary" className={cx('cardImage')} />}
+              {diary.image && <img src={diary.image} alt="Diary" className={cx('cardImage')} />}
               <div className={cx('textContent')}>
                 <h3>{diary.title}</h3>
                 <p>{diary.content}</p>

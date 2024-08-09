@@ -1,0 +1,56 @@
+@use '@/styles/constants/typographies.scss' as typo;
+
+.aireportLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  padding-bottom: 0;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.container {
+  padding: 20px;
+}
+
+.cropImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  height: auto;
+  text-align: center;
+}
+
+.reportContent {
+  margin-top: 20px;
+  line-height: 1.8; /* 줄간격을 1.8배로 설정 */
+
+  @include typo.label;
+}
+
+.reportHeading {
+  // margin: 20px 0 0 20px;
+  font-weight: bold;
+
+  @include typo.title;
+
+  // text-align: center;
+}
+
+.leftAlign {
+  text-align: left;
+}
+
+.fightingMent {
+  margin-top: 20px;
+  font-weight: bold;
+  
+  @include typo.title;
+
+}
+

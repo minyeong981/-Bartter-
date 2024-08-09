@@ -1,6 +1,5 @@
-import 'react-datepicker/dist/react-datepicker.css';
-
 import classnames from 'classnames/bind';
+import { subMonths } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
@@ -13,28 +12,36 @@ const cx = classnames.bind(styles);
 
 interface ModalProps {
   onClose: () => void;
-  onApply: (filters: { period: string; startDate: Date | undefined; endDate: Date | undefined; sort: string }) => void;
+  onApply: (filters: { period: string; startDate: Date | undefined; endDate: Date | undefined; sort: '최신순' | '과거순' }) => void;
 }
 
 const Modal: React.FC<ModalProps> = ({ onClose, onApply }) => {
+  const today = new Date();
   const [activePeriod, setActivePeriod] = useState<string>('1개월');
-  const [activeSort, setActiveSort] = useState<string>('최신순');
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  const [activeSort, setActiveSort] = useState<'최신순' | '과거순'>('최신순');
+  const [startDate, setStartDate] = useState<Date | undefined>(subMonths(today, 1));
+  const [endDate, setEndDate] = useState<Date | undefined>(today);
   const [isRangePickerOpen, setIsRangePickerOpen] = useState<boolean>(false);
 
   const handlePeriodClick = (selectedPeriod: string) => {
     setActivePeriod(selectedPeriod);
-    if (selectedPeriod === '기간 설정') {
-      setIsRangePickerOpen(true);
-    } else {
+    setEndDate(today); // 끝나는 날짜는 항상 오늘로 설정
+
+    if (selectedPeriod === '1개월') {
+      setStartDate(subMonths(today, 1));
       setIsRangePickerOpen(false);
-      setStartDate(undefined);
-      setEndDate(undefined);
+    } else if (selectedPeriod === '3개월') {
+      setStartDate(subMonths(today, 3));
+      setIsRangePickerOpen(false);
+    } else if (selectedPeriod === '6개월') {
+      setStartDate(subMonths(today, 6));
+      setIsRangePickerOpen(false);
+    } else if (selectedPeriod === '기간 설정') {
+      setIsRangePickerOpen(true);
     }
   };
 
-  const handleSortClick = (selectedSort: string) => {
+  const handleSortClick = (selectedSort: '최신순' | '과거순') => {
     setActiveSort(selectedSort);
   };
 
@@ -81,7 +88,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, onApply }) => {
                   startDate={startDate} 
                   endDate={endDate} 
                   placeholderText="시작하는 날짜" 
-                  maxDate={new Date()} 
+                  maxDate={today} 
                   locale={ko} 
                   dateFormat="yyyy.MM.dd"
                   renderCustomHeader={renderCustomHeader}
@@ -97,7 +104,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, onApply }) => {
                   startDate={startDate} 
                   endDate={endDate} 
                   minDate={startDate} 
-                  maxDate={new Date()} 
+                  maxDate={today} 
                   placeholderText="끝나는 날짜" 
                   locale={ko} 
                   dateFormat="yyyy.MM.dd"
@@ -115,7 +122,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, onApply }) => {
                 key={sort}
                 buttonStyle={{style: 'outlined', size: 'medium'}}
                 className={cx('filterButton', { active: activeSort === sort })}
-                onClick={() => handleSortClick(sort)}
+                onClick={() => handleSortClick(sort as '최신순' | '과거순')}
               >
                 {sort}
               </GeneralButton>
