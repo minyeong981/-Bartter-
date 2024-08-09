@@ -7,11 +7,12 @@ import CropButton from '@/components/Buttons/CropButton';
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import type {SearchParamsFromFromPage} from '@/routes/_layout/_protected/trade/from/_layout/index.tsx';
+import type {SearchParamFromMyCropsPage} from "@/routes/_layout/_protected/trade/mycrops/_layout/index.tsx";
 import barter from '@/services/barter.ts';
 
 import styles from './to.module.scss';
 
-export interface SearchParamsFromToPage extends SearchParamsFromFromPage {
+export interface SearchParamsFromToPage extends SearchParamsFromFromPage,SearchParamFromMyCropsPage {
   cropsToGet: CropCategoryDetail[];
 }
 
@@ -19,13 +20,14 @@ const cx = classnames.bind(styles);
 
 export const Route = createFileRoute('/_layout/_protected/trade/to/_layout/')({
   component: ToPage,
-  validateSearch: ({
-    cropToGive,
-  }: Record<string, unknown>): SearchParamsFromFromPage => {
-    return {
-      cropToGive: cropToGive as CropCategoryDetail,
-    };
-  },
+  // validateSearch: ({
+  //   cropToGive, myCrop
+  // }: Record<string, unknown>): SearchParamsFromFromPage & SearchParamFromMyCropsPage => {
+  //   return {
+  //     cropToGive: cropToGive as CropCategoryDetail || undefined,
+  //     myCrop: myCrop as SimpleCropProfile || undefined
+  //   };
+  // },
 });
 
 function ToPage() {

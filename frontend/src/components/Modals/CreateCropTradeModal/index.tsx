@@ -29,7 +29,7 @@ export default function CreateCropTradeModal({
           직접쓰기
         </LinkButton>
         <LinkButton
-          to="/trade/to"
+          to="/trade/mycrops"
           buttonStyle={{style: 'primary', size: 'tiny'}}
         >
           가져오기

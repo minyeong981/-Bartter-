@@ -25,11 +25,21 @@ export const Route = createFileRoute(
 )({
   component: WritePage,
   validateSearch: ({
+                     myCrop,
                      cropToGive,
                      cropsToGet
                    }: Record<string, unknown>): SearchParamsFromToPage => {
+
+    if(myCrop){
+      return{
+        myCrop: myCrop as SimpleCropProfile,
+        cropsToGet:cropsToGet as CropCategoryDetail[]
+      }
+    }
+
     return {
-      cropToGive: cropToGive as CropCategoryDetail,
+      myCrop: myCrop as SimpleCropProfile || undefined,
+      cropToGive: cropToGive as CropCategoryDetail || undefined,
       cropsToGet: cropsToGet as CropCategoryDetail[],
     };
   },
@@ -39,7 +49,7 @@ function WritePage() {
   const userId = useRootStore(state => state.userId);
   const queryClient = useQueryClient();
   const navigate = useNavigate({from: '/trade/write'});
-  const {cropToGive, cropsToGet} = Route.useSearch();
+  const {cropToGive, cropsToGet, myCrop} = Route.useSearch();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [isShared, setIsShared] = useState(false);
