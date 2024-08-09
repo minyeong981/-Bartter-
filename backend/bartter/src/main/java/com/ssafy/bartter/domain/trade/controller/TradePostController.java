@@ -82,7 +82,7 @@ public class TradePostController {
     @PostMapping("")
     @Operation(summary = "농작물 게시글 생성", description = "농작물 물물교환 게시글을 작성한다.")
     public SuccessResponse<Void> createTradePost(
-            @Valid @RequestPart("create") Create create,
+            @Valid Create create,
             BindingResult bindingResult,
             @RequestPart("images") List<MultipartFile> imageList,
             @CurrentUser UserAuthDto user
