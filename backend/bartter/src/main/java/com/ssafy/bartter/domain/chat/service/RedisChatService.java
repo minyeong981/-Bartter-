@@ -24,6 +24,7 @@ public class RedisChatService {
     private final ChannelTopic topic;
 
     public void publish(ChatMessage message) {
+        addTradeRoomInfo(message.getTradeId());
         validateChatParticipant(message.getSenderId(), message.getTradeId());
 
         // Redis에 메시지 발행
@@ -56,6 +57,7 @@ public class RedisChatService {
 
     /**
      * 해당 채팅을 가져온다.
+     *
      * @param userId 회원 아이디
      * @param tradeId 거래 아이디
      * @param page 페이지 오프셋
@@ -114,6 +116,7 @@ public class RedisChatService {
                 .filter(userId -> getParticipantTradeId(userId) != tradeId)
                 .forEach(this::sendNotification);
     }
+
     private void sendNotification(int id){
         log.debug("{}번 유저한테 알람 보내기",id);
     }
