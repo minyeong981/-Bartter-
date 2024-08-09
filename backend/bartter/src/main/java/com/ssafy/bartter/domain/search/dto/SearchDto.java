@@ -5,6 +5,7 @@ import com.ssafy.bartter.domain.community.dto.CommunityPostDto.SimpleCommunityPo
 import com.ssafy.bartter.domain.trade.dto.TradePostDto;
 import com.ssafy.bartter.domain.trade.dto.TradePostDto.SimpleTradePostDetail;
 import com.ssafy.bartter.domain.user.dto.UserDto;
+import com.ssafy.bartter.domain.user.dto.UserDto.SearchUserProfile;
 import com.ssafy.bartter.domain.user.dto.UserDto.SimpleUserProfile;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -24,12 +25,12 @@ public class SearchDto {
 
     @Data
     public static class SimpleKeywordList{
-        private List<SimpleUserProfile> userProfileList;
+        private List<SearchUserProfile> userProfileList;
         private List<SimpleCommunityPostDetail> communityPostList;
         private List<SimpleTradePostDetail> tradePostList;
 
         public static SimpleKeywordList of(
-                List<SimpleUserProfile> userProfileList,
+                List<SearchUserProfile> userProfileList,
                 List<SimpleCommunityPostDetail> communityPostList,
                 List<SimpleTradePostDetail> tradePostList){
             SimpleKeywordList simpleKeywordList = new SimpleKeywordList();
