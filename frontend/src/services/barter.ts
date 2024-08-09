@@ -185,11 +185,9 @@ export default {
       formData.append('images', image);
     });
 
-
     for (const [key, value] of formData.entries()) {
       console.log(key, value)
     }
-
 
     return axios.post('/trades/posts', formData, {
       headers: {'Content-Type': 'multipart/form-data'},
@@ -198,18 +196,22 @@ export default {
   /**
    * 물물교환 게시글 찜
    */
-  dipTradePost: async (tradePostId: TradePostId) =>
+  likeTradePost: async (tradePostId: TradePostId) =>
     axios.post(`/trades/posts/${tradePostId}/like`),
   /**
    * 물물교환 게시글 찜 취소
    */
-  unDipTradePost: async (tradePostId: TradePostId) =>
+  unLikeTradePost: async (tradePostId: TradePostId) =>
     axios.delete(`/trades/posts/${tradePostId}/like`),
   /**
    * 물물교환 게시글 예약
    */
   reserveTradePost: async (tradePostId: TradePostId) =>
     axios.post(`/trades/post/${tradePostId}/reservation`),
+  /**
+   * 물물교환 게시글 삭제
+   */
+  deleteTradePost: async(tradePostId: TradePostId) =>axios.delete(`/trades/posts/${tradePostId}`),
 
   // 농사일지
   /**
