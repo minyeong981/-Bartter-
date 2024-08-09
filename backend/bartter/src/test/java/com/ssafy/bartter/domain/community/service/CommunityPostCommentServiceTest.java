@@ -9,17 +9,17 @@ import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.domain.user.repository.UserRepository;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.service.LocationService;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.*;
 
 @ActiveProfiles("test")
 //@Sql({"/schema.sql", "/data.sql"})
@@ -58,21 +58,41 @@ class CommunityPostCommentServiceTest {
 
         // then
         Optional<CommunityPostComment> findComment = communityPostCommentRepository.findById(comment.getId());
-        Assertions.assertThat(findComment).isNotNull();
-        Assertions.assertThat(findComment.get().getId()).isEqualTo(comment.getId());
+        assertThat(findComment).isNotNull();
+        assertThat(findComment.get().getId()).isEqualTo(comment.getId());
+        assertThat(findComment.get().getContent()).isEqualTo(comment.getContent());
+        assertThat(findComment.get().getUser()).isEqualTo(user);
+        assertThat(findComment.get().getCommunityPost()).isEqualTo(post);
     }
 
-    @DisplayName("댓글에 빈 문자열을 입력하면 예외가 발생한다.")
+    @DisplayName("동네모임 댓글을 삭제하면 해당 엔티티가 더이상 조회되지 않는다.")
     @Test
-    void 댓글_작성_예외_빈_문자열()                                                                                                                                                                                                                                                                                                            {
+    void 동네모임_댓글_삭제_성공() {
         // given
         CommunityPostCommentDto.Create request = new CommunityPostCommentDto.Create();
-        request.setContent("");
+        request.setContent("댓글");
+        CommunityPostComment comment = communityPostCommentService.createComment(post.getId(), request, user.getId());
+
+        // when
+        communityPostCommentService.deleteComment(user.getId(), comment.getId());
+
+        // then
+        Optional<CommunityPostComment> findComment = communityPostCommentRepository.findById(comment.getId());
+        assertThat(findComment).isEmpty();
+    }
+
+    @DisplayName("작성자가 아니면 댓글을 삭제할 수 없다.")
+    @Test
+    void 동네모임_댓글_삭제_실패() {
+        // given
+        CommunityPostCommentDto.Create request = new CommunityPostCommentDto.Create();
+        request.setContent("댓글");
+        CommunityPostComment comment = communityPostCommentService.createComment(post.getId(), request, user.getId());
 
         // when, then
-        Assertions.assertThatThrownBy(() -> communityPostCommentService.createComment(200, request, user.getId()))
+        assertThatThrownBy(() -> communityPostCommentService.deleteComment(2, comment.getId()))
                 .isInstanceOf(CustomException.class)
-                .hasMessageContaining("해당 ID의 동네모임 게시글을 찾을 수 없습니다.");
+                .hasMessageContaining("접근 권한이 없습니다.");
     }
 
 
