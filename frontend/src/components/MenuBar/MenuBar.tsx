@@ -7,7 +7,7 @@ import Diary from '@/assets/lottie/diary.json';
 import Home from '@/assets/lottie/home.json';
 import Trade from '@/assets/lottie/trade.json';
 
-import styles from './menuBar.module.scss';
+import styles from './menubar.module.scss';
 
 export default function MenuBar() {
   const [isPlayingHome, setPlayingHome] = useState(false);
