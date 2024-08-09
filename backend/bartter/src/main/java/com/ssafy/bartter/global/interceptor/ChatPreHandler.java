@@ -1,10 +1,8 @@
 package com.ssafy.bartter.global.interceptor;
 
 
-import com.google.gson.Gson;
 import com.ssafy.bartter.domain.auth.utils.JwtUtil;
 import com.ssafy.bartter.domain.chat.service.RedisChatService;
-import com.ssafy.bartter.domain.trade.repository.TradeRepository;
 import com.ssafy.bartter.domain.trade.services.TradeService;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
@@ -12,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
@@ -39,43 +36,16 @@ public class ChatPreHandler implements ChannelInterceptor {
         }
         switch (accessor.getCommand()) {
             case CONNECT:
-                addSession(accessor);
-                break;
-            case SUBSCRIBE:
-                addParticipant(accessor);
-                break;
-            case DISCONNECT:
-                removeSession(accessor);
+                validToken(accessor);
                 break;
         }
 
         return message;
     }
 
-    private void addParticipant(StompHeaderAccessor accessor) {
-        int userId = redisChatService.getUserIdBySessionId(accessor.getSessionId());
-        String[] destination = accessor.getDestination().split("/");
-        int tradeId = Integer.parseInt(destination[4]);
-
-        tradeService.isParticipant(userId, tradeId);
-        redisChatService.addParticipant(userId, tradeId);
-    }
-
-
-    private void removeSession(StompHeaderAccessor accessor) {
-        redisChatService.removeSession(accessor.getSessionId());
-    }
-
-    private void addSession(StompHeaderAccessor accessor) {
-        int userId = getUserId(accessor);
-        redisChatService.addSession(accessor.getSessionId(), userId);
-    }
-
-    private int getUserId(StompHeaderAccessor accessor) {
+    private void validToken(StompHeaderAccessor accessor) {
         String token = accessor.getFirstNativeHeader("Authorization").trim().substring(7);
         jwtUtil.isExpired(token); // 만료된 경우 예외 던짐
-        int userId = jwtUtil.getUserId(token);
-        return userId;
     }
 
 }

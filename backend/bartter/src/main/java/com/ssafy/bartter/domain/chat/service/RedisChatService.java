@@ -2,6 +2,7 @@ package com.ssafy.bartter.domain.chat.service;
 
 import com.ssafy.bartter.domain.chat.dto.ChatMessage;
 import com.ssafy.bartter.domain.chat.repository.RedisChatRepository;
+import com.ssafy.bartter.domain.trade.services.TradeService;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RedisChatService {
 
+    private final TradeService tradeService;
     private final RedisChatRepository redisChatRepository;
     private final RedisTemplate<String, Object> redisTemplate;
     private final ChannelTopic topic;
@@ -35,35 +37,28 @@ public class RedisChatService {
         redisChatRepository.save(chatMessage);
     }
 
+    public void join(ChatMessage chatMessage) {
+        int tradeId = chatMessage.getTradeId();
+        int userId = chatMessage.getSenderId();
+
+        log.debug("{} 유저 {}번 방 참여",userId,tradeId);
+        tradeService.isParticipant(userId, tradeId);
+        redisChatRepository.addParticipant(userId, tradeId);
+    }
+
+
+    public void leave(ChatMessage chatMessage) {
+        log.debug("{}번 유저 방 떠나기",chatMessage.getSenderId());
+        redisChatRepository.removeParticipant(chatMessage.getSenderId());
+    }
+
     public List<ChatMessage> getTradeChat(int userId, int tradeId, int page, int limit) {
         validateChatParticipant(userId, tradeId);
         return redisChatRepository.getTradeChat(tradeId, page, limit);
     }
 
-    public void addParticipant(int userId, int tradeId) {
-        redisChatRepository.addParticipant(userId, tradeId);
-    }
-
     public int getParticipantTradeId(int userId) {
         return redisChatRepository.getParticipantTradeId(userId);
-    }
-
-    public void removeParticipant(int userId) {
-        redisChatRepository.removeParticipant(userId);
-    }
-
-    public void addSession(String sessionId, int userId) {
-        redisChatRepository.addSession(sessionId, userId);
-    }
-
-    public void removeSession(String sessionId) {
-        int userId = redisChatRepository.getUserIdBySessionId(sessionId);
-        redisChatRepository.removeSession(sessionId);
-        removeParticipant(userId);
-    }
-
-    public int getUserIdBySessionId(String sessionId) {
-        return redisChatRepository.getUserIdBySessionId(sessionId);
     }
 
     private void validateChatParticipant(int userId, int tradeId) {

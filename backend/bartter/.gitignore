@@ -275,3 +275,4 @@ application-docker.yml
 
 # Docker Volume 의 로컬 데이터는 올리지 않음
 /mysql_data
+bartter-firebase-key.json

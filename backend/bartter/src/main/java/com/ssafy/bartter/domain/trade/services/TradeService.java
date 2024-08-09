@@ -31,10 +31,6 @@ public class TradeService {
     public TradeInfo createOrGetTrade(int tradePostId, int userId) {
         TradePost tradePost = tradePostRepository.findTradePostById(tradePostId)
                 .orElseThrow(() -> new CustomException(ErrorCode.TRADE_POST_NOT_FOUND));
-        if (tradePost.getUser().getId() == userId) {
-            throw new CustomException(ErrorCode.BAD_REQUEST);
-        }
-
         User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
@@ -50,7 +46,7 @@ public class TradeService {
 
     public void isParticipant(int userId, int tradeId) {
         if(!tradeRepository.existsByTradeIdAndUserId(userId, tradeId)){
-            throw new CustomException(ErrorCode.TRADE_NOT_FOUND);
+            throw new CustomException(ErrorCode.TRADE_CHAT_UNAUTHENTICATED);
         }
     }
 
