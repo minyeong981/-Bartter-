@@ -32,7 +32,7 @@ export default function Carousel({images}: CarouselProps) {
       >
         {images.length &&
           images.map((imageUrl, index) => (
-            <img key={`image-${index}`} src={imageUrl} alt="작물 이미지" />
+            <img key={`image-${index}`} src={'http://'+imageUrl} alt="작물 이미지" />
           ))}
       </div>
       <div className={cx('indicator')}>{indicator}</div>
