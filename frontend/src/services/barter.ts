@@ -166,13 +166,32 @@ export default {
    */
   postTradePost: async ({create, images}: CropTradeForm) => {
     const formData = new FormData();
-    formData.append(
-      'create',
-      new Blob([JSON.stringify(create)], {type: 'application/json'}),
-    );
-    images.forEach(image => formData.append('images', image));
 
-    return axios.post('/trade/posts', formData, {
+    for (const [key, value] of Object.entries(create)) {
+      if (value === typeof 'object') {
+        if (Array.isArray(value)) {
+          for (const arrVal of value) {
+            formData.append(key, arrVal);
+          }
+        } else {
+          formData.append(key, JSON.stringify(value));
+        }
+      } else {
+        formData.append(key, String(value))
+      }
+    }
+
+    images.forEach((image) => {
+      formData.append('images', image);
+    });
+
+
+    for (const [key, value] of formData.entries()) {
+      console.log(key, value)
+    }
+
+
+    return axios.post('/trades/posts', formData, {
       headers: {'Content-Type': 'multipart/form-data'},
     });
   },

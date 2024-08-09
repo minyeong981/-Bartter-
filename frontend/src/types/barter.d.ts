@@ -363,7 +363,8 @@ interface CropTradeForm {
     content: Content;
     shareStatus: boolean;
     locationId: LocationId;
-    cropId: CropId;
+    cropId?: CropId;
+    cropCategoryId: CropCategoryId;
     wishCropCategoryList: CropCategoryId[];
   };
   images: File[];

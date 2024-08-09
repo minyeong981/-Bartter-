@@ -2,9 +2,8 @@ import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {ChangeEvent} from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
-import {ImageLettuce} from '@/assets/image';
 import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
 import LabeledSelectCropButton from '@/components/Buttons/SelectCropButton/LabeledSelectCropButton.tsx';
 import CropImage from '@/components/CropImage';
@@ -14,6 +13,7 @@ import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import LabeledTextAreaInput from '@/components/Inputs/LabeledTextAreaInput.tsx';
 import type {SearchParamsFromToPage} from '@/routes/_layout/_protected/trade/to/_layout/index.tsx';
 import barter from '@/services/barter.ts';
+import useRootStore from "@/store";
 import {getPosition} from '@/util/geolocation.ts';
 
 import styles from './write.module.scss';
@@ -25,9 +25,9 @@ export const Route = createFileRoute(
 )({
   component: WritePage,
   validateSearch: ({
-    cropToGive,
-    cropsToGet,
-  }: Record<string, unknown>): SearchParamsFromToPage => {
+                     cropToGive,
+                     cropsToGet
+                   }: Record<string, unknown>): SearchParamsFromToPage => {
     return {
       cropToGive: cropToGive as CropCategoryDetail,
       cropsToGet: cropsToGet as CropCategoryDetail[],
@@ -36,6 +36,7 @@ export const Route = createFileRoute(
 });
 
 function WritePage() {
+  const userId = useRootStore(state => state.userId);
   const queryClient = useQueryClient();
   const navigate = useNavigate({from: '/trade/write'});
   const {cropToGive, cropsToGet} = Route.useSearch();
@@ -45,6 +46,11 @@ function WritePage() {
   const [images, setImages] = useState<File[]>([]);
   const [position, setPosition] = useState<SimpleLocation>();
 
+  const {mutate: getUserLocation} = useMutation({
+    mutationFn: barter.getUserLocation, onSuccess: ({data}) => {
+      setPosition(data.data)
+    }
+  })
   const {mutate: getLocation} = useMutation({
     mutationFn: barter.getCurrentLocation,
     onSuccess: ({data}) => {
@@ -54,13 +60,13 @@ function WritePage() {
   const {mutate: submitForm} = useMutation({
     mutationFn: barter.postTradePost,
     onSuccess: async () => {
-      await queryClient.invalidateQueries({queryKey: ['']});
+      await queryClient.invalidateQueries({queryKey: ['tradeList']});
       await navigate({to: '/trade'});
     },
   });
 
   const disabled =
-    (!cropToGive && !cropsToGet.length) || !title || !content || !images.length;
+    !cropToGive || !cropsToGet.length || !title || !content || !images.length;
 
   function handleTitleChange(e: ChangeEvent<HTMLInputElement>) {
     setTitle(e.currentTarget.value);
@@ -84,6 +90,10 @@ function WritePage() {
     getLocation(coords);
   }
 
+  useEffect(() => {
+    getUserLocation(userId);
+  }, [getUserLocation, userId]);
+
   function handleSubmit() {
     // console.log(images);
     submitForm({
@@ -91,7 +101,7 @@ function WritePage() {
         title,
         content,
         shareStatus: isShared,
-        cropId: cropToGive!.cropCategoryId,
+        cropCategoryId: cropToGive!.cropCategoryId,
         locationId: position!.locationId,
         wishCropCategoryList: cropsToGet.map(crop => crop.cropCategoryId),
       },
@@ -102,7 +112,7 @@ function WritePage() {
   return (
     <div className={cx('writePage')}>
       <div className={cx('inputContainer')}>
-        <CropImage imgSrc={ImageLettuce} label="상추" />
+        <CropImage imgSrc={cropToGive!.image} label={cropToGive!.name}/>
         <LabeledInput
           label="제목"
           placeholder="제목을 입력하세요"
