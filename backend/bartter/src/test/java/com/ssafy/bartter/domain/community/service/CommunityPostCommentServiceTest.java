@@ -5,11 +5,9 @@ import com.ssafy.bartter.domain.community.dto.CommunityPostDto;
 import com.ssafy.bartter.domain.community.entity.CommunityPost;
 import com.ssafy.bartter.domain.community.entity.CommunityPostComment;
 import com.ssafy.bartter.domain.community.repository.CommunityPostCommentRepository;
-import com.ssafy.bartter.domain.user.entity.Gender;
 import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.domain.user.repository.UserRepository;
 import com.ssafy.bartter.global.exception.CustomException;
-import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.service.LocationService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,14 +15,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
+@ActiveProfiles("test")
+//@Sql({"/schema.sql", "/data.sql"})
 @Transactional
-//@SpringBootTest
+@SpringBootTest
 class CommunityPostCommentServiceTest {
 
     @Autowired
@@ -78,18 +78,8 @@ class CommunityPostCommentServiceTest {
 
     @BeforeEach
     void setUp() {
-        // User 생성
-        user = User.builder()
-                .username("testuser")
-                .password("1234")
-                .birth(LocalDate.of(1990, 01, 01))
-                .gender(Gender.M)
-                .phone("01012345678")
-                .nickname("testuser")
-                .location(locationService.getById(1))
-                .build();
-
-        userRepository.save(user);
+        // User
+        user = userRepository.findByUserId(1).get();
 
         // Post 생성
         CommunityPostDto.Create create = new CommunityPostDto.Create();
