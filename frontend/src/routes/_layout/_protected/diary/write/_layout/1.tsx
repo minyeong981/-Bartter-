@@ -9,14 +9,21 @@ import useRootStore from '@/store';
 
 import styles from '../write.module.scss';
 
+export interface SearchParamDate {
+  selectedDate?: string;
+  cropId?: number;
+}
+
 const cx = classnames.bind(styles);
 
-export interface SearchParamCropId {
-  cropId: number;
-}
 
 export const Route = createFileRoute('/_layout/_protected/diary/write/_layout/1')({
   component: DiaryWritePage,
+  validateSearch: (search: Record<string, unknown>): SearchParamDate => {
+    return {
+      selectedDate: search.selectedDate !== 'undefined' ? (search.selectedDate as string) : undefined,
+    };
+  },
 });
 
 function DiaryWritePage() {
@@ -41,7 +48,7 @@ function DiaryWritePage() {
             buttonStyle={{ style: 'primary', size: 'large' }}
             to="/diary/write/2"
             disabled={cropId === undefined}
-            search={{ cropId }}
+            search={prev => ({...prev, cropId })}
           >
             다음
           </LinkButton>
