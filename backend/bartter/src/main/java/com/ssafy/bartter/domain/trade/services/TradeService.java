@@ -35,10 +35,6 @@ public class TradeService {
         User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
-         int user1Id = tradePost.getUser().getId();
-         int tradeUserId = tradePost.getId();
-         log.debug("거래자 : {}, 글쓴이 : {}",user1Id,tradeUserId);
-        // 동일한 tradePost와 user가 있는지 조회
         Trade trade = tradeRepository.findByTradePostAndUser(tradePost, user).orElseGet(() -> createTrade(tradePost, user));
 
         return TradeInfo.of(tradePost, trade.getId(), userId);
@@ -81,4 +77,11 @@ public class TradeService {
         tradePost.changeStatus(newStatus);
     }
 
+    public List<Trade> getTradeListByTradePostId(int tradePostId) {
+        return tradeRepository.findTradeListByTradePostId(tradePostId);
+    }
+
+    public List<Trade> getTradeListByUserId(int userId) {
+        return tradeRepository.findTradeListByUserId(userId);
+    }
 }

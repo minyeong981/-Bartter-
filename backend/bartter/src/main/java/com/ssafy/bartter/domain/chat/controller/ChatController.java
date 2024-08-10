@@ -19,6 +19,8 @@ public class ChatController {
     @MessageMapping("/trade/chat")
     public void sendMessage(ChatMessage chatMessage) {
         log.debug("send chat message: {}", chatMessage);
+        String nickname = getNicknameByUserId(chatMessage.getSenderId());
+        chatMessage.setSenderNickname(nickname);
 
         switch (chatMessage.getType()){
             case CHAT:
@@ -33,5 +35,9 @@ public class ChatController {
             default:
                 break;
         }
+    }
+
+    private String getNicknameByUserId(int userId){
+        return redisChatService.getNicknameByUserId(userId);
     }
 }
