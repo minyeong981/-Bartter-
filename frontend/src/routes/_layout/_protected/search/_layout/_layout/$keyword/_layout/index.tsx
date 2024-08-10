@@ -7,17 +7,21 @@ import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndBut
 import Location from '@/components/Header/Location';
 import NeighborListCard from '@/components/Neighbor/NeighborListCard';
 import TradeCard from '@/components/TradeCard';
+import { useSearch } from '@/context/SearchContext';
 import barter from '@/services/barter';
 import useRootStore from '@/store';
 import querykeys from '@/util/querykeys';
 
 import styles from './index.module.scss';
 
-export const Route = createFileRoute('/_layout/_protected/search/$keyword/_layout/')({
+export const Route = createFileRoute('/_layout/_protected/search/_layout/_layout/$keyword/_layout/')({
   component: SearchResult,
 });
 
 export default function SearchResult() {
+
+  const { setIsSearchBarShow } = useSearch();
+  setIsSearchBarShow(false);
   const userId : UserId = useRootStore((state) => state.userId)
   const { keyword } : { keyword : string}= Route.useParams();
   const {sortBy}: {sortBy: string} = Route.useSearch();

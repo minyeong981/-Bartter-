@@ -1,38 +1,15 @@
-@use '@/styles/constants/colors' as colors;
-
-.header {
-  display: flex;
-  align-items: center;
-  width: 390px;
-  padding: 10px;
-
-  .inputContainer {
-    position: relative;
-    flex-grow: 1;
-
-    input {
-      width: 100%;
-      padding: 8px 10px;
-      font-size: 14px;
-      background-color: colors.$gray1;
-      border: 1px solid colors.$gray1;
-      border-radius: 4px;
+.search-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  
+    // align-items: center;
+    height: 100%;
+  
+    // padding: 0 20px;
+    overflow-y: scroll;
+  
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
-
-  .searchList {
-    margin-left: 20px;
-  }
-
-  .searchIcon {
-    margin-right: 10px;
-  }
-  
-  .searchBox {
-    padding-top: 5px;
-    padding-right: 250px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid colors.$gray1;
-
-  }
-}
