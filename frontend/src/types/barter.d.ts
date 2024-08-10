@@ -384,6 +384,18 @@ interface CropProfileForm {
 
 type AdditionalInfo = Position;
 
+interface SimpleTradeInfo {
+  tradeId: TradeId;
+  userProfile: SimpleUserProfile;
+  message: string;
+}
+
+interface TradeInfo {
+  tradeId: TradeId;
+  simpleTradePostDetail: SimpleTradePostDetail;
+  userProfile: SimpleUserProfile;
+}
+
 type GetCommunityPostListByUserId = BarterResponse<MyCommunityPostDetail[]>;
 type GetCommunityPostList = BarterResponse<SimpleCommunityPostDetail[]>;
 type PostCommunityPostResponse = BarterResponse<CommunityPostDetail>;
@@ -407,7 +419,9 @@ type GetDiaryListOfNeighborResponse = BarterResponse<CropDiaryDetailWithUser[]>;
 type GetSearch = BarterResponse<SimpleKeywordList>;
 type GetRecentKeyword = BarterResponse<string[]>;
 type GetTradePostListByKeyword = BarterResponse<SimpleTradePostDetail[]>;
-type GetCommunityPostListByKeyword = BarterResponse<SimpleCommunityPostDetail[]>;
+type GetCommunityPostListByKeyword = BarterResponse<
+  SimpleCommunityPostDetail[]
+>;
 type GetUserListByKeyword = BarterResponse<SimpleUserProfile[]>;
 type DeleteKeyword = BarterResponse<null>;
 type GetCropTradeListResponse = BarterResponse<SimpleTradePostDetail[]>;
@@ -425,6 +439,8 @@ type GetUserProfileResponse = BarterResponse<UserProfile>;
 type PostUserLocation = BarterResponse<SimpleLocation>;
 type GetUserLocationResponse = BarterResponse<SimpleLocation>;
 type GetHasDiaryResponse = BarterResponse<string[]>;
+type GetChatListResponse = BarterResponse<SimpleTradeInfo[]>;
+type GetChatRoomInfoResponse = BarterResponse<TradeInfo>;
 
 // TODO: 농작물 물물교환 API 부터는 GET요청만 정의
 // type SignupResponse = BarterResponse<null>;
