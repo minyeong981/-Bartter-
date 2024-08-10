@@ -3,6 +3,7 @@ package com.ssafy.bartter.domain.chat.service;
 import com.ssafy.bartter.domain.chat.dto.ChatMessage;
 import com.ssafy.bartter.domain.chat.repository.RedisChatRepository;
 import com.ssafy.bartter.domain.trade.services.TradeService;
+import com.ssafy.bartter.domain.user.services.UserService;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RedisChatService {
 
-    private final TradeService tradeService;
-    private final RedisChatRepository redisChatRepository;
     private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisChatRepository redisChatRepository;
+    private final TradeService tradeService;
+    private final UserService userService;
     private final ChannelTopic topic;
 
     public void publish(ChatMessage message) {
@@ -124,5 +126,14 @@ public class RedisChatService {
     public String getLastMessage(int tradeId) {
         List<ChatMessage> tradeChat = redisChatRepository.getTradeChat(tradeId, 0, 1);
         return tradeChat.isEmpty() ? "채팅이 시작되었습니다" : tradeChat.get(0).getContent();
+    }
+
+    public String getNicknameByUserId(int userId) {
+        String nickName = redisChatRepository.getNicknameByUserId(userId);
+        if(nickName == null){
+            nickName = userService.getNicknameByUserId(userId);
+            redisChatRepository.saveNickname(userId, nickName);
+        }
+        return nickName;
     }
 }

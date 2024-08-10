@@ -61,7 +61,7 @@ public class TradeController {
      * @return 물물교환 게시글에 해당하는 물물교환 거래의 정보
      */
     @GetMapping("/{tradePostId}/history")
-    @Operation(summary = "채팅방 정보 조회", description = "게시글 정보를 기준으로 채팅방 정보를 조회합니다.")
+    @Operation(summary = "게시글 정보 기준 채팅방 정보 조회", description = "게시글 정보를 기준으로 채팅방 정보를 조회합니다.")
     public SuccessResponse<List<SimpleTradeInfo>> getTradeListByTradePostId(
             @PathVariable("tradePostId") int tradePostId,
             @CurrentUser UserAuthDto user
