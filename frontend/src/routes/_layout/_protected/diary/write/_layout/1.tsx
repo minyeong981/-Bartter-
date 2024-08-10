@@ -33,7 +33,9 @@ function DiaryWritePage() {
         <div className={cx('headingContainer')}>
           <Heading>어떤 작물의 일지인가요?</Heading>
         </div>
+        <div className={cx('cropsitem')}>
         <UserCrops userId={userId} onSelectCrop={handleSelectCrop} />
+        </div>
         <div className={cx('buttonContainer')}>
           <LinkButton
             buttonStyle={{ style: 'primary', size: 'large' }}

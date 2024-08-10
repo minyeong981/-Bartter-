@@ -24,7 +24,6 @@ export const Route = createFileRoute('/_layout/_protected/diary/registerCrop/_la
 
 function CropProfilePage() {
   const { cropId } = Route.useSearch();
-  // const [imageUrl, setImageUrl] = useState<File>();
 
   const { data } = useSuspenseQuery({
     queryKey: ['cropProfile', cropId],
@@ -46,7 +45,7 @@ function CropProfilePage() {
           <div className={cx('nickname')}>{nickname}</div>
         </div>
         <div className={cx('rightSection')}>
-          <div className={cx('date')}>처음 만난 날짜: {growDate}</div>
+          <div className={cx('date')}>🗓️ 처음 만난 날짜 <br /> : {growDate}</div>
           <div className={cx('description')}>{description}</div>
         </div>
       </div>

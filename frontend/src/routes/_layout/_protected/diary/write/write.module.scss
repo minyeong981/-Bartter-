@@ -1,20 +1,28 @@
 @use '@/styles/constants/colors' as colors;
 @use '@/styles/constants/typographies.scss' as typo;
 
-.DiaryWritePage {
+.writeLayout {
   display: flex;
   flex-direction: column;
+  gap: 20px;
   align-items: center;
-  justify-content: center;
   height: 100%;
-  padding: 20px;
+  overflow-y: scroll;
 
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.DiaryWritePage {
   .headingContainer {
     display: flex;
-    flex: 2;
-    flex-direction: column;
-    align-self: flex-start;
-    justify-content: center;
+    flex: 1;
+    margin-top: 20px;
+
+  }
+  .cropsitem {
+    width: 100%;
   }
 
   .inputContainer {
@@ -39,8 +47,7 @@
   flex-direction: column;
   gap: 2rem;
   align-items: center;
-  min-height: 100vh;
-  padding: 20px;
+  padding: 20px 0;
 }
 
   .profileImage {

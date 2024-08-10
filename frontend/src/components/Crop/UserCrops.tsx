@@ -37,7 +37,7 @@ function UserCrops({ userId, onSelectCrop }: UserCropsProps) {
           <img src={notCrop} alt="notCrop" />
         </>
       ) : (
-        <>
+        <div className={cx('test')}>
           <h3 className={cx('crops-count')}>전체 작물 수 : {crops.length}</h3>
           <div className={cx('crop-list')}>
             {crops.map(crop => (
@@ -55,7 +55,7 @@ function UserCrops({ userId, onSelectCrop }: UserCropsProps) {
               </div>
             ))}
           </div>
-        </>
+        </div>
       )}
     </div>
   );
