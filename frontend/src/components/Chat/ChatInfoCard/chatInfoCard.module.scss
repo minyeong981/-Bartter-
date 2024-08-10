@@ -4,38 +4,42 @@
 
 .chatInfoCard {
   position: fixed;
-  display: flex;
-  gap: 10px;
-  align-items: center;
   width: 100%;
   padding: 10px 12px;
   background-color: white;
 
-  .chatImage {
-    flex-shrink: 0;
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 5px;
-  }
-
-  .info {
+  .content {
     display: flex;
-    flex-direction: column;
     gap: 10px;
-    justify-content: flex-start;
+    align-items: center;
+    color: colors.$black;
 
-    .title {
-      @include typographies.title;
+    .chatImage {
+      flex-shrink: 0;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 5px;
     }
 
-    .author {
-      @include typographies.name;
-    }
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      justify-content: flex-start;
 
-    .status {
-      @include typographies.label;
+      .title {
+        @include typographies.title;
+      }
+
+      .author {
+        @include typographies.name;
+      }
+
+      .status {
+        @include typographies.label;
+      }
     }
   }
 

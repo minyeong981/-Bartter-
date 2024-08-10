@@ -235,6 +235,21 @@ export default {
    */
   deleteTradePost: async (tradePostId: TradePostId) =>
     axios.delete(`/trades/posts/${tradePostId}`),
+  /**
+   *  물물교환 진행으로 변경
+   */
+  putTradeProgress: async (tradePostId: TradePostId) =>
+    axios.put(`/trades/posts/${tradePostId}/progress`),
+  /**
+   * 물물교환 예약으로 변경
+   */
+  putTradeReservation: async (tradePostId: TradePostId) =>
+    axios.put(`/trades/posts/${tradePostId}/reserve`),
+  /**
+   * 물물교환 완료로 변경
+   */
+  putTradeComplete: async (tradePostId: TradePostId) =>
+    axios.put(`/trades/posts/${tradePostId}/complete`),
 
   // 농사일지
   /**

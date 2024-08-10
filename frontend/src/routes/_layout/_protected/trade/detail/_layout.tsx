@@ -6,7 +6,7 @@ import {
 import {createFileRoute, Outlet} from '@tanstack/react-router';
 import {createContext} from 'react';
 
-import ChattingButtonContainer from '@/components/ChattingButtonContainer';
+import ChattingButtonContainer from '@/components/Chat/ChattingButtonContainer';
 import HeaderWithBackButton from '@/components/Header/HeaderWithBackButton.tsx';
 import barter from '@/services/barter.ts';
 import useRootStore from '@/store';
