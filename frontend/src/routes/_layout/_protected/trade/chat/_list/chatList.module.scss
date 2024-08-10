@@ -1,0 +1,12 @@
+@use "@/styles/constants/colors" as colors;
+@use '@/styles/constants/typographies' as typographies;
+
+.chatList {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
