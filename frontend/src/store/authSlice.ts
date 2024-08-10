@@ -18,7 +18,7 @@ export interface AuthSlice extends Auth {
 const INITIAL_AUTH_STATE: Auth = {
   token: '',
   isLogin: false,
-  userId: '',
+  userId: 0,
   username: '',
 };
 
@@ -31,7 +31,7 @@ export const createAuthSlice: StateCreator<
   ...INITIAL_AUTH_STATE,
   login: token => {
     const payload = jwtDecode<JWT_PAYLOAD>(token);
-    const userId = String(payload.userId);
+    const userId = payload.userId;
     const {sub: username} = payload;
     set({token, isLogin: true, userId, username});
   },
