@@ -5,7 +5,7 @@ import useRootStore from '@/store';
 import parser from '@/util/parser.ts';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: import.meta.env.VITE_BASEURL,
   responseType: 'json',
   timeout: 4000,
   withCredentials: true

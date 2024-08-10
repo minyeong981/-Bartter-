@@ -15,7 +15,7 @@ export const Route = createFileRoute('/_layout/login/entrance/')({
 
 function EntrancePage() {
   function handleKakaoButton() {
-    window.open('http://localhost:8080/oauth2/authorization/kakao', '_self');
+    window.open(import.meta.env.BASEURL + '/oauth2/authorization/kakao', '_self');
   }
 
   return (
