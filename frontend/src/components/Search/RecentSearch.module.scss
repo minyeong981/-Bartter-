@@ -1,37 +1,44 @@
 @use '@/styles/constants/colors.scss' as colors;
 @use '@/styles/constants/typographies.scss' as typo;
 
-.recentSearchContainer {
+.container {
     box-sizing: border-box;
     display: flex;
-    flex-wrap: wrap; 
-    gap: 10px; 
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-start; 
+    width: 100%; 
     max-width: 370px; 
-    padding: 10px; 
+    padding: 10px;
     margin-left: 10px;
-    overflow-x: hidden;
+    overflow: hidden; 
 }
 
-.searchItem {
+.search-item {
+    box-sizing: border-box;
     display: flex;
     align-items: center;
+    max-width: calc(100% - 24px); 
     padding: 8px 12px;
+    overflow: hidden; 
     white-space: nowrap;
     cursor: pointer;
     background-color: rgba(colors.$primary, 0.3);
-    border-radius: 20px; 
+    border-radius: 20px;
 }
 
-.searchText {
+.search-text {
     padding-left: 6px;
     margin-right: 5px;
+    overflow: hidden; 
+    color: colors.$primary;
+    text-overflow: ellipsis; 
+    white-space: nowrap;
 
     @include typo.name;
-
-    color: colors.$primary;
 }
 
-.deleteButton {
+.delete-button {
     display: flex;
     align-items: center;
     color: colors.$white;

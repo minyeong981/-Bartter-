@@ -43,8 +43,10 @@ export default function SearchResult({
             <div className={cx('title')}>
             <div>물물 교환</div>
              </div>
+             <div className={cx('trade')}>
             {results.tradePostList.map((trade, tradeIndex) => 
             <TradeCard key={tradeIndex} {...trade}/> )}
+             </div>
         </div>
       <div className={cx('link-button-container')}>
         <LinkButton 

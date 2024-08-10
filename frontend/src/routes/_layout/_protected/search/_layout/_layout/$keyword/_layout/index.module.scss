@@ -1,26 +1,37 @@
 @use '@/styles/constants/typographies.scss' as typo;
 @use '@/styles/constants/colors.scss' as colors;
 
-// .HeaderWithLabelAndButtonsLayout {
-//     position: fixed;
-//     top: 0;
-// }
 
-.resultBox {
+.result-box {
     @include typo.heading;
 
     display: flex;
     margin-top: 10px;
     margin-left: 20px;
 
-    .resultText {
+    .result-text {
         padding-right: 10px;
-        margin-bottom: 10px;
         color: colors.$primary;
     }
 }
 
-// .sortByResultFixed {
-//     position: fixed;
-//     top: 162px
-// }
+
+.trade {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    height: 100%;
+    padding: 0 20px;
+    overflow-y: scroll;
+}
+
+.community {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.neighbor {
+    height: 100%;
+    overflow-y: scroll;
+}

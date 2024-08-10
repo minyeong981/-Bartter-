@@ -15,11 +15,10 @@ export const Route = createFileRoute('/_layout/_protected/search/_layout/_layout
 
 export default function Search() {
 
-  const { query, setQuery, keyword, setKeyword, isSearch, setIsSearch, setIsSearchBarShow} = useSearch()
+  const { query, setQuery, keyword, setKeyword, isSearch, setIsSearch} = useSearch()
   const myId = useRootStore((state) => state.userId)
   const queryClient = useQueryClient();
 
-  setIsSearchBarShow(true);
 
   // 유저의 위치 가져오기
   const {data : Location} = useSuspenseQuery({
@@ -93,6 +92,7 @@ export default function Search() {
     }
 
     function handleFollowClick(userId: UserId, isFollow: IsFollowed) {
+      console.log('나', myId, '유저', userId, isFollow)
       followMutation.mutate({userId, isFollow})
     }
 

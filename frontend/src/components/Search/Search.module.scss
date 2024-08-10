@@ -10,20 +10,20 @@
   input {
     width: 100%;
     padding: 0.5rem 2rem 0.5rem 0.5rem;
-    border: none;
     background-color: colors.$gray1;
+    border: none;
     border-radius: 4px;
   }
 
   .clearButton {
     position: absolute;
     right: 0.5rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
     display: flex;
     align-items: center;
+    padding: 0;
+    cursor: pointer;
+    background: none;
+    border: none;
 
     img {
       width: 16px; 
