@@ -34,9 +34,11 @@ function CropProfilePage() {
   const { nickname, growDate, description, image} = data.data.data;
 
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>나만의 작물이 등록되었습니다.</Heading>
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>나만의 작물이 등록되었습니다.</Heading>
+        </div>
       </div>
       <Lottie loop animationData={RegisterAnimation} play className={cx('animation')} />
       <div className={cx('noteStyle')}>
@@ -57,7 +59,7 @@ function CropProfilePage() {
           완료
         </LinkButton>
       </div>
-    </>
+    </div>
   );
 }
 

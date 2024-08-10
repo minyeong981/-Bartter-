@@ -46,20 +46,22 @@ function GetDatePage() {
   }
 
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>
-          {nickname}과/와
-          <br />
-          처음 만난 날짜를 입력해주세요.
-        </Heading>
-      </div>
-      <div className={cx('inputContainer')}>
-        <SemiCalendarInput
-          label="처음 만난 날짜"
-          selectedDate={selectedDate}
-          onDateChange={handleDateChange}
-        />
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>
+            {nickname}과/와
+            <br />
+            처음 만난 날짜를 입력해주세요.
+          </Heading>
+        </div>
+        <div className={cx('inputContainer')}>
+          <SemiCalendarInput
+            label="처음 만난 날짜"
+            selectedDate={selectedDate}
+            onDateChange={handleDateChange}
+          />
+        </div>
       </div>
       <div className={cx('buttonContainer')}>
         <LinkButton
@@ -70,7 +72,7 @@ function GetDatePage() {
           다음
         </LinkButton>
       </div>
-    </>
+    </div>
   );
 }
 

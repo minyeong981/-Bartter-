@@ -15,6 +15,10 @@
 }
 
 .DiaryWritePage {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+
   .headingContainer {
     display: flex;
     flex: 1;
