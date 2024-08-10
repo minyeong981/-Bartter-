@@ -52,13 +52,15 @@ function GetEmailPage() {
   }
 
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>
-          농부님의
-          <br />
-          이메일을 알려주세요
-        </Heading>
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>
+            농부님의
+            <br />
+            이메일을 알려주세요
+          </Heading>
+        </div>
       </div>
       <div className={cx('inputContainer')}>
         <LabeledInput
@@ -85,6 +87,6 @@ function GetEmailPage() {
           건너뛰기
         </GeneralButton>
       </div>
-    </>
+    </div>
   );
 }

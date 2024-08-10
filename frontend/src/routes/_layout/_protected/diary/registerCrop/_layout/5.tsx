@@ -37,7 +37,7 @@ function CropProfilePage() {
     <div className={cx('container')}>
       <div className={cx('mainContainer')}>
         <div className={cx('headingContainer')}>
-          <Heading>나만의 작물이 등록되었습니다.</Heading>
+          <Heading>나만의 작물이 등록되었습니다!</Heading>
         </div>
       </div>
       <Lottie loop animationData={RegisterAnimation} play className={cx('animation')} />

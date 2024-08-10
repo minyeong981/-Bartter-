@@ -69,13 +69,15 @@ function GetLocationPage() {
   if (isPending) return <Spinner />;
 
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>
-          농부님의
-          <br />
-          위치를 등록해주세요
-        </Heading>
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>
+            농부님의
+            <br />
+            위치를 등록해주세요
+          </Heading>
+        </div>
       </div>
       <div className={cx('inputContainer')} />
       <div className={cx('buttonContainer')}>
@@ -86,6 +88,6 @@ function GetLocationPage() {
           위치 등록하기
         </GeneralButton>
       </div>
-    </>
+    </div>
   );
 }

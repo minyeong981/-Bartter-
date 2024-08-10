@@ -35,7 +35,7 @@ function GetNicknamePage() {
           <Heading>
             내 작물의
             <br />
-            별명을 지어주세요.
+            별명을 지어주세요
           </Heading>
         </div>
         <div className={cx('inputContainer')}>
@@ -47,6 +47,7 @@ function GetNicknamePage() {
           />
         </div>
       </div>
+      
       <div className={cx('buttonContainer')}>
         <LinkButton
           buttonStyle={{ style: 'primary', size: 'large' }}

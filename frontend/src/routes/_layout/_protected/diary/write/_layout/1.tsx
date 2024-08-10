@@ -28,8 +28,8 @@ function DiaryWritePage() {
   };
 
   return (
-    <div>
-      <div className={cx('DiaryWritePage')}>
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
         <div className={cx('headingContainer')}>
           <Heading>어떤 작물의 일지인가요?</Heading>
         </div>

@@ -117,12 +117,13 @@ export default function DiaryWritePage2() {
   const maxImages = 1; // 허용된 최대 이미지 개수
 
   return (
-    <div>
-      <div className={cx('writePage2Container')}>
-        <div className={cx('CropProfile')}>
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('cropProfile')}>
           <img src={diaryCrop?.image ? diaryCrop.image : ''} alt="등록한 작물" className={cx('profileImage')} />
           <span className={cx('nickname')}>{diaryCrop?.nickname || ''}</span>
         </div>
+        <div className={cx('headingContainer')}>
         <SemiCalendarInput
           label="날짜"
           onDateChange={handleDateChange}
@@ -143,6 +144,7 @@ export default function DiaryWritePage2() {
         <div className={cx('photoContainer')}>
           <p className={cx('photoText')}>사진 ({image.length}/ {maxImages}) </p>
           <ImageInput onImageChange={handleImageChange} maxImages={maxImages} />
+        </div>
         </div>
         <div className={cx('buttonContainer')}>
           <GeneralButton

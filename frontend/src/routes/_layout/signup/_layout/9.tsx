@@ -30,9 +30,11 @@ export const Route = createFileRoute('/_layout/signup/_layout/9')({
 
 function greetingPage() {
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>농부님, 환영합니다!</Heading>
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>농부님, 환영합니다!</Heading>
+        </div>
       </div>
       <div className={cx('inputContainer')}>
         <Lottie loop animationData={greetingAnimation} play />
@@ -45,6 +47,6 @@ function greetingPage() {
           로그인하러 가기
         </GeneralButton>
       </div>
-    </>
+    </div>
   );
 }
