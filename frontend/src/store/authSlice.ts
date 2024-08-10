@@ -31,7 +31,7 @@ export const createAuthSlice: StateCreator<
   ...INITIAL_AUTH_STATE,
   login: token => {
     const payload = jwtDecode<JWT_PAYLOAD>(token);
-    const userId = Number(payload.userId);
+    const userId = payload.userId;
     const {sub: username} = payload;
     set({token, isLogin: true, userId, username});
   },

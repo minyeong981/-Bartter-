@@ -4,7 +4,7 @@ import {useRef, useState} from 'react';
 import styles from './carousel.module.scss';
 
 interface CarouselProps {
-  images?: string[];
+  images: string[];
 }
 
 const cx = classnames.bind(styles);
@@ -32,7 +32,7 @@ export default function Carousel({images = []}: CarouselProps) {
       >
         {images.length &&
           images.map((imageUrl, index) => (
-            <img key={`image-${index}`} src={'http://'+imageUrl} alt="작물 이미지" />
+            <img key={`image-${index}`} src={imageUrl} alt="작물 이미지" />
           ))}
       </div>
       <div className={cx('indicator')}>{indicator}</div>

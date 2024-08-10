@@ -1,0 +1,21 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typographies;
+
+
+.message {
+  @include typographies.heading;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  max-width: 60%;
+  padding: 4px 20px;
+  color: colors.$black;
+  background-color: colors.$gray1;
+  border-radius: 4px;
+
+  &.mine {
+    align-self: flex-end;
+  }
+}

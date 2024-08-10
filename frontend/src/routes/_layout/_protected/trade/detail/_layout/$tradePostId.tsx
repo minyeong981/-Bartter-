@@ -16,7 +16,7 @@ import styles from './detail.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/_protected/trade/detail/_layout/$tradeId')({
+export const Route = createFileRoute('/_layout/_protected/trade/detail/_layout/$tradePostId')({
   component: TradeDetailPage,
 });
 
