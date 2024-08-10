@@ -2,7 +2,7 @@ import {useSuspenseQuery} from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 
-import ChatListItem from '@/components/Chat/ChatListItem.tsx';
+import ChatListItem from '@/components/Chat/ChatListItem/ChatListItem.tsx';
 import barter from '@/services/barter.ts';
 import useRootStore from '@/store';
 

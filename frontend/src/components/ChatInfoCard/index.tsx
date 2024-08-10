@@ -10,6 +10,12 @@ export default function ChatInfoCard({
   simpleTradePostDetail,
   userProfile,
 }: ChatInfoCardProps) {
+  const STATUS = {
+    PROGRESS: '거래가능',
+    RESERVED: '예약중',
+    COMPLETED: '거래완료',
+  }[simpleTradePostDetail.status];
+
   return (
     <div className={cx('chatInfoCard')}>
       <img
@@ -20,7 +26,7 @@ export default function ChatInfoCard({
       <div className={cx('info')}>
         <h1 className={cx('title')}>{simpleTradePostDetail.title}</h1>
         <p className={cx('author')}>{userProfile.nickname}</p>
-        <p className={cx('status')}>{simpleTradePostDetail.status}</p>
+        <p className={cx('status')}>{STATUS}</p>
       </div>
       <button className={cx('button')}>예약하기</button>
     </div>

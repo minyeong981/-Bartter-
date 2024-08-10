@@ -5,6 +5,7 @@ import classnames from 'classnames/bind';
 import type {ChangeEvent, KeyboardEvent, UIEvent} from 'react';
 import {useEffect, useMemo, useRef, useState} from 'react';
 
+import ChatMessage from '@/components/Chat/ChatMessage';
 import useRootStore from '@/store';
 import axios from '@/util/axios.ts';
 
@@ -43,6 +44,7 @@ function ChatPage() {
 
           client.subscribe(`/sub/trade/chat/${tradeId}`, message => {
             const data: ChatMessage = JSON.parse(message.body);
+            console.log(data);
             setMessages(prevMessages => [...prevMessages, data]);
           });
         },
@@ -169,12 +171,11 @@ function ChatPage() {
     <div className={cx('chatting')}>
       <div ref={scrollRef} onScroll={handleScroll} className={cx('board')}>
         {messages.map((msg, index) => (
-          <div
-            key={`${index}-${msg.senderId}`}
-            className={cx('message', {mine: msg.senderId == userId})}
-          >
-            {msg.content}
-          </div>
+          <ChatMessage
+            key={`${index}-${msg.tradeId}`}
+            {...msg}
+            mine={msg.senderId === userId}
+          />
         ))}
         <br />
       </div>

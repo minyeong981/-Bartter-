@@ -16,11 +16,11 @@ function ChatLayout() {
 
   const {data} = useSuspenseQuery({
     queryFn: () => barter.getChatRoomInfo(Number(tradePostId)),
-    queryKey: ['trade', tradePostId],
+    queryKey: ['trade', 'chat', tradePostId],
   });
 
   const chatRoomInfo = data.data.data;
-  console.log(chatRoomInfo);
+  console.log(chatRoomInfo.userProfile);
 
   return (
     <>

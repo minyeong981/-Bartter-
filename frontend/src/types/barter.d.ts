@@ -278,6 +278,7 @@ interface ChatMessage {
   content: Content;
   senderId: SenderId;
   tradeId: TradeId;
+  senderNickname?: Nickname;
 }
 
 interface TradeInfo {
