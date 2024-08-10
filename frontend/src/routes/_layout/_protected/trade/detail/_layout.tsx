@@ -1,7 +1,7 @@
 import {
   useMutation,
   useQueryClient,
-  useSuspenseQuery,
+  useSuspenseQueries,
 } from '@tanstack/react-query';
 import {createFileRoute, Outlet} from '@tanstack/react-router';
 import {createContext} from 'react';
@@ -9,6 +9,7 @@ import {createContext} from 'react';
 import ChattingButtonContainer from '@/components/ChattingButtonContainer';
 import HeaderWithBackButton from '@/components/Header/HeaderWithBackButton.tsx';
 import barter from '@/services/barter.ts';
+import useRootStore from '@/store';
 
 const DEFAULT_TRADE_DETAIL: TradePostDetail = {
   imageList: [],
@@ -36,16 +37,30 @@ export const Route = createFileRoute(
 
 function TradeDetailLayout() {
   const queryClient = useQueryClient();
-  const {tradeId}: {tradeId: number} = Route.useParams();
-  const {data} = useSuspenseQuery({
-    queryKey: ['trade', tradeId],
-    queryFn: () => barter.getTradePostDetail(Number(tradeId)),
+  const userId = useRootStore(state => state.userId);
+  const {tradePostId}: {tradePostId: number} = Route.useParams();
+  const results = useSuspenseQueries({
+    queries: [
+      {
+        queryKey: ['trade', tradePostId],
+        queryFn: () => barter.getTradePostDetail(tradePostId),
+      },
+      {
+        queryKey: ['trade', 'chat', tradePostId],
+        queryFn: () => barter.getChatRoomInfo(tradePostId),
+      },
+    ],
   });
+  const tradePostDetailData = results[0].data.data.data;
+  const {tradeId} = results[1].data.data.data;
+  const isMyTrade =
+    Number(tradePostDetailData.author.userId) === Number(userId);
+
   const {mutate: like} = useMutation({
     mutationFn: barter.likeTradePost,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: ['trade', tradeId],
+        queryKey: ['trade', tradePostId],
       });
     },
   });
@@ -53,12 +68,10 @@ function TradeDetailLayout() {
     mutationFn: barter.unLikeTradePost,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: ['trade', tradeId],
+        queryKey: ['trade', tradePostId],
       });
     },
   });
-
-  const tradePostDetailData = data.data.data;
 
   function handleLike(isLike: boolean) {
     if (isLike) {
@@ -78,6 +91,7 @@ function TradeDetailLayout() {
         like={tradePostDetailData.isLike}
         handleLike={handleLike}
         tradeId={tradeId}
+        isMyTrade={isMyTrade}
       />
     </>
   );

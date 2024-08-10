@@ -12,99 +12,6 @@ import styles from './chat.module.scss';
 
 const cx = classnames.bind(styles);
 
-const chatMessages: ChatMessage[] = [
-  {type: 'CHAT', content: '안녕하세요!', senderId: 1, tradeId: 101},
-  {type: 'CHAT', content: '반갑습니다.', senderId: 2, tradeId: 101},
-  {type: 'JOIN', content: '', senderId: 3, tradeId: 102},
-  {type: 'CHAT', content: '거래 시작할까요?', senderId: 3, tradeId: 102},
-  {type: 'CHAT', content: '네, 준비됐습니다.', senderId: 4, tradeId: 102},
-  {type: 'LEAVE', content: '', senderId: 1, tradeId: 101},
-  {
-    type: 'CHAT',
-    content: '거래 품목은 확인하셨나요?',
-    senderId: 3,
-    tradeId: 102,
-  },
-  {type: 'CHAT', content: '네, 잘 확인했습니다.', senderId: 4, tradeId: 102},
-  {type: 'CHAT', content: '궁금한 점이 있나요?', senderId: 3, tradeId: 102},
-  {type: 'CHAT', content: '현재로선 없습니다.', senderId: 4, tradeId: 102},
-  {type: 'CHAT', content: '잘 진행되길 바랍니다.', senderId: 3, tradeId: 102},
-  {type: 'CHAT', content: '고맙습니다.', senderId: 4, tradeId: 102},
-  {type: 'JOIN', content: '', senderId: 5, tradeId: 103},
-  {
-    type: 'CHAT',
-    content: '이 거래 관련해서 문의드립니다.',
-    senderId: 5,
-    tradeId: 103,
-  },
-  {type: 'CHAT', content: '문의 사항 말씀해주세요.', senderId: 6, tradeId: 103},
-  {
-    type: 'CHAT',
-    content: '거래 조건이 어떻게 되나요?',
-    senderId: 5,
-    tradeId: 103,
-  },
-  {type: 'CHAT', content: '조건은 이러합니다...', senderId: 6, tradeId: 103},
-  {
-    type: 'CHAT',
-    content: '확인했습니다, 감사합니다.',
-    senderId: 5,
-    tradeId: 103,
-  },
-  {type: 'LEAVE', content: '', senderId: 4, tradeId: 102},
-  {
-    type: 'CHAT',
-    content: '저도 나가겠습니다. 좋은 하루 보내세요!',
-    senderId: 3,
-    tradeId: 102,
-  },
-  {type: 'CHAT', content: '안녕하세요!', senderId: 1, tradeId: 101},
-  {type: 'CHAT', content: '반갑습니다.', senderId: 2, tradeId: 101},
-  {type: 'JOIN', content: '', senderId: 3, tradeId: 102},
-  {type: 'CHAT', content: '거래 시작할까요?', senderId: 3, tradeId: 102},
-  {type: 'CHAT', content: '네, 준비됐습니다.', senderId: 4, tradeId: 102},
-  {type: 'LEAVE', content: '', senderId: 1, tradeId: 101},
-  {
-    type: 'CHAT',
-    content: '거래 품목은 확인하셨나요?',
-    senderId: 3,
-    tradeId: 102,
-  },
-  {type: 'CHAT', content: '네, 잘 확인했습니다.', senderId: 4, tradeId: 102},
-  {type: 'CHAT', content: '궁금한 점이 있나요?', senderId: 3, tradeId: 102},
-  {type: 'CHAT', content: '현재로선 없습니다.', senderId: 4, tradeId: 102},
-  {type: 'CHAT', content: '잘 진행되길 바랍니다.', senderId: 3, tradeId: 102},
-  {type: 'CHAT', content: '고맙습니다.', senderId: 4, tradeId: 102},
-  {type: 'JOIN', content: '', senderId: 5, tradeId: 103},
-  {
-    type: 'CHAT',
-    content: '이 거래 관련해서 문의드립니다.',
-    senderId: 5,
-    tradeId: 103,
-  },
-  {type: 'CHAT', content: '문의 사항 말씀해주세요.', senderId: 6, tradeId: 103},
-  {
-    type: 'CHAT',
-    content: '거래 조건이 어떻게 되나요?',
-    senderId: 5,
-    tradeId: 103,
-  },
-  {type: 'CHAT', content: '조건은 이러합니다...', senderId: 6, tradeId: 103},
-  {
-    type: 'CHAT',
-    content: '확인했습니다, 감사합니다.',
-    senderId: 5,
-    tradeId: 103,
-  },
-  {type: 'LEAVE', content: '', senderId: 4, tradeId: 102},
-  {
-    type: 'CHAT',
-    content: '저도 나가겠습니다. 좋은 하루 보내세요!',
-    senderId: 3,
-    tradeId: 102,
-  },
-];
-
 export const Route = createFileRoute(
   '/_layout/_protected/trade/chat/_room/$tradeId',
 )({
@@ -261,7 +168,7 @@ function ChatPage() {
   return (
     <div className={cx('chatting')}>
       <div ref={scrollRef} onScroll={handleScroll} className={cx('board')}>
-        {chatMessages.map((msg, index) => (
+        {messages.map((msg, index) => (
           <div
             key={`${index}-${msg.senderId}`}
             className={cx('message', {mine: msg.senderId == userId})}

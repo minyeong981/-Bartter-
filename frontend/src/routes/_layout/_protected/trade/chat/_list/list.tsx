@@ -1,7 +1,10 @@
+import {useSuspenseQuery} from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 
 import ChatListItem from '@/components/Chat/ChatListItem.tsx';
+import barter from '@/services/barter.ts';
+import useRootStore from '@/store';
 
 import styles from './chatList.module.scss';
 
@@ -14,15 +17,26 @@ export const Route = createFileRoute(
 });
 
 function ChatListPage() {
+  const userId = useRootStore(state => state.userId);
+  const {data} = useSuspenseQuery({
+    queryFn: () => barter.getChatList(userId),
+    queryKey: ['chat', userId],
+  });
+
+  const chatListData = data.data.data;
+
   return (
     <div className={cx('chatList')}>
-      <ChatListItem
-        img="https://health.chosun.com/site/data/img_dir/2023/07/17/2023071701753_0.jpg"
-        sender="훈만"
-        item="고양이"
-        lastMessage="고양이를 어떻게 키우는지 알려주세요 수수수수퍼노바"
-        tradeId={1}
-      />
+      {!!chatListData.length &&
+        chatListData.map(chat => (
+          <ChatListItem
+            img={chat.userProfile.profileImage}
+            sender={chat.userProfile.nickname}
+            item="고양이"
+            lastMessage={chat.message}
+            tradeId={chat.tradeId}
+          />
+        ))}
     </div>
   );
 }
