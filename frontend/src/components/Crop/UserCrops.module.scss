@@ -26,7 +26,6 @@
 .crop-card {
   width: 100%;
   padding: 16px; 
-  // margin: 10px 0;
   border: none;
   transition: border-color 0.3s;
 
@@ -46,7 +45,7 @@
   width: 70px;
   height: 70px;
   overflow: hidden;
-  border: 1px solid colors.$divider2;
+  border: 1.5px solid colors.$divider2;
   border-radius: 50%;
   transition: border-color 0.3s;
 

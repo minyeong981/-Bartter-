@@ -5,7 +5,7 @@ import classnames from 'classnames/bind';
 import barter from '@/services/barter';
 import querykeys from '@/util/querykeys';
 
-import styles from './DiaryDetail.module.scss';
+import styles from './DiaryThumbnail.module.scss';
 
 const cx = classnames.bind(styles);
 
@@ -21,19 +21,12 @@ export default function DiaryDetail({ cropDiaryId }: { cropDiaryId: number }) {
 
   if (!diaryThumbnail.image) return;
 
-  // const images = diaryThumbnail.image.split(',');
-
   return (
-    // ui 한 줄에 두개씩 -> 변경해야함
-    <div className={cx('diaryDetailContainer')}>
-      <div className={cx('thumbnailList')}>
-        <img
-          className={cx('thumbnail')}
-          src={diaryThumbnail.image}
-          alt={`Diary entry ${diaryThumbnail.cropDiaryId}`}
-          onClick={() => navigate({ to: `/diary/detail/${diaryThumbnail.cropDiaryId}` })}
-        />
-      </div>
-    </div>
+    <img
+      className={cx('thumbnail')}
+      src={diaryThumbnail.image}
+      alt={`Diary entry ${diaryThumbnail.cropDiaryId}`}
+      onClick={() => navigate({ to: `/diary/detail/${diaryThumbnail.cropDiaryId}` })}
+    />
   );
 }
