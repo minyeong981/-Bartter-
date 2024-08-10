@@ -407,8 +407,8 @@ interface SearchContextType {
   setKeyword: React.Dispatch<React.SetStateAction<string>>;
   isSearch: boolean;
   setIsSearch : React.Dispatch<React.SetStateAction<boolean>>;
-  isSearchBarShow : boolean;
-  setIsSearchBarShow: React.Dispatch<React.SetStateAction<boolean>>;
+  isShow : boolean;
+  setIsShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 type AdditionalInfo = Position;
 

@@ -18,8 +18,7 @@ export const SearchProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const [query, setQuery] = useState<string>('');
   const [keyword, setKeyword ] = useState<string>('');
   const [ isSearch, setIsSearch ] = useState<boolean>(false);
-  const [ isSearchBarShow, setIsSearchBarShow ] = useState<boolean>(true);
-
+  const [ isShow, setIsShow ] = useState<boolean>(true);
 
   // useMemo를 사용하여 context value를 메모이제이션
   const value = useMemo(() => ({
@@ -29,9 +28,9 @@ export const SearchProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     setKeyword,
     isSearch,
     setIsSearch,
-    isSearchBarShow,
-    setIsSearchBarShow
-  }), [query, keyword, isSearch, isSearchBarShow]);
+    isShow,
+    setIsShow
+  }), [query, keyword, isSearch, isShow]);
 
   return (
     <SearchContext.Provider value={value}>

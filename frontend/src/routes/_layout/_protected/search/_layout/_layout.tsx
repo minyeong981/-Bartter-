@@ -1,6 +1,7 @@
 import { useMutation,useQueryClient } from '@tanstack/react-query'
-import { createFileRoute,Outlet } from '@tanstack/react-router'
+import { createFileRoute,Outlet, useLocation } from '@tanstack/react-router'
 import classnames from 'classnames/bind'
+import { useEffect } from 'react'
 
 import SearchBar from '@/components/Search/SearchBar'
 import { useSearch  } from '@/context/SearchContext'
@@ -16,8 +17,10 @@ const cx = classnames.bind(styles)
 
 export default function SearchLayout() {
 
-    const { query, setQuery, setIsSearch, setKeyword, isSearchBarShow} = useSearch();
+    const { query, setQuery, setIsSearch, keyword, setKeyword, isShow, setIsShow } = useSearch();
     const queryClient = useQueryClient();
+
+    const location = useLocation();
 
     // 검색 결과 => invalidateQueries 이용 최근 검색어 저장
     const searchMutation = useMutation({
@@ -49,16 +52,34 @@ export default function SearchLayout() {
         setQuery('')
         setKeyword('')
     }
- 
+
+    useEffect(() => {
+        const decodedPathname = decodeURIComponent(location.pathname);
+
+        const searchKeywordPath = `search/${keyword}`; // 한글을 인식못해서 디코딩해줌.
+    
+        console.log(99999);
+        console.log(decodedPathname);
+        console.log(keyword);
+    
+        if (decodedPathname.includes(searchKeywordPath)) {
+          console.log('@@@@@@');
+          setIsShow(false);
+        } else {
+          setIsShow(true);
+        }
+      }, [location.pathname, keyword, setIsShow, query]);
+    
     return (
         <div className={cx('search-layout')}>
-            { isSearchBarShow &&
-                <SearchBar 
+    { isShow &&           
+        <SearchBar 
             query={query} 
             onSearch={handleSearch} 
             onInputChange={handleInputChange} 
             onClear={handleClear} 
-            /> }
+            /> 
+            }
             <Outlet />
         </div>
     )
