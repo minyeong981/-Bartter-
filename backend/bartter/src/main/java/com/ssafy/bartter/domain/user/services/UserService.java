@@ -5,6 +5,7 @@ import com.ssafy.bartter.domain.user.dto.UserDto;
 import com.ssafy.bartter.domain.user.dto.UserJoinDto;
 import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.domain.user.repository.FollowRepository;
+import com.ssafy.bartter.domain.user.repository.RedisFcmRepository;
 import com.ssafy.bartter.domain.user.repository.UserRepository;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.global.common.SimpleLocation;
@@ -31,10 +32,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final FollowRepository followRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final RedisFcmRepository redisFcmRepository;
+    private final FollowRepository followRepository;
     private final LocationService locationService;
+    private final UserRepository userRepository;
 
     @Value("${cloud.aws.url}")
     private String url;
@@ -90,7 +92,7 @@ public class UserService {
      */
     public List<User> getUsers(int offset, int limit, String keyword) {
         PageRequest pageable = PageRequest.of(offset, limit);
-        return userRepository.findUserListByKeyword(keyword,pageable).getContent();
+        return userRepository.findUserListByKeyword(keyword, pageable).getContent();
     }
 
     /**
@@ -161,5 +163,15 @@ public class UserService {
      */
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    /**
+     * 레디스에 사용자 FCM 토큰을 저장
+     *
+     * @param token FCM 토큰
+     * @param userId 사용자 Id
+     */
+    public void saveFcmToken(int userId, String token) {
+        redisFcmRepository.save(userId, token);
     }
 }

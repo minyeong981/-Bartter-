@@ -3,6 +3,7 @@ package com.ssafy.bartter.domain.user.dto;
 import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.global.common.SimpleLocation;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 
 /**
@@ -59,5 +60,10 @@ public class UserDto {
                     .isFollowed(isFollowed)
                     .build();
         }
+    }
+
+    @Data
+    public static class FcmToken{
+        String token;
     }
 }

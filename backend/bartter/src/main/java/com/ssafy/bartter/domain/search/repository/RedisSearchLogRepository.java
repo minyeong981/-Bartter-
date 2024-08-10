@@ -5,6 +5,7 @@ import com.ssafy.bartter.global.cache.CacheKey;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -15,7 +16,7 @@ import java.util.Set;
 import static com.ssafy.bartter.domain.search.dto.SearchDto.SEARCH_KEYWORD_SIZE;
 
 @Slf4j
-@Service
+@Repository
 @RequiredArgsConstructor
 public class RedisSearchLogRepository {
 
