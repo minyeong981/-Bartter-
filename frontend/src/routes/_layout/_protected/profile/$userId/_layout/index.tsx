@@ -33,7 +33,7 @@ function Profile() {
   const [ isFollowed, setIsFollowed ] = useState<boolean>(false);
 
   const userData = profileData.data.data;
-  const cropCount = cropData.data.data.receive.length;
+  const cropCount = cropData.data.data.receive.length || 0;
 
   useEffect(() => {
     if (userData.isFollowed !== undefined) {

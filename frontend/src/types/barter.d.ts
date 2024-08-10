@@ -399,6 +399,17 @@ interface CropDiaryForm {
   image:File[];
   performDate:string;
 }
+
+interface SearchContextType {
+  query: string;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
+  keyword:string;
+  setKeyword: React.Dispatch<React.SetStateAction<string>>;
+  isSearch: boolean;
+  setIsSearch : React.Dispatch<React.SetStateAction<boolean>>;
+  isSearchBarShow : boolean;
+  setIsSearchBarShow: React.Dispatch<React.SetStateAction<boolean>>;
+}
 type AdditionalInfo = Position;
 
 type GetCommunityPostListByUserId = BarterResponse<MyCommunityPostDetail[]>;
