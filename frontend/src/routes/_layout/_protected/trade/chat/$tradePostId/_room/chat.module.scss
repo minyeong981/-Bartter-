@@ -11,19 +11,21 @@
   .board {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 10px;
     width: 100%;
     height: 100%;
-    padding: 140px 5px 0;
+    padding: 140px 12px 0;
     overflow-y: scroll;
 
     .message {
+      @include typographies.heading;
+
       display: flex;
       align-items: center;
       justify-content: center;
       width: fit-content;
-      max-width: 80%;
-      padding: 4px;
+      max-width: 60%;
+      padding: 4px 20px;
       color: colors.$black;
       background-color: colors.$gray1;
       border-radius: 4px;
