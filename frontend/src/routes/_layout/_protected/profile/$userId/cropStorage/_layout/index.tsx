@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
-import { Suspense,useState } from 'react';
+import { Suspense, useState } from 'react';
 import Lottie from 'react-lottie-player';
 
 import WarehouseAnimation from '@/assets/lottie/warehouse.json';
@@ -20,7 +20,6 @@ export const Route = createFileRoute('/_layout/_protected/profile/$userId/cropSt
 
 function CropStoragePage() {
   const myId = useRootStore((state) => state.userId);
-  const myNickname = useRootStore((state) => state.nickname);
   const { userId } = Route.useParams();
   const navigate = useNavigate();
   const [isUserCrops, setIsUserCrops] = useState(true);
@@ -56,15 +55,14 @@ function CropStoragePage() {
     navigate({ to: '/trade' });
   };
 
-  const myCrops = userCropsStorage?.data?.data || [];
-  const receivedCrops = userTradesStorage?.data?.data?.receive || [];
-  const isMyProfile = Number(myId) === Number(userId);
-  const nickname = isMyProfile ? myNickname : userProfileInfo?.data?.data?.nickname;
+  const userProfile = userProfileInfo.data.data;
+  const myCrops = Array.isArray(userCropsStorage.data.data) ? userCropsStorage.data.data : [];
+  const receivedCrops = Array.isArray(userTradesStorage.data.data.receive) ? userTradesStorage.data.data.receive : [];
 
   return (
     <div>
       <div className={cx('cropStorageContainer')}>
-        <h1>{nickname}님</h1>
+        <h1>{userProfile.nickname}님</h1>
         <h1>
           {isUserCrops
             ? `나의 작물 ${myCrops.length}개`
@@ -87,16 +85,20 @@ function CropStoragePage() {
           </button>
         </div>
         {isUserCrops ? (
-          <div className={cx('myCropsContainer')}>
-            {myCrops.length === 0 && isMyProfile ? (
+          <div className={cx('myCropsContainer', { empty: myCrops.length === 0, withCrops: myCrops.length > 0 })}>
+            {myCrops.length === 0 ? (
               <div className={cx('notCrop')}>
-                <h3>아직 등록한 작물이 없습니다.</h3>
-                <GeneralButton 
-                  className={cx('actionButton')} 
-                  buttonStyle={{style:'primary', size:'medium'}}
-                  onClick={handleGoToDiary}>
-                  농작물 등록 하러 가기
-                </GeneralButton>
+                <p>아직 등록한 작물이 없습니다.</p>
+                {Number(myId) === Number(userId) && (
+                  <div className={cx('buttonContainer')}>
+                    <GeneralButton
+                      buttonStyle={{ style: 'primary', size: 'medium' }}
+                      onClick={handleGoToDiary}
+                    >
+                      농작물 등록 하러 가기
+                    </GeneralButton>
+                  </div>
+                )}
               </div>
             ) : (
               myCrops.map((myCrop) => (
@@ -116,16 +118,20 @@ function CropStoragePage() {
             )}
           </div>
         ) : (
-          <div className={cx('receivedCropsContainer')}>
-            {receivedCrops.length === 0 && isMyProfile ? (
+          <div className={cx('receivedCropsContainer', { empty: receivedCrops.length === 0, withCrops: receivedCrops.length > 0 })}>
+            {receivedCrops.length === 0 ? (
               <div className={cx('notCrop')}>
-                <h3>아직 물물 교환 / 나눔 받은 작물이 없습니다.</h3>
-                <GeneralButton 
-                  className={cx('actionButton')}
-                  buttonStyle={{style:'primary', size:'medium'}}
-                  onClick={handleGoToTrade}>
-                  물물교환 하러 가기
-                </GeneralButton>
+                <p>아직 물물 교환 / 나눔 받은 작물이 없습니다.</p>
+                {Number(myId) === Number(userId) && (
+                  <div className={cx('buttonContainer')}>
+                    <GeneralButton
+                      buttonStyle={{ style: 'primary', size: 'medium' }}
+                      onClick={handleGoToTrade}
+                    >
+                      물물교환 하러 가기
+                    </GeneralButton>
+                  </div>
+                )}
               </div>
             ) : (
               receivedCrops.map((tradeCrop) => (

@@ -24,7 +24,6 @@ export const Route = createFileRoute('/_layout/_protected/diary/registerCrop/_la
 
 function CropProfilePage() {
   const { cropId } = Route.useSearch();
-  // const [imageUrl, setImageUrl] = useState<File>();
 
   const { data } = useSuspenseQuery({
     queryKey: ['cropProfile', cropId],
@@ -35,9 +34,11 @@ function CropProfilePage() {
   const { nickname, growDate, description, image} = data.data.data;
 
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>나만의 작물이 등록되었습니다.</Heading>
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>나만의 작물이 등록되었습니다.</Heading>
+        </div>
       </div>
       <Lottie loop animationData={RegisterAnimation} play className={cx('animation')} />
       <div className={cx('noteStyle')}>
@@ -46,7 +47,7 @@ function CropProfilePage() {
           <div className={cx('nickname')}>{nickname}</div>
         </div>
         <div className={cx('rightSection')}>
-          <div className={cx('date')}>처음 만난 날짜: {growDate}</div>
+          <div className={cx('date')}>🗓️ 처음 만난 날짜 <br /> : {growDate}</div>
           <div className={cx('description')}>{description}</div>
         </div>
       </div>
@@ -58,7 +59,7 @@ function CropProfilePage() {
           완료
         </LinkButton>
       </div>
-    </>
+    </div>
   );
 }
 

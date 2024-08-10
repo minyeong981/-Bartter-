@@ -67,15 +67,17 @@ function GetImagePage() {
   };
 
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>
-          {nickname}의
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>
+            {nickname}의
+            <br />
+            사진을 등록해주세요.
+          </Heading>
           <br />
-          사진을 등록해주세요.
-        </Heading>
-        <br />
-        <p>사진 ({image.length}/{maxImages})</p>
+          <p>사진 ({image.length}/{maxImages})</p>
+        </div>
       </div>
       <div className={cx('inputContainer')}>
         <ImageInput onImageChange={handleImageChange} maxImages={maxImages} />
@@ -88,7 +90,7 @@ function GetImagePage() {
           다음
         </GeneralButton>
       </div>
-    </>
+    </div>
   );
 }
 

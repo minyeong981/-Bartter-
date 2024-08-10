@@ -151,7 +151,7 @@ export default function CropModal({
           <img src={xIcon} alt="closeButton" />
         </button>
         {showSearchBar && <Search onSearch={setSearchTerm} />}
-        <div className={cx('cropList')}>
+        <div className={cx('cropList', { empty: filteredCrops.length === 0, withCrops: filteredCrops.length > 0 })}>
           {filteredCrops.length > 0 ? (
             filteredCrops.map((crop: CropCategoryDetail, index: number) => (
               <CropButton

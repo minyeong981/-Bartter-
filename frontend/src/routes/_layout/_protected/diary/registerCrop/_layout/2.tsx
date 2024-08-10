@@ -39,27 +39,29 @@ function GetDatePage() {
   function handleDateChange(date: Date | null) {
     setSelectedDate(date);
     if (date) {
-      setGrowDate(format(growDate, 'yyyy-MM-dd')); // 날짜를 yyyy-MM-dd 형식으로 설정하고 저장
+      setGrowDate(format(date, 'yyyy-MM-dd')); // 날짜를 yyyy-MM-dd 형식으로 설정하고 저장
     } else {
       setGrowDate(formattedToday); // 선택된 날짜가 없으면 오늘 날짜로 설정
     }
   }
 
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>
-          {nickname}과/와
-          <br />
-          처음 만난 날짜를 입력해주세요.
-        </Heading>
-      </div>
-      <div className={cx('inputContainer')}>
-        <SemiCalendarInput
-          label="처음 만난 날짜"
-          selectedDate={selectedDate}
-          onDateChange={handleDateChange}
-        />
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>
+            {nickname}과/와
+            <br />
+            처음 만난 날짜를 입력해주세요.
+          </Heading>
+        </div>
+        <div className={cx('inputContainer')}>
+          <SemiCalendarInput
+            label="처음 만난 날짜"
+            selectedDate={selectedDate}
+            onDateChange={handleDateChange}
+          />
+        </div>
       </div>
       <div className={cx('buttonContainer')}>
         <LinkButton
@@ -70,7 +72,7 @@ function GetDatePage() {
           다음
         </LinkButton>
       </div>
-    </>
+    </div>
   );
 }
 
