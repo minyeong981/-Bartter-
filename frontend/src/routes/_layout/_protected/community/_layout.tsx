@@ -4,7 +4,8 @@ import { createFileRoute, Outlet , useNavigate } from '@tanstack/react-router'
 import FloatingButton from '@/components/Buttons/FloatingButton'
 import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons'
 import Location from '@/components/Header/Location'
-import Navigation from '@/components/Navigation'
+import MenuBar from '@/components/MenuBar/MenuBar'
+// import Navigation from '@/components/Navigation'
 import barter from '@/services/barter'
 import useRootStore from '@/store'
 import querykeys from '@/util/querykeys'
@@ -31,7 +32,8 @@ export default function Community() {
             <HeaderWithLabelAndButtons label={<Location location={location.name.split(' ').slice(2,3).toString()} />} />
             <Outlet />
             <FloatingButton onClick={() => nav({to:'/community/create'})}>+ 글 작성하기</FloatingButton>
-            <Navigation />
+            {/* <Navigation /> */}
+            <MenuBar />
         </div>
     )
 }

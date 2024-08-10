@@ -6,6 +6,7 @@ type ImageUrl = string;
 type HasImage = boolean;
 type LocationId = number;
 type Name = string;
+type sortBy = string;
 
 interface SimpleLocation {
   locationId: LocationId;
@@ -46,6 +47,13 @@ interface SimpleUserProfile {
   userId: UserId;
   nickname: Nickname;
   profileImage: ProfileImage;
+}
+
+interface SimpleUserProfileByKeyword {
+  userId: UserId;
+  nickname: Nickname;
+  profileImage: ProfileImage;
+  isFollow:IsFollowed;
 }
 
 type ImageOrder = number;
@@ -166,7 +174,7 @@ interface SimpleCropProfile {
   userId: UserId;
   cropId: CropId;
   nickname: Nickname;
-  image: Image;
+  image: File;
 }
 
 interface CropTradeHistoryDto {
@@ -191,7 +199,7 @@ interface CropDiaryDetailWithUser {
 
 type CropTradePostId = number;
 
-type Status = 'PROGRESS' | 'RESERVED' | 'COMPLETED';
+type Status = 'IN_PROGRESS' | 'RESERVED' | 'COMPLETED';
 
 type IsShare = boolean;
 
@@ -212,7 +220,7 @@ type Keyword = string;
 type TradePostId = number;
 
 interface SimpleKeywordList {
-  userProfileList: SimpleUserProfile[];
+  userProfileList: SimpleUserProfileByKeyword[];
   communityPostList: SimpleCommunityPostDetail[];
   tradePostList: SimpleTradePostDetail[];
 }
@@ -374,15 +382,35 @@ interface CropTradeForm {
 interface CommunityPostForm {
   title: Title;
   content: Content;
+  imageList: File[];
 }
 
 interface CropProfileForm {
   cropCategoryId: CropCategoryId;
   nickname: Nickname;
   growDate: GrowDate;
-  description: Description;
+  description?: Description;
+  image? : File[];
 }
 
+interface CropDiaryForm {
+  cropId:number;
+  title:string;
+  content:string;
+  image:File[];
+  performDate:string;
+}
+
+interface SearchContextType {
+  query: string;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
+  keyword:string;
+  setKeyword: React.Dispatch<React.SetStateAction<string>>;
+  isSearch: boolean;
+  setIsSearch : React.Dispatch<React.SetStateAction<boolean>>;
+  isShow : boolean;
+  setIsShow: React.Dispatch<React.SetStateAction<boolean>>;
+}
 type AdditionalInfo = Position;
 
 interface SimpleTradeInfo {

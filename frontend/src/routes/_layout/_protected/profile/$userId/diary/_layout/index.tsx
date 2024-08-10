@@ -16,8 +16,8 @@ export const Route = createFileRoute('/_layout/_protected/profile/$userId/diary/
   component: ProfileCropDiary,
 });
 
-function groupByDate(diaries : CropDiaryThumbnail[]) {
-  const groupedDiary = Array.from({length: 32}, ()=> []);
+function groupByDate(diaries : CropDiaryThumbnail[]): CropDiaryThumbnail[][]{
+  const groupedDiary : CropDiaryThumbnail[][]= Array.from({length: 32}, ()=> []);
 
   diaries.forEach(diary => {
     const date = new Date(diary.performDate);
@@ -63,7 +63,7 @@ export default function ProfileCropDiary() {
 
   const groupedDiary = groupByDate(diaries);
 
-  const formatMonth = m => (m < 9 ? `0${m + 1}` : `${m + 1}`);
+  const formatMonth = (m : number) => (m < 9 ? `0${m + 1}` : `${m + 1}`);
 
   return (
     <div className={styles.Container}>

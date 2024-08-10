@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import GrowDiary from '@/assets/image/growdiary.png';
 import Share from '@/assets/image/share.png';
-import DiaryDetail from '@/components/Diary/DiaryDetail';
+import DiaryThumbnail from '@/components/Diary/DiaryThumbnail';
 import MonthHeader from '@/components/ProfileDiary/MonthHeader';
 import MonthHeaderButton from '@/components/ProfileDiary/MonthHeaderButton';
 import barter from '@/services/barter';
@@ -25,7 +25,7 @@ function GrowDiaryPage() {
 
   const { data } = useSuspenseQuery({
     queryKey: [querykeys.DIARY_DETAIL, cropId],
-    queryFn: () => barter.getCropDiaryListByCrop(cropId),
+    queryFn: () => barter.getCropDiaryListByCrop(Number(cropId)),
   });
 
   const cropDiary = data.data.data;
@@ -74,14 +74,14 @@ function GrowDiaryPage() {
       <hr />
       <div className={cx('diarySection')}>
         <MonthHeader
-          title={`${pivotDate.getFullYear()}.${formatMonth(pivotDate.getMonth())}`}
+          title={`${pivotDate.getFullYear()}. ${formatMonth(pivotDate.getMonth())}`}
           leftChild={<MonthHeaderButton text="<" onClick={onDecreaseMonth} />}
           rightChild={<MonthHeaderButton text=">" onClick={onIncreaseMonth} />}
         />
-        <div className={cx('entries')}>
+        <div className={cx('entries', 'grid')}>
           {filteredEntries.map((entry) => (
             <div key={entry.cropDiaryId} className={cx('entry')}>
-              <DiaryDetail cropDiaryId={entry.cropDiaryId} />
+              <DiaryThumbnail cropDiaryId={entry.cropDiaryId} />
             </div>
           ))}
         </div>

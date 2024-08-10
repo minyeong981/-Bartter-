@@ -11,15 +11,11 @@ interface SearchBarProps {
   query: string;
   onSearch: (searchTerm: string, isEnter:boolean) => void;
   onInputChange: (input: string) => void;
+  onClear: () => void;
 }
 
 
-export default function SearchBar({ query, onSearch, onInputChange} : SearchBarProps) {
-
-
-  function handleClear() {
-    onSearch('', false);
-  }
+export default function SearchBar({ query, onSearch, onInputChange, onClear} : SearchBarProps) {
 
   function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter') {
@@ -45,7 +41,7 @@ export default function SearchBar({ query, onSearch, onInputChange} : SearchBarP
                 onKeyDown={handleKeyDown}
               />
               <button className={stylesInput.clearButton} >
-                { query ? <FaX onClick={handleClear} className={styles.faX} /> : <FaSearch className={styles.faSearch}/>}
+                { query ? <FaX onClick={onClear} className={styles.faX} /> : <FaSearch className={styles.faSearch}/>}
               </button>
             </div>
           </div>

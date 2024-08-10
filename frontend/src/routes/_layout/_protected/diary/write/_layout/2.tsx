@@ -45,12 +45,12 @@ export default function DiaryWritePage2() {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [image, setImage] = useState<string[]>([]);
-  const [performDate, setPerformDate] = useState<Date | null>(new Date());
+  const [image, setImage] = useState<File[]>([]);
+  const [beforeDate, setBeforeDate] = useState<Date | null>(new Date());
   const [isFormValid, setIsFormValid] = useState(false);
   const navigate = useNavigate();
 
-  const handleImageChange = (newImages: string[]) => {
+  const handleImageChange = (newImages: File[]) => {
     setImage(newImages);
   };
 
@@ -63,7 +63,7 @@ export default function DiaryWritePage2() {
   };
 
   const handleDateChange = (date: Date | null) => {
-    setPerformDate(date);
+    setBeforeDate(date);
   };
 
 
@@ -71,7 +71,7 @@ export default function DiaryWritePage2() {
   useEffect(() => {
     const isTitleValid = title.length >= 1 && title.length <= 50;
     const isContentValid = content.length >= 1 && content.length <= 2000;
-    const isImageValid = image.length > 0;
+    const isImageValid = !!image;
     setIsFormValid(isTitleValid && isContentValid && isImageValid);
   }, [title, content, image]);
 
@@ -80,7 +80,7 @@ export default function DiaryWritePage2() {
     onSuccess: (diaryData) => {
       console.log('mutation success:', diaryData);
       if (diaryData.data.isSuccess) {
-        queryClient.invalidateQueries([querykeys.CROP_PROFILE])
+        queryClient.invalidateQueries({queryKey:[querykeys.CROP_PROFILE]}) 
         navigate({ to: `/diary`});
       } else {
         console.error('농사 일지 등록하는데 문제가 발생했습니다.');
@@ -96,21 +96,22 @@ export default function DiaryWritePage2() {
       console.error('No crop found, cannot send diary data.');
       return;
     }
+    if ( cropId && title && content && image && beforeDate) {
 
-    const diaryData: CropDiaryForm = {
-      cropId: diaryCrop.cropId,
-      title,
-      content,
-      image,
-    };
+      const performDate = format(beforeDate, 'yyyy-MM-dd');
 
-    if (performDate) {
-      diaryData.performDate = format(performDate, 'yyyy-MM-dd');
+      const diaryData: CropDiaryForm = {
+        cropId: diaryCrop.cropId,
+        title,
+        content,
+        image,
+        performDate
+      };
+
+      mutation.mutate(diaryData);
     }
 
-    console.log('sending diary data:', diaryData);
 
-    mutation.mutate(diaryData);
   };
 
   const maxImages = 1; // 허용된 최대 이미지 개수
@@ -125,7 +126,7 @@ export default function DiaryWritePage2() {
         <SemiCalendarInput
           label="날짜"
           onDateChange={handleDateChange}
-          selectedDate={performDate}
+          selectedDate={beforeDate}
         />
         <LabeledInput
           label="제목"
@@ -140,7 +141,7 @@ export default function DiaryWritePage2() {
           value={content}
         />
         <div className={cx('photoContainer')}>
-          <p className={cx('photoText')}>사진 ({image.length} / {maxImages})</p>
+          <p className={cx('photoText')}>사진 ({image.length}/ {maxImages}) </p>
           <ImageInput onImageChange={handleImageChange} maxImages={maxImages} />
         </div>
         <div className={cx('buttonContainer')}>

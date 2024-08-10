@@ -21,5 +21,6 @@ export default {
   AI_REPORT_DETAIL: 'aiReportDetail',
   DAILY_TIP: 'dailyTip',
   SEARCH: 'search',
+  SEARCH_RECENT:'searchRecent',
   LOCATION: 'location',
 };

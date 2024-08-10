@@ -23,7 +23,9 @@ function RegisterCropLayout() {
 
   return (
     <div className={cx('registerCrop')}>
+      <div className={cx('headerButton')}>
       <HeaderWithBackButton />
+      </div>
       {showProgressBar && <ProgressBar current={step} total={TOTAL_STEPS} />}
       <Outlet />
     </div>

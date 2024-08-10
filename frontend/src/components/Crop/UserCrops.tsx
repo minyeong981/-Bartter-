@@ -1,9 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import classnames from "classnames/bind";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import notCrop from '@/assets/image/notCrop.png';
 import barter from "@/services/barter";
+import querykeys from "@/util/querykeys";
 
 import styles from './UserCrops.module.scss';
 
@@ -15,31 +16,13 @@ interface UserCropsProps {
 }
 
 function UserCrops({ userId, onSelectCrop }: UserCropsProps) {
-  const { data } = useQuery({
-    queryKey: ['cropProfile', userId],
+  const { data } = useSuspenseQuery({
+    queryKey: [querykeys.CROP_PROFILE, userId],
     queryFn: () => barter.getCropProfileListByUser(userId)
   });
 
-  const crops = data?.data.data || [];
+  const crops = data.data.data;
   const [selectedCropId, setSelectedCropId] = useState<number | null>(null);
-  const [imageUrl, setImageUrl] = useState<Record<number, string>>({});
-
-  useEffect(() => {
-    if (crops.length) {
-      for (const crop of crops) {
-        const { image } = crop;
-        if (image instanceof Blob) {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            setImageUrl(prev => ({ ...prev, [crop.cropId]: reader.result as string }));
-          };
-          reader.readAsDataURL(image);
-        } else if (typeof image === 'string') {
-          setImageUrl(prev => ({ ...prev, [crop.cropId]: image }));
-        }
-      }
-    }
-  }, [crops]);
 
   const handleCropClick = (cropId: number) => {
     setSelectedCropId(cropId);
@@ -54,7 +37,7 @@ function UserCrops({ userId, onSelectCrop }: UserCropsProps) {
           <img src={notCrop} alt="notCrop" />
         </>
       ) : (
-        <>
+        <div className={cx('test')}>
           <h3 className={cx('crops-count')}>전체 작물 수 : {crops.length}</h3>
           <div className={cx('crop-list')}>
             {crops.map(crop => (
@@ -64,22 +47,7 @@ function UserCrops({ userId, onSelectCrop }: UserCropsProps) {
                 onClick={() => handleCropClick(crop.cropId)}
               >
                 <div className={cx('crop-image-container', { selected: selectedCropId === crop.cropId })}>
-                  {imageUrl[crop.cropId] ? (
-                    <img
-                      src={imageUrl[crop.cropId]}
-                      alt={crop.nickname}
-                      className={cx('crop-image', {
-                        'default-image': selectedCropId !== crop.cropId,
-                        'uploaded-image': selectedCropId === crop.cropId,
-                      })}
-                    />
-                  ) : (
-                    <span>
-                      로딩 중 입니다. 잠시만 기다려주세요
-                      <br />
-                      {/* <Spinner /> */}
-                    </span>
-                  )}
+                  <img src={crop.image} alt={crop.nickname} />
                 </div>
                 <div className={cx('crop-info')}>
                   <h4>{crop.nickname}</h4>
@@ -87,7 +55,7 @@ function UserCrops({ userId, onSelectCrop }: UserCropsProps) {
               </div>
             ))}
           </div>
-        </>
+        </div>
       )}
     </div>
   );

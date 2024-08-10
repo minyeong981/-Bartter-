@@ -22,7 +22,8 @@ export const Route = createFileRoute('/_layout/_protected/_home/')({
 export default function Home() {
   const givenCategory = 0;
   const isCommunity = false
-  const [ page, setPage ] = useState<number>(0);
+  // const [ page, setPage ] = useState<number>(0);
+  const page = 0;
   const [limit] = useState<number>(2)
 
   const { data: trade } = useSuspenseQuery({

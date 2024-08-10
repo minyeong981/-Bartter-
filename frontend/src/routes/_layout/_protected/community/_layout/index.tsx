@@ -17,7 +17,8 @@ export const Route = createFileRoute('/_layout/_protected/community/_layout/')({
 export default function CommunityList() {
   const [activeComponent, setActiveComponent] = useState<string>('전체글');
   const isCommunity = activeComponent === '동네글'; // 처음은  false가 들어감
-  const [ page, setPage ] = useState<number>(0);
+  // const [ page, setPage ] = useState<number>(0);
+  const page = 0;
   const [limit] = useState<number>(10)
 
   const { data , isPending } = useQuery({

@@ -335,7 +335,7 @@ export default {
   /**
    * 농사일지 작성
    */
-  postCropDiary: async (data: CropDiaryDetail) => {
+  postCropDiary: async (data: CropDiaryForm) => {
     const form = new FormData();
     for (const [key, value] of Object.entries(data)) {
       if (!value) continue;

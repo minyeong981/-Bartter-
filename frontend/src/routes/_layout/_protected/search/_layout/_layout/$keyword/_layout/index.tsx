@@ -1,5 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router';
+import classnames from 'classnames/bind'
 import { useState } from 'react';
 
 import PostList from '@/components/Community/PostList';
@@ -13,15 +14,19 @@ import querykeys from '@/util/querykeys';
 
 import styles from './index.module.scss';
 
-export const Route = createFileRoute('/_layout/_protected/search/$keyword/_layout/')({
+export const Route = createFileRoute('/_layout/_protected/search/_layout/_layout/$keyword/_layout/')({
   component: SearchResult,
 });
 
+const cx = classnames.bind(styles);
+
 export default function SearchResult() {
+
   const userId : UserId = useRootStore((state) => state.userId)
   const { keyword } : { keyword : string}= Route.useParams();
   const {sortBy}: {sortBy: string} = Route.useSearch();
-  const [ page, setPage ] = useState<number>(0);
+  // const [ page, setPage ] = useState<number>(0);
+  const page =0;
   const [limit] = useState<number>(1000)
 
   const {data} = useSuspenseQuery({
@@ -50,36 +55,34 @@ export default function SearchResult() {
   const users = user.data.data
 
   return (
-    <div>
-      <div className={styles.HeaderWithLabelAndButtonsLayout}>
+    <>
       <HeaderWithLabelAndButtons label={<Location location={location.name.split(' ').slice(2,3).toString()}/>} />
-      </div>
-      <div className={styles.resultBox}>
-        <div className={styles.resultText}>{keyword}</div>
+
+      <div className={cx('result-box')}>
+        <div className={cx('result-text')}>{keyword}</div>
         검색 결과
       </div>
 
-      <div className={styles.sortByResultFixed}>
       {sortBy === '물물 교환' &&
-            <div>
-              {trades.map((trade, index) => (
-                <TradeCard key={index} {...trade} />
-              ))}
-            </div>
-        }
+        <div className={cx('trade')}>
+          {trades.map((trade, index) => (
+            <TradeCard key={index} {...trade} />
+          ))}
+        </div>
+      }
 
       {sortBy === '동네 모임' && 
-          <PostList posts={posts} />
+      <div className={cx('community')}>
+        <PostList posts={posts} />
+      </div>
        }
 
       {sortBy === '이웃' && 
-      <div>
+      <div className={cx('neighbor')}>
         {users.map((user, userIndex) => 
         <NeighborListCard key={userIndex} {...user} />)
+      } </div>
       }
-      </div>
-       }
-      </div>
-    </div>
+      </>
   );
 }

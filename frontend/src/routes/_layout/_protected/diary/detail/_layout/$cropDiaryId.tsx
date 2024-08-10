@@ -32,10 +32,6 @@ export default function DiaryDetail() {
     mutationFn: (cropDiaryId: number) => {
       return barter.deleteCropDiary(cropDiaryId);
     },
-    onError: () => {
-      console.log('작성자만 삭제할 수 있습니다.');
-      window.alert('작성자만 삭제할 수 있습니다.');
-    }, 
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey:[querykeys.DIARY_DETAIL]});
       navigate({ to: '/diary' });
@@ -52,32 +48,46 @@ export default function DiaryDetail() {
     ? format(responseData.createdAt, 'yyyy-MM-dd HH:mm', { locale: ko })
     : 'Invalid date';
 
+    const handleMoveGrowdiary = (cropId: number) => {
+      navigate({to: `/diary/growDiary/${cropId}`});
+    };
+    
   const handleDeleteDiary = (diaryId: number) => {
     deleteDiary.mutate(diaryId);
   };
 
-//  console.log(responseData)
   return (
     <div>
       <HeaderWithLabelAndBackButton label="농사 일지" />
       <div className={cx('diaryDetailContainer')}>
-        <h1 className={cx('diaryTitle')}>{responseData.title}</h1>
+        <div 
+          className={cx('cropInfo')}
+          onClick={() => handleMoveGrowdiary(responseData.crop.cropId)}
+          style={{ cursor: 'pointer' }}  // 클릭 가능하도록 포인터 커서 설정
+        >
+          <img 
+            src={responseData.crop.image} 
+            alt="Crop" 
+            className={cx('cropImage')}
+          />
+          <span className={cx('cropNickname')}>{responseData.crop.nickname}</span>
+        </div>
         <div className={cx('diaryImage')}>
           {responseData.image && (
             <img src={responseData.image} alt="Diary" />
           )}
         </div>
-        <div className={cx('cropInfo')}>
-          <img src={responseData.crop.image} alt="Crop" className={cx('cropImage')} />
 
-          <span className={cx('cropNickname')}>{responseData.crop.nickname}</span>
-        </div>
+        <h1 className={cx('diaryTitle')}>{responseData.title}</h1>
+
+
         <p className={cx('diaryContent')}>{responseData.content}</p>
         <p className={cx('diaryDate')}>{formattedDate}</p>
+
         <div className={cx('deleteButton')}>
           <GeneralButton
             onClick={() => setIsModalOpen(true)}
-            buttonStyle={{ style: 'outlined', size: 'large' }}
+            buttonStyle={{ style: 'outlined', size: 'medium' }}
           >
             삭제하기
           </GeneralButton>

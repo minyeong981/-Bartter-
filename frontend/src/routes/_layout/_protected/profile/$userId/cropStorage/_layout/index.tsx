@@ -5,8 +5,9 @@ import {useState} from 'react';
 import Lottie from 'react-lottie-player';
 
 import WarehouseAnimation from '@/assets/lottie/warehouse.json';
-// import GeneralButton from '@/components/Buttons/GeneralButton';
+import GeneralButton from '@/components/Buttons/GeneralButton';
 import barter from '@/services/barter';
+import useRootStore from '@/store';
 import querykeys from '@/util/querykeys';
 
 import styles from './../cropStorage.module.scss';
@@ -47,17 +48,22 @@ function CropStoragePage() {
     navigate({to: `/diary/growDiary/${cropId}`});
   };
 
-  // const handleBarterClick = () => {
-  //   navigate('/trade');
-  // };
+  const handleGoToDiary = () => {
+    navigate({ to: '/diary' });
+  };
 
-  const myCrops = userCropsStorage?.data?.data || [];
-  const receivedCrops = userTradesStorage?.data?.data?.receive || [];
+  const handleGoToTrade = () => {
+    navigate({ to: '/trade' });
+  };
+
+  const userProfile = userProfileInfo.data.data;
+  const myCrops = Array.isArray(userCropsStorage.data.data) ? userCropsStorage.data.data : [];
+  const receivedCrops = Array.isArray(userTradesStorage.data.data.receive) ? userTradesStorage.data.data.receive : [];
 
   return (
     <div>
       <div className={cx('cropStorageContainer')}>
-        <h1>{userProfileInfo.data.data.nickname}님</h1>
+        <h1>{userProfile.nickname}님</h1>
         <h1>
           {isUserCrops
             ? `나의 작물 ${myCrops.length}개`
@@ -91,13 +97,20 @@ function CropStoragePage() {
           </button>
         </div>
         {isUserCrops ? (
-          <div className={cx('myCropsContainer')}>
+          <div className={cx('myCropsContainer', { empty: myCrops.length === 0, withCrops: myCrops.length > 0 })}>
             {myCrops.length === 0 ? (
               <div className={cx('notCrop')}>
-                <h3>아직 등록한 작물이 없습니다.</h3>
-                {/* <GeneralButton
-                  buttonStyle={{style:'primary', size:'medium'}} 
-                  onClick={() => handleCropClick(someCropId)}>작물 등록 하러 가기</GeneralButton> */}
+                <p>아직 등록한 작물이 없습니다.</p>
+                {Number(myId) === Number(userId) && (
+                  <div className={cx('buttonContainer')}>
+                    <GeneralButton
+                      buttonStyle={{ style: 'primary', size: 'medium' }}
+                      onClick={handleGoToDiary}
+                    >
+                      농작물 등록 하러 가기
+                    </GeneralButton>
+                  </div>
+                )}
               </div>
             ) : (
               myCrops.map(myCrop => (
@@ -117,16 +130,20 @@ function CropStoragePage() {
             )}
           </div>
         ) : (
-          <div className={cx('receivedCropsContainer')}>
+          <div className={cx('receivedCropsContainer', { empty: receivedCrops.length === 0, withCrops: receivedCrops.length > 0 })}>
             {receivedCrops.length === 0 ? (
               <div className={cx('notCrop')}>
-                <h3>아직 물물 교환 / 나눔 받은 작물이 없습니다.</h3>
-                {/* <GeneralButton
-                  buttonStyle={{ style: 'primary', size: 'medium' }}
-                  onClick={handleBarterClick}
-                >
-                  물물교환 하러 가기
-                </GeneralButton> */}
+                <p>아직 물물 교환 / 나눔 받은 작물이 없습니다.</p>
+                {Number(myId) === Number(userId) && (
+                  <div className={cx('buttonContainer')}>
+                    <GeneralButton
+                      buttonStyle={{ style: 'primary', size: 'medium' }}
+                      onClick={handleGoToTrade}
+                    >
+                      물물교환 하러 가기
+                    </GeneralButton>
+                  </div>
+                )}
               </div>
             ) : (
               receivedCrops.map(tradeCrop => (

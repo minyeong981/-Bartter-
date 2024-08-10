@@ -18,11 +18,6 @@ export interface SearchParamNickName extends SearchParamCrop {
 
 export const Route = createFileRoute('/_layout/_protected/diary/registerCrop/_layout/1')({
   component: GetNicknamePage,
-  validateSearch: ({crop}) : SearchParamCrop => {
-    return {
-      crop: crop as CropCategoryDetail
-    }
-  }
 });
 
 function GetNicknamePage() {
@@ -34,21 +29,23 @@ function GetNicknamePage() {
   };
 
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>
-          내 작물의
-          <br />
-          별명을 지어주세요.
-        </Heading>
-      </div>
-      <div className={cx('inputContainer')}>
-        <LabeledInput
-          label="작물 별명"
-          placeholder="별명을 입력해주세요"
-          onChange={handleNameChange}
-          value={nickname}
-        />
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>
+            내 작물의
+            <br />
+            별명을 지어주세요.
+          </Heading>
+        </div>
+        <div className={cx('inputContainer')}>
+          <LabeledInput
+            label="작물 별명"
+            placeholder="별명을 입력해주세요"
+            onChange={handleNameChange}
+            value={nickname}
+          />
+        </div>
       </div>
       <div className={cx('buttonContainer')}>
         <LinkButton
@@ -60,7 +57,7 @@ function GetNicknamePage() {
           다음
         </LinkButton>
       </div>
-    </>
+      </div>
   );
 }
 

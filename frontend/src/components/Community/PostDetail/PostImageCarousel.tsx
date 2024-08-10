@@ -9,7 +9,7 @@ interface PostCarouselProps {
 
 const cx = classnames.bind(styles);
 
-export default function PostImageCarousel({imageList}: PostCarouselProps) {
+export default function PostImageCarousel({imageList = []}: PostCarouselProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
