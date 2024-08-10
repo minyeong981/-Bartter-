@@ -106,7 +106,7 @@ const chatMessages: ChatMessage[] = [
 ];
 
 export const Route = createFileRoute(
-  '/_layout/_protected/trade/chat/_layout/$tradeId',
+  '/_layout/_protected/trade/chat/_room/$tradeId',
 )({
   component: ChatPage,
 });
