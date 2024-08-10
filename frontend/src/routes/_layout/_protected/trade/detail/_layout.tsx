@@ -92,6 +92,7 @@ function TradeDetailLayout() {
         handleLike={handleLike}
         tradeId={tradeId}
         isMyTrade={isMyTrade}
+        tradePostId={tradePostDetailData.tradePostId}
       />
     </>
   );

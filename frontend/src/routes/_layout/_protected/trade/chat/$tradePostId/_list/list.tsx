@@ -11,13 +11,14 @@ import styles from './chatList.module.scss';
 const cx = classnames.bind(styles);
 
 export const Route = createFileRoute(
-  '/_layout/_protected/trade/chat/_list/list',
+  '/_layout/_protected/trade/chat/$tradePostId/_list/list',
 )({
   component: ChatListPage,
 });
 
 function ChatListPage() {
   const userId = useRootStore(state => state.userId);
+  const {tradePostId} = Route.useParams();
   const {data} = useSuspenseQuery({
     queryFn: () => barter.getChatList(userId),
     queryKey: ['chat', userId],
@@ -30,11 +31,9 @@ function ChatListPage() {
       {!!chatListData.length &&
         chatListData.map(chat => (
           <ChatListItem
-            img={chat.userProfile.profileImage}
-            sender={chat.userProfile.nickname}
-            item="고양이"
-            lastMessage={chat.message}
-            tradeId={chat.tradeId}
+            key={chat.tradeId}
+            {...chat}
+            tradePostId={Number(tradePostId)}
           />
         ))}
     </div>

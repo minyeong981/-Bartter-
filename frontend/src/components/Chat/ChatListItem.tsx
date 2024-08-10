@@ -6,34 +6,27 @@ import styles from './chatListItem.module.scss';
 
 const cx = classnames.bind(styles);
 
-type ChatListItemProps = LinkProps & {
-  img: string;
-  sender: string;
-  item: string;
-  lastMessage: string;
-  tradeId: number;
-};
+type ChatListItemProps = LinkProps & SimpleTradeInfo & {tradePostId: number};
 
 export default function ChatListItem({
-  img,
-  sender,
-  item,
-  lastMessage,
+  userProfile,
+  message,
   tradeId,
+  tradePostId,
   ...props
 }: ChatListItemProps) {
   return (
     <Link
       className={cx('chatItem')}
       {...props}
-      to="/trade/chat/$tradeId"
-      params={{tradeId: String(tradeId)}}
+      to="/trade/chat/$tradePostId/$tradeId"
+      params={{tradeId: String(tradeId), tradePostId: String(tradePostId)}}
     >
-      <img src={img} />
+      <img src={userProfile.profileImage} />
       <div className={cx('content')}>
-        <h2 className={cx('sender')}>{sender}</h2>
-        <p className={cx('item')}>{item}</p>
-        <p className={cx('lastMessage')}>{lastMessage}</p>
+        <h2 className={cx('sender')}>{userProfile.nickname}</h2>
+        <p className={cx('item')}>상품</p>
+        <p className={cx('lastMessage')}>{message}</p>
       </div>
     </Link>
   );

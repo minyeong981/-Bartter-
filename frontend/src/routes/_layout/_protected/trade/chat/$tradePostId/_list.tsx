@@ -2,7 +2,7 @@ import {createFileRoute, Outlet} from '@tanstack/react-router';
 
 import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton.tsx';
 
-export const Route = createFileRoute('/_layout/_protected/trade/chat/_list')({
+export const Route = createFileRoute('/_layout/_protected/trade/chat/$tradePostId/_list')({
   component: ListLayout,
 });
 

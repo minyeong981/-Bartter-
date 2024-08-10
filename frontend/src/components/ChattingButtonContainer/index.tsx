@@ -12,6 +12,7 @@ interface ChattingButtonContainerProps {
   handleLike: (isLike: boolean) => void;
   tradeId: number;
   isMyTrade: boolean;
+  tradePostId: number;
 }
 
 export default function ChattingButtonContainer({
@@ -19,6 +20,7 @@ export default function ChattingButtonContainer({
   handleLike,
   tradeId,
   isMyTrade,
+  tradePostId,
 }: ChattingButtonContainerProps) {
   function handleClick() {
     handleLike(like);
@@ -27,15 +29,16 @@ export default function ChattingButtonContainer({
   const Button = isMyTrade ? (
     <LinkButton
       buttonStyle={{style: 'primary', size: 'medium'}}
-      to="/trade/chat/list"
+      to="/trade/chat/$tradePostId/list"
+      params={{tradePostId: String(tradePostId)}}
     >
       채팅목록
     </LinkButton>
   ) : (
     <LinkButton
       buttonStyle={{style: 'primary', size: 'medium'}}
-      to="/trade/chat/$tradeId"
-      params={{tradeId: String(tradeId)}}
+      to="/trade/chat/$tradePostId/$tradeId"
+      params={{tradeId: String(tradeId), tradePostId: String(tradePostId)}}
     >
       채팅하기
     </LinkButton>

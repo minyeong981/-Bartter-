@@ -13,7 +13,7 @@ import styles from './chat.module.scss';
 const cx = classnames.bind(styles);
 
 export const Route = createFileRoute(
-  '/_layout/_protected/trade/chat/_room/$tradeId',
+  '/_layout/_protected/trade/chat/$tradePostId/_room/$tradeId',
 )({
   component: ChatPage,
 });
