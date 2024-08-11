@@ -36,16 +36,10 @@ public class FCMConfig {
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .build();
 
-            FirebaseApp firebaseApp;
-
-            // FirebaseApp 인스턴스가 초기화되지 않은 경우 초기화
-            if (FirebaseApp.getApps().isEmpty()) {
-                firebaseApp = FirebaseApp.initializeApp(options);
-            } else {
-                // 이미 FirebaseApp 인스턴스가 존재하는 경우 해당 인스턴스를 가져옴
-                firebaseApp = FirebaseApp.getInstance();
-            }
-
+            // FirebaseApp 인스턴스가 초기화되지 않은 경우 초기화, 이미 존재하는 경우 해당 인스턴스를 가져옴
+            FirebaseApp firebaseApp = FirebaseApp.getApps().isEmpty() ?
+                    FirebaseApp.initializeApp(options) :
+                    FirebaseApp.getInstance();
             log.debug("firebase 불러오기 성공");
             // 설정된 FirebaseApp 연결된 FirebaseMessaging 인스턴스를 반환
             return FirebaseMessaging.getInstance(firebaseApp);

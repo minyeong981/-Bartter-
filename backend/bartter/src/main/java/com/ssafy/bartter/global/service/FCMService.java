@@ -16,14 +16,16 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class FCMService {
 
+    private final String loginTitle = "밭터 - 로그인 알림";
+    private final String messageTitle = "밭터 - 메세지 알림";
     private final FirebaseMessaging firebaseMessaging;
 
     public void sendLoginAlarm(String token, String body) {
-        if(Objects.nonNull(token)) sendNotification(token, "밭터 - 로그인 알람", body +"님 로그인을 환영합니다!", "바터 이미지 ");
+        if(Objects.nonNull(token)) sendNotification(token, loginTitle, body +"님 로그인을 환영합니다!", "바터 이미지 ");
     }
 
     public void sendChattingAlarm(String token, String nickname, String image) {
-        if(Objects.nonNull(token)) sendNotification(token, "밭터 - 메세지 알람", nickname + "님이 메세지를 보냈습니다.", image);
+        if(Objects.nonNull(token)) sendNotification(token, messageTitle, nickname + "님이 메세지를 보냈습니다.", image);
     }
 
     private void sendNotification(String targetToken, String title, String body, String image) {
@@ -42,11 +44,9 @@ public class FCMService {
                 .build();
         try {
             String response = firebaseMessaging.sendAsync(message).get();
-            log.debug("Send message: " + response);
+            log.debug("Send message: {}", response);
         } catch (Exception e) {
             log.error("FCM 전송 오류 ", e);
         }
     }
-
-
 }

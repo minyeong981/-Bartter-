@@ -164,7 +164,7 @@ public class UserController {
     public SuccessResponse<Void> removeFCMToken(
             @CurrentUser UserAuthDto user
     ) {
-        userService.deleteUser(user.getId());
+        userService.removeToken(user.getId());
         return SuccessResponse.empty();
     }
 }
