@@ -1,0 +1,30 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typo;
+
+.comment-input-container {
+    position: fixed;
+    bottom: 18px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between; 
+    width: calc(100% - 20px);
+    max-width: 360px; 
+    margin: 0 auto; 
+
+    .comment-input {
+        box-sizing: border-box;
+        flex: 1; 
+        height: 48px;
+        padding: 0 25px; 
+        padding-left: 10px;
+        margin-right: 10px;
+
+        @include typo.label;
+
+        border-radius: 5px;
+      }
+    
+}
+  
+
+  

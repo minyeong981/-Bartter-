@@ -1,6 +1,15 @@
+@use '@/styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+
 .container {
   display: flex;
   justify-content: center;
+
+  .error-message {
+    color: colors.$red;
+
+    // @include typo.label;
+  }
 }
 
 .formContainer {

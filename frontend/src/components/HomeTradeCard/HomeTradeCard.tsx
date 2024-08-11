@@ -23,7 +23,7 @@ export default function HomeTradeCard({
             <div className={cx('barter-card')}>
             <img
               className={cx('barter-image')}
-              src={`https://${image}`}
+              src={image}
               alt={title}
               onClick={() => navigate({to:`/trade/detail/${cropTradePostId}`})}
             />
