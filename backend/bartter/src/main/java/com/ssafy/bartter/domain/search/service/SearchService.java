@@ -77,4 +77,11 @@ public class SearchService {
         redisSearchLogRepository.deleteRecentSearchKeyword(keyword, username);
     }
 
+    public void addKeyword(String keyword) {
+        redisSearchLogRepository.addKeyword(keyword);
+    }
+
+    public List<String> autocomplete(String prefix, int count) {
+        return redisSearchLogRepository.autocomplete(prefix, count);
+    }
 }

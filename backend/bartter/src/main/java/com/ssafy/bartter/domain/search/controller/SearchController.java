@@ -36,14 +36,28 @@ public class SearchController {
     public SuccessResponse<SimpleKeywordList> getSearchList(
             @RequestParam(value = "keyword") String keyword,
             @CurrentUser UserAuthDto user) {
-        if (keyword.trim().isEmpty()) {
+        String searchKeyword = keyword.trim();
+        if (searchKeyword.isEmpty()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, "키워드를 입력해주세요");
         }
-        searchService.saveRecentSearchKeyword(keyword.trim(), user.getUsername());
-        SimpleKeywordList keywordList = searchService.searchByTotalKeyword(keyword, user.getId());
+        log.debug("검색 단어 : {}", searchKeyword);
+        searchService.saveRecentSearchKeyword(searchKeyword, user.getUsername());
+        searchService.addKeyword(searchKeyword);
+        SimpleKeywordList keywordList = searchService.searchByTotalKeyword(searchKeyword, user.getId());
 
         return SuccessResponse.of(keywordList);
     }
+
+    @GetMapping("/autocomplete")
+    @Operation(summary = "검색어 자동완성", description = "입력된 키워드로 검색어 자동완성 결과를 반환")
+    public SuccessResponse<List<String>> get(
+            @RequestParam(value = "keyword", defaultValue = "") String keyword,
+            @RequestParam(value = "limit", defaultValue = "10") int limit
+    ) {
+        List<String> keywordList = searchService.autocomplete(keyword.trim(), limit);
+        return SuccessResponse.of(keywordList);
+    }
+
 
     @GetMapping("/trades")
     @Operation(summary = "물물교환 통합검색", description = "해당 키워드가 제목, 내용에 표시된 물물교환 게시글을 페이징해서 처리합니다.")
