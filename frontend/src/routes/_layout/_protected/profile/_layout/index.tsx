@@ -1,7 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute} from '@tanstack/react-router'
 
-import SettingButton from '@/components/Buttons/SettingButton';
 import SettingLinkButton from '@/components/Buttons/SettingLinkButton.tsx';
 import ProfileInfo from '@/components/User/ProfileInfo';
 import barter from '@/services/barter';
@@ -13,12 +12,11 @@ export const Route = createFileRoute('/_layout/_protected/profile/_layout/')({
 });
 
 export default function MyProfile() {
-  const userId = useRootStore(state => state.userId);
+  const userId : UserId = useRootStore(state => state.userId);
   const logout = useRootStore(state => state.logout);
   const navigate = Route.useNavigate();
   console.log(userId);
 
-  const userId  = useRootStore((state) => state.userId)
 
   const { data } = useSuspenseQuery({
     queryKey: [querykeys.PROFILE, userId],
@@ -34,24 +32,24 @@ export default function MyProfile() {
   return (
     <div>
     <ProfileInfo {...userData} isMe={true}/>
-    <SettingButton to="/profile/aireport">AI 요약보고서</SettingButton>
-    <SettingButton
+    <SettingLinkButton to="/profile/aireport">AI 요약보고서</SettingLinkButton>
+    <SettingLinkButton
       to="/profile/$userId/cropStorage"
       params={{userId: userId.toString()}}
     >
       농작물 창고
-    </SettingButton>
-    <SettingButton
+    </SettingLinkButton>
+    <SettingLinkButton
       to="/profile/$userId/diary"
       params={{userId: userId.toString()}}
     >
       농사 일지
-    </SettingButton>
-    <SettingButton to="/profile/writed">내가 쓴 글</SettingButton>
-    <SettingButton to="/profile/picked">찜 목록</SettingButton>
-    <SettingButton to="/profile/chat">채팅 목록</SettingButton>
-    <SettingButton to="/profile/changelocation">위치 수정</SettingButton>
-    <SettingButton to="/community">로그아웃</SettingButton>
+    </SettingLinkButton>
+    <SettingLinkButton to="/profile/writed">내가 쓴 글</SettingLinkButton>
+    <SettingLinkButton to="/profile/picked">찜 목록</SettingLinkButton>
+    <SettingLinkButton to="/profile/chat">채팅 목록</SettingLinkButton>
+    <SettingLinkButton to="/profile/changelocation">위치 수정</SettingLinkButton>
+    <SettingLinkButton to="/community">로그아웃</SettingLinkButton>
     </div>
   );
 }
