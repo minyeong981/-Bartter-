@@ -13,6 +13,7 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 
 
 /**
@@ -105,7 +106,7 @@ public class CropDto {
                     .cropProfileImage(crop.getImage())
                     .userNickname(crop.getUser().getNickname())
                     .cropNickname(crop.getNickname())
-                    .dayWithCrop(Period.between(crop.getGrowDate(), LocalDate.now()).getDays() + 1)  // 등록한 날짜부터 1일
+                    .dayWithCrop((int) (ChronoUnit.DAYS.between(crop.getGrowDate(), LocalDate.now()) + 1))  // 등록한 날짜부터 1일
                     .tradeCount(tradeCount)
                     .build();
         }
