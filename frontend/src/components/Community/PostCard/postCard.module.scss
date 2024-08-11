@@ -4,7 +4,10 @@
 .communityCard {
   display: flex;
   flex-direction: column;
-  padding: 15px 15px 0;
+  padding: 0 15px;
+
+  // margin-bottom: 15px;
+  padding-top: 15px;
   border-bottom: 1px solid colors.$divider2;
 }
 

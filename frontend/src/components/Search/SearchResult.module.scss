@@ -8,7 +8,8 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 390px;
+
+  // max-width: 390px;
   margin: 0 auto;
 
   .location {
@@ -16,9 +17,9 @@
   }
 
   .title {
-    width: calc(100% - 20px);
-    margin-bottom: 10px;
-    margin-left: 20px;
+    // width: calc(100% - 20px);
+    width: 100%;
+    padding: 10px 20px;
     text-align: left;
 
     @include typo.heading
@@ -29,6 +30,7 @@
     flex-direction: column;
     gap: 20px;
     align-items: center;
+    width: 100%;
     height: 100%;
     padding: 0 20px;
     overflow-y: scroll;
@@ -39,7 +41,8 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin: 10px 0;
+
+    // margin: 10px 0;
   }
 
   .link-button-container {
@@ -57,10 +60,4 @@
     color: colors.$primary
   }
 }
-
-// .carousel-inner {
-//   display: flex;
-//   width: 100%;
-//   transition: transform 0.5s ease-in-out;
-// }
 

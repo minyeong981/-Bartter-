@@ -36,6 +36,7 @@ export default function UserNameLocation({
   const myId = useRootStore((state) => state.userId)
   const [ isModalOpen, setIsModalOpen ] = useState(false);
   const {history} = useRouter();
+  const location = locationName.split(' ').slice(1,2) + ' ' + locationName.split(' ').slice(2,3)
 
   function handleClickTrash() {
     setIsModalOpen(true)
@@ -55,7 +56,7 @@ export default function UserNameLocation({
       <ProfileImgComponent userId={userId} profileImage={profileImage}/>
       <div className={styles.userInfo}>
         <div className={styles.userName}>{nickname}</div>
-        <div className={styles.content}>{locationName}</div>
+        <div className={styles.content}>{location}</div>
         <div className={styles.createdDate}>{format(createdAt, 'yyyy-MM-dd HH:mm', {locale: ko})}</div>
       </div>
       { Number(myId) === Number(userId) &&

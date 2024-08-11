@@ -20,9 +20,11 @@ export default function RecentSearch({ searches, onSearch, onDeleteSearch }: Rec
     return (
         <div className={cx("container")}>
             {searches.length === 0 ? (
-                <EmptyPost text="검색기록이 없습니다." />
+                <EmptyPost text="검색 기록이 없습니다." />
             ) : (
-                searches.map((search, searchIndex) => (
+                <>
+                <div className={cx("title")}>최근 검색어</div>
+                {searches.map((search, searchIndex) => (
                     <div key={searchIndex} className={cx('search-item')}>
                         <div className={cx('search-text')} onClick={() => onSearch(search, true)}>
                             {search}
@@ -31,7 +33,8 @@ export default function RecentSearch({ searches, onSearch, onDeleteSearch }: Rec
                             <FaX />
                         </button>
                     </div>
-                ))
+                ))}
+            </>
             )}
         </div>
     );
