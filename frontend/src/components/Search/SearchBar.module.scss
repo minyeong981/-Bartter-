@@ -1,11 +1,13 @@
 @use '@/styles/constants/typographies.scss' as typo;
 @use '@/styles/constants/colors.scss' as colors;
 
-.header {
-  display: flex;
-  align-items: center;
-  width: 390px;
-  padding: 10px;
+.searchBarContainer {
+  // display: flex;
+  // align-items: center;
+  // width: 360px;
+  width: 100%;
+
+  // padding: 10px;
 
   .inputContainer {
     position: relative;

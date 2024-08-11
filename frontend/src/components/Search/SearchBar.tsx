@@ -28,7 +28,7 @@ export default function SearchBar({ query, onSearch, onInputChange, onClear} : S
 
   return (
   
-    <div className={styles.header}>
+    <div className={styles.searchBarContainer}>
       <HeaderWithSearchAndBackButton
         label={
           <div className={styles.inputContainer}>

@@ -1,4 +1,4 @@
-import {useNavigate} from '@tanstack/react-router';
+import {Link} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import {format} from 'date-fns';
 import {ko} from 'date-fns/locale';
@@ -16,16 +16,18 @@ export default function HomeTradeCard({
   createdAt,
   isLike,
 }: SimpleTradePostDetail) {
-  const navigate = useNavigate({from: '/'});
 
   return (
     <div className={cx('barter-card')}>
+      <Link
+      to="/trade/detail/$tradePostId"
+      params={{tradePostId: String(cropTradePostId)}}>
       <img
         className={cx('barter-image')}
         src={image}
         alt={title}
-        onClick={() => navigate({to: `/trade/detail/${cropTradePostId}`})}
       />
+      </Link>
       <div className={cx('barter-title')}>{title}</div>
       <div className={cx('barter-time')}>
         {format(createdAt, 'yyyy-MM-dd', {locale: ko})}

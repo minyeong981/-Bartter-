@@ -7,10 +7,10 @@
     flex-wrap: wrap;
     gap: 10px;
     align-items: flex-start; 
-    width: 100%; 
-    max-width: 370px; 
-    padding: 10px;
-    margin-left: 10px;
+    width: 100%;
+
+    // max-width: 360px; 
+    padding: 20px; 
     overflow: hidden; 
 }
 
@@ -45,4 +45,10 @@
     cursor: pointer;
     background: none;
     border: none;
+}
+
+.title {
+    width: 100%;
+
+    @include typo.title;
 }
