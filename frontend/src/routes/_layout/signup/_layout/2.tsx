@@ -37,13 +37,15 @@ function GetUserId() {
   }
 
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>
-          농부님이 사용할
-          <br />
-          아이디를 알려주세요
-        </Heading>
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>
+            농부님이 사용할
+            <br />
+            아이디를 알려주세요
+          </Heading>
+        </div>
       </div>
       <div className={cx('inputContainer')}>
         <LabeledInput
@@ -64,6 +66,6 @@ function GetUserId() {
           다음
         </GeneralButton>
       </div>
-    </>
+    </div>
   );
 }

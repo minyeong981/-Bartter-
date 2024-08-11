@@ -1,7 +1,7 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import {useSuspenseQuery} from '@tanstack/react-query';
+import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
-import { Suspense, useState } from 'react';
+import {useState} from 'react';
 import Lottie from 'react-lottie-player';
 
 import WarehouseAnimation from '@/assets/lottie/warehouse.json';
@@ -14,27 +14,28 @@ import styles from './../cropStorage.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/_protected/profile/$userId/cropStorage/_layout/')({
+export const Route = createFileRoute(
+  '/_layout/_protected/profile/$userId/cropStorage/_layout/',
+)({
   component: CropStoragePage,
 });
 
 function CropStoragePage() {
-  const myId = useRootStore((state) => state.userId);
-  const { userId } = Route.useParams();
+  const {userId} = Route.useParams();
   const navigate = useNavigate();
   const [isUserCrops, setIsUserCrops] = useState(true);
 
-  const { data: userProfileInfo } = useSuspenseQuery({
+  const {data: userProfileInfo} = useSuspenseQuery({
     queryKey: [querykeys.PROFILE, userId],
     queryFn: () => barter.getUserProfile(Number(userId)),
   });
 
-  const { data: userCropsStorage } = useSuspenseQuery({
+  const {data: userCropsStorage} = useSuspenseQuery({
     queryKey: [querykeys.CROP_PROFILE, userId],
     queryFn: () => barter.getCropProfileListByUser(Number(userId)),
   });
 
-  const { data: userTradesStorage } = useSuspenseQuery({
+  const {data: userTradesStorage} = useSuspenseQuery({
     queryKey: [querykeys.CROP_PROFILE, userId],
     queryFn: () => barter.getCropListTradedByUser(Number(userId)),
   });
@@ -44,7 +45,7 @@ function CropStoragePage() {
   };
 
   const handleCropClick = (cropId: number) => {
-    navigate({ to: `/diary/growDiary/${cropId}` });
+    navigate({to: `/diary/growDiary/${cropId}`});
   };
 
   const handleGoToDiary = () => {
@@ -74,13 +75,24 @@ function CropStoragePage() {
             : '물물교환 / 나눔 받은 작물이에요. 받은 농작물을 선택하면 해당 농작물의 농사일지를 볼 수 있어요'}
         </p>
         <div className={cx('storageImage')}>
-          <Lottie loop animationData={WarehouseAnimation} play className={cx('animation')} />
+          <Lottie
+            loop
+            animationData={WarehouseAnimation}
+            play
+            className={cx('animation')}
+          />
         </div>
         <div className={cx('toggleContainer')}>
-          <button className={cx('toggleButton', { active: isUserCrops })} onClick={() => handleToggle(true)}>
+          <button
+            className={cx('toggleButton', {active: isUserCrops})}
+            onClick={() => handleToggle(true)}
+          >
             나의 농작물
           </button>
-          <button className={cx('toggleButton', { active: !isUserCrops })} onClick={() => handleToggle(false)}>
+          <button
+            className={cx('toggleButton', {active: !isUserCrops})}
+            onClick={() => handleToggle(false)}
+          >
             받은 농작물
           </button>
         </div>
@@ -101,7 +113,7 @@ function CropStoragePage() {
                 )}
               </div>
             ) : (
-              myCrops.map((myCrop) => (
+              myCrops.map(myCrop => (
                 <div
                   key={myCrop.cropId}
                   className={cx('crop-image-container')}
@@ -134,14 +146,18 @@ function CropStoragePage() {
                 )}
               </div>
             ) : (
-              receivedCrops.map((tradeCrop) => (
+              receivedCrops.map(tradeCrop => (
                 <div
                   key={tradeCrop.cropId}
                   className={cx('crop-image-container')}
                   onClick={() => handleCropClick(tradeCrop.cropId)}
                 >
                   <div className={cx('crop-image')}>
-                    <img src={tradeCrop.image} alt={tradeCrop.nickname} className={cx('crop-image')} />
+                    <img
+                      src={tradeCrop.image}
+                      alt={tradeCrop.nickname}
+                      className={cx('crop-image')}
+                    />
                   </div>
                   <div className={cx('crop-nickname')}>
                     <p>{tradeCrop.nickname}</p>
@@ -156,10 +172,4 @@ function CropStoragePage() {
   );
 }
 
-export default function WrappedCropStoragePage() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <CropStoragePage />
-    </Suspense>
-  );
-}
+export default CropStoragePage;

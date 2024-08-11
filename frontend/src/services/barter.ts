@@ -151,11 +151,14 @@ export default {
   /**
    * 물물교환 게시글 목록 조회
    */
-  getTradePostList: async (page?: number, limit?: number, givenCategory?: number) =>
-    axios.get<GetCropTradeListResponse>(
-      `/trades/posts`,
-      {params: {page, limit, givenCategory}},
-    ),
+  getTradePostList: async (
+    page?: number,
+    limit?: number,
+    givenCategory?: number,
+  ) =>
+    axios.get<GetCropTradeListResponse>(`/trades/posts`, {
+      params: {page, limit, givenCategory},
+    }),
   /**
    * 물물교환 게시글 상세 조회
    */
@@ -177,16 +180,16 @@ export default {
           formData.append(key, JSON.stringify(value));
         }
       } else {
-        formData.append(key, String(value))
+        formData.append(key, String(value));
       }
     }
 
-    images.forEach((image) => {
+    images.forEach(image => {
       formData.append('images', image);
     });
 
     for (const [key, value] of formData.entries()) {
-      console.log(key, value)
+      console.log(key, value);
     }
 
     return axios.post('/trades/posts', formData, {
@@ -208,28 +211,45 @@ export default {
    */
   reserveTradePost: async (tradePostId: TradePostId) =>
     axios.post(`/trades/post/${tradePostId}/reservation`),
-    /**
+  /**
    * 유저가 작성한 물물교환 게시글 전체 조회
    */
-    getTradePostListByUser: async (userId: UserId) =>
-      axios.get<GetCommunityPostListByUserId>(
-        `/users/${userId}/trades/posts`,
-      ),
-    /**
-     * 유저가 찜한 물물교환 게시글 전체 조회
-     */
-    getPickedTradePostList: async (
-      userId: UserId,
-      page?: number,
-      limit?: number,
-    ) =>
-      axios.get<GetPickedTradePostListByUserId>(`/users/${userId}/trades/posts/likes`, {
+  getTradePostListByUser: async (userId: UserId) =>
+    axios.get<GetCommunityPostListByUserId>(`/users/${userId}/trades/posts`),
+  /**
+   * 유저가 찜한 물물교환 게시글 전체 조회
+   */
+  getPickedTradePostList: async (
+    userId: UserId,
+    page?: number,
+    limit?: number,
+  ) =>
+    axios.get<GetPickedTradePostListByUserId>(
+      `/users/${userId}/trades/posts/likes`,
+      {
         params: {page, limit},
-      }),
+      },
+    ),
   /**
    * 물물교환 게시글 삭제
    */
-  deleteTradePost: async(tradePostId: TradePostId) =>axios.delete(`/trades/posts/${tradePostId}`),
+  deleteTradePost: async (tradePostId: TradePostId) =>
+    axios.delete(`/trades/posts/${tradePostId}`),
+  /**
+   *  물물교환 진행으로 변경
+   */
+  putTradeProgress: async (tradePostId: TradePostId) =>
+    axios.put(`/trades/posts/${tradePostId}/progress`),
+  /**
+   * 물물교환 예약으로 변경
+   */
+  putTradeReservation: async (tradePostId: TradePostId) =>
+    axios.put(`/trades/posts/${tradePostId}/reserve`),
+  /**
+   * 물물교환 완료로 변경
+   */
+  putTradeComplete: async (tradePostId: TradePostId) =>
+    axios.put(`/trades/posts/${tradePostId}/complete`),
 
   // 농사일지
   /**
@@ -380,55 +400,78 @@ export default {
    */
   searchByKeyword: async (keyword: string) =>
     axios.get<GetSearch>('/search', {params: {keyword}}),
-    /**
+  /**
    * 키워드 검색 물물교환 게시글 목록 조회
    */
-    getTradePostListByKeyword: async (keyword:string, page?: number, limit?: number) =>
-      axios.get<GetTradePostListByKeyword>(
-        `/search/trades`,
-        {params: {keyword, page, limit}},
-      ),
-        /**
+  getTradePostListByKeyword: async (
+    keyword: string,
+    page?: number,
+    limit?: number,
+  ) =>
+    axios.get<GetTradePostListByKeyword>(`/search/trades`, {
+      params: {keyword, page, limit},
+    }),
+  /**
    * 키워드 검색 동네모임 게시글 목록 조회
    */
-    getCommunityPostListByKeyword: async (keyword:string, page?: number, limit?: number) =>
-    axios.get<GetCommunityPostListByKeyword>(
-      `/search/community`,
-      {params: {keyword, page, limit}},
-    ),
-      /**
+  getCommunityPostListByKeyword: async (
+    keyword: string,
+    page?: number,
+    limit?: number,
+  ) =>
+    axios.get<GetCommunityPostListByKeyword>(`/search/community`, {
+      params: {keyword, page, limit},
+    }),
+  /**
    * 키워드 검색 유저 목록 조회
    */
-    getUserListByKeyword: async (keyword:string, page?: number, limit?: number) =>
-    axios.get<GetUserListByKeyword>(
-      `/search/users`,
-      {params: {keyword, page, limit}},
-    ),
+  getUserListByKeyword: async (
+    keyword: string,
+    page?: number,
+    limit?: number,
+  ) =>
+    axios.get<GetUserListByKeyword>(`/search/users`, {
+      params: {keyword, page, limit},
+    }),
 
   // 하루 농사 알리미
   /**
    * 하루 알리미 조회
    */
-  getDailyTip: async () =>
-    axios.get<GetDailyTip>('/crops/tips'),
+  getDailyTip: async () => axios.get<GetDailyTip>('/crops/tips'),
 
   /**
    * 하루 알리미 삭제
    */
-  deleteDailyTip: async () =>
-    axios.patch<DeleteDailyTip>('/crops/tips'),
+  deleteDailyTip: async () => axios.patch<DeleteDailyTip>('/crops/tips'),
 
   // AI 요약 리포트
   /**
    * AI 요약 리포트 전체 조회
    */
   getAiReportList: async (startDate: string, endDate: string, desc?: boolean) =>
-    axios.get<GetAiReportListResponse>('/crops/reports', {params: {
-      startDate, endDate, desc}
+    axios.get<GetAiReportListResponse>('/crops/reports', {
+      params: {
+        startDate,
+        endDate,
+        desc,
+      },
     }),
-    /**
+  /**
    * AI 요약 리포트 상세 조회
    */
   getAiReportDetail: async (cropReportId: ReportId) =>
     axios.get<GetAiReportDetailResponse>(`/crops/reports/${cropReportId}`),
+
+  // 채팅
+  /**
+   * 현재 유저의 채팅 기록 조회
+   */
+  getChatList: async (userId: UserId) =>
+    axios.get<GetChatListResponse>(`/users/${userId}/trades`),
+  /**
+   * 채팅방 정보 조회
+   */
+  getChatRoomInfo: async (tradePostId: TradePostId) =>
+    axios.get<GetChatRoomInfoResponse>(`/trades/${tradePostId}`),
 };

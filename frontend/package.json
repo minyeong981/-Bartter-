@@ -13,6 +13,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@stomp/stompjs": "^7.0.0",
     "@tanstack/react-query": "^5.51.11",
     "@tanstack/react-query-devtools": "^5.51.21",
     "@tanstack/react-router": "^1.45.8",
@@ -30,6 +31,7 @@
     "react-icons": "^5.2.1",
     "react-lottie-player": "^2.1.0",
     "react-query": "^3.39.3",
+    "ws": "^8.18.0",
     "zustand": "^4.5.4"
   },
   "devDependencies": {

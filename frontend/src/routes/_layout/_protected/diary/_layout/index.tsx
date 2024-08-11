@@ -69,6 +69,7 @@ function DiaryPage() {
               <LinkButton
                 to="/diary/write/1"
                 buttonStyle={{ style: 'primary', size: 'large' }}
+                search={{selectedDate: formatDate(currentDate)}}
               >
                 일지 쓰기
               </LinkButton>

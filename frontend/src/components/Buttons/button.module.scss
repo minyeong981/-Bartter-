@@ -19,6 +19,13 @@
     background-color: colors.$placeholder;
     border-color: colors.$placeholder;
   }
+
+  &:disabled {
+    color: colors.$white;
+    pointer-events: none;
+    background-color: colors.$placeholder;
+    border-color: colors.$placeholder;
+  }
 }
 
 .primary {

@@ -49,13 +49,15 @@ function GetPhoneNumberPage() {
   }
 
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>
-          농부님의
-          <br />
-          전화번호를 알려주세요
-        </Heading>
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>
+            농부님의
+            <br />
+            전화번호를 알려주세요
+          </Heading>
+        </div>
       </div>
       <div className={cx('inputContainer')}>
         <LabeledInput
@@ -77,6 +79,6 @@ function GetPhoneNumberPage() {
           다음
         </GeneralButton>
       </div>
-    </>
+    </div>
   );
 }

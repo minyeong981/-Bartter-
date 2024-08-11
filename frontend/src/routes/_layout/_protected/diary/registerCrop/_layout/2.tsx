@@ -52,7 +52,7 @@ function GetDatePage() {
           <Heading>
             {nickname}과/와
             <br />
-            처음 만난 날짜를 입력해주세요.
+            처음 만난 날짜를 입력해주세요
           </Heading>
         </div>
         <div className={cx('inputContainer')}>

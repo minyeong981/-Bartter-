@@ -13,7 +13,7 @@ export default function CropImage({imgSrc, label}: CropImageProps) {
   const id = `${label} image`;
   return (
     <div className={cx('cropImage')}>
-      <img id={id} src={'http://' + imgSrc} alt={label}/>
+      <img id={id} src={imgSrc} alt={label} />
       <label htmlFor={id}>{label}</label>
     </div>
   );
