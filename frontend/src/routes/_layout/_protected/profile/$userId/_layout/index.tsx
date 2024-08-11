@@ -4,7 +4,8 @@ import {
   useSuspenseQuery,
 } from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router';
-import {useEffect, useState} from 'react';
+import classnames from 'classnames/bind'
+import { useEffect,useState } from 'react';
 
 import SettingLinkButton from '@/components/Buttons/SettingLinkButton.tsx';
 import ProfileInfo from '@/components/User/ProfileInfo';
@@ -14,9 +15,8 @@ import querykeys from '@/util/querykeys';
 
 import styles from './../../profile.module.scss';
 
-export const Route = createFileRoute(
-  '/_layout/_protected/profile/$userId/_layout/',
-)({
+const cx = classnames.bind(styles)
+export const Route = createFileRoute('/_layout/_protected/profile/$userId/_layout/')({
   component: Profile,
 });
 
@@ -83,14 +83,35 @@ function Profile() {
   }
 
   return (
-    <div>
-      {Number(myId) === Number(userId) ? (
-        <>
-          <ProfileInfo {...userData} isMe={true} />
-          <SettingLinkButton to="/profile/aireport">
-            AI 요약보고서
-          </SettingLinkButton>
-          <SettingLinkButton
+    <div>{ Number(myId) === Number(userId) ? (
+
+      <>
+      <ProfileInfo {...userData} isMe={true}/>
+    <SettingButton to="/profile/aireport">AI 요약보고서</SettingButton>
+    <SettingButton
+      to="/profile/$userId/cropStorage"
+      params={{userId: userId.toString()}}
+    >
+      농작물 창고
+    </SettingButton>
+    <SettingButton
+      to="/profile/$userId/diary"
+      params={{userId: userId.toString()}}
+    >
+      농사 일지
+    </SettingButton>
+    <SettingButton to="/profile/writed">내가 쓴 글</SettingButton>
+    <SettingButton to="/profile/picked">찜 목록</SettingButton>
+    <SettingButton to="/profile/chat">채팅 목록</SettingButton>
+    <SettingButton to="/profile/changelocation">위치 수정</SettingButton>
+    <SettingButton to="/community">로그아웃</SettingButton>
+      </>
+          )
+          : ( 
+          <>
+          <ProfileInfo {...userData} isMe={false} onClick={handleFollow} />
+          <div className={cx('crops-count')}>받은 농작물 {cropCount} 개</div>
+          <SettingButton
             to="/profile/$userId/cropStorage"
             params={{userId: userId.toString()}}
           >
