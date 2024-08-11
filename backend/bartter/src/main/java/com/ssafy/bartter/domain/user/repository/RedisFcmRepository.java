@@ -15,12 +15,12 @@ public class RedisFcmRepository {
 
     public void save(int userId, String token){
         String key = CacheKey.fcmTokenKey(userId);
-        redisTemplate.opsForHash().put(key, token, userId);
+        redisTemplate.opsForHash().put(key, String.valueOf(userId), token);
     }
 
     public String getToken(int userId){
         String key = CacheKey.fcmTokenKey(userId);
-        return (String) redisTemplate.opsForHash().get(key, userId);
+        return (String) redisTemplate.opsForHash().get(key, String.valueOf(userId));
     }
 
     public void remove(int userId){

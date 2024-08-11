@@ -152,10 +152,19 @@ public class UserController {
     public SuccessResponse<Void> saveFCMToken(
             @RequestBody FcmToken token,
             @CurrentUser UserAuthDto user
-    ){
+    ) {
         log.debug("{}", token);
         userService.saveFcmToken(user.getId(), token.getToken());
-        fcmService.sendNotification(token.getToken(), "로그인 알림", user.getNickname() + "님 로그인을 환영합니다! ", user.getProfileImage());
+        userService.sendLoginAlarm(user.getId());
+        return SuccessResponse.empty();
+    }
+
+    @DeleteMapping("/fcm")
+    @Operation(summary = "사용자 FCM 토큰 제거", description = "사용자의 FCM 토큰을 제거합니다.")
+    public SuccessResponse<Void> removeFCMToken(
+            @CurrentUser UserAuthDto user
+    ) {
+        userService.deleteUser(user.getId());
         return SuccessResponse.empty();
     }
 }

@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -16,15 +18,19 @@ public class FCMService {
 
     private final FirebaseMessaging firebaseMessaging;
 
-    public void sendNotification(String targetToken, String title, String body) {
-        sendNotification(targetToken, title, body, null);
+    public void sendLoginAlarm(String token, String body) {
+        if(Objects.nonNull(token)) sendNotification(token, "밭터 - 로그인 알람", body +"님 로그인을 환영합니다!", "바터 이미지 ");
     }
 
-    public void sendNotification(String targetToken, String title, String body, String image) {
+    public void sendChattingAlarm(String token, String nickname, String image) {
+        if(Objects.nonNull(token)) sendNotification(token, "밭터 - 메세지 알람", nickname + "님이 메세지를 보냈습니다.", image);
+    }
+
+    private void sendNotification(String targetToken, String title, String body, String image) {
         WebpushConfig webpushConfig = WebpushConfig.builder()
                 .putData("title", title)
                 .putData("body", body)
-                .putData("image", "https://img.freepik.com/premium-vector/cute-strong-apple-character-illustration_723554-257.jpg")
+                .putData("image", image)
                 .build();
 
         Message message = Message.builder()
@@ -36,10 +42,11 @@ public class FCMService {
                 .build();
         try {
             String response = firebaseMessaging.sendAsync(message).get();
-            log.debug("Sent message: " + response);
+            log.debug("Send message: " + response);
         } catch (Exception e) {
             log.error("FCM 전송 오류 ", e);
-//            throw new CustomException(ErrorCode.BAD_REQUEST, "잘못된 알람 요청값입니다.");
         }
     }
+
+
 }

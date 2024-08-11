@@ -11,6 +11,7 @@ import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.global.common.SimpleLocation;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
+import com.ssafy.bartter.global.service.FCMService;
 import com.ssafy.bartter.global.service.LocationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * User 관련 비즈니스 로직을 처리하는 서비스 클래스
@@ -37,6 +39,7 @@ public class UserService {
     private final FollowRepository followRepository;
     private final LocationService locationService;
     private final UserRepository userRepository;
+    private final FCMService fcmService;
 
     @Value("${cloud.aws.url}")
     private String url;
@@ -173,5 +176,33 @@ public class UserService {
      */
     public void saveFcmToken(int userId, String token) {
         redisFcmRepository.save(userId, token);
+    }
+
+    /**
+     * 레디스에서 사용자 FCM 토큰을 가져온다.
+     */
+    public String getFcmToken(int userId) {
+        return redisFcmRepository.getToken(userId);
+    }
+
+    /**
+     * 레디스에서 사용자 FCM 토큰을 제거한다.
+     * @param userId 토큰을 지우려는 사용자의 ID
+     */
+    public void removeToken(int userId) {
+        redisFcmRepository.remove(userId);
+    }
+
+    public void sendLoginAlarm(int userId) {
+        String nickname = userRepository.findNickNameByUserId(userId);
+        String token = getFcmToken(userId);
+        fcmService.sendLoginAlarm(token, nickname);
+    }
+
+    public void sendChattingAlarm(int userId) {
+        String token = getFcmToken(userId);
+        userRepository.findByUserId(userId).ifPresent(
+                o -> fcmService.sendChattingAlarm(token, o.getNickname(), o.getProfileImage())
+        );
     }
 }

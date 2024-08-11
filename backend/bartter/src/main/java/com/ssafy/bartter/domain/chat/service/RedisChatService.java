@@ -3,8 +3,10 @@ package com.ssafy.bartter.domain.chat.service;
 import com.ssafy.bartter.domain.chat.dto.ChatMessage;
 import com.ssafy.bartter.domain.chat.repository.RedisChatRepository;
 import com.ssafy.bartter.domain.trade.services.TradeService;
+import com.ssafy.bartter.domain.user.services.UserService;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
+import com.ssafy.bartter.global.service.FCMService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,9 +20,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RedisChatService {
 
-    private final TradeService tradeService;
-    private final RedisChatRepository redisChatRepository;
     private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisChatRepository redisChatRepository;
+    private final TradeService tradeService;
+    private final UserService userService;
     private final ChannelTopic topic;
 
     public void publish(ChatMessage message) {
@@ -117,8 +120,12 @@ public class RedisChatService {
                 .forEach(this::sendNotification);
     }
 
-    private void sendNotification(int id){
-        log.debug("{}번 유저한테 알람 보내기",id);
+    private void sendNotification(int userId){
+        log.debug("{}번 유저한테 알람 보내기",userId);
+        String fcmToken = userService.getFcmToken(userId);
+        if(fcmToken != null){
+            userService.sendChattingAlarm(userId);
+        }
     }
 
 }

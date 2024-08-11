@@ -36,4 +36,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             Pageable pageable
     );
 
+    @Query("SELECT u.nickname FROM User u " +
+            "WHERE u.id = :userId")
+    String findNickNameByUserId(@Param("userId") int userId);
+
 }
