@@ -44,13 +44,15 @@ function GetGenderPage() {
   }
 
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>
-          농부님의
-          <br />
-          성별을 알려주세요
-        </Heading>
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>
+            농부님의
+            <br />
+            성별을 알려주세요
+          </Heading>
+        </div>
       </div>
       <div className={cx('inputContainer')}>
         <BinaryButton
@@ -71,6 +73,6 @@ function GetGenderPage() {
           다음
         </GeneralButton>
       </div>
-    </>
+    </div>
   );
 }

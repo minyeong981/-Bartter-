@@ -49,13 +49,15 @@ function GetPasswordPage() {
   }
 
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>
-          농부님이
-          <br />
-          사용할 비밀번호를 알려주세요
-        </Heading>
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>
+            농부님이
+            <br />
+            사용할 비밀번호를 알려주세요
+          </Heading>
+        </div>
       </div>
       <div className={cx('inputContainer')}>
         <LabeledInput
@@ -83,6 +85,6 @@ function GetPasswordPage() {
           다음
         </GeneralButton>
       </div>
-    </>
+    </div>
   );
 }

@@ -74,26 +74,27 @@ function GetDesciptionPage() {
   return (
     <div className={cx('container')}>
       <div className={cx('mainContainer')}>
-        <div className={cx('headingContainer')}>
-          <Heading>
-            {nickname}을/를
-            <br />
-            소개해주세요.
-          </Heading>
-        </div>
-        <div className={cx('inputContainer')}>
-          <LabeledTextAreaInput
-            label="작물 설명 (선택 사항)"
-            placeholder="품종 등"
-            onChange={
-              handleDescriptionChange as unknown as (
-                e: ChangeEvent<HTMLTextAreaElement>,
-              ) => void
-            }
-            value={description}
-          />
-        </div>
+      <div className={cx('headingContainer')}>
+        <Heading>
+          {nickname}을/를
+          <br />
+          소개해주세요.
+        </Heading>
       </div>
+      <div className={cx('inputContainer')}>
+        <LabeledTextAreaInput
+          label="작물 설명 (선택 사항)"
+          placeholder="품종 등"
+          onChange={
+            handleDescriptionChange as unknown as (
+              e: ChangeEvent<HTMLTextAreaElement>,
+            ) => void
+          }
+          value={description}
+        />
+      </div>
+      </div>
+      
       <div className={cx('buttonContainer')}>
         <LinkButton
           buttonStyle={{style: 'primary', size: 'large'}}

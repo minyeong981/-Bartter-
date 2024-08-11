@@ -5,27 +5,36 @@
   height: 100%;
   padding: 0 20px;
 
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .mainContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  padding: 30px 0;
+  }
+
   .headingContainer {
     display: flex;
-    flex: 2;
     flex-direction: column;
-    align-self: flex-start;
-    justify-content: center;
+    margin-left: 10px;
+    
   }
 
   .inputContainer {
     display: flex;
-    flex: 6;
     flex-direction: column;
-    gap: 44px;
     width: 100%;
+    gap: 40px;
   }
-
   .buttonContainer {
     display: flex;
     flex: 1;
     flex-direction: column;
     gap: 20px;
-    justify-content: flex-end;
+    justify-content:flex-end;
   }
 }

@@ -73,14 +73,14 @@ function GetImagePage() {
           <Heading>
             {nickname}의
             <br />
-            사진을 등록해주세요.
+            사진을 등록해주세요
           </Heading>
           <br />
-          <p>사진 ({image.length}/{maxImages})</p>
         </div>
-      </div>
       <div className={cx('inputContainer')}>
+        <p>사진 ({image.length}/{maxImages})</p>
         <ImageInput onImageChange={handleImageChange} maxImages={maxImages} />
+      </div>
       </div>
       <div className={cx('buttonContainer')}>
         <GeneralButton
