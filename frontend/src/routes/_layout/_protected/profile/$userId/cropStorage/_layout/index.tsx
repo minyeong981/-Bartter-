@@ -21,6 +21,7 @@ export const Route = createFileRoute(
 });
 
 function CropStoragePage() {
+  const myId = useRootStore(state => state.userId);
   const {userId} = Route.useParams();
   const navigate = useNavigate();
   const [isUserCrops, setIsUserCrops] = useState(true);

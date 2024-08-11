@@ -58,16 +58,16 @@ function GetPhoneNumberPage() {
             전화번호를 알려주세요
           </Heading>
         </div>
-      </div>
-      <div className={cx('inputContainer')}>
-        <LabeledInput
-          label="전화번호"
-          placeholder="01012345678"
-          onChange={handlePhoneNumberChange}
-          value={phoneNumber}
-          type="tel"
-          pattern={NUMBER_PATTERN.source}
-        />
+        <div className={cx('inputContainer')}>
+          <LabeledInput
+            label="전화번호"
+            placeholder="01012345678"
+            onChange={handlePhoneNumberChange}
+            value={phoneNumber}
+            type="tel"
+            pattern={NUMBER_PATTERN.source}
+          />
+        </div>
       </div>
       <div className={cx('buttonContainer')}>
         <GeneralButton

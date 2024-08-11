@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   height: 100%;
-  padding: 0 20px;
+  
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
@@ -18,12 +18,20 @@
     flex-direction: column;
     height: 100%;
   }
+ 
+  .progressbar{
+    width: 100%;
+    padding: 20px;
+  }
+
  .mainContainer {
   display: flex;
   flex-direction: column;
   gap: 50px;
   padding: 30px 10px;
+  width: 100%;
  }
+
   .headingContainer {
     display: flex;
     flex-direction: column;
@@ -57,6 +65,7 @@
     flex-direction: column;
     gap: 20px;
     justify-content:flex-end;
+    width: 100%;
   }
 }
 

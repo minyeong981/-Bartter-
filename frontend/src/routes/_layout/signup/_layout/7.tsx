@@ -61,15 +61,15 @@ function GetEmailPage() {
             이메일을 알려주세요
           </Heading>
         </div>
-      </div>
-      <div className={cx('inputContainer')}>
-        <LabeledInput
-          label="이메일 (선택 사항)"
-          placeholder="이메일을 입력해주세요"
-          onChange={handleEmailChange}
-          type="email"
-          value={email}
-        />
+        <div className={cx('inputContainer')}>
+          <LabeledInput
+            label="이메일 (선택 사항)"
+            placeholder="이메일을 입력해주세요"
+            onChange={handleEmailChange}
+            type="email"
+            value={email}
+          />
+        </div>
       </div>
       <div className={cx('buttonContainer')}>
         <LinkButton
