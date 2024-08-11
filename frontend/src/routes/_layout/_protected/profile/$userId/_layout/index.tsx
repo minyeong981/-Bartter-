@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient,useSuspenseQuery } from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router';
+import classnames from 'classnames/bind'
 import { useEffect,useState } from 'react';
 
 import SettingButton from '@/components/Buttons/SettingButton';
@@ -10,6 +11,7 @@ import querykeys from '@/util/querykeys';
 
 import styles from './../../profile.module.scss';
 
+const cx = classnames.bind(styles)
 export const Route = createFileRoute('/_layout/_protected/profile/$userId/_layout/')({
   component: Profile,
 });
@@ -104,7 +106,7 @@ function Profile() {
           : ( 
           <>
           <ProfileInfo {...userData} isMe={false} onClick={handleFollow} />
-          <div className={styles.cropsCount}>받은 농작물 {cropCount} 개</div>
+          <div className={cx('crops-count')}>받은 농작물 {cropCount} 개</div>
           <SettingButton
             to="/profile/$userId/cropStorage"
             params={{userId: userId.toString() }}

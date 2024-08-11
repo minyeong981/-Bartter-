@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router'
 
 import SettingButton from '@/components/Buttons/SettingButton';
@@ -14,25 +14,21 @@ export const Route = createFileRoute('/_layout/_protected/profile/_layout/')({
 export default function MyProfile() {
 
   const userId  = useRootStore((state) => state.userId)
-  console.log(userId)
 
-  const { isPending, data } = useQuery({
+  const { data } = useSuspenseQuery({
     queryKey: [querykeys.PROFILE, userId],
-    queryFn: () => barter.getUserProfile(Number(userId))
+    queryFn: () => barter.getUserProfile(Number(userId)),
   });
 
-  if ( isPending ) {
-    return <span>Loading...</span>
+  if ( !userId ) {
+    return <div>유정 정보가 없습니다. 다시 로그인 해주세요.</div>
   }
-  console.log(data?.data.data)
 
-  if ( ! data?.data?.data) {
-    return <div>사용자가 존재하지 않습니다.</div>
-    } 
+  const userData = data?.data?.data || [];
 
   return (
     <div>
-    <ProfileInfo {...data.data.data} isMe={true}/>
+    <ProfileInfo {...userData} isMe={true}/>
     <SettingButton to="/profile/aireport">AI 요약보고서</SettingButton>
     <SettingButton
       to="/profile/$userId/cropStorage"

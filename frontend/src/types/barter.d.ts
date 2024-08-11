@@ -425,6 +425,8 @@ interface TradeInfo {
   userProfile: SimpleUserProfile;
 }
 
+type AutoCompletedKeyWord = string;
+
 type GetCommunityPostListByUserId = BarterResponse<MyCommunityPostDetail[]>;
 type GetCommunityPostList = BarterResponse<SimpleCommunityPostDetail[]>;
 type PostCommunityPostResponse = BarterResponse<CommunityPostDetail>;
@@ -470,6 +472,7 @@ type GetUserLocationResponse = BarterResponse<SimpleLocation>;
 type GetHasDiaryResponse = BarterResponse<string[]>;
 type GetChatListResponse = BarterResponse<SimpleTradeInfo[]>;
 type GetChatRoomInfoResponse = BarterResponse<TradeInfo>;
+type GetAutoCompletedKeywordListByKeyword = BarterResponse<AutoCompletedKeyWord[]>;
 
 // TODO: 농작물 물물교환 API 부터는 GET요청만 정의
 // type SignupResponse = BarterResponse<null>;

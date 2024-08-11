@@ -400,6 +400,15 @@ export default {
    */
   searchByKeyword: async (keyword: string) =>
     axios.get<GetSearch>('/search', {params: {keyword}}),
+    /**
+   * 키워드 검색어 자동 완성 제안
+   */
+    getAutoCompletedKeywordListByKeyword: async (
+      keyword: string,
+    ) =>
+      axios.get<GetAutoCompletedKeywordListByKeyword>(`/search/autocomplete`, {
+        params: {keyword},
+      }),
   /**
    * 키워드 검색 물물교환 게시글 목록 조회
    */

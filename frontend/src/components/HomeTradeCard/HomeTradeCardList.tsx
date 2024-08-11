@@ -1,5 +1,5 @@
 import classnames from 'classnames/bind';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import HomeTradeCard from './HomeTradeCard';
 import styles from './HomeTradeCardList.module.scss';
@@ -23,26 +23,6 @@ export default function HomeTradeCardList({ trades }: BarterCardProps) {
   const doubledTrades = [...trades, ...trades];
   const totalCards = trades.length;
   const maxIndex = Math.max(0, totalCards - cardsToShow);
-
-  useEffect(() => {
-    if (totalCards > cardsToShow) {
-      const intervalId = setInterval(() => {
-        setCurrentIndex((prevIndex) => {
-          const newIndex = prevIndex + cardsToShow;
-          return newIndex > maxIndex ? 0 : newIndex;
-        });
-      }, 3000);
-
-      return () => clearInterval(intervalId);
-    }
-  }, [totalCards]);
-
-  useEffect(() => {
-    if (carouselInnerRef.current && !isDragging) {
-      carouselInnerRef.current.style.transition = 'transform 0.5s ease-in-out';
-      carouselInnerRef.current.style.transform = `translateX(-${currentIndex * (cardWidth + cardSpacing)}px)`;
-    }
-  }, [currentIndex, isDragging]);
 
   const handleDragStart = (pageX: number) => {
     setIsDragging(true);
@@ -98,8 +78,21 @@ export default function HomeTradeCardList({ trades }: BarterCardProps) {
     handleDragEnd();
   };
 
+  const handlePrevClick = () => {
+    const newIndex = currentIndex - 1;
+    setCurrentIndex(newIndex < 0 ? maxIndex : newIndex);
+  };
+
+  const handleNextClick = () => {
+    const newIndex = currentIndex + 1;
+    setCurrentIndex(newIndex > maxIndex ? 0 : newIndex);
+  };
+
   return (
-    <div className={cx('home-barter-component')}>
+    <div className={cx('home-trade-component')}>
+      <button className={cx('carousel-button', 'prev')} onClick={handlePrevClick}>
+        &lt;
+      </button>
       <div
         className={cx('carousel-inner')}
         ref={carouselInnerRef}
@@ -118,6 +111,9 @@ export default function HomeTradeCardList({ trades }: BarterCardProps) {
           <HomeTradeCard key={tradeIndex} {...trade} />
         ))}
       </div>
+      <button className={cx('carousel-button', 'next')} onClick={handleNextClick}>
+        &gt;
+      </button>
     </div>
   );
 }

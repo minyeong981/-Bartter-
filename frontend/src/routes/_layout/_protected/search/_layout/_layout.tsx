@@ -58,12 +58,12 @@ export default function SearchLayout() {
 
         const searchKeywordPath = `search/${keyword}`; // 한글을 인식못해서 디코딩해줌.
     
-        console.log(99999);
-        console.log(decodedPathname);
-        console.log(keyword);
+        // console.log(99999);
+        // console.log(decodedPathname);
+        // console.log(keyword);
     
         if (decodedPathname.includes(searchKeywordPath)) {
-          console.log('@@@@@@');
+        //   console.log('@@@@@@');
           setIsShow(false);
         } else {
           setIsShow(true);
