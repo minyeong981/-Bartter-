@@ -12,5 +12,7 @@ public class CacheKey {
 
     public static String tradeInfoKey(int tradeId ) { return "trade:info:" + tradeId; }
 
+    public static String fcmTokenKey(int userId ) { return "fcm:info:" + userId; }
+
     public static String userNicknameKey(int userId) { return "user:nickname:" + userId;}
 }

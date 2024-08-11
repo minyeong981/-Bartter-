@@ -3,6 +3,7 @@ package com.ssafy.bartter.domain.user.dto;
 import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.global.common.SimpleLocation;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 
 /**
@@ -61,6 +62,11 @@ public class UserDto {
         }
     }
 
+    @Data
+    public static class FcmToken{
+        String token;
+    }
+
     @Getter
     @Builder
     public static class SearchUserProfile {
@@ -79,5 +85,6 @@ public class UserDto {
                             .anyMatch(o -> o == currentUserId))
                     .build();
         }
+
     }
 }
