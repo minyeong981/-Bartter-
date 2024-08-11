@@ -16,7 +16,7 @@ export default function DayDiaryImage({
         <div className={styles.diaryImage}>
             <img 
             onClick={handleClick}
-            src={`https://${image}`} 
+            src={image} 
             alt={`${cropDiaryId}`} 
             />
         </div>

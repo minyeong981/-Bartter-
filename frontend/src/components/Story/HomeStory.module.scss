@@ -1,12 +1,15 @@
 @use '@/styles/constants/colors.scss' as colors;
 @use '@/styles/constants/typographies.scss' as typo;
 
-.homeStory {
+.home-story {
   position: relative;
-  max-width: 390px;
+
+  // max-width: 390px;
+  width: 100%;
+  margin-top: 10px;
   overflow: hidden;
 
-  .carouselContainer {
+  .carousel-container {
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -18,13 +21,13 @@
       display: none;
     }
 
-    .storyCard {
+    .story-card {
       position: relative;
       flex: 0 0 38%;
       scroll-snap-align: start;
       margin: 0 5px;
 
-      .diaryImage {
+      .diary-image {
         position: relative;
         display: flex;
         align-items: flex-end;
@@ -35,13 +38,13 @@
         border-radius: 10px;
       }
     
-      .profileImage {
+      .profile-image {
         position: absolute;
         bottom: 30px;
         left: 50%;
         z-index: 2; 
-        width: 60px; // 크기를 키웠습니다.
-        height: 60px; // 크기를 키웠습니다.
+        width: 60px; 
+        height: 60px; 
         background-color: colors.$white;
         border: 2px solid colors.$white;
         border-radius: 50%;
