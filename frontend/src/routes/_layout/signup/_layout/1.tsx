@@ -32,14 +32,14 @@ function GetNamePage() {
             이름을 알려주세요
           </Heading>
         </div>
-      </div>
-      <div className={cx('inputContainer')}>
-        <LabeledInput
-          label="이름"
-          placeholder="이름을 입력해주세요"
-          onChange={handleNameChange}
-          value={name}
-        />
+        <div className={cx('inputContainer')}>
+          <LabeledInput
+            label="이름"
+            placeholder="이름을 입력해주세요"
+            onChange={handleNameChange}
+            value={name}
+          />
+        </div>
       </div>
       <div className={cx('buttonContainer')}>
         <GeneralButton

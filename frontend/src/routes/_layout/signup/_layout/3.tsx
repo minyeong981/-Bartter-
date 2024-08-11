@@ -58,22 +58,22 @@ function GetPasswordPage() {
             사용할 비밀번호를 알려주세요
           </Heading>
         </div>
-      </div>
-      <div className={cx('inputContainer')}>
-        <LabeledInput
-          label="비밀번호"
-          placeholder="영문 특수문자를 포함해서 8자리 이상 입력"
-          onChange={handlePasswordChange}
-          value={password}
-          pattern={PASSWORD_PATTERN.source}
-        />
-        <LabeledInput
-          label="비밀번호 확인"
-          placeholder="비밀번호 확인"
-          onChange={handleConfirmPasswordChange}
-          value={confirmPassword}
-          pattern={PASSWORD_PATTERN.source}
-        />
+        <div className={cx('inputContainer')}>
+          <LabeledInput
+            label="비밀번호"
+            placeholder="영문 특수문자를 포함해서 8자리 이상 입력"
+            onChange={handlePasswordChange}
+            value={password}
+            pattern={PASSWORD_PATTERN.source}
+          />
+          <LabeledInput
+            label="비밀번호 확인"
+            placeholder="비밀번호 확인"
+            onChange={handleConfirmPasswordChange}
+            value={confirmPassword}
+            pattern={PASSWORD_PATTERN.source}
+          />
+        </div>
       </div>
       <div className={cx('buttonContainer')}>
         <GeneralButton

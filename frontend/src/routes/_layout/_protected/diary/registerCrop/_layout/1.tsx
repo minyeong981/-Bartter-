@@ -58,7 +58,7 @@ function GetNicknamePage() {
           다음
         </LinkButton>
       </div>
-      </div>
+    </div>
   );
 }
 
