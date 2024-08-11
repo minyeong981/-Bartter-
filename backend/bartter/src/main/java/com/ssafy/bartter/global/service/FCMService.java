@@ -7,6 +7,7 @@ import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -16,12 +17,14 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class FCMService {
 
+    @Value("${cloud.aws.url}")
+    private String url;
     private final String loginTitle = "밭터 - 로그인 알림";
     private final String messageTitle = "밭터 - 메세지 알림";
     private final FirebaseMessaging firebaseMessaging;
 
     public void sendLoginAlarm(String token, String body) {
-        if(Objects.nonNull(token)) sendNotification(token, loginTitle, body +"님 로그인을 환영합니다!", "바터 이미지 ");
+        if(Objects.nonNull(token)) sendNotification(token, loginTitle, body +"님 로그인을 환영합니다!", url + "/logo");
     }
 
     public void sendChattingAlarm(String token, String nickname, String image) {
