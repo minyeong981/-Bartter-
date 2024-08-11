@@ -21,6 +21,7 @@
     "browser-image-compression": "^2.0.2",
     "classnames": "^2.5.1",
     "date-fns": "^3.6.0",
+    "firebase": "^10.12.5",
     "immer": "^10.1.1",
     "jwt-decode": "^4.0.0",
     "localforage": "^1.10.0",

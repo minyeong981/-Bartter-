@@ -2,16 +2,21 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router'
 
 import SettingButton from '@/components/Buttons/SettingButton';
+import SettingLinkButton from '@/components/Buttons/SettingLinkButton.tsx';
 import ProfileInfo from '@/components/User/ProfileInfo';
 import barter from '@/services/barter';
 import useRootStore from '@/store';
 import querykeys from '@/util/querykeys';
 
 export const Route = createFileRoute('/_layout/_protected/profile/_layout/')({
-  component: MyProfile
-})
+  component: MyProfile,
+});
 
 export default function MyProfile() {
+  const userId = useRootStore(state => state.userId);
+  const logout = useRootStore(state => state.logout);
+  const navigate = Route.useNavigate();
+  console.log(userId);
 
   const userId  = useRootStore((state) => state.userId)
 
@@ -48,6 +53,5 @@ export default function MyProfile() {
     <SettingButton to="/profile/changelocation">위치 수정</SettingButton>
     <SettingButton to="/community">로그아웃</SettingButton>
     </div>
-  )
-
+  );
 }

@@ -1,9 +1,13 @@
-import { useMutation, useQueryClient,useSuspenseQuery } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind'
 import { useEffect,useState } from 'react';
 
-import SettingButton from '@/components/Buttons/SettingButton';
+import SettingLinkButton from '@/components/Buttons/SettingLinkButton.tsx';
 import ProfileInfo from '@/components/User/ProfileInfo';
 import barter from '@/services/barter';
 import useRootStore from '@/store';
@@ -17,25 +21,25 @@ export const Route = createFileRoute('/_layout/_protected/profile/$userId/_layou
 });
 
 function Profile() {
-  const myId = useRootStore((state) => state.userId)
+  const myId = useRootStore(state => state.userId);
   const queryClient = useQueryClient();
 
-  const { userId } : {userId : UserId } = Route.useParams();
+  const {userId}: {userId: UserId} = Route.useParams();
 
-  const { data:profileData } = useSuspenseQuery({
+  const {data: profileData} = useSuspenseQuery({
     queryKey: [querykeys.PROFILE, userId],
-    queryFn: () => barter.getUserProfile(Number(userId))
+    queryFn: () => barter.getUserProfile(Number(userId)),
   });
 
-  const { data:cropData } = useSuspenseQuery({
+  const {data: cropData} = useSuspenseQuery({
     queryKey: [querykeys.CROP_PROFILE, userId],
-    queryFn: () => barter.getCropListTradedByUser(Number(userId))
+    queryFn: () => barter.getCropListTradedByUser(Number(userId)),
   });
 
-  const [ isFollowed, setIsFollowed ] = useState<boolean>(false);
+  const [isFollowed, setIsFollowed] = useState<boolean>(false);
 
   const userData = profileData.data.data;
-  const cropCount : number = cropData?.data?.data?.receive?.length ?? 0;
+  const cropCount: number = cropData?.data?.data?.receive?.length ?? 0;
 
   useEffect(() => {
     if (userData.isFollowed !== undefined) {
@@ -44,29 +48,29 @@ function Profile() {
   }, [userData]);
 
   const onFollow = useMutation({
-    mutationFn: (userId : UserId) => {
-      return barter.follow(userId)
+    mutationFn: (userId: UserId) => {
+      return barter.follow(userId);
     },
-    onError: ()=> {
-      window.alert('팔로우 실패')
-      }, 
-      onSuccess: () => {
-        queryClient.invalidateQueries({queryKey : [querykeys.PROFILE]});
-        setIsFollowed(true)
-      }
-  })
+    onError: () => {
+      window.alert('팔로우 실패');
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: [querykeys.PROFILE]});
+      setIsFollowed(true);
+    },
+  });
 
   const unFollow = useMutation({
-    mutationFn: (userId : UserId) => {
-      return barter.unfollow(userId)
+    mutationFn: (userId: UserId) => {
+      return barter.unfollow(userId);
     },
-    onError: ()=> {
-      window.alert('언팔로우 실패')
-      }, 
-      onSuccess: () => {
-        queryClient.invalidateQueries({queryKey : [querykeys.PROFILE]});
-      }
-  })
+    onError: () => {
+      window.alert('언팔로우 실패');
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: [querykeys.PROFILE]});
+    },
+  });
 
   function handleFollow() {
     if (isFollowed !== undefined) {
@@ -109,19 +113,42 @@ function Profile() {
           <div className={cx('crops-count')}>받은 농작물 {cropCount} 개</div>
           <SettingButton
             to="/profile/$userId/cropStorage"
-            params={{userId: userId.toString() }}
+            params={{userId: userId.toString()}}
           >
             농작물 창고
-          </SettingButton>
-          <SettingButton
+          </SettingLinkButton>
+          <SettingLinkButton
             to="/profile/$userId/diary"
-            params={{userId: userId.toString() }}
+            params={{userId: userId.toString()}}
           >
             농사 일지
-          </SettingButton>
-          </>
-          )
-          }
+          </SettingLinkButton>
+          <SettingLinkButton to="/profile/writed">내가 쓴 글</SettingLinkButton>
+          <SettingLinkButton to="/profile/picked">찜 목록</SettingLinkButton>
+          <SettingLinkButton to="/profile/chat">채팅 목록</SettingLinkButton>
+          <SettingLinkButton to="/profile/changelocation">
+            위치 수정
+          </SettingLinkButton>
+          <SettingLinkButton to="/community">로그아웃</SettingLinkButton>
+        </>
+      ) : (
+        <>
+          <ProfileInfo {...userData} isMe={false} onClick={handleFollow} />
+          <div className={styles.cropsCount}>받은 농작물 {cropCount} 개</div>
+          <SettingLinkButton
+            to="/profile/$userId/cropStorage"
+            params={{userId: userId.toString()}}
+          >
+            농작물 창고
+          </SettingLinkButton>
+          <SettingLinkButton
+            to="/profile/$userId/diary"
+            params={{userId: userId.toString()}}
+          >
+            농사 일지
+          </SettingLinkButton>
+        </>
+      )}
     </div>
   );
 }

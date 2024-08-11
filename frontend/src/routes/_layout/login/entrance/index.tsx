@@ -15,17 +15,23 @@ export const Route = createFileRoute('/_layout/login/entrance/')({
 
 function EntrancePage() {
   function handleKakaoButton() {
-    window.open(import.meta.env.BASEURL + '/oauth2/authorization/kakao', '_self');
+    window.open(
+      import.meta.env.VITE_BASEURL + '/oauth2/authorization/kakao',
+      '_self',
+    );
   }
 
   return (
     <div className={cx('entrance')}>
       <div className={cx('logo-container')}>
-        <img src={ImageLogo} alt="logo image"/>
+        <img src={ImageLogo} alt="logo image" />
       </div>
       <div className={cx('button-container')}>
-        <KakaoButton onClick={handleKakaoButton}/>
-        <GeneralButton buttonStyle={{style: 'primary', size: 'large'}} to="/login">
+        <KakaoButton onClick={handleKakaoButton} />
+        <GeneralButton
+          buttonStyle={{style: 'primary', size: 'large'}}
+          to="/login"
+        >
           로그인
         </GeneralButton>
       </div>

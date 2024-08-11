@@ -483,4 +483,18 @@ export default {
    */
   getChatRoomInfo: async (tradePostId: TradePostId) =>
     axios.get<GetChatRoomInfoResponse>(`/trades/${tradePostId}`),
+
+  // FCM 토큰 관련
+  /**
+   * 사용자 FCM 토큰 저장
+   */
+  postFcmToken: async (fcmToken: string) =>
+    axios.post<null>(
+      '/user/fcm',
+      {token: fcmToken},
+      {
+        headers: {'Content-Type': 'application/json'},
+      },
+    ),
+  deleteFcmToken: async () => axios.delete<null>('/user/fcm'),
 };
