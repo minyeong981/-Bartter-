@@ -6,7 +6,9 @@ public class CacheKey {
 
     public static String searchLogKey(String username){ return "searchLog:" + username; }
 
-    public static String keywordKey(){ return "keyword"; }
+    public static String autocompleteKey(){ return "autocomplete"; }
+
+    public static String autocompleteScoreKey(){ return "autocomplete:score"; }
 
     public static String messageKey(int tradeId) { return "trade:chat:" + tradeId;}
 
