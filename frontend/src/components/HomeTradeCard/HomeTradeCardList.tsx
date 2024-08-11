@@ -14,61 +14,92 @@ export default function HomeTradeCardList({ trades }: BarterCardProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
+  const [dragOffset, setDragOffset] = useState(0);
   const cardWidth = 180;
   const cardsToShow = 2;
   const cardSpacing = 10;
   const carouselInnerRef = useRef<HTMLDivElement>(null);
 
-  // 카드 두 배로 복사
   const doubledTrades = [...trades, ...trades];
-  const totalCards = doubledTrades.length;
-  const maxIndex = Math.max(0, totalCards / 2 - cardsToShow);
-
-  const handlePrev = () => {
-    setCurrentIndex(prevIndex => Math.max(prevIndex - cardsToShow, 0));
-  };
-
-  const handleNext = () => {
-    setCurrentIndex(prevIndex => {
-      const newIndex = prevIndex + cardsToShow;
-      return newIndex >= maxIndex ? 0 : newIndex; // 무한 스크롤 효과
-    });
-  };
+  const totalCards = trades.length;
+  const maxIndex = Math.max(0, totalCards - cardsToShow);
 
   useEffect(() => {
-    const intervalId = setInterval(handleNext, 3000); 
+    if (totalCards > cardsToShow) {
+      const intervalId = setInterval(() => {
+        setCurrentIndex((prevIndex) => {
+          const newIndex = prevIndex + cardsToShow;
+          return newIndex > maxIndex ? 0 : newIndex;
+        });
+      }, 3000);
 
-    return () => clearInterval(intervalId);
-  }, [currentIndex]);
-
-  // Dragging
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    setStartX(e.pageX);
-    if (carouselInnerRef.current) {
-      setScrollLeft(carouselInnerRef.current.scrollLeft);
+      return () => clearInterval(intervalId);
     }
+  }, [totalCards]);
+
+  useEffect(() => {
+    if (carouselInnerRef.current && !isDragging) {
+      carouselInnerRef.current.style.transition = 'transform 0.5s ease-in-out';
+      carouselInnerRef.current.style.transform = `translateX(-${currentIndex * (cardWidth + cardSpacing)}px)`;
+    }
+  }, [currentIndex, isDragging]);
+
+  const handleDragStart = (pageX: number) => {
+    setIsDragging(true);
+    setStartX(pageX);
+    setDragOffset(0);
+  };
+
+  const handleDragMove = (pageX: number) => {
+    if (!isDragging) return;
+    const walk = pageX - startX;
+    setDragOffset(walk);
+    if (carouselInnerRef.current) {
+      carouselInnerRef.current.style.transition = 'none';
+      carouselInnerRef.current.style.transform = `translateX(${dragOffset - currentIndex * (cardWidth + cardSpacing)}px)`;
+    }
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    if (Math.abs(dragOffset) > cardWidth / 2) {
+      const newIndex = currentIndex - Math.sign(dragOffset);
+      setCurrentIndex(newIndex < 0 ? maxIndex : newIndex >= maxIndex ? 0 : newIndex);
+    } else {
+      if (carouselInnerRef.current) {
+        carouselInnerRef.current.style.transition = 'transform 0.5s ease-in-out';
+        carouselInnerRef.current.style.transform = `translateX(-${currentIndex * (cardWidth + cardSpacing)}px)`;
+      }
+    }
+    setDragOffset(0);
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    handleDragStart(e.pageX);
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    const x = e.pageX;
-    const walk = (x - startX) * 2; 
-    if (carouselInnerRef.current) {
-      carouselInnerRef.current.scrollLeft = scrollLeft - walk;
-    }
+    handleDragMove(e.pageX);
   };
 
   const handleMouseUp = () => {
-    setIsDragging(false);
+    handleDragEnd();
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    handleDragStart(e.touches[0].pageX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    handleDragMove(e.touches[0].pageX);
+  };
+
+  const handleTouchEnd = () => {
+    handleDragEnd();
   };
 
   return (
     <div className={cx('home-barter-component')}>
-      <button className={cx('carousel-button', 'left')} onClick={handlePrev}>
-        &lt;
-      </button>
       <div
         className={cx('carousel-inner')}
         ref={carouselInnerRef}
@@ -76,6 +107,9 @@ export default function HomeTradeCardList({ trades }: BarterCardProps) {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         style={{
           transform: `translateX(-${currentIndex * (cardWidth + cardSpacing)}px)`,
         }}
@@ -84,9 +118,6 @@ export default function HomeTradeCardList({ trades }: BarterCardProps) {
           <HomeTradeCard key={tradeIndex} {...trade} />
         ))}
       </div>
-      <button className={cx('carousel-button', 'right')} onClick={handleNext}>
-        &gt;
-      </button>
     </div>
   );
 }

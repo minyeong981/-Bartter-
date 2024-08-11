@@ -1,30 +1,46 @@
 @use '@/styles/constants/typographies.scss' as typo;
 
-.Header {
+.header { 
+    left: 0;
+    z-index: 1000;
     display: flex;
     align-items: center;
-    width: 100%; 
-    max-width: 390px;
-    padding: 10px 0; 
+    width: 100%;
+    background-color: white;
+
+    // max-width: 390px;
+    // padding: 10px 0; 
 
   }
+
+.fixed {
+  position: fixed;
+  top:53px;
+  left: 0;
+
+}
   
-  .headerLeft, .headerCenter, .headerRight {
+  .header-left, .header-center, .header-right {
     display: flex;
     flex-basis: 0; 
     flex-grow: 1; 
     align-items: center;
     justify-content: center;
+    height: 100%;
+    background-color: white;
   }
   
-  .headerLeft, .headerRight {
+  .header-left, .header-right {
     flex-grow: 1;
     cursor: pointer;
+    background-color: white;
   }
   
-  .headerCenter {
+  .header-center {
     flex-grow: 3;
 
     @include typo.title;
+
+    background-color: white;
 
   }
