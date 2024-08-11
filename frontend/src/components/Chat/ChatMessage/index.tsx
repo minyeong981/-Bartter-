@@ -13,7 +13,7 @@ export default function ChatMessage({
 }: ChatMessageProps) {
   return (
     <>
-      {!!senderNickname && <span>{senderNickname}</span>}
+      {!mine && <span>{senderNickname}</span>}
       <div className={cx('message', {mine})}>{content}</div>
     </>
   );

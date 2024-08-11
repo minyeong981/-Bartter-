@@ -53,7 +53,7 @@ interface SimpleUserProfileByKeyword {
   userId: UserId;
   nickname: Nickname;
   profileImage: ProfileImage;
-  isFollow:IsFollowed;
+  isFollow: IsFollowed;
 }
 
 type ImageOrder = number;
@@ -286,6 +286,7 @@ interface ChatMessage {
   content: Content;
   senderId: SenderId;
   tradeId: TradeId;
+  tradePostId: TradePostId;
   senderNickname?: Nickname;
 }
 
@@ -390,27 +391,28 @@ interface CropProfileForm {
   nickname: Nickname;
   growDate: GrowDate;
   description?: Description;
-  image? : File[];
+  image?: File[];
 }
 
 interface CropDiaryForm {
-  cropId:number;
-  title:string;
-  content:string;
-  image:File[];
-  performDate:string;
+  cropId: number;
+  title: string;
+  content: string;
+  image: File[];
+  performDate: string;
 }
 
 interface SearchContextType {
   query: string;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
-  keyword:string;
+  keyword: string;
   setKeyword: React.Dispatch<React.SetStateAction<string>>;
   isSearch: boolean;
-  setIsSearch : React.Dispatch<React.SetStateAction<boolean>>;
-  isShow : boolean;
+  setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
+  isShow: boolean;
   setIsShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 type AdditionalInfo = Position;
 
 interface SimpleTradeInfo {

@@ -20,14 +20,14 @@ export const Route = createFileRoute(
 });
 
 function ChatPage() {
-  const {tradeId} = Route.useParams();
+  const {tradeId, tradePostId} = Route.useParams();
   const userId = useRootStore(state => state.userId);
   const token = useRootStore(state => state.token);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
-  const [page, setPage] = useState(0); // 무한 스크롤에서 사용하기 위한 page, setPage 변수
-  const [hasMore, setHasMore] = useState(true); // 더 불러올 데이터가 있는지 판단
-  const scrollRef = useRef<HTMLDivElement>(null); // 현재 바라보고 있는 스크롤 (참조)
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const prevScrollHeightRef = useRef(0); // 메시지 추가 후 복원하기 위한 참조
   const limit = 10; // 한 번에 불러올 메시지 수 : 무한 스크롤에서 사용합니다.
 
@@ -70,8 +70,7 @@ function ChatPage() {
 
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTop =
-        scrollRef.current.scrollHeight - prevScrollHeightRef.current;
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages]);
 
@@ -151,6 +150,7 @@ function ChatPage() {
         content: input,
         senderId: userId,
         tradeId: Number(tradeId),
+        tradePostId: Number(tradePostId),
       };
       client.publish({
         destination: '/pub/trade/chat',
