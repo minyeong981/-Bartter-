@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router'
+import classnames from 'classnames/bind'
 import { useState } from 'react';
 
 import PostList from '@/components/Community/PostList';
@@ -12,6 +13,7 @@ import querykeys from '@/util/querykeys';
 
 import styles from './../writed.module.scss'
 
+const cx = classnames.bind(styles)
 export const Route = createFileRoute('/_layout/_protected/profile/writed/_layout/')({
   component: ProfileWrited
 })
@@ -46,9 +48,11 @@ export default function ProfileWrited() {
             <EmptyPost text='작성한 물물교환 게시글이 없습니다.' />
           </div>
         ) : (
-          trades.map((trade, index) => 
-            <TradeCard key={index} {...trade}/>
-          )
+          <div className={cx('trade')}>
+          {trades.map((trade, tradeIndex) => (
+            <TradeCard key={tradeIndex} {...trade} />
+          ))}
+        </div>
         );
       case '동네 모임':
         return posts.length===0 ? (
@@ -56,7 +60,9 @@ export default function ProfileWrited() {
           <EmptyPost text='작성한 동네모임 게시글이 없습니다.' />
         </div>
         ) : ( 
+          <div className={cx('community')}>
         <PostList posts={posts} />
+        </div>
       )
       default:
         return null;
@@ -69,16 +75,14 @@ export default function ProfileWrited() {
 
   return (
     <div>
-      <div className={styles.twoButtonFixed}>
+      <div className={cx('two-button-fixed')}>
       <TwoButton 
       first='물물 교환'
       second='동네 모임'
       activeButton={activeComponent}
       onClick={handleButtonClick}/>
       </div>
-      <div className={styles.renderComponent}>
         {renderComponent()}
-      </div>
     </div>
   )
 }

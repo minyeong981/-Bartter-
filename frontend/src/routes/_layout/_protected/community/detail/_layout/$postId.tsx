@@ -1,9 +1,11 @@
 import { useMutation, useQueryClient,useSuspenseQuery } from '@tanstack/react-query';
 import {createFileRoute, useNavigate } from '@tanstack/react-router';
-import type {ChangeEvent, KeyboardEvent} from 'react';
+import classnames from 'classnames/bind'
+import type {ChangeEvent} from 'react';
 import {useState} from 'react';
 
 import PostDetail from '@/components/Community/PostDetail/index.tsx';
+import CommentInput from '@/components/Inputs/CommentInput';
 import LikeComment from '@/components/LikeComment';
 import UserNameContent from '@/components/User/UserNameContent';
 import UserNameLocation from '@/components/User/UserNameLocation';
@@ -12,6 +14,8 @@ import querykeys from '@/util/querykeys';
 
 import styles from './../detail.module.scss';
 
+
+const cx = classnames.bind(styles)
 export const Route = createFileRoute('/_layout/_protected/community/detail/_layout/$postId')({
   component: CommunityPostDetail
 });
@@ -91,8 +95,8 @@ export default function CommunityPostDetail() {
     setContent(event.target.value);
   }
 
-  function handleKeyPress(event: KeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter' && content.trim() !== '') {
+  function handleClick(content : string) {
+    if (content.trim() !== '') {
       addComment.mutate({ communityPostId: Number(postId), content })
     }
   }
@@ -137,15 +141,9 @@ export default function CommunityPostDetail() {
       { post.commentList && post.commentList.map((comment, commentIndex) => 
         <UserNameContent key={commentIndex} comment={comment} onDelete={() => handleDeleteComment(comment.communityPostCommentId)} />
       )}
-      <div>
-        <input
-          className={styles.commentInput}
-          type="text"
-          value={content}
-          onChange={handleChange}
-          onKeyDown={handleKeyPress}
-          placeholder="댓글을 입력하세요"
-        />
+      <div />
+      <div className={cx('input-container')}>
+      <CommentInput content={content} onClick={handleClick} onChange={handleChange}/>
       </div>
     </div>
   );

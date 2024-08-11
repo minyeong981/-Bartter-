@@ -18,7 +18,7 @@ export default function StoryCard({
             <div onClick={handleClick}
                 className={styles.diaryImage}
                 style={{
-                    backgroundImage: `linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7)), url(https://${image})`,
+                    backgroundImage: `linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7)), url(${image})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
@@ -27,7 +27,7 @@ export default function StoryCard({
             <Link to={`/profile/${author.userId}`}>
                 <img
                     className={styles.profileImage}
-                    src={`https://${author.profileImage}`}
+                    src={author.profileImage}
                     alt={`${author.nickname}'s profile`}
                 />
             </Link>
