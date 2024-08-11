@@ -1,0 +1,59 @@
+.writeLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  overflow-y: scroll;
+
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.writePage {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  // padding: 0 10px;
+  width: 100%;
+  gap: 20px;
+
+
+  .cropProfile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .mainContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px 0 50px 0;
+    padding: 0 10px;
+
+    .inputContainer {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 20px;
+      padding: 0 10px;
+    }
+  }
+
+
+  .buttonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+
+  }
+}

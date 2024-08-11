@@ -52,14 +52,13 @@
   
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 10px;
 }
 
 .cameraIconContainer {
   display: flex;
   align-items: center;
   justify-content: center;
-  // width: 341px;
   width: 100%;
   height: 100px;
   cursor: pointer;
@@ -106,7 +105,6 @@
 .semiCalenderInput {
   display: flex;
   align-items: center;
-  // width: 341px;
   width: 100%;
   height: 48px;
   padding: 0 12px;
@@ -167,8 +165,8 @@
 .checkbox {
   display: flex;
   flex-direction: column;
-  // width: 341px;
   width: 100%;
+  gap: 10px;
 
   span {
     @include typographies.label;
@@ -180,7 +178,7 @@
 
   label {
     position: relative;
-    gap: 4px;
+    gap: 10px;
     width: 24px;
     height: 24px;
     background-color: colors.$gray1;

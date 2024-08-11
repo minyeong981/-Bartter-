@@ -97,7 +97,7 @@ export default function PostCreate() {
   return (
     <div className={cx('container')}>
       <HeaderWithLabelAndBackButton label="글 작성하기" />
-      <div className={cx('formContainer')}>
+      <div className={cx('form-container')}>
         <LabeledInput
           label="제목"
           placeholder="제목"
@@ -110,13 +110,14 @@ export default function PostCreate() {
           onChange={handleContentChange}
           value={content}
         />
-        <div className={cx('imageContainer')}>
-          <p>
+        <div className={cx('image-container')}>
+          <div className={cx('image-text')}>
             사진 ({imageList.length} / {maxImages})
-          </p>
+          </div>
           <p className={cx('error-message')}>{errorMessage!=='' && errorMessage} </p>
           <ImageInput onImageChange={handleImageChange} maxImages={maxImages} />
         </div>
+        <div className={cx('button-container')}>
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
           onClick={handleSubmit}
@@ -124,6 +125,7 @@ export default function PostCreate() {
         >
           작성완료
         </GeneralButton>
+        </div>
       </div>
     </div>
   );

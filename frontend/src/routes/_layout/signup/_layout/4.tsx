@@ -56,15 +56,15 @@ function GetBirthPage() {
             생일을 알려주세요
           </Heading>
         </div>
-      </div>
-      <div className={cx('inputContainer')}>
-        <LabeledInput
-          label="생년월일"
-          placeholder="1998-08-01"
-          onChange={handleBirthChange}
-          value={birth}
-          pattern={BIRTH_PATTERN.source}
-        />
+        <div className={cx('inputContainer')}>
+          <LabeledInput
+            label="생년월일"
+            placeholder="1998-08-01"
+            onChange={handleBirthChange}
+            value={birth}
+            pattern={BIRTH_PATTERN.source}
+          />
+        </div>
       </div>
       <div className={cx('buttonContainer')}>
         <GeneralButton

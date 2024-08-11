@@ -1,7 +1,9 @@
 import { Link , useNavigate } from '@tanstack/react-router'
+import classnames from 'classnames/bind'
 
 import styles from './HomeStory.module.scss'
 
+const cx = classnames.bind(styles)
 export default function StoryCard({
     author,
     cropDiaryId,
@@ -14,9 +16,9 @@ export default function StoryCard({
     navigate({to:`/diary/detail/${cropDiaryId}`})
   }
     return (
-        <div className={styles.storyCard}>
+        <div className={cx('story-card')}>
             <div onClick={handleClick}
-                className={styles.diaryImage}
+                className={cx('diary-image')}
                 style={{
                     backgroundImage: `linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7)), url(${image})`,
                     backgroundSize: 'cover',
@@ -26,7 +28,7 @@ export default function StoryCard({
             />
             <Link to={`/profile/${author.userId}`}>
                 <img
-                    className={styles.profileImage}
+                    className={cx('profile-image')}
                     src={author.profileImage}
                     alt={`${author.nickname}'s profile`}
                 />

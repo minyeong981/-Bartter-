@@ -16,7 +16,7 @@ import barter from '@/services/barter.ts';
 import useRootStore from "@/store";
 import {getPosition} from '@/util/geolocation.ts';
 
-import styles from './write.module.scss';
+import styles from '../write.module.scss';
 
 const cx = classnames.bind(styles);
 
@@ -120,55 +120,63 @@ function WritePage() {
 
   return (
     <div className={cx('writePage')}>
-      <div className={cx('inputContainer')}>
+      <div className={cx('cropProfile')}>
         <CropImage imgSrc={cropToGive!.image} label={cropToGive!.name}/>
-        <LabeledInput
-          label="제목"
-          placeholder="제목을 입력하세요"
-          value={title}
-          onChange={handleTitleChange}
-        />
-        <CheckboxInput
-          label="나눔인가요?"
-          checked={isShared}
-          onChange={handleCheckboxChange}
-        />
-        <LabeledSelectCropButton
-          label="주고 싶은 작물"
-          selectedCrops={[cropToGive!.name]}
-        />
-        {!isShared && <LabeledSelectCropButton
-            label="받고 싶은 작물"
-            selectedCrops={cropsToGet.map(crop => crop.name)}
-        />}
-        <LabeledTextAreaInput
-          label="내용"
-          placeholder="내용을 입력하세요"
-          value={content}
-          onChange={handleDescriptionChange}
-        />
-        <LabeledImageInput
-          onImageChange={handleImageFileChange}
-          maxImages={3}
-          label="사진"
-        />
-        <GeneralButton
-          buttonStyle={{style: 'outlined', size: 'large'}}
-          onClick={handleGetLocation}
-          type="button"
-        >
-          {position?.name || '위치 등록'}
-        </GeneralButton>
+      </div>
+      <div className={cx('mainContainer')}>
+        <div className={cx('inputContainer')}>
+          <LabeledInput
+            label="제목"
+            placeholder="제목을 입력하세요"
+            value={title}
+            onChange={handleTitleChange}
+          />
+          <CheckboxInput
+            label="나눔인가요?"
+            checked={isShared}
+            onChange={handleCheckboxChange}
+          />
+          <LabeledSelectCropButton
+            label="주고 싶은 작물"
+            selectedCrops={[cropToGive!.name]}
+          />
+          {!isShared && <LabeledSelectCropButton
+              label="받고 싶은 작물"
+              selectedCrops={cropsToGet.map(crop => crop.name)}
+          />}
+          <LabeledTextAreaInput
+            label="내용"
+            placeholder="내용을 입력하세요"
+            value={content}
+            onChange={handleDescriptionChange}
+          />
+          <LabeledImageInput
+            onImageChange={handleImageFileChange}
+            maxImages={3}
+            label="사진"
+          />
+        </div>
       </div>
       <div className={cx('buttonContainer')}>
-        <GeneralButton
-          buttonStyle={{style: 'primary', size: 'large'}}
-          disabled={disabled}
-          type="button"
-          onClick={handleSubmit}
-        >
-          작성 완료
-        </GeneralButton>
+        <div>
+          <GeneralButton
+            buttonStyle={{style: 'outlined', size: 'large'}}
+            onClick={handleGetLocation}
+            type="button"
+          >
+            {position?.name || '위치 등록'}
+          </GeneralButton>
+        </div>
+        <div>
+          <GeneralButton
+            buttonStyle={{style: 'primary', size: 'large'}}
+            disabled={disabled}
+            type="button"
+            onClick={handleSubmit}
+          >
+            작성 완료
+          </GeneralButton>          
+        </div>
       </div>
     </div>
   );

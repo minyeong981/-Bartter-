@@ -53,15 +53,15 @@ function GetGenderPage() {
             성별을 알려주세요
           </Heading>
         </div>
-      </div>
-      <div className={cx('inputContainer')}>
-        <BinaryButton
-          value1="M"
-          label1="남성"
-          value2="F"
-          label2="여성"
-          onSelect={handleSelectGender}
-        />
+        <div className={cx('inputContainer')}>
+          <BinaryButton
+            value1="M"
+            label1="남성"
+            value2="F"
+            label2="여성"
+            onSelect={handleSelectGender}
+          />
+        </div>
       </div>
       <div className={cx('buttonContainer')}>
         <GeneralButton

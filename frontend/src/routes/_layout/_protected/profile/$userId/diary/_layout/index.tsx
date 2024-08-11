@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import {createFileRoute } from '@tanstack/react-router';
+import classnames from 'classnames/bind'
 import {useEffect, useState} from 'react';
 
 import EmptyPost from '@/components/Empty/EmptyPost';
@@ -12,6 +13,7 @@ import querykeys from '@/util/querykeys';
 
 import styles from './../profileDiary.module.scss';
 
+const cx = classnames.bind(styles)
 export const Route = createFileRoute('/_layout/_protected/profile/$userId/diary/_layout/')({
   component: ProfileCropDiary,
 });
@@ -66,17 +68,20 @@ export default function ProfileCropDiary() {
   const formatMonth = (m : number) => (m < 9 ? `0${m + 1}` : `${m + 1}`);
 
   return (
-    <div className={styles.Container}>
+    <div className={cx('container')}>
       <HeaderWithLabelAndBackButton label="농사 일지" />
+
       <MonthHeader
         title={`${pivotDate.getFullYear()}.${formatMonth(pivotDate.getMonth())}`}
         leftChild={<MonthHeaderButton text="<" onClick={onDecreaseMonth} />}
         rightChild={<MonthHeaderButton text=">" onClick={onIncreaseMonth} />}
+        isFixed={true}
       />
+
       {diaries.length === 0 ? (
         <div><EmptyPost text='해당 일자에 작성된 일지가 없습니다.'/></div>
       ) : (
-        <div>
+        <div className={cx('diary-container')}>
           {groupedDiary.map((diaryByDay, index) =>
             diaryByDay.length > 0 ? (
               <DayDiary key={index} diaries={diaryByDay}/>

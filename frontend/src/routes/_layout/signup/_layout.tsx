@@ -21,7 +21,9 @@ function SignupLayout() {
   return (
     <div className={cx('signup')}>
       <HeaderWithBackButton />
-      <ProgressBar current={step} total={TOTAL_STEPS} />
+      <div className={cx('progressbar')}>
+        <ProgressBar current={step} total={TOTAL_STEPS} />        
+      </div>
       <Outlet />
     </div>
   );

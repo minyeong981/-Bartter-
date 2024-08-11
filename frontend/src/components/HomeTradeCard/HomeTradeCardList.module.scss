@@ -1,22 +1,20 @@
-// HomeTradeCardList.module.scss
-
 @use '@/styles/constants/colors' as colors;
 @use '@/styles/constants/typographies' as typo;
 
 .home-barter-component {
   position: relative;
   width: 100%;
-  max-width: 380px;
+  max-width: 360px;
   margin: 0 auto;
   overflow: hidden;
 
   .carousel-inner {
     display: flex;
-    width: calc(100% + 2px); // 두 배 너비 + 카드 간격
+    width: 100%;
     padding-right: 5px;
     padding-left: 5px;
-    margin-right: 10px; // 카드 간격 보정
-    margin-left: 5px; // 카드 간격 보정
+    margin-right: 10px;
+    margin-left: 5px;
     cursor: grab;
     transition: transform 0.5s ease-in-out;
   }
@@ -27,7 +25,7 @@
 
   .barter-card {
     display: flex;
-    flex: 0 0 calc(50% + 5px); // 카드 너비 + 간격
+    flex: 0 0 calc(50% + 5px);
     flex-direction: column;
     align-items: center;
     padding: 10px;
@@ -67,49 +65,12 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    width: 100%;  
+    width: 100%;
     margin-top: auto;
   }
 
   .heart-icon {
     margin-right: 5px;
     color: red;
-  }
-
-  .carousel-button {
-    position: absolute;
-    top: 50%;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px; 
-    height: 40px; 
-    font-size: 1.5rem;
-    color: white;
-    cursor: pointer;
-    background: rgba(colors.$primary, 0.5);
-    border-radius: 50%; 
-    box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
-    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-    transform: translateY(-50%);
-  
-    &:hover {
-      color: #fff;
-      background-color: colors.$primary;
-      box-shadow: 0 6px 12px rgb(0 0 0 / 30%);
-    }
-  
-    &:focus {
-      outline: none;
-    }
-  }
-  
-  .carousel-button.left {
-    left: 10px;
-  }
-  
-  .carousel-button.right {
-    right: 10px;
   }
 }

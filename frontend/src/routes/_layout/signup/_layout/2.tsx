@@ -46,15 +46,15 @@ function GetUserId() {
             아이디를 알려주세요
           </Heading>
         </div>
-      </div>
-      <div className={cx('inputContainer')}>
-        <LabeledInput
-          label="아이디"
-          placeholder="아이디를 입력해주세요"
-          onChange={handleUserIdChange}
-          value={username}
-          pattern={USERID_PATTERN.source}
-        />
+        <div className={cx('inputContainer')}>
+          <LabeledInput
+            label="아이디"
+            placeholder="아이디를 입력해주세요"
+            onChange={handleUserIdChange}
+            value={username}
+            pattern={USERID_PATTERN.source}
+          />
+        </div>
       </div>
       <div className={cx('buttonContainer')}>
         <GeneralButton
