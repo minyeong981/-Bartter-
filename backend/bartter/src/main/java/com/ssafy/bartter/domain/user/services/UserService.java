@@ -198,10 +198,10 @@ public class UserService {
         fcmService.sendLoginAlarm(token, nickname);
     }
 
-    public void sendChattingAlarm(int userId) {
+    public void sendChattingAlarm(int userId, String url) {
         String token = getFcmToken(userId);
         userRepository.findByUserId(userId).ifPresent(
-                o -> fcmService.sendChattingAlarm(token, o.getNickname(), o.getProfileImage())
+                o -> fcmService.sendChattingAlarm(token, o.getNickname(), o.getProfileImage(), url)
         );
     }
 
