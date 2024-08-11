@@ -155,7 +155,7 @@ public class UserController {
     ) {
         log.debug("{}", token);
         userService.saveFcmToken(user.getId(), token.getToken());
-        userService.sendLoginAlarm(user.getId());
+        userService.sendLoginAlarm(user.getId(), user.getNickname());
         return SuccessResponse.empty();
     }
 

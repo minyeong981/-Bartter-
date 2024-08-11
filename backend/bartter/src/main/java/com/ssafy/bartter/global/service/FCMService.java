@@ -43,8 +43,7 @@ public class FCMService {
 //                .putData("image", "https://img.freepik.com/premium-vector/cute-strong-apple-character-illustration_723554-257.jpg")
                 .build();
         try {
-            String response = firebaseMessaging.sendAsync(message).get();
-            log.debug("Send message: {}", response);
+            firebaseMessaging.sendAsync(message);
         } catch (Exception e) {
             log.error("FCM 전송 오류 ", e);
         }

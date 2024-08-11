@@ -193,8 +193,7 @@ public class UserService {
         redisFcmRepository.remove(userId);
     }
 
-    public void sendLoginAlarm(int userId) {
-        String nickname = userRepository.findNickNameByUserId(userId);
+    public void sendLoginAlarm(int userId, String nickname) {
         String token = getFcmToken(userId);
         fcmService.sendLoginAlarm(token, nickname);
     }
