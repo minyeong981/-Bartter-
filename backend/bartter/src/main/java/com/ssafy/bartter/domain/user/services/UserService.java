@@ -168,6 +168,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
+<<<<<<< backend/bartter/src/main/java/com/ssafy/bartter/domain/user/services/UserService.java
     /**
      * 레디스에 사용자 FCM 토큰을 저장
      *
@@ -203,5 +204,8 @@ public class UserService {
         userRepository.findByUserId(userId).ifPresent(
                 o -> fcmService.sendChattingAlarm(token, o.getNickname(), o.getProfileImage())
         );
+
+    public String getNicknameByUserId(int userId) {
+        return userRepository.findNicknameByUserId(userId);
     }
 }

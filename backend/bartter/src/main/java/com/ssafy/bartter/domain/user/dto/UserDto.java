@@ -66,4 +66,25 @@ public class UserDto {
     public static class FcmToken{
         String token;
     }
+
+    @Getter
+    @Builder
+    public static class SearchUserProfile {
+        private int userId;
+        private String nickname;
+        private String profileImage;
+        private Boolean isFollow;
+
+        public static SearchUserProfile of(User user, int currentUserId) {
+            return SearchUserProfile.builder()
+                    .userId(user.getId())
+                    .nickname(user.getNickname())
+                    .profileImage(user.getProfileImage())
+                    .isFollow(user.getFollowerList().stream()
+                            .map(o -> o.getFollower().getId())
+                            .anyMatch(o -> o == currentUserId))
+                    .build();
+        }
+
+    }
 }

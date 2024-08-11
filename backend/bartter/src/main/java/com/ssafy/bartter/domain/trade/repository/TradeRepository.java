@@ -45,4 +45,14 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
     @Query("SELECT t.tradePost.user.id FROM Trade t " +
             "WHERE t.id = :tradeId ")
     Integer findTradePostUserIdByTradeId(@Param("tradeId") int tradeId);
+
+    @Query("SELECT t FROM Trade t " +
+            "JOIN FETCH t.user " +
+            "WHERE t.tradePost.id = :tradePostId")
+    List<Trade> findTradeListByTradePostId(@Param("tradePostId") int tradePostId);
+
+    @Query("SELECT t FROM Trade t " +
+            "JOIN FETCH t.user " +
+            "WHERE t.tradePost.user.id = :userId")
+    List<Trade> findTradeListByUserId(@Param("userId") int userId);
 }

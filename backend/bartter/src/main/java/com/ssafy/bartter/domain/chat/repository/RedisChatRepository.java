@@ -95,4 +95,15 @@ public class RedisChatRepository {
         log.debug("{}", range);
         return List.of((Integer) range.get(0), (Integer) range.get(1));
     }
+
+    public String getNicknameByUserId(int userId) {
+        String key = CacheKey.userNicknameKey(userId);
+        Object o = redisTemplate.opsForValue().get(key);
+        return o == null ? null : o.toString();
+    }
+
+    public void saveNickname(int userId, String nickName) {
+        String key = CacheKey.userNicknameKey(userId);
+        redisTemplate.opsForValue().set(key, nickName, 1, TimeUnit.HOURS);
+    }
 }
