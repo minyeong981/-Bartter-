@@ -20,6 +20,12 @@ export default function CommentInput({
         onClick(content);
     }
 
+    function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+        if (event.key === 'Enter') {
+            handleClick();
+        }
+    }
+
     return (
         <div className={cx('comment-input-container')}>
         <input
@@ -27,6 +33,7 @@ export default function CommentInput({
         type="text"
         value={content}
         onChange={onChange}
+        onKeyDown={handleKeyDown}
         placeholder="댓글을 입력하세요"
       />
       <GeneralButton 

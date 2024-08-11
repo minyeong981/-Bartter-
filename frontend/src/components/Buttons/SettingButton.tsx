@@ -5,7 +5,7 @@ import styles from './SettingButton.module.scss';
 
 const cx = classnames.bind(styles);
 
-export default function SettingLinkButton({
+export default function SettingButton({
   children,
   ...props
 }: PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>>) {
