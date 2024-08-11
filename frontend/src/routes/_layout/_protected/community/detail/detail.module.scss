@@ -1,17 +1,4 @@
-.commentInput {
-    position:  fixed;
-    bottom: 12px;
-    box-sizing: border-box;
-    width: calc(100% - 20px);
-    height: 40px;
-    padding: 0 10px;
-    margin: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-
-.communityDetail {
+.community-detail {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -26,5 +13,10 @@
     &::-webkit-scrollbar {
         display: none;
     }
+
+    .input-container {
+        display: flex;
+        justify-content: center;    
+    }   
 }
       

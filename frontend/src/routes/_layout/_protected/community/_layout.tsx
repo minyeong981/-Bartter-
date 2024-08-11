@@ -31,7 +31,7 @@ export default function Community() {
         <div className={styles.community}>
             <HeaderWithLabelAndButtons label={<Location location={location.name.split(' ').slice(2,3).toString()} />} />
             <Outlet />
-            <FloatingButton onClick={() => nav({to:'/community/create'})}>+ 글 작성하기</FloatingButton>
+            <FloatingButton onClick={() => nav({to:'/community/create'})}>+ 글작성하기</FloatingButton>
             {/* <Navigation /> */}
             <MenuBar />
         </div>

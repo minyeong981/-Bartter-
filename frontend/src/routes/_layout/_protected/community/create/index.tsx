@@ -27,6 +27,8 @@ export default function PostCreate() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [imageList, setImageList] = useState<File[]>([]);
+  const [ errorMessage, setErrorMessage ] = useState<string>('');
+  const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
 
   function handleTitleChange(event: ChangeEvent<HTMLInputElement>) {
     setTitle(event.target.value);
@@ -37,8 +39,32 @@ export default function PostCreate() {
   }
 
   function handleImageChange(newImages: File[]) {
-    // const newImageList = newImages
-    setImageList(newImages);
+
+    let possibleImages: File[] = [];
+    let error = '';
+
+    setErrorMessage('')
+    for ( let image of newImages) {
+      if (image.size > 1_000_000 ) {
+        error = `파일 '${image.name}'의 용량이 1MB를 초과합니다. `
+        break;
+      }
+
+      const extension = image.name.split('.').pop()?.toLowerCase();
+        if (extension && !allowedExtensions.includes(extension)) {
+          error = `지원하지 않는 파일 확장자입니다. (${image.name})`;
+          break;
+        }
+      possibleImages.push(image)
+    }
+
+    if (error) {
+      setErrorMessage(error);
+      setCannotCreate(true);
+    } else {
+      setCannotCreate(false)
+      setImageList(possibleImages);
+    }
   }
 
   useEffect(() => {
@@ -88,6 +114,7 @@ export default function PostCreate() {
           <p>
             사진 ({imageList.length} / {maxImages})
           </p>
+          <p className={cx('error-message')}>{errorMessage!=='' && errorMessage} </p>
           <ImageInput onImageChange={handleImageChange} maxImages={maxImages} />
         </div>
         <GeneralButton
