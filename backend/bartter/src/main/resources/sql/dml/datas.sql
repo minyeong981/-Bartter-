@@ -197,148 +197,269 @@ values (10, '2024-07-01', 5, 16, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '
         'http://d1tknhgbpjhaqe.cloudfront.net/mycrop/tomato/lettuce');
 
 
+
 -- crop_diary
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (1, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '제초', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/1',
+VALUES (1, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '직파', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/1',
+        '오늘 처음 심은 씨앗. 무럭무럭 자라라', '2024-05-10');
+
+INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
+                        crop_diary_content, crop_diary_perform_date)
+VALUES (2, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '발아', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/2',
+        '물을 열심히 줬더니 싹이텄다.', '2024-05-16');
+
+INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
+                        crop_diary_content, crop_diary_perform_date)
+VALUES (3, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '성장중', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/3',
+        '싹이 자라는 속도가 적당하니 좋다', '2024-05-20');
+
+INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
+                        crop_diary_content, crop_diary_perform_date)
+VALUES (4, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '약준날', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/4',
+        '참깨잎이 황색으로 변하고 끝부분이 말랐다 농약사에서 마그네슘과 칼슘부족으로 그런 현상이 나온다하여 약을 처방받아 살포해줬다', '2024-05-24');
+
+INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
+                        crop_diary_content, crop_diary_perform_date)
+VALUES (5, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '곁순제거', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/5',
+        '곁순제거한날. 덥고 힘들다 여름 시작이다', '2024-06-10');
+
+INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
+                        crop_diary_content, crop_diary_perform_date)
+VALUES (6, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '지지대', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/6',
+        '비바람에 쓰러지지 않도록 지지대를 세워주고 허릿줄을 쳐주었다', '2024-06-20');
+
+INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
+                        crop_diary_content, crop_diary_perform_date)
+VALUES (7, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '두번째 허릿줄', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/7',
+        '바람이 많이 불어서 두번째 허릿줄을 쳐줬다', '2024-07-10');
+
+INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
+                        crop_diary_content, crop_diary_perform_date)
+VALUES (8, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '무럭무럭 잘자란다', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/8',
+        '순조롭게 잘 자라는 중 다음달에 수확을 기대해볼수 있겠다', '2024-07-13');
+
+INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
+                        crop_diary_content, crop_diary_perform_date)
+VALUES (9, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '제초', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/9',
         '참깨밭에 신경을 못 썼더니 풀이 엄청 자라고있다 제초작업했다', '2024-08-05');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (2, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '참깨베는날', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/2',
+VALUES (10, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '참깨베는날', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/10',
         '드디어 참깨를 베고 묶어서 세웠다 요즘 소나기가 자주 오는 것같아 걱정이다', '2024-08-07');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (3, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '졸린날', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/3',
+VALUES (11, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '졸린날', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/11',
         '새벽부터 마누라랑 참깨 베고왔다', '2024-08-08');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (4, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '털고털고', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/4',
+VALUES (12, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '털고털고', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/12',
         '참깨 턴다고 고생이 많다 우여곡절끝에 많이 털었다 아들에게 나눠줘야겠다', '2024-08-10');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (5, 2, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '거름', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/2/1',
+VALUES (13, 2, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '거름', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/2/1',
         '거름 주니까 잘자란다', '2024-08-05');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (6, 2, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '뿌듯', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/2/2', '추석전후 수확 할수있게 노지에 다다기오이 모종 덩굴올려 유인하는 작업을 함.
+VALUES (14, 2, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '뿌듯', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/2/2', '추석전후 수확 할수있게 노지에 다다기오이 모종 덩굴올려 유인하는 작업을 함.
 떡잎에서 5마디 정도까지는 오이가 열리지 않게 솎아주기도 함
 철파이프와 끈. 집게를 이용하여 유인작업을 마침', '2024-08-09');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (7, 4, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '갈라지는 현상', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/3/1',
-        '토마토가 익어가면서 조금 갈라진다 어떻게 하면 좋을까', '2024-08-05');
+VALUES (15, 4, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '갈라지는 현상', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/3/1',
+        '토마토가 조금 갈라져있다 어떻게 하면 좋을까 열과현상일까?', '2024-08-05');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (8, 4, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '추비', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/3/2',
+VALUES (16, 4, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '추비', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/3/2',
         '복합비료 추비', '2024-08-07');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (9, 4, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '쥬스', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/3/3',
+VALUES (17, 4, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '쥬스', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/3/3',
         '토마토를 수확해서 살짝 데쳐 100% 원액쥬스를 만들어 가족들에게 건강식으로 제공했다', '2024-08-09');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (10, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '예쁘다', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/4/1',
+VALUES (18, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '예쁘다', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/4/1',
         '오늘 가서 평소처럼 물을 주고 잡초를 뽑아주었다. 싱싱하게 잘자라고 있다', '2024-08-05');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (11, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '배추벌레', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/4/2',
-        '아침에 가보니 벌레가 잎을 갉아먹었다. 배추벌레를 귀찮아서 안잡았더니 잎을 갉아먹었다 아직 심각한 정도는 아니네', '2024-08-07');
+VALUES (19, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '배추벌레', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/4/2',
+        '아침에 가보니 벌레가 잎을 갉아먹었다. 귀찮아서 안잡았더니 잎을 갉아먹었다 아직 심각한 정도는 아니네', '2024-08-07');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (12, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '비', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/4/3',
+VALUES (20, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '비', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/4/3',
         '어제 비가 많이 왔는데 비를 맞아서 잎이 많이 썩었다. 곧 장마철이라는데 남은 것들이라도 잘 보존해야 할텐데 걱정된다.', '2024-08-09');
 
 
+
 -- crop_report
-
-INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title,
-                                 crop_report_content)
-VALUES (2, 1, 6, '2024-08-11 11:32:34', '2024-08-11 20:37:00', '오이시쿠나레의 8월 2주차 재배 요약 보고서', '### 지난 주의 작업 요약
-오이시쿠나레, 거름을 주어서 잘 자라는 모습을 확인하셨습니다. 오이에 대한 성장 상태를 지속적으로 주시하며 관리하는 모습이 좋습니다.
+INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 1, 6, '2024-08-12 08:06:10', '2024-08-12 17:49:27', '참참참깨의 5월 2주차 재배 요약 보고서', '### 지난 주의 작업 요약
+오늘은 처음으로 참깨를 심은 씨앗이 무럭무럭 자라고 있는 것을 확인하셨습니다. 식물이 건강하게 자라는 것을 지켜보며 뿌듯한 마음이 들 것입니다.
 
 ### 지난 주 작업의 개선사항
-작성자께서는 추석 전후에 수확할 수 있도록 노지에 다다기오이 모종을 덩굴로 올리는 작업을 진행하셨습니다.
-다다기오이의 열림을 방지하기 위해 솎아주는 작업도 수행하셨는데, 농사일지에 작업의 세부적인 내용이 잘 기록되어 있습니다.
-다만, 추석 전후 수확을 위한 작업 외에도 추가적인 관리나 작업이 필요할 수 있습니다.
+- 참참참깨가 건강하게 자라고 있는 것을 보니 씨앗 심기를 정확히 하신 것으로 판단됩니다.
+- 참깨는 햇빛을 좋아하므로 햇빛을 충분히 받을 수 있는 장소에 위치시키는 것이 중요합니다.
+- 물주기에 대한 주의가 필요하며, 과습이나 물 부족에 주의하여 적정한 물을 주는 것이 중요합니다.
 
 ### 다음 주의 작업
-- 다음 주에는 오이시쿠나레의 덩굴이 올라가는 모습을 계속 지켜보면서 필요한 지지봉이나 끈 등을 추가로 설치해주세요.
-- 오이 열림을 방지하는 작업을 지속적으로 실시하면서 오이의 성장 상태를 주시하고 필요한 조치를 취해주세요.
-- 노지에 오이를 심은 후에는 오이의 생장 상태를 주기적으로 기록하여 성장 추이를 확인하고 관리에 반영해주세요.
-- 오이가 건강하게 자라도록 물 공급과 영양분 공급을 꾸준히 실시해주세요.
-- 오이의 열림을 방지하는 작업 외에도 병충해 방지를 위한 예방 작업을 실시하고, 필요한 경우 적절한 대처를 해주세요.
-- 오이가 건강하게 자라도록 햇빛을 충분히 받을 수 있도록 관리해주세요.
-- 농사일지를 작성하면서 작업의 세부 내용을 자세히 기록하여 더욱 효율적인 농사 경영을 할 수 있도록 노력해주세요.');
-
-INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title,
-                                 crop_report_content)
-VALUES (1, 2, 6, '2024-08-11 11:32:23', '2024-08-11 20:37:00', '참참참깨의 8월 2주차 재배 요약 보고서', '### 지난 주의 작업 요약
-참깨밭에서 풀이 엄청 자란 것을 발견하고 제초 작업을 진행하셨습니다. 농사에 대한 성실함과 노력이 느껴집니다.
-참깨를 베고 세우는 등의 작업을 소중히 진행하고 계신 것으로 보입니다. 소나기가 자주 오는 것에 대한 걱정이 있으실 것 같습니다.
+- 햇빛을 충분히 받을 수 있도록 참깨의 위치를 조정해주세요.
+- 물주기에 신경 쓰며, 적정한 물을 주어 과습이나 물 부족을 방지해주세요.
+- 참깨의 성장 상태를 지속적으로 관찰하며, 필요한 경우 추가적인 비료를 공급해주세요.
+- 잡초가 자라지 않도록 정기적으로 제거해주시고, 식물 주변을 청결하게 유지해주세요.
+- 참깨의 생장을 기록하고, 성장 상태를 주시적으로 확인하여 필요한 조치를 취해주세요.
+- 더 나은 성장을 위해 적절한 관리와 관찰을 지속해주세요.
+- 이웃들과 참깨에 대한 정보를 공유하고 나누며, 소통과 협력을 통해 더 나은 농사 경험을 쌓아가세요.');
+INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 2, 6, '2024-08-12 08:07:29', '2024-08-12 17:49:27', '참참참깨의 5월 3주차 재배 요약 보고서', '### 지난 주의 작업 요약
+참참참깨가 물을 열심히 주신 덕분에 싹이 트었다는 소식을 알려주셨군요. 식물이 적절한 환경에서 성장하고 있다는 것이 기쁘네요.
 
 ### 지난 주 작업의 개선사항
-- 풀이 자라는 것을 미리 예방하기 위해 참깨밭에 신경을 더 써보세요. 풀이 너무 자라면 참깨의 성장에 영향을 줄 수 있습니다.
-- 소나기에 대한 걱정이 있다면, 참깨를 보호할 수 있는 간이 비닐하우스나 텃밭 덮개 등을 활용해보는 것도 좋은 방법일 수 있습니다.
-- 참깨를 베고 나누는 작업을 진행하셨다면, 참깨를 털 때 힘들었을 것으로 예상됩니다. 작업 시 편안하게 하실 수 있는 방법을 찾아보세요.
+참참참깨가 싹을 틔우는 모습을 보면서 뿌리가 충분히 발달하고 있는지 확인해보세요. 뿌리가 충분히 발달하면 식물이 안정적으로 자라갈 수 있습니다.
+또한, 싹이 트는 속도와 상태를 지속적으로 관찰하면서, 햇빛을 적절히 받고 있는지, 물을 적정하게 공급받고 있는지 확인해주시는 것이 중요합니다.
 
 ### 다음 주의 작업
-- 참깨밭의 풀 관리를 더욱 신경써서 제초 작업을 꾸준히 이어나가 주세요.
-- 소나기에 대비하여 참깨를 보호할 수 있는 방법을 고민해보고, 필요한 조치를 취해주세요.
-- 참깨를 베고 나누는 작업을 할 때 힘들었다면, 털기 쉽게 하는 도구를 활용하거나 작업 방법을 개선해보세요.
-- 참깨를 아들에게 나눠주는 것은 좋은 아이디어입니다. 아들과 함께 참깨를 터는 작업을 통해 소중한 시간을 보내보세요.
-- 참깨의 성장 상태를 지속적으로 관찰하고, 필요한 관리를 진행하여 건강한 참깨를 유지해주세요.
-- 풀이 자라는 것을 예방하기 위해 참깨밭을 더욱 꾸준히 관리하고, 생장 상태를 기록하여 성장 추이를 파악해보세요.
-- 참깨를 나눠줄 때는 아들과 함께 즐겁게 작업하며, 더 많은 사람들과 나누는 소통의 기회를 가질 수 있도록 노력해주세요.');
-
-INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title,
-                                 crop_report_content)
-VALUES (5, 3, 16, '2024-08-11 11:33:04', '2024-08-11 20:37:00', '초록이의 8월 2주차 재배 요약 보고서', '### 지난 주의 작업 요약
-초록이 상추가 싱싱하게 잘 자라고 있는 것을 확인하셨습니다. 물을 주고 잡초를 제거하는 등 꾸준한 관리로 좋은 성장을 이어가고 계십니다.
+- 참참참깨의 성장을 지속하기 위해 꾸준히 물을 주는 것을 유지해주세요.
+- 물을 주는 양과 주기를 조절하여 식물이 적정한 수분을 유지할 수 있도록 관리해주세요.
+- 참참참깨가 물을 충분히 받으면서도 통풍이 잘 되도록 주의해주세요.
+- 싹이 자랄수록 뿌리가 더욱 중요해지므로, 뿌리가 발달하도록 관리해주세요.
+- 참참참깨의 성장 상태를 지속적으로 관찰하고, 필요한 조치를 취하여 건강한 성장을 이끌어주세요.
+- 식물이 안정적으로 자라기 위해 필요한 환경을 제공하고, 성장하는 모습을 즐기며 지켜봐주세요.
+- 참참참깨가 더욱 건강하게 자라도록 주변 환경을 신경쓰며 관리해주세요.');
+INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 3, 6, '2024-08-12 08:08:31', '2024-08-12 17:49:27', '참참참깨의 5월 4주차 재배 요약 보고서', '### 지난 주의 작업 요약
+참참참깨의 싹이 적당한 속도로 자라는 것을 확인하셨습니다. 작물이 건강하게 자라고 있는 것을 확인하여 기뻐하시는 모습이 좋습니다.
 
 ### 지난 주 작업의 개선사항
-- 벌레가 잎을 갉아먹는 상황은 조속한 대응이 필요합니다. 벌레를 제거하거나 방제할 수 있는 방법을 찾아 시행해야 합니다.
-- 잎이 비로 인해 썩는 것은 토양 배수가 잘 되지 않거나 토양이 너무 습기를 많이 흡수했을 수 있습니다. 토양의 상태를 확인하고 적절한 관리가 필요합니다.
-- 장마철에는 과습으로 인한 병해와 해충에 더욱 주의해야 합니다. 케어가 필요한 상황에서는 적절한 대책을 마련해야 합니다.
+- 참깨잎이 황색으로 변하고 말라가는 현상은 마그네슘과 칼슘 부족으로 인한 것일 수 있습니다.
+- 농약을 사용하여 해결하신 것은 좋지만, 추가적으로 토양에 마그네슘과 칼슘을 보충하는 비료를 사용하는 것이 도움이 될 수 있습니다.
+- 토양의 영양 상태를 확인하고 부족한 영양소를 보충하는 것이 참참참깨의 건강한 성장을 돕는 방법입니다.
 
 ### 다음 주의 작업
-- 벌레에 대한 방제를 실시하여 상추를 보호해주세요.
-- 토양의 배수 상태를 개선하여 비로 인한 썩음을 방지해주세요.
-- 장마철에 대비하여 물주기를 조절하고, 썩은 잎이 있는 부분을 잘 제거하여 건강한 상태를 유지해주세요.
-- 상추의 생장 상태를 지속적으로 관찰하고, 병해와 해충에 대한 조치를 취하여 건강한 상태를 유지해주세요.
-- 장마철에는 토양이 너무 습기를 흡수하지 않도록 토양 관리에 신경써주세요.
-- 상추의 잎이 썩지 않도록 주의하며, 햇빛과 환기를 유지하여 건강한 상태를 유지해주세요.
-- 상추의 성장을 돕기 위해 적절한 비료를 공급하고, 필요한 경우 영양제를 추가하여 식물이 영양을 잘 흡수할 수 있도록 도와주세요.');
-
-INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title,
-                                 crop_report_content)
-VALUES (4, 4, 15, '2024-08-11 11:32:52', '2024-08-11 20:37:00', '왕토마토의 8월 2주차 재배 요약 보고서', '### 지난 주의 작업 요약
-토마토가 익어가면서 갈라지는 상황을 발견하셨군요. 고민이 들 수 있지만, 토마토의 성장 상태를 주시하고 적절한 조치를 취하는 것이 중요합니다. 수확 후에는 가족들을 위해 건강식으로 제공하는 등 책임감 있는 농부로서의 모습이 멋지게 보입니다.
+- 토양의 영양 상태를 정확히 파악하여 부족한 영양소를 보충해주세요.
+- 참참참깨의 성장 상태를 지속적으로 관찰하고, 필요한 경우에는 농약이 아닌 자연적인 방법으로 해결해보세요.
+- 농약 사용 시에는 안전을 위해 사용 방법을 정확히 숙지하고, 권장량을 지켜주시기 바랍니다.
+- 참참참깨의 잎이 다시 건강해지고 성장하는 모습을 지켜보며, 필요한 조치를 취해주시기 바랍니다.
+- 햇빛과 물을 적절히 공급하여 참참참깨가 건강하게 자라도록 도와주세요.
+- 토양의 영양 상태를 유지하고, 농약 사용을 최소화하여 자연적인 방법으로 참참참깨를 키워보세요.
+- 참참참깨의 성장을 지속적으로 관찰하고, 필요한 경우에는 전문가의 조언을 받아보세요.');
+INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 4, 6, '2024-08-12 08:10:01', '2024-08-12 17:49:27', '참참참깨의 6월 3주차 재배 요약 보고서', '### 지난 주의 작업 요약
+참참참깨에 대한 관리로 곁순을 제거하고 더욱 건강한 성장을 돕는 노력을 기울이셨군요. 여름이 시작되면서 농사가 더욱 힘들어지고 있음을 느끼고 계시는 것 같습니다.
 
 ### 지난 주 작업의 개선사항
-- 토마토가 갈라지는 문제에 대해, 토마토의 갈라짐을 줄이기 위해 토마토를 수확할 때 부드럽게 다루어야 합니다. 강한 압력이나 흔들림은 토마토를 상할 수 있으니 주의해야 합니다.
-- 복합비료를 사용하셨다면, 올바른 비료 사용량과 주기를 유지하며 토마토에 필요한 영양분을 균형 있게 공급하는 것이 중요합니다.
-- 토마토를 수확하여 원액쥬스를 만들어 가족들에게 제공하는 것은 훌륭한 선택입니다. 계속해서 가족과 주변 사람들에게 건강한 먹거리를 제공하며 책임감 있게 농사에 임해주세요.
+- 여름철에는 더욱 더 물주기와 영양분 공급이 중요합니다. 더위에 의한 수분 손실을 보충하기 위해 물을 충분히 주세요.
+- 참참참깨가 더욱 건강하게 자라기 위해서는 영양분이 필요합니다. 비료를 추가하여 영양분을 보충해주는 것이 좋습니다.
+- 더위에 의한 스트레스를 줄이기 위해 참참참깨를 그늘진 곳에 위치시키거나 일정 시간 동안 그늘막을 설치해주세요.
 
 ### 다음 주의 작업
-- 토마토가 갈라지는 현상을 줄이기 위해 수확 시 부드럽게 다루어주세요. 토마토를 햇볕에 오래 두지 않고 그늘에서 보관하는 것도 도움이 됩니다.
-- 복합비료의 적정 사용 방법과 주기를 유지하여 토마토의 영양 공급을 지속해주세요.
-- 가족들에게 제공하는 원액쥬스가 인기가 있다면, 더 많은 토마토를 재배하여 가족 모두가 건강하게 영양을 섭취할 수 있도록 노력해주세요.
-- 토마토의 성장 상태를 지속적으로 관찰하고, 필요한 경우 적절한 관리를 실시하여 토마토의 생장을 도울 수 있도록 해주세요.
-- 토마토의 갈라짐을 줄이기 위해 수확 시 주의 깊게 다뤄주세요. 토마토의 품질을 유지하고 가족들에게 건강한 식품을 제공하는 것에 중점을 두어주세요.
-- 토마토의 생장 상태에 따라 적절한 관리를 실시하고, 더 많은 토마토 수확을 위해 더 많은 노력을 기울여주세요.
-- 토마토의 건강을 유지하기 위해 병충해 관리와 관련된 작업을 실시해주세요. 생산성을 높이기 위해 더 많은 노력을 기울여주세요.');
+- 여름철 더위에도 물을 충분히 주어 참참참깨가 건강하게 성장할 수 있도록 관리해주세요.
+- 영양분을 보충하기 위해 적절한 비료를 사용하여 참참참깨에 영양을 공급해주세요.
+- 더위에 의한 스트레스를 줄이기 위해 그늘진 곳에 위치시키거나 그늘막을 설치하여 참참참깨를 보호해주세요.
+- 참참참깨의 성장 상태를 지속적으로 관찰하고, 필요한 조치를 취하여 건강한 상태를 유지해주세요.
+- 더위에도 물을 충분히 주고, 영양분을 공급하여 참참참깨가 건강하게 자라도록 도와주세요.
+- 참참참깨의 생장 상태를 기록하고, 필요한 경우에는 전문가의 조언을 구하여 더 나은 관리 방법을 찾아보세요.
+- 여름철에는 더욱 더 신경 써야할 때입니다. 참참참깨에 대한 관리를 소홀히하지 않고 꾸준히 관찰하며 관리해주세요.');
+INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 5, 6, '2024-08-12 08:12:23', '2024-08-12 17:49:33', '참참참깨의 6월 4주차 재배 요약 보고서', '### 지난 주의 작업 요약
+비바람에 쓰러지지 않도록 지지대를 세우고 허릿줄을 쳐주는 등 참참참깨에 대한 적극적인 관리를 실시하셨습니다. 농사에 대한 성실한 태도가 보여 좋습니다.
+
+### 지난 주 작업의 개선사항
+- 참참참깨가 안정적으로 자라기 위해서는 지지대가 중요합니다. 추가적인 지지대를 설치하거나 기존 지지대를 더 견고하게 고정해보세요.
+- 허릿줄을 쳐주는 것도 좋지만, 참참참깨가 성장하는 동안 주기적으로 관찰하며 필요한 조치를 취하는 것이 중요합니다.
+
+### 다음 주의 작업
+- 지지대가 안정적으로 설치되었는지 확인하고 필요하다면 보강 작업을 진행해주세요.
+- 참참참깨의 성장을 돕기 위해 적절한 비료나 영양제를 공급해보세요.
+- 참참참깨 주변의 잡초를 제거하고, 병충해에 대비하여 주기적으로 식물을 점검해보세요.
+- 물을 주는 양과 빈도를 조절하여 참참참깨가 적정한 수분을 유지할 수 있도록 관리해보세요.
+- 참참참깨의 성장 상태를 기록하고, 적절한 조치를 취할 수 있도록 주의깊게 관찰해주세요.
+- 참참참깨가 안정적으로 자라도록 지속적인 관리와 주의가 필요합니다. 소중히 돌봐주세요.
+- 작물 성장을 돕기 위해 햇빛이 충분히 들어오는 장소에 위치시키세요.');
+INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 6, 6, '2024-08-12 08:13:37', '2024-08-12 17:49:33', '참참참깨의 7월 2주차 재배 요약 보고서', '### 지난 주의 작업 요약
+바람이 강하게 불어 두 번째 허릿줄을 쳐주는 등 참참참깨에 대한 적절한 관리를 실시하셨습니다. 농작물이 순조롭게 자라고 있어 다음달에 수확을 기대할 수 있을 것으로 보입니다.
+
+### 지난 주 작업의 개선사항
+- 바람이 강하게 불어 허릿줄을 쳐주는 것은 농작물을 보호하는 좋은 조치입니다. 추가적으로 허릿줄을 더 견고하게 고정하여 바람에 흔들리지 않도록 해주세요.
+- 수확을 기대하는 마음이 좋지만, 수확 시기에 대한 계획을 세워 농작물의 최적 상태에서 수확할 수 있도록 준비해보세요.
+
+### 다음 주의 작업
+- 허릿줄을 더 견고하게 고정하여 바람에 흔들리지 않도록 해주세요.
+- 물주기와 영양 공급을 조절하여 참참참깨가 건강하게 자라도록 관리해주세요.
+- 수확을 위한 준비를 시작하여 수확 시기에 대비해주세요.
+- 농작물의 상태를 지속적으로 관찰하고, 필요한 조치를 취하여 더 나은 수확을 위한 노력을 기울여주세요.
+- 농작물의 성장 상태를 기록하여 추후 비교하고 발전시킬 수 있도록 노력해주세요.
+- 다음 주에는 농작물의 생장 상태를 더 자세히 관찰하고, 필요한 관리를 시행하여 수확을 준비해주세요.
+- 농작물의 성장 속도와 상태에 따라 적절한 조치를 취하여 더 나은 수확을 위한 노력을 계속해주세요.');
+INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 7, 6, '2024-08-12 08:47:26', '2024-08-12 17:49:33', '참참참깨의 8월 3주차 재배 요약 보고서', '### 지난 주의 작업 요약
+참깨밭에 대한 관리를 소홀히 하다가 풀이 엄청 자란 것을 발견하고 제초작업을 진행하셨습니다. 참깨를 베고 묶어 세우는 등 노력을 기울이는 모습이 보입니다. 새벽에 아내분과 함께 참깨를 베고 오신 노고도 인상적입니다.
+
+### 지난 주 작업의 개선사항
+- 참깨밭의 풀이 엄청 자란 것을 발견하셨다면, 향후에는 정기적으로 제초작업을 실시하여 풀이 너무 자라지 않도록 주의해야 합니다. 농작물의 성장을 방해하는 잡초는 빠르게 제거하는 것이 중요합니다.
+- 소나기가 자주 오는 것으로 걱정하고 계신데, 참깨가 물에 잠기지 않도록 적절한 배수 시설을 마련하고, 흙이 너무 젖지 않도록 주의해야 합니다.
+- 참깨를 베고 묶는 작업이 힘들고 고생스러우셨다는데, 작업 시간을 분배하여 몸에 부담이 되지 않도록 조절하고, 적절한 휴식을 취하는 것이 중요합니다.
+
+### 다음 주의 작업
+- 참깨밭의 제초작업을 꾸준히 실시하여 잡초의 성장을 억제해주세요.
+- 소나기에 대비하여 참깨밭의 배수 상태를 확인하고 필요한 조치를 취해주세요.
+- 참깨를 베고 묶는 작업을 보다 효율적으로 진행하기 위해 작업 방법을 개선해보세요.
+- 참깨를 털다가 고생하셨다는데, 털기 쉬운 방법이나 도구를 활용하여 효율적으로 수확할 수 있는 방법을 찾아보세요.
+- 참깨를 아들에게 나눠주는 것은 좋은 아이디어입니다. 더 많은 사람들과 나누어 보면서 소통과 나눔의 가치를 높이세요.
+- 참깨의 성장 상태를 지속적으로 관찰하고, 필요한 관리를 통해 건강하게 자라도록 도와주세요.
+- 참깨를 털 때 몸에 부담이 되지 않도록 적절한 자세와 휴식을 취하며, 건강을 유지하도록 노력해주세요.');
+INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (2, 8, 6, '2024-08-12 08:47:34', '2024-08-12 17:49:33', '오이시쿠나레의 8월 3주차 재배 요약 보고서', '### 지난 주의 작업 요약
+오이시쿠나레가 거름을 주니 잘 자란 모습을 확인하셨습니다. 오이에 대한 세심한 관찰과 관리가 보이며, 농사에 대한 애정이 느껴집니다.
+
+### 지난 주 작업의 개선사항
+- 오이 모종 덩굴을 올리고 유인하는 작업을 했지만, 오이 열리지 않게 솎아주는 작업은 조심스럽게 해야 합니다. 오이의 성장을 방해할 수 있으므로 민감한 손길로 작업해야 합니다.
+- 유인작업을 진행할 때 철파이프와 끈, 집게를 사용하는 것은 좋은 아이디어입니다. 그러나 유인작업을 마친 후에는 도구들을 청소하고 보관해두는 것이 중요합니다.
+
+### 다음 주의 작업
+- 오이 모종의 성장을 돕기 위해 더 많은 햇빛과 적절한 온도를 유지해주세요.
+- 오이 열리지 않게 솎아주는 작업을 할 때 섬세한 손길로 신중하게 진행해주세요.
+- 유인작업을 할 때 도구들을 깨끗하게 관리하고 보관하여 오이 재배에 더욱 효율적으로 활용해보세요.
+- 오이시쿠나레의 건강한 성장을 위해 토양의 수분 상태와 영양 공급을 체크하고 필요한 조치를 취해주세요.
+- 오이의 열림을 조절하는 작업을 신중하게 진행하며, 오이가 건강하게 자라도록 지속적인 관찰과 관리를 이어가세요.
+- 추석 전후에 수확할 수 있도록 노지에 다다기오이 모종을 신중하게 관찰하고 필요한 조치를 취해주세요.
+- 오이 모종의 성장 상태를 지속적으로 확인하고, 필요한 경우 적절한 관리를 통해 오이시쿠나레가 건강하게 자라도록 도와주세요.');
+INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (4, 9, 15, '2024-08-12 08:47:45', '2024-08-12 17:49:36', '왕토마토의 8월 3주차 재배 요약 보고서', '### 지난 주의 작업 요약
+토마토가 갈라져있다는 문제에 대해 관심을 가지고 조언을 구하시는 모습이 좋습니다. 또한 토마토를 수확하여 가족들에게 건강식으로 제공한 것은 칭찬할 만한 일입니다.
+
+### 지난 주 작업의 개선사항
+- 토마토가 갈라져있다면, 이는 열과현상으로 인한 것일 수 있습니다. 토마토가 갈라지는 이유는 다양하지만, 온도 변화나 수분 관리 등이 영향을 줄 수 있습니다. 향후 토마토의 성장 환경을 안정화시키는 것이 중요합니다.
+- 복합비료를 추가하신 것은 좋은 선택입니다. 토마토에 필요한 영양분을 충분히 공급하여 건강한 성장을 도울 수 있습니다.
+- 토마토를 수확하여 원액쥬스를 만들어 가족들에게 제공한 것은 훌륭한 행동입니다. 하지만 토마토를 수확할 때는 너무 빨리 수확하지 않도록 주의해야 합니다. 토마토가 완전히 익어야 최상의 맛과 영양을 누릴 수 있습니다.
+
+### 다음 주의 작업
+- 토마토가 갈라지는 현상을 방지하기 위해 온도와 습도를 안정적으로 유지해주세요.
+- 토마토의 성장을 돕기 위해 복합비료를 주기적으로 추가하며, 토양의 영양 상태를 확인하여 필요한 조치를 취해주세요.
+- 토마토를 수확할 때는 익은 정도를 주의깊게 살피고, 너무 이른 수확은 맛과 영양을 해칠 수 있으니 주의해주세요.
+- 토마토의 수확 주기와 방법을 고려하여 더 맛있고 영양가 있는 토마토를 재배해보세요.
+- 토마토의 건강한 성장을 위해 병충해 관리에 신경써주세요.
+- 토마토의 수확 후에는 적절한 보관 방법을 고려하여 신선함을 유지하고, 가족들에게 건강한 식품으로 제공해주세요.
+- 토마토 재배를 통해 가족들과의 소중한 시간을 더 많이 보내며, 건강하고 맛있는 토마토를 키워보세요.');
+INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (5, 10, 16, '2024-08-12 08:47:56', '2024-08-12 17:49:36', '초록이의 8월 3주차 재배 요약 보고서', '### 지난 주의 작업 요약
+초록이 상추가 싱싱하게 잘 자라고 있어서 물을 주고 잡초를 제거하는 등 적절한 관리를 해주셨습니다. 상추에 대한 관심과 노력이 보여 좋습니다. 벌레와 비에 대한 문제를 발견하셨는데, 조기 대응으로 상황을 잘 관리하고 계시는 모습이 보입니다.
+
+### 지난 주 작업의 개선사항
+- 벌레에 대한 조기 대응이 중요합니다. 벌레가 잎을 갉아먹는 것을 방지하기 위해 벌레를 조기에 제거하거나 자연적인 방법으로 방제하는 것이 좋습니다.
+- 잎이 비에 맞아 썩는 것은 상추의 품질을 저하시킬 수 있습니다. 비 후에는 잎이 너무 젖지 않도록 통풍을 유지하고, 썩은 부분은 제거하여 상추를 보존해주세요.
+- 장마철에는 고습과 고온으로 인해 병충해가 발생할 가능성이 높습니다. 병충해 예방을 위해 정기적인 관찰과 적절한 대처가 필요합니다.
+
+### 다음 주의 작업
+- 벌레에 대한 조기 대응을 위해 상추를 정기적으로 검사하고, 필요한 경우 벌레를 제거하는 작업을 실시해주세요.
+- 비 후에는 상추의 상태를 주의깊게 관찰하여 썩은 부분을 제거하고, 통풍을 유지하여 상추를 건강하게 유지해주세요.
+- 장마철을 대비하여 병충해 예방을 위한 방법을 찾아보고, 상추의 상태를 지속적으로 모니터링하여 적절한 조치를 취해주세요.
+- 상추의 성장을 돕기 위해 비료를 추가하고, 토양의 영양 상태를 유지하는 작업을 실시해주세요.
+- 상추의 생장 상태를 관찰하고, 필요한 관리를 계속 진행하여 건강하고 맛있는 상추를 키우는 데 노력해주세요.
+- 상추의 잎이 갉아먹히는 것을 방지하기 위해 자연적인 방제법을 찾아보고, 상추를 보호하는 방법을 실천해주세요.
+- 장마철을 맞아 상추가 썩는 것을 방지하기 위해 적절한 관리와 보존 방법을 찾아보고, 상추를 잘 보존해주세요.');
 
 
 -- daily_tip
@@ -1079,3 +1200,457 @@ VALUES (29, 8, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgb
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
 VALUES (32, 9, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/31');
+
+
+
+-- community_post_like
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (1, 1, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (2, 2, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (2, 3, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (3, 4, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (3, 5, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (3, 6, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (4, 7, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (4, 8, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (4, 9, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (4, 10, 4, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (5, 11, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (6, 12, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (6, 13, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (6, 14, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (6, 15, 4, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (6, 16, 5, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (6, 17, 6, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (6, 18, 7, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (7, 19, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (7, 20, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (7, 21, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (8, 22, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (8, 23, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (8, 24, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (8, 25, 4, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (8, 26, 5, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (8, 27, 6, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (8, 28, 7, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (8, 29, 8, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (8, 30, 9, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (8, 31, 10, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (8, 32, 11, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (9, 33, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (9, 34, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (9, 35, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (10, 36, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (10, 37, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (11, 38, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (11, 39, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (11, 40, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (11, 41, 4, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (11, 42, 5, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (12, 43, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (12, 44, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (13, 45, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (13, 46, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (13, 47, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (13, 48, 4, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (13, 49, 5, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (13, 50, 6, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (14, 51, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (14, 52, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (15, 53, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (15, 54, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (15, 55, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (15, 56, 4, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (15, 57, 5, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (15, 58, 6, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (15, 59, 7, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (15, 60, 8, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (15, 61, 9, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (15, 62, 10, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (15, 63, 11, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (15, 64, 12, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (15, 65, 13, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (15, 66, 14, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (16, 67, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (16, 68, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (16, 69, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (17, 70, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (17, 71, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (18, 72, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (18, 73, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (18, 74, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (18, 75, 4, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (18, 76, 5, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (18, 77, 6, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (18, 78, 7, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (18, 79, 8, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (18, 80, 9, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (18, 81, 10, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (18, 82, 11, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (18, 83, 12, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (18, 84, 13, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (19, 85, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (19, 86, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (19, 87, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (19, 88, 4, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (19, 89, 5, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (20, 90, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (20, 91, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (20, 92, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (21, 93, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (21, 94, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (22, 95, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (22, 96, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (22, 97, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (22, 98, 4, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (23, 99, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (23, 100, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (23, 101, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (23, 102, 4, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (23, 103, 5, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (23, 104, 6, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (24, 105, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (24, 106, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (24, 107, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (25, 108, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (25, 109, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (25, 110, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (25, 111, 4, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (26, 112, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (26, 113, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (26, 114, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (27, 115, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (27, 116, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (27, 117, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (27, 118, 4, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (27, 119, 5, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (27, 120, 6, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (27, 121, 7, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (28, 122, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (28, 123, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (28, 124, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (28, 125, 4, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (28, 126, 5, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (29, 127, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (29, 128, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (29, 129, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (30, 130, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (30, 131, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (30, 132, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (30, 133, 4, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (30, 134, 5, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (30, 135, 6, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (30, 136, 7, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (30, 137, 8, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (30, 138, 9, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (31, 139, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (31, 140, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (32, 141, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (32, 142, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (32, 143, 3, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (32, 144, 4, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (32, 145, 5, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (32, 146, 6, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (32, 147, 7, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (33, 148, 1, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+INSERT INTO community_post_like (community_post_id, community_post_like_id, user_id, created_at, updated_at)
+VALUES (33, 149, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
+
+
+
