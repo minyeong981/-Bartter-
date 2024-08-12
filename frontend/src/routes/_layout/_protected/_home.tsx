@@ -1,37 +1,48 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
-import { createFileRoute,Outlet } from '@tanstack/react-router'
+import {useSuspenseQuery} from '@tanstack/react-query';
+import {createFileRoute, Outlet} from '@tanstack/react-router';
+import {useEffect} from 'react';
 
-import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons'
-import Location from '@/components/Header/Location'
-import MenuBar from '@/components/MenuBar/MenuBar'
+import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons';
+import Location from '@/components/Header/Location';
+import MenuBar from '@/components/MenuBar/MenuBar';
 // import Navigation from '@/components/Navigation'
-import barter from '@/services/barter'
-import useRootStore from '@/store'
-import querykeys from '@/util/querykeys'
+import barter from '@/services/barter';
+import useRootStore from '@/store';
+import querykeys from '@/util/querykeys';
 
-import styles from './home.module.scss'
+import styles from './home.module.scss';
 
 export const Route = createFileRoute('/_layout/_protected/_home')({
-  component: Home
-})
+  component: Home,
+});
 
 export default function Home() {
-
-
-  const userId : UserId = useRootStore((state) => state.userId)
+  const userId: UserId = useRootStore(state => state.userId);
   const {data} = useSuspenseQuery({
-      queryKey: [querykeys.LOCATION, userId],
-      queryFn: () => barter.getUserLocation(userId)
-  })
+    queryKey: [querykeys.LOCATION, userId],
+    queryFn: () => barter.getUserLocation(userId),
+  });
 
-  const location = data.data.data
+  const location = data.data.data;
 
-  return(
+  useEffect(() => {
+    const fcmToken = sessionStorage.getItem('fcmToken');
+    if (!fcmToken) return;
+    (async () => await barter.postFcmToken(fcmToken))();
+  }, []);
+
+  return (
     <div className={styles.home}>
-      <HeaderWithLabelAndButtons label={<Location location={location.name.split(' ').slice(2,3).toString()} />} />
+      <HeaderWithLabelAndButtons
+        label={
+          <Location
+            location={location.name.split(' ').slice(2, 3).toString()}
+          />
+        }
+      />
       <Outlet />
       <MenuBar />
       {/* <Navigation /> */}
     </div>
-  )
+  );
 }

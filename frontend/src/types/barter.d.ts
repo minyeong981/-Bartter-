@@ -53,7 +53,7 @@ interface SimpleUserProfileByKeyword {
   userId: UserId;
   nickname: Nickname;
   profileImage: ProfileImage;
-  isFollow:IsFollowed;
+  isFollow: IsFollowed;
 }
 
 type ImageOrder = number;
@@ -286,6 +286,7 @@ interface ChatMessage {
   content: Content;
   senderId: SenderId;
   tradeId: TradeId;
+  tradePostId: TradePostId;
   senderNickname?: Nickname;
 }
 
@@ -390,27 +391,28 @@ interface CropProfileForm {
   nickname: Nickname;
   growDate: GrowDate;
   description?: Description;
-  image? : File[];
+  image?: File[];
 }
 
 interface CropDiaryForm {
-  cropId:number;
-  title:string;
-  content:string;
-  image:File[];
-  performDate:string;
+  cropId: number;
+  title: string;
+  content: string;
+  image: File[];
+  performDate: string;
 }
 
 interface SearchContextType {
   query: string;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
-  keyword:string;
+  keyword: string;
   setKeyword: React.Dispatch<React.SetStateAction<string>>;
   isSearch: boolean;
-  setIsSearch : React.Dispatch<React.SetStateAction<boolean>>;
-  isShow : boolean;
+  setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
+  isShow: boolean;
   setIsShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 type AdditionalInfo = Position;
 
 interface SimpleTradeInfo {
@@ -424,6 +426,8 @@ interface TradeInfo {
   simpleTradePostDetail: SimpleTradePostDetail;
   userProfile: SimpleUserProfile;
 }
+
+type AutoCompletedKeyWord = string;
 
 type GetCommunityPostListByUserId = BarterResponse<MyCommunityPostDetail[]>;
 type GetCommunityPostList = BarterResponse<SimpleCommunityPostDetail[]>;
@@ -470,6 +474,7 @@ type GetUserLocationResponse = BarterResponse<SimpleLocation>;
 type GetHasDiaryResponse = BarterResponse<string[]>;
 type GetChatListResponse = BarterResponse<SimpleTradeInfo[]>;
 type GetChatRoomInfoResponse = BarterResponse<TradeInfo>;
+type GetAutoCompletedKeywordListByKeyword = BarterResponse<AutoCompletedKeyWord[]>;
 
 // TODO: 농작물 물물교환 API 부터는 GET요청만 정의
 // type SignupResponse = BarterResponse<null>;

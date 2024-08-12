@@ -1,15 +1,11 @@
 @use '@/styles/constants/typographies.scss' as typo;
 @use '@/styles/constants/colors.scss' as colors;
 
-.community {
+.community-layout {
   display: flex;
   flex-direction: column;
   gap: 20px;
-
-  // align-items: center;
   height: 100%;
-
-  // padding: 0 20px;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
@@ -17,17 +13,21 @@
   }
 }
 
-.twoButtonFixed {
+.two-button-fixed {
   position: fixed;
   top:53px;
-  width: 100%;
-  background-color: colors.$white;
 
   // max-width: 390px;
 
-  // display: flex
+  display: flex;
+  width: 100%;
+  background-color: colors.$white
 }
 
-.postList {
+.post-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   margin-top: 44px;
+
 }

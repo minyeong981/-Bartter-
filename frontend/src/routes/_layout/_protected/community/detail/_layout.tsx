@@ -12,7 +12,7 @@ export const Route = createFileRoute('/_layout/_protected/community/detail/_layo
 
 export default function CommunityDetail() {
   return (
-    <div className={cx('community-detail')} >
+    <div className={cx('community-detail-layout')} >
       <HeaderWithBackButton />
       <Outlet />
     </div>

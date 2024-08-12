@@ -22,5 +22,6 @@ export default {
   DAILY_TIP: 'dailyTip',
   SEARCH: 'search',
   SEARCH_RECENT:'searchRecent',
+  SEARCH_SUGGESTION:'searchSuggestion',
   LOCATION: 'location',
 };

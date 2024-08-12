@@ -400,6 +400,15 @@ export default {
    */
   searchByKeyword: async (keyword: string) =>
     axios.get<GetSearch>('/search', {params: {keyword}}),
+    /**
+   * 키워드 검색어 자동 완성 제안
+   */
+    getAutoCompletedKeywordListByKeyword: async (
+      keyword: string,
+    ) =>
+      axios.get<GetAutoCompletedKeywordListByKeyword>(`/search/autocomplete`, {
+        params: {keyword},
+      }),
   /**
    * 키워드 검색 물물교환 게시글 목록 조회
    */
@@ -474,4 +483,18 @@ export default {
    */
   getChatRoomInfo: async (tradePostId: TradePostId) =>
     axios.get<GetChatRoomInfoResponse>(`/trades/${tradePostId}`),
+
+  // FCM 토큰 관련
+  /**
+   * 사용자 FCM 토큰 저장
+   */
+  postFcmToken: async (fcmToken: string) =>
+    axios.post<null>(
+      '/user/fcm',
+      {token: fcmToken},
+      {
+        headers: {'Content-Type': 'application/json'},
+      },
+    ),
+  deleteFcmToken: async () => axios.delete<null>('/user/fcm'),
 };

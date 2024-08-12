@@ -93,7 +93,7 @@ export default function SearchResult({
       ): (
         <div className={cx('following')}>
         <div className={cx('title')}>
-          <div className={cx('followingText')}><div className={cx('resultText')}> {search}</div>이웃 </div>
+          <div className={cx('following-text')}>이웃 </div>
         </div>
         <NeighborCarousel followings={results.userProfileList} onClick={onFollowClick}/>
         <div className={cx('link-button-container')}>
