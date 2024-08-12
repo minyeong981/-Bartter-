@@ -37,7 +37,7 @@ export default function Search() {
   const { data:suggestion } = useQuery({
     queryKey: [querykeys.SEARCH_SUGGESTION, query],
     queryFn: () => barter.getAutoCompletedKeywordListByKeyword(query),
-    enabled: query.length > 0,
+    enabled: query.trim().length > 0,
   })
 
   // 최근 검색어 삭제

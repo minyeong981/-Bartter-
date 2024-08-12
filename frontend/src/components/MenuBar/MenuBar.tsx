@@ -25,7 +25,7 @@ export default function MenuBar() {
               animationData={Home}
               play={isPlayingHome}
               className={styles.lottie}
-              onMouseEnter={() => setPlayingHome(true)}
+              onMouseOver={() => setPlayingHome(true)}
               onMouseLeave={() => setPlayingHome(false)}
             />
             <span>홈</span>
@@ -33,11 +33,11 @@ export default function MenuBar() {
         </li>
         <li>
           <Link to="/diary">
-            <Lottie
+            <Lottie                                 
               loop
               animationData={Diary}
               play={isPlayingDiary}
-              className={styles['lottie']}
+              className={styles.lottie}
               onMouseEnter={() => setPlayingDiary(true)}
               onMouseLeave={() => setPlayingDiary(false)}
             />
@@ -50,7 +50,7 @@ export default function MenuBar() {
               loop
               animationData={Trade}
               play={isPlayingTrade}
-              className={styles.lottie}
+              className={styles.lottieTrade}
               onMouseEnter={() => setPlayingTrade(true)}
               onMouseLeave={() => setPlayingTrade(false)}
             />

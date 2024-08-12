@@ -28,6 +28,7 @@
   overflow-y: auto;
   border: 1px solid colors.$primary;
   border-radius: 12px;
+
   // margin-left: 10px;
 
 
@@ -165,8 +166,8 @@
 .checkbox {
   display: flex;
   flex-direction: column;
-  width: 100%;
   gap: 10px;
+  width: 100%;
 
   span {
     @include typographies.label;
@@ -192,4 +193,8 @@
     left: 5px;
     content: url("@/assets/svg/check.svg");
   }
+}
+
+.error-message {
+  color: red;
 }

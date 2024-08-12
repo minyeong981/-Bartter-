@@ -28,19 +28,19 @@ export default function ProfilePicked() {
   console.log(pickedPosts);
 
   return (
-    <div>
-      {pickedPosts.length === 0 ? (
-        // <div>찜한 글이 없습니다.</div>
-        <div>
-          <EmptyPicked />
-        </div>
-      ) : (
-        <div>
-          {pickedPosts.map((trade, index) => (
-            <TradeCard key={index} {...trade} />
-          ))}
-        </div>
-      )}
-    </div>
-  );
+  <div>
+    { pickedPosts.length===0 ? (
+      <div>
+        <EmptyPicked />
+      </div>
+        
+    ) : (
+      <div>
+        {pickedPosts.map((trade, index) => 
+        <TradeCard key={index} {...trade} />
+        )}
+      </div>
+     )}
+  </div>
+  )
 }

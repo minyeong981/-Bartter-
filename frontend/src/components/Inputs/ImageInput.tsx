@@ -12,38 +12,67 @@ export interface ImageInputProps {
   maxImages: number;
 }
 
-function ImageInput({ onImageChange, maxImages }: ImageInputProps) {
+function ImageInput({ onImageChange, maxImages}: ImageInputProps) {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
 
   function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
     const files = event.target.files;
     if (files) {
       const newImageFiles = Array.from(files);
-      const newImagePreviews = newImageFiles.map(file => {
-        const reader = new FileReader();
-        return new Promise<string>(resolve => {
-          reader.onloadend = () => {
-            resolve(reader.result as string);
-          };
-          reader.readAsDataURL(file);
-        });
-      });
 
-      Promise.all(newImagePreviews).then(previews => {
-        let updatedFiles = [...imageFiles, ...newImageFiles];
-        let updatedPreviews = [...imagePreviews, ...previews];
+      let possibleImages: File[] = [];
+      let errorMessages: string[] = [];
 
-        if (updatedFiles.length > maxImages) {
-          updatedFiles = updatedFiles.slice(-maxImages);
-          updatedPreviews = updatedPreviews.slice(-maxImages);
+      for (let image of newImageFiles) {
+        if (image.size > 10_000_000) {
+          errorMessages.push(`파일 '${image.name}'의 용량이 10MB를 초과합니다.`);
+          continue;  
         }
 
-        setImageFiles(updatedFiles);
-        setImagePreviews(updatedPreviews);
-        onImageChange(updatedFiles);
-      });
+        const extension = image.name.split('.').pop()?.toLowerCase();
+        if (extension && !allowedExtensions.includes(extension)) {
+          errorMessages.push(`지원하지 않는 파일 확장자입니다. (${image.name})`);
+          continue;  
+        }
+
+        possibleImages.push(image);  // 조건에 맞는 이미지만 추가
+      }
+
+      if (errorMessages.length > 0) {
+        setErrorMessage(errorMessages.join(' '));
+      } else {
+        setErrorMessage('');  // 에러 메시지 초기화
+      }
+
+      if (possibleImages.length > 0) {
+        const newImagePreviews = possibleImages.map(file => {
+          const reader = new FileReader();
+          return new Promise<string>(resolve => {
+            reader.onloadend = () => {
+              resolve(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+          });
+        });
+
+        Promise.all(newImagePreviews).then(previews => {
+          let updatedFiles = [...imageFiles, ...possibleImages];
+          let updatedPreviews = [...imagePreviews, ...previews];
+
+          if (updatedFiles.length > maxImages) {
+            updatedFiles = updatedFiles.slice(-maxImages);
+            updatedPreviews = updatedPreviews.slice(-maxImages);
+          }
+
+          setImageFiles(updatedFiles);
+          setImagePreviews(updatedPreviews);
+          onImageChange(updatedFiles);
+        });
+      }
     }
   }
 
@@ -52,6 +81,7 @@ function ImageInput({ onImageChange, maxImages }: ImageInputProps) {
   }
 
   function handleRemoveImage(index: number) {
+    setErrorMessage('')
     const updatedFiles = imageFiles.filter((_, i) => i !== index);
     const updatedPreviews = imagePreviews.filter((_, i) => i !== index);
 
@@ -88,6 +118,7 @@ function ImageInput({ onImageChange, maxImages }: ImageInputProps) {
           </div>
         ))}
       </div>
+      {errorMessage && <div className={cx('error-message')}>{errorMessage}</div>}
     </div>
   );
 }
