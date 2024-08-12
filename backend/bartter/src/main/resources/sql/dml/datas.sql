@@ -929,6 +929,119 @@ INSERT INTO bartter.community_post (community_post_id, location_id, user_id, cre
 VALUES (33, 2024, 2, '2024-08-11 17:30:08', '2024-08-11 21:58:10', '오소리', '아 ᆢ 오소리오소리가 드나드니할말이없내요');
 
 
+
+-- community_post_comment
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (1, 1, 9, '2024-08-04 19:32:03', '2024-08-04 19:32:03', '요새 장아찌 소스도 잘나오고 소금물에 절여서 들기름에 쪄서 먹어도 좋을듯합니다');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (2, 2, 16, '2024-08-04 19:32:03', '2024-08-04 19:32:03', '남부지방은 무는 8월말~9월초 배추는 9월 첫째~두째주가 적당할거 같습니다.');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (3, 2, 6, '2024-08-04 19:42:03', '2024-08-04 19:42:03', '8월말에서 9월초하심될것같네요');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (4, 2, 3, '2024-08-04 19:52:03', '2024-08-04 19:52:03', '여기는 중부지방에 속하는데 오늘 무파종 하고 왔네요');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (5, 3, 3, '2024-08-04 19:32:03', '2024-08-04 19:32:03', '구할수 있으면 월 2백 고정수입 직장 다니면서 농사도 지으세요. 그래야 농사도 즐기면서 짓습니다.');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (6, 3, 10, '2024-08-04 19:42:03', '2024-08-04 19:42:03', '어느 이상으로 농사를 지어야 생활이 가능합니다. 어머님도 아들이 고생하는거 보기 싫으셔서 그럴겁니다. 농사가 많지 않으시면 직장다니면서 주말에 텃밭가꾸는 방식도 좋을듯합니다');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (7, 4, 10, '2024-08-04 19:32:03', '2024-08-04 19:32:03', '쉬어가면서 하세요.');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (8, 5, 2, '2024-08-04 19:32:03', '2024-08-04 19:32:03', '제초제 피해예상 됩니다. 들깨에 적용되는 제초제 뿌려야 합니다.');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (9, 5, 12, '2024-08-04 19:42:03', '2024-08-04 19:42:03', '진딧물 노린재 총채벌레 담배나방등의 피해입니다 생장점에 붙어서 흡즙하므로 잎이 오글오글한데 살충제살포 하시고 순지르기를 해주시면 새순이 자랍니다');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (10, 5, 11, '2024-08-04 19:52:03', '2024-08-04 19:52:03', '진딧물 또는 제초제(라쏘,듀알 등) 의 피해로 보입니다.');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (11, 6, 11, '2024-08-04 19:32:03', '2024-08-04 19:32:03', '풍산개는 진도개와 우리나라의 토종개로 쌍벽을 이루는 영리하고 충성심많은 견종입니다 많이 아껴주시고 사랑해 주세요.');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (12, 6, 9, '2024-08-04 19:42:03', '2024-08-04 19:42:03', '넘 귀여운 강아지겠네요~ 어미도 수고 많았네요~^^ 축하드려요 ~^^');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (13, 7, 9, '2024-08-04 19:42:03', '2024-08-04 19:42:03', '저도 한입만 먹고싶네요');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (14, 11, 5, '2024-08-04 19:42:03', '2024-08-04 19:42:03', '농약에 노린재약 있어요. 또는 물20L에 크레죨 25cc 에탄올 50cc 페트병에 담아 5~10M간격으로 놓아두세요.');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (15, 11, 10, '2024-08-04 19:52:03', '2024-08-04 19:52:03', '청실홍실 콩 꼬투리 단단해질 때까지 3~4차례 뿌려줘야 풍작 옵니다');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (16, 13, 10, '2024-08-04 19:52:03', '2024-08-04 19:52:03', '풍작이네요. 축하드립니다');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (17, 14, 9, '2024-08-04 19:52:03', '2024-08-04 19:52:03', '어디인가요');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (18, 16, 3, '2024-08-04 19:52:03', '2024-08-04 19:52:03', '진딧물 방제 잘하시고 나무 밑둥주위 토양살충제 뿌리세요.');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (19, 16, 4, '2024-08-04 19:53:03', '2024-08-04 19:53:03', '토양살충제를 나무밑에다 한줌 뿌려주셔요');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (20, 19, 5, '2024-08-04 19:52:03', '2024-08-04 19:52:03', '수분 보충이 필요한 날입니다');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (21, 21, 3, '2024-08-04 19:52:03', '2024-08-04 19:52:03', '잎따주는것과 순치기는 다릅니다 잎은 광합성작용을 줄여 성장을 둔화시킬수 있으나. 순치기는 분지를 늘리기위한 방법입니다.');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (22, 21, 7, '2024-08-04 19:53:03', '2024-08-04 19:53:03', '콩잎 물김치는 순지르기 해서 순과 함께 제거된 여린잎으로 담그시면 됩니다. 콩잎김치는 단풍이 드는 늦가을에 하셔야죠. ^^');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (23, 21, 14, '2024-08-04 19:54:03', '2024-08-04 19:54:03', '순치기 늦었어요. 꽃 피기 전에 2차례 정도 순치기 해 줬어야 했는데 ㅠㅠ');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (24, 21, 15, '2024-08-04 19:55:03', '2024-08-04 19:55:03', '콩이나 콩잎이나 우선 순위로 설정하고 일하세요 한포기 하나식만 무리 안가게 따서 콩물김치 담아요');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (25, 24, 9, '2024-08-04 19:55:03', '2024-08-04 19:55:03', '저러코롬 큰 수박은 처음보네요');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (26, 27, 1, '2024-08-04 19:55:03', '2024-08-04 19:55:03', '못쳐도갠찬나요');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (27, 27, 5, '2024-08-04 19:56:03', '2024-08-04 19:55:03', '마누라가 가고싶다네요');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (28, 28, 10, '2024-08-04 19:56:03', '2024-08-04 19:55:03', '먹고 살려고 농사를 하는데 먹는게 부실하면 나중에 삶의 질을 무너 뜨립니다 잘 챙겨드시고 여름 나기 잘하세요');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (29, 28, 11, '2024-08-04 19:57:03', '2024-08-04 19:57:03', '무더위에 든든하게 드셔야지요.');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (30, 28, 9, '2024-08-04 19:58:03', '2024-08-04 19:58:03', '전 그러도 라면은 먹는데 ㅋㅋ');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (31, 28, 6, '2024-08-04 19:59:03', '2024-08-04 19:59:03', '아침밥 먹어본지 까막득 한게 10년는 되지 싶다 아침에 물한모금 9시 10경 쯤은 막걸리 로 새참겸 아침~');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (32, 29, 16, '2024-08-04 19:51:03', '2024-08-04 19:51:03', '애플참외는 처음 접해보네요. 내년에 모종구해 한번 심어보고 싶네요.');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (33, 29, 6, '2024-08-04 19:52:03', '2024-08-04 19:52:03', '사과참외는 처음 들어봅니다');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (34, 29, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03', '그린참외 애플참외 사과참외 이름이 다양하나 다 동일한 품종이고 참외 중 저는 사과참외가 제일 예쁘고 맛나 이 품종만 심어요 ^^*');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (35, 31, 20, '2024-08-04 19:53:03', '2024-08-04 19:53:03', '두더지가 많이 살고 있나 봅니다 두더지 퇴치 해야 뭐든 심을수 있지요 작물 아래로 지나가면 말라 죽어요');
+
+INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
+VALUES (36, 33, 10, '2024-08-04 19:53:03', '2024-08-04 19:53:03', '오소리는 곰만큼이나 귀한 짐승인디.. 천혜의 자연 조건인가 봅니다. 제가 있는곳은 오소리는 눈씻고봐도 없구요 너구리만 가끔 보이네요.');
+
+
+
 -- community_post_image
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
@@ -953,16 +1066,16 @@ VALUES (15, 5, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgb
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
-VALUES (23, 6, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/23');
+VALUES (24, 6, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/23');
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
-VALUES (27, 7, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/27');
+VALUES (28, 7, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/27');
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
-VALUES (28, 8, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/28');
+VALUES (29, 8, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/28');
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
-VALUES (31, 9, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/31');
+VALUES (32, 9, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/31');

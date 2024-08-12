@@ -1,3 +1,5 @@
+use bartter;
+
 DROP TABLE IF EXISTS community_post_comment;
 DROP TABLE IF EXISTS community_post_image;
 DROP TABLE IF EXISTS community_post_like;
@@ -85,6 +87,7 @@ CREATE TABLE crop_diary (
                             crop_id INTEGER NOT NULL,
                             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
                             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+                            crop_diary_perform_date DATE NOT NULL,
                             crop_diary_title VARCHAR(50) NOT NULL,
                             crop_diary_image VARCHAR(300) NOT NULL,
                             crop_diary_content VARCHAR(2000) NOT NULL,
