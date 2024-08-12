@@ -83,7 +83,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             response.addCookie(cookieUtil.createCookie("refresh", refresh));
             response.setStatus(HttpStatus.OK.value());
 
-            response.sendRedirect(domainUrl);
+            response.sendRedirect(domainUrl+"/OAuth");
         }
     }
 
