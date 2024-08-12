@@ -18,8 +18,8 @@ export const Route = createFileRoute('/_layout/_protected/profile/_layout/')({
 
 export default function MyProfile() {
   const userId : UserId = useRootStore(state => state.userId);
-  const logout = useRootStore(state => state.logout);
-  const navigate = Route.useNavigate();
+  // const logout = useRootStore(state => state.logout);
+  // const navigate = Route.useNavigate();
   console.log(userId);
 
 

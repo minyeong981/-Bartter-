@@ -8,7 +8,6 @@ import titleNeighbor from '@/assets/lottie/titleNeighbor.json'
 import titleTrade from '@/assets/lottie/titleTrade.json'
 import AdCarousel from '@/components/AdCarousel';
 import PostCard from '@/components/Community/PostCard';
-import PostList from '@/components/Community/PostList';
 import HomeTradeCardList from '@/components/HomeTradeCard/HomeTradeCardList';
 import HomeStory from '@/components/Story/HomeStory';
 import Title from '@/components/Title';
