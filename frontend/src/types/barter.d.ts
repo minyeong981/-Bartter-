@@ -477,7 +477,10 @@ type GetUserLocationResponse = BarterResponse<SimpleLocation>;
 type GetHasDiaryResponse = BarterResponse<string[]>;
 type GetChatListResponse = BarterResponse<SimpleTradeInfo[]>;
 type GetChatRoomInfoResponse = BarterResponse<TradeInfo>;
-type GetAutoCompletedKeywordListByKeyword = BarterResponse<AutoCompletedKeyWord[]>;
+type GetAutoCompletedKeywordListByKeyword = BarterResponse<
+  AutoCompletedKeyWord[]
+>;
+type getChatListByTradePostIdResponse = BarterResponse<SimpleTradeInfo[]>;
 
 // TODO: 농작물 물물교환 API 부터는 GET요청만 정의
 // type SignupResponse = BarterResponse<null>;

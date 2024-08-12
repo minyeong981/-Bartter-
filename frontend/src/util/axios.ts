@@ -40,10 +40,8 @@ instance.interceptors.response.use(
       const token = parser.getAccessToken(response);
       useRootStore.getState().login(token);
       return instance.request(error.config);
-    } else if (error.response.status === 401) {
-      sessionStorage.clear();
-      useRootStore.getState().logout();
     }
+
     return Promise.reject(error);
   },
 );
