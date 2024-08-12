@@ -10,9 +10,9 @@ interface StatusProps extends HTMLAttributes<HTMLDivElement> {
 const cx = classNames;
 
 const Text: Record<Status, string | null> = {
-  IN_PROGRESS: '예약중',
+  PROGRESS: null,
   COMPLETED: '완료',
-  RESERVED: null,
+  RESERVED: '예약중',
 };
 
 export default function Status({status, className, ...props}: StatusProps) {

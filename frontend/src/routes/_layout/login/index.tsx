@@ -15,7 +15,7 @@ import parser from '@/util/parser.ts';
 import {PASSWORD_PATTERN, USERID_PATTERN} from '@/util/validation.ts';
 
 import styles from './login.module.scss';
-import axios from "@/util/axios.ts";
+import axios from '@/util/axios.ts';
 
 const cx = classnames.bind(styles);
 
@@ -33,9 +33,9 @@ function LoginPage() {
       const token = parser.getAccessToken(data);
 
       // FCM 토큰을 백엔드 서버로 전송
-      axios.post('/user/fcm', sessionStorage.getItem("fcmToken"), {
+      axios.post('/user/fcm', sessionStorage.getItem('fcmToken'), {
         headers: {'Content-Type': 'application/json'},
-      }).then(console.log("성공", sessionStorage.getItem("fcmToken")));
+      });
 
       login(token);
       await navigate({to: '/'});

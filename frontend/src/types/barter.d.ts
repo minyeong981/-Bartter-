@@ -199,7 +199,7 @@ interface CropDiaryDetailWithUser {
 
 type CropTradePostId = number;
 
-type Status = 'IN_PROGRESS' | 'RESERVED' | 'COMPLETED';
+type Status = 'PROGRESS' | 'RESERVED' | 'COMPLETED';
 
 type IsShare = boolean;
 
@@ -474,7 +474,9 @@ type GetUserLocationResponse = BarterResponse<SimpleLocation>;
 type GetHasDiaryResponse = BarterResponse<string[]>;
 type GetChatListResponse = BarterResponse<SimpleTradeInfo[]>;
 type GetChatRoomInfoResponse = BarterResponse<TradeInfo>;
-type GetAutoCompletedKeywordListByKeyword = BarterResponse<AutoCompletedKeyWord[]>;
+type GetAutoCompletedKeywordListByKeyword = BarterResponse<
+  AutoCompletedKeyWord[]
+>;
 
 // TODO: 농작물 물물교환 API 부터는 GET요청만 정의
 // type SignupResponse = BarterResponse<null>;
