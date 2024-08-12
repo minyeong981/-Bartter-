@@ -1,7 +1,5 @@
 import {initializeApp} from 'firebase/app';
-import {getMessaging, getToken, onMessage} from 'firebase/messaging';
-
-import axios from '@/util/axios.ts';
+import {getMessaging, onMessage} from 'firebase/messaging';
 
 // Firebase 구성
 const firebaseConfig = {
@@ -27,68 +25,92 @@ const messaging = getMessaging(app);
  * 수신 메시지 처리 함수
  * FCM 메시지를 수신하면 알림을 표시한다.
  */
-onMessage(messaging, payload => {
-  console.log('메시지 수신:', payload);
-  if (!payload.data) return;
-  const notificationTitle = payload.data.title + '포그라운드';
-  const notificationOptions = {
-    body: payload.data.body,
-    icon: payload.data.image,
-    // 알림 클릭 시 수행할 작업
-    data: {
-      url: payload.data.click_action || '/', // 기본 URL 설정
-    },
-  };
+const handleForegroundMessages = () => {
+  onMessage(messaging, (payload) => {
+    console.log('메시지 수신(포그라운드):', payload);
+    if (!payload.data) return;
 
-  // 브라우저 알림 표시
-  const notification = new Notification(notificationTitle, notificationOptions);
+    const notificationTitle = payload.data.title + ' 포그라운드';
+    const notificationOptions = {
+      body: payload.data.body,
+      icon: payload.data.image,
+      data: {
+        url: payload.data.click_action || '/', // 기본 URL 설정
+      },
+    };
 
-  // 알림 클릭 시 동작
-  notification.onclick = _ => {
-    window.location.href = notificationOptions.data.url;
-  };
-});
+    // 브라우저 알림 표시
+    const notification = new Notification(notificationTitle, notificationOptions);
+
+    // 알림 클릭 시 동작
+    notification.onclick = () => {
+      console.log(notificationOptions.data.url);
+      window.location.href = notificationOptions.data.url;
+    };
+  });
+};
+
+export {messaging, handleForegroundMessages};
+
+// onMessage(messaging, payload => {
+//   console.log('메시지 수신(포그라운드):', payload);
+//   if (!payload.data) return;
+//
+//   const notificationTitle = payload.data.title + '포그라운드';
+//   const notificationOptions = {
+//     body: payload.data.body,
+//     icon: payload.data.image,
+//     // 알림 클릭 시 수행할 작업
+//     data: {
+//       url: payload.data.click_action || '/', // 기본 URL 설정
+//     },
+//   };
+//
+//   // 브라우저 알림 표시
+//   const notification = new Notification(notificationTitle, notificationOptions);
+//
+//   // 알림 클릭 시 동작
+//   notification.onclick = () => {
+//     console.log(notificationOptions.data.url);
+//     window.location.href = notificationOptions.data.url;
+//   };
+// });
 
 // FCM 토큰 받아오는 함수 -> 함수를 받으면 백으로 다시 요청해준다.
-const requestPermission = async () => {
-  try {
-    // 사용자에게 알람 권한을 받아옴
-    // 허용시 granted 거부시 den
-    const permission = await Notification.requestPermission();
-    console.log(permission);
-    if (permission === 'granted' && !sessionStorage.getItem('fcmToken')) {
-      const currentToken = await getToken(messaging, {
-        vapidKey:
-          'BGVbiPhLWWxijrc2jfn9lTyDs-kcSfSinb2bUmEoDXSc8ljx6sWtur9k82vmjBLND06SSeb10oq-rw7zmzrpoPY',
-      });
-      // FCM 토큰을 백엔드 서버로 전송
-      await axios.post('/user/fcm', currentToken, {
-        headers: {'Content-Type': 'application/json'},
-      });
-      console.log(currentToken);
-      sessionStorage.setItem('fcmToken', currentToken);
-    } else {
-      console.log('알람 권한 X || 이미 토큰 저장');
-    }
-  } catch (error) {
-    console.error('허용 받아오거나 토큰 받아오는데 오류', error);
-  }
-};
+// const requestPermission = async () => {
+//   try {
+//     // 사용자에게 알람 권한을 받아옴
+//     // 허용시 granted 거부시 den
+//     const permission = await Notification.requestPermission();
+//     console.log(permission);
+//     if (permission === 'granted' && !sessionStorage.getItem('fcmToken')) {
+//       const currentToken = await getToken(messaging, {
+//         vapidKey:
+//           'BGVbiPhLWWxijrc2jfn9lTyDs-kcSfSinb2bUmEoDXSc8ljx6sWtur9k82vmjBLND06SSeb10oq-rw7zmzrpoPY',
+//       });
+//       sessionStorage.setItem('fcmToken', currentToken);
+//       console.log(currentToken);
+//       return currentToken;
+//     } else {
+//       console.log('알람 권한 X || 이미 토큰 저장');
+//     }
+//   } catch (error) {
+//     console.error('허용 받아오거나 토큰 받아오는데 오류', error);
+//   }
+// };
 
 /**
  * 수신 메시지 처리 함수
  * FCM 메시지를 수신하면 알림을 표시한다.
  */
-const handleIncomingMessages = () => {
-  onMessage(messaging, payload => {
+/*   onMessage(messaging, payload => {
     console.log('메시지 수신:', payload);
     if (!payload.data) return;
+
     // eslint-disable-next-line no-new
     new Notification(payload.data.title, {
       body: payload.data.body,
       icon: payload.data.image,
     });
-  });
-};
+  }); */
 
-export {handleIncomingMessages, messaging, requestPermission};
