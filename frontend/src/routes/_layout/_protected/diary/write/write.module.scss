@@ -22,17 +22,18 @@
 .mainContainer {
   display: flex;
   flex-direction: column;
-  gap: 0 0 50px 0;
+  gap: 0 0 50px;
 }
+
 .cropProfile {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100%;
   margin-top: 10px;
+  border-radius: 50%;
 
   .profileImage {
     width: 70px;
@@ -47,41 +48,46 @@
     @include typo.main;
   }
 }
+
 .headingContainer {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 10px;
+  padding: 10px 10px 0;
   
 
 
 .inputContainer {
   display: flex;
   flex-direction: column;
-  width: 100%;
   gap: 10px;
+  width: 100%;
 }
 
 .photoContainer {
   display: flex;
   flex-direction: column;
-  width: 100%;
   gap: 10px;
+  width: 100%;
 }
 
 .photoText {
   align-self: flex-start; /* 사진 텍스트를 왼쪽 정렬 */
 
+  @include typo.label;
+
 }
+
 .cropsitem {
   width: 100%;
 }
 }
+
 .buttonContainer {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: flex-end;
   width: 100%;
+  margin-top: 20px;
 }

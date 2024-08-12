@@ -1,10 +1,13 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
+import Lottie from 'react-lottie-player';
 
+import GeneralButton from '@/components/Buttons/GeneralButton'
 import barter from '@/services/barter';
 import querykeys from '@/util/querykeys';
 
+import NotFile from '../../assets/lottie/notFile.json';
 import styles from './AiReportList.module.scss';
 
 const cx = classnames.bind(styles);
@@ -28,11 +31,26 @@ export default function AiReportList({ filterOptions }: AiReportListProps) {
 
   const aiReportList = data.data.data;
 
+  const handleGoToDiary = () => {
+    navigate({ to: '/diary/write/1' });
+  };
+
   // 데이터가 없는 경우 처리
   if (!aiReportList || aiReportList.length === 0) {
     return (
-      <div>
-        AI 리포트가 없습니다. <br /> 농사 일지를 작성하면 일요일마다 AI 리포트를 제공합니다.
+      <div className={cx('notAiReport')}>
+        <p>AI 요약 보고서가 없습니다. 
+          <br /> 농사 일지를 작성하면 일요일마다 AI 요약 보고서가 제공됩니다.</p>
+            <Lottie loop animationData={NotFile} play className={cx('animation')} />
+
+        <div className={cx('buttonContainer')}>
+          <GeneralButton
+            buttonStyle={{ style: 'primary', size: 'medium' }}
+            onClick={handleGoToDiary}
+          >
+            농사 일지 작성 하러 가기
+          </GeneralButton>
+        </div>
       </div>
     );
   }
@@ -71,7 +89,7 @@ export default function AiReportList({ filterOptions }: AiReportListProps) {
     <div className={cx('reportListContainer')}>
       {Array.from(groupedReports.entries()).map(([key, { month, weekOfMonth, reports }]) => (
         <div key={key} className={cx('reportGroup')}>
-          <h3>{`${month}월 ${weekOfMonth}주차`}</h3> {/* month와 weekOfMonth를 직접 사용 */}
+          <h3>{`${month}월 ${weekOfMonth}주차`}</h3>
           <div className={cx('reportCards')}>
             {reports.map(report => (
               <div key={report.reportId} className={cx('reportItem')}>

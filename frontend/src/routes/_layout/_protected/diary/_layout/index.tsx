@@ -93,7 +93,7 @@ function DiaryPage() {
       break;
     case '내 작물':
       renderedComponent = (
-        <>
+        <div className={cx('myCropContainer')}>
           <UserCrops userId={userId} onSelectCrop={handleSelectCrop} />
           <FloatingButton onClick={handleModalOpen}>+ 등록하기</FloatingButton>
           {isModalOpen && (
@@ -105,7 +105,7 @@ function DiaryPage() {
               showSearchBar={true}
             />
           )}
-        </>
+        </div>
       );
       break;
     default:

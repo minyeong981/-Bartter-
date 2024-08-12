@@ -19,18 +19,18 @@
     height: 100%;
   }
  
-  .progressbar{
+  .progressbar {
     width: 100%;
     padding: 20px;
   }
 
- .mainContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-  width: 100%;
-  padding: 30px 10px;
- }
+  .mainContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    width: 100%;
+    padding: 30px 10px;
+  }
 
   .headingContainer {
     display: flex;
@@ -44,9 +44,10 @@
     gap: 10px;
     width: 100%;
 
-    
+    p {
+      @include typo.label;
+    }
   }
-
 
   .datePicker {
     width: 341px;
@@ -66,8 +67,21 @@
     flex-direction: column;
     gap: 20px;
     align-items: center;
-    justify-content:flex-end;
+    justify-content: flex-end;
     width: 100%;
+
+      &.primaryButton {
+        color: white;
+        background-color: colors.$primary;
+      }
+
+      &.disabledButton {
+        color: white;
+        cursor: not-allowed;
+        background-color: colors.$divider2;
+      }
+
+    // }
   }
 }
 
@@ -77,8 +91,8 @@
   align-items: center;
 
   .cropImage {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     margin-bottom: 1rem;
     object-fit: cover;
     border-radius: 50%;
@@ -117,7 +131,7 @@
   box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
 }
 
-// .animation {
-//   width: 150px; // 애니메이션 크기 조정
-//   margin-bottom: 2rem; // 애니메이션과 메모장 사이 간격 추가
-// }
+.animation {
+  width: 320px; // 애니메이션 크기 조정
+  height: 320px; // 애니메이션과 메모장 사이 간격 추가
+}

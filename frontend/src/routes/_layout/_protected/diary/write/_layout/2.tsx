@@ -151,7 +151,7 @@ export default function DiaryWritePage2() {
           />
           <div className={cx('photoContainer')}>
             <p className={cx('photoText')}>
-              사진 ({image.length}/ {maxImages})
+              사진 ({image.length} / {maxImages})
             </p>
             <ImageInput onImageChange={handleImageChange} maxImages={maxImages} />
           </div>
