@@ -5,7 +5,7 @@ export default function useInfiniteScroll(callback: Function) {
   const lastElementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!lastElementRef.current) return;
+    if (!lastElementRef.current || !rootElementRef.current) return;
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
@@ -14,14 +14,14 @@ export default function useInfiniteScroll(callback: Function) {
           }
         });
       },
-      {root: rootElementRef.current, threshold: 0.2},
+      {root: rootElementRef.current, threshold: .5},
     );
     observer.observe(lastElementRef.current);
 
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [callback]);
 
   return {rootElementRef, lastElementRef};
 }
