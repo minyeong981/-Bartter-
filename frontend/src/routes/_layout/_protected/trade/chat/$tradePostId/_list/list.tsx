@@ -5,7 +5,6 @@ import classnames from 'classnames/bind';
 import ChatListItem from '@/components/Chat/ChatListItem/ChatListItem.tsx';
 import EmptyPost from '@/components/Empty/EmptyPost.tsx';
 import barter from '@/services/barter.ts';
-import useRootStore from '@/store';
 
 import styles from './chatList.module.scss';
 
@@ -18,7 +17,6 @@ export const Route = createFileRoute(
 });
 
 function ChatListPage() {
-  const userId = useRootStore(state => state.userId);
   const {tradePostId} = Route.useParams();
   const {data} = useSuspenseQuery({
     queryFn: () => barter.getChatListByTradePostId(Number(tradePostId)),
@@ -26,8 +24,6 @@ function ChatListPage() {
   });
 
   const chatListData = data.data.data;
-
-  console.log(chatListData);
 
   return (
     <div className={cx('chatList')}>
