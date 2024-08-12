@@ -1,33 +1,16 @@
-import {createFileRoute, Outlet, useNavigate} from '@tanstack/react-router';
+import {createFileRoute, Navigate, Outlet} from '@tanstack/react-router';
 import {useEffect, useRef} from 'react';
 
 import barter from '@/services/barter.ts';
 import useRootStore from '@/store';
-import parser from '@/util/parser.ts';
 
 export const Route = createFileRoute('/_layout/_protected')({
   component: Protected,
 });
 
 function Protected() {
-  const {isLogin, login} = useRootStore(state => state);
-  const navigate = useNavigate();
-  const isFirstRendered = useRef<boolean>(false);
-
-  useEffect(() => {
-    if (isLogin) return;
-
-    barter
-      .reIssue()
-      .then(res => {
-        const token = parser.getAccessToken(res);
-        login(token);
-      })
-      .catch(e => {
-        console.error(e.message);
-        navigate({to: '/login/entrance'});
-      });
-  }, [isLogin, login, navigate]);
+  const {isLogin} = useRootStore(state => state);
+  const isFirstRendered = useRef<boolean>(true);
 
   useEffect(() => {
     if (!isFirstRendered.current || !isLogin) return;
@@ -35,9 +18,9 @@ function Protected() {
     if (!fcmToken) return;
     (async () => await barter.postFcmToken(fcmToken))();
     isFirstRendered.current = false;
-  }, []);
+  }, [isLogin]);
 
-  if (!isLogin) return;
+  if (!isLogin) return <Navigate to="/login/entrance" replace={true} />;
 
   return <Outlet />;
 }

@@ -15,6 +15,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutProtectedImport } from './routes/_layout/_protected'
+import { Route as LayoutOauthImport } from './routes/_layout/Oauth'
 import { Route as LayoutSignupIndexImport } from './routes/_layout/signup/index'
 import { Route as LayoutLoginIndexImport } from './routes/_layout/login/index'
 import { Route as LayoutSignupLayoutImport } from './routes/_layout/signup/_layout'
@@ -191,6 +192,11 @@ const LayoutSignupRoute = LayoutSignupImport.update({
 
 const LayoutProtectedRoute = LayoutProtectedImport.update({
   id: '/_protected',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutOauthRoute = LayoutOauthImport.update({
+  path: '/Oauth',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -827,6 +833,13 @@ declare module '@tanstack/react-router' {
       fullPath: ''
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
+    }
+    '/_layout/Oauth': {
+      id: '/_layout/Oauth'
+      path: '/Oauth'
+      fullPath: '/Oauth'
+      preLoaderRoute: typeof LayoutOauthImport
+      parentRoute: typeof LayoutImport
     }
     '/_layout/_protected': {
       id: '/_layout/_protected'
@@ -1598,6 +1611,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   LayoutRoute: LayoutRoute.addChildren({
+    LayoutOauthRoute,
     LayoutProtectedRoute: LayoutProtectedRoute.addChildren({
       LayoutProtectedHomeRoute: LayoutProtectedHomeRoute.addChildren({
         LayoutProtectedHomeIndexRoute,
@@ -1830,11 +1844,16 @@ export const routeTree = rootRoute.addChildren({
     "/_layout": {
       "filePath": "_layout.tsx",
       "children": [
+        "/_layout/Oauth",
         "/_layout/_protected",
         "/_layout/signup",
         "/_layout/login/",
         "/_layout/login/entrance/"
       ]
+    },
+    "/_layout/Oauth": {
+      "filePath": "_layout/Oauth.tsx",
+      "parent": "/_layout"
     },
     "/_layout/_protected": {
       "filePath": "_layout/_protected.tsx",
