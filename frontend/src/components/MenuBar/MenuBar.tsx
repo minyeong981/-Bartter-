@@ -50,7 +50,7 @@ export default function MenuBar() {
               loop
               animationData={Trade}
               play={isPlayingTrade}
-              className={styles.lottieTrade}
+              className={styles.lottie}
               onMouseEnter={() => setPlayingTrade(true)}
               onMouseLeave={() => setPlayingTrade(false)}
             />

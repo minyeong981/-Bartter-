@@ -30,6 +30,9 @@
     }
 
     .community {
-      margin-top: 44px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin-top: 59px;
     }
   }

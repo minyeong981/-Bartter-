@@ -40,8 +40,8 @@ export default function SearchBar({ query, onSearch, onInputChange, onClear} : S
                 onChange={(event) => onInputChange(event.target.value)}
                 onKeyDown={handleKeyDown}
               />
-              <button className={stylesInput.clearButton} >
-                { query ? <FaX onClick={onClear} className={styles.faX} /> : <FaSearch className={styles.faSearch}/>}
+              <button className={styles.clearButton} >
+                { query ? <FaX onClick={onClear} style={{ fontSize: '20px'}} /> :<FaSearch style={{ fontSize: '30px'}} />}
               </button>
             </div>
           </div>

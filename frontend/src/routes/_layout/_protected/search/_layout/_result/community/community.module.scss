@@ -8,7 +8,6 @@
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 20px;
-  
 
   .result-text {
     padding-right: 10px;
@@ -16,14 +15,12 @@
   }
 }
 
-.tradeList{
-  align-items: center;
-  width: 100%;
-  height: calc(100% - 106px);
-  padding: 0 20px;
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-   display: none;
+.postList{
+    width: 100%;
+    height: calc(100% - 106px);
+    overflow-y: scroll;
+  
+    &::-webkit-scrollbar {
+     display: none;
+    }
   }
-}

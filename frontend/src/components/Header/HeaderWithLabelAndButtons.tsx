@@ -1,9 +1,9 @@
 import {Link} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {PropsWithChildren, ReactNode} from 'react';
+import { FaSearch , FaUser } from 'react-icons/fa';
 
-import {IconBell, IconSearch, IconUser} from '@/assets/svg';
-
+// import {IconSearch, IconUser} from '@/assets/svg';
 import Index from './Container';
 import styles from './header.module.scss';
 
@@ -20,16 +20,15 @@ export default function HeaderWithLabelAndButtons({
     <Index>
       <span className={cx('label')}>{label}</span>
       <ul className={cx('buttons')}>
-        <Link to="/profile">
-          <IconUser className={cx('icon')} />
-        </Link>
         <Link 
         to='/search'
          >
-          <IconSearch className={cx('icon')} />
+          {/* <IconSearch className={cx('icon')} /> */}
+          <FaSearch style={{ fontSize: '30px', color:'black'}} />
         </Link>
-        <Link>
-          <IconBell className={cx('icon')} />
+        <Link to="/profile">
+        <FaUser style={{ fontSize: '30px'}} />
+          {/* <IconUser className={cx('icon')} /> */}
         </Link>
       </ul>
     </Index>
