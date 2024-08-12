@@ -10,6 +10,7 @@ import GeneralButton from '@/components/Buttons/GeneralButton';
 import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAndBackButton';
 import DeleteDiaryModal from '@/components/Modals/DeleteDiaryModal/deleteDiaryModal';
 import barter from '@/services/barter';
+import useRootStore from '@/store';
 import querykeys from '@/util/querykeys';
 
 import styles from '../diaryDetail.module.scss';
@@ -17,6 +18,7 @@ import styles from '../diaryDetail.module.scss';
 const cx = classnames.bind(styles);
 
 export default function DiaryDetail() {
+  const myId = useRootStore(state => state.userId)
   const queryClient = useQueryClient();
   const {cropDiaryId} = Route.useParams();
   const navigate = useNavigate();
@@ -27,6 +29,7 @@ export default function DiaryDetail() {
   });
 
   const responseData = data.data.data
+  const userId = responseData.crop.userId
   
   const deleteDiary = useMutation({
     mutationFn: (cropDiaryId: number) => {
@@ -84,14 +87,15 @@ export default function DiaryDetail() {
         <p className={cx('diaryContent')}>{responseData.content}</p>
         <p className={cx('diaryDate')}>{formattedDate}</p>
 
-        <div className={cx('deleteButton')}>
-          <GeneralButton
-            onClick={() => setIsModalOpen(true)}
-            buttonStyle={{ style: 'outlined', size: 'medium' }}
-          >
-            삭제하기
-          </GeneralButton>
-        </div>        
+        {Number(myId) === Number(userId) ?
+          <div className={cx('deleteButton')}>
+            <GeneralButton
+              onClick={() => setIsModalOpen(true)}
+              buttonStyle={{ style: 'outlined', size: 'medium' }}
+            >
+              삭제하기
+            </GeneralButton>
+          </div> : ''}
       </div>
       {isModalOpen && (
         <DeleteDiaryModal

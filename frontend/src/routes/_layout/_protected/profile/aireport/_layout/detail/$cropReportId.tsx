@@ -1,57 +1,46 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
+import { useEffect } from 'react';
 
-import styles from '@/routes/_layout/_protected/profile/aireport/aireport.module.scss';
+import AiReportCarousel from '@/components/AiReport/AiReportCarousel';
+import { useLabel } from '@/context/AiReportContext';
 import barter from '@/services/barter';
 import querykeys from '@/util/querykeys';
 
+import styles from '../../aireport.module.scss';
+
 const cx = classnames.bind(styles);
 
-
 function ProfileAiReportDetail() {
-  const {cropReportId} = Route.useParams()
-  console.log('test : ',cropReportId)
+  const { setLabel } = useLabel();
+  const { cropReportId } = Route.useParams();
   const { data } = useSuspenseQuery({
     queryKey: [querykeys.AI_REPORT_DETAIL, cropReportId],
-    queryFn: () => barter.getAiReportDetail(Number(cropReportId))
-  })
+    queryFn: () => barter.getAiReportDetail(Number(cropReportId)),
+  });
 
-  const aiReport = data.data.data
+  const aiReport = data.data.data;
 
-  // reportContent를 파싱하여 JSX 요소로 변환
-  const renderReportContent = (content: string) => {
-    return content.split('\n').map((line, index) => {
-      if (line.startsWith('###')) {
-        return (
-          <p key={index} className={cx('reportHeading')}>
-            <strong>{line.replace('###', '').trim()}</strong>
-          </p>
-        );
-      } else if (line.startsWith('-')) {
-        return (
-          <p key={index} className={cx('reportBullet')}>
-            {line}
-          </p>
-        );
-      } else if (line.trim() === '') {
-        return <br key={index} />;
-      } else {
-        return <p key={index}>{line}</p>;
-      }
-    });
-  };
+  useEffect(() => {
+    const originalLabel = 'AI 요약 보고서';
+    const newLabel = `${aiReport.month}월 ${aiReport.weekOfMonth}주차`;
+
+    setLabel(newLabel);
+
+    return () => {
+      setLabel(originalLabel);
+    };
+  }, [aiReport.month, aiReport.weekOfMonth, setLabel]);
 
   return (
     <div className={cx('container')}>
-      <h2>{aiReport.month}월 {aiReport.weekOfMonth}주차</h2>
-      <h1>{aiReport.cropNickname}</h1>
-      <img src={aiReport.cropProfileImage} alt={aiReport.cropNickname} className={cx('cropImage')} />
-      <div className={cx('reportContent')}>
-        {renderReportContent(aiReport.reportContent)}
+      <div className={cx('cropInfo')}>
+        <p>{`${aiReport.cropNickname}의 AI 요약 보고서`}</p>
+        <img src={aiReport.cropProfileImage} alt={aiReport.cropNickname} className={cx('cropImage')} />
       </div>
-      <div className={cx('fightingMent')}>
-        <p>{aiReport.cropNickname} 재배의 성공을 기원합니다!</p>        
+      <div className={cx('reportContent')}>
+        <AiReportCarousel content={aiReport.reportContent} nickname={aiReport.cropNickname} />
       </div>
     </div>
   );

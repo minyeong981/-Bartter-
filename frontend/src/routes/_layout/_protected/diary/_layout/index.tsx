@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type { ReactElement } from 'react';
-import { useState } from 'react';
+import { useEffect,useState } from 'react';
 
 import TodayAlarm from '@/components/Alarm/todayAlarm';
 import FloatingButton from '@/components/Buttons/FloatingButton';
@@ -22,15 +22,28 @@ export const Route = createFileRoute('/_layout/_protected/diary/_layout/')({
 
 function DiaryPage() {
   const userId = useRootStore(state => state.userId);
+  const { beforeDate } = Route.useParams<{beforeDate?: string}>();
+
+  const initialDate = beforeDate ? new Date(beforeDate) : new Date(); 
+  const [currentDate, setCurrentDate] = useState<Date>(initialDate);
+
+  useEffect(() => {
+    // beforeDate가 있을 때만 currentDate를 업데이트
+    if (beforeDate) {
+      setCurrentDate(new Date(beforeDate));
+    }
+  }, [beforeDate]);
+
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { activeComponent } = useRootStore();
-
-  const [currentDate, setCurrentDate] = useState<Date>(new Date());
-
+  
   function handleDateChange(date: Date) {
     setCurrentDate(date);
   }
+  //   function handleDateChange(currentDate: Date) {
+  //   setCurrentDate(currentDate);
+  // }
 
   function handleModalOpen() {
     setIsModalOpen(true);
@@ -58,7 +71,7 @@ function DiaryPage() {
     case '달력':
       renderedComponent = (
         <>
-          <CalendarPage onDateChange={handleDateChange} />
+        <CalendarPage onDateChange={handleDateChange} initialDate={formatDate(currentDate)}/>
           <div className={cx('content-wrapper')}>
             <div className={cx('show-date')}>
               {`${currentDate.getMonth() + 1}월 ${currentDate.getDate()}일`}

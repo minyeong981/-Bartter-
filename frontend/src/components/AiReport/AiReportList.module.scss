@@ -1,6 +1,12 @@
 @use '@/styles/constants/colors' as colors;
 @use '@/styles/constants/typographies.scss' as typo;
 
+.reportListContainer {
+  .reportGroup {
+    margin-bottom: 40px;
+  }
+}
+
 .reportItem {
   display: flex;
   align-items: center;
@@ -12,8 +18,8 @@
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
 
   .cropImage {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     margin-right: 10px;
     border-radius: 50%;
   }
@@ -26,8 +32,9 @@
     height: 100%;
 
     p {
-      margin: 0;
-      font-size: 16px;
+      margin-left: 5px;
+
+      @include typo.alarm;
     }
 
     .detailButton {
@@ -44,5 +51,9 @@
 }
 
 h3 {
-    margin: 30px 0 10px;
+    margin: 10px 0 ;
 }
+
+// .reportGroup {
+  
+// }

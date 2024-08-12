@@ -1,0 +1,129 @@
+// @use '@/styles/constants/typographies.scss' as typo;
+// @use '@/styles/constants/colors.scss' as colors;
+
+// .carouselContainer {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   text-align: center;
+// }
+
+// .carouselContent {
+//   margin-bottom: 10px;
+//   text-align: left;
+// }
+
+// .section {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-start;
+//   margin-top: 20px;
+// }
+
+// .heading {
+//   margin: 0 10px;
+
+//   @include typo.heading;
+// }
+
+// .content {
+//   margin-left: 15px; /* - 항목 왼쪽 정렬 */
+// }
+
+// .bullet {
+//   margin: 10px 0;
+//   text-align: left;
+// }
+
+// .controlButtons {
+//   display: flex;
+//   justify-content: space-between;
+//   width: 100%;
+//   max-width: 300px;
+// }
+
+// .controlButton {
+//   padding: 10px;
+//   color: colors.$primary;
+
+//   // font-size: 18px;
+//   cursor: pointer;
+//   background: none;
+//   border: none;
+
+//   @include typo.main;
+// }
+
+// .finalMessage {
+//   margin-top: 20px;
+
+//   @include typo.heading;
+// }
+
+
+@use '@/styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+
+.carouselContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.carouselContent {
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.heading {
+  margin: 0 10px;
+
+  @include typo.heading;
+}
+
+.content {
+  margin-left: 15px; /* - 항목 왼쪽 정렬 */
+}
+
+.bullet {
+  margin: 10px 0;
+  text-align: left;
+}
+
+.controlButtons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 300px;
+}
+
+.controlButton {
+  padding: 10px;
+  color: colors.$primary;
+  cursor: pointer;
+  background: none;
+  border: none;
+
+  @include typo.main;
+
+  &.disabled {
+    color: colors.$placeholder;
+    cursor: not-allowed;
+  }
+}
+
+.finalMessage {
+  margin-top: 20px;
+
+  @include typo.button;
+}

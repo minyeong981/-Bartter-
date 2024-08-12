@@ -10,6 +10,7 @@ import ImageInput from '@/components/Inputs/ImageInput';
 import LabeledInput from '@/components/Inputs/LabeledInput';
 import LabeledTextArea from '@/components/Inputs/LabeledTextAreaInput';
 import SemiCalendarInput from '@/components/Inputs/SemiCalendarInput';
+import Search from '@/components/Search/Search';
 import barter from '@/services/barter';
 import useRootStore from '@/store';
 import querykeys from '@/util/querykeys';
@@ -29,6 +30,7 @@ export const Route = createFileRoute('/_layout/_protected/diary/write/_layout/2'
   },
 });
 
+
 export default function DiaryWritePage2() {
   const userId = useRootStore((state) => state.userId);
   const queryClient = useQueryClient();
@@ -42,16 +44,22 @@ export default function DiaryWritePage2() {
   const crops = data?.data.data || [];
   const diaryCrop = crops.find((crop) => crop.cropId === cropId);
 
+  // 오늘 날짜
+  const today = new Date();
+
+  // selectedDate가 주어졌고, 그것이 오늘 이후의 날짜라면 beforeDate를 오늘 날짜로 설정
+  const initialDate = selectedDate ? new Date(selectedDate) : today;
+  const [beforeDate, setBeforeDate] = useState<Date | null>(initialDate > today ? today : initialDate);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState<File[]>([]);
-  const [beforeDate, setBeforeDate] = useState<Date | null>(selectedDate ? new Date(selectedDate) : null);
+  const [performDate, setPerformDate] = useState<string | null>(null); // 새로운 상태 추가
   const [isFormValid, setIsFormValid] = useState(false);
   const navigate = useNavigate();
 
-  const handleImageChange = (newImages: File[]) => {
-    setImage(newImages);
-  };
+  function handleImageChange(newImage: File[]) {
+    setImage(newImage)
+  }
 
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -75,10 +83,11 @@ export default function DiaryWritePage2() {
   const mutation = useMutation({
     mutationFn: barter.postCropDiary,
     onSuccess: (diaryData) => {
-      console.log('mutation success:', diaryData);
       if (diaryData.data.isSuccess) {
         queryClient.invalidateQueries({ queryKey: [querykeys.CROP_PROFILE] });
-        navigate({ to: '/diary' });
+        if (performDate) {
+          navigate({ to: '/diary', search: { beforeDate: performDate } });
+        }
       } else {
         console.error('농사 일지 등록하는데 문제가 발생했습니다.');
       }
@@ -94,14 +103,15 @@ export default function DiaryWritePage2() {
       return;
     }
     if (cropId && title && content && image && beforeDate) {
-      const performDate = format(beforeDate, 'yyyy-MM-dd');
+      const formattedDate = format(beforeDate, 'yyyy-MM-dd');
+      setPerformDate(formattedDate); // performDate를 설정
 
       const diaryData: CropDiaryForm = {
         cropId: diaryCrop.cropId,
         title,
         content,
         image,
-        performDate,
+        performDate: formattedDate,
       };
 
       mutation.mutate(diaryData);
