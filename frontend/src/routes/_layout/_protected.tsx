@@ -9,16 +9,16 @@ export const Route = createFileRoute('/_layout/_protected')({
 });
 
 function Protected() {
-  const {isLogin} = useRootStore(state => state);
-  const isFirstRendered = useRef<boolean>(true);
+  const {isLogin, userId} = useRootStore(state => state);
+  const prevUserId = useRef<UserId>(0);
 
   useEffect(() => {
-    if (!isFirstRendered.current || !isLogin) return;
+    if (!isLogin || prevUserId.current === userId) return;
     const fcmToken = sessionStorage.getItem('fcmToken');
     if (!fcmToken) return;
     (async () => await barter.postFcmToken(fcmToken))();
-    isFirstRendered.current = false;
-  }, [isLogin]);
+    prevUserId.current = userId;
+  }, [isLogin, userId]);
 
   if (!isLogin) return <Navigate to="/login/entrance" replace={true} />;
 

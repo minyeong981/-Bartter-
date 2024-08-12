@@ -15,8 +15,6 @@ export const Route = createFileRoute('/_layout/_protected/profile/_layout/')({
 export default function MyProfile() {
   const userId: UserId = useRootStore(state => state.userId);
   const logout = useRootStore(state => state.logout);
-  const navigate = Route.useNavigate();
-  console.log(userId);
 
   const {data} = useSuspenseQuery({
     queryKey: [querykeys.PROFILE, userId],
@@ -28,9 +26,8 @@ export default function MyProfile() {
       await barter.logout();
       await barter.deleteFcmToken();
     } finally {
-      logout();
       sessionStorage.clear();
-      await navigate({to: '/login/entrance', replace: true});
+      logout();
     }
   }
 
