@@ -49,6 +49,7 @@ import { Route as LayoutProtectedTradeToLayoutImport } from './routes/_layout/_p
 import { Route as LayoutProtectedTradeMycropsLayoutImport } from './routes/_layout/_protected/trade/mycrops/_layout'
 import { Route as LayoutProtectedTradeFromLayoutImport } from './routes/_layout/_protected/trade/from/_layout'
 import { Route as LayoutProtectedTradeDetailLayoutImport } from './routes/_layout/_protected/trade/detail/_layout'
+import { Route as LayoutProtectedSearchLayoutResultImport } from './routes/_layout/_protected/search/_layout/_result'
 import { Route as LayoutProtectedSearchLayoutLayoutImport } from './routes/_layout/_protected/search/_layout/_layout'
 import { Route as LayoutProtectedProfileWritedLayoutImport } from './routes/_layout/_protected/profile/writed/_layout'
 import { Route as LayoutProtectedProfilePickedLayoutImport } from './routes/_layout/_protected/profile/picked/_layout'
@@ -90,6 +91,9 @@ import { Route as LayoutProtectedProfileUserIdDiaryLayoutIndexImport } from './r
 import { Route as LayoutProtectedProfileUserIdCropStorageLayoutIndexImport } from './routes/_layout/_protected/profile/$userId/cropStorage/_layout/index'
 import { Route as LayoutProtectedTradeChatTradePostIdRoomTradeIdImport } from './routes/_layout/_protected/trade/chat/$tradePostId/_room/$tradeId'
 import { Route as LayoutProtectedTradeChatTradePostIdListListImport } from './routes/_layout/_protected/trade/chat/$tradePostId/_list/list'
+import { Route as LayoutProtectedSearchLayoutResultTradeKeywordImport } from './routes/_layout/_protected/search/_layout/_result/trade/$keyword'
+import { Route as LayoutProtectedSearchLayoutResultNeighborKeywordImport } from './routes/_layout/_protected/search/_layout/_result/neighbor/$keyword'
+import { Route as LayoutProtectedSearchLayoutResultCommunityKeywordImport } from './routes/_layout/_protected/search/_layout/_result/community/$keyword'
 import { Route as LayoutProtectedSearchLayoutLayoutKeywordLayoutImport } from './routes/_layout/_protected/search/_layout/_layout/$keyword/_layout'
 import { Route as LayoutProtectedProfileAireportLayoutDetailCropReportIdImport } from './routes/_layout/_protected/profile/aireport/_layout/detail/$cropReportId'
 import { Route as LayoutProtectedSearchLayoutLayoutKeywordLayoutIndexImport } from './routes/_layout/_protected/search/_layout/_layout/$keyword/_layout/index'
@@ -519,6 +523,12 @@ const LayoutProtectedTradeDetailLayoutRoute =
     getParentRoute: () => LayoutProtectedTradeDetailRoute,
   } as any)
 
+const LayoutProtectedSearchLayoutResultRoute =
+  LayoutProtectedSearchLayoutResultImport.update({
+    id: '/_result',
+    getParentRoute: () => LayoutProtectedSearchLayoutRoute,
+  } as any)
+
 const LayoutProtectedSearchLayoutLayoutRoute =
   LayoutProtectedSearchLayoutLayoutImport.update({
     id: '/_layout',
@@ -769,6 +779,24 @@ const LayoutProtectedTradeChatTradePostIdListListRoute =
   LayoutProtectedTradeChatTradePostIdListListImport.update({
     path: '/list',
     getParentRoute: () => LayoutProtectedTradeChatTradePostIdListRoute,
+  } as any)
+
+const LayoutProtectedSearchLayoutResultTradeKeywordRoute =
+  LayoutProtectedSearchLayoutResultTradeKeywordImport.update({
+    path: '/trade/$keyword',
+    getParentRoute: () => LayoutProtectedSearchLayoutResultRoute,
+  } as any)
+
+const LayoutProtectedSearchLayoutResultNeighborKeywordRoute =
+  LayoutProtectedSearchLayoutResultNeighborKeywordImport.update({
+    path: '/neighbor/$keyword',
+    getParentRoute: () => LayoutProtectedSearchLayoutResultRoute,
+  } as any)
+
+const LayoutProtectedSearchLayoutResultCommunityKeywordRoute =
+  LayoutProtectedSearchLayoutResultCommunityKeywordImport.update({
+    path: '/community/$keyword',
+    getParentRoute: () => LayoutProtectedSearchLayoutResultRoute,
   } as any)
 
 const LayoutProtectedSearchLayoutLayoutKeywordLayoutRoute =
@@ -1157,6 +1185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProtectedSearchLayoutLayoutImport
       parentRoute: typeof LayoutProtectedSearchLayoutImport
     }
+    '/_layout/_protected/search/_layout/_result': {
+      id: '/_layout/_protected/search/_layout/_result'
+      path: ''
+      fullPath: '/search'
+      preLoaderRoute: typeof LayoutProtectedSearchLayoutResultImport
+      parentRoute: typeof LayoutProtectedSearchLayoutImport
+    }
     '/_layout/_protected/trade/detail': {
       id: '/_layout/_protected/trade/detail'
       path: '/detail'
@@ -1500,6 +1535,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProtectedSearchLayoutLayoutKeywordLayoutImport
       parentRoute: typeof LayoutProtectedSearchLayoutLayoutKeywordRoute
     }
+    '/_layout/_protected/search/_layout/_result/community/$keyword': {
+      id: '/_layout/_protected/search/_layout/_result/community/$keyword'
+      path: '/community/$keyword'
+      fullPath: '/search/community/$keyword'
+      preLoaderRoute: typeof LayoutProtectedSearchLayoutResultCommunityKeywordImport
+      parentRoute: typeof LayoutProtectedSearchLayoutResultImport
+    }
+    '/_layout/_protected/search/_layout/_result/neighbor/$keyword': {
+      id: '/_layout/_protected/search/_layout/_result/neighbor/$keyword'
+      path: '/neighbor/$keyword'
+      fullPath: '/search/neighbor/$keyword'
+      preLoaderRoute: typeof LayoutProtectedSearchLayoutResultNeighborKeywordImport
+      parentRoute: typeof LayoutProtectedSearchLayoutResultImport
+    }
+    '/_layout/_protected/search/_layout/_result/trade/$keyword': {
+      id: '/_layout/_protected/search/_layout/_result/trade/$keyword'
+      path: '/trade/$keyword'
+      fullPath: '/search/trade/$keyword'
+      preLoaderRoute: typeof LayoutProtectedSearchLayoutResultTradeKeywordImport
+      parentRoute: typeof LayoutProtectedSearchLayoutResultImport
+    }
     '/_layout/_protected/trade/chat/$tradePostId/_list/list': {
       id: '/_layout/_protected/trade/chat/$tradePostId/_list/list'
       path: '/list'
@@ -1679,6 +1735,12 @@ export const routeTree = rootRoute.addChildren({
                         },
                       ),
                   }),
+              }),
+            LayoutProtectedSearchLayoutResultRoute:
+              LayoutProtectedSearchLayoutResultRoute.addChildren({
+                LayoutProtectedSearchLayoutResultCommunityKeywordRoute,
+                LayoutProtectedSearchLayoutResultNeighborKeywordRoute,
+                LayoutProtectedSearchLayoutResultTradeKeywordRoute,
               }),
           }),
       }),
@@ -1890,7 +1952,8 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout/_protected/search/_layout.tsx",
       "parent": "/_layout/_protected/search",
       "children": [
-        "/_layout/_protected/search/_layout/_layout"
+        "/_layout/_protected/search/_layout/_layout",
+        "/_layout/_protected/search/_layout/_result"
       ]
     },
     "/_layout/_protected/trade": {
@@ -2131,6 +2194,15 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/_layout/_protected/search/_layout/_layout/",
         "/_layout/_protected/search/_layout/_layout/$keyword"
+      ]
+    },
+    "/_layout/_protected/search/_layout/_result": {
+      "filePath": "_layout/_protected/search/_layout/_result.tsx",
+      "parent": "/_layout/_protected/search/_layout",
+      "children": [
+        "/_layout/_protected/search/_layout/_result/community/$keyword",
+        "/_layout/_protected/search/_layout/_result/neighbor/$keyword",
+        "/_layout/_protected/search/_layout/_result/trade/$keyword"
       ]
     },
     "/_layout/_protected/trade/detail": {
@@ -2386,6 +2458,18 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/_layout/_protected/search/_layout/_layout/$keyword/_layout/"
       ]
+    },
+    "/_layout/_protected/search/_layout/_result/community/$keyword": {
+      "filePath": "_layout/_protected/search/_layout/_result/community/$keyword.tsx",
+      "parent": "/_layout/_protected/search/_layout/_result"
+    },
+    "/_layout/_protected/search/_layout/_result/neighbor/$keyword": {
+      "filePath": "_layout/_protected/search/_layout/_result/neighbor/$keyword.tsx",
+      "parent": "/_layout/_protected/search/_layout/_result"
+    },
+    "/_layout/_protected/search/_layout/_result/trade/$keyword": {
+      "filePath": "_layout/_protected/search/_layout/_result/trade/$keyword.tsx",
+      "parent": "/_layout/_protected/search/_layout/_result"
     },
     "/_layout/_protected/trade/chat/$tradePostId/_list/list": {
       "filePath": "_layout/_protected/trade/chat/$tradePostId/_list/list.tsx",

@@ -60,7 +60,7 @@ export default function SearchResult({
             <LinkButton
               buttonStyle={{style: 'primary', size: 'medium'}}
               search={{sortBy: '물물 교환'}}
-              to="/search/$keyword"
+              to="/search/trade/$keyword"
               params={{keyword: `${search}`}}
             >
               물물 교환 더보기
