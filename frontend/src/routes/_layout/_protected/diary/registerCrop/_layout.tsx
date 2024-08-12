@@ -6,7 +6,7 @@ import ProgressBar from '@/components/ProgressBar';
 
 import styles from './registerCrop.module.scss';
 
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = 5;
 
 const cx = classnames.bind(styles);
 

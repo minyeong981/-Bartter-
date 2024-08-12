@@ -1,5 +1,6 @@
 import {useSuspenseInfiniteQuery} from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router';
+import classnames from 'classnames/bind'
 import {useState} from 'react';
 
 import PostCard from "@/components/Community/PostCard";
@@ -11,6 +12,7 @@ import querykeys from '@/util/querykeys';
 
 import styles from './../community.module.scss'
 
+const cx = classnames.bind(styles)
 
 export const Route = createFileRoute('/_layout/_protected/community/_layout/')({
   component: CommunityList,

@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import RecentSearch from '@/components/Search/RecentSearch'
 import SearchResult from '@/components/Search/SearchResult'
+import SearchSuggestion from '@/components/Search/SearchSuggestion'
 import Spinner from '@/components/Spinner'
 import { useSearch } from '@/context/SearchContext'
 import barter from '@/services/barter'
@@ -30,6 +31,13 @@ export default function Search() {
   const { isPending, data:recent } = useQuery({
     queryKey: [querykeys.SEARCH_RECENT],
     queryFn: barter.getRecentSearchKeywordList
+  })
+
+  // 검색어 제안 
+  const { data:suggestion } = useQuery({
+    queryKey: [querykeys.SEARCH_SUGGESTION, query],
+    queryFn: () => barter.getAutoCompletedKeywordListByKeyword(query),
+    enabled: query.length > 0,
   })
 
   // 최근 검색어 삭제
@@ -92,23 +100,34 @@ export default function Search() {
     }
 
     function handleFollowClick(userId: UserId, isFollow: IsFollowed) {
-      console.log('나', myId, '유저', userId, isFollow)
+      console.log('팔로우 기능 확인', '나', myId, '유저', userId, isFollow)
       followMutation.mutate({userId, isFollow})
     }
 
-    const recentData = recent?.data.data || []
+    const recentData = recent?.data.data || [];
+    const autoKeywordList = suggestion?.data.data || [];
     const location = Location.data.data.name.split(' ').slice(2,3).toString();
 
   return (
     <div>
-      { query !== '' && !isSearch && <div>검색 중..</div>}
       { query === '' && recentData && !isSearch &&
       <RecentSearch 
         searches={recentData} 
         onSearch={handleSearch} 
         onDeleteSearch={handleDeleteSearch}
         /> }
-        { keyword && isSearch && Result?.data.data && <SearchResult results={Result.data.data} search={keyword} location={location} onFollowClick={handleFollowClick} /> }
+        { query !== '' && !isSearch &&
+      <SearchSuggestion 
+        suggestions={autoKeywordList} 
+        onSearch={handleSearch}
+        />}
+        { keyword && isSearch && Result?.data.data && 
+      <SearchResult 
+        results={Result.data.data} 
+        search={keyword} 
+        location={location} 
+        onFollowClick={handleFollowClick} 
+        /> }
     </div>
   )
 }
