@@ -1,49 +1,23 @@
--- Drop foreign keys
--- ALTER TABLE community_post DROP FOREIGN KEY FK5voin9s2s70bvc490h58p0e9j;
--- ALTER TABLE community_post DROP FOREIGN KEY FKm5pbosagfniobhwcv6ot7tdcj;
--- ALTER TABLE community_post_comment DROP FOREIGN KEY FK8ka11yxw46wy8eoq28khik30x;
--- ALTER TABLE community_post_comment DROP FOREIGN KEY FKg8wvn8vmt4q4bd503rip4cuhp;
--- ALTER TABLE community_post_image DROP FOREIGN KEY FKfy6bcnk9stp5x189b0id1qhfd;
--- ALTER TABLE community_post_like DROP FOREIGN KEY FKhbe2v7or8saetjmpxhunb9goj;
--- ALTER TABLE community_post_like DROP FOREIGN KEY FK1k3gkv5pyhk8o09624rw2jhxv;
--- ALTER TABLE crop DROP FOREIGN KEY FK7eeejpksig8npa05cacj232h1;
--- ALTER TABLE crop DROP FOREIGN KEY FK76xv1sgky2q7kwe7g2elv05mp;
--- ALTER TABLE crop_diary DROP FOREIGN KEY FK8q9vt1evbntodygvpjjkfk13j;
--- ALTER TABLE crop_report DROP FOREIGN KEY FKdjihepcn6c37okg8mj8j8nwgp;
--- ALTER TABLE crop_report DROP FOREIGN KEY FK87n3i3cqrk01ihc74dvpesjsy;
--- ALTER TABLE follow DROP FOREIGN KEY FKjhmtcmoxpgcojx2p3h7lcphsq;
--- ALTER TABLE follow DROP FOREIGN KEY FKmow2qk674plvwyb4wqln37svv;
--- ALTER TABLE trade DROP FOREIGN KEY FKqrtut344cnig4qihs1te250dq;
--- ALTER TABLE trade DROP FOREIGN KEY FK1dqm16mo3cntjlxap3iusqvyt;
--- ALTER TABLE trade_post DROP FOREIGN KEY FK3fvfraumm3neqg2mb3xf6a52a;
--- ALTER TABLE trade_post DROP FOREIGN KEY FKk3qn5sfu51as2nevdt9mus92o;
--- ALTER TABLE trade_post DROP FOREIGN KEY FKfydlcx318xvm70cqnhn2s0295;
--- ALTER TABLE trade_post DROP FOREIGN KEY FKbbsoj791jofqymfm8h0gjfv25;
--- ALTER TABLE trade_post_image DROP FOREIGN KEY FKd2qajdbftrfqx5ujhjrprn1o7;
--- ALTER TABLE trade_post_like DROP FOREIGN KEY FK8wli9erfck1h74tno70qvhgly;
--- ALTER TABLE trade_post_like DROP FOREIGN KEY FKc54giobbn94jbk28og65f600f;
--- ALTER TABLE trade_wish_crop_category DROP FOREIGN KEY FKowo5w2q918jsb6663qcolq82k;
--- ALTER TABLE trade_wish_crop_category DROP FOREIGN KEY FKt5981unccllugrsq7vy4r31gj;
--- ALTER TABLE user DROP FOREIGN KEY FKneyhvoj17hax43m8dq3u7gbic;
+use bartter;
 
--- Drop tables
-DROP TABLE IF EXISTS community_post;
 DROP TABLE IF EXISTS community_post_comment;
 DROP TABLE IF EXISTS community_post_image;
 DROP TABLE IF EXISTS community_post_like;
-DROP TABLE IF EXISTS crop;
-DROP TABLE IF EXISTS crop_category;
+DROP TABLE IF EXISTS community_post;
 DROP TABLE IF EXISTS crop_diary;
 DROP TABLE IF EXISTS crop_report;
 DROP TABLE IF EXISTS follow;
-DROP TABLE IF EXISTS location;
 DROP TABLE IF EXISTS refresh;
 DROP TABLE IF EXISTS trade;
-DROP TABLE IF EXISTS trade_post;
 DROP TABLE IF EXISTS trade_post_image;
 DROP TABLE IF EXISTS trade_post_like;
 DROP TABLE IF EXISTS trade_wish_crop_category;
+DROP TABLE IF EXISTS trade_post;
+DROP TABLE IF EXISTS daily_tip;
+DROP TABLE IF EXISTS crop;
+DROP TABLE IF EXISTS crop_category;
 DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS location;
 
 -- Create tables
 CREATE TABLE community_post (
@@ -113,6 +87,7 @@ CREATE TABLE crop_diary (
                             crop_id INTEGER NOT NULL,
                             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
                             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+                            crop_diary_perform_date DATE NOT NULL,
                             crop_diary_title VARCHAR(50) NOT NULL,
                             crop_diary_image VARCHAR(300) NOT NULL,
                             crop_diary_content VARCHAR(2000) NOT NULL,
@@ -130,6 +105,17 @@ CREATE TABLE crop_report (
                              PRIMARY KEY (crop_report_id)
 ) ENGINE=InnoDB;
 
+CREATE TABLE daily_tip (
+                           daily_tip_id INTEGER NOT NULL AUTO_INCREMENT,
+                           created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                           updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                           daily_tip_content VARCHAR(300) NOT NULL,
+                           daily_tip_is_enabled BIT(1) NOT NULL,
+                           daily_tip_weekday INTEGER NOT NULL,
+                           user_id INTEGER NOT NULL,
+                           PRIMARY KEY (daily_tip_id)
+) ENGINE=InnoDB;
+
 CREATE TABLE follow (
                         follow_id INTEGER NOT NULL AUTO_INCREMENT,
                         followee_id INTEGER NOT NULL,
@@ -140,15 +126,15 @@ CREATE TABLE follow (
 ) ENGINE=InnoDB;
 
 CREATE TABLE location (
-    location_id      INT AUTO_INCREMENT PRIMARY KEY,
-    location_code    VARCHAR(10)                                                     NOT NULL,
-    location_name    VARCHAR(50)                                                     NOT NULL,
-    location_polygon GEOMETRY                                                        NOT NULL SRID 4326,
-    location_point   POINT                                                           NOT NULL SRID 4326,
-    created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP                             ,
-    updated_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
-    SPATIAL INDEX (location_polygon),
-    SPATIAL INDEX (location_point)
+                          location_id      INT AUTO_INCREMENT PRIMARY KEY,
+                          location_code    VARCHAR(10)                                                     NOT NULL,
+                          location_name    VARCHAR(50)                                                     NOT NULL,
+                          location_polygon GEOMETRY                                                        NOT NULL SRID 4326,
+                          location_point   POINT                                                           NOT NULL SRID 4326,
+                          created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP                             ,
+                          updated_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+                          SPATIAL INDEX (location_polygon),
+                          SPATIAL INDEX (location_point)
 ) ENGINE=InnoDB;
 
 CREATE TABLE refresh (
@@ -232,30 +218,3 @@ CREATE TABLE user (
                       PRIMARY KEY (user_id)
 ) ENGINE=InnoDB;
 
--- Add foreign keys
-ALTER TABLE community_post ADD CONSTRAINT FK5voin9s2s70bvc490h58p0e9j FOREIGN KEY (location_id) REFERENCES location(location_id);
-ALTER TABLE community_post ADD CONSTRAINT FKm5pbosagfniobhwcv6ot7tdcj FOREIGN KEY (user_id) REFERENCES user(user_id);
-ALTER TABLE community_post_comment ADD CONSTRAINT FK8ka11yxw46wy8eoq28khik30x FOREIGN KEY (community_post_id) REFERENCES community_post(community_post_id);
-ALTER TABLE community_post_comment ADD CONSTRAINT FKg8wvn8vmt4q4bd503rip4cuhp FOREIGN KEY (user_id) REFERENCES user(user_id);
-ALTER TABLE community_post_image ADD CONSTRAINT FKfy6bcnk9stp5x189b0id1qhfd FOREIGN KEY (community_post_id) REFERENCES community_post(community_post_id);
-ALTER TABLE community_post_like ADD CONSTRAINT FKhbe2v7or8saetjmpxhunb9goj FOREIGN KEY (community_post_id) REFERENCES community_post(community_post_id);
-ALTER TABLE community_post_like ADD CONSTRAINT FK1k3gkv5pyhk8o09624rw2jhxv FOREIGN KEY (user_id) REFERENCES user(user_id);
-ALTER TABLE crop ADD CONSTRAINT FK7eeejpksig8npa05cacj232h1 FOREIGN KEY (crop_category_id) REFERENCES crop_category(crop_category_id);
-ALTER TABLE crop ADD CONSTRAINT FK76xv1sgky2q7kwe7g2elv05mp FOREIGN KEY (user_id) REFERENCES user(user_id);
-ALTER TABLE crop_diary ADD CONSTRAINT FK8q9vt1evbntodygvpjjkfk13j FOREIGN KEY (crop_id) REFERENCES crop(crop_id);
-ALTER TABLE crop_report ADD CONSTRAINT FKdjihepcn6c37okg8mj8j8nwgp FOREIGN KEY (crop_id) REFERENCES crop(crop_id);
-ALTER TABLE crop_report ADD CONSTRAINT FK87n3i3cqrk01ihc74dvpesjsy FOREIGN KEY (user_id) REFERENCES user(user_id);
-ALTER TABLE follow ADD CONSTRAINT FKjhmtcmoxpgcojx2p3h7lcphsq FOREIGN KEY (followee_id) REFERENCES user(user_id);
-ALTER TABLE follow ADD CONSTRAINT FKmow2qk674plvwyb4wqln37svv FOREIGN KEY (follower_id) REFERENCES user(user_id);
-ALTER TABLE trade ADD CONSTRAINT FKqrtut344cnig4qihs1te250dq FOREIGN KEY (trade_post_id) REFERENCES trade_post(trade_post_id);
-ALTER TABLE trade ADD CONSTRAINT FK1dqm16mo3cntjlxap3iusqvyt FOREIGN KEY (user_id) REFERENCES user(user_id);
-ALTER TABLE trade_post ADD CONSTRAINT FK3fvfraumm3neqg2mb3xf6a52a FOREIGN KEY (crop_category_id) REFERENCES crop_category(crop_category_id);
-ALTER TABLE trade_post ADD CONSTRAINT FKk3qn5sfu51as2nevdt9mus92o FOREIGN KEY (crop_id) REFERENCES crop(crop_id);
-ALTER TABLE trade_post ADD CONSTRAINT FKfydlcx318xvm70cqnhn2s0295 FOREIGN KEY (location_id) REFERENCES location(location_id);
-ALTER TABLE trade_post ADD CONSTRAINT FKbbsoj791jofqymfm8h0gjfv25 FOREIGN KEY (user_id) REFERENCES user(user_id);
-ALTER TABLE trade_post_image ADD CONSTRAINT FKd2qajdbftrfqx5ujhjrprn1o7 FOREIGN KEY (trade_post_id) REFERENCES trade_post(trade_post_id);
-ALTER TABLE trade_post_like ADD CONSTRAINT FK8wli9erfck1h74tno70qvhgly FOREIGN KEY (trade_post_id) REFERENCES trade_post(trade_post_id);
-ALTER TABLE trade_post_like ADD CONSTRAINT FKc54giobbn94jbk28og65f600f FOREIGN KEY (user_id) REFERENCES user(user_id);
-ALTER TABLE trade_wish_crop_category ADD CONSTRAINT FKowo5w2q918jsb6663qcolq82k FOREIGN KEY (crop_category_id) REFERENCES crop_category(crop_category_id);
-ALTER TABLE trade_wish_crop_category ADD CONSTRAINT FKt5981unccllugrsq7vy4r31gj FOREIGN KEY (trade_post_id) REFERENCES trade_post(trade_post_id);
-ALTER TABLE user ADD CONSTRAINT FKneyhvoj17hax43m8dq3u7gbic FOREIGN KEY (location_id) REFERENCES location(location_id);

@@ -98,7 +98,7 @@ public class OpenAIService {
                 .options(
                         OpenAiChatOptions.builder()
                                 .withModel("gpt-3.5-turbo")
-                                .withTemperature(0.3F)
+                                .withTemperature(0.5F)
                                 .build()
                 )
                 .call()

@@ -3,11 +3,12 @@ package com.ssafy.bartter.domain.auth.repository;
 import com.ssafy.bartter.global.cache.CacheKey;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
 
-@Service
+@Repository
 @RequiredArgsConstructor
 public class RedisRefreshRepository {
     private final RedisTemplate<String, Object> redisTemplate;

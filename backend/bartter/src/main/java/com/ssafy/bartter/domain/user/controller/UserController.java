@@ -3,6 +3,7 @@ package com.ssafy.bartter.domain.user.controller;
 import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
 import com.ssafy.bartter.domain.user.dto.UserDto;
+import com.ssafy.bartter.domain.user.dto.UserDto.FcmToken;
 import com.ssafy.bartter.domain.user.services.UserService;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.global.common.SimpleLocation;
@@ -10,6 +11,7 @@ import com.ssafy.bartter.global.common.SimpleLocation.LocationRequestDto;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
 import com.ssafy.bartter.global.response.SuccessResponse;
+import com.ssafy.bartter.global.service.FCMService;
 import com.ssafy.bartter.global.service.LocationService;
 import com.ssafy.bartter.domain.user.dto.UserJoinDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,7 +51,7 @@ public class UserController {
             @RequestBody @Valid UserJoinDto userJoinDto,
             BindingResult bindingResult
     ) {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
         userService.joinProcess(userJoinDto);
@@ -69,8 +71,8 @@ public class UserController {
     public SuccessResponse<SimpleLocation> findLocation(
             @RequestBody @Valid LocationRequestDto userLocationDto,
             BindingResult bindingResult
-    ){
-        if(bindingResult.hasErrors()) {
+    ) {
+        if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
         // 위치 정보 조회
@@ -89,8 +91,8 @@ public class UserController {
     public SuccessResponse<SimpleLocation> updateLocation(
             @CurrentUser UserAuthDto userAuthDto,
             @RequestBody @Valid LocationRequestDto userLocationDto,
-            BindingResult bindingResult){
-        if(bindingResult.hasErrors()) {
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
         log.debug("CHANGE LOCATION for User ID: {} to Latitude: {}", userAuthDto.getId(), userLocationDto.getLatitude());
@@ -144,6 +146,24 @@ public class UserController {
         return SuccessResponse.empty();
     }
 
+    @PostMapping("/fcm")
+    @Operation(summary = "사용자 FCM 토큰 저장", description = "사용자의 FCM 토큰을 저장합니다.")
+    public SuccessResponse<Void> saveFCMToken(
+            @RequestBody FcmToken token,
+            @CurrentUser UserAuthDto user
+    ) {
+        log.debug("{}", token);
+        userService.saveFcmToken(user.getId(), token.getToken());
+        userService.sendLoginAlarm(user.getId(), user.getNickname());
+        return SuccessResponse.empty();
+    }
 
-
+    @DeleteMapping("/fcm")
+    @Operation(summary = "사용자 FCM 토큰 제거", description = "사용자의 FCM 토큰을 제거합니다.")
+    public SuccessResponse<Void> removeFCMToken(
+            @CurrentUser UserAuthDto user
+    ) {
+        userService.removeToken(user.getId());
+        return SuccessResponse.empty();
+    }
 }

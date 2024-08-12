@@ -5,11 +5,13 @@ import com.ssafy.bartter.domain.user.dto.UserDto;
 import com.ssafy.bartter.domain.user.dto.UserJoinDto;
 import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.domain.user.repository.FollowRepository;
+import com.ssafy.bartter.domain.user.repository.RedisFcmRepository;
 import com.ssafy.bartter.domain.user.repository.UserRepository;
 import com.ssafy.bartter.global.common.Location;
 import com.ssafy.bartter.global.common.SimpleLocation;
 import com.ssafy.bartter.global.exception.CustomException;
 import com.ssafy.bartter.global.exception.ErrorCode;
+import com.ssafy.bartter.global.service.FCMService;
 import com.ssafy.bartter.global.service.LocationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * User 관련 비즈니스 로직을 처리하는 서비스 클래스
@@ -31,10 +34,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final FollowRepository followRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final RedisFcmRepository redisFcmRepository;
+    private final FollowRepository followRepository;
     private final LocationService locationService;
+    private final UserRepository userRepository;
+    private final FCMService fcmService;
 
     @Value("${cloud.aws.url}")
     private String url;
@@ -90,7 +95,7 @@ public class UserService {
      */
     public List<User> getUsers(int offset, int limit, String keyword) {
         PageRequest pageable = PageRequest.of(offset, limit);
-        return userRepository.findUserListByKeyword(keyword,pageable).getContent();
+        return userRepository.findUserListByKeyword(keyword, pageable).getContent();
     }
 
     /**
@@ -161,5 +166,46 @@ public class UserService {
      */
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    /**
+     * 레디스에 사용자 FCM 토큰을 저장
+     *
+     * @param token FCM 토큰
+     * @param userId 사용자 Id
+     */
+    public void saveFcmToken(int userId, String token) {
+        redisFcmRepository.save(userId, token);
+    }
+
+    /**
+     * 레디스에서 사용자 FCM 토큰을 가져온다.
+     */
+    public String getFcmToken(int userId) {
+        return redisFcmRepository.getToken(userId);
+    }
+
+    /**
+     * 레디스에서 사용자 FCM 토큰을 제거한다.
+     * @param userId 토큰을 지우려는 사용자의 ID
+     */
+    public void removeToken(int userId) {
+        redisFcmRepository.remove(userId);
+    }
+
+    public void sendLoginAlarm(int userId, String nickname) {
+        String token = getFcmToken(userId);
+        fcmService.sendLoginAlarm(token, nickname);
+    }
+
+    public void sendChattingAlarm(int userId, String url) {
+        String token = getFcmToken(userId);
+        userRepository.findByUserId(userId).ifPresent(
+                o -> fcmService.sendChattingAlarm(token, o.getNickname(), o.getProfileImage(), url)
+        );
+    }
+
+    public String getNicknameByUserId(int userId) {
+        return userRepository.findNicknameByUserId(userId);
     }
 }
