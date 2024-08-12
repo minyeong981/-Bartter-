@@ -13,15 +13,18 @@ interface SimpleLocation {
   name: Name;
 }
 
-// interface MyCommunityPostDetail {
-//   communityPostId: CommunityPostId;
-//   title: Title;
-//   content: Content;
-//   createdAt: CreatedAt;
-//   imageUrl: ImageUrl;
-//   hasImage: HasImage;
-//   location: SimpleLocation;
-// }
+interface MyCommunityPostDetail {
+  communityPostId: CommunityPostId;
+  title: Title;
+  content: Content;
+  createdAt: CreatedAt;
+  likeCount: LikeCount;
+  isLike: IsLike;
+  commentCount: CommentCount;
+  imageUrl: ImageUrl;
+  hasImage: HasImage;
+  location: SimpleLocation;
+}
 
 type LikeCount = number;
 type IsLike = boolean;

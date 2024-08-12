@@ -11,6 +11,8 @@ import barter from '@/services/barter.ts';
 
 import styles from './trade.module.scss'
 
+const PAGE_LIMIT = 5
+
 const cx = classnames.bind(styles)
 
 export const Route = createFileRoute('/_layout/_protected/trade/_layout/')({
@@ -20,10 +22,10 @@ export const Route = createFileRoute('/_layout/_protected/trade/_layout/')({
 function TradeListPage() {
   const {data, fetchNextPage} = useSuspenseInfiniteQuery({
     queryKey: ['tradeList'],
-    queryFn: ({pageParam}) => barter.getTradePostList(pageParam, 5),
+    queryFn: ({pageParam}) => barter.getTradePostList(pageParam, PAGE_LIMIT),
     initialPageParam: 0,
     getNextPageParam: (prevPage, _, lastPageParam) => {
-      if (prevPage.data.data.length % 5 === 0)
+      if (prevPage.data.data.length && prevPage.data.data.length % PAGE_LIMIT === 0)
         return lastPageParam + 1;
     },
   });
