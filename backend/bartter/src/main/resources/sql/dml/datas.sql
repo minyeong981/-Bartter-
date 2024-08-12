@@ -1,167 +1,167 @@
 -- user (20)
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 2024, '1990-01-01', 1, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter1', NULL, '꽃분아빠',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/1',
-        '안녕하세요, 꽃분아빠입니다.', 'M');
+        '안녕하세요, 꽃분아빠입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 2024, '1990-01-01', 2, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter2', NULL, '사랑둥이임애자',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/2',
-        '안녕하세요, 사랑둥이임애자입니다.', 'M');
+        '안녕하세요, 사랑둥이임애자입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 2024, '1990-01-01', 3, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter3', NULL, '돼지띠곽두철',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/3',
-        '안녕하세요, 돼지띠곽두철입니다.', 'M');
+        '안녕하세요, 돼지띠곽두철입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 2024, '1990-01-01', 4, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter4', NULL, '아카시아향기',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/4',
-        '안녕하세요, 아카시아향기입니다.', 'M');
+        '안녕하세요, 아카시아향기입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 2024, '1990-01-01', 5, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter5', NULL, '민지아빠김두철',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/5',
-        '안녕하세요, 민지아빠김두철입니다.', 'M');
+        '안녕하세요, 민지아빠김두철입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 6, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter6', NULL, '홍두깨.보현.오빠',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/6',
-        '안녕하세요, 홍두깨.보현.오빠입니다.', 'M');
+        '안녕하세요, 홍두깨.보현.오빠입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 7, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter7', NULL, '임순애임니다',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/7',
-        '안녕하세요, 임순애임니다입니다.', 'M');
+        '안녕하세요, 임순애임니다입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 8, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter8', NULL, '담양미남김삼철',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/8',
-        '안녕하세요, 담양미남김삼철입니다.', 'M');
+        '안녕하세요, 담양미남김삼철입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 9, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter9', NULL, '김용수수밭',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/9',
-        '안녕하세요, 김용수수밭입니다.', 'M');
+        '안녕하세요, 김용수수밭입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 10, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter10', NULL, '꽃다운나이조상봉',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/10',
-        '안녕하세요, 꽃다운나이조상봉입니다.', 'M');
+        '안녕하세요, 꽃다운나이조상봉입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 11, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter11', NULL, '오늘도행복한우리동네',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/11',
-        '안녕하세요, 오늘도행복한우리동네입니다.', 'M');
+        '안녕하세요, 오늘도행복한우리동네입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 12, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter12', NULL, '이덕순예요',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/12',
-        '안녕하세요, 이덕순예요입니다.', 'M');
+        '안녕하세요, 이덕순예요입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 13, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter13', NULL, '행복한사과상점전일봉',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/13',
-        '안녕하세요, 행복한사과상점전일봉입니다.', 'M');
+        '안녕하세요, 행복한사과상점전일봉입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 14, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter14', NULL, '감자농사김훈돌',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/14',
-        '안녕하세요, 감자농사김훈돌입니다.', 'M');
+        '안녕하세요, 감자농사김훈돌입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 15, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter15', NULL, '수완지구토마토왕유지연',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/15',
-        '안녕하세요, 수완지구토마토왕유지연입니다.', 'M');
+        '안녕하세요, 수완지구토마토왕유지연입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 16, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter16', NULL, '민영이네상추이야기',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/16',
-        '안녕하세요, 민영이네상추이야기입니다.', 'M');
+        '안녕하세요, 민영이네상추이야기입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 3015, '1990-01-01', 17, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter17', NULL, '좋은인연',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/17',
-        '안녕하세요, 좋은인연입니다.', 'M');
+        '안녕하세요, 좋은인연입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 3015, '1990-01-01', 18, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter18', NULL, '복조리농장',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/18',
-        '안녕하세요, 복조리농장입니다.', 'M');
+        '안녕하세요, 복조리농장입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 3015, '1990-01-01', 19, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter19', NULL, '강아지풀김가람',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/19',
-        '안녕하세요, 강아지풀김가람입니다.', 'M');
+        '안녕하세요, 강아지풀김가람입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
-                  user_profile_message, user_gender)
+                  user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 3015, '1990-01-01', 20, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter20', NULL, '은퇴후새삶살기',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/20',
-        '안녕하세요, 은퇴후새삶살기입니다.', 'M');
+        '안녕하세요, 은퇴후새삶살기입니다.', 'M', 'LOCAL', 'USER');
 
 
 -- follow (보현 -> 민영, 지연)
-
+, user_provider, user_role
 INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
 VALUES (1, 15, 6, '2024-08-11 11:03:57', '2024-08-11 11:03:57');
 
@@ -169,7 +169,7 @@ INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
 VALUES (2, 16, 6, '2024-08-11 11:04:00', '2024-08-11 11:04:00');
 
 
--- crop
+-- crop, user_provider, user_role
 
 INSERT INTO crop (crop_category_id, crop_grow_date, crop_id, user_id, created_at, updated_at, crop_nickname,
                   crop_description, crop_image)
@@ -177,7 +177,7 @@ values (21, '2024-06-20', 1, 6, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '�
         'http://d1tknhgbpjhaqe.cloudfront.net/mycrop/chamkkae');
 
 INSERT INTO crop (crop_category_id, crop_grow_date, crop_id, user_id, created_at, updated_at, crop_nickname,
-                  crop_description, crop_image)
+                  crop_description, crop_image), user_provider, user_role
 values (5, '2024-07-01', 2, 6, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '오이시쿠나레', '맛있어져라 나의 오이',
         'http://d1tknhgbpjhaqe.cloudfront.net/mycrop/cucumber');
 
