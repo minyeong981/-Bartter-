@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @Tag(name = "유저 작성 게시글 조회 API", description = "특정 유저의 동네모임 게시글을 조회하는 API 입니다.")
 public class UserCommunityPostController {
 

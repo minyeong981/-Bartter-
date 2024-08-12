@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/trades/posts")
+@RequestMapping("/api/trades/posts")
 @Tag(name = "농작물 물물교환 API", description = "농작물 물물교환 게시글 등록/목록/상세조회 관련 API")
 public class TradePostController {
 
