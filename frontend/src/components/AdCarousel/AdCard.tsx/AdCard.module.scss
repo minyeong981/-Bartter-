@@ -4,7 +4,8 @@
 .card {
   position: relative;
   width: 100%;
-  max-width: 390px;
+
+  // max-width: 390px;
   margin: auto;
 
   @media (width <= 480px) {
@@ -27,7 +28,7 @@
   justify-content:safe;
   width: 100%;
   height: 100%;
-  padding-top: 30px;
+  padding-top: 50px;
   padding-right: 30px;
   padding-left: 20px;
   color: colors.$white;
@@ -53,7 +54,7 @@
 .link {
   @include typo.label;
 
-  padding-top: 10px;
+  padding-top: 5px;
   text-decoration: none;
 
   a {

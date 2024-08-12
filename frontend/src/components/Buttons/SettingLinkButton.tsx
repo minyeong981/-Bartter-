@@ -2,15 +2,18 @@ import type { LinkProps } from '@tanstack/react-router';
 import { Link } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 
-import styles from './SettingButton.module.scss';
+import {IconBack} from '@/assets/svg';
+
+import styles from './SettingLinkButton.module.scss';
 
 const cx = classnames.bind(styles);
 
 
-export default function SettingLinkButton({ children, to, ...props }: LinkProps & { to: string }) {
+export default function SettingLinkButton({ text, to, ...props }: LinkProps & {text:string, to: string }) {
   return (
     <Link className={cx('button')} to={to} {...props}>
-      {children}
+      <div>{text}</div>
+      <div className={cx('backButton')}><IconBack /></div>
     </Link>
   );
 }

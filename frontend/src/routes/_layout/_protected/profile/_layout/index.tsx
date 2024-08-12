@@ -1,12 +1,17 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute} from '@tanstack/react-router'
+import classnames from 'classnames/bind'
 
+import LinkButton from '@/components/Buttons/LinkButton';
 import SettingLinkButton from '@/components/Buttons/SettingLinkButton.tsx';
 import ProfileInfo from '@/components/User/ProfileInfo';
 import barter from '@/services/barter';
 import useRootStore from '@/store';
 import querykeys from '@/util/querykeys';
 
+import styles from './../profile.module.scss'
+
+const cx = classnames.bind(styles)
 export const Route = createFileRoute('/_layout/_protected/profile/_layout/')({
   component: MyProfile,
 });
@@ -32,24 +37,24 @@ export default function MyProfile() {
   return (
     <div>
     <ProfileInfo {...userData} isMe={true}/>
-    <SettingLinkButton to="/profile/aireport">AI 요약보고서</SettingLinkButton>
+    <SettingLinkButton to="/profile/aireport" text='AI 요약보고서'/>
     <SettingLinkButton
       to="/profile/$userId/cropStorage"
       params={{userId: userId.toString()}}
-    >
-      농작물 창고
-    </SettingLinkButton>
+      text='농작물 창고'
+    />
     <SettingLinkButton
       to="/profile/$userId/diary"
       params={{userId: userId.toString()}}
-    >
-      농사 일지
-    </SettingLinkButton>
-    <SettingLinkButton to="/profile/writed">내가 쓴 글</SettingLinkButton>
-    <SettingLinkButton to="/profile/picked">찜 목록</SettingLinkButton>
-    <SettingLinkButton to="/profile/chat">채팅 목록</SettingLinkButton>
-    <SettingLinkButton to="/profile/changelocation">위치 수정</SettingLinkButton>
-    <SettingLinkButton to="/community">로그아웃</SettingLinkButton>
+      text='농사 일지'
+    />
+    <SettingLinkButton to="/profile/writed" text='내가 쓴 글'/>
+    <SettingLinkButton to="/profile/picked" text='찜 목록'/>
+    <SettingLinkButton to="/profile/chat" text='채팅 목록'/>
+    <SettingLinkButton to="/profile/changelocation" text='위치 수정'/>
+    <div className={cx('logoutButton')}>
+    <LinkButton buttonStyle={ { style: 'floating', size:'medium'}} >로그아웃</LinkButton>
+    </div>
     </div>
   );
 }

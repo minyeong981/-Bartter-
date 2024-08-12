@@ -13,16 +13,11 @@
   margin: 0 auto;
 
   .location {
-    @include typo.button
-  }
-
-  .title {
-    // width: calc(100% - 20px);
     width: 100%;
     padding: 10px 20px;
     text-align: left;
 
-    @include typo.heading
+    @include typo.button
   }
 
   .trade {
@@ -43,13 +38,6 @@
     width: 100%;
 
     // margin: 10px 0;
-  }
-
-  .link-button-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin: 20px 0;
   }
 
   .following-text {

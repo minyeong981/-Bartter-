@@ -3,11 +3,15 @@ import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import { useState } from 'react';
 
+import titleCommunity from '@/assets/lottie/titleCommunity.json'
+import titleNeighbor from '@/assets/lottie/titleNeighbor.json'
+import titleTrade from '@/assets/lottie/titleTrade.json'
 import AdCarousel from '@/components/AdCarousel';
-import LinkButton from '@/components/Buttons/LinkButton';
+import PostCard from '@/components/Community/PostCard';
 import PostList from '@/components/Community/PostList';
 import HomeTradeCardList from '@/components/HomeTradeCard/HomeTradeCardList';
 import HomeStory from '@/components/Story/HomeStory';
+import Title from '@/components/Title';
 import barter from '@/services/barter';
 import querykeys from '@/util/querykeys';
 
@@ -49,9 +53,7 @@ export default function Home() {
     <div className={cx('container')}>
       <AdCarousel />
       <div className={cx('home-barter')}>
-        <div className={cx('section-title')}>
-          물물 교환
-        </div>
+        <Title title='물물 교환' to="/trade" lottie={titleTrade}/>
         { trades.length===0 ? (
           <div className={cx('empty-text')}>물물 교환 게시글이 없습니다.</div>
         ) : (
@@ -62,43 +64,25 @@ export default function Home() {
         }
       </div>
 
-      <div className={cx('link-button-container')}>
-        <LinkButton
-          buttonStyle={{style: 'primary', size: 'medium'}}
-          to="/trade"
-          disabled={trades.length===0}
-        >
-          물물 교환 더보기
-        </LinkButton>
-      </div>
-
       <div className={cx('home-community')}>
-        <div className={cx('section-title')}>
-          동네 모임
-        </div>
+        <Title title='동네 모임' to="/community" lottie={titleCommunity}/>
         { posts.length===0 ? 
         ( 
           <div className={cx('empty-text')}>동네 모임 게시글이 없습니다.</div>
         )
         : (
-        <PostList posts={posts}/>
+          <div className={cx('post-list')}>
+          {posts.map((post, index) => 
+            <PostCard key={index} {...post}/>
+          )}
+          </div>
       )
         }
       </div>
-      <div className={cx('link-button-container')}>
-        <LinkButton
-          buttonStyle={{style: 'primary', size: 'medium'}}
-          to="/community"
-          disabled={posts.length===0}
-        >
-          동네 모임 더보기
-        </LinkButton>
-      </div>
+
       <div className={cx('home-story')}>
-      <div className={cx('section-title')}>
-        이웃의 농사일지
-      </div>
-        <div className={cx('section-title')}>
+        <Title title='이웃의 농사일지' lottie={titleNeighbor}/>
+        <div className={cx('home-story-carousel')}>
           {crops.length===0 && <div className={cx('empty-text')}>이웃이 아직 없네요! 이웃을 만들어보세요!</div>}
           <div >
             { crops.length!==0 && <HomeStory stories={crops} />}

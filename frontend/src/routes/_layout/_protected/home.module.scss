@@ -27,15 +27,6 @@
   max-width: 390px;
   margin: 0 auto;
 
-  .section-title {
-    width: calc(100% - 20px);
-    padding-bottom: 10px;
-    margin-left: 20px;
-    text-align: left;
-
-    @include typo.heading
-  }
-
   .empty-text {
     @include typo.label
   }
@@ -48,12 +39,28 @@
     margin: 10px 0;
   }
 
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
   .link-button-container {
     display: flex;
     justify-content: center;
     width: 100%;
     margin: 20px 0;
   }
+
+  .home-story-carousel {
+    width: calc(100% - 20px);
+    padding-bottom: 10px;
+    margin-left: 20px;
+    text-align: left;
+
+    @include typo.heading
+  }
+
 }
 
 .carousel-inner {
