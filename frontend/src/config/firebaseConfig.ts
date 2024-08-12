@@ -30,7 +30,7 @@ const messaging = getMessaging(app);
 onMessage(messaging, payload => {
   console.log('메시지 수신:', payload);
   if (!payload.data) return;
-  const notificationTitle = payload.data.title + '포그라운드';
+  const notificationTitle = payload.data.title;
   const notificationOptions = {
     body: payload.data.body,
     icon: payload.data.image,
