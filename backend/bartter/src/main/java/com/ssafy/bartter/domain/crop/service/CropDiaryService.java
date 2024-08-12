@@ -118,7 +118,7 @@ public class CropDiaryService {
     @Transactional(readOnly = true)
     public List<CropDiary> getWeeklyCropDiaryList(int cropId, LocalDate todayDate) {
         LocalDate mondayDate = todayDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        return cropDiaryRepository.findAllByCropIdAndDateRange(cropId, mondayDate.atStartOfDay(), todayDate.atTime(LocalTime.MAX));
+        return cropDiaryRepository.findAllByCropIdAndDateRange(cropId, mondayDate, todayDate);
     }
 
     /**

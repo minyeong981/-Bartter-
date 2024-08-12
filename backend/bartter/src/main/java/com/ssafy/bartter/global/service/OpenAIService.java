@@ -60,11 +60,6 @@ public class OpenAIService {
             String userPrompt = getPrompt(crop, diaryList);
             String response = createAIResponse(userPrompt);
 
-            if (response.equals("분석불가")) {
-                log.warn("OpenAI couldn't provide report for {}", crop.getNickname());
-                continue;
-            }
-
             CropReport cropReport = cropReportService.createCropReport(user, crop, LocalDate.now(), response);
             createdReportList.add(cropReport);
             log.info("Created crop report for {}", crop.getNickname());
@@ -98,7 +93,7 @@ public class OpenAIService {
                 .options(
                         OpenAiChatOptions.builder()
                                 .withModel("gpt-3.5-turbo")
-                                .withTemperature(0.5F)
+                                .withTemperature(0.2F)
                                 .build()
                 )
                 .call()
