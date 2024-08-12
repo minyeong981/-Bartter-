@@ -29,7 +29,7 @@ import static com.ssafy.bartter.domain.crop.dto.CropDiaryDto.CropDiaryDetail;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/crops/diaries")
+@RequestMapping("/api/crops/diaries")
 @Tag(name = "농사일지 API", description = "농사일지 등록/조회/삭제 관련 API입니다.")
 public class CropDiaryController {
 

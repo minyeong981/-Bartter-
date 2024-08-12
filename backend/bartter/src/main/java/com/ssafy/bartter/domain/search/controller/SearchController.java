@@ -30,7 +30,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/search")
+@RequestMapping("/api/search")
 @RequiredArgsConstructor
 @Tag(name = "통합검색 API", description = "물물교환/커뮤니티/유저 통합검색 API")
 public class SearchController {

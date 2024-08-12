@@ -30,13 +30,12 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 @Tag(name = "사용자 API", description = "사용자 등록/조회/삭제 관련 API입니다.")
 public class UserController {
 
     private final UserService userService;
     private final LocationService locationService;
-
     /**
      * 새로운 사용자를 등록하는 메서드
      *
@@ -56,6 +55,7 @@ public class UserController {
         userService.joinProcess(userJoinDto);
         return SuccessResponse.empty();
     }
+
 
 
     /**

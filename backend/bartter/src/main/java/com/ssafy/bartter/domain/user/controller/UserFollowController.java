@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/follow")
+@RequestMapping("/api/follow")
 @Tag(name = "팔로우 API", description = "사용자의 팔로우/언팔로우 기능을 처리하는 API입니다.")
 public class UserFollowController {
     private final FollowService followService;
