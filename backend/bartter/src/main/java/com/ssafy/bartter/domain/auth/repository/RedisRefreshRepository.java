@@ -14,7 +14,7 @@ public class RedisRefreshRepository {
     private final RedisTemplate<String, Object> redisTemplate;
 
     public void save(String username, String token, Long expiredTime) {
-        redisTemplate.opsForValue().set(CacheKey.authenticationKey(username), token, expiredTime, TimeUnit.MILLISECONDS);
+        redisTemplate.opsForValue().set(CacheKey.authenticationKey(username), String.valueOf(token), expiredTime, TimeUnit.MILLISECONDS);
     }
 
     public String find(String username) {
