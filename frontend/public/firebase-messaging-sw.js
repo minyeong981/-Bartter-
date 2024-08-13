@@ -24,7 +24,7 @@ firebase.initializeApp(config);
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage(payload => {
-  const notificationTitle = payload.data.title + '백 그라운드 ';
+  const notificationTitle = payload.data.title;
   const notificationOptions = {
     body: payload.data.body,
     icon: payload.data.image,

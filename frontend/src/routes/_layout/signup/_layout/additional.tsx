@@ -53,7 +53,7 @@ function AdditionalInfoPage() {
         </GeneralButton>
         <LinkButton
           buttonStyle={{style: 'primary', size: 'large'}}
-          to="/"
+          to="/Oauth"
           disabled={!isSignupSuccess}
         >
           회원가입 완료
