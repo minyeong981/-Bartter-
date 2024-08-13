@@ -12,13 +12,15 @@ const cx = classnames.bind(styles);
 
 interface CalendarPageProps {
   onDateChange: (date: Date) => void;
+  initialDate?: string; // 'yyyy-MM-dd' 형식의 문자열로 받음
 }
 
-export default function CalendarPage({ onDateChange }: CalendarPageProps) {
-  const [year, setYear] = useState(new Date().getFullYear());
-  const [month, setMonth] = useState(new Date().getMonth() + 1);
+export default function CalendarPage({ onDateChange, initialDate }: CalendarPageProps) {
+  const initialDateObject = initialDate ? new Date(initialDate) : new Date();
+  const [year, setYear] = useState(initialDateObject.getFullYear());
+  const [month, setMonth] = useState(initialDateObject.getMonth() + 1);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date>(initialDateObject);
   const [highlightDates, setHighlightDates] = useState<Date[]>([]);
 
   const { data } = useSuspenseQuery({
@@ -66,4 +68,3 @@ export default function CalendarPage({ onDateChange }: CalendarPageProps) {
     </div>
   );
 }
-

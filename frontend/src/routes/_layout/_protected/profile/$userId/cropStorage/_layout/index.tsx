@@ -117,13 +117,13 @@ function CropStoragePage() {
               myCrops.map(myCrop => (
                 <div
                   key={myCrop.cropId}
-                  className={cx('crop-image-container')}
+                  className={cx('cropImageContainer')}
                   onClick={() => handleCropClick(myCrop.cropId)}
                 >
-                  <div className={cx('crop-image')}>
+                  <div className={cx('cropImage')}>
                     <img src={myCrop.image} alt={myCrop.nickname} />
                   </div>
-                  <div className={cx('crop-nickname')}>
+                  <div className={cx('cropNickname')}>
                     <p>{myCrop.nickname}</p>
                   </div>
                 </div>
@@ -150,17 +150,16 @@ function CropStoragePage() {
               receivedCrops.map(tradeCrop => (
                 <div
                   key={tradeCrop.cropId}
-                  className={cx('crop-image-container')}
+                  className={cx('cropImageContainer')}
                   onClick={() => handleCropClick(tradeCrop.cropId)}
                 >
-                  <div className={cx('crop-image')}>
+                  <div className={cx('cropImage')}>
                     <img
                       src={tradeCrop.image}
                       alt={tradeCrop.nickname}
-                      className={cx('crop-image')}
                     />
                   </div>
-                  <div className={cx('crop-nickname')}>
+                  <div className={cx('cropNickname')}>
                     <p>{tradeCrop.nickname}</p>
                   </div>
                 </div>

@@ -24,10 +24,10 @@ function RegisterCropLayout() {
   return (
     <div className={cx('registerCrop')}>
       <div className={cx('headerButton')}>
-      <HeaderWithBackButton />
+      {step < 5 ? <HeaderWithBackButton /> : undefined}
       </div>
       <div className={cx('progressbar')}>
-      {showProgressBar && <ProgressBar current={step} total={TOTAL_STEPS} />}
+        {showProgressBar && <ProgressBar current={step} total={TOTAL_STEPS} />}
       </div>
       <Outlet />
     </div>

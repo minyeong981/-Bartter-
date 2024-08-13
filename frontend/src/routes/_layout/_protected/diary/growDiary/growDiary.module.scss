@@ -64,7 +64,6 @@
 }
 
 .diarySection {
-
   .entries {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -82,7 +81,7 @@
 
 
   hr {
-    margin: 10px 0 0;
+    margin: 20px 0 10px;
     border: 0;
     border-top: 2px solid colors.$divider;
   }
