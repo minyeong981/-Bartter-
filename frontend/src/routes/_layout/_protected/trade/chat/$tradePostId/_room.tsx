@@ -64,6 +64,7 @@ function ChatLayout() {
 
   function handleReservation() {
     changeToReservation(Number(tradePostId));
+    setIsModalOpen(false);
   }
 
   function handleCompleteTrade() {
