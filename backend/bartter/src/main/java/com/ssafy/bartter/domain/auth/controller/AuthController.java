@@ -78,7 +78,7 @@ public class AuthController {
         jwtUtil.isExpired(refresh);
 
         // DB에 저장되어 있는지 확인
-        if (!Objects.nonNull(refreshRepository.find(refresh))) {
+        if (Objects.nonNull(refreshRepository.find(refresh))) {
             throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
         }
 

@@ -36,7 +36,6 @@ public class TradePostService {
 
     private final UserRepository userRepository;
     private final CropRepository cropRepository;
-    private final TradePostRepository cropTradeRepository;
     private final CropCategoryRepository cropCategoryRepository;
     private final TradePostImageRepository tradePostImageRepository;
     private final TradePostRepository tradePostRepository;
@@ -46,27 +45,39 @@ public class TradePostService {
     private final S3UploadService uploadService;
     private final S3UploadService s3UploadService;
 
-    public List<TradePost> getTradePostList(int offset, int limit, int givenCategory, List<Integer> desiredCategories, int locationId) {
+    public List<TradePost> getTradePostList(int page, int limit, int givenCategory, List<Integer> desiredCategories, int locationId) {
         List<Location> nearbyLocationList = locationService.getNearbyLocationList(locationId);
         log.debug("근처 동네 개수 : {}", nearbyLocationList.size());
-        PageRequest pageable = PageRequest.of(offset, limit, Sort.by("createdAt").descending());
+        PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
         int desiredCategoriesSize = (desiredCategories == null) ? 0 : desiredCategories.size();
 
-        log.debug("offset:{}, limit:{}, givenCategory:{}, desiredCategories:{},desiredSize:{}", offset, limit, givenCategory, desiredCategories, desiredCategoriesSize);
-        List<Integer> idList = cropTradeRepository.findTradePostIdList(nearbyLocationList, givenCategory, desiredCategories, desiredCategoriesSize, pageable).getContent();
+        log.debug("offset:{}, limit:{}, givenCategory:{}, desiredCategories:{},desiredSize:{}", page, limit, givenCategory, desiredCategories, desiredCategoriesSize);
+        List<Integer> idList = tradePostRepository.findTradePostIdList(nearbyLocationList, givenCategory, desiredCategories, desiredCategoriesSize, pageable).getContent();
         log.debug("{}", idList);
-        return cropTradeRepository.findTradePostListByIdList(idList);
+        return tradePostRepository.findTradePostListByIdList(idList);
+    }
+
+    public List<TradePost> getTradePostListById(int page, int limit, int userId) {
+        PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
+        List<Integer> idList = tradePostRepository.findTradePostIdListByUserId(userId, pageable);
+        return tradePostRepository.findTradePostListByIdList(idList);
+    }
+
+    public List<TradePost> getTradePostLikeList(int page, int limit, int userId) {
+        PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
+        List<Integer> idList = tradePostLikeRepository.findTradePostLikeIdList(userId, pageable);
+        return tradePostRepository.findTradePostListByIdList(idList);
     }
 
     public TradePost getTradePost(int tradePostId) {
-        return cropTradeRepository.findTradePostById(tradePostId).
+        return tradePostRepository.findTradePostById(tradePostId).
                 orElseThrow(() -> new CustomException(TRADE_POST_NOT_FOUND));
     }
 
     public List<TradePost> getTradePostByKeyword(int offset, int limit, String keyword) {
         PageRequest pageable = PageRequest.of(offset, limit, Sort.by("createdAt").descending());
         List<Integer> tradePostIds = tradePostRepository.findTradePostListByKeyword(keyword, pageable).getContent();
-        return cropTradeRepository.findTradePostListByIdList(tradePostIds);
+        return tradePostRepository.findTradePostListByIdList(tradePostIds);
     }
 
     public Location getLocation(double latitude, double longitude) {
@@ -176,4 +187,6 @@ public class TradePostService {
         tradePost.changeStatus(newStatus);
         tradePostRepository.save(tradePost);
     }
+
+
 }
