@@ -4,7 +4,7 @@
 
 .navigation {
   position: fixed;
-  bottom: 12px;
+  bottom: 15px;
   left: 50%;
   z-index: dimension.$foreground;
   display: flex;
@@ -12,13 +12,6 @@
   width: 90%;
   max-width: 600px;
   height: 60px;
-  padding: 0 20px;
-  background-color: rgb(255 255 255 / 80%);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgb(255 255 255 / 30%);
-  border-radius: 40px;
-  box-shadow: 0 8px 20px rgb(0 0 0 / 15%);
-  transform: translateX(-50%);
 
   ul {
     display: flex;
@@ -30,8 +23,16 @@
     list-style: none;
   }
 
+  padding: 0 10px;
+  background-color: rgb(255 255 255 / 80%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgb(255 255 255 / 30%);
+  border-radius: 40px;
+  box-shadow: 0 8px 20px rgb(0 0 0 / 15%);
+  transform: translateX(-50%);
+
   li {
-    position: relative; 
+    position: relative;
     display: flex;
     flex: 1;
     align-items: center;
@@ -39,34 +40,49 @@
   }
 
   a {
-    position: relative; 
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: colors.$placeholder;
+
+    // 클릭되기 전 기본.
     text-decoration: none;
     transition: transform 0.3s ease, color 0.3s ease;
+
+    .lottie {
+      width: 30px;
+      height: 30px;
+      filter: invert(80%) sepia(10%) saturate(0%) hue-rotate(180deg) brightness(110%) contrast(90%);
+      transition: transform 0.3s ease;
+  
+      &:hover {
+        transform: scale(1.1);
+      }
+  
+      &:active {
+        transform: scale(1.2);
+      }
+    }
 
     &::before {
       position: absolute;
       top: 50%;
       left: 50%;
       z-index: -1;
-      width: 60px;
-      height: 30px;
+      width: 70px;  
+      height: 70px; 
       content: "";
-      background-color: rgb(255 255 255 / 80%);
-      border-radius: 50%;
-      opacity: 0; 
+      background-color: colors.$primary;  
+      border-radius: 50%; 
+      opacity: 0;
       transition: transform 0.3s ease, opacity 0.3s ease;
       transform: translate(-50%, -50%) scale(0.5); 
     }
 
-    &:hover {
-      color: colors.$primary;
+    &.active {
+      color: #fff;  
       transform: translateY(-5px);
-
-      // transform: translateY(-8px) scale(1.05);
 
       &::before {
         opacity: 1;
@@ -74,37 +90,17 @@
       }
 
       .lottie {
-        transform: scale(1.1);
-      }
-    }
-
-    &:active {
-      transform: translateY(-8px) scale(1.05);
-
-      .lottie {
-        transform: scale(1.2);
-
+        filter: brightness(0) invert(1);
+        transform: scale(1.2);  
       }
     }
 
     span {
       @include typo.comment; 
-    }              
+    }
+    
   }
 
-  .lottie {
-    width: 30px;
-    height: 30px;
-    transition: transform 0.3s ease;
 
-    &:active {
-      transform: scale(1.2);
-    }
 
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
 }
-
-
