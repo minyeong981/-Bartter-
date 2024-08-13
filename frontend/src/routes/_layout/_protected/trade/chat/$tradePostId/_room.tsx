@@ -1,7 +1,7 @@
 import {
   useMutation,
   useQueryClient,
-  useSuspenseQuery,
+  useSuspenseQueries,
 } from '@tanstack/react-query';
 import {createFileRoute, Outlet} from '@tanstack/react-router';
 import {useState} from 'react';
@@ -10,9 +10,12 @@ import ChatInfoCard from '@/components/Chat/ChatInfoCard';
 import CompleteTradeModal from '@/components/Chat/Modal/CompleteTradeModal';
 import ConfirmCompleteModal from '@/components/Chat/Modal/ConfirmCompleteModal';
 import MakeReservationModal from '@/components/Chat/Modal/MakeReserveModal';
-import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons.tsx';
+import HeaderWithLabeledBackButtonAndButtons from '@/components/Header/HeaderWithLabeledBackButtonAndButtons.tsx';
+import Location from '@/components/Header/Location.tsx';
 import TradeIdContextProvider from '@/context/TradeIdContext.tsx';
 import barter from '@/services/barter.ts';
+import useRootStore from '@/store';
+import querykeys from '@/util/querykeys.ts';
 
 export const Route = createFileRoute(
   '/_layout/_protected/trade/chat/$tradePostId/_room',
@@ -22,12 +25,21 @@ export const Route = createFileRoute(
 
 function ChatLayout() {
   const queryClient = useQueryClient();
-  const navigate = Route.useNavigate();
+  const userId = useRootStore(state => state.userId);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {tradePostId} = Route.useParams();
-  const {data} = useSuspenseQuery({
-    queryFn: () => barter.getChatRoomInfo(Number(tradePostId)),
-    queryKey: ['trade', 'chat', tradePostId],
+  const navigate = Route.useNavigate();
+  const data = useSuspenseQueries({
+    queries: [
+      {
+        queryFn: () => barter.getChatRoomInfo(Number(tradePostId)),
+        queryKey: ['trade', 'chat', tradePostId],
+      },
+      {
+        queryFn: () => barter.getUserLocation(userId),
+        queryKey: [querykeys.LOCATION, userId],
+      },
+    ],
   });
 
   const {mutate: changeToProgress} = useMutation({
@@ -76,7 +88,11 @@ function ChatLayout() {
     await navigate({to: '/trade'});
   }
 
-  const chatRoomInfo = data.data.data;
+  const chatRoomInfo = data[0].data.data.data;
+  const locationName = data[1].data.data.data.name
+    .split(' ')
+    .slice(2, 3)
+    .join();
 
   const Modal = {
     PROGRESS: (
@@ -102,7 +118,9 @@ function ChatLayout() {
 
   return (
     <>
-      <HeaderWithLabelAndButtons label="장덕동" />
+      <HeaderWithLabeledBackButtonAndButtons
+        label={<Location location={locationName} />}
+      />
       <ChatInfoCard {...chatRoomInfo} onClick={handleOpenModal} />
       <TradeIdContextProvider value={chatRoomInfo.tradeId}>
         <Outlet />
