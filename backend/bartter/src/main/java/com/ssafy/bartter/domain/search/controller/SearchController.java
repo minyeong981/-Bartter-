@@ -26,7 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/search")
 @RequiredArgsConstructor
-@Tag(name = "통합검색 API", description = "물물교환/커뮤니티/유저 통합검색 API")
+@Tag(name = "통합검색 API", description = "물물교환/커뮤니티/유저 통합검색 API입니다.")
 public class SearchController {
 
     private final SearchService searchService;

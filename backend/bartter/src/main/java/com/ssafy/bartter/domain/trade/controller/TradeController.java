@@ -30,7 +30,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/trades")
 @RequiredArgsConstructor
-@Tag(name = "물물교환 API", description = "거래와 관련된 API 입니다")
+@Tag(name = "물물교환 API", description = "물물교환(거래)와 관련된 API 입니다.")
 public class TradeController {
 
     private final TradeService tradeService;
