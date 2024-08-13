@@ -1,11 +1,12 @@
 import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {ChangeEvent} from 'react';
-import { useState} from 'react';
+import {useState} from 'react';
 
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
+import {NICKNAME_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
 
@@ -15,11 +16,11 @@ export const Route = createFileRoute('/_layout/signup/_layout/1')({
 });
 
 function GetNamePage() {
-  const [name, setName] = useState('');
-  const isValid = name.length >= 2;
+  const [nickname, setNickname] = useState('');
+  const isValid = NICKNAME_PATTERN.test(nickname);
 
   function handleNameChange(e: ChangeEvent<HTMLInputElement>) {
-    setName(e.currentTarget.value);
+    setNickname(e.currentTarget.value);
   }
 
   return (
@@ -37,7 +38,7 @@ function GetNamePage() {
             label="이름"
             placeholder="이름을 입력해주세요"
             onChange={handleNameChange}
-            value={name}
+            value={nickname}
           />
         </div>
       </div>
@@ -46,7 +47,7 @@ function GetNamePage() {
           buttonStyle={{style: 'primary', size: 'large'}}
           to="/signup/2"
           disabled={!isValid}
-          search={{name}}
+          search={{nickname}}
         >
           다음
         </GeneralButton>
