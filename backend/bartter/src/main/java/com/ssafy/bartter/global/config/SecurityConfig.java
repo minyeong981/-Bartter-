@@ -22,9 +22,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
 import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -48,7 +51,7 @@ public class SecurityConfig {
     private final OAuth2UserService oAuth2UserService;
     private final OAuth2SuccessHandler oAuth2SuccessHandler;
 
-    @Value("${APP_DOMAIN_URL}")
+    @Value("${app.domain.url}")
     private String APP_DOMAIN_URL;
 
     @Bean
@@ -65,6 +68,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomAuthenticationEntryPoint customAuthenticationEntryPoint) throws Exception {
+
+        LoginFilter loginFilter =  new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, cookieUtil, redisRefreshRepository, jwtConfig);
+        loginFilter.setFilterProcessesUrl("/api/login");
+
+
         // cors
         http
                 .cors((corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
@@ -73,19 +81,15 @@ public class SecurityConfig {
                     public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
 
                         CorsConfiguration configuration = new CorsConfiguration();
-                        // TODO : 배포시 변경 필요
                         configuration.setAllowedOrigins(Collections.singletonList(APP_DOMAIN_URL));
                         configuration.setAllowedMethods(Collections.singletonList("*"));
                         configuration.setAllowCredentials(true);
                         configuration.setAllowedHeaders(Collections.singletonList("*"));
                         configuration.setMaxAge(3600L);
-
                         configuration.setExposedHeaders(Collections.singletonList("Authorization"));
-
                         return configuration;
                     }
                 })));
-
 
         // csrf disable
         http
@@ -101,9 +105,9 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/ws/**").permitAll()
-                        .requestMatchers("/", "/login", "/user/join", "/user/location" ,"/oauth2/**").permitAll()
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/api/ws/**").permitAll()
+                        .requestMatchers("/api/", "/api/login", "/api/user/join", "/api/user/location" ,"/api/oauth2/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/swagger", "/swagger-ui.html", "/swagger-ui/**", "/api-docs", "/api-docs/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 );
@@ -111,6 +115,8 @@ public class SecurityConfig {
         // oauth2 user service 연결
         http
                 .oauth2Login((oauth2) -> oauth2
+                        .authorizationEndpoint(authorizationEndpoint ->
+                                authorizationEndpoint.baseUri("/api/oauth2/authorization"))
                         .userInfoEndpoint(userInfoEndpointConfig -> {
                             userInfoEndpointConfig.userService(oAuth2UserService);
                         })
@@ -121,7 +127,7 @@ public class SecurityConfig {
 
         http
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), LoginFilter.class)
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, cookieUtil, redisRefreshRepository, jwtConfig), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAt(loginFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new LogoutFilter(jwtUtil, redisRefreshRepository), org.springframework.security.web.authentication.logout.LogoutFilter.class);
 
 

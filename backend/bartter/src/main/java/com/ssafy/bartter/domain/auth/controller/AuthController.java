@@ -37,7 +37,7 @@ import java.util.Objects;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @Tag(name = "인증 API", description = "인증과 관련된 API입니다.")
 public class AuthController {
 
@@ -78,7 +78,7 @@ public class AuthController {
         jwtUtil.isExpired(refresh);
 
         // DB에 저장되어 있는지 확인
-        if (!Objects.nonNull(refreshRepository.find(refresh))) {
+        if (Objects.nonNull(refreshRepository.find(refresh))) {
             throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
         }
 

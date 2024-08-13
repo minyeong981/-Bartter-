@@ -14,6 +14,7 @@ import com.ssafy.bartter.domain.trade.entity.TradePost;
 import com.ssafy.bartter.domain.trade.repository.TradePostRepository;
 import com.ssafy.bartter.domain.trade.services.TradePostService;
 import com.ssafy.bartter.domain.user.dto.UserDto;
+import com.ssafy.bartter.domain.user.dto.UserDto.SearchUserProfile;
 import com.ssafy.bartter.domain.user.dto.UserDto.SimpleUserProfile;
 import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.domain.user.repository.UserRepository;
@@ -38,21 +39,22 @@ public class SearchService {
 
     public SimpleKeywordList searchByTotalKeyword(String keyword, int userId) {
         List<User> userList = searchUserByKeyword(0, 5, keyword);
-        List<SimpleUserProfile> simpleUserList = userList.stream().map(SimpleUserProfile::of).toList();
+        List<SearchUserProfile> simpleUserList = userList.stream()
+                .map(o -> SearchUserProfile.of(o, userId)).toList();
 
         List<CommunityPost> communityPostList = searchCommunityByKeyword(0, 2, keyword, userId);
         List<SimpleCommunityPostDetail> simpleCommunityPostList = communityPostList.stream()
                 .map(o -> SimpleCommunityPostDetail.of(o, userId)).toList();
 
-        List<TradePost> tradePostList = searchTradePostByKeyword(0, 2, keyword, userId);
+        List<TradePost> tradePostList = searchTradePostByKeyword(0, 2, keyword);
         List<SimpleTradePostDetail> simpleTradePostList =
                 tradePostList.stream().map(o -> SimpleTradePostDetail.of(o, userId)).toList();
 
         return SimpleKeywordList.of(simpleUserList, simpleCommunityPostList, simpleTradePostList);
     }
 
-    public List<TradePost> searchTradePostByKeyword(int offset, int limit, String keyword, int userId) {
-        return tradePostService.getTradePostByKeyword(offset,limit,keyword);
+    public List<TradePost> searchTradePostByKeyword(int offset, int limit, String keyword) {
+        return tradePostService.getTradePostByKeyword(offset, limit, keyword);
     }
 
     public List<CommunityPost> searchCommunityByKeyword(int offset, int limit, String keyword, int userId) {
@@ -75,4 +77,11 @@ public class SearchService {
         redisSearchLogRepository.deleteRecentSearchKeyword(keyword, username);
     }
 
+    public void addKeyword(String keyword) {
+        redisSearchLogRepository.addKeyword(keyword);
+    }
+
+    public List<String> autocomplete(String prefix, int count) {
+        return redisSearchLogRepository.autocomplete(prefix, count);
+    }
 }

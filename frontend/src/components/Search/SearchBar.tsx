@@ -1,7 +1,7 @@
 import type { KeyboardEvent} from 'react';
-import { FaSearch} from 'react-icons/fa';
 import { FaX } from 'react-icons/fa6';
 
+import {IconSearch} from '@/assets/svg';
 import HeaderWithSearchAndBackButton from '@/components/Header/HeaderWithSearchandBackButton';
 import stylesInput from '@/components/Search/Search.module.scss';
 
@@ -40,8 +40,12 @@ export default function SearchBar({ query, onSearch, onInputChange, onClear} : S
                 onChange={(event) => onInputChange(event.target.value)}
                 onKeyDown={handleKeyDown}
               />
-              <button className={stylesInput.clearButton} >
-                { query ? <FaX onClick={onClear} className={styles.faX} /> : <FaSearch className={styles.faSearch}/>}
+              <button className={styles.clearButton} >
+                { query ? 
+                <FaX onClick={onClear} style={{ fontSize: '20px'}} /> 
+                : <IconSearch className={styles.icon} /> 
+                // <FaSearch style={{ fontSize: '30px'}} />
+                }
               </button>
             </div>
           </div>

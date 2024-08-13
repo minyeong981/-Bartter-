@@ -37,8 +37,7 @@ public class OpenAIScheduler {
     /**
      * 일요일 아침 6시마다 등록된 모든 유저의 요약 리포트와 알람을 생성하여 저장
      */
-//    @Scheduled(fixedRate = 0 0 6 * * 0)
-//    @Scheduled(fixedRate = 100000000)
+    @Scheduled(cron = "0 0 6 * * 0")
     public void saveDailyTipMessage() throws IOException {
         List<User> allUserList = userService.getAllUsers();
 
@@ -49,7 +48,7 @@ public class OpenAIScheduler {
 
             Collections.shuffle(alarmMessageList);
 
-            for (int i = 1; i <= 7; i++) {
+            for (int i = 0; i < 7; i++) {
                 String message = alarmMessageList.get(i);
                 dailyTipService.createDailyTip(message, user, i + 1);
             }
@@ -73,6 +72,8 @@ public class OpenAIScheduler {
 
                 if (newAlarmMessageList.size() >= 7) {
                     alarmMessageList = newAlarmMessageList;
+                } else {
+                    alarmMessageList.addAll(newAlarmMessageList);
                 }
             } else {
                 log.warn("No crop report generated for {}", user.getUsername());
@@ -104,7 +105,7 @@ public class OpenAIScheduler {
 
     /**
      * 농작물을 등록하지 않았거나 농사일지가 없을 때 반환해 줄 기본 알림 메시지 리스트
-     * */
+     */
     private static ArrayList<String> getBasicAlarmList() {
         return new ArrayList<>(List.of(
                 "작물별로 농사 일지를 작성해 보세요",

@@ -6,13 +6,12 @@ import com.ssafy.bartter.domain.user.dto.UserDto.SimpleUserProfile;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 
 import java.time.LocalDate;
-import java.time.Period;
+import java.time.temporal.ChronoUnit;
 
 
 /**
@@ -75,6 +74,7 @@ public class CropDto {
     public static class SimpleCropProfile {
         private int userId;
         private int cropId;
+        private int cropCategoryId;
         private String nickname;
         private String image;
 
@@ -82,6 +82,7 @@ public class CropDto {
             return SimpleCropProfile.builder()
                     .userId(crop.getUser().getId())
                     .cropId(crop.getId())
+                    .cropCategoryId(crop.getCategory().getId())
                     .nickname(crop.getNickname())
                     .image(crop.getImage())
                     .build();
@@ -97,6 +98,7 @@ public class CropDto {
         private String cropProfileImage;
         private String userNickname;
         private String cropNickname;
+        private String description;
         private int dayWithCrop;
         private int tradeCount;
 
@@ -105,7 +107,8 @@ public class CropDto {
                     .cropProfileImage(crop.getImage())
                     .userNickname(crop.getUser().getNickname())
                     .cropNickname(crop.getNickname())
-                    .dayWithCrop(Period.between(crop.getGrowDate(), LocalDate.now()).getDays() + 1)  // 등록한 날짜부터 1일
+                    .description(crop.getDescription())
+                    .dayWithCrop((int) (ChronoUnit.DAYS.between(crop.getGrowDate(), LocalDate.now()) + 1))  // 등록한 날짜부터 1일
                     .tradeCount(tradeCount)
                     .build();
         }

@@ -30,26 +30,26 @@ function UserCrops({ userId, onSelectCrop }: UserCropsProps) {
   };
 
   return (
-    <div className={cx('crops-container')}>
+    <div className={cx('cropsContainer')}>
       {crops.length === 0 ? (
-        <>
+        <div className={cx('noCrops')}>
           <h3>아직 등록된 농작물이 없습니다.</h3>
           <img src={notCrop} alt="notCrop" />
-        </>
+        </div>
       ) : (
-        <div className={cx('test')}>
-          <h3 className={cx('crops-count')}>전체 작물 수 : {crops.length}</h3>
-          <div className={cx('crop-list')}>
+        <div className={cx('mainContainer')}>
+          <h3 className={cx('cropsCount')}>전체 작물 수 : {crops.length}</h3>
+          <div className={cx('cropList')}>
             {crops.map(crop => (
               <div 
                 key={crop.cropId} 
-                className={cx('crop-card', { selected: selectedCropId === crop.cropId })} 
+                className={cx('cropCard', { selected: selectedCropId === crop.cropId })} 
                 onClick={() => handleCropClick(crop.cropId)}
               >
-                <div className={cx('crop-image-container', { selected: selectedCropId === crop.cropId })}>
+                <div className={cx('cropImageContainer', { selected: selectedCropId === crop.cropId })}>
                   <img src={crop.image} alt={crop.nickname} />
                 </div>
-                <div className={cx('crop-info')}>
+                <div className={cx('cropInfo')}>
                   <h4>{crop.nickname}</h4>
                 </div>
               </div>

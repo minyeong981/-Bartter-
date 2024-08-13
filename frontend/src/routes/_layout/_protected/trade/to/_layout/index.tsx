@@ -12,22 +12,14 @@ import barter from '@/services/barter.ts';
 
 import styles from './to.module.scss';
 
-export interface SearchParamsFromToPage extends SearchParamsFromFromPage,SearchParamFromMyCropsPage {
+export type SearchParamsFromToPage = {
   cropsToGet: CropCategoryDetail[];
-}
+} & (SearchParamsFromFromPage & SearchParamFromMyCropsPage)
 
 const cx = classnames.bind(styles);
 
 export const Route = createFileRoute('/_layout/_protected/trade/to/_layout/')({
   component: ToPage,
-  // validateSearch: ({
-  //   cropToGive, myCrop
-  // }: Record<string, unknown>): SearchParamsFromFromPage & SearchParamFromMyCropsPage => {
-  //   return {
-  //     cropToGive: cropToGive as CropCategoryDetail || undefined,
-  //     myCrop: myCrop as SimpleCropProfile || undefined
-  //   };
-  // },
 });
 
 function ToPage() {
@@ -51,7 +43,7 @@ function ToPage() {
     <div className={cx('toPage')}>
       <Heading>
         받고 싶은 농작물을
-        <br />
+        <br/>
         선택하세요
       </Heading>
       <div className={cx('cropListContainer')}>

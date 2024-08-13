@@ -16,6 +16,7 @@
     input {
       width: 100%;
       padding: 8px 10px;
+      padding-right: 40px;
 
       @include typo.main;
 
@@ -30,16 +31,15 @@
 
     }
 
-    .faSearch {
-      width: 25px;
-      height: 25px;
-      padding-right: 5px;
-    }
 
     .faX {
-      width: 18px;
-      height: 18px;
       padding-right: 5px;
+      padding-left: 5px;
+      background-color: colors.$gray1;
+    }
+
+    .icon {
+      width: 30px;
     }
 
   }
@@ -59,4 +59,17 @@
     border-bottom: 1px solid colors.$gray1;
 
   }
+
+  .clearButton {
+    position: absolute;
+    right: 0.5rem;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin-right: 10px;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
 }

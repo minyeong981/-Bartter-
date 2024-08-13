@@ -187,137 +187,152 @@ create table user (
                       primary key (user_id)
 ) engine=InnoDB;
 
+-- community_post 테이블의 외래 키 제약 조건
 alter table community_post
-    add constraint FK5voin9s2s70bvc490h58p0e9j
+    add constraint FK_community_post_location
         foreign key (location_id)
             references location (location_id);
 
 alter table community_post
-    add constraint FKm5pbosagfniobhwcv6ot7tdcj
+    add constraint FK_community_post_user
         foreign key (user_id)
             references user (user_id);
 
+-- community_post_comment 테이블의 외래 키 제약 조건
 alter table community_post_comment
-    add constraint FK8ka11yxw46wy8eoq28khik30x
+    add constraint FK_community_post_comment_post
         foreign key (community_post_id)
             references community_post (community_post_id);
 
 alter table community_post_comment
-    add constraint FKg8wvn8vmt4q4bd503rip4cuhp
+    add constraint FK_community_post_comment_user
         foreign key (user_id)
             references user (user_id);
 
+-- community_post_image 테이블의 외래 키 제약 조건
 alter table community_post_image
-    add constraint FKfy6bcnk9stp5x189b0id1qhfd
+    add constraint FK_community_post_image_post
+        foreign key (community_post_id)
+            references community_post (community_post_id);
+
+-- community_post_like 테이블의 외래 키 제약 조건
+alter table community_post_like
+    add constraint FK_community_post_like_post
         foreign key (community_post_id)
             references community_post (community_post_id);
 
 alter table community_post_like
-    add constraint FKhbe2v7or8saetjmpxhunb9goj
-        foreign key (community_post_id)
-            references community_post (community_post_id);
-
-alter table community_post_like
-    add constraint FK1k3gkv5pyhk8o09624rw2jhxv
+    add constraint FK_community_post_like_user
         foreign key (user_id)
-            references user (user_id)
+            references user (user_id);
 
+-- crop 테이블의 외래 키 제약 조건
 alter table crop
-    add constraint FK7eeejpksig8npa05cacj232h1
+    add constraint FK_crop_category
         foreign key (crop_category_id)
             references crop_category (crop_category_id);
 
 alter table crop
-    add constraint FK76xv1sgky2q7kwe7g2elv05mp
+    add constraint FK_crop_user
         foreign key (user_id)
             references user (user_id);
 
+-- crop_diary 테이블의 외래 키 제약 조건
 alter table crop_diary
-    add constraint FK8q9vt1evbntodygvpjjkfk13j
+    add constraint FK_crop_diary_crop
+        foreign key (crop_id)
+            references crop (crop_id);
+
+-- crop_report 테이블의 외래 키 제약 조건
+alter table crop_report
+    add constraint FK_crop_report_crop
         foreign key (crop_id)
             references crop (crop_id);
 
 alter table crop_report
-    add constraint FKdjihepcn6c37okg8mj8j8nwgp
-        foreign key (crop_id)
-            references crop (crop_id);
-
-alter table crop_report
-    add constraint FK87n3i3cqrk01ihc74dvpesjsy
+    add constraint FK_crop_report_user
         foreign key (user_id)
             references user (user_id);
 
+-- daily_tip 테이블의 외래 키 제약 조건
 alter table daily_tip
-    add constraint FKbmot5iwtts6p2dcmgs905ee45
+    add constraint FK_daily_tip_user
         foreign key (user_id)
             references user (user_id);
 
+-- follow 테이블의 외래 키 제약 조건
 alter table follow
-    add constraint FKjhmtcmoxpgcojx2p3h7lcphsq
+    add constraint FK_follow_followee
         foreign key (followee_id)
             references user (user_id);
 
 alter table follow
-    add constraint FKmow2qk674plvwyb4wqln37svv
+    add constraint FK_follow_follower
         foreign key (follower_id)
             references user (user_id);
 
+-- trade 테이블의 외래 키 제약 조건
 alter table trade
-    add constraint FKqrtut344cnig4qihs1te250dq
+    add constraint FK_trade_post
         foreign key (trade_post_id)
             references trade_post (trade_post_id);
 
 alter table trade
-    add constraint FK1dqm16mo3cntjlxap3iusqvyt
+    add constraint FK_trade_user
         foreign key (user_id)
             references user (user_id);
 
+-- trade_post 테이블의 외래 키 제약 조건
 alter table trade_post
-    add constraint FK3fvfraumm3neqg2mb3xf6a52a
+    add constraint FK_trade_post_crop_category
         foreign key (crop_category_id)
             references crop_category (crop_category_id);
 
 alter table trade_post
-    add constraint FKk3qn5sfu51as2nevdt9mus92o
+    add constraint FK_trade_post_crop
         foreign key (crop_id)
             references crop (crop_id);
 
 alter table trade_post
-    add constraint FKfydlcx318xvm70cqnhn2s0295
+    add constraint FK_trade_post_location
         foreign key (location_id)
             references location (location_id);
 
 alter table trade_post
-    add constraint FKbbsoj791jofqymfm8h0gjfv25
+    add constraint FK_trade_post_user
         foreign key (user_id)
             references user (user_id);
 
+-- trade_post_image 테이블의 외래 키 제약 조건
 alter table trade_post_image
-    add constraint FKd2qajdbftrfqx5ujhjrprn1o7
+    add constraint FK_trade_post_image_post
+        foreign key (trade_post_id)
+            references trade_post (trade_post_id);
+
+-- trade_post_like 테이블의 외래 키 제약 조건
+alter table trade_post_like
+    add constraint FK_trade_post_like_post
         foreign key (trade_post_id)
             references trade_post (trade_post_id);
 
 alter table trade_post_like
-    add constraint FK8wli9erfck1h74tno70qvhgly
-        foreign key (trade_post_id)
-            references trade_post (trade_post_id);
-
-alter table trade_post_like
-    add constraint FKc54giobbn94jbk28og65f600f
+    add constraint FK_trade_post_like_user
         foreign key (user_id)
             references user (user_id);
 
+-- trade_wish_crop_category 테이블의 외래 키 제약 조건
 alter table trade_wish_crop_category
-    add constraint FKowo5w2q918jsb6663qcolq82k
+    add constraint FK_trade_wish_crop_category_crop_category
         foreign key (crop_category_id)
             references crop_category (crop_category_id);
 
 alter table trade_wish_crop_category
-    add constraint FKt5981unccllugrsq7vy4r31gj
+    add constraint FK_trade_wish_crop_category_post
         foreign key (trade_post_id)
             references trade_post (trade_post_id);
 
+-- user 테이블의 외래 키 제약 조건
 alter table user
-    add constraint FKneyhvoj17hax43m8dq3u7gbic
+    add constraint FK_user_location
         foreign key (location_id)
             references location (location_id);

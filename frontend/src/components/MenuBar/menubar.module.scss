@@ -4,14 +4,14 @@
 
 .navigation {
   position: fixed;
-  bottom: 20px;
+  bottom: 12px;
   left: 50%;
   z-index: dimension.$foreground;
   display: flex;
   align-items: center;
   width: 90%;
   max-width: 600px;
-  height: 70px;
+  height: 60px;
   padding: 0 20px;
   background-color: rgb(255 255 255 / 80%);
   backdrop-filter: blur(10px);
@@ -31,7 +31,7 @@
   }
 
   li {
-    position: relative; /* 동그란 원의 배치를 위해 position 설정 */
+    position: relative; 
     display: flex;
     flex: 1;
     align-items: center;
@@ -39,7 +39,7 @@
   }
 
   a {
-    position: relative; /* 가상 요소가 링크 내부에 배치되도록 relative 설정 */
+    position: relative; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,20 +51,22 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      z-index: -1; /* 아이콘 밑으로 배경을 보내기 */
+      z-index: -1;
       width: 60px;
-      height: 60px;
+      height: 30px;
       content: "";
       background-color: rgb(255 255 255 / 80%);
       border-radius: 50%;
-      opacity: 0; /* 초기 상태에서는 보이지 않음 */
+      opacity: 0; 
       transition: transform 0.3s ease, opacity 0.3s ease;
-      transform: translate(-50%, -50%) scale(0.5); /* 작게 시작해서 커지는 효과 */
+      transform: translate(-50%, -50%) scale(0.5); 
     }
 
     &:hover {
       color: colors.$primary;
       transform: translateY(-5px);
+
+      // transform: translateY(-8px) scale(1.05);
 
       &::before {
         opacity: 1;
@@ -81,20 +83,28 @@
 
       .lottie {
         transform: scale(1.2);
+
       }
     }
 
     span {
-      margin-top: 5px;
-
       @include typo.comment; 
     }              
   }
 
   .lottie {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     transition: transform 0.3s ease;
-  }
 
+    &:active {
+      transform: scale(1.2);
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 }
+
+

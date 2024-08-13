@@ -24,7 +24,7 @@
 
   .inputContainer {
     display: flex;
-    gap: 5px;
+    gap: 6px;
     align-items: center;
     padding: 0 5px;
 
@@ -32,7 +32,7 @@
       @include typographies.chat;
 
       flex-grow: 1;
-      height: 33px;
+      height: 47px;
       padding: 0 8px;
       font-size: 22px;
       background-color: colors.$gray1;
@@ -41,10 +41,10 @@
     }
 
     button {
-      @include typographies.label;
+      @include typographies.title;
 
       height: 100%;
-      padding: 0 10px;
+      padding: 0 18px;
       color: colors.$white;
       background-color: colors.$primary;
       border-radius: 4px;

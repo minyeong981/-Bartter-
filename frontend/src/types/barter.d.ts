@@ -13,15 +13,18 @@ interface SimpleLocation {
   name: Name;
 }
 
-// interface MyCommunityPostDetail {
-//   communityPostId: CommunityPostId;
-//   title: Title;
-//   content: Content;
-//   createdAt: CreatedAt;
-//   imageUrl: ImageUrl;
-//   hasImage: HasImage;
-//   location: SimpleLocation;
-// }
+interface MyCommunityPostDetail {
+  communityPostId: CommunityPostId;
+  title: Title;
+  content: Content;
+  createdAt: CreatedAt;
+  likeCount: LikeCount;
+  isLike: IsLike;
+  commentCount: CommentCount;
+  imageUrl: ImageUrl;
+  hasImage: HasImage;
+  location: SimpleLocation;
+}
 
 type LikeCount = number;
 type IsLike = boolean;
@@ -96,6 +99,7 @@ interface SimpleCropProfile {
   cropId: CropId;
   nickname: Nickname;
   image: Image;
+  cropCategoryId: CropCategoryId;
 }
 
 type PerformDate = string;
@@ -429,6 +433,7 @@ interface TradeInfo {
 
 type AutoCompletedKeyWord = string;
 
+
 type GetCommunityPostListByUserId = BarterResponse<MyCommunityPostDetail[]>;
 type GetCommunityPostList = BarterResponse<SimpleCommunityPostDetail[]>;
 type PostCommunityPostResponse = BarterResponse<CommunityPostDetail>;
@@ -477,6 +482,7 @@ type GetChatRoomInfoResponse = BarterResponse<TradeInfo>;
 type GetAutoCompletedKeywordListByKeyword = BarterResponse<
   AutoCompletedKeyWord[]
 >;
+type getChatListByTradePostIdResponse = BarterResponse<SimpleTradeInfo[]>;
 
 // TODO: 농작물 물물교환 API 부터는 GET요청만 정의
 // type SignupResponse = BarterResponse<null>;

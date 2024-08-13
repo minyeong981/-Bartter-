@@ -7,6 +7,7 @@ import {createFileRoute } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 
+import GeneralButton from '@/components/Buttons/GeneralButton';
 import SettingLinkButton from '@/components/Buttons/SettingLinkButton.tsx';
 import ProfileInfo from '@/components/User/ProfileInfo';
 import barter from '@/services/barter';
@@ -23,10 +24,21 @@ export const Route = createFileRoute('/_layout/_protected/profile/$userId/_layou
 
 function Profile() {
   const myId = useRootStore(state => state.userId);
+  const logout = useRootStore(state => state.logout);
   const queryClient = useQueryClient();
 
   const { userId }: { userId: string } = Route.useParams();
 
+  async function handleLogout() {
+    try {
+      await barter.logout();
+      await barter.deleteFcmToken();
+    } finally {
+      sessionStorage.clear();
+      logout();
+    }
+  }
+ 
   const { data: profileData } = useSuspenseQuery({
     queryKey: [querykeys.PROFILE, userId],
     queryFn: () => barter.getUserProfile(Number(userId)),
@@ -88,21 +100,32 @@ function Profile() {
     <>
       <ProfileInfo {...userData} isMe={isMe} onClick={handleFollow} />
       <div className={cx('crops-count')}>받은 농작물 {cropCount} 개</div>
-      <SettingLinkButton       
-      to="/profile/$userId/cropStorage"
-      params={{userId: userId.toString()}}>
-        농작물 창고
-      </SettingLinkButton>
-      <SettingLinkButton       
-      to="/profile/$userId/diary"
-      params={{userId: userId.toString()}}>
-        농사 일지
-      </SettingLinkButton>
-      {isMe && <SettingLinkButton to="/profile/writed">내가 쓴 글</SettingLinkButton>}
-      {isMe && <SettingLinkButton to="/profile/picked">찜 목록</SettingLinkButton>}
-      {isMe && <SettingLinkButton to="/profile/chat">채팅 목록</SettingLinkButton>}
-      {isMe && <SettingLinkButton to="/profile/changelocation">위치 수정</SettingLinkButton>}
-      {isMe && <SettingLinkButton to="/community">로그아웃</SettingLinkButton>}
+      { isMe && <SettingLinkButton to="/profile/aireport">
+      📝 AI 요약보고서</SettingLinkButton>}
+      <SettingLinkButton
+        to="/profile/$userId/cropStorage"
+        params={{userId: userId.toString()}}
+      >
+      🧰 농작물 창고</SettingLinkButton>
+      <SettingLinkButton
+        to="/profile/$userId/diary"
+        params={{userId: userId.toString()}}
+      >
+      🌳  농사 일지</SettingLinkButton>
+      { isMe && <SettingLinkButton to="/profile/writed">
+      ✍🏻 내가 쓴 글</SettingLinkButton>}
+      { isMe && <SettingLinkButton to="/profile/picked">🛒 찜 목록</SettingLinkButton>}
+      { isMe && <SettingLinkButton to="/profile/chat">💬 채팅 목록</SettingLinkButton>}
+      { isMe && <SettingLinkButton to="/profile/changelocation">🚩 위치 수정</SettingLinkButton>}
+      { isMe &&
+        <div className={styles.logoutBox}>
+      <GeneralButton 
+      buttonStyle={{style: 'floating', size: 'small'}} 
+      onClick={handleLogout}
+      >로그아웃
+      </GeneralButton>
+      </div>
+      }
     </>
   );
 

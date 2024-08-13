@@ -44,9 +44,13 @@
 .fixedButtons {
   position: fixed;
   top: 40px; /* 헤더의 높이에 맞춰 조정 */
-  left: 0;
   right: 0;
-  background: white;
+  left: 0;
   z-index: 10;
+  background: white;
   border-bottom: 1px solid #ddd;
+}
+
+.myCropContainer {
+  padding: 25px 0 0;
 }

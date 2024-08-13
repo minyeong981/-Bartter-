@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/community/posts")
+@RequestMapping("/api/community/posts")
 @Tag(name = "동네모임 게시글 댓글 API", description = "동네모임 게시글 댓글 등록/삭제 관련 API입니다.")
 public class CommunityPostCommentController {
 

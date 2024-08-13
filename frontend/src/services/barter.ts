@@ -215,7 +215,7 @@ export default {
    * 유저가 작성한 물물교환 게시글 전체 조회
    */
   getTradePostListByUser: async (userId: UserId) =>
-    axios.get<GetCommunityPostListByUserId>(`/users/${userId}/trades/posts`),
+    axios.get<GetTradePostListByUserId>(`/users/${userId}/trades/posts`),
   /**
    * 유저가 찜한 물물교환 게시글 전체 조회
    */
@@ -250,6 +250,13 @@ export default {
    */
   putTradeComplete: async (tradePostId: TradePostId) =>
     axios.put(`/trades/posts/${tradePostId}/complete`),
+  /**
+   * 게시글 정보 기준 채팅방 정보 조회
+   */
+  getChatListByTradePostId: async (tradePostId: TradePostId) =>
+    axios.get<getChatListByTradePostIdResponse>(
+      `/trades/${tradePostId}/history`,
+    ),
 
   // 농사일지
   /**
@@ -400,15 +407,13 @@ export default {
    */
   searchByKeyword: async (keyword: string) =>
     axios.get<GetSearch>('/search', {params: {keyword}}),
-    /**
+  /**
    * 키워드 검색어 자동 완성 제안
    */
-    getAutoCompletedKeywordListByKeyword: async (
-      keyword: string,
-    ) =>
-      axios.get<GetAutoCompletedKeywordListByKeyword>(`/search/autocomplete`, {
-        params: {keyword},
-      }),
+  getAutoCompletedKeywordListByKeyword: async (keyword: string) =>
+    axios.get<GetAutoCompletedKeywordListByKeyword>(`/search/autocomplete`, {
+      params: {keyword},
+    }),
   /**
    * 키워드 검색 물물교환 게시글 목록 조회
    */

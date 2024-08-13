@@ -3,8 +3,8 @@ import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 
 import ChatListItem from '@/components/Chat/ChatListItem/ChatListItem.tsx';
+import EmptyPost from '@/components/Empty/EmptyPost.tsx';
 import barter from '@/services/barter.ts';
-import useRootStore from '@/store';
 
 import styles from './chatList.module.scss';
 
@@ -17,25 +17,27 @@ export const Route = createFileRoute(
 });
 
 function ChatListPage() {
-  const userId = useRootStore(state => state.userId);
   const {tradePostId} = Route.useParams();
   const {data} = useSuspenseQuery({
-    queryFn: () => barter.getChatList(userId),
-    queryKey: ['chat', userId],
+    queryFn: () => barter.getChatListByTradePostId(Number(tradePostId)),
+    queryKey: ['chat', tradePostId],
   });
 
   const chatListData = data.data.data;
 
   return (
     <div className={cx('chatList')}>
-      {!!chatListData.length &&
+      {chatListData.length ? (
         chatListData.map(chat => (
           <ChatListItem
             key={chat.tradeId}
             {...chat}
             tradePostId={Number(tradePostId)}
           />
-        ))}
+        ))
+      ) : (
+        <EmptyPost text="채팅 목록이 없습니다." />
+      )}
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import {useSuspenseQuery} from '@tanstack/react-query';
 import {createFileRoute, Outlet} from '@tanstack/react-router';
-import {useEffect} from 'react';
 
 import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons';
 import Location from '@/components/Header/Location';
@@ -24,12 +23,6 @@ export default function Home() {
   });
 
   const location = data.data.data;
-
-  useEffect(() => {
-    const fcmToken = sessionStorage.getItem('fcmToken');
-    if (!fcmToken) return;
-    (async () => await barter.postFcmToken(fcmToken))();
-  }, []);
 
   return (
     <div className={styles.home}>

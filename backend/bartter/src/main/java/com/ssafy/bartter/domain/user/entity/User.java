@@ -13,6 +13,7 @@ import com.ssafy.bartter.domain.trade.entity.TradePost;
 import com.ssafy.bartter.domain.trade.entity.TradePostLike;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

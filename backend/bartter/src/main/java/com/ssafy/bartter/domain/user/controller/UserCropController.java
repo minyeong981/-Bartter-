@@ -24,7 +24,7 @@ import static com.ssafy.bartter.domain.crop.dto.CropDto.SimpleCropProfile;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @Tag(name = "유저의 농작물/농사일지 조회 API", description = "특정 유저의 농작물과 농사일지를 조회하는 API 입니다.")
 public class UserCropController {
 
