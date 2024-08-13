@@ -29,6 +29,7 @@ function ChatPage() {
   const [input, setInput] = useState('');
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
+  const [isJoined, setIsJoined] = useState(false); // join 상태를 추가
   const scrollRef = useRef<HTMLDivElement>(null);
   const prevScrollHeightRef = useRef(0); // 메시지 추가 후 복원하기 위한 참조
   const limit = 10; // 한 번에 불러올 메시지 수 : 무한 스크롤에서 사용합니다.
@@ -41,8 +42,8 @@ function ChatPage() {
           Authorization: `Bearer ${token}`,
         },
         onConnect: async () => {
-          sendJoin(client);
-          await loadMessages(page);
+          await sendJoin(client);
+          setIsJoined(true);
 
           client.subscribe(`/sub/trade/chat/${tradeId}`, message => {
             const data: ChatMessage = JSON.parse(message.body);
@@ -57,6 +58,12 @@ function ChatPage() {
     [tradeId],
   );
 
+  useEffect(() => {
+    if (isJoined) {
+      loadMessages(page);
+    }
+  }, [isJoined, page]);
+  
   useEffect(() => {
     client.activate();
 
@@ -132,7 +139,7 @@ function ChatPage() {
     }
   };
 
-  const sendJoin = (client: Client) => {
+  const sendJoin = async (client: Client) => {
     console.log('Join Request');
     const sendObject = {
       type: 'JOIN',
