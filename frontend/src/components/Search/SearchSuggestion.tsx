@@ -1,6 +1,6 @@
 import classnames from 'classnames/bind';
-import {FaSearch} from 'react-icons/fa';
 
+import {IconSearch} from '@/assets/svg';
 import { useSearch } from '@/context/SearchContext';
 
 import styles from './SearchSuggestion.module.scss';
@@ -44,8 +44,8 @@ export default function SearchSuggestion({
         key={index}
         className={cx('suggestion-item-box')}
         onClick={() => onSearch(suggestion, true)}
-      >
-        <FaSearch className={cx('icon')} />
+      > 
+      <IconSearch className={cx('icon')} />
         {getHighlightedText(suggestion, query)}
       </div>
     ))}

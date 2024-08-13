@@ -8,7 +8,9 @@ export default function NeighborListCard({
 } : SimpleUserProfile) {
     return (
         <div className={styles.cardContainer}>
+            <div className={styles.profile}>
             <ProfileImgComponent userId={userId} profileImage={profileImage}/>
+            </div>
             <div className={styles.nickname}>
                 {nickname}
             </div>
