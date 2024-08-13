@@ -10,7 +10,6 @@ const cx = classnames.bind(styles);
 interface ChattingButtonContainerProps {
   like: boolean;
   handleLike: (isLike: boolean) => void;
-  tradeId: number;
   isMyTrade: boolean;
   tradePostId: number;
 }
@@ -18,7 +17,6 @@ interface ChattingButtonContainerProps {
 export default function ChattingButtonContainer({
   like,
   handleLike,
-  tradeId,
   isMyTrade,
   tradePostId,
 }: ChattingButtonContainerProps) {
@@ -37,8 +35,8 @@ export default function ChattingButtonContainer({
   ) : (
     <LinkButton
       buttonStyle={{style: 'primary', size: 'medium'}}
-      to="/trade/chat/$tradePostId/$tradeId"
-      params={{tradeId: String(tradeId), tradePostId: String(tradePostId)}}
+      to="/trade/chat/$tradePostId"
+      params={{tradePostId: String(tradePostId)}}
     >
       채팅하기
     </LinkButton>

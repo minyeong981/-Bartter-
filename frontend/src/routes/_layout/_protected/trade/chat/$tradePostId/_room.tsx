@@ -11,6 +11,7 @@ import CompleteTradeModal from '@/components/Chat/Modal/CompleteTradeModal';
 import ConfirmCompleteModal from '@/components/Chat/Modal/ConfirmCompleteModal';
 import MakeReservationModal from '@/components/Chat/Modal/MakeReserveModal';
 import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons.tsx';
+import TradeIdContextProvider from '@/context/TradeIdContext.tsx';
 import barter from '@/services/barter.ts';
 
 export const Route = createFileRoute(
@@ -102,7 +103,9 @@ function ChatLayout() {
     <>
       <HeaderWithLabelAndButtons label="장덕동" />
       <ChatInfoCard {...chatRoomInfo} onClick={handleOpenModal} />
-      <Outlet />
+      <TradeIdContextProvider value={chatRoomInfo.tradeId}>
+        <Outlet />
+      </TradeIdContextProvider>
       {isModalOpen && Modal}
     </>
   );
