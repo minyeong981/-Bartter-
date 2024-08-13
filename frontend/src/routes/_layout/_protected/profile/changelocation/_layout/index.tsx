@@ -60,7 +60,7 @@ export default function ProfileChangeLocation() {
 
   return (
     <div>
-      <LocationContainer currentLocation={currentLocation} />
+      <LocationContainer currentLocation={currentLocation}/>
       <div className={styles.map}>
       {userPosition ? (
         <Map 
@@ -75,11 +75,11 @@ export default function ProfileChangeLocation() {
         }}
         level={3}>
         <MapMarker position={{ lat: userPosition.latitude, lng: userPosition.longitude }}>
-        수정된 위치
+        {/* <div className={styles.mapLocation} >{currentLocation}</div> */}
         </MapMarker>
         </Map>
       ) : (
-        <p>위치 데이터를 불러오세요.</p>
+        <p>위치를 수정하시겠습니까?</p>
       )}
       </div>
       <div className={styles.button}>
