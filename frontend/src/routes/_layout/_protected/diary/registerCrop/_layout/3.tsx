@@ -47,7 +47,13 @@ function GetDesciptionPage() {
   const navigate = useNavigate();
 
   async function handleContinueButton() {
-    await navigate({ to: '/diary/registerCrop/4', search: (prev) => ({ ...prev }) });
+    await navigate({ to: '/diary/registerCrop/4', 
+      search: (prev) => ({ 
+        ...prev,
+        description: prev.description || "", 
+        growDate: prev.growDate || "", 
+        nickname: prev.nickname || "", 
+        crop: prev.crop as CropCategoryDetail,  }) });
   }
 
   return (
