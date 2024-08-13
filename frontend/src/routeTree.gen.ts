@@ -88,6 +88,7 @@ import { Route as LayoutProtectedDiaryRegisterCropLayout1Import } from './routes
 import { Route as LayoutProtectedDiaryGrowDiaryLayoutCropIdImport } from './routes/_layout/_protected/diary/growDiary/_layout/$cropId'
 import { Route as LayoutProtectedDiaryDetailLayoutCropDiaryIdImport } from './routes/_layout/_protected/diary/detail/_layout/$cropDiaryId'
 import { Route as LayoutProtectedCommunityDetailLayoutPostIdImport } from './routes/_layout/_protected/community/detail/_layout/$postId'
+import { Route as LayoutProtectedTradeChatTradePostIdRoomIndexImport } from './routes/_layout/_protected/trade/chat/$tradePostId/_room/index'
 import { Route as LayoutProtectedProfileUserIdDiaryLayoutIndexImport } from './routes/_layout/_protected/profile/$userId/diary/_layout/index'
 import { Route as LayoutProtectedProfileUserIdCropStorageLayoutIndexImport } from './routes/_layout/_protected/profile/$userId/cropStorage/_layout/index'
 import { Route as LayoutProtectedTradeChatTradePostIdRoomTradeIdImport } from './routes/_layout/_protected/trade/chat/$tradePostId/_room/$tradeId'
@@ -750,6 +751,12 @@ const LayoutProtectedCommunityDetailLayoutPostIdRoute =
   LayoutProtectedCommunityDetailLayoutPostIdImport.update({
     path: '/$postId',
     getParentRoute: () => LayoutProtectedCommunityDetailLayoutRoute,
+  } as any)
+
+const LayoutProtectedTradeChatTradePostIdRoomIndexRoute =
+  LayoutProtectedTradeChatTradePostIdRoomIndexImport.update({
+    path: '/',
+    getParentRoute: () => LayoutProtectedTradeChatTradePostIdRoomRoute,
   } as any)
 
 const LayoutProtectedProfileUserIdDiaryLayoutIndexRoute =
@@ -1560,6 +1567,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProtectedProfileUserIdDiaryLayoutIndexImport
       parentRoute: typeof LayoutProtectedProfileUserIdDiaryLayoutImport
     }
+    '/_layout/_protected/trade/chat/$tradePostId/_room/': {
+      id: '/_layout/_protected/trade/chat/$tradePostId/_room/'
+      path: '/'
+      fullPath: '/trade/chat/$tradePostId/'
+      preLoaderRoute: typeof LayoutProtectedTradeChatTradePostIdRoomIndexImport
+      parentRoute: typeof LayoutProtectedTradeChatTradePostIdRoomImport
+    }
   }
 }
 
@@ -1753,6 +1767,7 @@ export const routeTree = rootRoute.addChildren({
             LayoutProtectedTradeChatTradePostIdRoomRoute:
               LayoutProtectedTradeChatTradePostIdRoomRoute.addChildren({
                 LayoutProtectedTradeChatTradePostIdRoomTradeIdRoute,
+                LayoutProtectedTradeChatTradePostIdRoomIndexRoute,
               }),
           }),
       }),
@@ -2359,7 +2374,8 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout/_protected/trade/chat/$tradePostId/_room.tsx",
       "parent": "/_layout/_protected/trade/chat/$tradePostId",
       "children": [
-        "/_layout/_protected/trade/chat/$tradePostId/_room/$tradeId"
+        "/_layout/_protected/trade/chat/$tradePostId/_room/$tradeId",
+        "/_layout/_protected/trade/chat/$tradePostId/_room/"
       ]
     },
     "/_layout/_protected/trade/detail/_layout/$tradePostId": {
@@ -2437,6 +2453,10 @@ export const routeTree = rootRoute.addChildren({
     "/_layout/_protected/profile/$userId/diary/_layout/": {
       "filePath": "_layout/_protected/profile/$userId/diary/_layout/index.tsx",
       "parent": "/_layout/_protected/profile/$userId/diary/_layout"
+    },
+    "/_layout/_protected/trade/chat/$tradePostId/_room/": {
+      "filePath": "_layout/_protected/trade/chat/$tradePostId/_room/index.tsx",
+      "parent": "/_layout/_protected/trade/chat/$tradePostId/_room"
     }
   }
 }

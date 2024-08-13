@@ -3,10 +3,9 @@ import {createFileRoute} from '@tanstack/react-router';
 import type {AxiosResponse} from 'axios';
 import classnames from 'classnames/bind';
 import type {ChangeEvent, KeyboardEvent, UIEvent} from 'react';
-import {useContext, useEffect, useMemo, useRef, useState} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 
 import ChatMessage from '@/components/Chat/ChatMessage';
-import {TradeIdContext} from '@/context/TradeIdContext.tsx';
 import useRootStore from '@/store';
 import axios from '@/util/axios.ts';
 
@@ -15,14 +14,13 @@ import styles from './chat.module.scss';
 const cx = classnames.bind(styles);
 
 export const Route = createFileRoute(
-  '/_layout/_protected/trade/chat/$tradePostId/_room/',
+  '/_layout/_protected/trade/chat/$tradePostId/_room/$tradeId',
 )({
   component: ChatPage,
 });
 
 function ChatPage() {
-  const tradeId = useContext(TradeIdContext);
-  const {tradePostId} = Route.useParams();
+  const {tradeId, tradePostId} = Route.useParams();
   const userId = useRootStore(state => state.userId);
   const token = useRootStore(state => state.token);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -36,22 +34,19 @@ function ChatPage() {
   const client = useMemo(
     () =>
       new Client({
-        brokerURL: 'ws://localhost:8080/ws',
+        brokerURL: 'wss://localhost:8080/ws',
+        connectHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
         onConnect: async () => {
-          // 메세지 로드
+          sendJoin(client);
           await loadMessages(page);
 
-          client.subscribe(
-            `/sub/trade/chat/${tradeId}`,
-            message => {
-              const data: ChatMessage = JSON.parse(message.body);
-              console.log(data);
-              setMessages(prevMessages => [...prevMessages, data]);
-            },
-            {
-              Authorization: `Bearer ${token}`,
-            },
-          );
+          client.subscribe(`/sub/trade/chat/${tradeId}`, message => {
+            const data: ChatMessage = JSON.parse(message.body);
+            console.log(data);
+            setMessages(prevMessages => [...prevMessages, data]);
+          });
         },
         onStompError: error => {
           console.error('Stomp Error:', error);
@@ -63,8 +58,11 @@ function ChatPage() {
   useEffect(() => {
     client.activate();
 
+    window.addEventListener('unload', () => sendLeave(client));
     return () => {
       if (client && client.connected) {
+        window.removeEventListener('unload', () => sendLeave(client));
+        sendLeave(client);
         client.deactivate();
       }
     };
@@ -78,7 +76,6 @@ function ChatPage() {
 
   // 메시지를 불러오기
   const loadMessages = async (page: number) => {
-    if (!tradeId) return;
     try {
       const response = await axios.get<AxiosResponse<ChatMessage[]>>(
         `/trades/chat/${tradeId}`,
@@ -114,6 +111,34 @@ function ChatPage() {
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
+  };
+
+  const sendLeave = (client: Client) => {
+    if (client.connected) {
+      console.log('Leave Request');
+      const sendObject = {
+        type: 'LEAVE',
+        senderId: userId,
+        tradeId: tradeId,
+      };
+      client.publish({
+        destination: '/pub/trade/chat',
+        body: JSON.stringify(sendObject),
+      });
+    }
+  };
+
+  const sendJoin = (client: Client) => {
+    console.log('Join Request');
+    const sendObject = {
+      type: 'JOIN',
+      senderId: userId,
+      tradeId: tradeId,
+    };
+    client.publish({
+      destination: '/pub/trade/chat',
+      body: JSON.stringify(sendObject),
+    });
   };
 
   // 채팅 보내기 Stomp 연결 돼야만 보낼 수 있다.
