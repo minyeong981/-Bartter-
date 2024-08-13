@@ -22,8 +22,10 @@ export const Route = createFileRoute('/_layout/signup/_layout/4')({
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase3 => {
     return {
       name: search.name !== 'undefined' ? (search.name as Name) : undefined,
-      userId:
-        search.userId !== 'undefined' ? (search.userId as UserId) : undefined,
+      username:
+        search.username !== 'undefined'
+          ? (search.username as Username)
+          : undefined,
       password:
         search.password !== 'undefined'
           ? (search.password as Password)
@@ -45,22 +47,24 @@ function GetBirthPage() {
   }
 
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>
-          농부님의
-          <br />
-          생일을 알려주세요
-        </Heading>
-      </div>
-      <div className={cx('inputContainer')}>
-        <LabeledInput
-          label="생년월일"
-          placeholder="1998-08-01"
-          onChange={handleBirthChange}
-          value={birth}
-          pattern={BIRTH_PATTERN.source}
-        />
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>
+            농부님의
+            <br />
+            생일을 알려주세요
+          </Heading>
+        </div>
+        <div className={cx('inputContainer')}>
+          <LabeledInput
+            label="생년월일"
+            placeholder="1998-08-01"
+            onChange={handleBirthChange}
+            value={birth}
+            pattern={BIRTH_PATTERN.source}
+          />
+        </div>
       </div>
       <div className={cx('buttonContainer')}>
         <GeneralButton
@@ -72,6 +76,6 @@ function GetBirthPage() {
           다음
         </GeneralButton>
       </div>
-    </>
+    </div>
   );
 }

@@ -220,7 +220,7 @@ public class User extends BaseEntity {
         this.phone = phone;
         this.email = email;
         this.role = role == null ? Role.USER : role;
-        this.profileImage = profileImage;
+        this.profileImage = profileImage == null ? "assets/image/default.png" : profileImage;
         this.profileMessage = profileMessage == null ? "Hi" : profileMessage;
         this.isAccountExpired = false;
     }

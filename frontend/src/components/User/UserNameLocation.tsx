@@ -1,17 +1,22 @@
 import {useRouter} from '@tanstack/react-router';
+import {format} from 'date-fns';
+import {ko} from 'date-fns/locale';
 import {useState} from 'react';
 
 import {IconTrash} from '@/assets/svg';
+import useRootStore from '@/store';
 
 import DeletePostModal from '../Modals/DeletePostModal/deletePostModal';
+import ProfileImgComponent from './ProfileImgComponent';
 import styles from './UserNameContent.module.scss';
 
 interface UserNameLocationProps {
   profileImage: ProfileImage;
   nickname: Nickname;
-  locationName: LocationName;
+  locationName: Name;
   createdAt: CreatedAt;
   postId: CommunityPostId;
+  userId: UserId;
 }
 
 interface onDeleteProps {
@@ -23,14 +28,17 @@ export default function UserNameLocation({
   nickname,
   profileImage,
   postId,
+  userId,
   createdAt,
   onDelete
 }: UserNameLocationProps & onDeleteProps) {
+
+  const myId = useRootStore((state) => state.userId)
   const [ isModalOpen, setIsModalOpen ] = useState(false);
   const {history} = useRouter();
+  const location = locationName.split(' ').slice(1,2) + ' ' + locationName.split(' ').slice(2,3)
 
   function handleClickTrash() {
-    // setShowDeleteConfirm(true);
     setIsModalOpen(true)
   }
 
@@ -45,19 +53,17 @@ export default function UserNameLocation({
 
   return (
     <div className={styles.userInfoContainer}>
-      <img
-        className={styles.profileImage}
-        src={profileImage}
-        alt={`${nickname}'s profile`}
-      />
+      <ProfileImgComponent userId={userId} profileImage={profileImage}/>
       <div className={styles.userInfo}>
         <div className={styles.userName}>{nickname}</div>
-        <div className={styles.content}>{locationName}</div>
-        <div className={styles.createdDate}>{createdAt}</div>
+        <div className={styles.content}>{location}</div>
+        <div className={styles.createdDate}>{format(createdAt, 'yyyy-MM-dd HH:mm', {locale: ko})}</div>
       </div>
-      <button onClick={handleClickTrash}>
+      { Number(myId) === Number(userId) &&
+        <button onClick={handleClickTrash}>
         <IconTrash className={styles.menuIcon} />
       </button>
+      }
       {isModalOpen && <DeletePostModal onConfirm={handleConfirmDelete} onClickOutside={handleModalClose} />}
     </div>
   );

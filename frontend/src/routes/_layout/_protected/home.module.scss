@@ -1,0 +1,83 @@
+@use '@/styles/constants/typographies' as typo;
+@use '@/styles/constants/colors' as colors;
+
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  // align-items: center;
+  height: 100%;
+
+  // padding: 0 20px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+}
+
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+
+  .empty-text {
+    @include typo.label
+  }
+
+  .home-barter, .home-community, .home-story {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .link-button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  .home-story-carousel {
+    width: calc(100% - 20px);
+    padding-bottom: 10px;
+    margin-left: 20px;
+    text-align: left;
+
+    @include typo.heading
+  }
+
+}
+
+.carousel-inner {
+  display: flex;
+  width: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.barter-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(100% / 2 - 10px);
+  padding: 10px;
+  margin: 0 5px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+}

@@ -1,0 +1,26 @@
+@use '@/styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+
+.result-box {
+  @include typo.heading;
+
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+
+  .result-text {
+    padding-right: 10px;
+    color: colors.$primary;
+  }
+}
+
+.neighborList {
+    width: 100%;
+    height: calc(100% - 106px);
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

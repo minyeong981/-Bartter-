@@ -1,41 +1,110 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/dimension' as dimension;
+@use '../../styles/constants/typographies' as typo;
 
-.bottomBar {
+.navigation {
   position: fixed;
-  bottom: 0;
+  bottom: 12px;
+  left: 50%;
+  z-index: dimension.$foreground;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  width: 100%;
+  width: 90%;
+  max-width: 600px;
   height: 60px;
-  background-color: #fff;
-  box-shadow: 0 -2px 5px rgb(0 0 0 / 10%);
+  padding: 0 20px;
+  background-color: rgb(255 255 255 / 80%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgb(255 255 255 / 30%);
+  border-radius: 40px;
+  box-shadow: 0 8px 20px rgb(0 0 0 / 15%);
+  transform: translateX(-50%);
+
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  li {
+    position: relative; 
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+  }
+
+  a {
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: colors.$placeholder;
+    text-decoration: none;
+    transition: transform 0.3s ease, color 0.3s ease;
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: -1;
+      width: 60px;
+      height: 30px;
+      content: "";
+      background-color: rgb(255 255 255 / 80%);
+      border-radius: 50%;
+      opacity: 0; 
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform: translate(-50%, -50%) scale(0.5); 
+    }
+
+    &:hover {
+      color: colors.$primary;
+      transform: translateY(-5px);
+
+      // transform: translateY(-8px) scale(1.05);
+
+      &::before {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      .lottie {
+        transform: scale(1.1);
+      }
+    }
+
+    &:active {
+      transform: translateY(-8px) scale(1.05);
+
+      .lottie {
+        transform: scale(1.2);
+
+      }
+    }
+
+    span {
+      @include typo.comment; 
+    }              
+  }
+
+  .lottie {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+
+    &:active {
+      transform: scale(1.2);
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 }
 
-.iconButton {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: #777;
-  cursor: pointer;
-  background: none;
-  border: none;
-  outline: none;
-  transition: transform 0.2s ease, color 0.2s ease;
-
-  i {
-    margin-bottom: 4px;
-    font-size: 24px;
-  }
-
-  &:hover,
-  &.active {
-    color: #3f51b5;
-  }
-
-  &.active {
-    transform: translateY(-10px);
-  }
-}
 

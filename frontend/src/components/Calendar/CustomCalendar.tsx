@@ -7,14 +7,21 @@ import { Calendar } from 'react-calendar';
 interface CustomCalendarProps {
   isCollapsed: boolean;
   onDateChange: (date: Date) => void;
+  onMonthYearChange: (year: number, month: number) => void;
   highlightDates: Date[]; // 강조할 날짜 목록
+  selectedDate: Date; 
 }
 
-export default function CustomCalendar({ isCollapsed, onDateChange, highlightDates }: CustomCalendarProps) {
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+export default function CustomCalendar({ isCollapsed, onDateChange, onMonthYearChange, highlightDates, selectedDate }: CustomCalendarProps) {
   const [currentWeek, setCurrentWeek] = useState<Date[]>([]);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
 
+  // 날짜 비교를 위한 정규화 함수
+  const normalizeDate = (date: Date) => {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  };
+
+  // 시작하는 요일 -> 일요일부터 설정
   const getStartOfWeek = (date: Date): Date => {
     const day = date.getDay();
     const diff = date.getDate() - day;
@@ -29,24 +36,39 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
     setCurrentWeek(week);
   }, []);
 
+  // 선택한 날짜의 주 업데이트
   useEffect(() => {
     updateCurrentWeek(selectedDate);
   }, [selectedDate, updateCurrentWeek]);
 
+  // 달력 접었을 때 선택한 날짜의 주 업데이트
   useEffect(() => {
     if (isCollapsed) {
       updateCurrentWeek(selectedDate);
     }
   }, [isCollapsed, currentMonth, selectedDate, updateCurrentWeek]);
 
+  // 달 변경
   const changeMonth = (increment: number) => {
     const newDate = new Date(currentMonth);
     newDate.setMonth(currentMonth.getMonth() + increment);
     setCurrentMonth(newDate);
-    setSelectedDate(new Date(newDate.setDate(selectedDate.getDate())));
+    onMonthYearChange(newDate.getFullYear(), newDate.getMonth() + 1);
   };
 
-  const formatMonthYear = (date: Date): string => {
+  // 달력 이동 시 현재 월 업데이트
+  useEffect(() => {
+    setCurrentMonth(selectedDate); 
+  }, [selectedDate]);
+
+  useEffect(() => {
+    // console.log('Highlight Dates in CustomCalendar:', highlightDates);
+  }, [highlightDates]);
+
+
+  // 년, 월 커스텀 => 2021. 09 형식
+  const formatMonthYear = (_: string | undefined, date: Date) => {
+    if (!date) return '';
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     return `${year}. ${month}`;
@@ -56,24 +78,32 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
     return date.getDate().toString();
   };
 
+  // 요일 커스텀
   const renderWeekday = (_: string | undefined, date: Date): string => {
     const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
     return weekdays[date.getDay()];
   };
 
+  // 날짜 클릭하면 부모 컴포넌트에 선택된 날짜 전달
   const onClickDay = (date: Date) => {
-    setSelectedDate(date);
-    updateCurrentWeek(date);
-    onDateChange(date); // 부모 컴포넌트에 선택된 날짜 전달
+    onDateChange(date);
   };
 
+  // 다이어리 있는 날짜에 점 찍기
   const tileContent = ({ date, view }: { date: Date, view: string }) => {
-    if (view === 'month' && highlightDates.some(highlightDate => highlightDate.toDateString() === date.toDateString())) {
-      return <div className="highlight-dot" />;
+    if (view === 'month') {
+      const isHighlighted = highlightDates.some(
+        (highlightDate) => highlightDate.toDateString() === date.toDateString()
+      );
+
+      if (isHighlighted) {
+        return <div className="highlight-dot" />;
+      }
     }
     return null;
   };
 
+  // 기본 달력 세팅
   const getTileClassName = (date: Date) => {
     const classes = [];
     if (date.getDay() === 6) {
@@ -85,18 +115,19 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
     if (date.getMonth() !== currentMonth.getMonth()) {
       classes.push('neighboringMonth');
     }
-    if (date.toDateString() === new Date().toDateString()) {
+    if (normalizeDate(date).getTime() === normalizeDate(new Date()).getTime()) {
       classes.push('today');
     }
-    if (date.toDateString() === selectedDate.toDateString()) {
+    if (normalizeDate(date).getTime() === normalizeDate(selectedDate).getTime()) {
       classes.push('selected');
     }
-    if (currentWeek.some(weekDate => weekDate.toDateString() === date.toDateString())) {
+    if (currentWeek.some(weekDate => normalizeDate(weekDate).getTime() === normalizeDate(date).getTime())) {
       classes.push('current-week');
     }
     return classes.join(' ');
   };
 
+  // 달력 접었을 때 세팅
   const renderCollapsedCalendar = () => {
     return (
       <div className="react-calendar collapsed-calendar">
@@ -104,11 +135,12 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
           <button className="react-calendar__navigation__prev-button" onClick={() => changeMonth(-1)}>
             {'<'}
           </button>
-          <span className="react-calendar__navigation__label">{formatMonthYear(currentMonth)}</span>
+          <span className="react-calendar__navigation__label">{formatMonthYear('', currentMonth)}</span>
           <button className="react-calendar__navigation__next-button" onClick={() => changeMonth(1)}>
             {'>'}
           </button>
         </div>
+
         <div className="react-calendar__month-view__weekdays">
           {currentWeek.map((date, index) => (
             <div key={index} className="react-calendar__month-view__weekdays__weekday">
@@ -116,6 +148,7 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
             </div>
           ))}
         </div>
+
         <div className="react-calendar__month-view__days">
           {currentWeek.map((date) => (
             <div
@@ -134,13 +167,18 @@ export default function CustomCalendar({ isCollapsed, onDateChange, highlightDat
     );
   };
 
+  // 달력 펼쳤을 때 세팅
   const renderFullCalendar = () => {
     return (
       <Calendar
         activeStartDate={currentMonth}
-        onActiveStartDateChange={({ activeStartDate }) => setCurrentMonth(activeStartDate as Date)}
+        onActiveStartDateChange={({ activeStartDate }) => {
+          const date = activeStartDate as Date;
+          setCurrentMonth(date);
+          onMonthYearChange(date.getFullYear(), date.getMonth() + 1);
+        }}
         locale="en-US"
-        formatMonthYear={(_, date) => formatMonthYear(date)}
+        formatMonthYear={(_, date) => formatMonthYear(_, date)}
         prevLabel="<"
         nextLabel=">"
         tileClassName={({ date, view }) => view === 'month' ? getTileClassName(date) : null}

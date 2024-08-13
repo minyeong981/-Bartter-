@@ -12,7 +12,7 @@ import {PASSWORD_PATTERN} from '@/util/validation.ts';
 import styles from '../signup.module.scss';
 
 export interface SearchParamFromPhase2 extends SearchParamFromPhase1 {
-  userId?: UserId;
+  username?: Username;
 }
 
 const cx = classnames.bind(styles);
@@ -22,12 +22,15 @@ export const Route = createFileRoute('/_layout/signup/_layout/3')({
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase2 => {
     return {
       name: search.name !== 'undefined' ? (search.name as Name) : undefined,
-      userId:
-        search.userId !== 'undefined' ? (search.userId as UserId) : undefined,
+      username:
+        search.username !== 'undefined'
+          ? (search.username as Username)
+          : undefined,
     };
   },
   beforeLoad: async ({search}) => {
-    if (!search.userId) throw redirect({to: '/signup/2', search: {...search}});
+    if (!search.username)
+      throw redirect({to: '/signup/2', search: {...search}});
   },
 });
 
@@ -46,29 +49,31 @@ function GetPasswordPage() {
   }
 
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>
-          농부님이
-          <br />
-          사용할 비밀번호를 알려주세요
-        </Heading>
-      </div>
-      <div className={cx('inputContainer')}>
-        <LabeledInput
-          label="비밀번호"
-          placeholder="영문 특수문자를 포함해서 8자리 이상 입력"
-          onChange={handlePasswordChange}
-          value={password}
-          pattern={PASSWORD_PATTERN.source}
-        />
-        <LabeledInput
-          label="비밀번호 확인"
-          placeholder="비밀번호 확인"
-          onChange={handleConfirmPasswordChange}
-          value={confirmPassword}
-          pattern={PASSWORD_PATTERN.source}
-        />
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>
+            농부님이
+            <br />
+            사용할 비밀번호를 알려주세요
+          </Heading>
+        </div>
+        <div className={cx('inputContainer')}>
+          <LabeledInput
+            label="비밀번호"
+            placeholder="영문 특수문자를 포함해서 8자리 이상 입력"
+            onChange={handlePasswordChange}
+            value={password}
+            pattern={PASSWORD_PATTERN.source}
+          />
+          <LabeledInput
+            label="비밀번호 확인"
+            placeholder="비밀번호 확인"
+            onChange={handleConfirmPasswordChange}
+            value={confirmPassword}
+            pattern={PASSWORD_PATTERN.source}
+          />
+        </div>
       </div>
       <div className={cx('buttonContainer')}>
         <GeneralButton
@@ -80,6 +85,6 @@ function GetPasswordPage() {
           다음
         </GeneralButton>
       </div>
-    </>
+    </div>
   );
 }

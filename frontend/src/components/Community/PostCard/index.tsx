@@ -1,22 +1,29 @@
 import {Link} from '@tanstack/react-router';
+import {format} from 'date-fns';
+import {ko} from 'date-fns/locale';
 
 import LikeComment from '@/components/LikeComment';
 
 import styles from './postCard.module.scss';
 
 export default function PostCard({
-    communityPostId, 
-    // user, 
-    location,
+    communityPostId,  
     title, 
     content, 
+    createdAt,
     likeCount, 
-    commentList, 
-    imageList, 
-    createdAt}: CommunityPost) {
+    commentCount, 
+    imageUrl, 
+    hasImage,
+    location,
+    isLike,
+    }: SimpleCommunityPostDetail) {
+
+      const simpleLocationName = location.name.split(' ').slice(1,2) + ' ' + location.name.split(' ').slice(2,3)
+
          return (
         <div className={styles.communityCard}>
-          <div className={styles.location}>{location.locationName}</div>
+          <div className={styles.location}>{simpleLocationName}</div>
           <Link
             className={styles.cardContent}
             to="/community/detail/$postId"
@@ -27,17 +34,11 @@ export default function PostCard({
             <div className={styles.textBox}>
               <div className={styles.textTitle}>{title}</div>
               <div className={styles.text}>{content}</div>
-              <div className={styles.time}>{createdAt}</div>
+              <div className={styles.time}>{format(createdAt, 'yyyy-MM-dd HH:mm', {locale: ko})}</div>
             </div>
-            {/* {post.image && <img src={post.image} alt={post.title} />} */}
-            {imageList.map(
-              (image, imgIndex) =>
-                imgIndex === 0 && (
-                  <img key={imgIndex} src={image.imageUrl} alt={title} />
-                ),
-            )}
+            {hasImage && <img src={imageUrl} alt={title} />}
           </Link>
-          <LikeComment likeCount={likeCount} commentCount={commentList.length} isLike={true}/>
+          <LikeComment likeCount={likeCount} commentCount={commentCount} isLike={isLike}/>
         </div>
   );
 }

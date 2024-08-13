@@ -1,0 +1,87 @@
+@use '@/styles/constants/colors.scss' as colors;
+@use '@/styles/constants/typographies.scss' as typo;
+
+.growDiaryContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.profileSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .cropImage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 390px;
+      height: 110px;
+      overflow: hidden;
+      background-color: aliceblue;
+    }
+
+    h2 {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+        
+    }
+
+    .infoImages {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+
+            img {
+                width: 50px;
+                height: 50px;
+            }
+
+            p {
+                margin: 0;
+
+                @include typo.label;
+      
+                span {
+                  color: colors.$red;
+                }
+              }   
+        }
+    }
+}
+
+.diarySection {
+  .entries {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 20px;
+    
+
+    .entry {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 10px;
+    }
+  }
+}
+
+
+  hr {
+    margin: 20px 0 10px;
+    border: 0;
+    border-top: 2px solid colors.$divider;
+  }

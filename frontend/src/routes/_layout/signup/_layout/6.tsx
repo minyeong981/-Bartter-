@@ -22,8 +22,10 @@ export const Route = createFileRoute('/_layout/signup/_layout/6')({
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase5 => {
     return {
       name: search.name !== 'undefined' ? (search.name as Name) : undefined,
-      userId:
-        search.userId !== 'undefined' ? (search.userId as UserId) : undefined,
+      username:
+        search.username !== 'undefined'
+          ? (search.username as Username)
+          : undefined,
       password:
         search.password !== 'undefined'
           ? (search.password as Password)
@@ -47,23 +49,25 @@ function GetPhoneNumberPage() {
   }
 
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>
-          농부님의
-          <br />
-          전화번호를 알려주세요
-        </Heading>
-      </div>
-      <div className={cx('inputContainer')}>
-        <LabeledInput
-          label="전화번호"
-          placeholder="01012345678"
-          onChange={handlePhoneNumberChange}
-          value={phoneNumber}
-          type="tel"
-          pattern={NUMBER_PATTERN.source}
-        />
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>
+            농부님의
+            <br />
+            전화번호를 알려주세요
+          </Heading>
+        </div>
+        <div className={cx('inputContainer')}>
+          <LabeledInput
+            label="전화번호"
+            placeholder="01012345678"
+            onChange={handlePhoneNumberChange}
+            value={phoneNumber}
+            type="tel"
+            pattern={NUMBER_PATTERN.source}
+          />
+        </div>
       </div>
       <div className={cx('buttonContainer')}>
         <GeneralButton
@@ -75,6 +79,6 @@ function GetPhoneNumberPage() {
           다음
         </GeneralButton>
       </div>
-    </>
+    </div>
   );
 }

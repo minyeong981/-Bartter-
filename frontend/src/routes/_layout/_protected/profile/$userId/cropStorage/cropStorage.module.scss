@@ -1,0 +1,121 @@
+@use '@/styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+
+.cropStorageLayout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+    padding-bottom: 0;
+    overflow-y: scroll;
+    
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.cropStorageContainer {
+  padding: 16px;
+  text-align: center;
+
+  h1 {
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+
+  p {
+    max-width: 300px;
+    margin: 10px;
+    text-align: left;
+
+    @include typo.name;
+  }
+
+  .storageImage {
+    display: flex;
+    justify-content: center;
+
+    .animation {
+      width: 200px;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .toggleContainer {
+    display: inline-flex;
+    padding: 5px;
+    margin-bottom: 20px;
+    background-color: colors.$divider;
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+
+    .toggleButton {
+      padding: 10px 20px;
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+      border-radius: 30px;
+      transition: background-color 0.1s, color 0.1s;
+
+      &.active {
+        color: colors.$white;
+        background-color: colors.$primary;
+      }
+
+      @include typo.alarm;
+    }
+  }
+
+  .myCropsContainer, .receivedCropsContainer {
+    align-items: center;
+    justify-content: center;
+    padding: 30px 10px;
+    background-color: colors.$divider;
+    border-radius: 10px;
+
+    &.empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 200px; /* 중앙에 위치하도록 충분한 높이 설정 */
+    }
+
+    &.withCrops {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 가로로 3개씩 배치 */
+      gap: 10px; /* 그리드 아이템 간의 간격 */
+    }
+  }
+
+  .cropImageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    background-color: colors.$divider;
+    border-radius: 10px;
+
+    .cropNickname {
+      @include typo.button;
+    }
+  }
+
+  .cropImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border: 2px solid colors.$divider2;
+    border-radius: 50%;
+  }
+
+  .notCrop {
+    margin: auto;
+    font-size: 18px;
+    text-align: center;
+
+    @include typo.button;
+  }
+}

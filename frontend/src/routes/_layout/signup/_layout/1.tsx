@@ -23,21 +23,23 @@ function GetNamePage() {
   }
 
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>
-          농부님의
-          <br />
-          이름을 알려주세요
-        </Heading>
-      </div>
-      <div className={cx('inputContainer')}>
-        <LabeledInput
-          label="이름"
-          placeholder="이름을 입력해주세요"
-          onChange={handleNameChange}
-          value={name}
-        />
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>
+            농부님의
+            <br />
+            이름을 알려주세요
+          </Heading>
+        </div>
+        <div className={cx('inputContainer')}>
+          <LabeledInput
+            label="이름"
+            placeholder="이름을 입력해주세요"
+            onChange={handleNameChange}
+            value={name}
+          />
+        </div>
       </div>
       <div className={cx('buttonContainer')}>
         <GeneralButton
@@ -49,6 +51,6 @@ function GetNamePage() {
           다음
         </GeneralButton>
       </div>
-    </>
+    </div>
   );
 }

@@ -1,37 +1,20 @@
+import classnames from 'classnames/bind'
+
 import styles from './HomeStory.module.scss';
+import StoryCard from './StoryCard';
 
-interface Story {
-  diaryImage: string;
-  profileImage: string;
-  nickname: string;
+interface HomeStoryProps{
+  stories: CropDiaryDetailWithUser[]
 }
 
-interface StoryProps {
-  stories: Story[];
-}
-
-export default function HomeStory({stories}: StoryProps) {
+const cx = classnames.bind(styles)
+export default function HomeStory({stories}: HomeStoryProps) {
+  console.log(stories)
   return (
-    <div className={styles.homeStory}>
-      <div className={styles.carouselContainer}>
+    <div className={cx('home-story')}>
+      <div className={cx('carousel-container')}>
         {stories.map((story, index) => (
-          <div className={styles.storyCard} key={index}>
-            <div
-              className={styles.diaryImage}
-              style={{
-                backgroundImage: `linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7)), url('${story.diaryImage}')`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-              }}
-            />
-            <img
-              className={styles.profileImage}
-              src={story.profileImage}
-              alt={`${story.nickname}'s profile`}
-            />
-            <div className={styles.nickname}>{story.nickname}</div>
-          </div>
+          <StoryCard key={index} {...story}/>
         ))}
       </div>
     </div>

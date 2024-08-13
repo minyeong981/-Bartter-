@@ -15,6 +15,8 @@ interface SemiCalendarInputProps {
 }
 
 const SemiCalendarInput: React.FC<SemiCalendarInputProps> = ({ label, selectedDate, onDateChange }) => {
+  const placeholder = selectedDate ? format(selectedDate, 'yyyy/MM/dd') : '날짜를 선택하세요';
+
   return (
     <div className={cx('labeledInput')}>
       <label className={cx('inputLabel')}>{label}</label>
@@ -22,10 +24,10 @@ const SemiCalendarInput: React.FC<SemiCalendarInputProps> = ({ label, selectedDa
         <DatePicker
           selected={selectedDate}
           onChange={onDateChange}
-          placeholderText={format(new Date(), 'yyyy/MM/dd')}
+          placeholderText={placeholder}
           dateFormat="yyyy/MM/dd"
           className={cx('datePicker')}
-          locale={ko} // 로케일 설정
+          locale={ko}
           maxDate={new Date()} // 오늘 이후 날짜 선택 불가
           renderCustomHeader={({
             date,

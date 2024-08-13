@@ -1,34 +1,14 @@
 import {useEffect, useRef} from 'react';
 
-import UserImage from '@/assets/image/유저.png';
-
 import NeighborCard from './NeighborCard';
 import styles from './NeighborCarousel.module.scss';
 
-const followings: SimpleUser[] = [
-  {
-    userId: String(1),
-    nickname: 'admin1',
-    profileImage: UserImage,
-  },
-  {
-    userId: String(2),
-    nickname: 'admin2',
-    profileImage: UserImage,
-  },
-  {
-    userId: String(3),
-    nickname: 'admin3',
-    profileImage: UserImage,
-  },
-  {
-    userId: String(4),
-    nickname: 'admin4',
-    profileImage: UserImage,
-  },
-];
+interface NeighborCarouselProps {
+  followings : SimpleUserProfileByKeyword[];
+  onClick: (userId : UserId, isFollow:IsFollowed) => void;
+}
 
-export default function NeighborCarousel() {
+export default function NeighborCarousel({followings, onClick} : NeighborCarouselProps ) {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -46,7 +26,8 @@ export default function NeighborCarousel() {
               nickname={following.nickname}
               profileImage={following.profileImage}
               userId={Number(following.userId)}
-              isfollow={false}
+              isFollow={following.isFollow}
+              onClick={onClick}
             />
           </div>
         ))}

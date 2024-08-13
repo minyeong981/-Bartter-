@@ -29,41 +29,43 @@ export const Route = createFileRoute('/_layout/signup/_layout/2')({
 });
 
 function GetUserId() {
-  const [userId, setUserId] = useState('');
-  const isValid = userId.match(USERID_PATTERN);
+  const [username, setUsername] = useState('');
+  const isValid = username.match(USERID_PATTERN);
 
   function handleUserIdChange(e: ChangeEvent<HTMLInputElement>) {
-    setUserId(e.currentTarget.value);
+    setUsername(e.currentTarget.value);
   }
 
   return (
-    <>
-      <div className={cx('headingContainer')}>
-        <Heading>
-          농부님이 사용할
-          <br />
-          아이디를 알려주세요
-        </Heading>
-      </div>
-      <div className={cx('inputContainer')}>
-        <LabeledInput
-          label="아이디"
-          placeholder="아이디를 입력해주세요"
-          onChange={handleUserIdChange}
-          value={userId}
-          pattern={USERID_PATTERN.source}
-        />
+    <div className={cx('container')}>
+      <div className={cx('mainContainer')}>
+        <div className={cx('headingContainer')}>
+          <Heading>
+            농부님이 사용할
+            <br />
+            아이디를 알려주세요
+          </Heading>
+        </div>
+        <div className={cx('inputContainer')}>
+          <LabeledInput
+            label="아이디"
+            placeholder="아이디를 입력해주세요"
+            onChange={handleUserIdChange}
+            value={username}
+            pattern={USERID_PATTERN.source}
+          />
+        </div>
       </div>
       <div className={cx('buttonContainer')}>
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
           to="/signup/3"
-          search={prev => ({...prev, userId})}
+          search={prev => ({...prev, username: username})}
           disabled={!isValid}
         >
           다음
         </GeneralButton>
       </div>
-    </>
+    </div>
   );
 }

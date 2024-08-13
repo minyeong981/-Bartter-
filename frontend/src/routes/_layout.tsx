@@ -1,5 +1,7 @@
 import {createFileRoute, Outlet} from '@tanstack/react-router';
+import {Suspense} from 'react';
 
+import Spinner from '@/components/Spinner';
 import classes from '@/styles/layout/rootLayout.module.scss';
 
 export const Route = createFileRoute('/_layout')({
@@ -9,7 +11,9 @@ export const Route = createFileRoute('/_layout')({
 function Layout() {
   return (
     <div className={classes.layout}>
-      <Outlet />
+      <Suspense fallback={<Spinner />}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 }

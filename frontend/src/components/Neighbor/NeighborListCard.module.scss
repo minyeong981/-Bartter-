@@ -1,0 +1,30 @@
+@use '@/styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+
+.cardContainer {
+    display: flex;
+    align-items:center; 
+    justify-content:space-between;
+    width: 100%;
+    padding: 0 20px;
+    margin: 10px 0;
+
+    .profile {
+        display: flex;
+        align-items: center;
+        margin-right: 20px; 
+    }
+
+    .nickname {
+        display: flex;
+        flex:1;
+        align-items: center; 
+        margin-left: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; 
+
+        @include typo.name;
+    }
+}
+

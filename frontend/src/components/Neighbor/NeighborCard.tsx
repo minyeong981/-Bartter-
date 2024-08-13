@@ -1,31 +1,36 @@
-import {useState} from 'react';
-
 import FollowButton from '@/components//Buttons/FollowButton';
+import useRootStore from '@/store';
 
+import ProfileImgComponent from '../User/ProfileImgComponent';
 import styles from './NeighborCarousel.module.scss';
 
+interface NeighborCardProps {
+  userId : UserId;
+  profileImage:ProfileImage;
+  nickname:Name;
+  isFollow:IsFollowed;
+  onClick: (userId: UserId, isfollow:IsFollowed) => void;
+}
+
 export default function NeighborCard({
-  // userId,
+  userId,
   profileImage,
   nickname,
-  isfollow,
-}: {
-  userId: number;
-  profileImage: string;
-  nickname: string;
-  isfollow: boolean;
-}) {
-  const [isfollowed, setIsfollowed] = useState(isfollow);
+  isFollow,
+  onClick,
+}: NeighborCardProps) {
 
+  const myId : UserId  = useRootStore((state) => state.userId);
+ 
   function handleClick() {
-    setIsfollowed(!isfollowed);
+    onClick(userId, isFollow);
   }
 
   return (
     <div className={styles.followingCard}>
-      <img src={profileImage} alt={nickname} className={styles.profileImage} />
+      <ProfileImgComponent userId={userId} profileImage={profileImage} />
       <div className={styles.nickname}>{nickname}</div>
-      <FollowButton isfollow={isfollowed} onClick={handleClick} />
+     <FollowButton isfollow={isFollow} onClick={handleClick} isDisabled={myId===userId}/>
     </div>
   );
 }

@@ -1,16 +1,19 @@
 @use '@/styles/constants/colors' as colors;
 @use '@/styles/constants/typographies.scss' as typo;
 
-.suggestionsContainer {
+.suggestions-container {
     display: flex;
     flex-direction: column;
-    max-width: 360px;
+    width: 100%;
+
+    // max-width: 360px;
   }
   
-  .suggestionItem {
+  .suggestion-item-box {
     display: flex;
     align-items: center;
-    padding: 14px 0;
+    padding-top: 15px;
+    padding-bottom: 10px;
     margin-left:30px;
 
     @include typo.name;
@@ -19,14 +22,14 @@
     border-bottom: 1px solid colors.$divider2
   }
   
-  .suggestionItem:hover {
+  .suggestion-item:hover {
     background-color: rgba( colors.$primary, 0.2);
   }
   
   .icon {
+    width: 20px;
     margin-right: 10px;
     margin-left:10px;
-    color: black;
   }
   
   .highlighted {

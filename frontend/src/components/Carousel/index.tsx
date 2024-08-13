@@ -9,7 +9,7 @@ interface CarouselProps {
 
 const cx = classnames.bind(styles);
 
-export default function Carousel({images}: CarouselProps) {
+export default function Carousel({images = []}: CarouselProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
 

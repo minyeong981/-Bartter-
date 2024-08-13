@@ -1,33 +1,41 @@
-import { useState } from 'react'
+import classname from 'classnames/bind'
 import { FaX } from "react-icons/fa6";
 
+import EmptyPost from "../Empty/EmptyPost";
 import styles from './RecentSearch.module.scss';
 
 interface RecentSearchProps {
     searches: string[];
-    onSearch: (searchTerm: string, isEnter:boolean) => void;
+    onSearch: (searchTerm: string, isEnter: boolean) => void;
+    onDeleteSearch: (searchTerm: string) => void;
 }
 
-export default function RecentSearch({ searches, onSearch }: RecentSearchProps) {
+const cx = classname.bind(styles)
+export default function RecentSearch({ searches, onSearch, onDeleteSearch }: RecentSearchProps) {
 
-    const [searchList, setSearchList] = useState<string[]>(searches);
-
-    function onDelete(search : string) {
-        setSearchList(searchList.filter((word) => word !== search))
+    function handleDeleteSearch(search: string) {
+        onDeleteSearch(search);
     }
 
     return (
-        <div className={styles.recentSearchContainer}>
-            {searchList.map((search, searchIndex) => (
-                <div key={searchIndex} className={styles.searchItem}>
-                    <div className={styles.searchText} onClick={() => onSearch(search, true)}>
-                        {search}
+        <div className={cx("container")}>
+            {searches.length === 0 ? (
+                <EmptyPost text="검색 기록이 없습니다." />
+            ) : (
+                <>
+                <div className={cx("title")}>최근 검색어</div>
+                {searches.map((search, searchIndex) => (
+                    <div key={searchIndex} className={cx('search-item')}>
+                        <div className={cx('search-text')} onClick={() => onSearch(search, true)}>
+                            {search}
+                        </div>
+                        <button className={cx('delete-button')} onClick={() => handleDeleteSearch(search)}>
+                            <FaX />
+                        </button>
                     </div>
-                    <button className={styles.deleteButton} onClick={() => onDelete(search)}>
-                        <FaX />
-                    </button>
-                </div>
-            ))}
+                ))}
+            </>
+            )}
         </div>
     );
 }

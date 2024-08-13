@@ -4,14 +4,19 @@
 .communityCard {
   display: flex;
   flex-direction: column;
-  padding: 15px 15px 0;
-  border-bottom: 1px solid colors.$placeholder;
+  padding: 0 15px;
+  margin-bottom: 15px;
+
+  // padding-top: 15px;
+  border-bottom: 1px solid colors.$divider2;
 }
 
 .location {
   align-self: left;
   width: fit-content;
   padding: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
   margin: 5px;
   font-size: 14px;
   font-weight: bold;
@@ -40,7 +45,6 @@
   flex: 1;
   flex-direction: column;
   margin-right: 10px;
-}
 
 .textTitle {
   @include typo.title;
@@ -71,4 +75,6 @@
 
   margin-bottom: 5px;
   color: colors.$placeholder;
+}
+
 }

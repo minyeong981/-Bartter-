@@ -1,0 +1,12 @@
+.thumbnail {
+  width: 130px;
+  height: 130px;
+  cursor: pointer;
+  object-fit: cover; // 이미지를 컨테이너에 맞추기
+  border-radius: 10px; // 모서리를 둥글게 설정
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.05); // hover 시 약간 확대
+  }
+}

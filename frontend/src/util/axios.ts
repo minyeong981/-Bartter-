@@ -1,13 +1,15 @@
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 import barter from '@/services/barter.ts';
 import useRootStore from '@/store';
 import parser from '@/util/parser.ts';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: import.meta.env.VITE_BASEURL,
   responseType: 'json',
   timeout: 4000,
+  withCredentials: true,
 });
 
 instance.interceptors.request.use(
@@ -29,12 +31,17 @@ instance.interceptors.response.use(
     return response;
   },
   async error => {
+    if (error.response.data.message) {
+      toast.dismiss();
+      toast.error(error.response.data.message);
+    }
     if (error.response.status === 401 && error.response.data.code === 2001) {
       const response = await barter.reIssue();
       const token = parser.getAccessToken(response);
       useRootStore.getState().login(token);
       return instance.request(error.config);
     }
+
     return Promise.reject(error);
   },
 );

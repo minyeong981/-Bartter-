@@ -5,12 +5,15 @@ import {createRouter, RouterProvider} from '@tanstack/react-router';
 import {StrictMode} from 'react';
 import ReactDOM from 'react-dom/client';
 
-// Import the generated route tree
+import {
+  handleIncomingMessages,
+  requestPermission,
+} from '@/config/firebaseConfig.ts';
+
 import {routeTree} from './routeTree.gen.ts';
 
 const queryClient = new QueryClient();
 
-// Create a new router instance
 const router = createRouter({
   routeTree,
   context: {
@@ -20,34 +23,43 @@ const router = createRouter({
   defaultPreloadStaleTime: 0,
 });
 
-// Register the router instance for type safety
 declare module '@tanstack/react-router' {
   interface Register {
     router: typeof router;
   }
 }
 
-async function enableMocking() {
-  if (process.env.NODE_ENV !== 'development') {
-    return;
+async function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    try {
+      const registration = await navigator.serviceWorker.register(
+        '/firebase-messaging-sw.js',
+        {scope: '/firebase-cloud-messaging-push-scope'},
+      );
+
+      console.log('Service Worker 등록', registration.scope);
+
+      await requestPermission();
+
+      handleIncomingMessages();
+    } catch (error) {
+      console.error('Service Worker 등록 실패 :', error);
+    }
+  } else {
+    console.warn('Service Worker not supported in this browser');
   }
-
-  const {worker} = await import('./mocks/browser');
-
-  return worker.start();
 }
 
-// Render the app
 const rootElement = document.getElementById('root')!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
-  // enableMocking().then(() =>
+  registerServiceWorker().then(_ =>
     root.render(
       <StrictMode>
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
         </QueryClientProvider>
       </StrictMode>,
-    )
-  // );
+    ),
+  );
 }
