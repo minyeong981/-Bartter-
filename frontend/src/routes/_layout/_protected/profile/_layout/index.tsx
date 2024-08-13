@@ -30,7 +30,6 @@ export default function MyProfile() {
       await barter.logout();
       await barter.deleteFcmToken();
     } finally {
-      sessionStorage.clear();
       logout();
     }
   }

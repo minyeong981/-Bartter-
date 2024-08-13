@@ -34,7 +34,6 @@ function Profile() {
       await barter.logout();
       await barter.deleteFcmToken();
     } finally {
-      sessionStorage.clear();
       logout();
     }
   }
