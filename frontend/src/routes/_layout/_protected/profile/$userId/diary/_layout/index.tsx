@@ -79,7 +79,7 @@ export default function ProfileCropDiary() {
       />
 
       {diaries.length === 0 ? (
-        <div><EmptyPost text='해당 일자에 작성된 일지가 없습니다.'/></div>
+        <div><EmptyPost text={`${pivotDate.getMonth()+1}월에`} text2='작성된 일지가 없습니다.'/></div>
       ) : (
         <div className={cx('diary-container')}>
           {groupedDiary.map((diaryByDay, index) =>

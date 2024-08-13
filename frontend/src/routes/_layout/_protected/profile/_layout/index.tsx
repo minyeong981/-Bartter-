@@ -1,6 +1,8 @@
 import {useSuspenseQuery} from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router'
 import classnames from 'classnames/bind'
+import { AiOutlineHeart } from 'react-icons/ai';
+import { HiOutlineDocumentReport } from 'react-icons/hi';
 
 import GeneralButton from "@/components/Buttons/GeneralButton.tsx";
 import SettingLinkButton from '@/components/Buttons/SettingLinkButton.tsx';
@@ -44,21 +46,30 @@ export default function MyProfile() {
   return (
     <div>
       <ProfileInfo {...userData} isMe={true}/>
-      <SettingLinkButton to="/profile/aireport">AI 요약보고서</SettingLinkButton>
+      <SettingLinkButton to="/profile/aireport">
+      📝 AI 요약보고서</SettingLinkButton>
       <SettingLinkButton
         to="/profile/$userId/cropStorage"
         params={{userId: userId.toString()}}
-      >농작물 창고</SettingLinkButton>
+      >
+      🧰 농작물 창고</SettingLinkButton>
       <SettingLinkButton
         to="/profile/$userId/diary"
         params={{userId: userId.toString()}}
-      >농사 일지</SettingLinkButton>
-      <SettingLinkButton to="/profile/writed">내가 쓴 글</SettingLinkButton>
-      <SettingLinkButton to="/profile/picked">찜 목록</SettingLinkButton>
-      <SettingLinkButton to="/profile/chat">채팅 목록</SettingLinkButton>
-      <SettingLinkButton to="/profile/changelocation">위치 수정</SettingLinkButton>
-      <GeneralButton buttonStyle={{style: 'floating', size: 'medium'}} onClick={handleLogout}
-                     className={styles.logoutButton}>로그아웃</GeneralButton>
+      >
+      🌳  농사 일지</SettingLinkButton>
+      <SettingLinkButton to="/profile/writed">
+      ✍🏻 내가 쓴 글</SettingLinkButton>
+      <SettingLinkButton to="/profile/picked">🛒 찜 목록</SettingLinkButton>
+      <SettingLinkButton to="/profile/chat">💬 채팅 목록</SettingLinkButton>
+      <SettingLinkButton to="/profile/changelocation">🚩 위치 수정</SettingLinkButton>
+      <div className={cx('logoutBox')}>
+      <GeneralButton 
+      buttonStyle={{style: 'floating', size: 'small'}} 
+      onClick={handleLogout}
+      >로그아웃
+      </GeneralButton>
+      </div>
     </div>
   );
 }
