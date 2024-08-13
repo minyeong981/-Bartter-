@@ -1,5 +1,5 @@
 import {initializeApp} from 'firebase/app';
-import {getMessaging, onMessage} from 'firebase/messaging';
+import {getMessaging, getToken, onMessage} from 'firebase/messaging';
 
 // Firebase 구성
 const firebaseConfig = {
@@ -26,7 +26,7 @@ const messaging = getMessaging(app);
  * FCM 메시지를 수신하면 알림을 표시한다.
  */
 const handleForegroundMessages = () => {
-  onMessage(messaging, (payload) => {
+  onMessage(messaging, payload => {
     console.log('메시지 수신(포그라운드):', payload);
     if (!payload.data) return;
     const notificationTitle = payload.data.title + ' 포그라운드';
@@ -39,7 +39,10 @@ const handleForegroundMessages = () => {
     };
 
     // 브라우저 알림 표시
-    const notification = new Notification(notificationTitle, notificationOptions);
+    const notification = new Notification(
+      notificationTitle,
+      notificationOptions,
+    );
 
     // 알림 클릭 시 동작
     notification.onclick = () => {
@@ -49,4 +52,48 @@ const handleForegroundMessages = () => {
   });
 };
 
-export {messaging, handleForegroundMessages};
+/**
+ * FCM 토큰을 가져오는 함수
+ * 사용자에게 알림 권한을 요청하고, FCM 토큰을 반환한다.
+ */
+const getFcmToken = async () => {
+  // 세션 스토리지에 FCM 토큰이 있는지 확인
+  const existingToken = sessionStorage.getItem('fcmToken');
+  if (existingToken) {
+    return existingToken; // 이미 토큰이 있는 경우, 해당 토큰을 반환
+  }
+
+  try {
+    // 알림 권한 요청
+    const permission = await Notification.requestPermission();
+    if (permission === 'granted') {
+      console.log('Notification permission granted.');
+
+      // FCM 토큰 가져오기
+      const currentToken = await getToken(messaging, {
+        vapidKey:
+          'BGVbiPhLWWxijrc2jfn9lTyDs-kcSfSinb2bUmEoDXSc8ljx6sWtur9k82vmjBLND06SSeb10oq-rw7zmzrpoPY', // VAPID 키
+      });
+
+      if (currentToken) {
+        console.log('FCM Token:', currentToken);
+        // 토큰을 세션 스토리지에 저장
+        sessionStorage.setItem('fcmToken', currentToken);
+        return currentToken;
+      } else {
+        console.warn(
+          'FCM 토큰을 가져올 수 없습니다. 권한이 없거나 문제가 발생했습니다.',
+        );
+        return null;
+      }
+    } else {
+      console.log('Notification permission denied.');
+      return null;
+    }
+  } catch (error) {
+    console.error('FCM 토큰을 가져오는 중 오류 발생:', error);
+    return null;
+  }
+};
+
+export {messaging, handleForegroundMessages, getFcmToken};
