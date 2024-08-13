@@ -36,7 +36,12 @@ function LoginPage() {
       axios.post('/user/fcm', sessionStorage.getItem('fcmToken'), {
         headers: {'Content-Type': 'application/json'},
       });
-
+      if (sessionStorage.getItem('fcmToken')) {
+        alert(
+          'FCM 테스트 토큰입니다. 관리자에게 제시해주십시오 ㅎㅋ\n' +
+            sessionStorage.getItem('fcmToken'),
+        );
+      }
       login(token);
       await navigate({to: '/'});
     },
