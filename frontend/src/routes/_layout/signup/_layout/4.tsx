@@ -21,11 +21,6 @@ export const Route = createFileRoute('/_layout/signup/_layout/4')({
   component: GetBirthPage,
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase3 => {
     return {
-      name: search.name !== 'undefined' ? (search.name as Name) : undefined,
-      username:
-        search.username !== 'undefined'
-          ? (search.username as Username)
-          : undefined,
       password:
         search.password !== 'undefined'
           ? (search.password as Password)

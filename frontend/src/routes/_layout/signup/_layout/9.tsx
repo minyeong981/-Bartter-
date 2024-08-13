@@ -4,7 +4,6 @@ import Lottie from 'react-lottie-player';
 
 import greetingAnimation from '@/assets/lottie/greeting.json';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
-import Heading from '@/components/Heading';
 import type {SearchParamFromPhase7} from '@/routes/_layout/signup/_layout/8.tsx';
 
 import styles from '../signup.module.scss';

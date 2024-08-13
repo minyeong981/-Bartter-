@@ -21,7 +21,6 @@ export const Route = createFileRoute('/_layout/signup/_layout/3')({
   component: GetPasswordPage,
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase2 => {
     return {
-      name: search.name !== 'undefined' ? (search.name as Name) : undefined,
       username:
         search.username !== 'undefined'
           ? (search.username as Username)
@@ -38,7 +37,7 @@ function GetPasswordPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const isValid =
-    password.match(PASSWORD_PATTERN) && password === confirmPassword;
+    PASSWORD_PATTERN.test(password) && password === confirmPassword;
 
   function handlePasswordChange(e: ChangeEvent<HTMLInputElement>) {
     setPassword(e.currentTarget.value);
@@ -61,7 +60,7 @@ function GetPasswordPage() {
         <div className={cx('inputContainer')}>
           <LabeledInput
             label="비밀번호"
-            placeholder="영문 특수문자를 포함해서 8자리 이상 입력"
+            placeholder="영문 숫자 특수문자를 포함해서 8자리 이상 입력"
             onChange={handlePasswordChange}
             value={password}
             pattern={PASSWORD_PATTERN.source}
