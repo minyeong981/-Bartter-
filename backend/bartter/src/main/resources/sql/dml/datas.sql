@@ -196,7 +196,12 @@ values (13, '2024-06-03', 4, 15, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '
 INSERT INTO crop (crop_category_id, crop_grow_date, crop_id, user_id, created_at, updated_at, crop_nickname,
                   crop_description, crop_image)
 values (10, '2024-07-01', 5, 16, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '초록이', '무럭무럭 자라라',
-        'http://d1tknhgbpjhaqe.cloudfront.net/mycrop_tomato_lettuce');
+        'http://d1tknhgbpjhaqe.cloudfront.net/mycrop_lettuce');
+
+INSERT INTO crop (crop_category_id, crop_grow_date, crop_id, user_id, created_at, updated_at, crop_nickname,
+                  crop_description, crop_image)
+values (17, '2024-06-20', 6, 6, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '청양고추', '무럭무럭 자라라',
+        'http://d1tknhgbpjhaqe.cloudfront.net/mycrop_chilli');
 
 
 
@@ -1189,19 +1194,19 @@ VALUES (15, 5, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgb
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
-VALUES (24, 6, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community_23');
+VALUES (24, 6, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community_24');
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
-VALUES (28, 7, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community_27');
+VALUES (28, 7, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community_28');
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
-VALUES (29, 8, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community_28');
+VALUES (29, 8, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community_29');
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
-VALUES (32, 9, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community_31');
+VALUES (32, 9, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community_32');
 
 
 
