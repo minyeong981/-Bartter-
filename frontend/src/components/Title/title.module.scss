@@ -1,0 +1,30 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typo;
+
+
+.titleContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;;
+
+    .title {
+        display: flex;
+
+        @include typo.heading;
+    }
+
+    .linkButton {
+        padding-top: 2px;
+
+        @include typo.name;
+
+        color: colors.$primary;
+    }
+
+    .animation {
+        width: 40px;
+        height: 40px;
+        padding: 5px;
+    }
+}

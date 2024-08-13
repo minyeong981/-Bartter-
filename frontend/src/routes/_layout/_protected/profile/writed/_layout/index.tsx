@@ -1,9 +1,9 @@
-import {useQuery} from '@tanstack/react-query';
+import {useSuspenseQuery} from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import {useState} from 'react';
 
-import PostList from '@/components/Community/PostList';
+import PostCard from '@/components/Community/PostCard';
 import EmptyPost from '@/components/Empty/EmptyPost';
 import TradeCard from '@/components/TradeCard';
 import TwoButton from '@/components/TwoButton/TwoButton';
@@ -24,22 +24,19 @@ export default function ProfileWrited() {
   const userId: UserId = useRootStore(state => state.userId);
   const [activeComponent, setActiveComponent] = useState<string>('물물 교환');
 
-  const {data: community, isPending} = useQuery({
+  const {data: community } = useSuspenseQuery({
     queryKey: [querykeys.COMMUNITY_WRITTEN_BY_USER, userId],
     queryFn: () => barter.getCommunityPostListByUser(userId),
   });
 
-  const {data: trade} = useQuery({
+  const {data: trade} = useSuspenseQuery({
     queryKey: [querykeys.TRADE_LIST, userId],
     queryFn: () => barter.getTradePostListByUser(userId),
   });
 
-  if (isPending) {
-    return <span>Loading...</span>;
-  }
 
   const posts = community?.data?.data || [];
-  const trades = trade?.data.data || [];
+  const trades = trade?.data?.data || [];
 
   function renderComponent() {
     switch (activeComponent) {
@@ -62,7 +59,9 @@ export default function ProfileWrited() {
           </div>
         ) : (
           <div className={cx('community')}>
-            <PostList posts={posts} />
+            {posts.map((post, postIndex) => 
+            <PostCard key={postIndex} {...post}/>
+            )}
           </div>
         );
       default:

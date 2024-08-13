@@ -95,9 +95,7 @@ import { Route as LayoutProtectedTradeChatTradePostIdListListImport } from './ro
 import { Route as LayoutProtectedSearchLayoutResultTradeKeywordImport } from './routes/_layout/_protected/search/_layout/_result/trade/$keyword'
 import { Route as LayoutProtectedSearchLayoutResultNeighborKeywordImport } from './routes/_layout/_protected/search/_layout/_result/neighbor/$keyword'
 import { Route as LayoutProtectedSearchLayoutResultCommunityKeywordImport } from './routes/_layout/_protected/search/_layout/_result/community/$keyword'
-import { Route as LayoutProtectedSearchLayoutLayoutKeywordLayoutImport } from './routes/_layout/_protected/search/_layout/_layout/$keyword/_layout'
 import { Route as LayoutProtectedProfileAireportLayoutDetailCropReportIdImport } from './routes/_layout/_protected/profile/aireport/_layout/detail/$cropReportId'
-import { Route as LayoutProtectedSearchLayoutLayoutKeywordLayoutIndexImport } from './routes/_layout/_protected/search/_layout/_layout/$keyword/_layout/index'
 
 // Create Virtual Routes
 
@@ -173,9 +171,6 @@ const LayoutProtectedProfileUserIdDiaryImport = createFileRoute(
 )()
 const LayoutProtectedProfileUserIdCropStorageImport = createFileRoute(
   '/_layout/_protected/profile/$userId/cropStorage',
-)()
-const LayoutProtectedSearchLayoutLayoutKeywordImport = createFileRoute(
-  '/_layout/_protected/search/_layout/_layout/$keyword',
 )()
 
 // Create/Update Routes
@@ -607,12 +602,6 @@ const LayoutProtectedCommunityDetailLayoutRoute =
     getParentRoute: () => LayoutProtectedCommunityDetailRoute,
   } as any)
 
-const LayoutProtectedSearchLayoutLayoutKeywordRoute =
-  LayoutProtectedSearchLayoutLayoutKeywordImport.update({
-    path: '/$keyword',
-    getParentRoute: () => LayoutProtectedSearchLayoutLayoutRoute,
-  } as any)
-
 const LayoutProtectedTradeWriteLayoutIndexRoute =
   LayoutProtectedTradeWriteLayoutIndexImport.update({
     path: '/',
@@ -805,22 +794,10 @@ const LayoutProtectedSearchLayoutResultCommunityKeywordRoute =
     getParentRoute: () => LayoutProtectedSearchLayoutResultRoute,
   } as any)
 
-const LayoutProtectedSearchLayoutLayoutKeywordLayoutRoute =
-  LayoutProtectedSearchLayoutLayoutKeywordLayoutImport.update({
-    id: '/_layout',
-    getParentRoute: () => LayoutProtectedSearchLayoutLayoutKeywordRoute,
-  } as any)
-
 const LayoutProtectedProfileAireportLayoutDetailCropReportIdRoute =
   LayoutProtectedProfileAireportLayoutDetailCropReportIdImport.update({
     path: '/detail/$cropReportId',
     getParentRoute: () => LayoutProtectedProfileAireportLayoutRoute,
-  } as any)
-
-const LayoutProtectedSearchLayoutLayoutKeywordLayoutIndexRoute =
-  LayoutProtectedSearchLayoutLayoutKeywordLayoutIndexImport.update({
-    path: '/',
-    getParentRoute: () => LayoutProtectedSearchLayoutLayoutKeywordLayoutRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
@@ -1534,20 +1511,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProtectedProfileAireportLayoutDetailCropReportIdImport
       parentRoute: typeof LayoutProtectedProfileAireportLayoutImport
     }
-    '/_layout/_protected/search/_layout/_layout/$keyword': {
-      id: '/_layout/_protected/search/_layout/_layout/$keyword'
-      path: '/$keyword'
-      fullPath: '/search/$keyword'
-      preLoaderRoute: typeof LayoutProtectedSearchLayoutLayoutKeywordImport
-      parentRoute: typeof LayoutProtectedSearchLayoutLayoutImport
-    }
-    '/_layout/_protected/search/_layout/_layout/$keyword/_layout': {
-      id: '/_layout/_protected/search/_layout/_layout/$keyword/_layout'
-      path: '/$keyword'
-      fullPath: '/search/$keyword'
-      preLoaderRoute: typeof LayoutProtectedSearchLayoutLayoutKeywordLayoutImport
-      parentRoute: typeof LayoutProtectedSearchLayoutLayoutKeywordRoute
-    }
     '/_layout/_protected/search/_layout/_result/community/$keyword': {
       id: '/_layout/_protected/search/_layout/_result/community/$keyword'
       path: '/community/$keyword'
@@ -1596,13 +1559,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/profile/$userId/diary/'
       preLoaderRoute: typeof LayoutProtectedProfileUserIdDiaryLayoutIndexImport
       parentRoute: typeof LayoutProtectedProfileUserIdDiaryLayoutImport
-    }
-    '/_layout/_protected/search/_layout/_layout/$keyword/_layout/': {
-      id: '/_layout/_protected/search/_layout/_layout/$keyword/_layout/'
-      path: '/'
-      fullPath: '/search/$keyword/'
-      preLoaderRoute: typeof LayoutProtectedSearchLayoutLayoutKeywordLayoutIndexImport
-      parentRoute: typeof LayoutProtectedSearchLayoutLayoutKeywordLayoutImport
     }
   }
 }
@@ -1740,15 +1696,6 @@ export const routeTree = rootRoute.addChildren({
             LayoutProtectedSearchLayoutLayoutRoute:
               LayoutProtectedSearchLayoutLayoutRoute.addChildren({
                 LayoutProtectedSearchLayoutLayoutIndexRoute,
-                LayoutProtectedSearchLayoutLayoutKeywordRoute:
-                  LayoutProtectedSearchLayoutLayoutKeywordRoute.addChildren({
-                    LayoutProtectedSearchLayoutLayoutKeywordLayoutRoute:
-                      LayoutProtectedSearchLayoutLayoutKeywordLayoutRoute.addChildren(
-                        {
-                          LayoutProtectedSearchLayoutLayoutKeywordLayoutIndexRoute,
-                        },
-                      ),
-                  }),
               }),
             LayoutProtectedSearchLayoutResultRoute:
               LayoutProtectedSearchLayoutResultRoute.addChildren({
@@ -2211,8 +2158,7 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout/_protected/search/_layout/_layout.tsx",
       "parent": "/_layout/_protected/search/_layout",
       "children": [
-        "/_layout/_protected/search/_layout/_layout/",
-        "/_layout/_protected/search/_layout/_layout/$keyword"
+        "/_layout/_protected/search/_layout/_layout/"
       ]
     },
     "/_layout/_protected/search/_layout/_result": {
@@ -2464,20 +2410,6 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout/_protected/profile/aireport/_layout/detail/$cropReportId.tsx",
       "parent": "/_layout/_protected/profile/aireport/_layout"
     },
-    "/_layout/_protected/search/_layout/_layout/$keyword": {
-      "filePath": "_layout/_protected/search/_layout/_layout/$keyword",
-      "parent": "/_layout/_protected/search/_layout/_layout",
-      "children": [
-        "/_layout/_protected/search/_layout/_layout/$keyword/_layout"
-      ]
-    },
-    "/_layout/_protected/search/_layout/_layout/$keyword/_layout": {
-      "filePath": "_layout/_protected/search/_layout/_layout/$keyword/_layout.tsx",
-      "parent": "/_layout/_protected/search/_layout/_layout/$keyword",
-      "children": [
-        "/_layout/_protected/search/_layout/_layout/$keyword/_layout/"
-      ]
-    },
     "/_layout/_protected/search/_layout/_result/community/$keyword": {
       "filePath": "_layout/_protected/search/_layout/_result/community/$keyword.tsx",
       "parent": "/_layout/_protected/search/_layout/_result"
@@ -2505,10 +2437,6 @@ export const routeTree = rootRoute.addChildren({
     "/_layout/_protected/profile/$userId/diary/_layout/": {
       "filePath": "_layout/_protected/profile/$userId/diary/_layout/index.tsx",
       "parent": "/_layout/_protected/profile/$userId/diary/_layout"
-    },
-    "/_layout/_protected/search/_layout/_layout/$keyword/_layout/": {
-      "filePath": "_layout/_protected/search/_layout/_layout/$keyword/_layout/index.tsx",
-      "parent": "/_layout/_protected/search/_layout/_layout/$keyword/_layout"
     }
   }
 }

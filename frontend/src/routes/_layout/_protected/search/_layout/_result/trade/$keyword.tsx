@@ -42,8 +42,8 @@ function TradeResultPage() {
       <span className={cx('result-text')}>{keyword}</span>
       검색 결과
     </div>
-    <div className={cx('resultList')} ref={rootElementRef}>
-      {searchResultData.length ? searchResultData.map((trade => <TradeCard {...trade} />)) :
+    <div className={cx('tradeList')} ref={rootElementRef}>
+      {searchResultData.length ? searchResultData.map(((trade, index) => <TradeCard key={index} {...trade} />)) :
         <EmptyPost text={keyword + "로 검색한 결과가 없습니다."}/>}
       <Threshold ref={lastElementRef}/>
     </div>

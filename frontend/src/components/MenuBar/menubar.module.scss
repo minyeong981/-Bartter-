@@ -4,14 +4,14 @@
 
 .navigation {
   position: fixed;
-  bottom: 10px;
+  bottom: 12px;
   left: 50%;
   z-index: dimension.$foreground;
   display: flex;
   align-items: center;
   width: 90%;
   max-width: 600px;
-  height: 70px;
+  height: 60px;
   padding: 0 20px;
   background-color: rgb(255 255 255 / 80%);
   backdrop-filter: blur(10px);
@@ -53,7 +53,7 @@
       left: 50%;
       z-index: -1;
       width: 60px;
-      height: 60px;
+      height: 30px;
       content: "";
       background-color: rgb(255 255 255 / 80%);
       border-radius: 50%;
@@ -88,15 +88,13 @@
     }
 
     span {
-      margin-top: 5px;
-
       @include typo.comment; 
     }              
   }
 
   .lottie {
-    width: 45px;
-    height: 45px;
+    width: 30px;
+    height: 30px;
     transition: transform 0.3s ease;
 
     &:active {
@@ -107,25 +105,6 @@
       transform: scale(1.1);
     }
   }
-
-  .lottieTrade {
-    width: 45px;
-    height: 45px;
-    transition: transform 0.3s ease;
-
-    &:active {
-      transform: scale(1.2);
-    }
-
-    &:hover {
-      transform: scale(1.1);
-    }
-
-    // svg path {
-    //   width: 60px;
-    //   height: 60px;
-    // }
-    }
-  }
+}
 
 

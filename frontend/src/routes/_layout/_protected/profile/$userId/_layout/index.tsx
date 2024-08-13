@@ -7,6 +7,7 @@ import {createFileRoute } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 
+import LinkButton from '@/components/Buttons/LinkButton';
 import SettingLinkButton from '@/components/Buttons/SettingLinkButton.tsx';
 import ProfileInfo from '@/components/User/ProfileInfo';
 import barter from '@/services/barter';
@@ -90,19 +91,22 @@ function Profile() {
       <div className={cx('crops-count')}>받은 농작물 {cropCount} 개</div>
       <SettingLinkButton       
       to="/profile/$userId/cropStorage"
-      params={{userId: userId.toString()}}>
-        농작물 창고
-      </SettingLinkButton>
+      params={{userId: userId.toString()}}
+        text='농작물 창고'
+      />
       <SettingLinkButton       
       to="/profile/$userId/diary"
-      params={{userId: userId.toString()}}>
-        농사 일지
-      </SettingLinkButton>
-      {isMe && <SettingLinkButton to="/profile/writed">내가 쓴 글</SettingLinkButton>}
-      {isMe && <SettingLinkButton to="/profile/picked">찜 목록</SettingLinkButton>}
-      {isMe && <SettingLinkButton to="/profile/chat">채팅 목록</SettingLinkButton>}
-      {isMe && <SettingLinkButton to="/profile/changelocation">위치 수정</SettingLinkButton>}
-      {isMe && <SettingLinkButton to="/community">로그아웃</SettingLinkButton>}
+      params={{userId: userId.toString()}}
+        text='농사 일지'
+      />
+      {isMe && <SettingLinkButton to="/profile/writed" text='내가 쓴 글'/>}
+      {isMe && <SettingLinkButton to="/profile/picked" text='찜 목록'/>}
+      {isMe && <SettingLinkButton to="/profile/chat" text='채팅 목록'/>}
+      {isMe && <SettingLinkButton to="/profile/changelocation" text='위치 수정'/>}
+      {isMe &&     
+      <div className={cx('logoutButton')}>
+        <LinkButton buttonStyle={ { style: 'floating', size:'medium'}} >로그아웃</LinkButton>
+    </div>}
     </>
   );
 

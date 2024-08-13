@@ -25,3 +25,20 @@
         display: none;
     }
 }
+
+.logoutButton {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+
+    @include typo.list-content;
+    
+    a {
+        color: colors.$white;
+    }
+
+    a:hover {
+        background-color: lighteness(colors.$primary, 10%);  
+    }
+}

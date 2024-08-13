@@ -42,7 +42,7 @@ export default function CommunityList() {
 
   return (
     <>
-      <div className={styles.twoButtonFixed}>
+      <div className={cx('twoButtonFixed')}>
         <TwoButton
           first="전체글"
           second="동네글"
@@ -50,7 +50,7 @@ export default function CommunityList() {
           onClick={handleButtonClick}
         />
       </div>
-      <div className={styles.postList} ref={rootElementRef}>
+      <div className={cx('postList')} ref={rootElementRef}>
         {communityList.map((post) => <PostCard key={post.communityPostId}  {...post}/>)}
         <Threshold ref={lastElementRef}/>
       </div>

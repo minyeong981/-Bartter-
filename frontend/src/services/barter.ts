@@ -215,7 +215,7 @@ export default {
    * 유저가 작성한 물물교환 게시글 전체 조회
    */
   getTradePostListByUser: async (userId: UserId) =>
-    axios.get<GetCommunityPostListByUserId>(`/users/${userId}/trades/posts`),
+    axios.get<GetTradePostListByUserId>(`/users/${userId}/trades/posts`),
   /**
    * 유저가 찜한 물물교환 게시글 전체 조회
    */
