@@ -1,5 +1,4 @@
 import type { KeyboardEvent} from 'react';
-import { FaSearch} from 'react-icons/fa';
 import { FaX } from 'react-icons/fa6';
 
 import {IconSearch} from '@/assets/svg';

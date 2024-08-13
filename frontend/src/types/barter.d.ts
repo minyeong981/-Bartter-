@@ -203,7 +203,7 @@ interface CropDiaryDetailWithUser {
 
 type CropTradePostId = number;
 
-type Status = 'IN_PROGRESS' | 'RESERVED' | 'COMPLETED';
+type Status = 'PROGRESS' | 'RESERVED' | 'COMPLETED';
 
 type IsShare = boolean;
 

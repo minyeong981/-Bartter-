@@ -1,8 +1,6 @@
 import {useSuspenseQuery} from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router'
 import classnames from 'classnames/bind'
-import { AiOutlineHeart } from 'react-icons/ai';
-import { HiOutlineDocumentReport } from 'react-icons/hi';
 
 import GeneralButton from "@/components/Buttons/GeneralButton.tsx";
 import SettingLinkButton from '@/components/Buttons/SettingLinkButton.tsx';
