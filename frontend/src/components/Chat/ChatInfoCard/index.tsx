@@ -21,17 +21,17 @@ export default function ChatInfoCard({
     simpleTradePostDetail.status === 'COMPLETED' ||
     userProfile.userId !== userId;
 
-  const STATUS = {
+  const STATUS: {[key in Status]: string} = {
     PROGRESS: '거래가능',
     RESERVED: '예약중',
     COMPLETED: '거래완료',
-  }[simpleTradePostDetail.status];
+  };
 
-  const ButtonText = {
+  const ButtonText: {[key in Status]: string} = {
     PROGRESS: '예약하기',
     RESERVED: '예약중',
     COMPLETED: '거래완료',
-  }[simpleTradePostDetail.status];
+  };
 
   function handleClickButton() {
     onClick(simpleTradePostDetail.status);
@@ -52,7 +52,7 @@ export default function ChatInfoCard({
         <div className={cx('info')}>
           <h1 className={cx('title')}>{simpleTradePostDetail.title}</h1>
           <p className={cx('author')}>{userProfile.nickname}</p>
-          <p className={cx('status')}>{STATUS}</p>
+          <p className={cx('status')}>{STATUS[simpleTradePostDetail.status]}</p>
         </div>
       </Link>
       <button
@@ -60,7 +60,7 @@ export default function ChatInfoCard({
         onClick={handleClickButton}
         disabled={disabled}
       >
-        {ButtonText}
+        {ButtonText[simpleTradePostDetail.status]}
       </button>
     </div>
   );
