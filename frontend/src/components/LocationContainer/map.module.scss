@@ -1,0 +1,14 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typographies;
+
+
+.mapBox {
+    position: fixed;
+    z-index: 100;
+    width: 350px;
+    padding: 10px;
+    margin: 20px;
+    background-color: colors.$gray1;
+    border: 1px solid colors.$gray1;
+    border-radius: 10px;
+}

@@ -5,7 +5,7 @@ import HeaderWithLabelAndBackButton from '@/components/Header/HeaderWithLabelAnd
 import styles from './changeLocation.module.scss'
 
 export const Route = createFileRoute('/_layout/_protected/profile/changelocation/_layout')({
-  component: () => ChangeLocationLayout
+  component: ChangeLocationLayout
 })
 
 export default function ChangeLocationLayout() {

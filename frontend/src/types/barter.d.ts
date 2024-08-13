@@ -432,6 +432,7 @@ interface TradeInfo {
 
 type AutoCompletedKeyWord = string;
 
+
 type GetCommunityPostListByUserId = BarterResponse<MyCommunityPostDetail[]>;
 type GetCommunityPostList = BarterResponse<SimpleCommunityPostDetail[]>;
 type PostCommunityPostResponse = BarterResponse<CommunityPostDetail>;
