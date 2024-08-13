@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @Tag(name = "유저 작성 물물교환 게시글 조회 API", description = "특정 유저의 물물교환 게시글을 조회하는 API 입니다.")
 public class UserTradePostController {
 

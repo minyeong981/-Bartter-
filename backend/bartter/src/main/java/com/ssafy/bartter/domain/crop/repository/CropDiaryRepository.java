@@ -70,12 +70,12 @@ public interface CropDiaryRepository extends JpaRepository<CropDiary, Integer> {
             "SELECT d FROM CropDiary d"
                     + " LEFT JOIN FETCH d.crop c"
                     + " WHERE c.id = :cropId"
-                    + " AND (d.createdAt BETWEEN :startDateTime AND :endDateTime)"
+                    + " AND (d.performDate BETWEEN :startDate AND :endDate)"
     )
     List<CropDiary> findAllByCropIdAndDateRange(
             @Param("cropId") int cropId,
-            @Param("startDateTime") LocalDateTime startDateTime,
-            @Param("endDateTime") LocalDateTime endDateTime);
+            @Param("startDate") LocalDate startDateTime,
+            @Param("endDate") LocalDate endDateTime);
 
     @Query(
             "SELECT DISTINCT d.performDate FROM CropDiary d"

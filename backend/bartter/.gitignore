@@ -266,6 +266,7 @@ gradle-app.setting
 
 # 민감한 정보를 담는 application.peoperties, .env 올리지않음
 application.properties
+application-test.properties
 application.yml
 application-docker.yml
 .env
@@ -275,3 +276,4 @@ application-docker.yml
 
 # Docker Volume 의 로컬 데이터는 올리지 않음
 /mysql_data
+bartter-firebase-key.json

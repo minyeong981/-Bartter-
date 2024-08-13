@@ -26,7 +26,7 @@ import static com.ssafy.bartter.domain.crop.dto.CropDto.CropProfile;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/crops")
+@RequestMapping("/api/crops")
 @Tag(name = "농작물 프로필 API", description = "농작물 프로필 등록/조회/삭제 관련 API입니다.")
 public class CropController {
 

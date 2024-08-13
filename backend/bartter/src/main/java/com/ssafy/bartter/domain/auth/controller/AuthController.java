@@ -37,7 +37,7 @@ import java.util.Objects;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @Tag(name = "인증 API", description = "인증과 관련된 API입니다.")
 public class AuthController {
 

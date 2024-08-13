@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/community/posts")
+@RequestMapping("/api/community/posts")
 @Tag(name = "동네모임 게시글 API", description = "동네모임 게시글 등록/조회/삭제 관련 API입니다.")
 public class CommunityPostController {
 
