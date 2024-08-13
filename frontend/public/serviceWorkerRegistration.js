@@ -34,17 +34,24 @@ async function registerServiceWorker() {
             console.log('Firebase Service Worker 등록 성공:', firebaseRegistration.scope);
 
             if(!sessionStorage.getItem('fcmToken')){
-                // FCM 토큰 가져오기
-                const currentToken = await getToken(messaging, {
-                    vapidKey:
-                        'BGVbiPhLWWxijrc2jfn9lTyDs-kcSfSinb2bUmEoDXSc8ljx6sWtur9k82vmjBLND06SSeb10oq-rw7zmzrpoPY',
-                });
-                if (currentToken) {
-                    console.log('FCM Token:', currentToken);
-                    sessionStorage.setItem("fcmToken",currentToken);
-                } else {
-                    console.warn('FCM 토큰을 가져올 수 없습니다. 권한이 없거나 문제가 발생했습니다.');
+                const permission = await Notification.requestPermission();
+                if(permission === "granted"){
+                    console.log(permission);
+                    // FCM 토큰 가져오기
+                    const currentToken = await getToken(messaging, {
+                        vapidKey:
+                            'BGVbiPhLWWxijrc2jfn9lTyDs-kcSfSinb2bUmEoDXSc8ljx6sWtur9k82vmjBLND06SSeb10oq-rw7zmzrpoPY',
+                    });
+                    if (currentToken) {
+                        console.log('FCM Token:', currentToken);
+                        sessionStorage.setItem("fcmToken",currentToken);
+                    } else {
+                        console.warn('FCM 토큰을 가져올 수 없습니다. 권한이 없거나 문제가 발생했습니다.');
+                    }
+                }else{
+                    console.log("허용 X")
                 }
+
             }
         } catch (error) {
             console.error('Service Worker 등록 실패:', error);

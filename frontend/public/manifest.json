@@ -111,7 +111,7 @@
       "purpose": "any"
     }
   ],
-  "start_url": "http://localhost:5173/login",
+  "start_url": "http://localhost:5173/",
   "display": "standalone",
   "theme_color": "#111111",
   "background_color": "#ffffff"
