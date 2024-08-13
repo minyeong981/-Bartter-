@@ -74,6 +74,7 @@ public class CropDto {
     public static class SimpleCropProfile {
         private int userId;
         private int cropId;
+        private int cropCategoryId;
         private String nickname;
         private String image;
 
@@ -81,6 +82,7 @@ public class CropDto {
             return SimpleCropProfile.builder()
                     .userId(crop.getUser().getId())
                     .cropId(crop.getId())
+                    .cropCategoryId(crop.getCategory().getId())
                     .nickname(crop.getNickname())
                     .image(crop.getImage())
                     .build();
