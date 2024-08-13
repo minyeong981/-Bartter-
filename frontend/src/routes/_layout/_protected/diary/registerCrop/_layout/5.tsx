@@ -5,7 +5,6 @@ import Lottie from 'react-lottie-player';
 
 import RegisterAnimation from '@/assets/lottie/register.json';
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
-import Heading from '@/components/Heading';
 import barter from '@/services/barter';
 
 import styles from '../registerCrop.module.scss';
@@ -34,13 +33,15 @@ function CropProfilePage() {
   const { nickname, growDate, description, image} = data.data.data;
 
   return (
-    <div className={cx('container')}>
-      <div className={cx('mainContainer')}>
+    <>
+      <div className={cx('semiContainer')}>
         <div className={cx('headingContainer')}>
-          <Heading>나만의 작물이 등록되었습니다!</Heading>
+          <p className={cx('congrate')}>나만의 작물이 등록되었습니다!</p>
         </div>
       </div>
-      <Lottie loop animationData={RegisterAnimation} play className={cx('animation')} />
+      <div className={cx('animation')}>
+        <Lottie loop animationData={RegisterAnimation} play />
+      </div>
       <div className={cx('noteStyle')}>
         <div className={cx('leftSection')}>
           {image && <img src={image} alt={`${nickname}의 이미지`} className={cx('cropImage')} />}
@@ -59,7 +60,7 @@ function CropProfilePage() {
           완료
         </LinkButton>
       </div>
-    </div>
+    </>
   );
 }
 

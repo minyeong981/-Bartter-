@@ -28,7 +28,7 @@ function GrowDiaryPage() {
     queryFn: () => barter.getCropDiaryListByCrop(Number(cropId)),
   });
 
-  const cropDiary = data.data.data;
+  const cropDiary = data?.data?.data || [];
   const cropInfo = cropDiary.cropInfo;
   const thumbnailList = cropDiary.thumbnailList;
 
@@ -56,8 +56,12 @@ function GrowDiaryPage() {
           <div className={cx('cropImage')}>
             <img src={cropInfo.cropProfileImage} alt={cropInfo.cropNickname} />
           </div>
-          <div className={cx('cropInfo')}>
-            <h2>{cropInfo.userNickname}님의 {cropInfo.cropNickname}</h2>
+
+          <div className={cx('userCrop')}>
+            <div className={cx('cropInfo')}>
+              <p>{cropInfo.userNickname}님의 {cropInfo.cropNickname}</p>
+            </div>
+        
             <div className={cx('infoImages')}>
               <div className={cx('info')}>
                 <img src={GrowDiary} alt="growDiary" />
@@ -68,6 +72,11 @@ function GrowDiaryPage() {
                 <p><span>{cropInfo.tradeCount}</span> 회</p>
               </div>
             </div>
+
+            <div className={cx('description')}>
+              {cropInfo.description}
+            </div>
+
           </div>
         </div>
       )}
