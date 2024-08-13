@@ -11,7 +11,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TradeRepository extends JpaRepository<Trade, Integer> {
-    Optional<Trade> findByTradePostAndUser(TradePost tradePost, User user);
+
+    @Query("SELECT t FROM Trade t " +
+            "WHERE t.tradePost.id = :tradePostId " +
+            "AND (t.tradePost.user.id = :userId OR t.user.id = :userId)")
+    Optional<Trade> findByTradePostAndUser(
+            @Param("tradePostId") int tradePostId,
+            @Param("userId") int userId);
 
     @Query("SELECT COUNT(t) > 0 " +
             "FROM Trade t " +
