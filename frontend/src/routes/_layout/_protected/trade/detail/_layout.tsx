@@ -38,7 +38,7 @@ export const Route = createFileRoute(
 function TradeDetailLayout() {
   const queryClient = useQueryClient();
   const userId = useRootStore(state => state.userId);
-  const {tradePostId}: {tradePostId: number} = Route.useParams();
+  const {tradePostId}: { tradePostId: number } = Route.useParams();
   const results = useSuspenseQueries({
     queries: [
       {
@@ -60,7 +60,7 @@ function TradeDetailLayout() {
     mutationFn: barter.likeTradePost,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: ['trade', tradePostId],
+        queryKey: ['trade'],
       });
     },
   });
@@ -68,7 +68,7 @@ function TradeDetailLayout() {
     mutationFn: barter.unLikeTradePost,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: ['trade', tradePostId],
+        queryKey: ['trade'],
       });
     },
   });
@@ -83,9 +83,9 @@ function TradeDetailLayout() {
 
   return (
     <>
-      <HeaderWithBackButton />
+      <HeaderWithBackButton/>
       <TradeContext.Provider value={tradePostDetailData}>
-        <Outlet />
+        <Outlet/>
       </TradeContext.Provider>
       <ChattingButtonContainer
         like={tradePostDetailData.isLike}
