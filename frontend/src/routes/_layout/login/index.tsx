@@ -16,6 +16,7 @@ import {PASSWORD_PATTERN, USERID_PATTERN} from '@/util/validation.ts';
 
 import styles from './login.module.scss';
 import axios from '@/util/axios.ts';
+import {getFcmToken} from '@/config/firebaseConfig';
 
 const cx = classnames.bind(styles);
 
@@ -32,16 +33,19 @@ function LoginPage() {
     onSuccess: async data => {
       const token = parser.getAccessToken(data);
 
-      // FCM 토큰을 백엔드 서버로 전송
-      axios.post('/user/fcm', sessionStorage.getItem('fcmToken'), {
-        headers: {'Content-Type': 'application/json'},
-      });
-      if (sessionStorage.getItem('fcmToken')) {
-        alert(
-          'FCM 테스트 토큰입니다. 관리자에게 제시해주십시오 ㅎㅋ\n' +
-            sessionStorage.getItem('fcmToken'),
+      const fcmToken = getFcmToken();
+      if (fcmToken) {
+        console.log('FCM Token:', fcmToken);
+        // FCM 토큰을 백엔드 서버로 전송
+        axios.post('/user/fcm', sessionStorage.getItem('fcmToken'), {
+          headers: {'Content-Type': 'application/json'},
+        });
+      } else {
+        console.warn(
+          'FCM 토큰을 가져올 수 없습니다. 권한이 없거나 문제가 발생했습니다.',
         );
       }
+
       login(token);
       await navigate({to: '/'});
     },
