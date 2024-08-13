@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RequiredArgsConstructor
 public class RedisFcmRepository {
-
     private final RedisTemplate<String, Object> redisTemplate;
 
     public void save(int userId, String token){
@@ -25,7 +24,6 @@ public class RedisFcmRepository {
 
     public void remove(int userId){
         String key = CacheKey.fcmTokenKey(userId);
-        redisTemplate.opsForHash().delete(key, userId);
+        redisTemplate.opsForHash().delete(key, String.valueOf(userId));
     }
-
 }

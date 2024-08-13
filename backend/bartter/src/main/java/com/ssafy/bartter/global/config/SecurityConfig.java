@@ -22,9 +22,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
 import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -67,10 +70,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomAuthenticationEntryPoint customAuthenticationEntryPoint) throws Exception {
 
         LoginFilter loginFilter =  new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, cookieUtil, redisRefreshRepository, jwtConfig);
-        LogoutFilter logoutFilter = new LogoutFilter(jwtUtil, redisRefreshRepository);
         loginFilter.setFilterProcessesUrl("/api/login");
-
-
 
 
         // cors
@@ -115,6 +115,8 @@ public class SecurityConfig {
         // oauth2 user service 연결
         http
                 .oauth2Login((oauth2) -> oauth2
+                        .authorizationEndpoint(authorizationEndpoint ->
+                                authorizationEndpoint.baseUri("/api/oauth2/authorization"))
                         .userInfoEndpoint(userInfoEndpointConfig -> {
                             userInfoEndpointConfig.userService(oAuth2UserService);
                         })

@@ -92,13 +92,12 @@ public class LogoutFilter extends GenericFilterBean {
 
         // DB에 저장되어 있는지 확인
         // DB에 없으면 => 로그아웃 한 상태
-        boolean isExist = Objects.nonNull(redisRefreshRepository.find(refresh));
-        if (!isExist) {
-            throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
+        if (Objects.isNull(redisRefreshRepository.find(jwtUtil.getUsername(refresh)))) {
+            throw new CustomException(ErrorCode.NOT_FOUND_REFRESH_TOKEN);
         }
 
         // 로그아웃 수행: 데이터베이스와 클라이언트 쿠키에서 리프레시 토큰 삭제
-        redisRefreshRepository.delete(refresh);
+        redisRefreshRepository.delete(jwtUtil.getUsername(refresh));
         Cookie cookie = new Cookie("refresh", null);
         cookie.setMaxAge(0);
         cookie.setPath("/");
