@@ -30,16 +30,14 @@ export const Route = createFileRoute(
                      cropsToGet
                    }: Record<string, unknown>): SearchParamsFromToPage => {
 
-    if(myCrop){
-      return{
+    if (myCrop) {
+      return {
         myCrop: myCrop as SimpleCropProfile,
-        cropsToGet:cropsToGet as CropCategoryDetail[]
+        cropsToGet: cropsToGet as CropCategoryDetail[]
       }
     }
-
     return {
-      myCrop: myCrop as SimpleCropProfile || undefined,
-      cropToGive: cropToGive as CropCategoryDetail || undefined,
+      cropToGive: cropToGive as CropCategoryDetail,
       cropsToGet: cropsToGet as CropCategoryDetail[],
     };
   },
@@ -49,12 +47,13 @@ function WritePage() {
   const userId = useRootStore(state => state.userId);
   const queryClient = useQueryClient();
   const navigate = useNavigate({from: '/trade/write'});
-  const {cropToGive, cropsToGet} = Route.useSearch();
+  const {cropsToGet, myCrop, cropToGive} = Route.useSearch();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [isShared, setIsShared] = useState(false);
   const [images, setImages] = useState<File[]>([]);
   const [position, setPosition] = useState<SimpleLocation>();
+
 
   const {mutate: getUserLocation} = useMutation({
     mutationFn: barter.getUserLocation, onSuccess: ({data}) => {
@@ -76,7 +75,7 @@ function WritePage() {
   });
 
   const disabled =
-    !cropToGive || !cropsToGet.length || !title || !content || !images.length;
+    !(cropToGive || myCrop) || !cropsToGet.length || !title || !content || !images.length;
 
   function handleTitleChange(e: ChangeEvent<HTMLInputElement>) {
     setTitle(e.currentTarget.value);
@@ -105,14 +104,16 @@ function WritePage() {
   }, [getUserLocation, userId]);
 
   function handleSubmit() {
+    console.log('전송!')
     submitForm({
       create: {
         title,
         content,
         shareStatus: isShared,
-        cropCategoryId: cropToGive!.cropCategoryId,
+        cropCategoryId: myCrop?.cropCategoryId ||  cropToGive!.cropCategoryId,
         locationId: position!.locationId,
         wishCropCategoryList: isShared ? [] : cropsToGet.map(crop => crop.cropCategoryId),
+        cropId: myCrop?.cropId,
       },
       images,
     });
@@ -121,7 +122,7 @@ function WritePage() {
   return (
     <div className={cx('writePage')}>
       <div className={cx('cropProfile')}>
-        <CropImage imgSrc={cropToGive!.image} label={cropToGive!.name}/>
+        <CropImage imgSrc={myCrop?.image || cropToGive!.image} label={myCrop?.nickname || cropToGive!.name}/>
       </div>
       <div className={cx('mainContainer')}>
         <div className={cx('inputContainer')}>
@@ -138,7 +139,7 @@ function WritePage() {
           />
           <LabeledSelectCropButton
             label="주고 싶은 작물"
-            selectedCrops={[cropToGive!.name]}
+            selectedCrops={[myCrop?.nickname || cropToGive!.name]}
           />
           {!isShared && <LabeledSelectCropButton
               label="받고 싶은 작물"
@@ -175,7 +176,7 @@ function WritePage() {
             onClick={handleSubmit}
           >
             작성 완료
-          </GeneralButton>          
+          </GeneralButton>
         </div>
       </div>
     </div>

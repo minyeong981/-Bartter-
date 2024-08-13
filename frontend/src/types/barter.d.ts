@@ -99,6 +99,7 @@ interface SimpleCropProfile {
   cropId: CropId;
   nickname: Nickname;
   image: Image;
+  cropCategoryId: CropCategoryId;
 }
 
 type PerformDate = string;

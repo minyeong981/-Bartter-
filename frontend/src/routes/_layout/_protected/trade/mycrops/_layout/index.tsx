@@ -12,7 +12,7 @@ import useRootStore from "@/store";
 import styles from './mycrops.module.scss'
 
 export interface SearchParamFromMyCropsPage{
-  myCrop:SimpleCropProfile
+  myCrop?:SimpleCropProfile
 }
 
 const cx = classnames.bind(styles)
