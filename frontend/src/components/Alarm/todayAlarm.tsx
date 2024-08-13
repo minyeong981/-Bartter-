@@ -40,15 +40,15 @@ export default function TodayAlarm() {
   }
 
   return (
-    <div className={cx('today-alarm')}>
-      <div className={cx('alarm-content')}>
+    <div className={cx('todayAlarm')}>
+      <div className={cx('alarmContent')}>
         <p>💡 오늘의 정보!</p>
         {data.data.data}
       </div>
-      <div className={cx('alarm-actions')}>
+      <div className={cx('alarmActions')}>
         <button onClick={hideTodayAlarmForDay}>오늘 하루 안 보기</button>
         <button onClick={() => setIsVisible(false)}>
-          <img src={TodayAlarmOut} alt="Close" className={cx('close-icon')} />
+          <img src={TodayAlarmOut} alt="Close" className={cx('closeIcon')} />
         </button>
       </div>
     </div>

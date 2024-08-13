@@ -22,6 +22,10 @@
   .progressbar {
     width: 100%;
     padding: 20px;
+    
+    &.hidden {
+      display: none; // 요소를 완전히 숨기고 공간을 차지하지 않게 함
+    }
   }
 
   .mainContainer {
@@ -32,10 +36,19 @@
     padding: 30px 10px;
   }
 
+  .semiContainer {
+    padding: 10px;
+    text-align: center;
+  }
+
   .headingContainer {
     display: flex;
     flex-direction: column;
     width: 321px;
+
+    .congrate {
+      @include typo.heading;
+    }
   }
 
   .inputContainer {
@@ -80,8 +93,6 @@
         cursor: not-allowed;
         background-color: colors.$divider2;
       }
-
-    // }
   }
 }
 
@@ -89,6 +100,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   .cropImage {
     width: 50px;

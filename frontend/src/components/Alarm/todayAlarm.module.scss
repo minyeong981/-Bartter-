@@ -1,20 +1,19 @@
 @use '@/styles/constants/colors.scss' as colors;
 @use '@/styles/constants/typographies.scss' as typo;
 
-.today-alarm {
+.todayAlarm {
   position: relative;
-  padding: 20px;
-  margin: 20px 0 10px 0;
+  padding: 15px;
+  margin-top: 20px;
   background-color: #ffff004b;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
 
-  .alarm-content {
+  .alarmContent {
     text-align: left;
 
     p {
-      margin-top: 15px;
       font-size: 16px;
       line-height: 1.5;
 
@@ -24,9 +23,9 @@
     }
   }
 
-  .alarm-actions {
+  .alarmActions {
     position: absolute;
-    top: 10px;
+    top: 13px;
     right: 10px;
     display: flex;
     align-items: center;
@@ -45,7 +44,7 @@
         margin-left: 0;
       }
 
-      .close-icon {
+      .closeIcon {
         width: 20px;
         height: 20px;
       }

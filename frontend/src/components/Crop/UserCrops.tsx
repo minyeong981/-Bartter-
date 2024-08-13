@@ -2,10 +2,10 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import classnames from "classnames/bind";
 import { useState } from 'react';
 
-import notCrop from '@/assets/image/notCrop.png';
 import barter from "@/services/barter";
 import querykeys from "@/util/querykeys";
 
+import EmptyPost from "../Empty/EmptyPost";
 import styles from './UserCrops.module.scss';
 
 const cx = classnames.bind(styles);
@@ -21,7 +21,7 @@ function UserCrops({ userId, onSelectCrop }: UserCropsProps) {
     queryFn: () => barter.getCropProfileListByUser(userId)
   });
 
-  const crops = data.data.data;
+  const crops = data?.data?.data || [];
   const [selectedCropId, setSelectedCropId] = useState<number | null>(null);
 
   const handleCropClick = (cropId: number) => {
@@ -33,8 +33,7 @@ function UserCrops({ userId, onSelectCrop }: UserCropsProps) {
     <div className={cx('cropsContainer')}>
       {crops.length === 0 ? (
         <div className={cx('noCrops')}>
-          <h3>아직 등록된 농작물이 없습니다.</h3>
-          <img src={notCrop} alt="notCrop" />
+          <EmptyPost text="아직 등록된 농작물이 없습니다."/>
         </div>
       ) : (
         <div className={cx('mainContainer')}>

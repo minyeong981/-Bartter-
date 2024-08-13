@@ -70,10 +70,11 @@ function CropStoragePage() {
             ? `나의 작물 ${myCrops.length}개`
             : `물물교환 / 나눔 작물 ${receivedCrops.length}개`}
         </h1>
-        <p>
+        <p className={cx('description')}>
           {isUserCrops
-            ? '나의 농작물을 선택하면 해당 농작물의 농사일지를 볼 수 있어요'
-            : '물물교환 / 나눔 받은 작물이에요. 받은 농작물을 선택하면 해당 농작물의 농사일지를 볼 수 있어요'}
+            ? '나의 농작물을 선택하면 해당 농작물의 농사 일지를 볼 수 있어요'
+            : <> 물물교환 / 나눔 받은 작물이에요
+            <br /> 받은 농작물을 선택하면 해당 농작물의 농사 일지를 볼 수 있어요</>}
         </p>
         <div className={cx('storageImage')}>
           <Lottie
