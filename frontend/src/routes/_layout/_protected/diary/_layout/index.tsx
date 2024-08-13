@@ -38,12 +38,12 @@ function DiaryPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { activeComponent } = useRootStore();
   
-  function handleDateChange(date: Date) {
-    setCurrentDate(date);
-  }
-  //   function handleDateChange(currentDate: Date) {
-  //   setCurrentDate(currentDate);
+  // function handleDateChange(date: Date) {
+  //   setCurrentDate(date);
   // }
+    function handleDateChange(currentDate: Date) {
+    setCurrentDate(currentDate);
+  }
 
   function handleModalOpen() {
     setIsModalOpen(true);
