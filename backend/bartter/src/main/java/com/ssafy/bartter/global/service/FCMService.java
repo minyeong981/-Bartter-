@@ -30,7 +30,7 @@ public class FCMService {
 
     public void sendChattingAlarm(String token, String nickname, String image, String url) {
         if (Objects.nonNull(token))
-            sendNotification(token, messageTitle, nickname + "님이 메세지를 보냈습니다.", image, domainUrl + "/trade/" + url);
+            sendNotification(token, messageTitle, nickname + "님이 메세지를 보냈습니다.", image, domainUrl + "/trade/chat/" + url);
     }
 
     private void sendNotification(String targetToken, String title, String body, String image, String url) {

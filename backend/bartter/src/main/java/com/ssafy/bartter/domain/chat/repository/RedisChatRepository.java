@@ -80,6 +80,7 @@ public class RedisChatRepository {
         // userIdList의 각 요소를 개별적으로 Redis에 저장
         userIdList.forEach(userId -> redisTemplate.opsForList().rightPush(key, userId));
 
+        log.debug("정보 넣었어요");
         redisTemplate.expire(key, 1, TimeUnit.HOURS);
     }
 
