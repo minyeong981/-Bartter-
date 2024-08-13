@@ -151,7 +151,7 @@ CREATE TABLE trade (
                        user_id INTEGER NOT NULL,
                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
                        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
-                       trade_status ENUM('COMPLETED', 'IN_PROGRESS', 'NEW') NOT NULL,
+                       trade_status ENUM('PROGRESS', 'RESERVED', 'COMPLETED') NOT NULL,
                        PRIMARY KEY (trade_id)
 ) ENGINE=InnoDB;
 
@@ -166,7 +166,7 @@ CREATE TABLE trade_post (
                             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
                             trade_post_content VARCHAR(255),
                             trade_post_title VARCHAR(255),
-                            trade_post_status ENUM('COMPLETED', 'IN_PROGRESS', 'NEW'),
+                            trade_post_status ENUM('PROGRESS', 'RESERVED', 'COMPLETED'),
                             PRIMARY KEY (trade_post_id)
 ) ENGINE=InnoDB;
 
