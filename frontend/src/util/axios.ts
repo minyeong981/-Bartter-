@@ -6,7 +6,7 @@ import useRootStore from '@/store';
 import parser from '@/util/parser.ts';
 
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_BASEURL,
+  baseURL: import.meta.env.VITE_BASEURL +"/api",
   responseType: 'json',
   timeout: 4000,
   withCredentials: true,

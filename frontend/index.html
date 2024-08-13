@@ -3,21 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="manifest" href="/manifest.json"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>밭터</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script
-    type="text/javascript"
-    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=REACT_APP_KAKAOMAP_API_KEY&libraries=services,clusterer"
-    >
+    <script type="module" src="/serviceWorkerRegistration.js"></script>
     </script>
         <script
         type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8f246cfc522b79393e93dec9e6be0d47&libraries=services,clusterer"
         >
-        </script>
+    </script>
   </body>
 </html>
