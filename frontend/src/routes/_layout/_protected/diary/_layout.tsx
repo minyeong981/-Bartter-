@@ -4,7 +4,8 @@ import classnames from 'classnames/bind';
 
 import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons.tsx';
 import Location from '@/components/Header/Location';
-import Navigation from '@/components/Navigation';
+// import Navigation from '@/components/Navigation';
+import MenuBar from '@/components/MenuBar/MenuBar';
 import TwoButton from '@/components/TwoButton/TwoButton';
 import barter from '@/services/barter';
 import useRootStore from '@/store';
@@ -43,7 +44,8 @@ function Diary() {
         />
       </div>
       <Outlet/>
-      <Navigation/> 
+      {/* <Navigation/>  */}
+      <MenuBar />
     </div>
   );
 }
