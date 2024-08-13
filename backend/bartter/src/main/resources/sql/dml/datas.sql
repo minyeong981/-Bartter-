@@ -6,7 +6,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 2024, '1990-01-01', 1, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter1', NULL, '꽃분아빠',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/1',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_1',
         '안녕하세요, 꽃분아빠입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -14,7 +14,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 2024, '1990-01-01', 2, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter2', NULL, '사랑둥이임애자',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/2',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_2',
         '안녕하세요, 사랑둥이임애자입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -22,7 +22,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 2024, '1990-01-01', 3, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter3', NULL, '돼지띠곽두철',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/3',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_3',
         '안녕하세요, 돼지띠곽두철입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -30,7 +30,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 2024, '1990-01-01', 4, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter4', NULL, '아카시아향기',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/4',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_4',
         '안녕하세요, 아카시아향기입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -38,7 +38,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 2024, '1990-01-01', 5, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter5', NULL, '민지아빠김두철',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/5',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_5',
         '안녕하세요, 민지아빠김두철입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -46,7 +46,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 6, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter6', NULL, '홍두깨.보현.오빠',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/6',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_6',
         '안녕하세요, 홍두깨.보현.오빠입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -54,7 +54,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 7, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter7', NULL, '임순애임니다',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/7',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_7',
         '안녕하세요, 임순애임니다입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -62,7 +62,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 8, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter8', NULL, '담양미남김삼철',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/8',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_8',
         '안녕하세요, 담양미남김삼철입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -70,7 +70,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 9, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter9', NULL, '김용수수밭',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/9',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_9',
         '안녕하세요, 김용수수밭입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -78,7 +78,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 10, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter10', NULL, '꽃다운나이조상봉',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/10',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_10',
         '안녕하세요, 꽃다운나이조상봉입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -86,7 +86,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 11, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter11', NULL, '오늘도행복한우리동네',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/11',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_11',
         '안녕하세요, 오늘도행복한우리동네입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -94,7 +94,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 12, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter12', NULL, '이덕순예요',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/12',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_12',
         '안녕하세요, 이덕순예요입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -102,7 +102,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 13, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter13', NULL, '행복한사과상점전일봉',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/13',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_13',
         '안녕하세요, 행복한사과상점전일봉입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -110,7 +110,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 14, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter14', NULL, '감자농사김훈돌',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/14',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_14',
         '안녕하세요, 감자농사김훈돌입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -118,7 +118,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 15, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter15', NULL, '수완지구토마토왕유지연',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/15',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_15',
         '안녕하세요, 수완지구토마토왕유지연입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -126,7 +126,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 16, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter16', NULL, '민영이네상추이야기',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/16',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_16',
         '안녕하세요, 민영이네상추이야기입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -134,7 +134,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 3015, '1990-01-01', 17, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter17', NULL, '좋은인연',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/17',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_17',
         '안녕하세요, 좋은인연입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -142,7 +142,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 3015, '1990-01-01', 18, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter18', NULL, '복조리농장',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/18',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_18',
         '안녕하세요, 복조리농장입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -150,7 +150,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 3015, '1990-01-01', 19, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter19', NULL, '강아지풀김가람',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/19',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_19',
         '안녕하세요, 강아지풀김가람입니다.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
@@ -158,7 +158,7 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 3015, '1990-01-01', 20, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
         'user@example.com', 'kiwibartter20', NULL, '은퇴후새삶살기',
-        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user/20',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'http://d1tknhgbpjhaqe.cloudfront.net/user_20',
         '안녕하세요, 은퇴후새삶살기입니다.', 'M', 'LOCAL', 'USER');
 
 
@@ -176,27 +176,27 @@ VALUES (2, 16, 6, '2024-08-11 11:04:00', '2024-08-11 11:04:00');
 INSERT INTO crop (crop_category_id, crop_grow_date, crop_id, user_id, created_at, updated_at, crop_nickname,
                   crop_description, crop_image)
 values (21, '2024-06-20', 1, 6, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '참참참깨', '참참참',
-        'http://d1tknhgbpjhaqe.cloudfront.net/mycrop/chamkkae');
+        'http://d1tknhgbpjhaqe.cloudfront.net/mycrop_chamkkae');
 
 INSERT INTO crop (crop_category_id, crop_grow_date, crop_id, user_id, created_at, updated_at, crop_nickname,
                   crop_description, crop_image)
 values (5, '2024-07-01', 2, 6, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '오이오이', '맛있는 오이',
-        'http://d1tknhgbpjhaqe.cloudfront.net/mycrop/cucumber');
+        'http://d1tknhgbpjhaqe.cloudfront.net/mycrop_cucumber');
 
 INSERT INTO crop (crop_category_id, crop_grow_date, crop_id, user_id, created_at, updated_at, crop_nickname,
                   crop_description, crop_image)
 values (13, '2024-06-01', 3, 15, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '방울방울', '방울 토마토',
-        'http://d1tknhgbpjhaqe.cloudfront.net/mycrop/tomato/small');
+        'http://d1tknhgbpjhaqe.cloudfront.net/mycrop_tomato_small');
 
 INSERT INTO crop (crop_category_id, crop_grow_date, crop_id, user_id, created_at, updated_at, crop_nickname,
                   crop_description, crop_image)
 values (13, '2024-06-03', 4, 15, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '왕토마토', '나만의 왕토마토',
-        'http://d1tknhgbpjhaqe.cloudfront.net/mycrop/tomato/big');
+        'http://d1tknhgbpjhaqe.cloudfront.net/mycrop_tomato_big');
 
 INSERT INTO crop (crop_category_id, crop_grow_date, crop_id, user_id, created_at, updated_at, crop_nickname,
                   crop_description, crop_image)
 values (10, '2024-07-01', 5, 16, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '초록이', '무럭무럭 자라라',
-        'http://d1tknhgbpjhaqe.cloudfront.net/mycrop/tomato/lettuce');
+        'http://d1tknhgbpjhaqe.cloudfront.net/mycrop_tomato_lettuce');
 
 
 
@@ -204,103 +204,103 @@ values (10, '2024-07-01', 5, 16, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (1, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '직파', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/1',
+VALUES (1, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '직파', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_1_1',
         '오늘 처음 심은 씨앗. 무럭무럭 자라라', '2024-05-10');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (2, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '발아', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/2',
+VALUES (2, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '발아', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_1_2',
         '물을 열심히 줬더니 싹이텄다.', '2024-05-16');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (3, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '성장중', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/3',
+VALUES (3, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '성장중', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_1_3',
         '싹이 자라는 속도가 적당하니 좋다', '2024-05-20');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (4, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '약준날', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/4',
+VALUES (4, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '약준날', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_1_4',
         '참깨잎이 황색으로 변하고 끝부분이 말랐다 농약사에서 마그네슘과 칼슘부족으로 그런 현상이 나온다하여 약을 처방받아 살포해줬다', '2024-05-24');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (5, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '곁순제거', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/5',
+VALUES (5, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '곁순제거', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_1_5',
         '곁순제거한날. 덥고 힘들다 여름 시작이다', '2024-06-10');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (6, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '지지대', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/6',
+VALUES (6, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '지지대', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_1_6',
         '비바람에 쓰러지지 않도록 지지대를 세워주고 허릿줄을 쳐주었다', '2024-06-20');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (7, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '두번째 허릿줄', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/7',
+VALUES (7, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '두번째 허릿줄', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_1_7',
         '바람이 많이 불어서 두번째 허릿줄을 쳐줬다', '2024-07-10');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (8, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '무럭무럭 잘자란다', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/8',
+VALUES (8, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '무럭무럭 잘자란다', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_1_8',
         '순조롭게 잘 자라는 중 다음달에 수확을 기대해볼수 있겠다', '2024-07-13');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (9, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '제초', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/9',
+VALUES (9, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '제초', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_1_9',
         '참깨밭에 신경을 못 썼더니 풀이 엄청 자라고있다 제초작업했다', '2024-08-05');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (10, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '참깨베는날', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/10',
+VALUES (10, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '참깨베는날', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_1_10',
         '드디어 참깨를 베고 묶어서 세웠다 요즘 소나기가 자주 오는 것같아 걱정이다', '2024-08-07');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (11, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '졸린날', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/11',
+VALUES (11, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '졸린날', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_1_11',
         '새벽부터 마누라랑 참깨 베고왔다', '2024-08-08');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (12, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '털고털고', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/1/12',
+VALUES (12, 1, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '털고털고', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_1_12',
         '참깨 턴다고 고생이 많다 우여곡절끝에 많이 털었다 아들에게 나눠줘야겠다', '2024-08-10');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (13, 2, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '거름', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/2/1',
+VALUES (13, 2, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '거름', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_2_1',
         '거름 주니까 잘자란다', '2024-08-05');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (14, 2, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '뿌듯', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/2/2', '추석전후 수확 할수있게 노지에 다다기오이 모종 덩굴올려 유인하는 작업을 함.
+VALUES (14, 2, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '뿌듯', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_2_2', '추석전후 수확 할수있게 노지에 다다기오이 모종 덩굴올려 유인하는 작업을 함.
 떡잎에서 5마디 정도까지는 오이가 열리지 않게 솎아주기도 함
 철파이프와 끈. 집게를 이용하여 유인작업을 마침', '2024-08-09');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (15, 4, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '갈라지는 현상', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/3/1',
+VALUES (15, 4, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '갈라지는 현상', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_3_1',
         '토마토가 조금 갈라져있다 어떻게 하면 좋을까 열과현상일까?', '2024-08-05');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (16, 4, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '추비', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/3/2',
+VALUES (16, 4, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '추비', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_3_2',
         '복합비료 추비', '2024-08-07');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (17, 4, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '쥬스', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/3/3',
+VALUES (17, 4, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '쥬스', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_3_3',
         '토마토를 수확해서 살짝 데쳐 100% 원액쥬스를 만들어 가족들에게 건강식으로 제공했다', '2024-08-09');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (18, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '예쁘다', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/4/1',
+VALUES (18, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '예쁘다', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_4_1',
         '오늘 가서 평소처럼 물을 주고 잡초를 뽑아주었다. 싱싱하게 잘자라고 있다', '2024-08-05');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (19, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '배추벌레', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/4/2',
+VALUES (19, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '배추벌레', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_4_2',
         '아침에 가보니 벌레가 잎을 갉아먹었다. 귀찮아서 안잡았더니 잎을 갉아먹었다 아직 심각한 정도는 아니네', '2024-08-07');
 
 INSERT INTO crop_diary (crop_diary_id, crop_id, created_at, updated_at, crop_diary_title, crop_diary_image,
                         crop_diary_content, crop_diary_perform_date)
-VALUES (20, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '비', 'http://d1tknhgbpjhaqe.cloudfront.net/diary/4/3',
+VALUES (20, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '비', 'http://d1tknhgbpjhaqe.cloudfront.net/diary_4_3',
         '어제 비가 많이 왔는데 비를 맞아서 잎이 많이 썩었다. 곧 장마철이라는데 남은 것들이라도 잘 보존해야 할텐데 걱정된다.', '2024-08-09');
 
 
@@ -1169,39 +1169,39 @@ VALUES (36, 33, 10, '2024-08-04 19:53:03', '2024-08-04 19:53:03', '오소리는 
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
-VALUES (5, 1, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/5');
+VALUES (5, 1, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community_5');
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
-VALUES (6, 2, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/6');
+VALUES (6, 2, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community_6');
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
-VALUES (13, 3, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/13');
+VALUES (13, 3, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community_13');
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
-VALUES (14, 4, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/14');
+VALUES (14, 4, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community_14');
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
-VALUES (15, 5, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/15');
+VALUES (15, 5, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community_15');
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
-VALUES (24, 6, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/23');
+VALUES (24, 6, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community_23');
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
-VALUES (28, 7, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/27');
+VALUES (28, 7, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community_27');
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
-VALUES (29, 8, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/28');
+VALUES (29, 8, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community_28');
 
 INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
                                   updated_at, community_post_image_url)
-VALUES (32, 9, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community/31');
+VALUES (32, 9, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'http://d1tknhgbpjhaqe.cloudfront.net/community_31');
 
 
 
@@ -1901,7 +1901,7 @@ VALUES (20, 25, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhg
 
 
 
---- trade_post_like
+-- trade_post_like
 
 INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
 VALUES (1, 1, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
