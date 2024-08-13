@@ -1,3 +1,5 @@
+use bartter;
+
 -- user (20)
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
@@ -161,7 +163,7 @@ VALUES (false, 3015, '1990-01-01', 20, '2024-08-04 19:31:58', NULL, '2024-08-04 
 
 
 -- follow (보현 -> 민영, 지연)
-, user_provider, user_role
+
 INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
 VALUES (1, 15, 6, '2024-08-11 11:03:57', '2024-08-11 11:03:57');
 
@@ -177,7 +179,7 @@ values (21, '2024-06-20', 1, 6, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '�
         'http://d1tknhgbpjhaqe.cloudfront.net/mycrop/chamkkae');
 
 INSERT INTO crop (crop_category_id, crop_grow_date, crop_id, user_id, created_at, updated_at, crop_nickname,
-                  crop_description, crop_image), user_provider, user_role
+                  crop_description, crop_image)
 values (5, '2024-07-01', 2, 6, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '오이시쿠나레', '맛있어져라 나의 오이',
         'http://d1tknhgbpjhaqe.cloudfront.net/mycrop/cucumber');
 
