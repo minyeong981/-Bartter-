@@ -180,7 +180,7 @@ values (21, '2024-06-20', 1, 6, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '�
 
 INSERT INTO crop (crop_category_id, crop_grow_date, crop_id, user_id, created_at, updated_at, crop_nickname,
                   crop_description, crop_image)
-values (5, '2024-07-01', 2, 6, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '오이시쿠나레', '맛있어져라 나의 오이',
+values (5, '2024-07-01', 2, 6, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '오이오이', '맛있는 오이',
         'http://d1tknhgbpjhaqe.cloudfront.net/mycrop/cucumber');
 
 INSERT INTO crop (crop_category_id, crop_grow_date, crop_id, user_id, created_at, updated_at, crop_nickname,
@@ -1656,3 +1656,245 @@ VALUES (33, 149, 2, '2024-08-04 19:53:03', '2024-08-04 19:53:03');
 
 
 
+-- trade_post & trade_wish_crop_category & trade_post_image
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(5, null, 2024, false, 1, 3, '2024-08-12 00:29:45', '2024-08-12 00:29:45',
+       '오이가주렁주렁나네요 제철옥수수랑 교환원합니다', '오이 드립니다', 'PROGRESS');
+
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (4, 1, 1);
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (1, 1, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_1');
+
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(13, null, 992, false, 2, 15, '2024-08-12 00:30:45', '2024-08-12 00:30:45',
+       '토마토가 갈라져서 보기는 안좋지만 맛이있습니다 아무 작물이나 주셔도 돼요', '갈라진 토마토', 'PROGRESS');
+
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (26, 2, 2);
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (2, 2, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_2');
+
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(21, 1, 992, false, 3, 6, '2024-08-12 00:31:45', '2024-08-12 00:31:45',
+       '참깨가 많이 났어요 나눠줘도 끝이 없네요.여름 과일이 먹고싶네요', '과일로 교환원합니다', 'PROGRESS');
+
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (13, 3, 3);
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (15, 3, 4);
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (3, 3, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_3');
+
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(17, null, 3015, true, 4, 18, '2024-08-12 00:32:45', '2024-08-12 00:32:45',
+       '고추가 많이 매워요!!! 요리에 조금씩 넣어서 드시라고 나눔합니다.', '매운 고추 나눔', 'PROGRESS');
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (4, 4, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_4_1');
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (4, 5, 2, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_4_2');
+
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(13, 4, 992, false, 5, 15, '2024-08-12 00:33:45', '2024-08-12 00:33:45',
+       '옥수수가 먹고싶어요~~~', '정성껏 키운 왕토마토 교환', 'PROGRESS');
+
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (4, 5, 5);
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (5, 6, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_5');
+
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(10, 5, 992, true, 6, 16, '2024-08-12 00:34:45', '2024-08-12 00:34:45',
+       '상추가 미친듯이 자라나네요 나눔 원하시는 분 쪽지주세요 ', '상추 나눔', 'PROGRESS');
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (6, 7, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_6_1');
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (6, 8, 2, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_6_2');
+
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(19, null, 992, false, 7, 14, '2024-08-12 00:35:45', '2024-08-12 00:35:45',
+       '제철 햇감자 드셔보세요 김장하려는데 배추 모종 있으신분은 교환해주시면 감사하겟습니다', '햇감자', 'PROGRESS');
+
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (25, 7, 6);
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (7, 9, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_7');
+
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(4, null, 2024, false, 8, 2, '2024-08-12 00:36:45', '2024-08-12 00:36:45',
+       '배추 모종 있으신분 연락주세요 옥수수 만이 드릴개요', '옥수수와 배추 교환합니다', 'PROGRESS');
+
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (25, 8, 7);
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (8, 10, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_8');
+
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(15, null, 2024, false, 9, 4, '2024-08-13 00:29:45', '2024-08-13 00:29:45',
+       '햇감자 먹고싶어요 열심히 키운 복숭아 드셔보세요 신선합니다', '복숭아 교환해요', 'PROGRESS');
+
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (19, 9, 8);
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (9, 11, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_9');
+
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(21, 1, 992, false, 10, 6, '2024-08-13 00:30:45', '2024-08-13 00:30:45',
+       '참깨 1kg 있습니다 배추 모종 있으신분은 연락주세요 ', '배추 모종 구합니다', 'PROGRESS');
+
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (25, 10, 9);
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (10, 12, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_10');
+
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(13, null, 992, false, 11, 13, '2024-08-13 00:31:45', '2024-08-13 00:31:45',
+       '방금 재배한 토마토 2kg 있습니다. 방금 캔 햇고구마랑 교환원해요!', '고구마 원합니다', 'PROGRESS');
+
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (24, 11, 10);
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (11, 13, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_11');
+
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(21, 1, 992, false, 12, 6, '2024-08-13 00:32:45', '2024-08-13 00:32:45',
+       '참깨 1kg이랑 콩 1kg이랑 교환원해요. 방앗간에서 기름으로 짜면 고소한 참기름이 된답니다.', '참깨 교환합니다', 'PROGRESS');
+
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (2, 12, 11);
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (12, 14, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_12');
+
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(23, null, 992, true, 13, 7, '2024-08-13 00:33:45', '2024-08-13 00:33:45',
+       '딸기 키우고 있는데 아주 많네요.아이들이랑 오셔서 딸기 따기 체험도 하고, 딴 만큼 가져가세요!!', '딸기 체험', 'PROGRESS');
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (13, 15, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_13');
+
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(8, null, 992, true, 14, 8, '2024-08-13 00:34:45', '2024-08-13 00:34:45',
+       '포도 따서 가져가실 분. 드식고 싶은 만큼 맘 껏 포도 따가셔도 됩니다.', '포도 나눔 (직접 수확)', 'PROGRESS');
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (14, 16, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_14');
+
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(20, null, 3015, false, 15, 17, '2024-08-13 00:35:45', '2024-08-13 00:35:45',
+       '호박들이 꽤 많이 컸네요!! 호박이랑 교환 할 야채들 원해요!!!', '아무 야채나 교환 원해요', 'PROGRESS');
+
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (26, 15, 12);
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (15, 17, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_15_1');
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (15, 18, 2, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_15_2');
+
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(15, null, 3015, false, 16, 19, '2024-08-13 00:36:45', '2024-08-13 00:36:45',
+       '복숭아가 아주 예쁘게 자랐어요! 딱복 좋아하시는 분!!! 지금 딱 알맞게 익었어요!~ 콩이랑 교환 원해요!!', '딱복 교환', 'PROGRESS');
+
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (2, 16, 13);
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (16, 19, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_16');
+
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(13, 15, 992, false, 17, 15, '2024-08-13 00:37:45', '2024-08-13 00:37:45',
+       '집에서 유기농으로 재배한 방울토마토 넉넉,,하게 있습니다,, 맥심 모카골드 믹스커피 원합니다,,', '방울 토마토 드려요', 'PROGRESS');
+
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (26, 17, 14);
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (17, 20, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_17_1');
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (17, 21, 2, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_17_2');
+
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(19, null, 992, false, 18, 14, '2024-08-13 00:38:45', '2024-08-13 00:38:45',
+       '감자 실한놈 몇개 있습니다,, 키위 제스프리 골드 키위면 좋은데 그냥 키위도 괜찮습니다,,', '실한 감자 1kg', 'PROGRESS');
+
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (26, 18, 15);
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (18, 22, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_18_1');
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (18, 23, 2, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_18_2');
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(11, null, 992, false, 19, 9, '2024-08-13 00:39:45', '2024-08-13 00:39:45',
+       '제주도 지인한테 받은 귤이 남아서요,,, 감자랑 교환 하실분 있으신가요??', '제주도 귤', 'PROGRESS');
+
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (19, 19, 16);
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (19, 24, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_19');
+
+
+INSERT INTO bartter.trade_post(crop_category_id, crop_id, location_id, trade_is_share, trade_post_id, user_id, created_at, updated_at, trade_post_content, trade_post_title, trade_post_status)
+VALUES(5, null, 992, false, 20, 6, '2024-08-13 00:39:45', '2024-08-13 00:39:45',
+       '이번주에 가족들이랑 삼겹살을 먹기로 했는대 오이랑.고기. 필요한 음식 교환 하실 분 구함니다,,', '쌈채소주새요', 'PROGRESS');
+
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (7, 20, 17);
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (10, 20, 18);
+INSERT INTO bartter.trade_wish_crop_category (crop_category_id, trade_post_id, trade_wish_crop_category_id)
+VALUES (17, 20, 19);
+
+INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
+VALUES (20, 25, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_20');
