@@ -1898,3 +1898,69 @@ VALUES (17, 20, 19);
 
 INSERT INTO bartter.trade_post_image (trade_post_id, trade_post_image_id, trade_post_image_order, created_at, updated_at, trade_post_image_url)
 VALUES (20, 25, 1, '2024-08-13 00:29:45', '2024-08-13 00:29:45', 'http://d1tknhgbpjhaqe.cloudfront.net/trade_20');
+
+
+
+--- trade_post_like
+
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (1, 1, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (2, 2, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (2, 3, 6, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+
+
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (4, 4, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (5, 5, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (5, 6, 6, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+
+
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (7, 7, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (8, 8, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (8, 9, 6, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+
+
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (10, 10, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (11, 11, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (11, 12, 6, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+
+
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (13, 13, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (14, 14, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (14, 15, 6, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+
+
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (16, 16, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (17, 17, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (17, 18, 6, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+
+
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (19, 19, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (20, 20, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
+INSERT INTO trade_post_like (trade_post_id, trade_post_like_id, user_id, created_at, updated_at)
+VALUES (20, 21, 6, '2024-08-04 19:31:58', '2024-08-04 19:31:58');
