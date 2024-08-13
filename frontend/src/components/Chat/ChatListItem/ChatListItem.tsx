@@ -11,7 +11,6 @@ type ChatListItemProps = LinkProps & SimpleTradeInfo & {tradePostId: number};
 export default function ChatListItem({
   userProfile,
   message,
-  tradeId,
   tradePostId,
   ...props
 }: ChatListItemProps) {
@@ -19,8 +18,8 @@ export default function ChatListItem({
     <Link
       className={cx('chatItem')}
       {...props}
-      to="/trade/chat/$tradePostId/$tradeId"
-      params={{tradeId: String(tradeId), tradePostId: String(tradePostId)}}
+      to="/trade/chat/$tradePostId"
+      params={{tradePostId: String(tradePostId)}}
     >
       <img src={userProfile.profileImage} />
       <div className={cx('content')}>
