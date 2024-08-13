@@ -1,7 +1,7 @@
 import {
   useMutation,
   useQueryClient,
-  useSuspenseQueries,
+  useSuspenseQuery,
 } from '@tanstack/react-query';
 import {createFileRoute, Outlet} from '@tanstack/react-router';
 import {createContext} from 'react';
@@ -38,21 +38,13 @@ export const Route = createFileRoute(
 function TradeDetailLayout() {
   const queryClient = useQueryClient();
   const userId = useRootStore(state => state.userId);
-  const {tradePostId}: { tradePostId: number } = Route.useParams();
-  const results = useSuspenseQueries({
-    queries: [
-      {
-        queryKey: ['trade', tradePostId],
-        queryFn: () => barter.getTradePostDetail(tradePostId),
-      },
-      {
-        queryKey: ['trade', 'chat', tradePostId],
-        queryFn: () => barter.getChatRoomInfo(tradePostId),
-      },
-    ],
+  const {tradePostId}: {tradePostId: number} = Route.useParams();
+  const {data} = useSuspenseQuery({
+    queryKey: ['trade', tradePostId],
+    queryFn: () => barter.getTradePostDetail(tradePostId),
   });
-  const tradePostDetailData = results[0].data.data.data;
-  const {tradeId} = results[1].data.data.data;
+  const tradePostDetailData = data.data.data;
+
   const isMyTrade =
     Number(tradePostDetailData.author.userId) === Number(userId);
 
@@ -83,14 +75,13 @@ function TradeDetailLayout() {
 
   return (
     <>
-      <HeaderWithBackButton/>
+      <HeaderWithBackButton />
       <TradeContext.Provider value={tradePostDetailData}>
-        <Outlet/>
+        <Outlet />
       </TradeContext.Provider>
       <ChattingButtonContainer
         like={tradePostDetailData.isLike}
         handleLike={handleLike}
-        tradeId={tradeId}
         isMyTrade={isMyTrade}
         tradePostId={tradePostDetailData.tradePostId}
       />

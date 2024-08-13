@@ -23,6 +23,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 
 /**
  * User 와 관련된 요청을 처리하는 컨트롤러 클래스
@@ -38,6 +40,7 @@ public class UserController {
 
     private final UserService userService;
     private final LocationService locationService;
+
     /**
      * 새로운 사용자를 등록하는 메서드
      *
@@ -57,7 +60,6 @@ public class UserController {
         userService.joinProcess(userJoinDto);
         return SuccessResponse.empty();
     }
-
 
 
     /**
@@ -153,8 +155,12 @@ public class UserController {
             @CurrentUser UserAuthDto user
     ) {
         log.debug("{}", token);
-        userService.saveFcmToken(user.getId(), token.getToken());
-        userService.sendLoginAlarm(user.getId(), user.getNickname());
+        String prevToken = userService.getFcmToken(user.getId());
+        log.debug("기존 :{}", prevToken);
+        if (Objects.isNull(prevToken)|| !token.getToken().equals(prevToken)) {
+            userService.saveFcmToken(user.getId(), token.getToken());
+            userService.sendLoginAlarm(user.getId(), user.getNickname());
+        }
         return SuccessResponse.empty();
     }
 

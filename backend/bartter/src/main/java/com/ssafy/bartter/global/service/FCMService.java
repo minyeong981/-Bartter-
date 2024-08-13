@@ -34,7 +34,14 @@ public class FCMService {
     }
 
     private void sendNotification(String targetToken, String title, String body, String image, String url) {
+        WebpushNotification notification = WebpushNotification.builder()
+                .setTitle(title)
+                .setBody(body)
+                .setImage(image)
+                .build();
+
         WebpushConfig webpushConfig = WebpushConfig.builder()
+                .setNotification(notification)
                 .putData("title", title)
                 .putData("body", body)
                 .putData("image", image)

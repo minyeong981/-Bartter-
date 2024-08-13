@@ -48,6 +48,7 @@ public class RedisChatService {
         int userId = chatMessage.getSenderId();
         tradeService.isParticipant(userId, tradeId); // 유효한 참여인지 확인
         redisChatRepository.addParticipant(userId, tradeId);
+        log.debug("유효한 요청입니다. 생성하겠습니다.");
         addTradeRoomInfo(tradeId);
     }
 

@@ -72,28 +72,28 @@ function DiaryPage() {
       renderedComponent = (
         <>
         <CalendarPage onDateChange={handleDateChange} initialDate={formatDate(currentDate)}/>
-          <div className={cx('content-wrapper')}>
-            <div className={cx('show-date')}>
+          <div className={cx('contentWrapper')}>
+            <div className={cx('showDate')}>
               {`${currentDate.getMonth() + 1}월 ${currentDate.getDate()}일`}
             </div>
             <TodayAlarm />
             <DiaryList userId={userId} selectedDate={formatDate(currentDate)} />
-            <div className={cx('link-button-wrapper')}>
-              <LinkButton
-                to="/diary/write/1"
-                buttonStyle={{ style: 'primary', size: 'large' }}
-                search={{selectedDate: formatDate(currentDate)}}
-              >
-                일지 쓰기
-              </LinkButton>
-            </div>
+          </div>
+          <div className={cx('linkButtonWrapper')}>
+            <LinkButton
+               to="/diary/write/1"
+               buttonStyle={{ style: 'primary', size: 'large' }}
+               search={{selectedDate: formatDate(currentDate)}}
+             >
+              일지 쓰기
+            </LinkButton>
           </div>
         </>
       );
       break;
     case '내 작물':
       renderedComponent = (
-        <div className={cx('myCropContainer')}>
+        <div className={cx('mainContainer')}>
           <UserCrops userId={userId} onSelectCrop={handleSelectCrop} />
           <FloatingButton onClick={handleModalOpen}>+ 등록하기</FloatingButton>
           {isModalOpen && (

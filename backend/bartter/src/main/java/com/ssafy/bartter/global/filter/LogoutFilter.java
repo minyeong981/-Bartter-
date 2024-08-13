@@ -84,7 +84,6 @@ public class LogoutFilter extends GenericFilterBean {
 
         // expired check
         jwtUtil.isExpired(refresh);
-
         String category = jwtUtil.getCategory(refresh);
         if (!category.equals("refreshToken")) {
             throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);

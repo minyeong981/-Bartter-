@@ -13,7 +13,7 @@ import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import LabeledTextAreaInput from '@/components/Inputs/LabeledTextAreaInput.tsx';
 import type {SearchParamsFromToPage} from '@/routes/_layout/_protected/trade/to/_layout/index.tsx';
 import barter from '@/services/barter.ts';
-import useRootStore from "@/store";
+import useRootStore from '@/store';
 import {getPosition} from '@/util/geolocation.ts';
 
 import styles from '../write.module.scss';
@@ -25,16 +25,15 @@ export const Route = createFileRoute(
 )({
   component: WritePage,
   validateSearch: ({
-                     myCrop,
-                     cropToGive,
-                     cropsToGet
-                   }: Record<string, unknown>): SearchParamsFromToPage => {
-
+    myCrop,
+    cropToGive,
+    cropsToGet,
+  }: Record<string, unknown>): SearchParamsFromToPage => {
     if (myCrop) {
       return {
         myCrop: myCrop as SimpleCropProfile,
-        cropsToGet: cropsToGet as CropCategoryDetail[]
-      }
+        cropsToGet: cropsToGet as CropCategoryDetail[],
+      };
     }
     return {
       cropToGive: cropToGive as CropCategoryDetail,
@@ -54,12 +53,12 @@ function WritePage() {
   const [images, setImages] = useState<File[]>([]);
   const [position, setPosition] = useState<SimpleLocation>();
 
-
   const {mutate: getUserLocation} = useMutation({
-    mutationFn: barter.getUserLocation, onSuccess: ({data}) => {
-      setPosition(data.data)
-    }
-  })
+    mutationFn: barter.getUserLocation,
+    onSuccess: ({data}) => {
+      setPosition(data.data);
+    },
+  });
   const {mutate: getLocation} = useMutation({
     mutationFn: barter.getCurrentLocation,
     onSuccess: ({data}) => {
@@ -75,7 +74,11 @@ function WritePage() {
   });
 
   const disabled =
-    !(cropToGive || myCrop) || !cropsToGet.length || !title || !content || !images.length;
+    !(cropToGive || myCrop) ||
+    !cropsToGet.length ||
+    !title ||
+    !content ||
+    !images.length;
 
   function handleTitleChange(e: ChangeEvent<HTMLInputElement>) {
     setTitle(e.currentTarget.value);
@@ -104,16 +107,18 @@ function WritePage() {
   }, [getUserLocation, userId]);
 
   function handleSubmit() {
-    console.log('전송!')
+    console.log('전송!');
     submitForm({
       create: {
         title,
         content,
         shareStatus: isShared,
-        cropCategoryId: myCrop?.cropCategoryId ||  cropToGive!.cropCategoryId,
+        cropCategoryId: myCrop?.cropCategoryId || cropToGive!.cropCategoryId,
         locationId: position!.locationId,
-        wishCropCategoryList: isShared ? [] : cropsToGet.map(crop => crop.cropCategoryId),
-        cropId: myCrop?.cropId,
+        wishCropCategoryList: isShared
+          ? []
+          : cropsToGet.map(crop => crop.cropCategoryId),
+        ...(myCrop?.cropId && {cropId: myCrop.cropId}),
       },
       images,
     });
@@ -122,7 +127,10 @@ function WritePage() {
   return (
     <div className={cx('writePage')}>
       <div className={cx('cropProfile')}>
-        <CropImage imgSrc={myCrop?.image || cropToGive!.image} label={myCrop?.nickname || cropToGive!.name}/>
+        <CropImage
+          imgSrc={myCrop?.image || cropToGive!.image}
+          label={myCrop?.nickname || cropToGive!.name}
+        />
       </div>
       <div className={cx('mainContainer')}>
         <div className={cx('inputContainer')}>
@@ -141,10 +149,12 @@ function WritePage() {
             label="주고 싶은 작물"
             selectedCrops={[myCrop?.nickname || cropToGive!.name]}
           />
-          {!isShared && <LabeledSelectCropButton
+          {!isShared && (
+            <LabeledSelectCropButton
               label="받고 싶은 작물"
               selectedCrops={cropsToGet.map(crop => crop.name)}
-          />}
+            />
+          )}
           <LabeledTextAreaInput
             label="내용"
             placeholder="내용을 입력하세요"
