@@ -32,10 +32,13 @@ public class TradeService {
     public TradeInfo createOrGetTrade(int tradePostId, int userId) {
         TradePost tradePost = tradePostRepository.findTradePostById(tradePostId)
                 .orElseThrow(() -> new CustomException(ErrorCode.TRADE_POST_NOT_FOUND));
+        log.debug("해당 게시글 : {}", tradePost.getId());
         User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        log.debug("나 : {}", userId);
 
-        Trade trade = tradeRepository.findByTradePostAndUser(tradePost, user).orElseGet(() -> createTrade(tradePost, user));
+        Trade trade = tradeRepository.findByTradePostAndUser(tradePost.getId(), userId).orElseGet(() -> createTrade(tradePost, user));
+        log.debug("Trade : {} ",trade.getId());
 
         return TradeInfo.of(tradePost, trade.getId(), userId);
     }
@@ -46,6 +49,7 @@ public class TradeService {
     }
 
     public void isParticipant(int userId, int tradeId) {
+        log.debug("참여 원하는 유저 :{}, tradeId :{}", userId, tradeId);
         if(!tradeRepository.existsByTradeIdAndUserId(userId, tradeId)){
             throw new CustomException(ErrorCode.TRADE_CHAT_UNAUTHENTICATED);
         }

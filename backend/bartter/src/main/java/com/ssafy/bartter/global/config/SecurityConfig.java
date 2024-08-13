@@ -106,7 +106,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/api/ws/**").permitAll()
-                        .requestMatchers("/api/", "/api/login", "/api/user/join", "/api/user/location" ,"/api/oauth2/**").permitAll()
+                        .requestMatchers("/api/", "/api/login/**", "/api/user/join", "/api/user/location" ,"/api/oauth2/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/swagger", "/swagger-ui.html", "/swagger-ui/**", "/api-docs", "/api-docs/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
@@ -117,6 +117,9 @@ public class SecurityConfig {
                 .oauth2Login((oauth2) -> oauth2
                         .authorizationEndpoint(authorizationEndpoint ->
                                 authorizationEndpoint.baseUri("/api/oauth2/authorization"))
+                        .redirectionEndpoint(redirectionEndpoint ->
+                                redirectionEndpoint.baseUri("/api/login/oauth2/code/*")
+                        )
                         .userInfoEndpoint(userInfoEndpointConfig -> {
                             userInfoEndpointConfig.userService(oAuth2UserService);
                         })
