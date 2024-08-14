@@ -8,7 +8,6 @@ import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndBut
 import Location from '@/components/Header/Location.tsx';
 import MenuBar from '@/components/MenuBar/MenuBar';
 import CreateCropTradeModal from '@/components/Modals/CreateCropTradeModal';
-import Navigation from '@/components/Navigation';
 import barter from '@/services/barter.ts';
 import useRootStore from '@/store';
 import querykeys from '@/util/querykeys.ts';
