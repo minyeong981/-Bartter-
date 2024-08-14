@@ -21,16 +21,6 @@ export const Route = createFileRoute('/_layout/signup/_layout/6')({
   component: GetPhoneNumberPage,
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase5 => {
     return {
-      name: search.name !== 'undefined' ? (search.name as Name) : undefined,
-      username:
-        search.username !== 'undefined'
-          ? (search.username as Username)
-          : undefined,
-      password:
-        search.password !== 'undefined'
-          ? (search.password as Password)
-          : undefined,
-      birth: search.birth !== 'undefined' ? (search.birth as Birth) : undefined,
       gender:
         search.gender !== 'undefined' ? (search.gender as Gender) : undefined,
     };

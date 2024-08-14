@@ -21,8 +21,9 @@
 
 .container {
   display: flex;
+  flex: 1;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
 }
 
 .header {
@@ -34,7 +35,7 @@
   border-bottom: none;
 }
 
-.link-button-wrapper {
+.linkButtonWrapper {
   display: flex;
   justify-content: center;
   width: 100%;
@@ -51,6 +52,17 @@
   border-bottom: 1px solid #ddd;
 }
 
-.myCropContainer {
+.mainContainer {
   padding: 25px 0 0;
+}
+
+.contentWrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 360px;
+  padding: 0 16px;
+
 }

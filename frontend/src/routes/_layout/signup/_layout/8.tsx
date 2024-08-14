@@ -21,7 +21,7 @@ export const Route = createFileRoute('/_layout/signup/_layout/8')({
   component: GetLocationPage,
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase7 => {
     return {
-      name: search.name ? (search.name as Name) : undefined,
+      nickname: search.nickname ? (search.nickname as Nickname) : undefined,
       username: search.username ? (search.username as Username) : undefined,
       password: search.password ? (search.password as Password) : undefined,
       birth: search.birth ? (search.birth as Birth) : undefined,
@@ -40,7 +40,7 @@ export const Route = createFileRoute('/_layout/signup/_layout/8')({
 
 function GetLocationPage() {
   const navigate = useNavigate({from: '/signup/8'});
-  const {name, gender, password, username, birth, phoneNumber, email} =
+  const {nickname, gender, password, username, birth, phoneNumber, email} =
     Route.useSearch();
   const {mutate, isPending} = useMutation({
     mutationFn: barter.signup,
@@ -59,7 +59,7 @@ function GetLocationPage() {
       birth: birth!,
       phone: phoneNumber!,
       email: email!,
-      nickname: name!,
+      nickname: nickname!,
       latitude,
       longitude,
     });

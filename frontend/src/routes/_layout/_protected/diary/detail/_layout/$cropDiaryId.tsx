@@ -1,4 +1,3 @@
-// userId와 일지 쓴 작성자의 id가 같으면 삭제하기 버튼 보이기, 아니면 숨기기
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import classnames from 'classnames/bind';

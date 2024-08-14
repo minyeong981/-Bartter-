@@ -1,3 +1,4 @@
+
 import GeneralButton from "./GeneralButton";
 
 export default function followButton(
@@ -6,9 +7,7 @@ export default function followButton(
     onClick: React.MouseEventHandler<HTMLButtonElement>,
     isDisabled?:boolean;
     }) {
-    return (
-        <div>
-           { isfollow ? ( 
+    return ( isfollow ? ( 
             <GeneralButton 
             onClick= {onClick} 
             buttonStyle={{style:'outlined', size: 'tiny'}}
@@ -23,7 +22,6 @@ export default function followButton(
             disabled={isDisabled}
             >
                 팔로우
-            </GeneralButton>)}
-        </div>
+            </GeneralButton>)
     )
 }

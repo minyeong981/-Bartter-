@@ -4,7 +4,7 @@ export default function LocationContainer({currentLocation} : {currentLocation: 
 
     return (
         <div className={styles.mapBox}>
-            현재 위치가 내 동네로 설정한 {currentLocation} 에 있습니다.
+            현재 위치는 <span>{currentLocation}</span>으로 설정되었습니다.
         </div>
     )
 }

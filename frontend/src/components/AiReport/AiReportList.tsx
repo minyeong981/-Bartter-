@@ -40,7 +40,8 @@ export default function AiReportList({ filterOptions }: AiReportListProps) {
     return (
       <div className={cx('notAiReport')}>
         <p>AI 요약 보고서가 없습니다. 
-          <br /> 농사 일지를 작성하면 일요일마다 AI 요약 보고서가 제공됩니다.</p>
+          <br /> 농사 일지를 작성하면 일요일마다
+          <br /> 분석 보고서를 제공해드려요!</p>
             <Lottie loop animationData={NotFile} play className={cx('animation')} />
 
         <div className={cx('buttonContainer')}>

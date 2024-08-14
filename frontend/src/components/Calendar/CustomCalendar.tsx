@@ -15,6 +15,7 @@ interface CustomCalendarProps {
 export default function CustomCalendar({ isCollapsed, onDateChange, onMonthYearChange, highlightDates, selectedDate }: CustomCalendarProps) {
   const [currentWeek, setCurrentWeek] = useState<Date[]>([]);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
+  const [persistedDate, setPersistedDate] = useState<Date>(selectedDate); // 선택된 날짜를 저장하는 상태 추가
 
   // 날짜 비교를 위한 정규화 함수
   const normalizeDate = (date: Date) => {
@@ -39,14 +40,15 @@ export default function CustomCalendar({ isCollapsed, onDateChange, onMonthYearC
   // 선택한 날짜의 주 업데이트
   useEffect(() => {
     updateCurrentWeek(selectedDate);
+    setPersistedDate(selectedDate); // 선택한 날짜를 저장
   }, [selectedDate, updateCurrentWeek]);
 
   // 달력 접었을 때 선택한 날짜의 주 업데이트
   useEffect(() => {
     if (isCollapsed) {
-      updateCurrentWeek(selectedDate);
+      updateCurrentWeek(persistedDate); // 저장된 날짜로 주간 업데이트
     }
-  }, [isCollapsed, currentMonth, selectedDate, updateCurrentWeek]);
+  }, [isCollapsed, currentMonth, persistedDate, updateCurrentWeek]);
 
   // 달 변경
   const changeMonth = (increment: number) => {
@@ -54,17 +56,19 @@ export default function CustomCalendar({ isCollapsed, onDateChange, onMonthYearC
     newDate.setMonth(currentMonth.getMonth() + increment);
     setCurrentMonth(newDate);
     onMonthYearChange(newDate.getFullYear(), newDate.getMonth() + 1);
+
+    // 달력이 접혀 있을 때 선택된 날짜의 월을 변경하되, 날짜는 유지
+    if (isCollapsed) {
+      const newSelectedDate = new Date(newDate.getFullYear(), newDate.getMonth(), persistedDate.getDate());
+      onDateChange(newSelectedDate); // 부모 컴포넌트로 선택된 날짜 업데이트
+      updateCurrentWeek(newSelectedDate); // 해당 날짜의 주간 업데이트
+    }
   };
 
   // 달력 이동 시 현재 월 업데이트
   useEffect(() => {
     setCurrentMonth(selectedDate); 
   }, [selectedDate]);
-
-  useEffect(() => {
-    // console.log('Highlight Dates in CustomCalendar:', highlightDates);
-  }, [highlightDates]);
-
 
   // 년, 월 커스텀 => 2021. 09 형식
   const formatMonthYear = (_: string | undefined, date: Date) => {
@@ -87,6 +91,7 @@ export default function CustomCalendar({ isCollapsed, onDateChange, onMonthYearC
   // 날짜 클릭하면 부모 컴포넌트에 선택된 날짜 전달
   const onClickDay = (date: Date) => {
     onDateChange(date);
+    setPersistedDate(date); // 선택한 날짜를 저장
   };
 
   // 다이어리 있는 날짜에 점 찍기
