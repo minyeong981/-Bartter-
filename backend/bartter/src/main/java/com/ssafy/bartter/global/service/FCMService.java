@@ -24,8 +24,7 @@ public class FCMService {
     private final FirebaseMessaging firebaseMessaging;
 
     public void sendLoginAlarm(String token, String body) {
-        if (Objects.nonNull(token))
-            sendNotification(token, loginTitle, body + "님 로그인을 환영합니다!", imagePrefix + "/logo", domainUrl);
+        if (Objects.nonNull(token)) sendNotification(token, loginTitle, body + "님 로그인을 환영합니다!", imagePrefix + "/logo", domainUrl);
     }
 
     public void sendChattingAlarm(String token, String nickname, String image, String url) {
