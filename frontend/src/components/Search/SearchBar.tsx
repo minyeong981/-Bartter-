@@ -43,8 +43,7 @@ export default function SearchBar({ query, onSearch, onInputChange, onClear} : S
               <button className={styles.clearButton} >
                 { query ? 
                 <FaX onClick={onClear} style={{ fontSize: '20px'}} /> 
-                : <IconSearch className={styles.icon} /> 
-                // <FaSearch style={{ fontSize: '30px'}} />
+                : <IconSearch className={styles.icon} />
                 }
               </button>
             </div>

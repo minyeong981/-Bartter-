@@ -68,7 +68,10 @@ function WritePage() {
   const {mutate: submitForm} = useMutation({
     mutationFn: barter.postTradePost,
     onSuccess: async () => {
-      await queryClient.invalidateQueries({queryKey: ['tradeList']});
+      await queryClient.invalidateQueries({
+        queryKey: ['tradeList'],
+        refetchType: 'all',
+      });
       await navigate({to: '/trade'});
     },
   });

@@ -43,7 +43,7 @@ export default function ProfileWrited() {
       case '물물 교환':
         return trades.length === 0 ? (
           <div>
-            <EmptyPost text='작성한 물물교환' text2='게시글이 없습니다.' />
+            <EmptyPost text='작성한 물물교환' text2='게시글이 없습니다' />
           </div>
         ) : (
           <div className={cx('trade')}>
@@ -55,7 +55,7 @@ export default function ProfileWrited() {
       case '동네 모임':
         return posts.length === 0 ? (
           <div>
-            <EmptyPost text="작성한 동네모임" text2="게시글이 없습니다." />
+            <EmptyPost text="작성한 동네모임" text2="게시글이 없습니다" />
           </div>
         ) : (
           <div className={cx('community')}>

@@ -2,7 +2,7 @@ import classnames from 'classnames/bind';
 
 import titleCommunity from '@/assets/lottie/titleCommunity.json'
 import titleNeighbor from '@/assets/lottie/titleNeighbor.json'
-import titleTrade from '@/assets/lottie/titleTrade.json'
+import Trade from '@/assets/lottie/trade.json';
 import PostList from '@/components/Community/PostList';
 
 import EmptyPost from '../Empty/EmptyPost';
@@ -34,7 +34,7 @@ export default function SearchResult({
   ) {
     return (
       <div>
-        <EmptyPost text="검색어와 관련된 내용을" text2="찾을수 없습니다." />
+        <EmptyPost text="검색어와 관련된 내용을" text2="찾을수 없습니다" />
       </div>
     );
   }
@@ -45,10 +45,10 @@ export default function SearchResult({
         <Location location={location} />
       </div>
       {results.tradePostList.length === 0 ? (
-        <div>관련된 물물교환 게시글이 없습니다.</div>
+        <div>관련된 물물교환 게시글이 없습니다</div>
       ) : (
         <div className={cx('barter')}>
-            <Title title='물물교환' to={`/search/trade/${search.toString()}`} lottie={titleTrade}/>
+            <Title title='물물교환' to={`/search/trade/${search.toString()}`} lottie={Trade}/>
             <div className={cx('trade')}>
               {results.tradePostList.map((trade, tradeIndex) => (
                 <TradeCard key={tradeIndex} {...trade} />
@@ -58,7 +58,7 @@ export default function SearchResult({
       )}
 
       {results.communityPostList.length === 0 ? (
-        <div>관련된 동네모임 게시글이 없습니다.</div>
+        <div>관련된 동네모임 게시글이 없습니다</div>
       ) : (
         <div className={cx('community')}>
             <Title title='동네 모임' to={`/search/community/${search.toString()}`} lottie={titleCommunity}/>
@@ -67,7 +67,7 @@ export default function SearchResult({
       )}
 
       {results.userProfileList.length === 0 ? (
-        <div>관련된 이웃이 없습니다.</div>
+        <div>관련된 이웃이 없습니다</div>
       ) : (
         <div className={cx('following')}>
           <Title title='이웃' to={`/search/neighbor/${search.toString()}`} lottie={titleNeighbor} />

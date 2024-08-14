@@ -1,73 +1,76 @@
 import classnames from 'classnames/bind';
-import React, { useEffect,useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Lottie from 'react-lottie-player';
 
+import Logo from '@/assets/image/logo.png'
+
+import ProgressBar from '../ProgressBar';
 import styles from './OnboardingCarousel.module.scss';
-
-interface CarouselProps {
-  slides: { image: string; text: JSX.Element | string }[];
-  onSlideChange?: (index: number) => void;  // 추가된 콜백 프로퍼티
-}
 
 const cx = classnames.bind(styles);
 
-export default function Carousel({ slides = [], onSlideChange }: CarouselProps) {
+interface Slide {
+  image?: string;
+  animationData?: any;
+  text: JSX.Element | string;
+  className?: string;
+}
+
+interface CarouselProps {
+  slides: Slide[];
+  onSlideChange?: (index: number) => void;
+}
+
+const Carousel: React.FC<CarouselProps> = ({ slides, onSlideChange } : CarouselProps) => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const totalSlides = slides.length;
+  const LAST_STEP_INDEX = totalSlides - 1;
+  console.log(slides)
 
   useEffect(() => {
-    if (onSlideChange) {
-      onSlideChange(selectedIndex);
-    }
+    const handleScroll = () => {
+      if (!carouselRef.current) return;
+      const scrollLeft = carouselRef.current.scrollLeft || 0;
+      const clientWidth = carouselRef.current.clientWidth || 1;
+      const newIndex = Math.round(scrollLeft / clientWidth);
+      if (newIndex !== selectedIndex) {
+        setSelectedIndex(newIndex);
+        onSlideChange?.(newIndex);
+      }
+    };
+
+    carouselRef.current?.addEventListener('scroll', handleScroll);
+    return () => carouselRef.current?.removeEventListener('scroll', handleScroll);
   }, [selectedIndex, onSlideChange]);
 
-  function handleScroll() {
-    if (!carouselRef.current) return;
-
-    const { scrollLeft, clientWidth } = carouselRef.current;
-    const index = Math.round(scrollLeft / clientWidth);
-    setSelectedIndex(index);
-  }
-
-  const scrollToSlide = (index: number) => {
-    if (!carouselRef.current) return;
-    const scrollPosition = index * carouselRef.current.clientWidth;
-    carouselRef.current.scrollTo({ left: scrollPosition, behavior: 'smooth' });
-    setSelectedIndex(index);
-  };
-
-  const handleNext = () => {
-    if (selectedIndex < slides.length - 1) {
-      scrollToSlide(selectedIndex + 1);
-    }
-  };
-
-  const handlePrev = () => {
-    if (selectedIndex > 0) {
-      scrollToSlide(selectedIndex - 1);
-    }
-  };
+  const displayText = slides[selectedIndex]?.text
 
   return (
     <div className={cx('carousel')}>
-      <div
-        className={cx('imageContainer')}
-        ref={carouselRef}
-        onScroll={handleScroll}
-      >
+      <div className={cx('imageContainer')} ref={carouselRef}>
         {slides.map((slide, index) => (
           <div key={`slide-${index}`} className={cx('slide')}>
-            <p className={cx('text')}>{slide.text}</p>
-            <img src={slide.image} alt={`슬라이드 ${index + 1}`} />
+            {slide.animationData ?
+             <Lottie 
+             loop 
+             animationData={slide.animationData} 
+             play
+             speed={2}
+             className={cx(`${slide.className}`)}
+             />
+              : <img src={Logo} alt="logo" />}
+            <div className={cx('text')}>
+              {displayText}
+            </div>
           </div>
         ))}
       </div>
-
-      <button className={cx('prevButton')} onClick={handlePrev}>
-        &lt;
-      </button>
-      <button className={cx('nextButton')} onClick={handleNext}>
-        &gt;
-      </button>
+      {selectedIndex < LAST_STEP_INDEX && (
+        <ProgressBar current={selectedIndex + 1} total={totalSlides} />
+      )}
     </div>
   );
-}
+};
+
+export default Carousel;

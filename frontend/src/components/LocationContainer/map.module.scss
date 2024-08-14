@@ -5,8 +5,9 @@
 .mapBox {
     position: fixed;
     z-index: 100;
-    padding: 20px;
-    margin: 20px;
+    width: 90%;
+    padding: 15px;
+    margin-top: 10px;
     background-color: colors.$gray1;
     border: 1px solid colors.$gray1;
     border-radius: 10px;

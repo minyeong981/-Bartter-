@@ -6,6 +6,7 @@ import {useState} from 'react';
 import FloatingButton from '@/components/Buttons/FloatingButton';
 import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons.tsx';
 import Location from '@/components/Header/Location.tsx';
+import MenuBar from '@/components/MenuBar/MenuBar';
 import CreateCropTradeModal from '@/components/Modals/CreateCropTradeModal';
 import Navigation from '@/components/Navigation';
 import barter from '@/services/barter.ts';
@@ -45,7 +46,7 @@ function Trade() {
       {isModalOpen && (
         <CreateCropTradeModal onClickOutside={handleModalClose} />
       )}
-      <Navigation />
+      <MenuBar />
     </div>
   );
 }

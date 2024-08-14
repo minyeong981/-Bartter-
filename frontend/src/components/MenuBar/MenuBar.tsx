@@ -38,7 +38,6 @@ export default function MenuBar() {
             <Lottie
               loop
               animationData={Home}
-              play={activeItem === 'home'}
               className={styles.lottie}
             />
             <span>홈</span>
@@ -52,7 +51,6 @@ export default function MenuBar() {
             <Lottie
               loop
               animationData={Diary}
-              play={activeItem === 'diary'}
               className={styles.lottie}
             />
             <span>농사 일지</span>
@@ -66,7 +64,6 @@ export default function MenuBar() {
             <Lottie
               loop
               animationData={Trade}
-              play={activeItem === 'trade'}
               className={styles.lottie}
             />
             <span>물물 교환</span>
@@ -80,7 +77,6 @@ export default function MenuBar() {
             <Lottie
               loop
               animationData={Community}
-              play={activeItem === 'community'}
               className={styles.lottie}
             />
             <span>동네 모임</span>

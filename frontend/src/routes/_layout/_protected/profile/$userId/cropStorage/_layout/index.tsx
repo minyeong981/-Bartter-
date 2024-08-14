@@ -72,10 +72,14 @@ function CropStoragePage() {
         </h1>
         <p className={cx('description')}>
           {isUserCrops
-            ? '나의 농작물을 선택하면 해당 농작물의 농사 일지를 볼 수 있어요'
+            ? <> 나의 농작물을 선택하면
+            <br /> 해당 농작물의 농사 일지를 볼 수 있어요
+            </>
             : <> 물물교환 / 나눔 받은 작물이에요
-            <br /> 받은 농작물을 선택하면 해당 농작물의 농사 일지를 볼 수 있어요</>}
+            <br /> 받은 농작물을 선택하면 해당 농작물의
+            <br /> 농사 일지를 볼 수 있어요</>}
         </p>
+        
         <div className={cx('storageImage')}>
           <Lottie
             loop
@@ -102,7 +106,7 @@ function CropStoragePage() {
           <div className={cx('myCropsContainer', { empty: myCrops.length === 0, withCrops: myCrops.length > 0 })}>
             {myCrops.length === 0 ? (
               <div className={cx('notCrop')}>
-                <p>등록한 작물이 없습니다.</p>
+                <p>등록한 작물이 없습니다</p>
                 {Number(myId) === Number(userId) && (
                   <div className={cx('buttonContainer')}>
                     <GeneralButton
@@ -135,7 +139,7 @@ function CropStoragePage() {
           <div className={cx('receivedCropsContainer', { empty: receivedCrops.length === 0, withCrops: receivedCrops.length > 0 })}>
             {receivedCrops.length === 0 ? (
               <div className={cx('notCrop')}>
-                <p>물물 교환 / 나눔 받은 작물이 없습니다.</p>
+                <p>물물 교환 / 나눔 받은 작물이 없습니다</p>
                 {Number(myId) === Number(userId) && (
                   <div className={cx('buttonContainer')}>
                     <GeneralButton
