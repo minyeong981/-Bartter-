@@ -63,35 +63,34 @@
 //               loop
 //               animationData={HandScroll}
 //               play
-//             />        
+//             />
 //       </div> */}
 //       <div>
-//         <OnboardingCarousel slides={slides} onSlideChange={onSlideChange} />        
+//         <OnboardingCarousel slides={slides} onSlideChange={onSlideChange} />
 //       </div>
 //       <div className={cx('animation')}>
 //         <Lottie
 //               loop
 //               animationData={HandScroll}
 //               play
-//             />        
+//             />
 //       </div>
 //     </div>
 //   );
 // }
 
-
 import classnames from 'classnames/bind';
-import { useState } from 'react';
+import {useState} from 'react';
 import Lottie from 'react-lottie-player';
 
-import Logo from '@/assets/image/logo.png'
-import HandScroll from '@/assets/lottie/handScroll.json'
-import onBoardingCommunity from '@/assets/lottie/onBoardingCommunity.json'
-import onBoardingDiary from '@/assets/lottie/onBoardingDiary.json'
-import onBoardingFruits from '@/assets/lottie/onBoardingFruits.json'
-import onBoardingWatermelon from '@/assets/lottie/onBoardingWatermelon.json'
-import KakaoButton from '@/components/Buttons/KakaoButton.tsx'
-import GeneralButton from '@/components/Buttons/LinkButton.tsx'
+import Logo from '@/assets/image/logo.png';
+import HandScroll from '@/assets/lottie/handScroll.json';
+import onBoardingCommunity from '@/assets/lottie/onBoardingCommunity.json';
+import onBoardingDiary from '@/assets/lottie/onBoardingDiary.json';
+import onBoardingFruits from '@/assets/lottie/onBoardingFruits.json';
+import onBoardingWatermelon from '@/assets/lottie/onBoardingWatermelon.json';
+import KakaoButton from '@/components/Buttons/KakaoButton.tsx';
+import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 
 import styles from './Onboarding.module.scss';
 import OnboardingCarousel from './OnboardingCarousel';
@@ -117,7 +116,6 @@ const slides: Slide[] = [
         농작물 교환 서비스 <br />
         밭터에 오신것을 환영합니다!
       </>
-
     ),
   },
   {
@@ -128,7 +126,7 @@ const slides: Slide[] = [
         내가 키운 작물을 <br />
         이웃과 교환해보세요!
       </>
-    )
+    ),
   },
   {
     animationData: onBoardingDiary,
@@ -138,7 +136,7 @@ const slides: Slide[] = [
         내가 키운 작물의 스토리를 <br />
         만들어보세요!
       </>
-    )
+    ),
   },
   {
     animationData: onBoardingCommunity,
@@ -148,16 +146,16 @@ const slides: Slide[] = [
         동네 이웃과 <br />
         이야기를 나눠보세요!
       </>
-    )
+    ),
   },
   {
     animationData: onBoardingWatermelon,
     className: 'onBoardingWatermelon',
-    text: "밭터, 이제 시작해볼까요?",
+    text: '밭터, 이제 시작해볼까요?',
   },
 ];
 
-const Onboarding: React.FC<OnboardingProps> = ({ onSlideChange }) => {
+const Onboarding: React.FC<OnboardingProps> = ({onSlideChange}) => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const handleSlideChange = (index: number) => {
@@ -167,27 +165,32 @@ const Onboarding: React.FC<OnboardingProps> = ({ onSlideChange }) => {
 
   const LAST_STEP_INDEX = slides.length - 1;
 
-    function handleKakaoButton() {
+  // TODO: 배포시 BASE URL 확인할 것, .env 파일에 VITE_BASEURL = {실제 서버 BASE URL} 추가
+  function handleKakaoButton() {
     window.open(
       import.meta.env.VITE_BASEURL + '/api/oauth2/authorization/kakao',
       '_self',
-    )
+    );
   }
+
   return (
     <div className={cx('onboarding')}>
       <OnboardingCarousel slides={slides} onSlideChange={handleSlideChange} />
       {currentStep < LAST_STEP_INDEX ? (
         <div className={cx('animation')}>
           <Lottie loop animationData={HandScroll} play />
-        </div>) : (
+        </div>
+      ) : (
         <div className={cx('buttonContainer')}>
           <KakaoButton onClick={handleKakaoButton} />
-          <GeneralButton buttonStyle={{ style: 'primary', size: 'large' }} to="/login">
+          <GeneralButton
+            buttonStyle={{style: 'primary', size: 'large'}}
+            to="/login"
+          >
             로그인
           </GeneralButton>
-        </div> 
-        )          
-      }
+        </div>
+      )}
     </div>
   );
 };

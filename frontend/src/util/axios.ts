@@ -5,8 +5,9 @@ import barter from '@/services/barter.ts';
 import useRootStore from '@/store';
 import parser from '@/util/parser.ts';
 
+// TODO: 배포시 BASE URL 확인할 것, .env 파일에 VITE_BASEURL = {실제 서버 BASE URL} 추가
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_BASEURL +"/api",
+  baseURL: import.meta.env.VITE_BASEURL + '/api',
   responseType: 'json',
   timeout: 4000,
   withCredentials: true,
