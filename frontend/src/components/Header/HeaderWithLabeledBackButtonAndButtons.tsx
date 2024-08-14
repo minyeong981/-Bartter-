@@ -2,7 +2,7 @@ import {Link} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {PropsWithChildren, ReactNode} from 'react';
 
-import {IconBell, IconSearch, IconUser} from '@/assets/svg';
+import { IconSearch, IconUser} from '@/assets/svg';
 
 import BackButton from './BackButton/BackButton.tsx';
 import Index from './Container';
