@@ -33,7 +33,7 @@ export default function StoryCard({
                     alt={`${author.nickname}'s profile`}
                 />
             </Link>
-            <div className={styles.nickname}>{author.nickname}</div>
+            {/* <div className={styles.nickname}>{author.nickname}</div> */}
         </div>
     )
 }
