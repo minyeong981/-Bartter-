@@ -15,9 +15,9 @@ export default function LabeledImageInput({
   label,
 }: LabeledImageInputProps) {
   return (
-    <label className={cx('labeledImageInput')}>
+    <div className={cx('labeledImageInput')}>
       {label}
       <ImageInput onImageChange={onImageChange} maxImages={maxImages} />
-    </label>
+    </div>
   );
 }

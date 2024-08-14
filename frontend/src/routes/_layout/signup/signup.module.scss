@@ -1,3 +1,5 @@
+@use '@/styles/constants/typographies.scss' as typo;
+
 .signup {
   display: flex;
   flex-direction: column;
@@ -8,6 +10,10 @@
   .progressbar {
     width: 100%;
     padding: 20px;
+
+    &.hidden {
+      display: none;
+    }
   }
 
   .container {
@@ -17,10 +23,16 @@
   }
 
   .mainContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-  padding: 30px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding: 30px 10px;
+  }
+
+  .semiContainer {
+    padding: 10px;
+    margin: 30px 0 50px;
+    text-align: center;
   }
 
   .headingContainer {
@@ -28,14 +40,21 @@
     flex-direction: column;
     margin-left: 10px;
     
+    .congrate {
+      margin-top: 10px;
+      font-size: 30px !important;
+
+      @include typo.heading;
+    }
   }
 
   .inputContainer {
     display: flex;
     flex-direction: column;
-    width: 100%;
     gap: 40px;
+    width: 100%;
   }
+
   .buttonContainer {
     display: flex;
     flex: 1;
@@ -43,4 +62,8 @@
     gap: 20px;
     justify-content:flex-end;
   }
+}
+
+.animation {
+  margin-bottom: 20px;
 }

@@ -120,10 +120,13 @@ type CropNickname = string;
 type DayWithCrop = number;
 type TradeCount = number;
 
+type Description = string;
+
 interface CropForDiaryMetaData {
   cropProfileImage: CropProfileImage;
   userNickname: UserNickname;
   cropNickname: CropNickname;
+  description?: Description;
   dayWithCrop: DayWithCrop;
   tradeCount: TradeCount;
 }
@@ -247,7 +250,6 @@ interface TradePostDetail {
 }
 
 type GrowDate = string;
-type Description = string;
 
 interface CropProfile {
   cropId: CropId;

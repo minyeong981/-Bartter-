@@ -70,10 +70,11 @@ function CropStoragePage() {
             ? `나의 작물 ${myCrops.length}개`
             : `물물교환 / 나눔 작물 ${receivedCrops.length}개`}
         </h1>
-        <p>
+        <p className={cx('description')}>
           {isUserCrops
-            ? '나의 농작물을 선택하면 해당 농작물의 농사일지를 볼 수 있어요'
-            : '물물교환 / 나눔 받은 작물이에요. 받은 농작물을 선택하면 해당 농작물의 농사일지를 볼 수 있어요'}
+            ? '나의 농작물을 선택하면 해당 농작물의 농사 일지를 볼 수 있어요'
+            : <> 물물교환 / 나눔 받은 작물이에요
+            <br /> 받은 농작물을 선택하면 해당 농작물의 농사 일지를 볼 수 있어요</>}
         </p>
         <div className={cx('storageImage')}>
           <Lottie
@@ -101,7 +102,7 @@ function CropStoragePage() {
           <div className={cx('myCropsContainer', { empty: myCrops.length === 0, withCrops: myCrops.length > 0 })}>
             {myCrops.length === 0 ? (
               <div className={cx('notCrop')}>
-                <p>아직 등록한 작물이 없습니다.</p>
+                <p>등록한 작물이 없습니다.</p>
                 {Number(myId) === Number(userId) && (
                   <div className={cx('buttonContainer')}>
                     <GeneralButton
@@ -134,14 +135,14 @@ function CropStoragePage() {
           <div className={cx('receivedCropsContainer', { empty: receivedCrops.length === 0, withCrops: receivedCrops.length > 0 })}>
             {receivedCrops.length === 0 ? (
               <div className={cx('notCrop')}>
-                <p>아직 물물 교환 / 나눔 받은 작물이 없습니다.</p>
+                <p>물물 교환 / 나눔 받은 작물이 없습니다.</p>
                 {Number(myId) === Number(userId) && (
                   <div className={cx('buttonContainer')}>
                     <GeneralButton
                       buttonStyle={{ style: 'primary', size: 'medium' }}
                       onClick={handleGoToTrade}
                     >
-                      물물교환 하러 가기
+                      물물 교환 하러 가기
                     </GeneralButton>
                   </div>
                 )}

@@ -12,8 +12,12 @@
 }
 
 .animation {
-    margin-bottom: 20px; 
+  width: 300px;
+  height: 300px;
+  margin-bottom: 20px;
+  overflow: hidden; // 여백을 잘라냄
 }
+
 
 .text {
     @include typo.title;

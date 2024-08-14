@@ -25,13 +25,6 @@ public class ChatController {
         switch (chatMessage.getType()){
             case CHAT:
                 redisChatService.publish(chatMessage);
-                break;
-            case JOIN:
-                redisChatService.join(chatMessage);
-                break;
-            case LEAVE:
-                redisChatService.leave(chatMessage);
-                break;
             default:
                 break;
         }

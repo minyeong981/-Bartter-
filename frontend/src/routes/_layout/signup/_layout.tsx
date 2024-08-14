@@ -18,10 +18,14 @@ function SignupLayout() {
   const {pathname} = useLocation();
   const step = Number(pathname.split('/')[2]);
 
+  const showProgressBar = step <= TOTAL_STEPS;
+
   return (
     <div className={cx('signup')}>
-      <HeaderWithBackButton />
-      <div className={cx('progressbar')}>
+      <div className={cx('headerButton')}>
+        {step < 9 ? <HeaderWithBackButton /> : undefined}
+      </div>
+      <div className={cx('progressbar', {hidden: !showProgressBar})}>
         <ProgressBar current={step} total={TOTAL_STEPS} />        
       </div>
       <Outlet />

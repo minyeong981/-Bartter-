@@ -43,32 +43,30 @@ public class RedisChatService {
         redisChatRepository.save(chatMessage);
     }
 
-    public void join(ChatMessage chatMessage) {
-        int tradeId = chatMessage.getTradeId();
-        int userId = chatMessage.getSenderId();
+    public void join(int userId, int tradeId) {
         tradeService.isParticipant(userId, tradeId); // 유효한 참여인지 확인
         redisChatRepository.addParticipant(userId, tradeId);
         log.debug("유효한 요청입니다. 생성하겠습니다.");
         addTradeRoomInfo(tradeId);
     }
 
-    public void leave(ChatMessage chatMessage) {
-        log.debug("{}번 유저 방 떠나기", chatMessage.getSenderId());
-        redisChatRepository.removeTradeRoomInfo(chatMessage.getTradeId());
-        redisChatRepository.removeParticipant(chatMessage.getSenderId());
+    public void leave(int userId) {
+        int tradeId = redisChatRepository.getParticipantTradeId(userId);
+        if(tradeId == 0) return;
+        log.debug("{}번 유저 {}방 떠나기", userId,tradeId);
+        redisChatRepository.removeTradeRoomInfo(tradeId);
+        redisChatRepository.removeParticipant(userId);
     }
 
     /**
      * 해당 채팅을 가져온다.
      *
-     * @param userId  회원 아이디
      * @param tradeId 거래 아이디
      * @param page    페이지 오프셋
      * @param limit   제한
      * @return 메시지가 담겨있는 리스트
      */
-    public List<ChatMessage> getTradeChat(int userId, int tradeId, int page, int limit) {
-        validateChatParticipant(userId, tradeId);
+    public List<ChatMessage> getTradeChat(int tradeId, int page, int limit) {
         return redisChatRepository.getTradeChat(tradeId, page, limit);
     }
 
@@ -120,12 +118,12 @@ public class RedisChatService {
         tradeInfo.stream()
                 .filter(userId -> userId != senderId)
                 .filter(userId -> getParticipantTradeId(userId) != tradeId)
-                .forEach(userId -> sendNotification(userId, message.getTradePostId() + "/" + message.getTradeId()));
+                .forEach(userId -> sendNotification(userId, senderId,message.getTradePostId() + "/" + message.getTradeId()));
     }
 
-    private void sendNotification(int userId, String url) {
-        log.debug("{}번 유저한테 알람 보내기", userId);
-        userService.sendChattingAlarm(userId, url);
+    private void sendNotification(int receiverId,  int senderId,String url) {
+        log.debug("{}번 유저한테 알람 보내기", receiverId);
+        userService.sendChattingAlarm(receiverId, senderId,url);
     }
 
     public String getLastMessage(int tradeId) {

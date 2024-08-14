@@ -6,7 +6,7 @@ import ProgressBar from '@/components/ProgressBar';
 
 import styles from './registerCrop.module.scss';
 
-const TOTAL_STEPS = 5;
+const TOTAL_STEPS = 4;
 
 const cx = classnames.bind(styles);
 
@@ -24,9 +24,9 @@ function RegisterCropLayout() {
   return (
     <div className={cx('registerCrop')}>
       <div className={cx('headerButton')}>
-      {step < 5 ? <HeaderWithBackButton /> : undefined}
+        {step < 5 ? <HeaderWithBackButton /> : undefined}
       </div>
-      <div className={cx('progressbar')}>
+      <div className={cx('progressbar', { hidden: !showProgressBar })}>
         {showProgressBar && <ProgressBar current={step} total={TOTAL_STEPS} />}
       </div>
       <Outlet />

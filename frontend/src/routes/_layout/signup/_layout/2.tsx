@@ -6,12 +6,12 @@ import {useState} from 'react';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
-import {USERID_PATTERN} from '@/util/validation.ts';
+import {USERNAME_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
 
 export interface SearchParamFromPhase1 {
-  name?: Name;
+  nickname?: Nickname;
 }
 
 const cx = classnames.bind(styles);
@@ -20,17 +20,20 @@ export const Route = createFileRoute('/_layout/signup/_layout/2')({
   component: GetUserId,
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase1 => {
     return {
-      name: search.name !== 'undefined' ? (search.name as Name) : undefined,
+      nickname:
+        search.nickname !== 'undefined'
+          ? (search.nickname as Nickname)
+          : undefined,
     };
   },
   beforeLoad: async ({search}) => {
-    if (!search.name) throw redirect({to: '/signup/1'});
+    if (!search.nickname) throw redirect({to: '/signup/1'});
   },
 });
 
 function GetUserId() {
   const [username, setUsername] = useState('');
-  const isValid = username.match(USERID_PATTERN);
+  const isValid = USERNAME_PATTERN.test(username);
 
   function handleUserIdChange(e: ChangeEvent<HTMLInputElement>) {
     setUsername(e.currentTarget.value);
@@ -49,10 +52,10 @@ function GetUserId() {
         <div className={cx('inputContainer')}>
           <LabeledInput
             label="아이디"
-            placeholder="아이디를 입력해주세요"
+            placeholder="아이디를 입력해주세요 (8자 이상)"
             onChange={handleUserIdChange}
             value={username}
-            pattern={USERID_PATTERN.source}
+            pattern={USERNAME_PATTERN.source}
           />
         </div>
       </div>

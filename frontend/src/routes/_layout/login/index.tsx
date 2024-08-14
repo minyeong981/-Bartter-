@@ -8,15 +8,15 @@ import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import HeaderWithBackButton from '@/components/Header/HeaderWithBackButton.tsx';
 import GeneralInput from '@/components/Inputs/GeneralInput.tsx';
+import {getFcmToken} from '@/config/firebaseConfig';
 import useLoginForm from '@/hooks/useLoginForm.tsx';
 import barter from '@/services/barter.ts';
 import useRootStore from '@/store';
+import axios from '@/util/axios.ts';
 import parser from '@/util/parser.ts';
-import {PASSWORD_PATTERN, USERID_PATTERN} from '@/util/validation.ts';
+import {PASSWORD_PATTERN, USERNAME_PATTERN} from '@/util/validation.ts';
 
 import styles from './login.module.scss';
-import axios from '@/util/axios.ts';
-import {getFcmToken} from '@/config/firebaseConfig';
 
 const cx = classnames.bind(styles);
 
@@ -55,8 +55,8 @@ function LoginPage() {
   });
 
   const isValid =
-    form.username.match(USERID_PATTERN) &&
-    form.password.match(PASSWORD_PATTERN);
+    USERNAME_PATTERN.test(form.username) &&
+    PASSWORD_PATTERN.test(form.password);
 
   function handleUsername(e: ChangeEvent<HTMLInputElement>) {
     handleUsernameChange(e.currentTarget.value);

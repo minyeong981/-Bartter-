@@ -7,7 +7,8 @@
 }
 
 .calendar-wrapper {
-  max-height: 390px;
+  // max-height: 390px;
+  width: 100%;
   overflow: hidden;
   transition: max-height 0.1s ease;
 }
@@ -56,7 +57,7 @@
 }
 
 .customHr {
-  margin: 5px 0 10px 0;
+  margin: 5px 0 10px;
   border: none;
   border-top: 3px solid colors.$divider2;
 }

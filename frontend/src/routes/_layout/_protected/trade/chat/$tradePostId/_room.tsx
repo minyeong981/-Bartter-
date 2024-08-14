@@ -1,7 +1,7 @@
 import {
   useMutation,
   useQueryClient,
-  useSuspenseQuery,
+  useSuspenseQueries,
 } from '@tanstack/react-query';
 import {createFileRoute, Outlet} from '@tanstack/react-router';
 import {useState} from 'react';
@@ -12,6 +12,8 @@ import ConfirmCompleteModal from '@/components/Chat/Modal/ConfirmCompleteModal';
 import MakeReservationModal from '@/components/Chat/Modal/MakeReserveModal';
 import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons.tsx';
 import barter from '@/services/barter.ts';
+import useRootStore from '@/store';
+import querykeys from '@/util/querykeys.ts';
 
 export const Route = createFileRoute(
   '/_layout/_protected/trade/chat/$tradePostId/_room',
@@ -21,7 +23,7 @@ export const Route = createFileRoute(
 
 function ChatLayout() {
   const queryClient = useQueryClient();
-  const navigate = Route.useNavigate();
+  const userId = useRootStore(state => state.userId);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {tradePostId, tradeId}: { tradePostId: string, tradeId: string } = Route.useParams();
   const {data} = useSuspenseQuery({
@@ -63,6 +65,7 @@ function ChatLayout() {
 
   function handleReservation() {
     changeToReservation(Number(tradePostId));
+    setIsModalOpen(false);
   }
 
   function handleCompleteTrade() {
@@ -74,7 +77,11 @@ function ChatLayout() {
     await navigate({to: '/trade'});
   }
 
-  const chatRoomInfo = data.data.data;
+  const chatRoomInfo = data[0].data.data.data;
+  const locationName = data[1].data.data.data.name
+    .split(' ')
+    .slice(2, 3)
+    .join();
 
   const Modal = {
     PROGRESS: (

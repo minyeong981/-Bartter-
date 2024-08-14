@@ -13,6 +13,7 @@ import com.ssafy.bartter.domain.trade.entity.TradePost;
 import com.ssafy.bartter.domain.trade.entity.TradePostLike;
 import jakarta.persistence.*;
 import lombok.*;
+import org.checkerframework.common.aliasing.qual.Unique;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDate;
@@ -50,6 +51,7 @@ public class User extends BaseEntity {
     /**
      * 사용자 아이디
      */
+    @Unique
     @Column(name = "user_username", nullable = false, length = 50)
     private String username;
 
