@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import { format } from 'date-fns';
 import { useState } from 'react';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 import GrowDiary from '@/assets/image/growdiary.png';
 import Share from '@/assets/image/share.png';
@@ -30,9 +31,11 @@ function GrowDiaryPage() {
 
   const cropDiary = data?.data?.data || [];
   const cropInfo = cropDiary.cropInfo;
+  const descriptionLength = cropInfo.description?.length;
   const thumbnailList = cropDiary.thumbnailList;
 
   const [pivotDate, setPivotDate] = useState(new Date());
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
 
   const onDecreaseMonth = () => {
     setPivotDate(new Date(pivotDate.getFullYear(), pivotDate.getMonth() - 1));
@@ -49,18 +52,36 @@ function GrowDiaryPage() {
     format(new Date(entry.performDate), 'yyyy-MM') === currentMonth
   );
 
-  return (
+  const toggleDescription = () => {
+    setIsDescriptionOpen(!isDescriptionOpen);
+  };
+
+    return (
     <div className={cx('growDiaryContainer')}>
       {cropInfo && (
         <div className={cx('profileSection')}>
           <div className={cx('cropImage')}>
             <img src={cropInfo.cropProfileImage} alt={cropInfo.cropNickname} />
+            <button className={cx('descriptionToggle')} onClick={toggleDescription}>
+              {/* {isDescriptionOpen ? '작물 소개 🔺' : '작물 소개 🔻'} */}
+              {isDescriptionOpen ? <FaChevronUp /> : <FaChevronDown />}
+              {/* 작물 소개 {isDescriptionOpen ? "닫기" : "열기"} */}
+              작물 소개
+            </button>
           </div>
-
           <div className={cx('userCrop')}>
             <div className={cx('cropInfo')}>
               <p>{cropInfo.userNickname}님의 {cropInfo.cropNickname}</p>
             </div>
+          {isDescriptionOpen && (
+            <div className={cx('description')}>
+              {descriptionLength 
+                ? `"${cropInfo.description}"` 
+                : "작물 소개글이 없습니다"}
+            </div>
+          )}
+
+
         
             <div className={cx('infoImages')}>
               <div className={cx('info')}>
@@ -72,11 +93,6 @@ function GrowDiaryPage() {
                 <p><span>{cropInfo.tradeCount}</span> 회</p>
               </div>
             </div>
-
-            <div className={cx('description')}>
-              {cropInfo.description}
-            </div>
-
           </div>
         </div>
       )}
