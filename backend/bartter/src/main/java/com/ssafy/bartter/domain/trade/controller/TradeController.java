@@ -4,13 +4,11 @@ import com.ssafy.bartter.domain.auth.annotation.CurrentUser;
 import com.ssafy.bartter.domain.auth.dto.UserAuthDto;
 import com.ssafy.bartter.domain.chat.dto.ChatMessage;
 import com.ssafy.bartter.domain.chat.service.RedisChatService;
-import com.ssafy.bartter.domain.trade.dto.TradeDto;
 import com.ssafy.bartter.domain.trade.dto.TradeDto.SimpleTradeInfo;
 import com.ssafy.bartter.domain.trade.dto.TradeDto.TradeInfo;
 import com.ssafy.bartter.domain.trade.entity.Trade;
 import com.ssafy.bartter.domain.trade.entity.TradeStatus;
 import com.ssafy.bartter.domain.trade.services.TradeService;
-import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.global.response.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,19 +34,38 @@ public class TradeController {
     private final RedisChatService redisChatService;
 
     /**
-     * 특정 물물교환 정보를 조회하는 메서드
+     * 물물교환을 생성하는 메서드
      *
      * @param tradePostId 물물교환 게시글 ID
      * @param user 현재 사용자 정보
      * @return 물물교환 정보
      */
-    @GetMapping("/{tradePostId}")
-    @Operation(summary = "채팅방 정보 조회", description = "채팅방 정보를 조회합니다.")
-    public SuccessResponse<TradeInfo> getTrade(
+    @PostMapping("/{tradePostId}")
+    @Operation(summary = "채팅방 만들기", description = "채팅방을 생성합니다.")
+    public SuccessResponse<Integer> getOrCreateTrade(
             @PathVariable("tradePostId")  int tradePostId,
             @CurrentUser UserAuthDto user
     ) {
-        TradeInfo tradeInfo = tradeService.createOrGetTrade(tradePostId, user.getId());
+        int tradeId = tradeService.getOrCreateTrade(tradePostId, user.getId());
+        return SuccessResponse.of(tradeId);
+    }
+
+    /**
+     * 물물교환을 조회하는 메서드
+     *
+     * @param tradePostId 물물교환 게시글 ID
+     * @param user 현재 사용자 정보
+     * @return 물물교환 정보
+     */
+    @GetMapping("/{tradePostId}/{tradeId}")
+    @Operation(summary = "채팅방 조회", description = "채팅방을 조회합니다.")
+    public SuccessResponse<TradeInfo> getTrade(
+            @PathVariable("tradePostId")  int tradePostId,
+            @PathVariable("tradeId")  int tradeId,
+            @CurrentUser UserAuthDto user
+    ) {
+        Trade trade = tradeService.getTrade(tradeId);
+        TradeInfo tradeInfo = TradeInfo.of(trade.getTradePost(), tradeId, user.getId());
         return SuccessResponse.of(tradeInfo);
     }
 
@@ -95,7 +111,7 @@ public class TradeController {
             @CurrentUser UserAuthDto user
     ) {
         log.debug("page= {}, limit ={} ", page, limit);
-        List<ChatMessage> tradeChat = redisChatService.getTradeChat(user.getId(), tradeId, page, limit);
+        List<ChatMessage> tradeChat = redisChatService.getTradeChat(tradeId, page, limit);
         return SuccessResponse.of(tradeChat);
     }
 

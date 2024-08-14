@@ -29,7 +29,7 @@ public class TradeService {
     private final TradeRepository tradeRepository;
 
     @Transactional
-    public TradeInfo createOrGetTrade(int tradePostId, int userId) {
+    public int getOrCreateTrade(int tradePostId, int userId) {
         TradePost tradePost = tradePostRepository.findTradePostById(tradePostId)
                 .orElseThrow(() -> new CustomException(ErrorCode.TRADE_POST_NOT_FOUND));
         log.debug("해당 게시글 : {}", tradePost.getId());
@@ -38,9 +38,12 @@ public class TradeService {
         log.debug("나 : {}", userId);
 
         Trade trade = tradeRepository.findByTradePostAndUser(tradePost.getId(), userId).orElseGet(() -> createTrade(tradePost, user));
-        log.debug("Trade : {} ",trade.getId());
+        return trade.getId();
+    }
 
-        return TradeInfo.of(tradePost, trade.getId(), userId);
+    @Transactional
+    public Trade getTrade(int tradeId) {
+        return tradeRepository.findById(tradeId).orElseThrow(() -> new CustomException(ErrorCode.TRADE_NOT_FOUND));
     }
 
     private Trade createTrade(TradePost tradePost, User user) {
@@ -53,6 +56,7 @@ public class TradeService {
         if(!tradeRepository.existsByTradeIdAndUserId(userId, tradeId)){
             throw new CustomException(ErrorCode.TRADE_CHAT_UNAUTHENTICATED);
         }
+        log.debug("문제 없습니다.");
     }
 
     public List<Integer> getParticipantList(int tradeId) {
