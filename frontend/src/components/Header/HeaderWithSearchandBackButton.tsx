@@ -9,7 +9,7 @@ const cx = classnames.bind(styles);
 
 interface HeaderWithLabelAndBackButtonAndMenuProps {
   label: ReactNode;
-}
+}                                                                                                                                                                                
 
 export default function HeaderWithSearchAndBackButton({
   label,

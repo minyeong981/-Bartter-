@@ -20,7 +20,7 @@ export default function RecentSearch({ searches, onSearch, onDeleteSearch }: Rec
     return (
         <div className={cx("container")}>
             {searches.length === 0 ? (
-                <EmptyPost text="검색 기록이 없습니다." />
+                <EmptyPost text="검색 기록이 없습니다" />
             ) : (
                 <>
                 <div className={cx("title")}>최근 검색어</div>

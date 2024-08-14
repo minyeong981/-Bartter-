@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {createFileRoute, useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {ChangeEvent} from 'react';
@@ -10,6 +10,7 @@ import ImageInput from '@/components/Inputs/ImageInput';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
 import LabeledTextAreaInput from '@/components/Inputs/LabeledTextAreaInput';
 import barter from '@/services/barter';
+import querykeys from '@/util/querykeys';
 
 import styles from './create.module.scss';
 
@@ -21,7 +22,8 @@ export const Route = createFileRoute('/_layout/_protected/community/create/')({
 
 export default function PostCreate() {
   const maxImages = 3; // 허용된 최대 이미지 개수
-
+  
+  const queryClient = useQueryClient();
   const nav = useNavigate({from: '/community/create'});
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -50,8 +52,11 @@ export default function PostCreate() {
     mutationFn: ( newPost : CommunityPostForm ) => {
       return barter.postCommunityPost(newPost)
     },
-    onSuccess: () => {
-      nav({ to: '/community' });
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({queryKey : [querykeys.COMMUNITY_DETAIL]});
+      queryClient.invalidateQueries({queryKey : [querykeys.COMMUNITY_LIST]});
+      const postId : CommunityPostId = data.data.data.communityPostId;
+      nav({to: `/community/detail/${postId}`, replace:true})
     },
   })
 
@@ -62,7 +67,6 @@ export default function PostCreate() {
         content: content,
         imageList: imageList
       };
-      console.log(newPost)
       mutation.mutate(newPost)
     }
   }

@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import titleCommunity from '@/assets/lottie/titleCommunity.json'
 import titleNeighbor from '@/assets/lottie/titleNeighbor.json'
-import titleTrade from '@/assets/lottie/titleTrade.json'
+import Trade from '@/assets/lottie/trade.json';
 import AdCarousel from '@/components/AdCarousel';
 import PostCard from '@/components/Community/PostCard';
 import HomeTradeCardList from '@/components/HomeTradeCard/HomeTradeCardList';
@@ -52,9 +52,9 @@ export default function Home() {
     <div className={cx('container')}>
       <AdCarousel />
       <div className={cx('home-barter')}>
-        <Title title='물물 교환' to="/trade" lottie={titleTrade}/>
+        <Title title='물물 교환' to="/trade" lottie={Trade}/>
         { trades.length===0 ? (
-          <div className={cx('empty-text')}>물물 교환 게시글이 없습니다.</div>
+          <div className={cx('empty-text')}>물물 교환 게시글이 없습니다</div>
         ) : (
           <div>
           <HomeTradeCardList trades={trades} />
@@ -67,7 +67,7 @@ export default function Home() {
         <Title title='동네 모임' to="/community" lottie={titleCommunity}/>
         { posts.length===0 ? 
         ( 
-          <div className={cx('empty-text')}>동네 모임 게시글이 없습니다.</div>
+          <div className={cx('empty-text')}>동네 모임 게시글이 없습니다</div>
         )
         : (
           <div className={cx('post-list')}>
