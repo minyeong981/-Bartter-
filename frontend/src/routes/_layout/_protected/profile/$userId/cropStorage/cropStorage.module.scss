@@ -15,11 +15,14 @@
 }
 
 .cropStorageContainer {
-  padding: 16px;
+  padding: 10px 16px 0;
   text-align: center;
 
+
   .description {
-    padding: 0 10px;
+    width: 100%;
+    margin: 10px 0 0 20px;
+    text-align: center;
   }
 
   h1 {
@@ -29,8 +32,8 @@
 
   p {
     max-width: 300px;
-    margin: 10px;
-    text-align: left;
+    margin-bottom: 10px;
+    text-align: center;
 
     @include typo.name;
   }
@@ -81,7 +84,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 200px; /* 중앙에 위치하도록 충분한 높이 설정 */
+      height: 130px; /* 중앙에 위치하도록 충분한 높이 설정 */
     }
 
     &.withCrops {
@@ -117,8 +120,6 @@
   }
 
   .notCrop {
-    margin: auto;
-    font-size: 18px;
     text-align: center;
 
     @include typo.button;

@@ -8,8 +8,8 @@
   .logo-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     flex-grow: 9;
+    justify-content: center;
 
     img {
       width: 260px;
@@ -19,9 +19,9 @@
   .form-container {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+    gap: 20px;
     align-items: center;
     justify-content: flex-end;
-    gap: 20px;
-    flex-grow: 1;
   }
 }
