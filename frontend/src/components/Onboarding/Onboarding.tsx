@@ -1,87 +1,3 @@
-<<<<<<< Updated upstream
-// import classnames from 'classnames/bind';
-// import Lottie from 'react-lottie-player';
-
-// import Logo from '@/assets/image/logo.png';
-// import OnboardingCommunity from '@/assets/image/onboardingCommunity.png';
-// import OnboardingStory from '@/assets/image/onboardingStory.png';
-// import OnboardingTrade from '@/assets/image/onboardingTrade.png';
-// import HandScroll from '@/assets/lottie/handScroll.json'
-
-// import styles from './Onboarding.module.scss'
-// import OnboardingCarousel from './OnboardingCarousel';
-
-// const cx = classnames.bind(styles);
-
-// const slides = [
-//   {
-//     image: Logo,
-//     text: (
-//     <>
-//         밭터는 내가 키운 작물을 기록하고, <br />
-//         이웃과 교환하는 서비스 입니다
-//     </>),
-//   },
-//   {
-//     image: OnboardingTrade,
-//     text: (
-//       <>
-//         내가 키운 작물을 이웃과 교환해보세요!
-//       </>
-//     ),
-//   },
-//   {
-//     image: OnboardingStory,
-//     text: (
-//       <>
-//         내가 키운 작물의 스토리를 만들어 보세요!
-//       </>
-//     ),
-//   },
-//   {
-//     image: OnboardingCommunity,
-//     text: (
-//       <>
-//         동네 이웃과 이야기를 나눠보세요!
-//       </>
-//     ),
-//   },
-//     {
-//     image: OnboardingCommunity,
-//     text: (
-//       <>
-//         이제 밭터 시작해볼까요?
-//       </>
-//     ),
-//   },
-// ];
-
-// export default function Onboarding({ onSlideChange }: { onSlideChange: (index: number) => void }) {
-//   return (
-//     <div className={cx('onboarding')}>
-//       {/* <div className={cx('animation')}>
-//         <Lottie
-//               loop
-//               animationData={HandScroll}
-//               play
-//             />
-//       </div> */}
-//       <div>
-//         <OnboardingCarousel slides={slides} onSlideChange={onSlideChange} />
-//       </div>
-//       <div className={cx('animation')}>
-//         <Lottie
-//               loop
-//               animationData={HandScroll}
-//               play
-//             />
-//       </div>
-//     </div>
-//   );
-// }
-
-=======
->>>>>>> Stashed changes
 import classnames from 'classnames/bind';
 import {useState} from 'react';
 import Lottie from 'react-lottie-player';
@@ -158,12 +74,8 @@ const slides: Slide[] = [
   },
 ];
 
-<<<<<<< Updated upstream
-const Onboarding: React.FC<OnboardingProps> = ({onSlideChange}) => {
-=======
 
 const Onboarding: React.FC<OnboardingProps> = ({ onSlideChange }) => {
->>>>>>> Stashed changes
   const [currentStep, setCurrentStep] = useState(0);
   const [isHidden, setIsHidden] = useState(true);
   const isLastSlide = currentStep === slides.length - 1;
@@ -173,13 +85,6 @@ const Onboarding: React.FC<OnboardingProps> = ({ onSlideChange }) => {
     onSlideChange(index);
     setIsHidden(!(index === 0)); // index가 0이면 숨김 해제
   };
-<<<<<<< Updated upstream
-
-  const LAST_STEP_INDEX = slides.length - 1;
-
-  // TODO: 배포시 BASE URL 확인할 것, .env 파일에 VITE_BASEURL = {실제 서버 BASE URL} 추가
-=======
->>>>>>> Stashed changes
   function handleKakaoButton() {
     window.open(
       import.meta.env.VITE_BASEURL + '/api/oauth2/authorization/kakao',
@@ -190,18 +95,10 @@ const Onboarding: React.FC<OnboardingProps> = ({ onSlideChange }) => {
   return (
     <div className={cx('onboarding')}>
       <OnboardingCarousel slides={slides} onSlideChange={handleSlideChange} />
-<<<<<<< Updated upstream
-      {currentStep < LAST_STEP_INDEX ? (
-        <div className={cx('animation')}>
-          <Lottie loop animationData={HandScroll} play />
-        </div>
-      ) : (
-=======
       <div className={cx('animation', { hidden: isHidden, 'display-none': isLastSlide })}>
         <Lottie loop animationData={HandScroll} play />
       </div>
       {isLastSlide && (
->>>>>>> Stashed changes
         <div className={cx('buttonContainer')}>
           <KakaoButton onClick={handleKakaoButton} />
           <GeneralButton
