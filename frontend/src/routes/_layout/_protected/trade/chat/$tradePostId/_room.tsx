@@ -11,7 +11,6 @@ import CompleteTradeModal from '@/components/Chat/Modal/CompleteTradeModal';
 import ConfirmCompleteModal from '@/components/Chat/Modal/ConfirmCompleteModal';
 import MakeReservationModal from '@/components/Chat/Modal/MakeReserveModal';
 import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons.tsx';
-import TradeIdContextProvider from '@/context/TradeIdContext.tsx';
 import barter from '@/services/barter.ts';
 
 export const Route = createFileRoute(
@@ -24,10 +23,10 @@ function ChatLayout() {
   const queryClient = useQueryClient();
   const navigate = Route.useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const {tradePostId} = Route.useParams();
+  const {tradePostId, tradeId}: { tradePostId: string, tradeId: string } = Route.useParams();
   const {data} = useSuspenseQuery({
-    queryFn: () => barter.getChatRoomInfo(Number(tradePostId)),
-    queryKey: ['trade', 'chat', tradePostId],
+    queryFn: () => barter.getChatRoomInfo(Number(tradePostId), Number(tradeId)),
+    queryKey: ['trade', 'chat', tradePostId, tradeId],
   });
 
   const {mutate: changeToProgress} = useMutation({
@@ -101,11 +100,9 @@ function ChatLayout() {
 
   return (
     <>
-      <HeaderWithLabelAndButtons label="장덕동" />
-      <ChatInfoCard {...chatRoomInfo} onClick={handleOpenModal} />
-      <TradeIdContextProvider value={chatRoomInfo.tradeId}>
-        <Outlet />
-      </TradeIdContextProvider>
+      <HeaderWithLabelAndButtons label="장덕동"/>
+      <ChatInfoCard {...chatRoomInfo} onClick={handleOpenModal}/>
+      <Outlet/>
       {isModalOpen && Modal}
     </>
   );

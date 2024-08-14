@@ -484,10 +484,14 @@ export default {
   getChatList: async (userId: UserId) =>
     axios.get<GetChatListResponse>(`/users/${userId}/trades`),
   /**
-   * 채팅방 정보 조회
+   * 채팅방 만들기
    */
-  getChatRoomInfo: async (tradePostId: TradePostId) =>
-    axios.get<GetChatRoomInfoResponse>(`/trades/${tradePostId}`),
+  createChatRoom: async (tradePostId: TradePostId) =>
+    axios.post<CreateChatRoomResponse>(`/trades/${tradePostId}`),
+  /**
+   * 채팅방 조회
+   */
+  getChatRoomInfo: async (tradePostId: TradePostId, tradeId: TradeId) => axios.get<GetChatRoomInfoResponse>(`/trades/${tradePostId}/${tradeId}`),
 
   // FCM 토큰 관련
   /**
