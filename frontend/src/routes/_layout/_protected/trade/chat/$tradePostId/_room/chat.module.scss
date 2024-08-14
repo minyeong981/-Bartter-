@@ -34,7 +34,6 @@
       flex-grow: 1;
       height: 47px;
       padding: 0 8px;
-      font-size: 22px;
       background-color: colors.$gray1;
       border: 0;
       border-radius: 4px;
@@ -43,6 +42,7 @@
     button {
       @include typographies.title;
 
+      flex-shrink: 0;
       height: 100%;
       padding: 0 18px;
       color: colors.$white;

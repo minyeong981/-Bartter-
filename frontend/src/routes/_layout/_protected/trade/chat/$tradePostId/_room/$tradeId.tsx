@@ -3,7 +3,7 @@ import {createFileRoute} from '@tanstack/react-router';
 import type {AxiosResponse} from 'axios';
 import classnames from 'classnames/bind';
 import type {ChangeEvent, KeyboardEvent, UIEvent} from 'react';
-import { useEffect, useMemo, useRef, useState} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 
 import ChatMessage from '@/components/Chat/ChatMessage';
 import useRootStore from '@/store';
@@ -31,10 +31,11 @@ function ChatPage() {
   const prevScrollHeightRef = useRef(0); // 메시지 추가 후 복원하기 위한 참조
   const limit = 10; // 한 번에 불러올 메시지 수 : 무한 스크롤에서 사용합니다.
 
+  // TODO: brokerURL 확인할 것, .env 파일에 VITE_WEBSOCKET_URL = {실제 서버 BASE URL} 추가
   const client = useMemo(
     () =>
       new Client({
-        brokerURL: 'ws://localhost:8080/ws',
+        brokerURL: import.meta.env.VITE_WEBSOCKET_URL + '/ws',
         onConnect: async () => {
           // 메세지 로드
           await loadMessages(page);
@@ -150,7 +151,7 @@ function ChatPage() {
             mine={msg.senderId === userId}
           />
         ))}
-        <br/>
+        <br />
       </div>
       <div className={cx('inputContainer')}>
         <input

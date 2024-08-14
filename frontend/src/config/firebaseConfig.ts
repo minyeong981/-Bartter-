@@ -1,5 +1,6 @@
 import {initializeApp} from 'firebase/app';
 import {getMessaging, getToken, onMessage} from 'firebase/messaging';
+import toast from 'react-hot-toast';
 
 // Firebase 구성
 const firebaseConfig = {
@@ -27,28 +28,9 @@ const messaging = getMessaging(app);
  */
 const handleForegroundMessages = () => {
   onMessage(messaging, payload => {
-    console.log('메시지 수신(포그라운드):', payload);
     if (!payload.data) return;
-    const notificationTitle = payload.data.title + ' 포그라운드';
-    const notificationOptions = {
-      body: payload.data.body,
-      icon: payload.data.image,
-      data: {
-        url: payload.data.click_action || '/', // 기본 URL 설정
-      },
-    };
-
-    // 브라우저 알림 표시
-    const notification = new Notification(
-      notificationTitle,
-      notificationOptions,
-    );
-
-    // 알림 클릭 시 동작
-    notification.onclick = () => {
-      console.log(notificationOptions.data.url);
-      window.location.href = notificationOptions.data.url;
-    };
+    toast.dismiss();
+    toast.success(payload.data.body);
   });
 };
 

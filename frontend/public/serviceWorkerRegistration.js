@@ -23,11 +23,6 @@ const messaging = getMessaging(app);
 async function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
     try {
-      // 일반 PWA 서비스 워커 등록
-      const pwaRegistration =
-        await navigator.serviceWorker.register('/service-worker.js');
-      console.log('PWA Service Worker 등록 성공:', pwaRegistration.scope);
-
       // Firebase 서비스 워커 등록
       const firebaseRegistration = await navigator.serviceWorker.register(
         '/firebase-messaging-sw.js',

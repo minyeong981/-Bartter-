@@ -20,7 +20,7 @@ function EntrancePage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowOnboarding(true)
-    }, 1000)
+    }, 400)
 
     return () => clearTimeout(timer)
   }, [])
