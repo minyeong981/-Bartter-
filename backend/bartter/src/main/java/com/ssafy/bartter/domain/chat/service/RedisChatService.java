@@ -118,12 +118,12 @@ public class RedisChatService {
         tradeInfo.stream()
                 .filter(userId -> userId != senderId)
                 .filter(userId -> getParticipantTradeId(userId) != tradeId)
-                .forEach(userId -> sendNotification(userId, message.getTradePostId() + "/" + message.getTradeId()));
+                .forEach(userId -> sendNotification(userId, senderId,message.getTradePostId() + "/" + message.getTradeId()));
     }
 
-    private void sendNotification(int userId, String url) {
-        log.debug("{}번 유저한테 알람 보내기", userId);
-        userService.sendChattingAlarm(userId, url);
+    private void sendNotification(int receiverId,  int senderId,String url) {
+        log.debug("{}번 유저한테 알람 보내기", receiverId);
+        userService.sendChattingAlarm(receiverId, senderId,url);
     }
 
     public String getLastMessage(int tradeId) {

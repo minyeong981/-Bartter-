@@ -199,9 +199,9 @@ public class UserService {
         fcmService.sendLoginAlarm(token, nickname);
     }
 
-    public void sendChattingAlarm(int userId, String url) {
-        String token = getFcmToken(userId);
-        userRepository.findByUserId(userId).ifPresent(
+    public void sendChattingAlarm(int receiverId, int senderId,String url) {
+        String token = getFcmToken(receiverId);
+        userRepository.findByUserId(senderId).ifPresent(
                 o -> fcmService.sendChattingAlarm(token, o.getNickname(), o.getProfileImage(), url)
         );
     }
