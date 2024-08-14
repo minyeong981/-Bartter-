@@ -56,7 +56,7 @@ export default function ChatInfoCard({
         </div>
       </Link>
       <button
-        className={cx('button')}
+        className={cx('button', {'buttonDisabled': disabled } )}
         onClick={handleClickButton}
         disabled={disabled}
       >

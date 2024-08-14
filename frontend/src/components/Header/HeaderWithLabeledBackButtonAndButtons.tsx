@@ -24,14 +24,11 @@ export default function HeaderWithLabeledBackButtonAndButtons({
         <span className={cx('label')}>{label}</span>
       </div>
       <ul className={cx('buttons')}>
-        <Link>
+        <Link to='/profile'>
           <IconUser className={cx('icon')} />
         </Link>
-        <Link>
+        <Link to='/search'>
           <IconSearch className={cx('icon')} />
-        </Link>
-        <Link>
-          <IconBell className={cx('icon')} />
         </Link>
       </ul>
     </Index>

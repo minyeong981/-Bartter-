@@ -58,4 +58,8 @@
     background-color: colors.$primary;
     border-radius: 5px;
   }
+
+  .buttonDisabled {
+    background-color: colors.$placeholder;
+  }
 }
