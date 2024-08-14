@@ -23,7 +23,12 @@ export default {
    */
   getCurrentLocation: async (data: Position) =>
     axios.post<PostUserLocation>('/user/location', data),
-  /**
+    /**
+   * 위치 정보 변경
+   */
+    changeCurrentLocation: async (data: Position) =>
+      axios.patch<PostUserLocation>('/user/location', data),
+  /** 
    * 유저 프로필 조회
    */
   getUserProfile: async (userId: UserId) =>

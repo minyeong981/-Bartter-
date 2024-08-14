@@ -40,7 +40,7 @@ function TradeListPage() {
         {tradeList.length ?
           tradeList.map(trade => (
             <TradeCard key={trade.cropTradePostId} {...trade} />
-          )) : <EmptyPost text="물물교환 글이 없습니다."/>}
+          )) : <EmptyPost text="물물교환 글이 없습니다"/>}
         <Threshold ref={lastElementRef}/>
       </div>
     </>

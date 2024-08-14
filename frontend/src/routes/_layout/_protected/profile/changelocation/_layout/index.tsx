@@ -1,4 +1,4 @@
-import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient,useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { Map, MapMarker } from "react-kakao-maps-sdk"
@@ -17,7 +17,7 @@ export const Route = createFileRoute('/_layout/_protected/profile/changelocation
 });
 
 export default function ProfileChangeLocation() {
-
+  const queryClient = useQueryClient();
   const userId : UserId = useRootStore((state) => state.userId)
   // 변경된 위치 저장
   const [userPosition, setUserPosition] = useState<{ latitude: number; longitude: number } | null>(null);
@@ -33,9 +33,10 @@ export default function ProfileChangeLocation() {
   // 위치 정보 변경
   const changeLocationMutation = useMutation({
     mutationFn: ({ longitude, latitude }: { longitude: number; latitude: number }) => {
-      return barter.getCurrentLocation({ longitude, latitude });
+      return barter.changeCurrentLocation({ longitude, latitude });
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [querykeys.LOCATION] });
       console.log('위치변경 성공!')
     },
   });
@@ -51,8 +52,6 @@ export default function ProfileChangeLocation() {
 
       // 여기에서 위치 변경 mutation을 사용할 수도 있습니다.
       changeLocationMutation.mutate({ longitude, latitude }) ;
-
-      return { latitude, longitude };
     } catch (error) {
       console.error('위치 수정: 위치 가져오기 실패', error);
     }
@@ -60,7 +59,9 @@ export default function ProfileChangeLocation() {
 
   return (
     <div>
+      <div className={styles.location}>
       <LocationContainer currentLocation={currentLocation}/>
+      </div>
       <div className={styles.map}>
       {userPosition ? (
         <Map 

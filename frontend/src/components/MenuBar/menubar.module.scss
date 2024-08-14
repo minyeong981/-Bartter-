@@ -67,7 +67,7 @@
 
     &::before {
       position: absolute;
-      top: 50%;
+      top: 55%;
       left: 50%;
       z-index: -1;
       width: 70px;  
@@ -82,7 +82,7 @@
 
     &.active {
       color: #fff;  
-      transform: translateY(-5px);
+      transform: translateY(-10px);
 
       &::before {
         opacity: 1;
