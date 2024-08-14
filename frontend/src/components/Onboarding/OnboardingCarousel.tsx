@@ -26,7 +26,6 @@ const Carousel: React.FC<CarouselProps> = ({ slides, onSlideChange } : CarouselP
   const [selectedIndex, setSelectedIndex] = useState(0);
   const totalSlides = slides.length;
   const LAST_STEP_INDEX = totalSlides - 1;
-  console.log(slides)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,11 +64,16 @@ const Carousel: React.FC<CarouselProps> = ({ slides, onSlideChange } : CarouselP
             </div>
           </div>
         ))}
-      </div>
-      {selectedIndex < LAST_STEP_INDEX && (
-        <ProgressBar current={selectedIndex + 1} total={totalSlides} />
-      )}
+        </div>
+        <div className={cx('progressbar')}>
+          {selectedIndex < LAST_STEP_INDEX && (
+            <ProgressBar current={selectedIndex + 1} total={totalSlides} />
+          )}          
+        </div>
+
+      
     </div>
+    
   );
 };
 
