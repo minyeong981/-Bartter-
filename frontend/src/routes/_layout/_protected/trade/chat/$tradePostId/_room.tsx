@@ -10,9 +10,7 @@ import ChatInfoCard from '@/components/Chat/ChatInfoCard';
 import CompleteTradeModal from '@/components/Chat/Modal/CompleteTradeModal';
 import ConfirmCompleteModal from '@/components/Chat/Modal/ConfirmCompleteModal';
 import MakeReservationModal from '@/components/Chat/Modal/MakeReserveModal';
-import HeaderWithLabeledBackButtonAndButtons from '@/components/Header/HeaderWithLabeledBackButtonAndButtons.tsx';
-import Location from '@/components/Header/Location.tsx';
-import TradeIdContextProvider from '@/context/TradeIdContext.tsx';
+import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons.tsx';
 import barter from '@/services/barter.ts';
 import useRootStore from '@/store';
 import querykeys from '@/util/querykeys.ts';
@@ -27,19 +25,10 @@ function ChatLayout() {
   const queryClient = useQueryClient();
   const userId = useRootStore(state => state.userId);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const {tradePostId} = Route.useParams();
-  const navigate = Route.useNavigate();
-  const data = useSuspenseQueries({
-    queries: [
-      {
-        queryFn: () => barter.getChatRoomInfo(Number(tradePostId)),
-        queryKey: ['trade', 'chat', tradePostId],
-      },
-      {
-        queryFn: () => barter.getUserLocation(userId),
-        queryKey: [querykeys.LOCATION, userId],
-      },
-    ],
+  const {tradePostId, tradeId}: { tradePostId: string, tradeId: string } = Route.useParams();
+  const {data} = useSuspenseQuery({
+    queryFn: () => barter.getChatRoomInfo(Number(tradePostId), Number(tradeId)),
+    queryKey: ['trade', 'chat', tradePostId, tradeId],
   });
 
   const {mutate: changeToProgress} = useMutation({
@@ -118,13 +107,9 @@ function ChatLayout() {
 
   return (
     <>
-      <HeaderWithLabeledBackButtonAndButtons
-        label={<Location location={locationName} />}
-      />
-      <ChatInfoCard {...chatRoomInfo} onClick={handleOpenModal} />
-      <TradeIdContextProvider value={chatRoomInfo.tradeId}>
-        <Outlet />
-      </TradeIdContextProvider>
+      <HeaderWithLabelAndButtons label="장덕동"/>
+      <ChatInfoCard {...chatRoomInfo} onClick={handleOpenModal}/>
+      <Outlet/>
       {isModalOpen && Modal}
     </>
   );

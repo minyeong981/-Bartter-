@@ -12,16 +12,17 @@ export default function ChatListItem({
   userProfile,
   message,
   tradePostId,
+  tradeId,
   ...props
 }: ChatListItemProps) {
   return (
     <Link
       className={cx('chatItem')}
       {...props}
-      to="/trade/chat/$tradePostId"
-      params={{tradePostId: String(tradePostId)}}
+      to="/trade/chat/$tradePostId/$tradeId"
+      params={{tradePostId: String(tradePostId), tradeId: String(tradeId)}}
     >
-      <img src={userProfile.profileImage} />
+      <img src={userProfile.profileImage} alt="사용자 프로필 이미지"/>
       <div className={cx('content')}>
         <h2 className={cx('sender')}>{userProfile.nickname}</h2>
         <p className={cx('item')}>상품</p>

@@ -470,7 +470,6 @@ type GetPickedTradePostListByUserId = BarterResponse<SimpleTradePostDetail[]>;
 type GetCropTradeDetailResponse = BarterResponse<TradePostDetail>;
 type GetCropProfile = BarterResponse<CropProfile>;
 type GetCropCategoryList = BarterResponse<CropCategoryDetail[]>;
-type GetTradeInfo = BarterResponse<TradeInfo>;
 type GetTradeChat = BarterResponse<ChatMessage[]>;
 type PostLocation = BarterResponse<SimpleLocation>;
 type PatchLocation = BarterResponse<SimpleLocation>;
@@ -480,11 +479,12 @@ type PostUserLocation = BarterResponse<SimpleLocation>;
 type GetUserLocationResponse = BarterResponse<SimpleLocation>;
 type GetHasDiaryResponse = BarterResponse<string[]>;
 type GetChatListResponse = BarterResponse<SimpleTradeInfo[]>;
-type GetChatRoomInfoResponse = BarterResponse<TradeInfo>;
+type CreateChatRoomResponse = BarterResponse<number>;
 type GetAutoCompletedKeywordListByKeyword = BarterResponse<
   AutoCompletedKeyWord[]
 >;
 type getChatListByTradePostIdResponse = BarterResponse<SimpleTradeInfo[]>;
+type GetChatRoomInfoResponse = BarterResponse<TradeInfo>;
 
 // TODO: 농작물 물물교환 API 부터는 GET요청만 정의
 // type SignupResponse = BarterResponse<null>;
