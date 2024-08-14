@@ -77,7 +77,7 @@ const slides: Slide[] = [
 
 const Onboarding: React.FC<OnboardingProps> = ({ onSlideChange }) => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [isHidden, setIsHidden] = useState(true);
+  const [isHidden, setIsHidden] = useState(false);
   const isLastSlide = currentStep === slides.length - 1;
 
   const handleSlideChange = (index: number) => {
@@ -85,6 +85,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onSlideChange }) => {
     onSlideChange(index);
     setIsHidden(!(index === 0)); // index가 0이면 숨김 해제
   };
+
   function handleKakaoButton() {
     window.open(
       import.meta.env.VITE_BASEURL + '/api/oauth2/authorization/kakao',
