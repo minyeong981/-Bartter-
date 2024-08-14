@@ -1,0 +1,23 @@
+.onboarding {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+
+.animation {
+    display: flex;
+    flex-direction: column;
+    width: 70px;
+    height: 70px;
+    margin-right: 20px;
+}
+
+    .buttonContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+    }
+
+}

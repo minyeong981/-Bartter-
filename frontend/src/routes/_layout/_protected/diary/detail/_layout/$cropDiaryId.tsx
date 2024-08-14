@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import { format } from 'date-fns';
@@ -18,7 +18,6 @@ const cx = classnames.bind(styles);
 
 export default function DiaryDetail() {
   const myId = useRootStore(state => state.userId)
-  const queryClient = useQueryClient();
   const {cropDiaryId} = Route.useParams();
   const navigate = useNavigate();
   
@@ -35,7 +34,6 @@ export default function DiaryDetail() {
       return barter.deleteCropDiary(cropDiaryId);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey:[querykeys.DIARY_DETAIL]});
       navigate({ to: '/diary' });
     }
   });
