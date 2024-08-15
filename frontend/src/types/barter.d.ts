@@ -283,7 +283,7 @@ interface TradeInfo {
   simpleTradePostDetail: SimpleTradePostDetail;
 }
 
-type CHAT_TYPE = 'CHAT' | 'JOIN' | 'LEAVE';
+type CHAT_TYPE = 'CHAT' | 'JOIN' | 'LEAVE' | 'CHANGE';
 
 type SenderId = number;
 
