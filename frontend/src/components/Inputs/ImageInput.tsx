@@ -17,7 +17,7 @@ function ImageInput({ onImageChange, maxImages}: ImageInputProps) {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+  const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'heic'];
 
   function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
     const files = event.target.files;

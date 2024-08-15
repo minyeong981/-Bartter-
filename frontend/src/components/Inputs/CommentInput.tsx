@@ -29,17 +29,15 @@ export default function CommentInput({
     return (
         <div className={cx('comment-input-container')}>
         <input
-        className={cx('comment-input')}
         type="text"
         value={content}
         onChange={onChange}
         onKeyDown={handleKeyDown}
         placeholder="댓글을 입력하세요"
       />
-      <GeneralButton 
-      buttonStyle={{style: 'primary', size: 'tiny'}}
+      <button
       onClick={handleClick}
-      >입력</GeneralButton>
+      >입력</button>
       </div>
     )
 
