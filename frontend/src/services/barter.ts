@@ -23,12 +23,12 @@ export default {
    */
   getCurrentLocation: async (data: Position) =>
     axios.post<PostUserLocation>('/user/location', data),
-    /**
+  /**
    * 위치 정보 변경
    */
-    changeCurrentLocation: async (data: Position) =>
-      axios.patch<PostUserLocation>('/user/location', data),
-  /** 
+  changeCurrentLocation: async (data: Position) =>
+    axios.patch<PostUserLocation>('/user/location', data),
+  /**
    * 유저 프로필 조회
    */
   getUserProfile: async (userId: UserId) =>
@@ -156,13 +156,20 @@ export default {
   /**
    * 물물교환 게시글 목록 조회
    */
+  // eslint-disable-next-line max-params
   getTradePostList: async (
     page?: number,
     limit?: number,
     givenCategory?: number,
+    desiredCategory?: number[],
   ) =>
     axios.get<GetCropTradeListResponse>(`/trades/posts`, {
-      params: {page, limit, givenCategory},
+      params: {
+        page,
+        limit,
+        givenCategory,
+        desiredCategory: desiredCategory?.join(),
+      },
     }),
   /**
    * 물물교환 게시글 상세 조회
@@ -496,7 +503,8 @@ export default {
   /**
    * 채팅방 조회
    */
-  getChatRoomInfo: async (tradePostId: TradePostId, tradeId: TradeId) => axios.get<GetChatRoomInfoResponse>(`/trades/${tradePostId}/${tradeId}`),
+  getChatRoomInfo: async (tradePostId: TradePostId, tradeId: TradeId) =>
+    axios.get<GetChatRoomInfoResponse>(`/trades/${tradePostId}/${tradeId}`),
 
   // FCM 토큰 관련
   /**

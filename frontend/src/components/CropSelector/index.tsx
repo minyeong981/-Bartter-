@@ -15,11 +15,19 @@ interface CropSelectorProps {
 export default function CropSelector({from, to}: CropSelectorProps) {
   return (
     <div className={cx('crop-selector')}>
-      <LinkButton buttonStyle={{style: 'flexible', type: 'outlined'}}>
+      <LinkButton
+        buttonStyle={{style: 'flexible', type: 'outlined'}}
+        to="/trade/filter/from"
+        search={search => ({...search})}
+      >
         {from}
       </LinkButton>
       <IconArrowRight className={cx('icon')} />
-      <LinkButton buttonStyle={{style: 'flexible', type: 'outlined'}}>
+      <LinkButton
+        buttonStyle={{style: 'flexible', type: 'outlined'}}
+        to="/trade/filter/to"
+        search={search => ({...search})}
+      >
         {to}
       </LinkButton>
     </div>
