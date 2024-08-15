@@ -12,8 +12,8 @@ export default function MakeReservationModal({
 }: MakeReservationModalProps) {
   return (
     <ModalContainer onClickOutside={onClickOutside}>
-      <p>
-        님과의 물물교환을
+      <p style={{textAlign: 'center'}}>
+        물물교환을
         <br />
         예약하시겠습니까?
       </p>
