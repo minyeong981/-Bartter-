@@ -37,7 +37,7 @@ function CropStoragePage() {
   });
 
   const {data: userTradesStorage} = useSuspenseQuery({
-    queryKey: [querykeys.CROP_PROFILE, userId],
+    queryKey: [querykeys.CROP_PROFILE, userId, 'receive'],
     queryFn: () => barter.getCropListTradedByUser(Number(userId)),
   });
 
@@ -50,16 +50,20 @@ function CropStoragePage() {
   };
 
   const handleGoToDiary = () => {
-    navigate({ to: '/diary' });
+    navigate({to: '/diary'});
   };
 
   const handleGoToTrade = () => {
-    navigate({ to: '/trade' });
+    navigate({to: '/trade'});
   };
 
   const userProfile = userProfileInfo.data.data;
-  const myCrops = Array.isArray(userCropsStorage.data.data) ? userCropsStorage.data.data : [];
-  const receivedCrops = Array.isArray(userTradesStorage.data.data.receive) ? userTradesStorage.data.data.receive : [];
+  const myCrops = Array.isArray(userCropsStorage.data.data)
+    ? userCropsStorage.data.data
+    : [];
+  const receivedCrops = Array.isArray(userTradesStorage.data.data.receive)
+    ? userTradesStorage.data.data.receive
+    : [];
 
   return (
     <div>
@@ -71,15 +75,22 @@ function CropStoragePage() {
             : `물물교환 / 나눔 작물 ${receivedCrops.length}개`}
         </h1>
         <p className={cx('description')}>
-          {isUserCrops
-            ? <> 나의 농작물을 선택하면
-            <br /> 해당 농작물의 농사 일지를 볼 수 있어요
+          {isUserCrops ? (
+            <>
+              {' '}
+              나의 농작물을 선택하면
+              <br /> 해당 농작물의 농사 일지를 볼 수 있어요
             </>
-            : <> 물물교환 / 나눔 받은 작물이에요
-            <br /> 받은 농작물을 선택하면 해당 농작물의
-            <br /> 농사 일지를 볼 수 있어요</>}
+          ) : (
+            <>
+              {' '}
+              물물교환 / 나눔 받은 작물이에요
+              <br /> 받은 농작물을 선택하면 해당 농작물의
+              <br /> 농사 일지를 볼 수 있어요
+            </>
+          )}
         </p>
-        
+
         <div className={cx('storageImage')}>
           <Lottie
             loop
@@ -103,14 +114,19 @@ function CropStoragePage() {
           </button>
         </div>
         {isUserCrops ? (
-          <div className={cx('myCropsContainer', { empty: myCrops.length === 0, withCrops: myCrops.length > 0 })}>
+          <div
+            className={cx('myCropsContainer', {
+              empty: myCrops.length === 0,
+              withCrops: myCrops.length > 0,
+            })}
+          >
             {myCrops.length === 0 ? (
               <div className={cx('notCrop')}>
                 <p>등록한 작물이 없습니다</p>
                 {Number(myId) === Number(userId) && (
                   <div className={cx('buttonContainer')}>
                     <GeneralButton
-                      buttonStyle={{ style: 'primary', size: 'medium' }}
+                      buttonStyle={{style: 'primary', size: 'medium'}}
                       onClick={handleGoToDiary}
                     >
                       농작물 등록 하러 가기
@@ -136,14 +152,19 @@ function CropStoragePage() {
             )}
           </div>
         ) : (
-          <div className={cx('receivedCropsContainer', { empty: receivedCrops.length === 0, withCrops: receivedCrops.length > 0 })}>
+          <div
+            className={cx('receivedCropsContainer', {
+              empty: receivedCrops.length === 0,
+              withCrops: receivedCrops.length > 0,
+            })}
+          >
             {receivedCrops.length === 0 ? (
               <div className={cx('notCrop')}>
                 <p>물물 교환 / 나눔 받은 작물이 없습니다</p>
                 {Number(myId) === Number(userId) && (
                   <div className={cx('buttonContainer')}>
                     <GeneralButton
-                      buttonStyle={{ style: 'primary', size: 'medium' }}
+                      buttonStyle={{style: 'primary', size: 'medium'}}
                       onClick={handleGoToTrade}
                     >
                       물물 교환 하러 가기
@@ -159,10 +180,7 @@ function CropStoragePage() {
                   onClick={() => handleCropClick(tradeCrop.cropId)}
                 >
                   <div className={cx('cropImage')}>
-                    <img
-                      src={tradeCrop.image}
-                      alt={tradeCrop.nickname}
-                    />
+                    <img src={tradeCrop.image} alt={tradeCrop.nickname} />
                   </div>
                   <div className={cx('cropNickname')}>
                     <p>{tradeCrop.nickname}</p>
