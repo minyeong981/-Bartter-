@@ -174,6 +174,7 @@ public class UserController {
     }
 
     @GetMapping("/username/{username}/exists")
+    @Operation(summary = "아이디가 존재하는지 확인", description = "아이디가 존재하는지 확인한다.")
     public SuccessResponse<Boolean> isExist(@PathVariable("username") String username) {
         boolean exists = userService.isExistByUsername(username);
         return SuccessResponse.of(exists);

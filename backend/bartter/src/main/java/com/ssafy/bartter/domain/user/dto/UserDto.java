@@ -2,9 +2,7 @@ package com.ssafy.bartter.domain.user.dto;
 
 import com.ssafy.bartter.domain.user.entity.User;
 import com.ssafy.bartter.global.common.SimpleLocation;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 /**
  * User 엔티티 Dto
@@ -63,8 +61,10 @@ public class UserDto {
     }
 
     @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class FcmToken{
-        String token;
+        public String token;
     }
 
     @Getter
