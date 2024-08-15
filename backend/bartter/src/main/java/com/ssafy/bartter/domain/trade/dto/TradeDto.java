@@ -32,10 +32,14 @@ public class TradeDto {
         private SimpleUserProfile userProfile;
         private String message;
 
-        public static SimpleTradeInfo of(Trade trade, String message) {
+        public static SimpleTradeInfo of(Trade trade, int currentId, String message) {
             SimpleTradeInfo tradeInfo = new SimpleTradeInfo();
             tradeInfo.tradeId = trade.getId();
-            tradeInfo.userProfile = SimpleUserProfile.of(trade.getUser());
+            if(trade.getUser().getId() != currentId) {
+                tradeInfo.userProfile = SimpleUserProfile.of(trade.getUser());
+            }else{
+                tradeInfo.userProfile = SimpleUserProfile.of(trade.getTradePost().getUser());
+            }
             tradeInfo.message = message;
             return tradeInfo;
         }

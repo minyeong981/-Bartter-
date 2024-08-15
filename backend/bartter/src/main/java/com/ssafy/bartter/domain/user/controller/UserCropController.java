@@ -12,6 +12,7 @@ import com.ssafy.bartter.global.response.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ import static com.ssafy.bartter.domain.crop.dto.CropDiaryDto.CropDiaryDetail;
 import static com.ssafy.bartter.domain.crop.dto.CropDiaryDto.CropDiaryThumbnail;
 import static com.ssafy.bartter.domain.crop.dto.CropDto.SimpleCropProfile;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
@@ -44,6 +46,9 @@ public class UserCropController {
     public SuccessResponse<CropTradeHistoryDto> getUserTradeCropList(@PathVariable("userId") int userId) {
         List<Crop> giveList = cropService.getUserGiveCropList(userId);
         List<Crop> receiveList = cropService.getUserReceiveCropList(userId);
+
+        log.debug("준 : {}",giveList);
+        log.debug("받은 : {}",receiveList);
         CropTradeHistoryDto response = CropTradeHistoryDto.of(giveList, receiveList);
         return SuccessResponse.of(response);
     }

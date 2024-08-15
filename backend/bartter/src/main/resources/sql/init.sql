@@ -7,7 +7,6 @@ DROP TABLE IF EXISTS community_post;
 DROP TABLE IF EXISTS crop_diary;
 DROP TABLE IF EXISTS crop_report;
 DROP TABLE IF EXISTS follow;
-DROP TABLE IF EXISTS refresh;
 DROP TABLE IF EXISTS trade;
 DROP TABLE IF EXISTS trade_post_image;
 DROP TABLE IF EXISTS trade_post_like;
@@ -135,14 +134,6 @@ CREATE TABLE location (
                           updated_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
                           SPATIAL INDEX (location_polygon),
                           SPATIAL INDEX (location_point)
-) ENGINE=InnoDB;
-
-CREATE TABLE refresh (
-                         id BIGINT NOT NULL AUTO_INCREMENT,
-                         expiration VARCHAR(255) NOT NULL,
-                         refresh VARCHAR(255) NOT NULL,
-                         username VARCHAR(255) NOT NULL,
-                         PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE trade (
