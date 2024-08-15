@@ -79,12 +79,12 @@ function TradeDetailPage() {
             to="/diary/growDiary/$cropId"
             params={{cropId: String(cropId)}}
           >
-            작물의 성장일기 보러가기 🗓
+            작물의 성장 일지 보러가기 🗓
           </LinkButton>
         )}
         {!!desiredCategoryList.length && (
           <div className={cx('cropList', 'padding')}>
-            <p>받고싶은 작물 목록</p>
+            <p>받고 싶은 작물 목록</p>
             <div className={cx('crops')}>
               {desiredCategoryList.length &&
                 desiredCategoryList.map(crop => (
