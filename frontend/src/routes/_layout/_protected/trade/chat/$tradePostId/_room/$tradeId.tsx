@@ -2,7 +2,6 @@ import {useQueryClient} from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router';
 import type {AxiosResponse} from 'axios';
 import classnames from 'classnames/bind';
-import { da } from 'date-fns/locale';
 import type {ChangeEvent, KeyboardEvent, UIEvent} from 'react';
 import {useEffect, useRef, useState} from 'react';
 
@@ -25,7 +24,6 @@ function ChatPage() {
   const queryClient = useQueryClient();
   const {tradePostId, tradeId} = Route.useParams();
   const userId = useRootStore(state => state.userId);
-  const token = useRootStore(state => state.token);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [page, setPage] = useState(0);
@@ -38,24 +36,18 @@ function ChatPage() {
   stompClient.onConnect = async () => {
     await loadMessages(page);
 
-    stompClient.subscribe(
-      `/sub/trade/chat/${tradeId}`,
-      message => {
-        const data: ChatMessage = JSON.parse(message.body);
-        if (data.type === 'CHANGE') {
-          queryClient.invalidateQueries({
-            queryKey: ['trade', 'chat'],
-            type: 'all',
-            stale: true,
-          });
-          return;
-        }
-        setMessages(prevMessages => [...prevMessages, data]);
-      },
-      {
-        Authorization: `Bearer ${token}`,
-      },
-    );
+    stompClient.subscribe(`/sub/trade/chat/${tradeId}`, message => {
+      const data: ChatMessage = JSON.parse(message.body);
+      if (data.type === 'CHANGE') {
+        queryClient.invalidateQueries({
+          queryKey: ['trade', 'chat'],
+          type: 'all',
+          stale: true,
+        });
+        return;
+      }
+      setMessages(prevMessages => [...prevMessages, data]);
+    });
   };
 
   stompClient.onStompError = error => {
@@ -161,8 +153,8 @@ function ChatPage() {
           onChange={handleInputChange}
           onKeyDown={handleKeyPress}
         />
-        <button onClick={handleSend}>전송</button>          
-      </div>        
+        <button onClick={handleSend}>전송</button>
+      </div>
     </div>
   );
 }
