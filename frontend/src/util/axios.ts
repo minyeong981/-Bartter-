@@ -1,6 +1,7 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+import {router} from '@/main.tsx';
 import barter from '@/services/barter.ts';
 import useRootStore from '@/store';
 import parser from '@/util/parser.ts';
@@ -41,6 +42,15 @@ instance.interceptors.response.use(
       const token = parser.getAccessToken(response);
       useRootStore.getState().login(token);
       return instance.request(error.config);
+    } else if (
+      (error.response.status === 400 && error.response.data.code === 2002) ||
+      (error.response.status === 400 && error.response.data.code === 2003) ||
+      (error.response.status === 400 && error.response.data.code === 2004)
+    ) {
+      toast.error('다시 로그인해주세요.');
+      localStorage.clear();
+      sessionStorage.clear();
+      await router.navigate({to: '/entrance/login'});
     }
 
     return Promise.reject(error);

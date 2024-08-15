@@ -6,7 +6,7 @@ import {useState} from 'react';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
-import type {SearchParamFromPhase2} from '@/routes/_layout/signup/_layout/3.tsx';
+import type {SearchParamFromPhase2} from '@/routes/_layout/entrance/_public/signup/_layout/3.tsx';
 import {BIRTH_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
@@ -17,7 +17,9 @@ export interface SearchParamFromPhase3 extends SearchParamFromPhase2 {
   password?: Password;
 }
 
-export const Route = createFileRoute('/_layout/signup/_layout/4')({
+export const Route = createFileRoute(
+  '/_layout/entrance/_public/signup/_layout/4',
+)({
   component: GetBirthPage,
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase3 => {
     return {
@@ -29,7 +31,7 @@ export const Route = createFileRoute('/_layout/signup/_layout/4')({
   },
   beforeLoad: async ({search}) => {
     if (!search.password)
-      throw redirect({to: '/signup/3', search: {...search}});
+      throw redirect({to: '/entrance/signup/3', search: {...search}});
   },
 });
 
@@ -64,7 +66,7 @@ function GetBirthPage() {
       <div className={cx('buttonContainer')}>
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
-          to="/signup/5"
+          to="/entrance/signup/5"
           disabled={!isValid}
           search={prev => ({...prev, birth})}
         >

@@ -1,9 +1,11 @@
 import classnames from 'classnames/bind';
-import type { ChangeEvent } from 'react';
-import { useRef, useState } from 'react';
-import { FaCamera, FaTimes } from 'react-icons/fa';
-
+import type {ChangeEvent} from 'react';
+import {useRef, useState} from 'react';
+import {FaCamera, FaTimes} from 'react-icons/fa';
+import heic2any from 'heic2any';
+import Lottie from 'react-lottie-player';
 import styles from './input.module.scss';
+import loading from '@/assets/lottie/loading2.json';
 
 const cx = classnames.bind(styles);
 
@@ -12,40 +14,63 @@ export interface ImageInputProps {
   maxImages: number;
 }
 
-function ImageInput({ onImageChange, maxImages}: ImageInputProps) {
+function ImageInput({onImageChange, maxImages}: ImageInputProps) {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false); // 로딩 상태 추가
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'heic'];
 
-  function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
+  async function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
     const files = event.target.files;
     if (files) {
+      setIsLoading(true); // 업로드 시작 시 로딩 상태를 true로 설정
       const newImageFiles = Array.from(files);
 
       let possibleImages: File[] = [];
       let errorMessages: string[] = [];
 
       for (let image of newImageFiles) {
-        if (image.size > 10_000_000) {
-          errorMessages.push(`파일 '${image.name}'의 용량이 10MB를 초과합니다.`);
-          continue;  
-        }
-
         const extension = image.name.split('.').pop()?.toLowerCase();
+        console.log('확장자 -', extension);
         if (extension && !allowedExtensions.includes(extension)) {
-          errorMessages.push(`지원하지 않는 파일 확장자입니다. (${image.name})`);
-          continue;  
+          errorMessages.push(
+            `지원하지 않는 파일 확장자입니다. (${image.name})`,
+          );
+          continue;
         }
 
-        possibleImages.push(image);  // 조건에 맞는 이미지만 추가
+        if (extension === 'heic') {
+          console.log('heic - 변경 하기 ');
+          try {
+            const convertedBlob = await heic2any({
+              blob: image,
+              toType: 'image/jpeg',
+            });
+            const convertedFile = new File(
+              [convertedBlob as BlobPart],
+              image.name.replace(/\.heic$/i, '.jpg'),
+              {
+                type: 'image/jpeg',
+              },
+            );
+            possibleImages.push(convertedFile);
+          } catch (error) {
+            errorMessages.push(
+              `파일 '${image.name}'을(를) 변환하는 중 오류가 발생했습니다.`,
+            );
+            continue;
+          }
+        } else {
+          possibleImages.push(image); // 조건에 맞는 이미지만 추가
+        }
       }
 
       if (errorMessages.length > 0) {
         setErrorMessage(errorMessages.join(' '));
       } else {
-        setErrorMessage('');  // 에러 메시지 초기화
+        setErrorMessage(''); // 에러 메시지 초기화
       }
 
       if (possibleImages.length > 0) {
@@ -71,7 +96,10 @@ function ImageInput({ onImageChange, maxImages}: ImageInputProps) {
           setImageFiles(updatedFiles);
           setImagePreviews(updatedPreviews);
           onImageChange(updatedFiles);
+          setIsLoading(false); // 업로드 완료 시 로딩 상태를 false로 설정
         });
+      } else {
+        setIsLoading(false); // 에러가 발생해도 로딩 상태를 false로 설정
       }
     }
   }
@@ -81,7 +109,7 @@ function ImageInput({ onImageChange, maxImages}: ImageInputProps) {
   }
 
   function handleRemoveImage(index: number) {
-    setErrorMessage('')
+    setErrorMessage('');
     const updatedFiles = imageFiles.filter((_, i) => i !== index);
     const updatedPreviews = imagePreviews.filter((_, i) => i !== index);
 
@@ -94,7 +122,7 @@ function ImageInput({ onImageChange, maxImages}: ImageInputProps) {
     <div className={cx('imageInputContainer')}>
       <input
         type="file"
-        accept="image/*"
+        accept={allowedExtensions.map(ext => `image/${ext}`).join(',')}
         multiple
         onChange={handleImageChange}
         className={cx('imageInput')}
@@ -103,6 +131,11 @@ function ImageInput({ onImageChange, maxImages}: ImageInputProps) {
       <div className={cx('cameraIconContainer')} onClick={handleIconClick}>
         <FaCamera className={cx('cameraIcon')} />
       </div>
+      {isLoading && (
+        <div className={cx('loadingMessage')}>
+          <Lottie loop animationData={loading} play />
+        </div>
+      )}
       <div className={cx('imagePreviewContainer')}>
         {imagePreviews.map((preview, index) => (
           <div key={index} className={cx('imageWrapper')}>
@@ -118,7 +151,9 @@ function ImageInput({ onImageChange, maxImages}: ImageInputProps) {
           </div>
         ))}
       </div>
-      {errorMessage && <div className={cx('error-message')}>{errorMessage}</div>}
+      {errorMessage && (
+        <div className={cx('error-message')}>{errorMessage}</div>
+      )}
     </div>
   );
 }

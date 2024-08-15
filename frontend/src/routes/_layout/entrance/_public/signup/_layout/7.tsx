@@ -7,7 +7,7 @@ import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
 import LinkButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
-import type {SearchParamFromPhase5} from '@/routes/_layout/signup/_layout/6.tsx';
+import type {SearchParamFromPhase5} from '@/routes/_layout/entrance/_public/signup/_layout/6.tsx';
 import {EMAIL_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
@@ -18,7 +18,9 @@ export interface SearchParamFromPhase6 extends SearchParamFromPhase5 {
   phoneNumber?: Phone;
 }
 
-export const Route = createFileRoute('/_layout/signup/_layout/7')({
+export const Route = createFileRoute(
+  '/_layout/entrance/_public/signup/_layout/7',
+)({
   component: GetEmailPage,
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase6 => {
     return {
@@ -29,12 +31,12 @@ export const Route = createFileRoute('/_layout/signup/_layout/7')({
   },
   beforeLoad: async ({search}) => {
     if (!search.phoneNumber)
-      throw redirect({to: '/signup/6', search: {...search}});
+      throw redirect({to: '/entrance/signup/6', search: {...search}});
   },
 });
 
 function GetEmailPage() {
-  const navigate = useNavigate({from: '/signup/7'});
+  const navigate = useNavigate({from: '/entrance/signup/7'});
   const [email, setEmail] = useState<Email>('');
   const isValid = email.match(EMAIL_PATTERN);
 
@@ -43,7 +45,7 @@ function GetEmailPage() {
   }
 
   async function handleContinueButton() {
-    await navigate({to: '/signup/8', search: prev => ({...prev})});
+    await navigate({to: '/entrance/signup/8', search: prev => ({...prev})});
   }
 
   return (
@@ -69,7 +71,7 @@ function GetEmailPage() {
       <div className={cx('buttonContainer')}>
         <LinkButton
           buttonStyle={{style: 'primary', size: 'large'}}
-          to="/signup/8"
+          to="/entrance/signup/8"
           disabled={!isValid}
           search={prev => ({...prev, email})}
         >

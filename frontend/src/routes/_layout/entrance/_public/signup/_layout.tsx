@@ -10,7 +10,7 @@ const TOTAL_STEPS = 8;
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/signup/_layout')({
+export const Route = createFileRoute('/_layout/entrance/_public/signup/_layout')({
   component: SignupLayout,
 });
 
