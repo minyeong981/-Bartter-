@@ -1,6 +1,7 @@
 import {useMutation} from '@tanstack/react-query';
 import {createFileRoute, redirect, useNavigate} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
+import {useState} from 'react';
 
 import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
 import Heading from '@/components/Heading';
@@ -41,10 +42,11 @@ export const Route = createFileRoute(
 });
 
 function GetLocationPage() {
+  const [isMutating, setIsMutating] = useState(false);
   const navigate = useNavigate({from: '/entrance/signup/8'});
   const {nickname, gender, password, username, birth, phoneNumber, email} =
     Route.useSearch();
-  const {mutate, isPending} = useMutation({
+  const {mutate} = useMutation({
     mutationFn: barter.signup,
     onSuccess: () =>
       navigate({to: '/entrance/signup/9', search: {success: true}}),
@@ -52,6 +54,8 @@ function GetLocationPage() {
   });
 
   async function handleSignup() {
+    if (isMutating) return;
+    setIsMutating(true);
     const {
       coords: {latitude, longitude},
     } = await getPosition();
@@ -66,10 +70,10 @@ function GetLocationPage() {
       latitude,
       longitude,
     });
-    return;
+    setIsMutating(false);
   }
 
-  if (isPending) return <Spinner />;
+  if (isMutating) return <Spinner />;
 
   return (
     <div className={cx('container')}>
