@@ -98,7 +98,7 @@ function Profile() {
   const renderProfileActions = (isMe: boolean) => (
     <>
       <ProfileInfo {...userData} isMe={isMe} onClick={handleFollow} />
-      <div className={cx('crops-count')}>받은 농작물 {cropCount} 개</div>
+      { !isMe && <div className={cx('crops-count')}>받은 농작물 {cropCount} 개</div>}
       { isMe && <SettingLinkButton to="/profile/aireport">
       📝 AI 요약보고서</SettingLinkButton>}
       <SettingLinkButton
