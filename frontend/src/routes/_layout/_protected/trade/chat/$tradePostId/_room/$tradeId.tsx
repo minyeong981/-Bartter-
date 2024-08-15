@@ -160,8 +160,8 @@ function ChatPage() {
           onChange={handleInputChange}
           onKeyDown={handleKeyPress}
         />
-        <button onClick={handleSend}>전송</button>
-      </div>
+        <button onClick={handleSend}>전송</button>          
+      </div>        
     </div>
   );
 }
