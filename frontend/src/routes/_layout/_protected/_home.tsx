@@ -4,7 +4,6 @@ import {createFileRoute, Outlet} from '@tanstack/react-router';
 import HeaderWithLabelAndButtons from '@/components/Header/HeaderWithLabelAndButtons';
 import Location from '@/components/Header/Location';
 import MenuBar from '@/components/MenuBar/MenuBar';
-// import Navigation from '@/components/Navigation'
 import barter from '@/services/barter';
 import useRootStore from '@/store';
 import querykeys from '@/util/querykeys';
@@ -35,7 +34,6 @@ export default function Home() {
       />
       <Outlet />
       <MenuBar />
-      {/* <Navigation /> */}
     </div>
   );
 }

@@ -25,7 +25,7 @@ export default function ChatListItem({
       <img src={userProfile.profileImage} alt="사용자 프로필 이미지"/>
       <div className={cx('content')}>
         <h2 className={cx('sender')}>{userProfile.nickname}</h2>
-        <p className={cx('item')}>상품</p>
+        {/* <p className={cx('item')}>상품</p> */}
         <p className={cx('lastMessage')}>{message}</p>
       </div>
     </Link>
