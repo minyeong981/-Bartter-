@@ -209,4 +209,8 @@ public class UserService {
     public String getNicknameByUserId(int userId) {
         return userRepository.findNicknameByUserId(userId);
     }
+
+    public boolean isExistByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
 }

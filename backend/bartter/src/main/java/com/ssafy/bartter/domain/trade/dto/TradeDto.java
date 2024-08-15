@@ -2,9 +2,7 @@ package com.ssafy.bartter.domain.trade.dto;
 
 import com.ssafy.bartter.domain.trade.entity.Trade;
 import com.ssafy.bartter.domain.trade.entity.TradePost;
-import com.ssafy.bartter.domain.user.dto.UserDto;
 import com.ssafy.bartter.domain.user.dto.UserDto.SimpleUserProfile;
-import com.ssafy.bartter.domain.user.entity.User;
 import lombok.Data;
 
 import static com.ssafy.bartter.domain.trade.dto.TradePostDto.*;
