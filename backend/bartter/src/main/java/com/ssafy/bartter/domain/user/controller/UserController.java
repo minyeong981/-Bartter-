@@ -157,7 +157,7 @@ public class UserController {
         log.debug("{}", token);
         String prevToken = userService.getFcmToken(user.getId());
         log.debug("기존 :{}", prevToken);
-        if (Objects.isNull(prevToken)|| !token.getToken().equals(prevToken)) {
+        if (Objects.isNull(prevToken) || !token.getToken().equals(prevToken)) {
             userService.saveFcmToken(user.getId(), token.getToken());
             userService.sendLoginAlarm(user.getId(), user.getNickname());
         }
@@ -171,5 +171,11 @@ public class UserController {
     ) {
         userService.removeToken(user.getId());
         return SuccessResponse.empty();
+    }
+
+    @GetMapping("/username/{username}/exists")
+    public SuccessResponse<Boolean> isExist(@PathVariable("username") String username) {
+        boolean exists = userService.isExistByUsername(username);
+        return SuccessResponse.of(exists);
     }
 }
