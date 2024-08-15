@@ -3,11 +3,23 @@
     flex-direction: column;
     gap: 20px;
     align-items: center;
+    width: 100%;
     height: 100%;
-    padding: 0 20px;
+
+    // padding: 0 20px;
     overflow-y: scroll;
     
     &::-webkit-scrollbar {
         display: none;
+    }
+
+    .pickedContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        height: 100%;
+        margin-top: 10px;
+        overflow-y: scroll;
     }
 }

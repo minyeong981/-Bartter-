@@ -1,13 +1,14 @@
-import {Client} from '@stomp/stompjs';
+import {useQueryClient} from '@tanstack/react-query';
 import {createFileRoute} from '@tanstack/react-router';
 import type {AxiosResponse} from 'axios';
 import classnames from 'classnames/bind';
 import type {ChangeEvent, KeyboardEvent, UIEvent} from 'react';
-import {useEffect, useMemo, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 import ChatMessage from '@/components/Chat/ChatMessage';
 import useRootStore from '@/store';
 import axios from '@/util/axios.ts';
+import stompClient from '@/util/stomp.ts';
 
 import styles from './chat.module.scss';
 
@@ -20,6 +21,7 @@ export const Route = createFileRoute(
 });
 
 function ChatPage() {
+  const queryClient = useQueryClient();
   const {tradePostId, tradeId} = Route.useParams();
   const userId = useRootStore(state => state.userId);
   const token = useRootStore(state => state.token);
@@ -32,40 +34,38 @@ function ChatPage() {
   const limit = 10; // 한 번에 불러올 메시지 수 : 무한 스크롤에서 사용합니다.
 
   // TODO: brokerURL 확인할 것, .env 파일에 VITE_WEBSOCKET_URL = {실제 서버 BASE URL} 추가
-  const client = useMemo(
-    () =>
-      new Client({
-        brokerURL: import.meta.env.VITE_WEBSOCKET_URL + '/ws',
-        onConnect: async () => {
-          // 메세지 로드
-          await loadMessages(page);
+  stompClient.onConnect = async () => {
+    await loadMessages(page);
 
-          client.subscribe(
-            `/sub/trade/chat/${tradeId}`,
-            message => {
-              const data: ChatMessage = JSON.parse(message.body);
-              console.log(data);
-              setMessages(prevMessages => [...prevMessages, data]);
-            },
-            {
-              Authorization: `Bearer ${token}`,
-            },
-          );
-        },
-        onStompError: error => {
-          console.error('Stomp Error:', error);
-        },
-      }),
-    [tradeId],
-  );
+    stompClient.subscribe(
+      `/sub/trade/chat/${tradeId}`,
+      message => {
+        const data: ChatMessage = JSON.parse(message.body);
+        if (data.type === 'CHANGE') {
+          queryClient.invalidateQueries({
+            queryKey: ['trade', 'chat'],
+            type: 'all',
+            stale: true,
+          });
+          return;
+        }
+        setMessages(prevMessages => [...prevMessages, data]);
+      },
+      {
+        Authorization: `Bearer ${token}`,
+      },
+    );
+  };
+
+  stompClient.onStompError = error => {
+    console.error('Stomp Error:', error);
+  };
 
   useEffect(() => {
-    client.activate();
+    stompClient.activate();
 
     return () => {
-      if (client && client.connected) {
-        client.deactivate();
-      }
+      (async () => await stompClient.deactivate())();
     };
   }, [tradeId]);
 
@@ -118,7 +118,7 @@ function ChatPage() {
   // 채팅 보내기 Stomp 연결 돼야만 보낼 수 있다.
   const handleSend = () => {
     // 메시지 공백 아니고 && stompClient 연결 된 경우에만 해당
-    if (input.trim() && client.connected) {
+    if (input.trim() && stompClient.connected) {
       const sendObject: ChatMessage = {
         type: 'CHAT',
         content: input,
@@ -126,7 +126,7 @@ function ChatPage() {
         tradeId: Number(tradeId),
         tradePostId: Number(tradePostId),
       };
-      client.publish({
+      stompClient.publish({
         destination: '/pub/trade/chat',
         body: JSON.stringify(sendObject),
       });
@@ -160,8 +160,8 @@ function ChatPage() {
           onChange={handleInputChange}
           onKeyDown={handleKeyPress}
         />
-        <button onClick={handleSend}>전송</button>
-      </div>
+        <button onClick={handleSend}>전송</button>          
+      </div>        
     </div>
   );
 }

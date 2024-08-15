@@ -7,6 +7,8 @@ import barter from '@/services/barter';
 import useRootStore from '@/store';
 import querykeys from '@/util/querykeys';
 
+import styles from './../picked.module.scss';
+
 export const Route = createFileRoute(
   '/_layout/_protected/profile/picked/_layout/',
 )({
@@ -35,7 +37,7 @@ export default function ProfilePicked() {
       </div>
         
     ) : (
-      <div>
+      <div className={styles.pickedContainer}>
         {pickedPosts.map((trade, index) => 
         <TradeCard key={index} {...trade} />
         )}

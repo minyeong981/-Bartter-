@@ -25,6 +25,8 @@ export default function TradeCard({
   isShare,
   ...props
 }: TradeCardProps) {
+
+  const simpleLocaton = location.name.split(' ').slice(1,2) + ' ' + location.name.split(' ').slice(2, 3)
   return (
     <Link
       className={cx('tradeCard')}
@@ -35,7 +37,7 @@ export default function TradeCard({
       <img src={image} alt="이미지" />
       <div className={cx('tradeCardContent')}>
         <h3 className={cx('title')}>{title}</h3>
-        <p className={cx('location')}>{location.name}</p>
+        <p className={cx('location')}>{simpleLocaton}</p>
         <p className={cx('date')}>
           {format(createdAt, 'yyyy-MM-dd', {locale: ko})}
         </p>

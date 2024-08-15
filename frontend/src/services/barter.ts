@@ -23,12 +23,12 @@ export default {
    */
   getCurrentLocation: async (data: Position) =>
     axios.post<PostUserLocation>('/user/location', data),
-    /**
+  /**
    * 위치 정보 변경
    */
-    changeCurrentLocation: async (data: Position) =>
-      axios.patch<PostUserLocation>('/user/location', data),
-  /** 
+  changeCurrentLocation: async (data: Position) =>
+    axios.patch<PostUserLocation>('/user/location', data),
+  /**
    * 유저 프로필 조회
    */
   getUserProfile: async (userId: UserId) =>
@@ -156,13 +156,20 @@ export default {
   /**
    * 물물교환 게시글 목록 조회
    */
+  // eslint-disable-next-line max-params
   getTradePostList: async (
     page?: number,
     limit?: number,
     givenCategory?: number,
+    desiredCategory?: number[],
   ) =>
     axios.get<GetCropTradeListResponse>(`/trades/posts`, {
-      params: {page, limit, givenCategory},
+      params: {
+        page,
+        limit,
+        givenCategory,
+        desiredCategory: desiredCategory?.join(),
+      },
     }),
   /**
    * 물물교환 게시글 상세 조회
@@ -244,17 +251,17 @@ export default {
    *  물물교환 진행으로 변경
    */
   putTradeProgress: async (tradePostId: TradePostId) =>
-    axios.put(`/trades/posts/${tradePostId}/progress`),
+    axios.put(`/trades/${tradePostId}/progress`),
   /**
    * 물물교환 예약으로 변경
    */
   putTradeReservation: async (tradePostId: TradePostId) =>
-    axios.put(`/trades/posts/${tradePostId}/reserve`),
+    axios.put(`/trades/${tradePostId}/reserve`),
   /**
    * 물물교환 완료로 변경
    */
   putTradeComplete: async (tradePostId: TradePostId) =>
-    axios.put(`/trades/posts/${tradePostId}/complete`),
+    axios.put(`/trades/${tradePostId}/complete`),
   /**
    * 게시글 정보 기준 채팅방 정보 조회
    */
@@ -496,7 +503,8 @@ export default {
   /**
    * 채팅방 조회
    */
-  getChatRoomInfo: async (tradePostId: TradePostId, tradeId: TradeId) => axios.get<GetChatRoomInfoResponse>(`/trades/${tradePostId}/${tradeId}`),
+  getChatRoomInfo: async (tradePostId: TradePostId, tradeId: TradeId) =>
+    axios.get<GetChatRoomInfoResponse>(`/trades/${tradePostId}/${tradeId}`),
 
   // FCM 토큰 관련
   /**

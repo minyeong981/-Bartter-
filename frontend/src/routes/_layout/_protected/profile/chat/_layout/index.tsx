@@ -5,6 +5,7 @@ import ChatListItem from '@/components/Chat/ChatListItem/ChatListItem.tsx';
 import EmptyPost from '@/components/Empty/EmptyPost.tsx';
 import barter from '@/services/barter.ts';
 import useRootStore from '@/store';
+import querykeys from '@/util/querykeys';
 
 export const Route = createFileRoute(
   '/_layout/_protected/profile/chat/_layout/',
@@ -13,13 +14,14 @@ export const Route = createFileRoute(
 });
 
 export default function ProfileChat() {
-  const userId = useRootStore(state => state.userId);
+  const userId : UserId = useRootStore(state => state.userId);
   const {data} = useSuspenseQuery({
-    queryFn: () => barter.getChatList(Number(userId)),
-    queryKey: ['chatList', userId],
+    queryKey: [querykeys.CHAT_LIST, userId],
+    queryFn: () => barter.getChatList(userId),
   });
 
-  const chatListData = data.data.data;
+  const chatListData = data.data.data || [];
+  console.log(chatListData)
 
   return (
     <div>

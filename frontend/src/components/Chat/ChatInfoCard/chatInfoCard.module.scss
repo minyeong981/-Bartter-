@@ -4,8 +4,9 @@
 
 .chatInfoCard {
   position: fixed;
+  top: 50px;
   width: 100%;
-  padding: 10px 12px;
+  padding: 10px 12px 20px;
   background-color: white;
 
   .content {
@@ -30,10 +31,20 @@
       justify-content: flex-start;
 
       .title {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
         @include typographies.title;
       }
 
       .author {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
         @include typographies.name;
       }
 
@@ -47,7 +58,7 @@
     @include typographies.button;
 
     position: absolute;
-    top: 10px;
+    top: 90px;
     right: 12px;
     display: flex;
     align-items: center;
@@ -57,5 +68,9 @@
     color: colors.$white;
     background-color: colors.$primary;
     border-radius: 5px;
+  }
+
+  .buttonDisabled {
+    background-color: colors.$placeholder;
   }
 }
