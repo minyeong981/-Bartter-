@@ -197,7 +197,7 @@ CREATE TABLE user (
                       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
                       user_phone VARCHAR(11),
                       user_email VARCHAR(50),
-                      user_username VARCHAR(50) NOT NULL,
+                      user_username VARCHAR(50) NOT NULL UNIQUE,
                       user_provider_id VARCHAR(100),
                       user_nickname VARCHAR(255) NOT NULL,
                       user_password VARCHAR(255),

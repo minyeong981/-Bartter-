@@ -33,7 +33,7 @@ public class LocationService {
     /**
      * 반경 5KM
      */
-    private final double RADIUS = 2500;
+    private final double RADIUS = 5000;
 
     /**
      * 위도 경도를 통해서 현재 동네를 가져오는 메서드
