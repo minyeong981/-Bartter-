@@ -1097,7 +1097,7 @@ INSERT INTO community_post_comment (community_post_comment_id, community_post_id
 VALUES (12, 6, 9, '2024-08-04 19:42:03', '2024-08-04 19:42:03', '넘 귀여운 강아지겠네요~ 어미도 수고 많았네요~^^ 축하드려요 ~^^');
 
 INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
-VALUES (13, 7, 9, '2024-08-04 19:42:03', '2024-08-04 19:42:03', '저도 한입만 먹고싶네요');
+VALUES (13, 7, 8, '2024-08-04 19:42:03', '2024-08-04 19:42:03', '저도 한입만 먹고싶네요');
 
 INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
 VALUES (14, 11, 5, '2024-08-04 19:42:03', '2024-08-04 19:42:03', '농약에 노린재약 있어요. 또는 물20L에 크레죨 25cc 에탄올 50cc 페트병에 담아 5~10M간격으로 놓아두세요.');
