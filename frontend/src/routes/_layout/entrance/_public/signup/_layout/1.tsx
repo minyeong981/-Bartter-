@@ -11,7 +11,9 @@ import {NICKNAME_PATTERN} from '@/util/validation.ts';
 import styles from '../signup.module.scss';
 
 const cx = classnames.bind(styles);
-export const Route = createFileRoute('/_layout/signup/_layout/1')({
+export const Route = createFileRoute(
+  '/_layout/entrance/_public/signup/_layout/1',
+)({
   component: GetNamePage,
 });
 
@@ -45,7 +47,7 @@ function GetNamePage() {
       <div className={cx('buttonContainer')}>
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
-          to="/signup/2"
+          to="/entrance/signup/2"
           disabled={!isValid}
           search={{nickname}}
         >

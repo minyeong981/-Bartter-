@@ -14,7 +14,9 @@ import styles from '../signup.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/signup/_layout/additional')({
+export const Route = createFileRoute(
+  '/_layout/entrance/_public/signup/_layout/additional',
+)({
   component: AdditionalInfoPage,
 });
 
@@ -53,7 +55,7 @@ function AdditionalInfoPage() {
         </GeneralButton>
         <LinkButton
           buttonStyle={{style: 'primary', size: 'large'}}
-          to="/Oauth"
+          to="/entrance/Oauth"
           disabled={!isSignupSuccess}
         >
           회원가입 완료

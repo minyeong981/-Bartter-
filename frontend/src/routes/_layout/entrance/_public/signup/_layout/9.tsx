@@ -4,7 +4,7 @@ import Lottie from 'react-lottie-player';
 
 import greetingAnimation from '@/assets/lottie/greeting.json';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
-import type {SearchParamFromPhase7} from '@/routes/_layout/signup/_layout/8.tsx';
+import type {SearchParamFromPhase7} from '@/routes/_layout/entrance/_public/signup/_layout/8.tsx';
 
 import styles from '../signup.module.scss';
 
@@ -14,7 +14,9 @@ export interface SearchParamFromPhase8 extends SearchParamFromPhase7 {
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/signup/_layout/9')({
+export const Route = createFileRoute(
+  '/_layout/entrance/_public/signup/_layout/9',
+)({
   component: greetingPage,
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase8 => {
     return {
@@ -23,7 +25,8 @@ export const Route = createFileRoute('/_layout/signup/_layout/9')({
     };
   },
   beforeLoad: async ({search}) => {
-    if (!search.success) throw redirect({to: '/signup/8', search: {...search}});
+    if (!search.success)
+      throw redirect({to: '/entrance/signup/8', search: {...search}});
   },
 });
 
@@ -41,7 +44,7 @@ function greetingPage() {
       <div className={cx('buttonContainer')}>
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
-          to="/login"
+          to="/entrance/login"
         >
           로그인하러 가기
         </GeneralButton>

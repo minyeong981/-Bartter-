@@ -18,7 +18,9 @@ export interface SearchParamFromPhase1 {
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/signup/_layout/2')({
+export const Route = createFileRoute(
+  '/_layout/entrance/_public/signup/_layout/2',
+)({
   component: GetUserId,
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase1 => {
     return {
@@ -29,7 +31,7 @@ export const Route = createFileRoute('/_layout/signup/_layout/2')({
     };
   },
   beforeLoad: async ({search}) => {
-    if (!search.nickname) throw redirect({to: '/signup/1'});
+    if (!search.nickname) throw redirect({to: '/entrance/signup/1'});
   },
 });
 
@@ -74,7 +76,7 @@ function GetUserId() {
       <div className={cx('buttonContainer')}>
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
-          to="/signup/3"
+          to="/entrance/signup/3"
           search={prev => ({...prev, username: username})}
           disabled={!isValid || isExist}
         >
