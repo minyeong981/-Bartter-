@@ -33,23 +33,27 @@ public class FCMService {
     }
 
     private void sendNotification(String targetToken, String title, String body, String image, String url) {
-        WebpushNotification notification = WebpushNotification.builder()
-                .setTitle(title)
-                .setBody(body)
-                .setImage(image)
-                .build();
+//        Notification notification = Notification.builder()
+//                .setTitle(title)
+//                .setBody(body)
+//                .setImage(image)
+//
+//                .build();
 
-        WebpushConfig webpushConfig = WebpushConfig.builder()
-                .setNotification(notification)
-                .putData("title", title)
-                .putData("body", body)
-                .putData("image", image)
-                .putData("click_action", url)
-                .build();
+//        WebpushConfig webpushConfig = WebpushConfig.builder()
+//                .setNotification(notification)
+////                .putData("title", title)
+////                .putData("body", body)
+////                .putData("image", image)
+//                .putData("click_action", url)
+//                .build();
 
         Message message = Message.builder()
                 .setToken(targetToken)
-                .setWebpushConfig(webpushConfig)
+                .putData("title",title)
+                .putData("body",body)
+                .putData("image",image)
+                .putData("url",url)
                 .build();
         try {
             log.debug("FCM 알림 전송 {}", message);
