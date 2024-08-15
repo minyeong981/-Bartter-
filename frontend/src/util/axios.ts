@@ -1,6 +1,7 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+import {getFcmToken} from '@/config/firebaseConfig.ts';
 import {router} from '@/main.tsx';
 import barter from '@/services/barter.ts';
 import useRootStore from '@/store';
@@ -21,14 +22,17 @@ instance.interceptors.request.use(
       config.headers.setAuthorization(`Bearer ${token}`);
     }
 
-    await fetch(import.meta.env.VITE_BASEURL + '/api/user/fcm', {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      method: 'POST',
-      body: JSON.stringify({token: sessionStorage.getItem('fcmToken')}),
-    });
+    if (useRootStore.getState().isLogin) {
+      await getFcmToken();
+      await fetch(import.meta.env.VITE_BASEURL + '/api/user/fcm', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        method: 'POST',
+        body: JSON.stringify({token: sessionStorage.getItem('fcmToken')}),
+      });
+    }
 
     return config;
   },
