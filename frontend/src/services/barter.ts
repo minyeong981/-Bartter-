@@ -57,6 +57,11 @@ export default {
     axios.post<null>('/auth/additional-info', additionalInfo, {
       withCredentials: true,
     }),
+  /**
+   * 유저 아이디 조회
+   */
+  getUsernameExist: async (username: Username) =>
+    axios.get<GetUsernameExist>(`/user/username/${username}/exists`),
 
   // 동네 모임
   /**

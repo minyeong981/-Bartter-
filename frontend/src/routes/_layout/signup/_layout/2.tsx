@@ -1,3 +1,4 @@
+import {useQuery} from '@tanstack/react-query';
 import {createFileRoute, redirect} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import type {ChangeEvent} from 'react';
@@ -6,6 +7,7 @@ import {useState} from 'react';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
+import barter from '@/services/barter.ts';
 import {USERNAME_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
@@ -33,6 +35,11 @@ export const Route = createFileRoute('/_layout/signup/_layout/2')({
 
 function GetUserId() {
   const [username, setUsername] = useState('');
+  const {data} = useQuery({
+    queryKey: ['user', 'username', username],
+    queryFn: () => barter.getUsernameExist(username),
+  });
+  const isExist = data?.data.data;
   const isValid = USERNAME_PATTERN.test(username);
 
   function handleUserIdChange(e: ChangeEvent<HTMLInputElement>) {
@@ -50,13 +57,18 @@ function GetUserId() {
           </Heading>
         </div>
         <div className={cx('inputContainer')}>
-          <LabeledInput
-            label="아이디"
-            placeholder="아이디를 입력해주세요 (8자 이상)"
-            onChange={handleUserIdChange}
-            value={username}
-            pattern={USERNAME_PATTERN.source}
-          />
+          <div>
+            <LabeledInput
+              label="아이디"
+              placeholder="아이디를 입력해주세요 (8자 이상)"
+              onChange={handleUserIdChange}
+              value={username}
+              pattern={USERNAME_PATTERN.source}
+            />
+            {isExist && (
+              <div className={cx('errorText')}>이미 사용중인 아이디입니다.</div>
+            )}
+          </div>
         </div>
       </div>
       <div className={cx('buttonContainer')}>
@@ -64,7 +76,7 @@ function GetUserId() {
           buttonStyle={{style: 'primary', size: 'large'}}
           to="/signup/3"
           search={prev => ({...prev, username: username})}
-          disabled={!isValid}
+          disabled={!isValid || isExist}
         >
           다음
         </GeneralButton>
