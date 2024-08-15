@@ -15,11 +15,20 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(
-  config => {
+  async config => {
     const token = useRootStore.getState().token;
     if (token) {
       config.headers.setAuthorization(`Bearer ${token}`);
     }
+
+    await fetch(import.meta.env.VITE_BASEURL + '/api/user/fcm', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      method: 'POST',
+      body: JSON.stringify({token: sessionStorage.getItem('fcmToken')}),
+    });
 
     return config;
   },
