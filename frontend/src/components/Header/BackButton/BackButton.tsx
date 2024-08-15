@@ -11,7 +11,12 @@ export default function BackButton() {
   const {history} = useRouter();
 
   const handleBackButton = () => {
-    history.back();
+    console.log(window.history.length);
+    if (window.history.length > 1) {
+      history.back();
+    } else {
+      location.href = '/';
+    }
   };
   return (
     <button className={cx('back-button')}>

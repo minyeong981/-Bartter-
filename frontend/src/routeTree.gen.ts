@@ -15,28 +15,18 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutProtectedImport } from './routes/_layout/_protected'
-import { Route as LayoutOauthImport } from './routes/_layout/Oauth'
-import { Route as LayoutSignupIndexImport } from './routes/_layout/signup/index'
-import { Route as LayoutLoginIndexImport } from './routes/_layout/login/index'
-import { Route as LayoutSignupLayoutImport } from './routes/_layout/signup/_layout'
+import { Route as LayoutEntranceIndexImport } from './routes/_layout/entrance/index'
+import { Route as LayoutEntrancePublicImport } from './routes/_layout/entrance/_public'
 import { Route as LayoutProtectedHomeImport } from './routes/_layout/_protected/_home'
-import { Route as LayoutLoginEntranceIndexImport } from './routes/_layout/login/entrance/index'
 import { Route as LayoutProtectedHomeIndexImport } from './routes/_layout/_protected/_home/index'
-import { Route as LayoutSignupLayoutAdditionalImport } from './routes/_layout/signup/_layout/additional'
-import { Route as LayoutSignupLayout9Import } from './routes/_layout/signup/_layout/9'
-import { Route as LayoutSignupLayout8Import } from './routes/_layout/signup/_layout/8'
-import { Route as LayoutSignupLayout7Import } from './routes/_layout/signup/_layout/7'
-import { Route as LayoutSignupLayout6Import } from './routes/_layout/signup/_layout/6'
-import { Route as LayoutSignupLayout5Import } from './routes/_layout/signup/_layout/5'
-import { Route as LayoutSignupLayout4Import } from './routes/_layout/signup/_layout/4'
-import { Route as LayoutSignupLayout3Import } from './routes/_layout/signup/_layout/3'
-import { Route as LayoutSignupLayout2Import } from './routes/_layout/signup/_layout/2'
-import { Route as LayoutSignupLayout1Import } from './routes/_layout/signup/_layout/1'
+import { Route as LayoutEntrancePublicOauthImport } from './routes/_layout/entrance/_public/Oauth'
 import { Route as LayoutProtectedTradeLayoutImport } from './routes/_layout/_protected/trade/_layout'
 import { Route as LayoutProtectedSearchLayoutImport } from './routes/_layout/_protected/search/_layout'
 import { Route as LayoutProtectedProfileLayoutImport } from './routes/_layout/_protected/profile/_layout'
 import { Route as LayoutProtectedDiaryLayoutImport } from './routes/_layout/_protected/diary/_layout'
 import { Route as LayoutProtectedCommunityLayoutImport } from './routes/_layout/_protected/community/_layout'
+import { Route as LayoutEntrancePublicSignupIndexImport } from './routes/_layout/entrance/_public/signup/index'
+import { Route as LayoutEntrancePublicLoginIndexImport } from './routes/_layout/entrance/_public/login/index'
 import { Route as LayoutProtectedTradeLayoutIndexImport } from './routes/_layout/_protected/trade/_layout/index'
 import { Route as LayoutProtectedProfileAireportIndexImport } from './routes/_layout/_protected/profile/aireport/index'
 import { Route as LayoutProtectedProfileLayoutIndexImport } from './routes/_layout/_protected/profile/_layout/index'
@@ -45,6 +35,7 @@ import { Route as LayoutProtectedDiaryRegisterCropIndexImport } from './routes/_
 import { Route as LayoutProtectedDiaryLayoutIndexImport } from './routes/_layout/_protected/diary/_layout/index'
 import { Route as LayoutProtectedCommunityCreateIndexImport } from './routes/_layout/_protected/community/create/index'
 import { Route as LayoutProtectedCommunityLayoutIndexImport } from './routes/_layout/_protected/community/_layout/index'
+import { Route as LayoutEntrancePublicSignupLayoutImport } from './routes/_layout/entrance/_public/signup/_layout'
 import { Route as LayoutProtectedTradeWriteLayoutImport } from './routes/_layout/_protected/trade/write/_layout'
 import { Route as LayoutProtectedTradeToLayoutImport } from './routes/_layout/_protected/trade/to/_layout'
 import { Route as LayoutProtectedTradeMycropsLayoutImport } from './routes/_layout/_protected/trade/mycrops/_layout'
@@ -73,6 +64,16 @@ import { Route as LayoutProtectedProfilePickedLayoutIndexImport } from './routes
 import { Route as LayoutProtectedProfileChatLayoutIndexImport } from './routes/_layout/_protected/profile/chat/_layout/index'
 import { Route as LayoutProtectedProfileChangelocationLayoutIndexImport } from './routes/_layout/_protected/profile/changelocation/_layout/index'
 import { Route as LayoutProtectedProfileUserIdLayoutIndexImport } from './routes/_layout/_protected/profile/$userId/_layout/index'
+import { Route as LayoutEntrancePublicSignupLayoutAdditionalImport } from './routes/_layout/entrance/_public/signup/_layout/additional'
+import { Route as LayoutEntrancePublicSignupLayout9Import } from './routes/_layout/entrance/_public/signup/_layout/9'
+import { Route as LayoutEntrancePublicSignupLayout8Import } from './routes/_layout/entrance/_public/signup/_layout/8'
+import { Route as LayoutEntrancePublicSignupLayout7Import } from './routes/_layout/entrance/_public/signup/_layout/7'
+import { Route as LayoutEntrancePublicSignupLayout6Import } from './routes/_layout/entrance/_public/signup/_layout/6'
+import { Route as LayoutEntrancePublicSignupLayout5Import } from './routes/_layout/entrance/_public/signup/_layout/5'
+import { Route as LayoutEntrancePublicSignupLayout4Import } from './routes/_layout/entrance/_public/signup/_layout/4'
+import { Route as LayoutEntrancePublicSignupLayout3Import } from './routes/_layout/entrance/_public/signup/_layout/3'
+import { Route as LayoutEntrancePublicSignupLayout2Import } from './routes/_layout/entrance/_public/signup/_layout/2'
+import { Route as LayoutEntrancePublicSignupLayout1Import } from './routes/_layout/entrance/_public/signup/_layout/1'
 import { Route as LayoutProtectedTradeDetailLayoutTradePostIdImport } from './routes/_layout/_protected/trade/detail/_layout/$tradePostId'
 import { Route as LayoutProtectedTradeChatTradePostIdRoomImport } from './routes/_layout/_protected/trade/chat/$tradePostId/_room'
 import { Route as LayoutProtectedTradeChatTradePostIdListImport } from './routes/_layout/_protected/trade/chat/$tradePostId/_list'
@@ -101,7 +102,7 @@ import { Route as LayoutProtectedProfileAireportLayoutDetailCropReportIdImport }
 
 // Create Virtual Routes
 
-const LayoutSignupImport = createFileRoute('/_layout/signup')()
+const LayoutEntranceImport = createFileRoute('/_layout/entrance')()
 const LayoutProtectedTradeImport = createFileRoute(
   '/_layout/_protected/trade',
 )()
@@ -116,6 +117,9 @@ const LayoutProtectedDiaryImport = createFileRoute(
 )()
 const LayoutProtectedCommunityImport = createFileRoute(
   '/_layout/_protected/community',
+)()
+const LayoutEntrancePublicSignupImport = createFileRoute(
+  '/_layout/entrance/_public/signup',
 )()
 const LayoutProtectedTradeWriteImport = createFileRoute(
   '/_layout/_protected/trade/write',
@@ -182,18 +186,13 @@ const LayoutRoute = LayoutImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const LayoutSignupRoute = LayoutSignupImport.update({
-  path: '/signup',
+const LayoutEntranceRoute = LayoutEntranceImport.update({
+  path: '/entrance',
   getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutProtectedRoute = LayoutProtectedImport.update({
   id: '/_protected',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutOauthRoute = LayoutOauthImport.update({
-  path: '/Oauth',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -222,25 +221,27 @@ const LayoutProtectedCommunityRoute = LayoutProtectedCommunityImport.update({
   getParentRoute: () => LayoutProtectedRoute,
 } as any)
 
-const LayoutSignupIndexRoute = LayoutSignupIndexImport.update({
+const LayoutEntranceIndexRoute = LayoutEntranceIndexImport.update({
   path: '/',
-  getParentRoute: () => LayoutSignupRoute,
+  getParentRoute: () => LayoutEntranceRoute,
 } as any)
 
-const LayoutLoginIndexRoute = LayoutLoginIndexImport.update({
-  path: '/login/',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutSignupLayoutRoute = LayoutSignupLayoutImport.update({
-  id: '/_layout',
-  getParentRoute: () => LayoutSignupRoute,
+const LayoutEntrancePublicRoute = LayoutEntrancePublicImport.update({
+  id: '/_public',
+  getParentRoute: () => LayoutEntranceRoute,
 } as any)
 
 const LayoutProtectedHomeRoute = LayoutProtectedHomeImport.update({
   id: '/_home',
   getParentRoute: () => LayoutProtectedRoute,
 } as any)
+
+const LayoutEntrancePublicSignupRoute = LayoutEntrancePublicSignupImport.update(
+  {
+    path: '/signup',
+    getParentRoute: () => LayoutEntrancePublicRoute,
+  } as any,
+)
 
 const LayoutProtectedTradeWriteRoute = LayoutProtectedTradeWriteImport.update({
   path: '/write',
@@ -337,65 +338,14 @@ const LayoutProtectedCommunityDetailRoute =
     getParentRoute: () => LayoutProtectedCommunityRoute,
   } as any)
 
-const LayoutLoginEntranceIndexRoute = LayoutLoginEntranceIndexImport.update({
-  path: '/login/entrance/',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
 const LayoutProtectedHomeIndexRoute = LayoutProtectedHomeIndexImport.update({
   path: '/',
   getParentRoute: () => LayoutProtectedHomeRoute,
 } as any)
 
-const LayoutSignupLayoutAdditionalRoute =
-  LayoutSignupLayoutAdditionalImport.update({
-    path: '/additional',
-    getParentRoute: () => LayoutSignupLayoutRoute,
-  } as any)
-
-const LayoutSignupLayout9Route = LayoutSignupLayout9Import.update({
-  path: '/9',
-  getParentRoute: () => LayoutSignupLayoutRoute,
-} as any)
-
-const LayoutSignupLayout8Route = LayoutSignupLayout8Import.update({
-  path: '/8',
-  getParentRoute: () => LayoutSignupLayoutRoute,
-} as any)
-
-const LayoutSignupLayout7Route = LayoutSignupLayout7Import.update({
-  path: '/7',
-  getParentRoute: () => LayoutSignupLayoutRoute,
-} as any)
-
-const LayoutSignupLayout6Route = LayoutSignupLayout6Import.update({
-  path: '/6',
-  getParentRoute: () => LayoutSignupLayoutRoute,
-} as any)
-
-const LayoutSignupLayout5Route = LayoutSignupLayout5Import.update({
-  path: '/5',
-  getParentRoute: () => LayoutSignupLayoutRoute,
-} as any)
-
-const LayoutSignupLayout4Route = LayoutSignupLayout4Import.update({
-  path: '/4',
-  getParentRoute: () => LayoutSignupLayoutRoute,
-} as any)
-
-const LayoutSignupLayout3Route = LayoutSignupLayout3Import.update({
-  path: '/3',
-  getParentRoute: () => LayoutSignupLayoutRoute,
-} as any)
-
-const LayoutSignupLayout2Route = LayoutSignupLayout2Import.update({
-  path: '/2',
-  getParentRoute: () => LayoutSignupLayoutRoute,
-} as any)
-
-const LayoutSignupLayout1Route = LayoutSignupLayout1Import.update({
-  path: '/1',
-  getParentRoute: () => LayoutSignupLayoutRoute,
+const LayoutEntrancePublicOauthRoute = LayoutEntrancePublicOauthImport.update({
+  path: '/Oauth',
+  getParentRoute: () => LayoutEntrancePublicRoute,
 } as any)
 
 const LayoutProtectedTradeLayoutRoute = LayoutProtectedTradeLayoutImport.update(
@@ -448,6 +398,18 @@ const LayoutProtectedProfileUserIdCropStorageRoute =
     getParentRoute: () => LayoutProtectedProfileUserIdRoute,
   } as any)
 
+const LayoutEntrancePublicSignupIndexRoute =
+  LayoutEntrancePublicSignupIndexImport.update({
+    path: '/',
+    getParentRoute: () => LayoutEntrancePublicSignupRoute,
+  } as any)
+
+const LayoutEntrancePublicLoginIndexRoute =
+  LayoutEntrancePublicLoginIndexImport.update({
+    path: '/login/',
+    getParentRoute: () => LayoutEntrancePublicRoute,
+  } as any)
+
 const LayoutProtectedTradeLayoutIndexRoute =
   LayoutProtectedTradeLayoutIndexImport.update({
     path: '/',
@@ -494,6 +456,12 @@ const LayoutProtectedCommunityLayoutIndexRoute =
   LayoutProtectedCommunityLayoutIndexImport.update({
     path: '/',
     getParentRoute: () => LayoutProtectedCommunityLayoutRoute,
+  } as any)
+
+const LayoutEntrancePublicSignupLayoutRoute =
+  LayoutEntrancePublicSignupLayoutImport.update({
+    id: '/_layout',
+    getParentRoute: () => LayoutEntrancePublicSignupRoute,
   } as any)
 
 const LayoutProtectedTradeWriteLayoutRoute =
@@ -664,6 +632,66 @@ const LayoutProtectedProfileUserIdLayoutIndexRoute =
     getParentRoute: () => LayoutProtectedProfileUserIdLayoutRoute,
   } as any)
 
+const LayoutEntrancePublicSignupLayoutAdditionalRoute =
+  LayoutEntrancePublicSignupLayoutAdditionalImport.update({
+    path: '/additional',
+    getParentRoute: () => LayoutEntrancePublicSignupLayoutRoute,
+  } as any)
+
+const LayoutEntrancePublicSignupLayout9Route =
+  LayoutEntrancePublicSignupLayout9Import.update({
+    path: '/9',
+    getParentRoute: () => LayoutEntrancePublicSignupLayoutRoute,
+  } as any)
+
+const LayoutEntrancePublicSignupLayout8Route =
+  LayoutEntrancePublicSignupLayout8Import.update({
+    path: '/8',
+    getParentRoute: () => LayoutEntrancePublicSignupLayoutRoute,
+  } as any)
+
+const LayoutEntrancePublicSignupLayout7Route =
+  LayoutEntrancePublicSignupLayout7Import.update({
+    path: '/7',
+    getParentRoute: () => LayoutEntrancePublicSignupLayoutRoute,
+  } as any)
+
+const LayoutEntrancePublicSignupLayout6Route =
+  LayoutEntrancePublicSignupLayout6Import.update({
+    path: '/6',
+    getParentRoute: () => LayoutEntrancePublicSignupLayoutRoute,
+  } as any)
+
+const LayoutEntrancePublicSignupLayout5Route =
+  LayoutEntrancePublicSignupLayout5Import.update({
+    path: '/5',
+    getParentRoute: () => LayoutEntrancePublicSignupLayoutRoute,
+  } as any)
+
+const LayoutEntrancePublicSignupLayout4Route =
+  LayoutEntrancePublicSignupLayout4Import.update({
+    path: '/4',
+    getParentRoute: () => LayoutEntrancePublicSignupLayoutRoute,
+  } as any)
+
+const LayoutEntrancePublicSignupLayout3Route =
+  LayoutEntrancePublicSignupLayout3Import.update({
+    path: '/3',
+    getParentRoute: () => LayoutEntrancePublicSignupLayoutRoute,
+  } as any)
+
+const LayoutEntrancePublicSignupLayout2Route =
+  LayoutEntrancePublicSignupLayout2Import.update({
+    path: '/2',
+    getParentRoute: () => LayoutEntrancePublicSignupLayoutRoute,
+  } as any)
+
+const LayoutEntrancePublicSignupLayout1Route =
+  LayoutEntrancePublicSignupLayout1Import.update({
+    path: '/1',
+    getParentRoute: () => LayoutEntrancePublicSignupLayoutRoute,
+  } as any)
+
 const LayoutProtectedTradeDetailLayoutTradePostIdRoute =
   LayoutProtectedTradeDetailLayoutTradePostIdImport.update({
     path: '/$tradePostId',
@@ -825,13 +853,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
     }
-    '/_layout/Oauth': {
-      id: '/_layout/Oauth'
-      path: '/Oauth'
-      fullPath: '/Oauth'
-      preLoaderRoute: typeof LayoutOauthImport
-      parentRoute: typeof LayoutImport
-    }
     '/_layout/_protected': {
       id: '/_layout/_protected'
       path: ''
@@ -846,33 +867,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProtectedHomeImport
       parentRoute: typeof LayoutProtectedImport
     }
-    '/_layout/signup': {
-      id: '/_layout/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof LayoutSignupImport
+    '/_layout/entrance': {
+      id: '/_layout/entrance'
+      path: '/entrance'
+      fullPath: '/entrance'
+      preLoaderRoute: typeof LayoutEntranceImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/signup/_layout': {
-      id: '/_layout/signup/_layout'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof LayoutSignupLayoutImport
-      parentRoute: typeof LayoutSignupRoute
+    '/_layout/entrance/_public': {
+      id: '/_layout/entrance/_public'
+      path: '/entrance'
+      fullPath: '/entrance'
+      preLoaderRoute: typeof LayoutEntrancePublicImport
+      parentRoute: typeof LayoutEntranceRoute
     }
-    '/_layout/login/': {
-      id: '/_layout/login/'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LayoutLoginIndexImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/signup/': {
-      id: '/_layout/signup/'
+    '/_layout/entrance/': {
+      id: '/_layout/entrance/'
       path: '/'
-      fullPath: '/signup/'
-      preLoaderRoute: typeof LayoutSignupIndexImport
-      parentRoute: typeof LayoutSignupImport
+      fullPath: '/entrance/'
+      preLoaderRoute: typeof LayoutEntranceIndexImport
+      parentRoute: typeof LayoutEntranceImport
     }
     '/_layout/_protected/community': {
       id: '/_layout/_protected/community'
@@ -944,75 +958,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProtectedTradeLayoutImport
       parentRoute: typeof LayoutProtectedTradeRoute
     }
-    '/_layout/signup/_layout/1': {
-      id: '/_layout/signup/_layout/1'
-      path: '/1'
-      fullPath: '/signup/1'
-      preLoaderRoute: typeof LayoutSignupLayout1Import
-      parentRoute: typeof LayoutSignupLayoutImport
-    }
-    '/_layout/signup/_layout/2': {
-      id: '/_layout/signup/_layout/2'
-      path: '/2'
-      fullPath: '/signup/2'
-      preLoaderRoute: typeof LayoutSignupLayout2Import
-      parentRoute: typeof LayoutSignupLayoutImport
-    }
-    '/_layout/signup/_layout/3': {
-      id: '/_layout/signup/_layout/3'
-      path: '/3'
-      fullPath: '/signup/3'
-      preLoaderRoute: typeof LayoutSignupLayout3Import
-      parentRoute: typeof LayoutSignupLayoutImport
-    }
-    '/_layout/signup/_layout/4': {
-      id: '/_layout/signup/_layout/4'
-      path: '/4'
-      fullPath: '/signup/4'
-      preLoaderRoute: typeof LayoutSignupLayout4Import
-      parentRoute: typeof LayoutSignupLayoutImport
-    }
-    '/_layout/signup/_layout/5': {
-      id: '/_layout/signup/_layout/5'
-      path: '/5'
-      fullPath: '/signup/5'
-      preLoaderRoute: typeof LayoutSignupLayout5Import
-      parentRoute: typeof LayoutSignupLayoutImport
-    }
-    '/_layout/signup/_layout/6': {
-      id: '/_layout/signup/_layout/6'
-      path: '/6'
-      fullPath: '/signup/6'
-      preLoaderRoute: typeof LayoutSignupLayout6Import
-      parentRoute: typeof LayoutSignupLayoutImport
-    }
-    '/_layout/signup/_layout/7': {
-      id: '/_layout/signup/_layout/7'
-      path: '/7'
-      fullPath: '/signup/7'
-      preLoaderRoute: typeof LayoutSignupLayout7Import
-      parentRoute: typeof LayoutSignupLayoutImport
-    }
-    '/_layout/signup/_layout/8': {
-      id: '/_layout/signup/_layout/8'
-      path: '/8'
-      fullPath: '/signup/8'
-      preLoaderRoute: typeof LayoutSignupLayout8Import
-      parentRoute: typeof LayoutSignupLayoutImport
-    }
-    '/_layout/signup/_layout/9': {
-      id: '/_layout/signup/_layout/9'
-      path: '/9'
-      fullPath: '/signup/9'
-      preLoaderRoute: typeof LayoutSignupLayout9Import
-      parentRoute: typeof LayoutSignupLayoutImport
-    }
-    '/_layout/signup/_layout/additional': {
-      id: '/_layout/signup/_layout/additional'
-      path: '/additional'
-      fullPath: '/signup/additional'
-      preLoaderRoute: typeof LayoutSignupLayoutAdditionalImport
-      parentRoute: typeof LayoutSignupLayoutImport
+    '/_layout/entrance/_public/Oauth': {
+      id: '/_layout/entrance/_public/Oauth'
+      path: '/Oauth'
+      fullPath: '/entrance/Oauth'
+      preLoaderRoute: typeof LayoutEntrancePublicOauthImport
+      parentRoute: typeof LayoutEntrancePublicImport
     }
     '/_layout/_protected/_home/': {
       id: '/_layout/_protected/_home/'
@@ -1020,13 +971,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof LayoutProtectedHomeIndexImport
       parentRoute: typeof LayoutProtectedHomeImport
-    }
-    '/_layout/login/entrance/': {
-      id: '/_layout/login/entrance/'
-      path: '/login/entrance'
-      fullPath: '/login/entrance'
-      preLoaderRoute: typeof LayoutLoginEntranceIndexImport
-      parentRoute: typeof LayoutImport
     }
     '/_layout/_protected/community/detail': {
       id: '/_layout/_protected/community/detail'
@@ -1266,6 +1210,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProtectedTradeWriteLayoutImport
       parentRoute: typeof LayoutProtectedTradeWriteRoute
     }
+    '/_layout/entrance/_public/signup': {
+      id: '/_layout/entrance/_public/signup'
+      path: '/signup'
+      fullPath: '/entrance/signup'
+      preLoaderRoute: typeof LayoutEntrancePublicSignupImport
+      parentRoute: typeof LayoutEntrancePublicImport
+    }
+    '/_layout/entrance/_public/signup/_layout': {
+      id: '/_layout/entrance/_public/signup/_layout'
+      path: '/signup'
+      fullPath: '/entrance/signup'
+      preLoaderRoute: typeof LayoutEntrancePublicSignupLayoutImport
+      parentRoute: typeof LayoutEntrancePublicSignupRoute
+    }
     '/_layout/_protected/community/_layout/': {
       id: '/_layout/_protected/community/_layout/'
       path: '/'
@@ -1321,6 +1279,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/trade/'
       preLoaderRoute: typeof LayoutProtectedTradeLayoutIndexImport
       parentRoute: typeof LayoutProtectedTradeLayoutImport
+    }
+    '/_layout/entrance/_public/login/': {
+      id: '/_layout/entrance/_public/login/'
+      path: '/login'
+      fullPath: '/entrance/login'
+      preLoaderRoute: typeof LayoutEntrancePublicLoginIndexImport
+      parentRoute: typeof LayoutEntrancePublicImport
+    }
+    '/_layout/entrance/_public/signup/': {
+      id: '/_layout/entrance/_public/signup/'
+      path: '/'
+      fullPath: '/entrance/signup/'
+      preLoaderRoute: typeof LayoutEntrancePublicSignupIndexImport
+      parentRoute: typeof LayoutEntrancePublicSignupImport
     }
     '/_layout/_protected/community/detail/_layout/$postId': {
       id: '/_layout/_protected/community/detail/_layout/$postId'
@@ -1447,6 +1419,76 @@ declare module '@tanstack/react-router' {
       fullPath: '/trade/detail/$tradePostId'
       preLoaderRoute: typeof LayoutProtectedTradeDetailLayoutTradePostIdImport
       parentRoute: typeof LayoutProtectedTradeDetailLayoutImport
+    }
+    '/_layout/entrance/_public/signup/_layout/1': {
+      id: '/_layout/entrance/_public/signup/_layout/1'
+      path: '/1'
+      fullPath: '/entrance/signup/1'
+      preLoaderRoute: typeof LayoutEntrancePublicSignupLayout1Import
+      parentRoute: typeof LayoutEntrancePublicSignupLayoutImport
+    }
+    '/_layout/entrance/_public/signup/_layout/2': {
+      id: '/_layout/entrance/_public/signup/_layout/2'
+      path: '/2'
+      fullPath: '/entrance/signup/2'
+      preLoaderRoute: typeof LayoutEntrancePublicSignupLayout2Import
+      parentRoute: typeof LayoutEntrancePublicSignupLayoutImport
+    }
+    '/_layout/entrance/_public/signup/_layout/3': {
+      id: '/_layout/entrance/_public/signup/_layout/3'
+      path: '/3'
+      fullPath: '/entrance/signup/3'
+      preLoaderRoute: typeof LayoutEntrancePublicSignupLayout3Import
+      parentRoute: typeof LayoutEntrancePublicSignupLayoutImport
+    }
+    '/_layout/entrance/_public/signup/_layout/4': {
+      id: '/_layout/entrance/_public/signup/_layout/4'
+      path: '/4'
+      fullPath: '/entrance/signup/4'
+      preLoaderRoute: typeof LayoutEntrancePublicSignupLayout4Import
+      parentRoute: typeof LayoutEntrancePublicSignupLayoutImport
+    }
+    '/_layout/entrance/_public/signup/_layout/5': {
+      id: '/_layout/entrance/_public/signup/_layout/5'
+      path: '/5'
+      fullPath: '/entrance/signup/5'
+      preLoaderRoute: typeof LayoutEntrancePublicSignupLayout5Import
+      parentRoute: typeof LayoutEntrancePublicSignupLayoutImport
+    }
+    '/_layout/entrance/_public/signup/_layout/6': {
+      id: '/_layout/entrance/_public/signup/_layout/6'
+      path: '/6'
+      fullPath: '/entrance/signup/6'
+      preLoaderRoute: typeof LayoutEntrancePublicSignupLayout6Import
+      parentRoute: typeof LayoutEntrancePublicSignupLayoutImport
+    }
+    '/_layout/entrance/_public/signup/_layout/7': {
+      id: '/_layout/entrance/_public/signup/_layout/7'
+      path: '/7'
+      fullPath: '/entrance/signup/7'
+      preLoaderRoute: typeof LayoutEntrancePublicSignupLayout7Import
+      parentRoute: typeof LayoutEntrancePublicSignupLayoutImport
+    }
+    '/_layout/entrance/_public/signup/_layout/8': {
+      id: '/_layout/entrance/_public/signup/_layout/8'
+      path: '/8'
+      fullPath: '/entrance/signup/8'
+      preLoaderRoute: typeof LayoutEntrancePublicSignupLayout8Import
+      parentRoute: typeof LayoutEntrancePublicSignupLayoutImport
+    }
+    '/_layout/entrance/_public/signup/_layout/9': {
+      id: '/_layout/entrance/_public/signup/_layout/9'
+      path: '/9'
+      fullPath: '/entrance/signup/9'
+      preLoaderRoute: typeof LayoutEntrancePublicSignupLayout9Import
+      parentRoute: typeof LayoutEntrancePublicSignupLayoutImport
+    }
+    '/_layout/entrance/_public/signup/_layout/additional': {
+      id: '/_layout/entrance/_public/signup/_layout/additional'
+      path: '/additional'
+      fullPath: '/entrance/signup/additional'
+      preLoaderRoute: typeof LayoutEntrancePublicSignupLayoutAdditionalImport
+      parentRoute: typeof LayoutEntrancePublicSignupLayoutImport
     }
     '/_layout/_protected/profile/$userId/_layout/': {
       id: '/_layout/_protected/profile/$userId/_layout/'
@@ -1595,7 +1637,6 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   LayoutRoute: LayoutRoute.addChildren({
-    LayoutOauthRoute,
     LayoutProtectedRoute: LayoutProtectedRoute.addChildren({
       LayoutProtectedHomeRoute: LayoutProtectedHomeRoute.addChildren({
         LayoutProtectedHomeIndexRoute,
@@ -1787,23 +1828,30 @@ export const routeTree = rootRoute.addChildren({
           }),
       }),
     }),
-    LayoutSignupRoute: LayoutSignupRoute.addChildren({
-      LayoutSignupLayoutRoute: LayoutSignupLayoutRoute.addChildren({
-        LayoutSignupLayout1Route,
-        LayoutSignupLayout2Route,
-        LayoutSignupLayout3Route,
-        LayoutSignupLayout4Route,
-        LayoutSignupLayout5Route,
-        LayoutSignupLayout6Route,
-        LayoutSignupLayout7Route,
-        LayoutSignupLayout8Route,
-        LayoutSignupLayout9Route,
-        LayoutSignupLayoutAdditionalRoute,
+    LayoutEntranceRoute: LayoutEntranceRoute.addChildren({
+      LayoutEntrancePublicRoute: LayoutEntrancePublicRoute.addChildren({
+        LayoutEntrancePublicOauthRoute,
+        LayoutEntrancePublicSignupRoute:
+          LayoutEntrancePublicSignupRoute.addChildren({
+            LayoutEntrancePublicSignupLayoutRoute:
+              LayoutEntrancePublicSignupLayoutRoute.addChildren({
+                LayoutEntrancePublicSignupLayout1Route,
+                LayoutEntrancePublicSignupLayout2Route,
+                LayoutEntrancePublicSignupLayout3Route,
+                LayoutEntrancePublicSignupLayout4Route,
+                LayoutEntrancePublicSignupLayout5Route,
+                LayoutEntrancePublicSignupLayout6Route,
+                LayoutEntrancePublicSignupLayout7Route,
+                LayoutEntrancePublicSignupLayout8Route,
+                LayoutEntrancePublicSignupLayout9Route,
+                LayoutEntrancePublicSignupLayoutAdditionalRoute,
+              }),
+            LayoutEntrancePublicSignupIndexRoute,
+          }),
+        LayoutEntrancePublicLoginIndexRoute,
       }),
-      LayoutSignupIndexRoute,
+      LayoutEntranceIndexRoute,
     }),
-    LayoutLoginIndexRoute,
-    LayoutLoginEntranceIndexRoute,
   }),
 })
 
@@ -1821,16 +1869,9 @@ export const routeTree = rootRoute.addChildren({
     "/_layout": {
       "filePath": "_layout.tsx",
       "children": [
-        "/_layout/Oauth",
         "/_layout/_protected",
-        "/_layout/signup",
-        "/_layout/login/",
-        "/_layout/login/entrance/"
+        "/_layout/entrance"
       ]
-    },
-    "/_layout/Oauth": {
-      "filePath": "_layout/Oauth.tsx",
-      "parent": "/_layout"
     },
     "/_layout/_protected": {
       "filePath": "_layout/_protected.tsx",
@@ -1851,37 +1892,26 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/_protected/_home/"
       ]
     },
-    "/_layout/signup": {
-      "filePath": "_layout/signup",
+    "/_layout/entrance": {
+      "filePath": "_layout/entrance",
       "parent": "/_layout",
       "children": [
-        "/_layout/signup/_layout",
-        "/_layout/signup/"
+        "/_layout/entrance/_public",
+        "/_layout/entrance/"
       ]
     },
-    "/_layout/signup/_layout": {
-      "filePath": "_layout/signup/_layout.tsx",
-      "parent": "/_layout/signup",
+    "/_layout/entrance/_public": {
+      "filePath": "_layout/entrance/_public.tsx",
+      "parent": "/_layout/entrance",
       "children": [
-        "/_layout/signup/_layout/1",
-        "/_layout/signup/_layout/2",
-        "/_layout/signup/_layout/3",
-        "/_layout/signup/_layout/4",
-        "/_layout/signup/_layout/5",
-        "/_layout/signup/_layout/6",
-        "/_layout/signup/_layout/7",
-        "/_layout/signup/_layout/8",
-        "/_layout/signup/_layout/9",
-        "/_layout/signup/_layout/additional"
+        "/_layout/entrance/_public/Oauth",
+        "/_layout/entrance/_public/signup",
+        "/_layout/entrance/_public/login/"
       ]
     },
-    "/_layout/login/": {
-      "filePath": "_layout/login/index.tsx",
-      "parent": "/_layout"
-    },
-    "/_layout/signup/": {
-      "filePath": "_layout/signup/index.tsx",
-      "parent": "/_layout/signup"
+    "/_layout/entrance/": {
+      "filePath": "_layout/entrance/index.tsx",
+      "parent": "/_layout/entrance"
     },
     "/_layout/_protected/community": {
       "filePath": "_layout/_protected/community",
@@ -1974,53 +2004,13 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/_protected/trade/_layout/filter/to/"
       ]
     },
-    "/_layout/signup/_layout/1": {
-      "filePath": "_layout/signup/_layout/1.tsx",
-      "parent": "/_layout/signup/_layout"
-    },
-    "/_layout/signup/_layout/2": {
-      "filePath": "_layout/signup/_layout/2.tsx",
-      "parent": "/_layout/signup/_layout"
-    },
-    "/_layout/signup/_layout/3": {
-      "filePath": "_layout/signup/_layout/3.tsx",
-      "parent": "/_layout/signup/_layout"
-    },
-    "/_layout/signup/_layout/4": {
-      "filePath": "_layout/signup/_layout/4.tsx",
-      "parent": "/_layout/signup/_layout"
-    },
-    "/_layout/signup/_layout/5": {
-      "filePath": "_layout/signup/_layout/5.tsx",
-      "parent": "/_layout/signup/_layout"
-    },
-    "/_layout/signup/_layout/6": {
-      "filePath": "_layout/signup/_layout/6.tsx",
-      "parent": "/_layout/signup/_layout"
-    },
-    "/_layout/signup/_layout/7": {
-      "filePath": "_layout/signup/_layout/7.tsx",
-      "parent": "/_layout/signup/_layout"
-    },
-    "/_layout/signup/_layout/8": {
-      "filePath": "_layout/signup/_layout/8.tsx",
-      "parent": "/_layout/signup/_layout"
-    },
-    "/_layout/signup/_layout/9": {
-      "filePath": "_layout/signup/_layout/9.tsx",
-      "parent": "/_layout/signup/_layout"
-    },
-    "/_layout/signup/_layout/additional": {
-      "filePath": "_layout/signup/_layout/additional.tsx",
-      "parent": "/_layout/signup/_layout"
+    "/_layout/entrance/_public/Oauth": {
+      "filePath": "_layout/entrance/_public/Oauth.tsx",
+      "parent": "/_layout/entrance/_public"
     },
     "/_layout/_protected/_home/": {
       "filePath": "_layout/_protected/_home/index.tsx",
       "parent": "/_layout/_protected/_home"
-    },
-    "/_layout/login/entrance/": {
-      "filePath": "_layout/login/entrance/index.tsx",
-      "parent": "/_layout"
     },
     "/_layout/_protected/community/detail": {
       "filePath": "_layout/_protected/community/detail",
@@ -2272,6 +2262,30 @@ export const routeTree = rootRoute.addChildren({
         "/_layout/_protected/trade/write/_layout/"
       ]
     },
+    "/_layout/entrance/_public/signup": {
+      "filePath": "_layout/entrance/_public/signup",
+      "parent": "/_layout/entrance/_public",
+      "children": [
+        "/_layout/entrance/_public/signup/_layout",
+        "/_layout/entrance/_public/signup/"
+      ]
+    },
+    "/_layout/entrance/_public/signup/_layout": {
+      "filePath": "_layout/entrance/_public/signup/_layout.tsx",
+      "parent": "/_layout/entrance/_public/signup",
+      "children": [
+        "/_layout/entrance/_public/signup/_layout/1",
+        "/_layout/entrance/_public/signup/_layout/2",
+        "/_layout/entrance/_public/signup/_layout/3",
+        "/_layout/entrance/_public/signup/_layout/4",
+        "/_layout/entrance/_public/signup/_layout/5",
+        "/_layout/entrance/_public/signup/_layout/6",
+        "/_layout/entrance/_public/signup/_layout/7",
+        "/_layout/entrance/_public/signup/_layout/8",
+        "/_layout/entrance/_public/signup/_layout/9",
+        "/_layout/entrance/_public/signup/_layout/additional"
+      ]
+    },
     "/_layout/_protected/community/_layout/": {
       "filePath": "_layout/_protected/community/_layout/index.tsx",
       "parent": "/_layout/_protected/community/_layout"
@@ -2303,6 +2317,14 @@ export const routeTree = rootRoute.addChildren({
     "/_layout/_protected/trade/_layout/": {
       "filePath": "_layout/_protected/trade/_layout/index.tsx",
       "parent": "/_layout/_protected/trade/_layout"
+    },
+    "/_layout/entrance/_public/login/": {
+      "filePath": "_layout/entrance/_public/login/index.tsx",
+      "parent": "/_layout/entrance/_public"
+    },
+    "/_layout/entrance/_public/signup/": {
+      "filePath": "_layout/entrance/_public/signup/index.tsx",
+      "parent": "/_layout/entrance/_public/signup"
     },
     "/_layout/_protected/community/detail/_layout/$postId": {
       "filePath": "_layout/_protected/community/detail/_layout/$postId.tsx",
@@ -2397,6 +2419,46 @@ export const routeTree = rootRoute.addChildren({
     "/_layout/_protected/trade/detail/_layout/$tradePostId": {
       "filePath": "_layout/_protected/trade/detail/_layout/$tradePostId.tsx",
       "parent": "/_layout/_protected/trade/detail/_layout"
+    },
+    "/_layout/entrance/_public/signup/_layout/1": {
+      "filePath": "_layout/entrance/_public/signup/_layout/1.tsx",
+      "parent": "/_layout/entrance/_public/signup/_layout"
+    },
+    "/_layout/entrance/_public/signup/_layout/2": {
+      "filePath": "_layout/entrance/_public/signup/_layout/2.tsx",
+      "parent": "/_layout/entrance/_public/signup/_layout"
+    },
+    "/_layout/entrance/_public/signup/_layout/3": {
+      "filePath": "_layout/entrance/_public/signup/_layout/3.tsx",
+      "parent": "/_layout/entrance/_public/signup/_layout"
+    },
+    "/_layout/entrance/_public/signup/_layout/4": {
+      "filePath": "_layout/entrance/_public/signup/_layout/4.tsx",
+      "parent": "/_layout/entrance/_public/signup/_layout"
+    },
+    "/_layout/entrance/_public/signup/_layout/5": {
+      "filePath": "_layout/entrance/_public/signup/_layout/5.tsx",
+      "parent": "/_layout/entrance/_public/signup/_layout"
+    },
+    "/_layout/entrance/_public/signup/_layout/6": {
+      "filePath": "_layout/entrance/_public/signup/_layout/6.tsx",
+      "parent": "/_layout/entrance/_public/signup/_layout"
+    },
+    "/_layout/entrance/_public/signup/_layout/7": {
+      "filePath": "_layout/entrance/_public/signup/_layout/7.tsx",
+      "parent": "/_layout/entrance/_public/signup/_layout"
+    },
+    "/_layout/entrance/_public/signup/_layout/8": {
+      "filePath": "_layout/entrance/_public/signup/_layout/8.tsx",
+      "parent": "/_layout/entrance/_public/signup/_layout"
+    },
+    "/_layout/entrance/_public/signup/_layout/9": {
+      "filePath": "_layout/entrance/_public/signup/_layout/9.tsx",
+      "parent": "/_layout/entrance/_public/signup/_layout"
+    },
+    "/_layout/entrance/_public/signup/_layout/additional": {
+      "filePath": "_layout/entrance/_public/signup/_layout/additional.tsx",
+      "parent": "/_layout/entrance/_public/signup/_layout"
     },
     "/_layout/_protected/profile/$userId/_layout/": {
       "filePath": "_layout/_protected/profile/$userId/_layout/index.tsx",

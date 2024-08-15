@@ -31,6 +31,7 @@ async function registerServiceWorker() {
 
       const serviceWorker = await navigator.serviceWorker.ready;
 
+      console.log('서비스 워커 활성화');
       if (serviceWorker && !sessionStorage.getItem('fcmToken')) {
         console.log('세션 체크 중...');
         const permission = await Notification.requestPermission();

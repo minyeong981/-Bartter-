@@ -29,10 +29,9 @@ const messaging = getMessaging(app);
 const handleForegroundMessages = () => {
   onMessage(messaging, payload => {
     if (!payload.data) return;
-
-    const {body} = payload.data;
+    console.log(payload.data);
     toast.dismiss();
-    toast.success(body);
+    toast.success(payload.data.body);
   });
 };
 
