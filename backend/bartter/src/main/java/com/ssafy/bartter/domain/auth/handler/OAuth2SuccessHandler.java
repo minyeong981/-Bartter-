@@ -68,7 +68,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             // 세션 타임아웃 설정 (5분)
             request.getSession().setMaxInactiveInterval(300);
 
-            response.sendRedirect(domainUrl + "/signup/additional?issignup=true");
+            response.sendRedirect(domainUrl + "/entrance/signup/additional?issignup=true");
         }
         else {
             // 토큰 생성
@@ -83,7 +83,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             response.addCookie(cookieUtil.createCookie("refresh", refresh));
             response.setStatus(HttpStatus.OK.value());
 
-            response.sendRedirect(domainUrl+"/OAuth");
+            response.sendRedirect(domainUrl+"/entrance/OAuth");
         }
     }
 
