@@ -24,4 +24,5 @@ export default {
   SEARCH_RECENT:'searchRecent',
   SEARCH_SUGGESTION:'searchSuggestion',
   LOCATION: 'location',
+  CHAT_LIST: 'chatList'
 };
