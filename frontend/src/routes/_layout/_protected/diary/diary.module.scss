@@ -8,7 +8,7 @@
   align-items: center;
   height: 100%;
   overflow-y: scroll;
-  
+
 
   &::-webkit-scrollbar {
     display: none;
@@ -16,6 +16,7 @@
 }
 
 .diaryPage {
+  margin-top: 30px;
   margin-bottom: 20px;
 }
 
@@ -28,10 +29,10 @@
 
 .header {
   display: flex;
-  align-items: center; 
+  align-items: center;
   justify-content: space-between;
   width: 100%;
-  background: none; 
+  background: none;
   border-bottom: none;
 }
 
