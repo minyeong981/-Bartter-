@@ -87,7 +87,7 @@ public class TradeController {
         List<SimpleTradeInfo> simpleTradeInfoList = tradeList.stream()
                 .map(trade -> {
             String lastMessage = redisChatService.getLastMessage(trade.getId());
-            return SimpleTradeInfo.of(trade, lastMessage);
+                    return SimpleTradeInfo.of(trade, user.getId(), lastMessage);
         }).toList();
 
         return SuccessResponse.of(simpleTradeInfoList);

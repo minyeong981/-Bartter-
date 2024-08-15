@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 
-import static com.ssafy.bartter.domain.chat.dto.ChatMessage.MessageType.CHAT;
 
 @Slf4j
 @Controller
@@ -25,6 +24,10 @@ public class ChatController {
         switch (chatMessage.getType()){
             case CHAT:
                 redisChatService.publish(chatMessage);
+                break;
+            case CHANGE:
+                redisChatService.statusChange(chatMessage);
+                break;
             default:
                 break;
         }

@@ -27,7 +27,7 @@ public class RedisChatService {
 
     public void publish(ChatMessage message) {
         addTradeRoomInfo(message.getTradeId());
-        validateChatParticipant(message.getSenderId(), message.getTradeId());
+//        validateChatParticipant(message.getSenderId(), message.getTradeId());
 
         // Redis에 메시지 발행
         redisTemplate.convertAndSend(topic.getTopic(), message);
@@ -36,6 +36,10 @@ public class RedisChatService {
 
         // Redis에 메시지 저장
         saveMessage(message);
+    }
+
+    public void statusChange(ChatMessage message) {
+        redisTemplate.convertAndSend(topic.getTopic(), message);
     }
 
     private void saveMessage(ChatMessage chatMessage) {
@@ -139,4 +143,5 @@ public class RedisChatService {
         }
         return nickName;
     }
+
 }

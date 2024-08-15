@@ -18,7 +18,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @Tag(name = "유저가 참여한 채팅 기록", description = "특정 유저의 물물교환 채팅 내역을 조회하는 API 입니다.")
 public class UserTradeController {
 
@@ -32,8 +32,10 @@ public class UserTradeController {
         List<SimpleTradeInfo> simpleTradeInfoList = tradeList.stream()
                 .map(trade -> {
                     String lastMessage = redisChatService.getLastMessage(trade.getId());
-                    return SimpleTradeInfo.of(trade, lastMessage);
-                }).toList();
+                    return SimpleTradeInfo.of(trade, user.getId(), lastMessage);
+                })
+                .sorted((a, b) -> b.getTradeId() - a.getTradeId())
+                .toList();
         return SuccessResponse.of(simpleTradeInfoList);
     }
 

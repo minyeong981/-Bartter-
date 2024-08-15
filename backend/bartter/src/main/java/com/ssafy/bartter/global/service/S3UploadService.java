@@ -35,7 +35,7 @@ public class S3UploadService {
     /**
      * 유효한 확장자 리스트
      */
-    private final List<String> allowExtensionList = Arrays.asList("jpg", "jpeg", "png", "gif","webp");
+    private final List<String> allowExtensionList = Arrays.asList("jpg", "jpeg", "png", "gif","webp","heic");
 
     /**
      * 버킷명
