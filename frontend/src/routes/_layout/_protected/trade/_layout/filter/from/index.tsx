@@ -34,35 +34,38 @@ function FromPage() {
   }
 
   return (
-    <div className={cx('fromPage')}>
+    <>
       <HeaderWithLabelAndBackButton
         label="주고 싶은 농작물"
         style={{position: 'static', width: '100%'}}
-      />
-      <div className={cx('cropListContainer')}>
-        <div className={cx('cropList')}>
-          {data.data.data.length &&
-            data.data.data.map((crop, index) => (
-              <CropButton
-                key={`${index}-${crop.cropCategoryId}`}
-                onClick={handleSelectCrop}
-                value={crop}
-                name={crop.name}
-                imgUrl={crop.image}
-                selected={cropToGive === crop}
-              />
-            ))}
+      />      
+      <div className={cx('fromPage')}>
+        <div className={cx('cropListContainer')}>
+          <div className={cx('cropList')}>
+            {data.data.data.length &&
+              data.data.data.map((crop, index) => (
+                <CropButton
+                  key={`${index}-${crop.cropCategoryId}`}
+                  onClick={handleSelectCrop}
+                  value={crop}
+                  name={crop.name}
+                  imgUrl={crop.image}
+                  selected={cropToGive === crop}
+                />
+              ))}
+          </div>
         </div>
-      </div>
-      <div className={cx('buttonContainer')}>
-        <LinkButton
-          buttonStyle={{style: 'primary', size: 'large'}}
-          to="/trade"
-          search={prev => ({...prev, from: cropToGive})}
-        >
-          선택
-        </LinkButton>
-      </div>
-    </div>
+        <div className={cx('buttonContainer')}>
+          <LinkButton
+            buttonStyle={{style: 'primary', size: 'large'}}
+            to="/trade"
+            search={prev => ({...prev, from: cropToGive})}
+          >
+            선택
+          </LinkButton>
+        </div>
+      </div>    
+    </>
+
   );
 }
