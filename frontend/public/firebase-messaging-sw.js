@@ -29,7 +29,7 @@ messaging.onBackgroundMessage(payload => {
     body: payload.data.body,
     icon: payload.data.image,
     data: {
-      url: payload.data.click_action, // 알림 클릭시 이동할 URL
+      url: payload.data.url, // 알림 클릭시 이동할 URL
     },
   };
   self.registration.showNotification(notificationTitle, notificationOptions);
@@ -39,8 +39,11 @@ messaging.onBackgroundMessage(payload => {
 self.addEventListener('notificationclick', event => {
   event.notification.close(); // 알림 닫기
 
+  console.log(event);
   // 알림에서 설정한 URL로 이동
   const clickActionUrl = event.notification.data.url;
+  console.log('클릭', clickActionUrl);
+  console.log(event.data);
   if (clickActionUrl) {
     event.waitUntil(clients.openWindow(clickActionUrl));
   }

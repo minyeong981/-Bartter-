@@ -40,6 +40,7 @@ function GetUserId() {
   const {data} = useQuery({
     queryKey: ['user', 'username', username],
     queryFn: () => barter.getUsernameExist(username),
+    enabled: !!username,
   });
   const isExist = data?.data.data;
   const isValid = USERNAME_PATTERN.test(username);
