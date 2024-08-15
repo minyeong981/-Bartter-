@@ -24,14 +24,17 @@ instance.interceptors.request.use(
 
     if (useRootStore.getState().isLogin) {
       await getFcmToken();
-      await fetch(import.meta.env.VITE_BASEURL + '/api/user/fcm', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        method: 'POST',
-        body: JSON.stringify({token: sessionStorage.getItem('fcmToken')}),
-      });
+
+      if (sessionStorage.getItem('fcmToken')) {
+        await fetch(import.meta.env.VITE_BASEURL + '/api/user/fcm', {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          method: 'POST',
+          body: JSON.stringify({token: sessionStorage.getItem('fcmToken')}),
+        });
+      }
     }
 
     return config;
