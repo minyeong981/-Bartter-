@@ -59,6 +59,7 @@ instance.interceptors.response.use(
       useRootStore.getState().login(token);
       return instance.request(error.config);
     } else if (
+      (error.response.status === 400 && error.response.data.code === 2000) ||
       (error.response.status === 400 && error.response.data.code === 2002) ||
       (error.response.status === 400 && error.response.data.code === 2003) ||
       (error.response.status === 400 && error.response.data.code === 2004)
