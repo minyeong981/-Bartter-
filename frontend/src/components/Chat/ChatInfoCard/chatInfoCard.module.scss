@@ -55,7 +55,7 @@
   }
 
   .button {
-    @include typographies.button;
+    @include typographies.main;
 
     position: absolute;
     top: 90px;
