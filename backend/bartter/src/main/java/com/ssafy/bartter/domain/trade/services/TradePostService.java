@@ -48,7 +48,6 @@ public class TradePostService {
     public List<TradePost> getTradePostList(int page, int limit, int givenCategory, List<Integer> desiredCategories, int locationId) {
         List<Location> nearbyLocationList = locationService.getNearbyLocationList(locationId);
         log.debug("근처 동네 개수 : {}", nearbyLocationList.size());
-        for(Location l : nearbyLocationList) {log.debug("위치 {}", l.getName());}
         PageRequest pageable = PageRequest.of(page, limit, Sort.by("createdAt").descending());
         int desiredCategoriesSize = (desiredCategories == null) ? 0 : desiredCategories.size();
 

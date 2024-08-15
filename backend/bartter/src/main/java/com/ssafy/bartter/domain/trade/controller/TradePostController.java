@@ -43,9 +43,10 @@ public class TradePostController {
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "10") int limit,
             @RequestParam(value = "givenCategory", defaultValue = "0") int givenCategory,
-            @RequestParam(value = "desiredCategories", required = false) List<Integer> desiredCategories,
+            @RequestParam(value = "desiredCategory", required = false) List<Integer> desiredCategories,
             @CurrentUser UserAuthDto user
     ) {
+        log.debug("페이징: {}, {}, {}, {}", page, limit,givenCategory,desiredCategories);
         List<TradePost> tradePostList = tradePostService.getTradePostList(page, limit, givenCategory, desiredCategories, user.getLocationId());
         List<SimpleTradePostDetail> simpleTradePostList = tradePostList.stream().map(o -> SimpleTradePostDetail.of(o,user.getId())).collect(Collectors.toList());
         return SuccessResponse.of(simpleTradePostList);
