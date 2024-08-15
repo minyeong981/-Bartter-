@@ -484,6 +484,7 @@ type GetAutoCompletedKeywordListByKeyword = BarterResponse<
 >;
 type getChatListByTradePostIdResponse = BarterResponse<SimpleTradeInfo[]>;
 type GetChatRoomInfoResponse = BarterResponse<TradeInfo>;
+type GetUsernameExist = BarterResponse<boolean>;
 
 // TODO: 농작물 물물교환 API 부터는 GET요청만 정의
 // type SignupResponse = BarterResponse<null>;

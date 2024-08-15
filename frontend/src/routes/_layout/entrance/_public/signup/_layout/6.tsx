@@ -6,7 +6,7 @@ import {useState} from 'react';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
 import LabeledInput from '@/components/Inputs/LabeledInput.tsx';
-import type {SearchParamFromPhase4} from '@/routes/_layout/signup/_layout/5.tsx';
+import type {SearchParamFromPhase4} from '@/routes/_layout/entrance/_public/signup/_layout/5.tsx';
 import {NUMBER_PATTERN} from '@/util/validation.ts';
 
 import styles from '../signup.module.scss';
@@ -17,7 +17,9 @@ export interface SearchParamFromPhase5 extends SearchParamFromPhase4 {
   gender?: Gender;
 }
 
-export const Route = createFileRoute('/_layout/signup/_layout/6')({
+export const Route = createFileRoute(
+  '/_layout/entrance/_public/signup/_layout/6',
+)({
   component: GetPhoneNumberPage,
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase5 => {
     return {
@@ -26,7 +28,8 @@ export const Route = createFileRoute('/_layout/signup/_layout/6')({
     };
   },
   beforeLoad: async ({search}) => {
-    if (!search.gender) throw redirect({to: '/signup/5', search: {...search}});
+    if (!search.gender)
+      throw redirect({to: '/entrance/signup/5', search: {...search}});
   },
 });
 
@@ -62,7 +65,7 @@ function GetPhoneNumberPage() {
       <div className={cx('buttonContainer')}>
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
-          to="/signup/7"
+          to="/entrance/signup/7"
           disabled={!isValid}
           search={prev => ({...prev, phoneNumber})}
         >

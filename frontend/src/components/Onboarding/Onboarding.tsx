@@ -74,8 +74,7 @@ const slides: Slide[] = [
   },
 ];
 
-
-const Onboarding: React.FC<OnboardingProps> = ({ onSlideChange }) => {
+const Onboarding: React.FC<OnboardingProps> = ({onSlideChange}) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isHidden, setIsHidden] = useState(false);
   const isLastSlide = currentStep === slides.length - 1;
@@ -96,7 +95,12 @@ const Onboarding: React.FC<OnboardingProps> = ({ onSlideChange }) => {
   return (
     <div className={cx('onboarding')}>
       <OnboardingCarousel slides={slides} onSlideChange={handleSlideChange} />
-      <div className={cx('animation', { hidden: isHidden, 'display-none': isLastSlide })}>
+      <div
+        className={cx('animation', {
+          hidden: isHidden,
+          'display-none': isLastSlide,
+        })}
+      >
         <Lottie loop animationData={HandScroll} play />
       </div>
       {isLastSlide && (
@@ -104,7 +108,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onSlideChange }) => {
           <KakaoButton onClick={handleKakaoButton} />
           <GeneralButton
             buttonStyle={{style: 'primary', size: 'large'}}
-            to="/login"
+            to="/entrance/login"
           >
             로그인
           </GeneralButton>

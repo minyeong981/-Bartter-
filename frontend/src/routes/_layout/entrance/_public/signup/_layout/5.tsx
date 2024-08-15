@@ -5,7 +5,7 @@ import {useState} from 'react';
 import BinaryButton from '@/components/BinaryButton';
 import GeneralButton from '@/components/Buttons/LinkButton.tsx';
 import Heading from '@/components/Heading';
-import type {SearchParamFromPhase3} from '@/routes/_layout/signup/_layout/4.tsx';
+import type {SearchParamFromPhase3} from '@/routes/_layout/entrance/_public/signup/_layout/4.tsx';
 
 import styles from '../signup.module.scss';
 
@@ -15,7 +15,9 @@ export interface SearchParamFromPhase4 extends SearchParamFromPhase3 {
   birth?: Birth;
 }
 
-export const Route = createFileRoute('/_layout/signup/_layout/5')({
+export const Route = createFileRoute(
+  '/_layout/entrance/_public/signup/_layout/5',
+)({
   component: GetGenderPage,
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase4 => {
     return {
@@ -23,7 +25,8 @@ export const Route = createFileRoute('/_layout/signup/_layout/5')({
     };
   },
   beforeLoad: async ({search}) => {
-    if (!search.birth) throw redirect({to: '/signup/4', search: {...search}});
+    if (!search.birth)
+      throw redirect({to: '/entrance/signup/4', search: {...search}});
   },
 });
 
@@ -58,7 +61,7 @@ function GetGenderPage() {
         <GeneralButton
           buttonStyle={{style: 'primary', size: 'large'}}
           disabled={!gender}
-          to="/signup/6"
+          to="/entrance/signup/6"
           search={prev => ({...prev, gender})}
         >
           다음

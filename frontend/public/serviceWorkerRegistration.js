@@ -1,5 +1,3 @@
-// serviceWorkerRegistration.js
-
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js';
 import {
   getMessaging,
@@ -23,24 +21,25 @@ const messaging = getMessaging(app);
 async function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
     try {
-      // Firebase 서비스 워커 등록
+      console.log('서비스 워커 등록 시도 중...');
       const firebaseRegistration = await navigator.serviceWorker.register(
         '/firebase-messaging-sw.js',
-        {scope: '/firebase-cloud-messaging-push-scope'},
       );
-      console.log(
-        'Firebase Service Worker 등록 성공:',
-        firebaseRegistration.scope,
-      );
+      console.log('Firebase Service Worker 등록 성공:');
 
-      if (!sessionStorage.getItem('fcmToken')) {
+      console.log('서비스 워커 활성화 대기 중...');
+
+      const serviceWorker = await navigator.serviceWorker.ready;
+
+      if (serviceWorker && !sessionStorage.getItem('fcmToken')) {
+        console.log('세션 체크 중...');
         const permission = await Notification.requestPermission();
         if (permission === 'granted') {
-          console.log(permission);
-          // FCM 토큰 가져오기
+          console.log('알림 권한 허용됨');
           const currentToken = await getToken(messaging, {
             vapidKey:
               'BGVbiPhLWWxijrc2jfn9lTyDs-kcSfSinb2bUmEoDXSc8ljx6sWtur9k82vmjBLND06SSeb10oq-rw7zmzrpoPY',
+            serviceWorkerRegistration: firebaseRegistration,
           });
           if (currentToken) {
             console.log('FCM Token:', currentToken);
@@ -51,7 +50,7 @@ async function registerServiceWorker() {
             );
           }
         } else {
-          console.log('허용 X');
+          console.log('알림 권한이 거부되었습니다.');
         }
       }
     } catch (error) {

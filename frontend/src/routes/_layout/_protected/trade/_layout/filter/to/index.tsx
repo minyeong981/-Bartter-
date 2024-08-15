@@ -40,38 +40,41 @@ function ToPage() {
   }
 
   return (
-    <div className={cx('toPage')}>
+    <>
       <HeaderWithLabelAndBackButton
-        label="받고 싶은 농작물"
-        style={{position: 'static', width: '100%'}}
-      />
-      <div className={cx('cropListContainer')}>
-        <div className={cx('cropList')}>
-          {data?.data.data &&
-            data?.data.data.map((crop, index) => (
-              <CropButton
-                key={`${index}-${crop.name}`}
-                onClick={handleSelectCrop}
-                value={crop}
-                name={crop.name}
-                imgUrl={crop.image}
-                selected={cropsToGet.includes(crop)}
-              />
-            ))}
+          label="받고 싶은 농작물"
+          style={{position: 'static', width: '100%'}}
+        />
+      <div className={cx('toPage')}>
+        <div className={cx('cropListContainer')}>
+          <div className={cx('cropList')}>
+            {data?.data.data &&
+              data?.data.data.map((crop, index) => (
+                <CropButton
+                  key={`${index}-${crop.name}`}
+                  onClick={handleSelectCrop}
+                  value={crop}
+                  name={crop.name}
+                  imgUrl={crop.image}
+                  selected={cropsToGet.includes(crop)}
+                />
+              ))}
+          </div>
         </div>
-      </div>
-      <div className={cx('buttonContainer')}>
-        <LinkButton
-          buttonStyle={{style: 'primary', size: 'large'}}
-          to="/trade"
-          search={prev => ({
-            ...prev,
-            to: cropsToGet,
-          })}
-        >
-          선택
-        </LinkButton>
-      </div>
-    </div>
+        <div className={cx('buttonContainer')}>
+          <LinkButton
+            buttonStyle={{style: 'primary', size: 'large'}}
+            to="/trade"
+            search={prev => ({
+              ...prev,
+              to: cropsToGet,
+            })}
+          >
+            선택
+          </LinkButton>
+        </div>
+      </div>    
+    </>
+
   );
 }

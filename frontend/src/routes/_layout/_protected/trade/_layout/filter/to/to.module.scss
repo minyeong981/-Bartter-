@@ -4,16 +4,16 @@
   gap: 10px;
   align-items: center;
   height: 100%;
-  padding: 0 30px;
-
-  .cropListContainer {
-    flex-grow: 8;
-    width: 100%;
-    overflow: scroll;
+  padding: 20px 0;
+  overflow: scroll;
 
     &::-webkit-scrollbar {
       display: none;
     }
+
+  .cropListContainer {
+    flex-grow: 8;
+    width: 100%;
 
     .cropList {
       display: grid;
