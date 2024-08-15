@@ -311,7 +311,7 @@ VALUES (20, 5, '2024-08-04 19:31:58', '2024-08-04 19:31:58', '비', 'https://d1t
 
 
 -- crop_report
-INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 1, 6, '2024-08-12 08:06:10', '2024-08-12 17:49:27', '참참참깨의 5월 2주차 재배 요약 보고서', '### 지난 주의 작업 요약
+INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 1, 6, '2024-05-12 08:06:10', '2024-05-12 17:49:27', '참참참깨의 5월 2주차 재배 요약 보고서', '### 지난 주의 작업 요약
 오늘은 처음으로 참깨를 심은 씨앗이 무럭무럭 자라고 있는 것을 확인하셨습니다. 식물이 건강하게 자라는 것을 지켜보며 뿌듯한 마음이 들 것입니다.
 
 ### 지난 주 작업의 개선사항
@@ -327,7 +327,7 @@ INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, u
 - 참깨의 생장을 기록하고, 성장 상태를 주시적으로 확인하여 필요한 조치를 취해주세요.
 - 더 나은 성장을 위해 적절한 관리와 관찰을 지속해주세요.
 - 이웃들과 참깨에 대한 정보를 공유하고 나누며, 소통과 협력을 통해 더 나은 농사 경험을 쌓아가세요.');
-INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 2, 6, '2024-08-12 08:07:29', '2024-08-12 17:49:27', '참참참깨의 5월 3주차 재배 요약 보고서', '### 지난 주의 작업 요약
+INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 2, 6, '2024-05-19 08:07:29', '2024-05-19 17:49:27', '참참참깨의 5월 3주차 재배 요약 보고서', '### 지난 주의 작업 요약
 참참참깨가 물을 열심히 주신 덕분에 싹이 트었다는 소식을 알려주셨군요. 식물이 적절한 환경에서 성장하고 있다는 것이 기쁘네요.
 
 ### 지난 주 작업의 개선사항
@@ -342,7 +342,7 @@ INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, u
 - 참참참깨의 성장 상태를 지속적으로 관찰하고, 필요한 조치를 취하여 건강한 성장을 이끌어주세요.
 - 식물이 안정적으로 자라기 위해 필요한 환경을 제공하고, 성장하는 모습을 즐기며 지켜봐주세요.
 - 참참참깨가 더욱 건강하게 자라도록 주변 환경을 신경쓰며 관리해주세요.');
-INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 3, 6, '2024-08-12 08:08:31', '2024-08-12 17:49:27', '참참참깨의 5월 4주차 재배 요약 보고서', '### 지난 주의 작업 요약
+INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 3, 6, '2024-05-26 08:08:31', '2024-05-26 17:49:27', '참참참깨의 5월 4주차 재배 요약 보고서', '### 지난 주의 작업 요약
 참참참깨의 싹이 적당한 속도로 자라는 것을 확인하셨습니다. 작물이 건강하게 자라고 있는 것을 확인하여 기뻐하시는 모습이 좋습니다.
 
 ### 지난 주 작업의 개선사항
@@ -358,7 +358,7 @@ INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, u
 - 햇빛과 물을 적절히 공급하여 참참참깨가 건강하게 자라도록 도와주세요.
 - 토양의 영양 상태를 유지하고, 농약 사용을 최소화하여 자연적인 방법으로 참참참깨를 키워보세요.
 - 참참참깨의 성장을 지속적으로 관찰하고, 필요한 경우에는 전문가의 조언을 받아보세요.');
-INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 4, 6, '2024-08-12 08:10:01', '2024-08-12 17:49:27', '참참참깨의 6월 3주차 재배 요약 보고서', '### 지난 주의 작업 요약
+INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 4, 6, '2024-06-16 08:10:01', '2024-06-16 17:49:27', '참참참깨의 6월 3주차 재배 요약 보고서', '### 지난 주의 작업 요약
 참참참깨에 대한 관리로 곁순을 제거하고 더욱 건강한 성장을 돕는 노력을 기울이셨군요. 여름이 시작되면서 농사가 더욱 힘들어지고 있음을 느끼고 계시는 것 같습니다.
 
 ### 지난 주 작업의 개선사항
@@ -374,7 +374,7 @@ INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, u
 - 더위에도 물을 충분히 주고, 영양분을 공급하여 참참참깨가 건강하게 자라도록 도와주세요.
 - 참참참깨의 생장 상태를 기록하고, 필요한 경우에는 전문가의 조언을 구하여 더 나은 관리 방법을 찾아보세요.
 - 여름철에는 더욱 더 신경 써야할 때입니다. 참참참깨에 대한 관리를 소홀히하지 않고 꾸준히 관찰하며 관리해주세요.');
-INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 5, 6, '2024-08-12 08:12:23', '2024-08-12 17:49:33', '참참참깨의 6월 4주차 재배 요약 보고서', '### 지난 주의 작업 요약
+INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 5, 6, '2024-06-23 08:12:23', '2024-06-23 17:49:33', '참참참깨의 6월 4주차 재배 요약 보고서', '### 지난 주의 작업 요약
 비바람에 쓰러지지 않도록 지지대를 세우고 허릿줄을 쳐주는 등 참참참깨에 대한 적극적인 관리를 실시하셨습니다. 농사에 대한 성실한 태도가 보여 좋습니다.
 
 ### 지난 주 작업의 개선사항
@@ -389,7 +389,7 @@ INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, u
 - 참참참깨의 성장 상태를 기록하고, 적절한 조치를 취할 수 있도록 주의깊게 관찰해주세요.
 - 참참참깨가 안정적으로 자라도록 지속적인 관리와 주의가 필요합니다. 소중히 돌봐주세요.
 - 작물 성장을 돕기 위해 햇빛이 충분히 들어오는 장소에 위치시키세요.');
-INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 6, 6, '2024-08-12 08:13:37', '2024-08-12 17:49:33', '참참참깨의 7월 2주차 재배 요약 보고서', '### 지난 주의 작업 요약
+INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (1, 6, 6, '2024-07-14 08:13:37', '2024-07-14 17:49:33', '참참참깨의 7월 2주차 재배 요약 보고서', '### 지난 주의 작업 요약
 바람이 강하게 불어 두 번째 허릿줄을 쳐주는 등 참참참깨에 대한 적절한 관리를 실시하셨습니다. 농작물이 순조롭게 자라고 있어 다음달에 수확을 기대할 수 있을 것으로 보입니다.
 
 ### 지난 주 작업의 개선사항
@@ -420,8 +420,8 @@ INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, u
 - 참깨를 아들에게 나눠주는 것은 좋은 아이디어입니다. 더 많은 사람들과 나누어 보면서 소통과 나눔의 가치를 높이세요.
 - 참깨의 성장 상태를 지속적으로 관찰하고, 필요한 관리를 통해 건강하게 자라도록 도와주세요.
 - 참깨를 털 때 몸에 부담이 되지 않도록 적절한 자세와 휴식을 취하며, 건강을 유지하도록 노력해주세요.');
-INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (2, 8, 6, '2024-08-12 08:47:34', '2024-08-12 17:49:33', '오이시쿠나레의 8월 3주차 재배 요약 보고서', '### 지난 주의 작업 요약
-오이시쿠나레가 거름을 주니 잘 자란 모습을 확인하셨습니다. 오이에 대한 세심한 관찰과 관리가 보이며, 농사에 대한 애정이 느껴집니다.
+INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (2, 8, 6, '2024-08-12 08:47:34', '2024-08-12 17:49:33', '오이오이의 8월 3주차 재배 요약 보고서', '### 지난 주의 작업 요약
+오이오이가 거름을 주니 잘 자란 모습을 확인하셨습니다. 오이에 대한 세심한 관찰과 관리가 보이며, 농사에 대한 애정이 느껴집니다.
 
 ### 지난 주 작업의 개선사항
 - 오이 모종 덩굴을 올리고 유인하는 작업을 했지만, 오이 열리지 않게 솎아주는 작업은 조심스럽게 해야 합니다. 오이의 성장을 방해할 수 있으므로 민감한 손길로 작업해야 합니다.
@@ -431,10 +431,10 @@ INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, u
 - 오이 모종의 성장을 돕기 위해 더 많은 햇빛과 적절한 온도를 유지해주세요.
 - 오이 열리지 않게 솎아주는 작업을 할 때 섬세한 손길로 신중하게 진행해주세요.
 - 유인작업을 할 때 도구들을 깨끗하게 관리하고 보관하여 오이 재배에 더욱 효율적으로 활용해보세요.
-- 오이시쿠나레의 건강한 성장을 위해 토양의 수분 상태와 영양 공급을 체크하고 필요한 조치를 취해주세요.
+- 오이오이의 건강한 성장을 위해 토양의 수분 상태와 영양 공급을 체크하고 필요한 조치를 취해주세요.
 - 오이의 열림을 조절하는 작업을 신중하게 진행하며, 오이가 건강하게 자라도록 지속적인 관찰과 관리를 이어가세요.
 - 추석 전후에 수확할 수 있도록 노지에 다다기오이 모종을 신중하게 관찰하고 필요한 조치를 취해주세요.
-- 오이 모종의 성장 상태를 지속적으로 확인하고, 필요한 경우 적절한 관리를 통해 오이시쿠나레가 건강하게 자라도록 도와주세요.');
+- 오이 모종의 성장 상태를 지속적으로 확인하고, 필요한 경우 적절한 관리를 통해 오이오이가 건강하게 자라도록 도와주세요.');
 INSERT INTO bartter.crop_report (crop_id, crop_report_id, user_id, created_at, updated_at, crop_report_title, crop_report_content) VALUES (4, 9, 15, '2024-08-12 08:47:45', '2024-08-12 17:49:36', '왕토마토의 8월 3주차 재배 요약 보고서', '### 지난 주의 작업 요약
 토마토가 갈라져있다는 문제에 대해 관심을 가지고 조언을 구하시는 모습이 좋습니다. 또한 토마토를 수확하여 가족들에게 건강식으로 제공한 것은 칭찬할 만한 일입니다.
 
@@ -586,7 +586,7 @@ VALUES (37, '2024-08-11 11:32:34', '2024-08-11 11:32:34', '참깨밭의 풀 관�
 INSERT INTO bartter.daily_tip (daily_tip_id, created_at, updated_at, daily_tip_content, daily_tip_is_enabled,
                                daily_tip_weekday, user_id)
 VALUES (38, '2024-08-11 11:32:34', '2024-08-11 11:32:34',
-        '다음 주에는 오이시쿠나레의 덩굴이 올라가는 모습을 계속 지켜보면서 필요한 지지봉이나 끈 등을 추가로 설치해주세요', true, 3, 6);
+        '다음 주에는 오이오이의 덩굴이 올라가는 모습을 계속 지켜보면서 필요한 지지봉이나 끈 등을 추가로 설치해주세요', true, 3, 6);
 INSERT INTO bartter.daily_tip (daily_tip_id, created_at, updated_at, daily_tip_content, daily_tip_is_enabled,
                                daily_tip_weekday, user_id)
 VALUES (39, '2024-08-11 11:32:34', '2024-08-11 11:32:34',
