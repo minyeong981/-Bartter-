@@ -43,14 +43,21 @@ public class OpenAIScheduler {
 
         dailyTipService.disableAll();
 
-        for (User user : allUserList) {
-            List<String> alarmMessageList = createReportAndDailyTipList(user);
+        // 보고서가 생성된 유저 리스트
+        List<User> hasReportUserList = new ArrayList<>();
 
-            Collections.shuffle(alarmMessageList);
+        for (User user : allUserList) {
+            CreateStatus createReportStatus = createReportAndDailyTipList(user);
+
+            Collections.shuffle(createReportStatus.alarmMessageList);
 
             for (int i = 0; i < 7; i++) {
-                String message = alarmMessageList.get(i);
+                String message = createReportStatus.alarmMessageList.get(i);
                 dailyTipService.createDailyTip(message, user, i + 1);
+            }
+
+            if (createReportStatus.didCreateReport) {
+                hasReportUserList.add(user);
             }
         }
     }
@@ -58,11 +65,12 @@ public class OpenAIScheduler {
     /**
      * 유저의 농사일지로 AI 요약 리포트를 작성한 후, 리포트 내에서 내용을 발췌하여 하루 알리미 메시지 리스트로 반환
      */
-    private List<String> createReportAndDailyTipList(User user) throws IOException {
+    private CreateStatus createReportAndDailyTipList(User user) throws IOException {
 
-        log.info("Start creating user weekly crop report for {}", user.getUsername());
         List<Crop> userCropList = cropService.getUserCropList(user.getId());
         List<String> alarmMessageList = getBasicAlarmList();
+
+        boolean didCreateReport = false;
 
         if (!userCropList.isEmpty()) {
             List<CropReport> weeklyCropReportList = openAiService.createWeeklyCropReport(user, userCropList);
@@ -75,12 +83,12 @@ public class OpenAIScheduler {
                 } else {
                     alarmMessageList.addAll(newAlarmMessageList);
                 }
-            } else {
-                log.warn("No crop report generated for {}", user.getUsername());
+
+                didCreateReport = true;
             }
         }
 
-        return alarmMessageList;
+        return new CreateStatus(didCreateReport, alarmMessageList);
     }
 
     private static List<String> extractMessagesFromReportList(List<CropReport> weeklyCropReportList) {
@@ -116,5 +124,15 @@ public class OpenAIScheduler {
                 "내가 키우는 농작물을 등록하고 관리해보세요",
                 "농사일지를 구체적으로 쓸수록 요약 리포트와 알람의 내용이 풍부해져요"
         ));
+    }
+
+    private static class CreateStatus {
+        boolean didCreateReport;
+        List<String> alarmMessageList;
+
+        public CreateStatus(boolean didCreateReport, List<String> alarmMessageList) {
+            this.didCreateReport = didCreateReport;
+            this.alarmMessageList = alarmMessageList;
+        }
     }
 }
