@@ -83,6 +83,7 @@ export default function DiaryDetail() {
             {responseData.crop.nickname}
           </span>
         </div>
+        
         <div className={cx('diaryImage')}>
           {responseData.image && <img src={responseData.image} alt="Diary" />}
         </div>
