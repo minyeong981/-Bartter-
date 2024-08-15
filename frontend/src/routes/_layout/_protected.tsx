@@ -20,7 +20,7 @@ function Protected() {
     prevUserId.current = userId;
   }, [isLogin, userId]);
 
-  if (!isLogin) return <Navigate to="/login/entrance" replace={true} />;
+  if (!isLogin) return <Navigate to="/entrance" replace={true} />;
 
   return <Outlet />;
 }

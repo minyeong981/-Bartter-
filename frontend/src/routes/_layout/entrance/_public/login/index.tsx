@@ -20,14 +20,14 @@ import styles from './login.module.scss';
 
 const cx = classnames.bind(styles);
 
-export const Route = createFileRoute('/_layout/login/')({
+export const Route = createFileRoute('/_layout/entrance/_public/login/')({
   component: LoginPage,
 });
 
 function LoginPage() {
   const {form, handleUsernameChange, handlePasswordChange} = useLoginForm();
   const login = useRootStore(state => state.login);
-  const navigate = useNavigate({from: '/login'});
+  const navigate = useNavigate({from: '/entrance/login'});
   const mutation = useMutation({
     mutationFn: barter.login,
     onSuccess: async data => {
@@ -98,7 +98,10 @@ function LoginPage() {
         >
           로그인
         </GeneralButton>
-        <LinkButton buttonStyle={{style: 'mono', size: 'large'}} to="/signup">
+        <LinkButton
+          buttonStyle={{style: 'mono', size: 'large'}}
+          to="/entrance/signup"
+        >
           회원가입
         </LinkButton>
       </form>

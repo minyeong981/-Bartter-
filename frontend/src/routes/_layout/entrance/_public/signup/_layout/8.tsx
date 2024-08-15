@@ -5,7 +5,7 @@ import classnames from 'classnames/bind';
 import GeneralButton from '@/components/Buttons/GeneralButton.tsx';
 import Heading from '@/components/Heading';
 import Spinner from '@/components/Spinner';
-import type {SearchParamFromPhase6} from '@/routes/_layout/signup/_layout/7.tsx';
+import type {SearchParamFromPhase6} from '@/routes/_layout/entrance/_public/signup/_layout/7.tsx';
 import barter from '@/services/barter.ts';
 import {getPosition} from '@/util/geolocation.ts';
 
@@ -17,7 +17,9 @@ export interface SearchParamFromPhase7 extends SearchParamFromPhase6 {
   email?: Email;
 }
 
-export const Route = createFileRoute('/_layout/signup/_layout/8')({
+export const Route = createFileRoute(
+  '/_layout/entrance/_public/signup/_layout/8',
+)({
   component: GetLocationPage,
   validateSearch: (search: Record<string, unknown>): SearchParamFromPhase7 => {
     return {
@@ -34,17 +36,18 @@ export const Route = createFileRoute('/_layout/signup/_layout/8')({
   },
   beforeLoad: async ({search}) => {
     if (!search.phoneNumber)
-      throw redirect({to: '/signup/6', search: {...search}});
+      throw redirect({to: '/entrance/signup/6', search: {...search}});
   },
 });
 
 function GetLocationPage() {
-  const navigate = useNavigate({from: '/signup/8'});
+  const navigate = useNavigate({from: '/entrance/signup/8'});
   const {nickname, gender, password, username, birth, phoneNumber, email} =
     Route.useSearch();
   const {mutate, isPending} = useMutation({
     mutationFn: barter.signup,
-    onSuccess: () => navigate({to: '/signup/9', search: {success: true}}),
+    onSuccess: () =>
+      navigate({to: '/entrance/signup/9', search: {success: true}}),
     onError: () => console.error('회원가입하는데 문제가 발생했습니다.'),
   });
 
