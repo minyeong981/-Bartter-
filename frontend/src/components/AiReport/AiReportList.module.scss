@@ -2,6 +2,13 @@
 @use '@/styles/constants/typographies.scss' as typo;
 
 .reportListContainer {
+  height: 100%;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   .reportGroup {
     margin-bottom: 40px;
   }
@@ -56,8 +63,8 @@
     .detailButton {
       align-self: flex-end;
       padding: 5px 10px;
-      margin-top: auto; 
-      font-size: 14px; 
+      margin-top: auto;
+      font-size: 14px;
       color: colors.$primary;
       cursor: pointer;
       background-color: transparent;
@@ -67,7 +74,7 @@
 }
 
 h3 {
-    margin: 10px 0 ;
+  margin: 10px 0;
 }
 
 .animation {
