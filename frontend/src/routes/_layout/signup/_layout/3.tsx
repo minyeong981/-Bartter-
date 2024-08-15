@@ -64,6 +64,7 @@ function GetPasswordPage() {
             onChange={handlePasswordChange}
             value={password}
             pattern={PASSWORD_PATTERN.source}
+            type="password"
           />
           <LabeledInput
             label="비밀번호 확인"
@@ -71,6 +72,7 @@ function GetPasswordPage() {
             onChange={handleConfirmPasswordChange}
             value={confirmPassword}
             pattern={PASSWORD_PATTERN.source}
+            type="password"
           />
         </div>
       </div>

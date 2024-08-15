@@ -88,6 +88,7 @@ function LoginPage() {
           placeholder="비밀번호"
           onChange={handlePassword}
           value={form.password}
+          type="password"
           // pattern={USERID_PATTERN.source}
         />
         <GeneralButton
