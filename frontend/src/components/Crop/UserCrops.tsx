@@ -33,7 +33,7 @@ function UserCrops({userId, onSelectCrop}: UserCropsProps) {
     <div className={cx('cropsContainer')}>
       {crops.length === 0 ? (
         <div className={cx('noCrops')}>
-          <EmptyPost text="등록된 농작물이 없습니다." />
+          <EmptyPost text="등록된 농작물이 없습니다" />
         </div>
       ) : (
         <div className={cx('mainContainer')}>

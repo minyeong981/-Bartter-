@@ -43,7 +43,7 @@ function Trade() {
       <HeaderWithLabelAndButtons label={<Location location={locationName} />} />
       <Outlet />
       {location.pathname === '/trade' && (
-        <FloatingButton onClick={handleModalOpen}>+ 글작성하기</FloatingButton>
+        <FloatingButton onClick={handleModalOpen}>+ 글 작성하기</FloatingButton>
       )}
       {isModalOpen && (
         <CreateCropTradeModal onClickOutside={handleModalClose} />
