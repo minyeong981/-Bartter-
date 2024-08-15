@@ -21,19 +21,23 @@ export const Route = createFileRoute(
 });
 
 function AdditionalInfoPage() {
+  const [isMutating, setIsMutating] = useState(false);
   const [isSignupSuccess, setIsSignupSuccess] = useState(false);
-  const {mutate, isPending} = useMutation({
+  const {mutate} = useMutation({
     mutationFn: barter.additionalInfo,
     onSuccess: () => setIsSignupSuccess(true),
   });
 
   async function handleSubmitLocation() {
+    if (isMutating) return;
+    setIsMutating(true);
     const {coords} = await getPosition();
     const {longitude, latitude} = coords;
     mutate({latitude, longitude});
+    setIsMutating(false);
   }
 
-  if (isPending) return <Spinner />;
+  if (isMutating) return <Spinner />;
 
   return (
     <>
