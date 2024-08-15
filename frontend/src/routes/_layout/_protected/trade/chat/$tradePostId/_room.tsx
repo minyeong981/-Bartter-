@@ -15,6 +15,7 @@ import Location from '@/components/Header/Location.tsx';
 import barter from '@/services/barter.ts';
 import useRootStore from '@/store';
 import querykeys from '@/util/querykeys.ts';
+import stompClient from '@/util/stomp.ts';
 
 export const Route = createFileRoute(
   '/_layout/_protected/trade/chat/$tradePostId/_room',
@@ -43,22 +44,42 @@ function ChatLayout() {
     ],
   });
 
+  const sendObject: ChatMessage = {
+    type: 'CHANGE',
+    content: '',
+    senderId: userId,
+    tradeId: Number(tradeId),
+    tradePostId: Number(tradePostId),
+  };
+
   const {mutate: changeToProgress} = useMutation({
     mutationFn: barter.putTradeProgress,
     onSuccess: async () => {
       await queryClient.invalidateQueries({queryKey: ['trade', 'chat']});
+      stompClient.publish({
+        destination: '/pub/trade/chat',
+        body: JSON.stringify(sendObject),
+      });
     },
   });
   const {mutate: changeToReservation} = useMutation({
     mutationFn: barter.putTradeReservation,
     onSuccess: async () => {
       await queryClient.invalidateQueries({queryKey: ['trade', 'chat']});
+      stompClient.publish({
+        destination: '/pub/trade/chat',
+        body: JSON.stringify(sendObject),
+      });
     },
   });
   const {mutate: changeToComplete} = useMutation({
     mutationFn: barter.putTradeComplete,
     onSuccess: async () => {
       await queryClient.invalidateQueries({queryKey: ['trade', 'chat']});
+      stompClient.publish({
+        destination: '/pub/trade/chat',
+        body: JSON.stringify(sendObject),
+      });
     },
   });
 
