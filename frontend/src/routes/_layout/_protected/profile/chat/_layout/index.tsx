@@ -34,7 +34,7 @@ export default function ProfileChat() {
           />
         ))
       ) : (
-        <EmptyPost text="채팅 목록이 없습니다." />
+        <EmptyPost text="채팅 목록이 없습니다" />
       )}
     </div>
   );
