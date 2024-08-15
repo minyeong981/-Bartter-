@@ -1,5 +1,5 @@
 import {useSuspenseQuery} from '@tanstack/react-query';
-import {createFileRoute, Outlet} from '@tanstack/react-router';
+import {createFileRoute, Outlet, useLocation} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 import {useState} from 'react';
 
@@ -21,6 +21,7 @@ export const Route = createFileRoute('/_layout/_protected/trade/_layout')({
 });
 
 function Trade() {
+  const location = useLocation();
   const userId = useRootStore(state => state.userId);
   const {data} = useSuspenseQuery({
     queryFn: () => barter.getUserLocation(userId),
@@ -41,7 +42,9 @@ function Trade() {
     <div className={cx('trade')}>
       <HeaderWithLabelAndButtons label={<Location location={locationName} />} />
       <Outlet />
-      <FloatingButton onClick={handleModalOpen}>+ 글작성하기</FloatingButton>
+      {location.pathname === '/trade' && (
+        <FloatingButton onClick={handleModalOpen}>+ 글작성하기</FloatingButton>
+      )}
       {isModalOpen && (
         <CreateCropTradeModal onClickOutside={handleModalClose} />
       )}

@@ -156,13 +156,20 @@ export default {
   /**
    * 물물교환 게시글 목록 조회
    */
+  // eslint-disable-next-line max-params
   getTradePostList: async (
     page?: number,
     limit?: number,
     givenCategory?: number,
+    desiredCategory?: number[],
   ) =>
     axios.get<GetCropTradeListResponse>(`/trades/posts`, {
-      params: {page, limit, givenCategory},
+      params: {
+        page,
+        limit,
+        givenCategory,
+        desiredCategory: desiredCategory?.join(),
+      },
     }),
   /**
    * 물물교환 게시글 상세 조회
