@@ -1109,7 +1109,7 @@ INSERT INTO community_post_comment (community_post_comment_id, community_post_id
 VALUES (16, 13, 10, '2024-08-04 19:52:03', '2024-08-04 19:52:03', '풍작이네요. 축하드립니다');
 
 INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
-VALUES (17, 14, 9, '2024-08-04 19:52:03', '2024-08-04 19:52:03', '어디인가요');
+VALUES (17, 14, 8, '2024-08-04 19:52:03', '2024-08-04 19:52:03', '어디인가요');
 
 INSERT INTO community_post_comment (community_post_comment_id, community_post_id, user_id, created_at, updated_at, community_post_comment_content)
 VALUES (18, 16, 3, '2024-08-04 19:52:03', '2024-08-04 19:52:03', '진딧물 방제 잘하시고 나무 밑둥주위 토양살충제 뿌리세요.');

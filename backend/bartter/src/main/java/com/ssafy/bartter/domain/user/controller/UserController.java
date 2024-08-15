@@ -157,7 +157,7 @@ public class UserController {
         log.debug("{}", token);
         String prevToken = userService.getFcmToken(user.getId());
         log.debug("기존 :{}", prevToken);
-        if (Objects.isNull(prevToken) || !token.getToken().equals(prevToken)) {
+        if (Objects.isNull(prevToken) || Objects.isNull(token) || !token.getToken().equals(prevToken)) {
             userService.saveFcmToken(user.getId(), token.getToken());
             userService.sendLoginAlarm(user.getId(), user.getNickname());
         }
