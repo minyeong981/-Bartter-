@@ -162,14 +162,88 @@ VALUES (false, 3015, '1990-01-01', 20, '2024-08-04 19:31:58', NULL, '2024-08-04 
         '안녕하세요, 은퇴후새삶살기입니다.', 'M', 'LOCAL', 'USER');
 
 
+INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
+                  user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
+                  user_profile_message, user_gender, user_provider, user_role)
+VALUES (false, 3015, '1990-01-01', 21, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
+        'user@example.com', 'kiwibartter21', NULL, '토마토사랑김희동',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'https://d1tknhgbpjhaqe.cloudfront.net/user_21',
+        '안녕하세요, 토마토사랑김희동입니다.', 'M', 'LOCAL', 'USER');
+
+INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
+                  user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
+                  user_profile_message, user_gender, user_provider, user_role)
+VALUES (false, 3015, '1990-01-01', 22, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
+        'user@example.com', 'kiwibartter22', NULL, '방울토마토농장',
+        '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'https://d1tknhgbpjhaqe.cloudfront.net/user_22',
+        '안녕하세요, 광주토마토농장입니다.', 'M', 'LOCAL', 'USER');
+
 -- follow (보현 -> 민영, 지연)
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (1, 15, 1, '2024-08-11 11:03:57', '2024-08-11 11:03:57');
 
 INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
-VALUES (1, 15, 6, '2024-08-11 11:03:57', '2024-08-11 11:03:57');
+VALUES (2, 15, 2, '2024-08-11 11:03:57', '2024-08-11 11:03:57');
 
 INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
-VALUES (2, 16, 6, '2024-08-11 11:04:00', '2024-08-11 11:04:00');
+VALUES (3, 15, 3, '2024-08-11 11:03:57', '2024-08-11 11:03:57');
 
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (4, 15, 4, '2024-08-11 11:03:57', '2024-08-11 11:03:57');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (5, 15, 5, '2024-08-11 11:03:57', '2024-08-11 11:03:57');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (6, 15, 6, '2024-08-11 11:04:00', '2024-08-11 11:04:00');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (7, 15, 7, '2024-08-11 11:04:00', '2024-08-11 11:04:00');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (8, 15, 8, '2024-08-11 11:04:00', '2024-08-11 11:04:00');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (9, 15, 9, '2024-08-11 11:04:00', '2024-08-11 11:04:00');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (10, 15, 10, '2024-08-11 11:04:00', '2024-08-11 11:04:00');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (11, 15, 11, '2024-08-11 11:04:00', '2024-08-11 11:04:00');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (12, 15, 12, '2024-08-11 11:04:00', '2024-08-11 11:04:00');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (13, 15, 13, '2024-08-11 11:04:00', '2024-08-11 11:04:00');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (14, 15, 14, '2024-08-11 11:04:00', '2024-08-11 11:04:00');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (15, 6, 1, '2024-08-11 11:03:57', '2024-08-11 11:03:57');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (16, 6, 2, '2024-08-11 11:03:57', '2024-08-11 11:03:57');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (17, 6, 3, '2024-08-11 11:03:57', '2024-08-11 11:03:57');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (18, 6, 4, '2024-08-11 11:03:57', '2024-08-11 11:03:57');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (19, 6, 5, '2024-08-11 11:03:57', '2024-08-11 11:03:57');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (20, 6, 7, '2024-08-11 11:03:57', '2024-08-11 11:03:57');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (21, 6, 8, '2024-08-11 11:03:57', '2024-08-11 11:03:57');
+
+INSERT INTO follow (follow_id, followee_id, follower_id, created_at, updated_at)
+VALUES (22, 6, 10, '2024-08-11 11:03:57', '2024-08-11 11:03:57');
 
 -- crop, user_provider, user_role
 
