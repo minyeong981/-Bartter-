@@ -35,7 +35,6 @@ function LoginPage() {
 
       await getFcmToken();
       if (sessionStorage.getItem('fcmToken')) {
-        console.log('FCM Token:', sessionStorage.getItem('fcmToken'));
         // FCM 토큰을 백엔드 서버로 전송
         axios.post('/user/fcm', sessionStorage.getItem('fcmToken'), {
           headers: {'Content-Type': 'application/json'},

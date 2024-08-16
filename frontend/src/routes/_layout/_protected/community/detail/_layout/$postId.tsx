@@ -38,7 +38,7 @@ export default function CommunityPostDetail() {
       return barter.deleteCommunityPost(postId)
     },
     onError: ()=> {
-      console.log('게시글 삭제 실패')
+      console.error('게시글 삭제 실패')
     }, 
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey : [querykeys.COMMUNITY_DETAIL]});
@@ -51,10 +51,9 @@ export default function CommunityPostDetail() {
       return barter.postCommunityComment(communityPostId, content)
     },
     onError: (error) => {
-      console.log('댓글 작성 실패', error)
+      console.error('댓글 작성 실패', error)
     },
     onSuccess: () => {
-      console.log('댓글 생성 성공')
       setContent(''); // 초기화
       queryClient.invalidateQueries({queryKey : [querykeys.COMMUNITY_DETAIL]});
     }
@@ -65,7 +64,7 @@ export default function CommunityPostDetail() {
       return barter.deleteCommunityComment(postId, commentId)
     },
     onError: () => {
-      console.log('댓글 삭제 실패')
+      console.error('댓글 삭제 실패')
     },
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey : [querykeys.COMMUNITY_DETAIL]});

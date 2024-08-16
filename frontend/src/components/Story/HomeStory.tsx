@@ -9,7 +9,6 @@ interface HomeStoryProps{
 
 const cx = classnames.bind(styles)
 export default function HomeStory({stories}: HomeStoryProps) {
-  console.log(stories)
   return (
     <div className={cx('home-story')}>
       <div className={cx('carousel-container')}>

@@ -92,7 +92,6 @@ function WritePage() {
   }
 
   function handleCheckboxChange(e: ChangeEvent<HTMLInputElement>) {
-    console.log(e.currentTarget.checked);
     setIsShared(e.currentTarget.checked);
   }
 
@@ -110,7 +109,6 @@ function WritePage() {
   }, [getUserLocation, userId]);
 
   function handleSubmit() {
-    console.log('전송!');
     submitForm({
       create: {
         title,

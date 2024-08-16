@@ -14,10 +14,8 @@ const cx = classnames.bind(styles);
 
 export default function CustomCalendar({isCollapsed}: CustomCalendarProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
-  const [currentWeek, setCurrentWeek] = useState<Date[]>([]);
+  const [_, setCurrentWeek] = useState<Date[]>([]);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
-
-  console.log(currentWeek);
 
   const getStartOfWeek = (date: Date): Date => {
     const day = date.getDay();

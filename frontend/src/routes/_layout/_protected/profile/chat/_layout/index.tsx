@@ -21,7 +21,6 @@ export default function ProfileChat() {
   });
 
   const chatListData = data.data.data || [];
-  console.log(chatListData)
 
   return (
     <div>

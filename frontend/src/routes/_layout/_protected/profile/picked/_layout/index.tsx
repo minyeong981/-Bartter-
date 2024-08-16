@@ -27,8 +27,6 @@ export default function ProfilePicked() {
   });
 
   const pickedPosts = data?.data.data || [];
-  console.log(pickedPosts);
-
   return (
   <div>
     { pickedPosts.length===0 ? (

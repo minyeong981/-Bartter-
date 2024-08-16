@@ -11,7 +11,6 @@ export default function BackButton() {
   const {history} = useRouter();
 
   const handleBackButton = () => {
-    console.log(window.history.length);
     if (window.history.length > 1) {
       history.back();
     } else {

@@ -29,7 +29,6 @@ const messaging = getMessaging(app);
 const handleForegroundMessages = () => {
   onMessage(messaging, payload => {
     if (!payload.data) return;
-    console.log(payload.data);
     toast.dismiss();
     toast.success(payload.data.body);
   });
@@ -50,8 +49,6 @@ const getFcmToken = async () => {
     // 알림 권한 요청
     const permission = await Notification.requestPermission();
     if (permission === 'granted') {
-      console.log('Notification permission granted.');
-
       // FCM 토큰 가져오기
       const currentToken = await getToken(messaging, {
         vapidKey:
@@ -59,7 +56,6 @@ const getFcmToken = async () => {
       });
 
       if (currentToken) {
-        console.log('FCM Token:', currentToken);
         // 토큰을 세션 스토리지에 저장
         sessionStorage.setItem('fcmToken', currentToken);
         return currentToken;
@@ -79,4 +75,4 @@ const getFcmToken = async () => {
   }
 };
 
-export {messaging, handleForegroundMessages, getFcmToken};
+export {getFcmToken,handleForegroundMessages, messaging};

@@ -61,7 +61,6 @@ export const createDiarySlice: StateCreator<DiarySlice> = set => ({
   setDate: (newDate: string) => set({date: newDate}),
   setImage: (newImage: string) => set({image: newImage}),
   setInitialImage: (newImage: string) => {
-    console.log('Setting initial image:', newImage); // 로그 추가
     set({initialImage: newImage});
   },
   resetCropForm: () => set({...INITIAL_FORM_STATE}),

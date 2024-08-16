@@ -26,11 +26,9 @@ async function registerServiceWorker() {
         '/firebase-messaging-sw.js',
       );
       console.log('Firebase Service Worker 등록 성공:');
-
       console.log('서비스 워커 활성화 대기 중...');
 
       const serviceWorker = await navigator.serviceWorker.ready;
-
       console.log('서비스 워커 활성화');
       if (serviceWorker && !sessionStorage.getItem('fcmToken')) {
         console.log('세션 체크 중...');
@@ -43,7 +41,6 @@ async function registerServiceWorker() {
             serviceWorkerRegistration: firebaseRegistration,
           });
           if (currentToken) {
-            console.log('FCM Token:', currentToken);
             sessionStorage.setItem('fcmToken', currentToken);
           } else {
             console.warn(

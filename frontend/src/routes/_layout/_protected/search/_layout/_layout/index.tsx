@@ -44,7 +44,7 @@ export default function Search() {
   const deleteMutation = useMutation({
       mutationFn: barter.deleteRecentSearchKeyword,
       onError: () => {
-      console.log('검색어 삭제 실패')
+      console.error('검색어 삭제 실패')
       },
       onSuccess: () => {
       queryClient.invalidateQueries({queryKey:[querykeys.SEARCH_RECENT]});
@@ -100,7 +100,6 @@ export default function Search() {
     }
 
     function handleFollowClick(userId: UserId, isFollow: IsFollowed) {
-      console.log('팔로우 기능 확인', '나', myId, '유저', userId, isFollow)
       followMutation.mutate({userId, isFollow})
     }
 

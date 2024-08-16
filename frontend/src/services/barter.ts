@@ -205,10 +205,6 @@ export default {
       formData.append('images', image);
     });
 
-    for (const [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
-
     return axios.post('/trades/posts', formData, {
       headers: {'Content-Type': 'multipart/form-data'},
     });
@@ -290,7 +286,6 @@ export default {
     for (const [key, value] of Object.entries(data)) {
       if (!value) continue;
       if (key === 'image') {
-        console.log(value);
         form.append(key, value[0]);
       } else {
         form.append(key, value);
@@ -364,7 +359,6 @@ export default {
     for (const [key, value] of Object.entries(data)) {
       if (!value) continue;
       if (key === 'image') {
-        console.log(value);
         form.append(key, value[0]);
       } else {
         form.append(key, value);

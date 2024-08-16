@@ -28,7 +28,6 @@ export default function ProfileChangeLocation() {
     queryFn: ()=> barter.getUserLocation(userId)
   })
   const currentLocation = data.data.data.name.split(' ').slice(1,2) + ' ' + data.data.data.name.split(' ').slice(2,3);
-  console.log(1111,currentLocation)
 
   // 위치 정보 변경
   const changeLocationMutation = useMutation({
@@ -37,7 +36,6 @@ export default function ProfileChangeLocation() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [querykeys.LOCATION] });
-      console.log('위치변경 성공!')
     },
   });
 

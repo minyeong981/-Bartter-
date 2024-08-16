@@ -1,11 +1,13 @@
 import classnames from 'classnames/bind';
+import heic2any from 'heic2any';
 import type {ChangeEvent} from 'react';
 import {useRef, useState} from 'react';
 import {FaCamera, FaTimes} from 'react-icons/fa';
-import heic2any from 'heic2any';
 import Lottie from 'react-lottie-player';
-import styles from './input.module.scss';
+
 import loading from '@/assets/lottie/loading2.json';
+
+import styles from './input.module.scss';
 
 const cx = classnames.bind(styles);
 
@@ -33,7 +35,6 @@ function ImageInput({onImageChange, maxImages}: ImageInputProps) {
 
       for (let image of newImageFiles) {
         const extension = image.name.split('.').pop()?.toLowerCase();
-        console.log('확장자 -', extension);
         if (extension && !allowedExtensions.includes(extension)) {
           errorMessages.push(
             `지원하지 않는 파일 확장자입니다. (${image.name})`,
@@ -42,7 +43,6 @@ function ImageInput({onImageChange, maxImages}: ImageInputProps) {
         }
 
         if (extension === 'heic') {
-          console.log('heic - 변경 하기 ');
           try {
             const convertedBlob = await heic2any({
               blob: image,
