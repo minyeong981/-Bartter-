@@ -1051,6 +1051,16 @@ INSERT INTO bartter.community_post (community_post_id, location_id, user_id, cre
 VALUES (15, 992, 14, '2024-08-11 14:58:08', '2024-08-11 21:58:10', '절망스러울 때 다산 정약용에게 배우는 삶의 교훈 7가지',
         '1. 인생이 힘들다고 하지 마라.\n다산은 경상도 포항 장기와 전라도 강진에서\n18년 동안 삶과 죽음이 오가는 유배지에서 살았다.\n2. 공부가 어렵다고 하지 마라.\n한생에 500권의 책을 읽기도 어려운데\n다산은 500여 권의 책을 저술했다.\n3. 사람을 사귀는데 나이를 묻지 마라.\n다산은 20살이나 어린 혜장선사, \n초의선사와 학문의 친구가 되었다.\n4. 성공에 집착하지 마라.\n다산은 벼슬길에 있던 때보다도 \n벼슬에서 멀어졌을 때 큰 이룸이 있었다.\n인생의 깨달음은 성공보다 실패에서 더 크게 배운다.\n5. 사람을 의심하지도 말고 너무 믿지도 마라.\n다산은 같은 조정에서 국사를 논하던 사람들에 의해 유배되었다.\n6. 전문성이 없다는 말을 하지 마라.\n다산은 배우지 않았어도 수원화성을 설계했고,\n당대 최고의 기술인 거중기와 농노를 발명했다.\n7. 인생에 여유가 없다고 하지 마라.\n다산은 사약이 언제 배달될지 모르는 유배지에서 차를 즐겼다.\n그래서 호도 다산(茶山)이다.');
 
+INSERT INTO bartter.community_post (community_post_id, location_id, user_id, created_at, updated_at,
+                                    community_post_title, community_post_content)
+VALUES (34, 992, 22, '2024-08-11 14:58:08', '2024-08-11 21:58:10', '토마토가 몸에 좋은 이유10가지',
+        '저희 토마토농장에 오시면 알려드릴게유~ 농사법부터 몸에 좋은이유까지');
+
+INSERT INTO bartter.community_post (community_post_id, location_id, user_id, created_at, updated_at,
+                                    community_post_title, community_post_content)
+VALUES (35, 992, 21, '2024-08-11 14:58:08', '2024-08-11 21:58:10', '토마토 주스는 해독에 좋습니다.',
+        '저는 약주할때술을.먹곤합니다. 여러분들도,,');
+
 
 -- community_post (공주시 계룡면 + 성주군 가천면)
 
@@ -1282,6 +1292,17 @@ INSERT INTO community_post_image (community_post_id, community_post_image_id, co
                                   updated_at, community_post_image_url)
 VALUES (32, 9, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'https://d1tknhgbpjhaqe.cloudfront.net/community_32');
 
+INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
+                                  updated_at, community_post_image_url)
+VALUES (33, 10, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'https://d1tknhgbpjhaqe.cloudfront.net/community_33');
+
+INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
+                                  updated_at, community_post_image_url)
+VALUES (34, 11, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'https://d1tknhgbpjhaqe.cloudfront.net/community_34');
+
+INSERT INTO community_post_image (community_post_id, community_post_image_id, community_post_image_order, created_at,
+                                  updated_at, community_post_image_url)
+VALUES (35, 12, 1, '2024-08-11 21:58:10', '2024-08-11 21:58:10', 'https://d1tknhgbpjhaqe.cloudfront.net/community_35');
 
 
 -- community_post_like
