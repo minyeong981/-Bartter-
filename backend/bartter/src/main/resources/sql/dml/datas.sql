@@ -117,9 +117,9 @@ INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
                   user_profile_message, user_gender, user_provider, user_role)
 VALUES (false, 992, '1990-01-01', 15, '2024-08-04 19:31:58', NULL, '2024-08-04 19:31:58', '01012345678',
-        'user@example.com', 'kiwibartter15', NULL, '수완지구토마토왕유지연',
+        'user@example.com', 'kiwibartter15', NULL, '수완지구토마토왕지연',
         '$2a$12$KKPqUFfNuwCvOEaKFgU.eehej.TZxXyqBTVuQCr2y2.HLFL2VSgcm', 'https://d1tknhgbpjhaqe.cloudfront.net/user_15',
-        '안녕하세요, 수완지구토마토왕유지연입니다.', 'M', 'LOCAL', 'USER');
+        '나는 수완지구토마토왕유지연.', 'M', 'LOCAL', 'USER');
 
 INSERT INTO user (delete_status, location_id, user_birth_date, user_id, created_at, deleted_at, updated_at, user_phone,
                   user_email, user_username, user_provider_id, user_nickname, user_password, user_profile_image,
