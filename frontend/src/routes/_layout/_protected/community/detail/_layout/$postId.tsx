@@ -42,6 +42,7 @@ export default function CommunityPostDetail() {
     }, 
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey : [querykeys.COMMUNITY_DETAIL]});
+      queryClient.invalidateQueries({queryKey : [querykeys.COMMUNITY_LIST]});
       navigate({to: '/community'})
     }
   })
