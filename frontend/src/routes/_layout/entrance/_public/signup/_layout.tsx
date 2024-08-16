@@ -1,3 +1,5 @@
+import * as path from "node:path";
+
 import {createFileRoute, Outlet, useLocation} from '@tanstack/react-router';
 import classnames from 'classnames/bind';
 
@@ -16,7 +18,8 @@ export const Route = createFileRoute('/_layout/entrance/_public/signup/_layout')
 
 function SignupLayout() {
   const {pathname} = useLocation();
-  const step = Number(pathname.split('/')[2]);
+  const step = Number(pathname.split('/')[3]);
+  console.log(pathname)
 
   const showProgressBar = step <= TOTAL_STEPS;
 
