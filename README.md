@@ -182,7 +182,7 @@
 
 <p align="center">
 <img src="img/프로필/프로필페이지-AI요약보고서.png" alt="프로필페이지-AI요약보고서" width="23%">
-<img src="img/프로필/프로필페이지-AI요약보고서2.jpg" alt="프로필페이지-AI요약보고서2" width="23%">
+<img src="img/프로필/프로필페이지-AI요약보고서2.JPG" alt="프로필페이지-AI요약보고서2" width="23%">
 <img src="img/프로필/프로필페이지-농작물창고.png" alt="프로필페이지-프로필페이지-농작물창고" width="23%">
 <img src="img/프로필/프로필페이지-농사일지.png" alt="프로필페이지-농사일지" width="23%">
 </p>
