@@ -1,0 +1,17 @@
+@use '@/styles/constants/colors' as colors;
+
+.crop-selector {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+
+  .icon {
+    width: 24px;
+
+    path {
+      fill: colors.$primary;
+    }
+  }
+}

@@ -1,0 +1,76 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typographies;
+
+
+.chatInfoCard {
+  position: fixed;
+  top: 50px;
+  width: 100%;
+  padding: 10px 12px 20px;
+  background-color: white;
+
+  .content {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: colors.$black;
+
+    .chatImage {
+      flex-shrink: 0;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 5px;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      justify-content: flex-start;
+
+      .title {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        @include typographies.title;
+      }
+
+      .author {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        @include typographies.name;
+      }
+
+      .status {
+        @include typographies.label;
+      }
+    }
+  }
+
+  .button {
+    @include typographies.main;
+
+    position: absolute;
+    top: 90px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 92px;
+    height: 42px;
+    color: colors.$white;
+    background-color: colors.$primary;
+    border-radius: 5px;
+  }
+
+  .buttonDisabled {
+    background-color: colors.$placeholder;
+  }
+}

@@ -1,0 +1,80 @@
+@use '@/styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+
+.communityCard {
+  display: flex;
+  flex-direction: column;
+  padding: 0 15px;
+  margin-bottom: 15px;
+
+  // padding-top: 15px;
+  border-bottom: 1px solid colors.$divider2;
+}
+
+.location {
+  align-self: left;
+  width: fit-content;
+  padding: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #f0f0f0;
+  border-radius: 12px;
+
+  @include typo.label;
+}
+
+.cardContent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 10px;
+
+  img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+}
+
+.textBox {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-right: 10px;
+
+.textTitle {
+  @include typo.title;
+
+  max-width: 180px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  color: black;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text {
+  @include typo.label;
+
+  max-width: 160px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  color: black;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  // color: colors.$placeholder;
+}
+
+.time {
+  @include typo.time;
+
+  margin-bottom: 5px;
+  color: colors.$placeholder;
+}
+
+}

@@ -1,0 +1,40 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typographies;
+
+.cropButton {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  align-items: center;
+
+  img {
+    width: 50px;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    border: 1.5px solid colors.$divider2;
+    border-radius: 35px;
+  }
+
+  label {
+    @include typographies.label;
+
+    color: colors.$placeholder;
+  }
+}
+
+.selected {
+  button {
+    border-color: colors.$primary;
+    border-width: 2px;
+  }
+
+  label {
+    color: colors.$primary;
+  }
+}

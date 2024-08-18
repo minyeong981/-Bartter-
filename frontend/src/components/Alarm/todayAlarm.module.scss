@@ -1,0 +1,53 @@
+@use '@/styles/constants/colors.scss' as colors;
+@use '@/styles/constants/typographies.scss' as typo;
+
+.todayAlarm {
+  position: relative;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: #ffff004b;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+
+  .alarmContent {
+    text-align: left;
+
+    p {
+      font-size: 16px;
+      line-height: 1.5;
+
+      &:first-of-type {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .alarmActions {
+    position: absolute;
+    top: 13px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    button {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: colors.$placeholder;
+      cursor: pointer;
+      background: none;
+      border: none;
+
+      &:first-of-type {
+        margin-left: 0;
+      }
+
+      .closeIcon {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}

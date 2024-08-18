@@ -1,0 +1,83 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies.scss' as typo;
+
+.reportListContainer {
+  height: 100%;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .reportGroup {
+    margin-bottom: 40px;
+  }
+}
+
+.notAiReport {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 550px;
+
+  p {
+    padding: 0 14px;
+    text-align: center;
+
+  }
+
+  @include typo.list-main;
+}
+
+.reportItem {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+
+  .cropImage {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+    border-radius: 50%;
+  }
+
+  .reportContent {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between; /* 상단과 하단 공간 분리 */
+    height: 100%;
+
+    p {
+      margin-left: 5px;
+
+      @include typo.alarm;
+    }
+
+    .detailButton {
+      align-self: flex-end;
+      padding: 5px 10px;
+      margin-top: auto;
+      font-size: 14px;
+      color: colors.$primary;
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+    }
+  }
+}
+
+h3 {
+  margin: 10px 0;
+}
+
+.animation {
+  width: 300px;
+  height: 300px;
+}

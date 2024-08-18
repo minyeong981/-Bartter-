@@ -1,0 +1,43 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/dimension' as dimension;
+
+.carousel {
+  position: relative;
+
+  .imageContainer {
+    display: flex;
+    width: 100%;
+    height: 400px;
+    aspect-ratio: 4/3;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    img {
+      flex-shrink: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      scroll-snap-align: center;
+    }
+  }
+
+  .indicator {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 68px;
+    height: 24px;
+    color: colors.$white;
+    background-color: rgb(colors.$white, 0.3);
+    border-radius: 12px;
+  }
+
+}

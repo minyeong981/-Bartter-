@@ -1,0 +1,62 @@
+@use '../../styles/constants/typographies' as typo;
+
+
+ul {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.icon {
+  width: 30px;
+}
+
+.label {
+  @include typo.heading;
+}
+
+.left-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+a {
+  display: flex;
+  align-items: center;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: 0;
+}
+
+.search {
+  width: 70%;
+}
+
+.center-search {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.logo {
+  top: 10%;
+  left: 50%;
+  width: 50px;
+    
+}

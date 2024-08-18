@@ -1,0 +1,72 @@
+@use '@/styles/constants/typographies.scss' as typo;
+
+.aireportLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  padding-bottom: 0;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0 20px 20px;
+}
+
+.sortButton {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  align-self: flex-end;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+
+  img {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.noReportMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 7rem;
+  padding-bottom: 5rem;
+}
+
+
+.monthDay {
+  margin-bottom: 10px;
+
+  @include typo.title;
+}
+
+.cropInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 10px;
+
+  @include typo.heading;
+
+  .cropImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    height: auto;
+    margin-top: 17px;
+    border-radius: 10px;
+
+  }
+}

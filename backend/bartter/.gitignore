@@ -264,7 +264,16 @@ gradle-app.setting
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,intellij,java,git,visualstudiocode,gradle
 
-# 민감한 정보를 담는 application.peoperties 올리지않음
+# 민감한 정보를 담는 application.peoperties, .env 올리지않음
 application.properties
+application-test.properties
+application.yml
+application-docker.yml
+.env
+
 
 .DS_Store
+
+# Docker Volume 의 로컬 데이터는 올리지 않음
+/mysql_data
+bartter-firebase-key.json

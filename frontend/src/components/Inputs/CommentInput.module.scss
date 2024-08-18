@@ -1,0 +1,38 @@
+@use '@/styles/constants/colors' as colors;
+@use '@/styles/constants/typographies' as typo;
+
+.comment-input-container {
+  position: fixed;
+  bottom: 18px;
+  z-index: 1000;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between; 
+  width: calc(100% - 15px);
+  padding: 0 2px;
+
+  @include typo.label;
+
+  input {
+    @include typo.chat;
+
+    flex-grow: 1;
+    height: 47px;
+    padding: 0 8px;
+    background-color: colors.$gray1;
+    border: 0;
+    border-radius: 4px;
+  }
+
+  button {
+    @include typo.title;
+
+    flex-shrink: 0;
+    height: 100%;
+    padding: 7px 18px;
+    color: colors.$white;
+    background-color: colors.$primary;
+    border-radius: 4px;
+  }
+}

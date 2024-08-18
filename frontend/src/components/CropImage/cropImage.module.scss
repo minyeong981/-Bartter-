@@ -1,0 +1,17 @@
+@use '@/styles/constants/typographies.scss' as typographies;
+
+.cropImage {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  width: 321px;
+
+  img {
+    width: 100px;
+  }
+
+  label {
+    @include typographies.button;
+  }
+}

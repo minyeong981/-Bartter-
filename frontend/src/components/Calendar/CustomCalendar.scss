@@ -1,0 +1,195 @@
+@use 'react-calendar/dist/Calendar.css' as calendar;
+@use '@/styles/constants/typographies' as typo;
+@use '@/styles/constants/colors' as colors;
+
+.custom-calendar-container {
+  max-width: 360px;
+  padding: 16px 16px 0;
+  margin-top: 30px;
+
+  .react-calendar {
+    width: 100%;
+    border: none;
+
+    &.collapsed-calendar {
+      width: 100%;
+
+      .react-calendar__tile {
+        &.neighboringMonth {
+          color: colors.$placeholder;
+        }
+      }
+    }
+
+    .react-calendar__navigation {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      margin-bottom: 5px;
+
+      button {
+        margin: 0 10px;
+        cursor: pointer;
+        background: none;
+        border: none;
+
+        @include typo.title;
+
+        &:disabled {
+          color: rgb(128 128 128);
+          cursor: default;
+        }
+
+        &.react-calendar__navigation__prev2-button,
+        &.react-calendar__navigation__next2-button {
+          display: none;
+        }
+      }
+
+      .react-calendar__navigation__label {
+        flex-grow: 1;
+        text-align: center;
+        pointer-events: none;
+
+        @include typo.title;
+      }
+    }
+
+    .react-calendar__month-view__weekdays {
+      display: flex;
+      justify-content: space-between;
+      margin: auto;
+
+      @include typo.main;
+
+      .react-calendar__month-view__weekdays__weekday {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+
+        abbr[title="Sunday"],
+        abbr[title="일"] {
+          color: red;
+          text-decoration: none;
+        }
+
+        abbr[title="Saturday"],
+        abbr[title="토"] {
+          color: blue;
+        }
+
+        abbr {
+          text-decoration: none;
+        }
+      }
+    }
+
+    .react-calendar__month-view__days__day {
+      box-sizing: border-box;
+      height: 5rem;
+      text-align: center;
+
+      &.sunday abbr {
+        color: red;
+      }
+
+      &.saturday abbr {
+        color: blue;
+      }
+
+      &.neighboringMonth abbr {
+        color: colors.$placeholder;
+      }
+    }
+
+    .react-calendar__tile {
+      position: relative;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem; // 날짜 타일의 너비 고정
+      height: 3rem; // 날짜 타일의 높이 고정
+      padding: 0.3rem;
+      text-align: center;
+      cursor: pointer;
+      background: none;
+      border: none;
+
+      @include typo.main;
+
+      abbr {
+        display: block;
+        width: 2.2rem;
+        height: 2.2rem;
+        margin: 0 auto;
+        line-height: 2.2rem;
+        text-align: center;
+        border-radius: 50%;
+        transition: background-color 0.1s, color 0.1s;
+      }
+
+      &.react-calendar__tile--active abbr,
+      &.today abbr {
+        background-color: colors.$divider2;
+      }
+
+      &.selected abbr {
+        color: white;
+        background-color: colors.$primary;
+      }
+    }
+  }
+
+  &.collapsed {
+    .react-calendar {
+      width: 22.5rem;
+
+      .react-calendar__month-view__weekdays,
+      .react-calendar__month-view__days {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 4px;
+      }
+
+      .react-calendar__tile {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        width: 3rem; // 접혔을 때도 동일한 타일 크기 유지
+        height: 3rem; // 접혔을 때도 동일한 타일 크기 유지
+        cursor: pointer;
+
+        abbr {
+          width: 2.2rem; 
+          height: 2.2rem; 
+          line-height: 2.2rem; // 텍스트가 중앙에 오도록 라인 높이 설정
+        }
+
+        &.sunday {
+          color: red;
+        }
+
+        &.saturday {
+          color: blue;
+        }
+
+        &.neighboringMonth {
+          color: colors.$placeholder;
+        }
+      }
+    }
+  }
+}
+
+.highlight-dot {
+  position: absolute;
+  bottom: 0.6px;
+  width: 5px;
+  height: 5px;
+  background-color: green;
+  border-radius: 50%;
+}

@@ -1,0 +1,74 @@
+@mixin heading {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+@mixin title {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+@mixin main {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+@mixin label {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+@mixin button {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+}
+
+@mixin name {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+@mixin comment {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+@mixin time {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+@mixin list-content {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+@mixin list-main {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+@mixin list-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+@mixin chat {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+@mixin description {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+@mixin alarm {
+  font-size: 16px;
+  font-weight: 600;
+}

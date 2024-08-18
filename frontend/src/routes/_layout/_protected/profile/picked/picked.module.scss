@@ -1,0 +1,24 @@
+.picked-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+    padding-bottom: 0;
+    overflow-y: scroll;
+    
+    
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .pickedContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+        height: 100%;
+        padding: 0 20px;
+        margin-top: 10px;
+        overflow-y: scroll;
+    }
+}

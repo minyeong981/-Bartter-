@@ -1,0 +1,20 @@
+@use '@/styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+
+.container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    height: 100%;
+    padding-top: 150px; 
+    text-align: center; 
+}
+
+.animation {
+    margin-bottom: 20px; 
+}
+
+.text {
+    @include typo.title;
+}

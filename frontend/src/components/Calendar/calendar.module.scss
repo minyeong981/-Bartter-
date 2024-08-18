@@ -1,0 +1,77 @@
+@use '@/styles/constants/colors.scss' as colors;
+@use '@/styles/constants/typographies.scss' as typo;
+
+.calendar-container {
+  position: relative;
+  text-align: center;
+}
+
+.calendar-wrapper {
+  // max-height: 390px;
+  width: 100%;
+  overflow: hidden;
+  transition: max-height 0.1s ease;
+}
+
+.collapsed {
+  max-height: 300px;
+}
+
+.custom-calendar-container.collapsed .react-calendar__month-view__days {
+  display: block;
+}
+
+.custom-calendar-container.collapsed .react-calendar__month-view__days .react-calendar__tile {
+  display: none;
+}
+
+.custom-calendar-container.collapsed .react-calendar__month-view__days .react-calendar__tile--now,
+.custom-calendar-container.collapsed .react-calendar__month-view__days .react-calendar__tile--current-week,
+.custom-calendar-container.collapsed .react-calendar__month-view__weekdays {
+  display: block;
+}
+
+.toggle-button {
+  display: block;
+  margin: 1px auto;
+  font-size: 14px;
+  color: colors.$placeholder;
+  cursor: pointer;
+  background: none;
+  border: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.today {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  color: white !important;
+  text-align: center;
+  background-color: colors.$primary;
+  border-radius: 50%;
+}
+
+.customHr {
+  margin: 5px 0 10px;
+  border: none;
+  border-top: 3px solid colors.$divider2;
+}
+
+.show-date {
+  display: flex;
+  justify-content: left;
+  margin: 20px 0 0 16px;
+
+  @include typo.label;
+}
+
+.link-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}

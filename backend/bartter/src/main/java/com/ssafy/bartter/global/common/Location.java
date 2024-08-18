@@ -1,10 +1,10 @@
 package com.ssafy.bartter.global.common;
 
-import com.ssafy.bartter.community.entity.CommunityPost;
-import com.ssafy.bartter.trade.entity.CropTradePost;
-import com.ssafy.bartter.user.entity.User;
+import com.ssafy.bartter.domain.community.entity.CommunityPost;
+import com.ssafy.bartter.domain.trade.entity.TradePost;
+import com.ssafy.bartter.domain.user.entity.User;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Point;
 
@@ -17,8 +17,9 @@ import java.util.List;
  * @author 김용수
  */
 @Entity
-@Table(name = "location")
 @Getter
+@Table(name = "location")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Location extends BaseEntity {
 
     /**
@@ -57,18 +58,20 @@ public class Location extends BaseEntity {
      * 해당 동네를 설정한 프로필(사용자)
      */
     @OneToMany(mappedBy = "location", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<User> users = new ArrayList<>();
+    private List<User> userList = new ArrayList<>();
 
     /**
      * 해당 동네에 올라온 동네모임 글
      */
     @OneToMany(mappedBy = "location", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<CommunityPost> communityPosts = new ArrayList<>();
+    private List<CommunityPost> communityPostList = new ArrayList<>();
 
     /**
      * 해당 동네에 올라온 물물교환 게시글
      */
     @OneToMany(mappedBy = "location", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<CropTradePost> cropTradePosts = new ArrayList<>();
+    private List<TradePost> tradePostList = new ArrayList<>();
 
 }
+
+

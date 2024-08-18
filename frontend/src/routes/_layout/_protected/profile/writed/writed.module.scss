@@ -1,0 +1,42 @@
+@use '@/styles/constants/colors.scss' as colors;
+
+.two-button-fixed {
+    position: fixed;
+    top:54px;
+    width: 100%;
+    background-color: colors.$white;
+  
+    // max-width: 390px;
+  
+    // display: flex
+  }
+  
+.writed-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+    padding-bottom: 0;
+    overflow-y: scroll;
+    
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .trade {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      height: 100%;
+      padding: 0 20px;
+      margin-top: 59px;
+    }
+
+    .community {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin-top: 59px;
+    }
+  }

@@ -1,0 +1,22 @@
+@use 'base';
+@use 'constants';
+
+
+* {
+  font-family: pretendard, sans-serif;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: #b5b5b5;
+}

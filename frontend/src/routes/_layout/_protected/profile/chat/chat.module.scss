@@ -1,0 +1,12 @@
+.chatLayout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-bottom: 0;
+    overflow-y: scroll;
+    
+    &::-webkit-scrollbar {
+        display: none;
+    }
+        
+}

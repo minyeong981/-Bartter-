@@ -1,0 +1,50 @@
+.carouselContainer {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    max-width: 360px;
+    padding: 10px;
+    margin: auto;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.followingCard {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    min-width: 180px;
+    max-width: 180px;
+    padding: 15px;
+    margin-right: 10px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+
+    .profileImage {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 10px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .nickname {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    button {
+        margin-top: 5px;
+    }
+}

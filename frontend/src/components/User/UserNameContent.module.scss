@@ -1,0 +1,101 @@
+@use '@/styles/constants/typographies.scss' as typo;
+@use '@/styles/constants/colors.scss' as colors;
+
+.userInfoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.profileImage {
+  width: 90px;
+  height: 90px;
+  margin-left: 5px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+}
+
+.userInfo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.userName {
+  @include typo.name;
+
+}
+
+.content {
+  @include typo.label;
+
+  color: colors.$placeholder;
+}
+
+.createdDate {
+  @include typo.time;
+
+  color: colors.$placeholder;
+
+}
+
+.menuIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-bottom: auto;
+  margin-left: auto;
+  color: #333;
+  cursor: pointer;
+}
+
+.deleteConfirm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  width: 300px;
+  padding: 20px;
+  text-align: center;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+  transform: translate(-50%, -50%);
+
+  .confirmText {
+    padding-bottom: 10px;
+    margin: 10px 0;
+    font-size: 20px;
+  }
+
+  .buttonContainer {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+  }
+
+  button {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: colors.$primary;
+    }
+
+    &:active {
+      background-color: colors.$primary;
+    }
+  }
+}
